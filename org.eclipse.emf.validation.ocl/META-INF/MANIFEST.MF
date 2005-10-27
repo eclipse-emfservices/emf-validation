@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Plugin.name
+Bundle-SymbolicName: org.eclipse.emf.validation.ocl; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: %Plugin.providerName
+Bundle-Localization: plugin
+Export-Package: org.eclipse.emf.validation.internal.ocl
+Require-Bundle: org.eclipse.emf.validation,
+ org.eclipse.emf.ocl,
+ org.eclipse.core.runtime

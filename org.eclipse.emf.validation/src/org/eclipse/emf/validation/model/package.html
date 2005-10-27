@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+/******************************************************************************
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    IBM Corporation - initial API and implementation 
+ ****************************************************************************/
+
+-->
+</head>
+<body>
+
+Types defining the "data model" of the EMF Validation plug-in, in most
+cases mapping directly to constructs in the <tt>constraintProviders</tt>
+extension point schema.
+
+<h2>Package Specification</h2>
+
+<p>
+The classes and interfaces in this package, together with the public types
+in the {@link org.eclipse.emf.validation} package, define the basic elements
+of the model validation framework, constituting its data model.  These internal
+types are required primarily by implementors of dynamic constraint providers
+(in addition to the validation engine, itself).  Dynamic providers are currently
+only supported internally; the public validation API supports only static,
+XML-based contribution.
+</p>
+
+<p>
+Dynamic constraint providers contribute implementations of the
+{@link org.eclipse.emf.validation.model.IModelConstraint} interface
+to the system.  These may be implemented by classes defined by the provider,
+or may be created from structured meta-data using a pre-defined constraint language
+via the {@link org.eclipse.emf.validation.service.ConstraintFactory}
+abstract factory class.  Constraints produce
+{@link org.eclipse.emf.validation.model.IConstraintStatus} objects
+to indicate violations (or not) of constraints, generally through the
+{@link org.eclipse.emf.validation.IValidationContext} API (though not
+necessarily so, in dynamic providers that use the <code>IModelConstraint</code>
+interface).
+</p>
+
+<p>
+In addition to defining the structure of constraints, this package also
+provides the implementation of and access to constraint
+{@link org.eclipse.emf.validation.model.Category categories}.  These
+are primarily used by the validation UI package to organize constraints in the
+display and provide convenient groupings for enablement and disablement of
+constraints.
+</p>
+
+@see org.eclipse.emf.validation
+@see org.eclipse.emf.validation.preferences
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ordersystem:OrderSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ordersystem="http:///ordersystem.ecore" version="1">
+  <customer lastName="Adams" firstName="Alfred">
+    <account paymentMethod="VISA" accountNumber="63104676-1963786550">
+      <billingAddress number="243" street="Richmond Rd." city="Ottawa" province="ON" country="Canada"/>
+      <shippingAddress number="678" street="Bank St." city="Ottawa" province="ON" country="Canada"/>
+    </account>
+  </customer>
+  <customer lastName="Bairstow" firstName="Bob">
+    <account paymentMethod="VISA" accountNumber="1930207791-66965">
+      <billingAddress number="923" street="Spadina Av." city="Toronto" province="ON" country="Canada"/>
+      <shippingAddress number="822" street="Lawrence St." city="Toronto" province="ON" country="Canada"/>
+    </account>
+  </customer>
+  <customer lastName="Connell" firstName="Charlie">
+    <account paymentMethod="VISA" accountNumber="1678962215-1891246254">
+      <billingAddress number="817" street="St. Catherine St." city="Montreal" province="QC" country="Canada"/>
+      <shippingAddress number="366" street="Laval St." city="Montreal" province="QC" country="Canada"/>
+    </account>
+  </customer>
+  <product name="McGregor Happy Feet Socks" sku="162144183-99" price="3.0"/>
+  <product name="Arnold Palmer Polo Shirt" sku="1860330371-79" price="22.0"/>
+  <product name="Wrangler Jeans" sku="2029163461-93" price="18.0"/>
+  <warehouse name="Ottawa">
+    <item inStock="30" restockThreshold="15" nextStockDate="1066849616987" product="//@product.0"/>
+    <item inStock="22" restockThreshold="15" nextStockDate="1067458016987" product="//@product.1"/>
+    <item inStock="8" restockThreshold="15" nextStockDate="1068062816987" product="//@product.2"/>
+    <location number="350" street="Merivale Av." city="Ottawa" province="ON" country="Canada"/>
+  </warehouse>
+  <warehouse name="Toronto">
+    <item inStock="9" restockThreshold="15" nextStockDate="1066849616987" product="//@product.0"/>
+    <item inStock="25" restockThreshold="15" nextStockDate="1067458016987" product="//@product.1"/>
+    <item inStock="22" restockThreshold="15" nextStockDate="1068062816987" product="//@product.2"/>
+    <location number="242" street="Bloor St. W." city="Toronto" province="ON" country="Canada"/>
+  </warehouse>
+  <warehouse name="Montreal">
+    <item inStock="15" restockThreshold="15" nextStockDate="1066849616987" product="//@product.0"/>
+    <item inStock="12" restockThreshold="15" nextStockDate="1067458016987" product="//@product.1"/>
+    <item inStock="16" restockThreshold="15" nextStockDate="1068062816987" product="//@product.2"/>
+    <location number="932" street="Duplessis Av." city="Montreal" province="QC" country="Canada"/>
+  </warehouse>
+</ordersystem:OrderSystem>

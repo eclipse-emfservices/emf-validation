@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.emf.validation">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.emf.validation" id="validationListeners" name="Validation Listeners"/>
+      </appInfo>
+      <documentation>
+         This extension point is used to define validation listeners for the validation service (&lt;tt&gt;org.eclipse.emf.validation.service.ModelValidationService&lt;/tt&gt;).
+&lt;p&gt;
+The validation service will inform this listener whenever validation has occurred, loading it if necessary in order to do so.  Thus, this extension point is most useful for cases where client plug-ins need to find out about validation events even before they are loaded.
+Otherwise, it is usually simpler just to programmatically add a
+listener to the validation service.&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="listener" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="listener">
+      <annotation>
+         <appInfo>
+            <meta.element labelAttribute="class"/>
+         </appInfo>
+         <documentation>
+            Registers an implementation of the &lt;code&gt;IValidationListener&lt;/code&gt;
+interface to receive notifications of validation events.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="clientContext" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The listener class.  A single instance of this listener will be
+instantiated when needed in order to notify it.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.service.IValidationListener"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="clientContext">
+      <annotation>
+         <documentation>
+            Declares one of the handled client contexts for this validation listener. No client contexts indicates that all events should be sent to the listener object.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  The identifier for the targetted client context for which this listener is interested.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         7.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         The following is an example of a universal validation listener registration:
+&lt;p&gt;
+&lt;pre&gt;
+&lt;extension point=&quot;org.eclipse.emf.validation.validationListeners&quot;&gt;
+   &lt;listener class=&quot;com.example.validation.ValidationListener&quot;/&gt;
+&lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+
+The following is an example of a validation listener that is registered to listen to a specific client context:
+
+&lt;p&gt;
+&lt;pre&gt;
+&lt;extension point=&quot;org.eclipse.emf.validation.validationListeners&quot;&gt;
+   &lt;listener class=&quot;com.example.validation.ValidationListener&quot;/&gt;
+   	 &lt;clientContext id=&quot;com.example.validation.aValidationClientContext&quot;/&gt;
+&lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         The value of the &lt;tt&gt;&amp;lt;listener&amp;gt;&lt;/tt&gt; element &lt;tt&gt;class&lt;/tt&gt; attribute must be the fully qualified name of a class that implements
+the &lt;code&gt;org.eclipse.emf.validation.service.IValidationListener&lt;/code&gt; interface.
+&lt;p&gt;
+Listeners can also be registered in code, at run-time, using the
+&lt;code&gt;org.eclipse.emf.validation.service.ModelValidationService.addValidationListener()&lt;/code&gt; method.
+&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+        Copyright (c) 2005  IBM Corporation and others.&lt;br&gt;
+	All rights reserved. This program and the accompanying materials 
+	are made available under the terms of the Eclipse Public License v1.0 
+	which accompanies this distribution, and is available at 
+	&lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+
+      </documentation>
+   </annotation>
+
+</schema>

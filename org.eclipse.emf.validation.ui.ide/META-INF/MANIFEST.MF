@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Plugin.name
+Bundle-SymbolicName: org.eclipse.emf.validation.ui.ide; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.emf.validation.ui.ide.internal.ValidationUIIDEPlugin$Implementation
+Bundle-Vendor: %Plugin.providerName
+Bundle-Localization: plugin
+Export-Package: org.eclipse.emf.validation.ui.ide.internal,
+ org.eclipse.emf.validation.ui.ide.internal.l10n,
+ org.eclipse.emf.validation.ui.ide.internal.quickfix
+Require-Bundle: org.eclipse.emf.validation,
+ org.eclipse.emf.validation.ui;visibility:=reexport,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources
+Eclipse-LazyStart: true

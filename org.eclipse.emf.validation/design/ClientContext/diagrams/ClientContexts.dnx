@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.ibm.com/xtools/1.5.0/Notation" xmlns:uml="http://www.eclipse.org/uml2/1.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.0/Umlnotation" xmi:id="_PDH0oIG5EdmHLJchyGYHWA" type="Class" name="ClientContexts.dnx">
+  <children xmi:id="_2UPDkIG5EdmHLJchyGYHWA" targetEdges="_YOZmgIG7EdmHLJchyGYHWA _sPrNUIT5Edmxq-gslcM77g">
+    <children xmi:id="_2V20MIG5EdmHLJchyGYHWA" type="ImageCompartment">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_2V20MYG5EdmHLJchyGYHWA" width="530" height="530"/>
+    </children>
+    <children xmi:id="_2V860IG5EdmHLJchyGYHWA" type="Stereotype">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_2V860YG5EdmHLJchyGYHWA" type="Kind">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_2V860oG5EdmHLJchyGYHWA" type="Name">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_2XAqwIG5EdmHLJchyGYHWA" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_2XAqwYG5EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_2XAqwoG5EdmHLJchyGYHWA" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_2XAqw4G5EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_2XAqxIG5EdmHLJchyGYHWA" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_2XGxYIG5EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_2UPDkYG5EdmHLJchyGYHWA" showListSignature="true" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2UPDkoG5EdmHLJchyGYHWA" x="1590" y="10176"/>
+  </children>
+  <children xmi:id="_YMZbYIG7EdmHLJchyGYHWA" sourceEdges="_YOZmgIG7EdmHLJchyGYHWA _bQRcEIG7EdmHLJchyGYHWA" targetEdges="_bZv2QIG9EdmHLJchyGYHWA">
+    <children xmi:id="_YMZbY4G7EdmHLJchyGYHWA" type="ImageCompartment">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_YMZbZIG7EdmHLJchyGYHWA" width="530" height="530"/>
+    </children>
+    <children xmi:id="_YMZbZYG7EdmHLJchyGYHWA" type="Stereotype">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_YMZbZoG7EdmHLJchyGYHWA" type="Kind">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_YMZbZ4G7EdmHLJchyGYHWA" type="Name">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_YMZbaIG7EdmHLJchyGYHWA" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_YMZbaYG7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_YMZbaoG7EdmHLJchyGYHWA" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_YMZba4G7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_YMZbbIG7EdmHLJchyGYHWA" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_YMZbbYG7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_YMZbYYG7EdmHLJchyGYHWA" showListSignature="true" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YMZbYoG7EdmHLJchyGYHWA" x="4770" y="5406"/>
+  </children>
+  <children xmi:id="_bME4kIG7EdmHLJchyGYHWA" targetEdges="_bQRcEIG7EdmHLJchyGYHWA">
+    <children xmi:id="_bME4k4G7EdmHLJchyGYHWA" type="ImageCompartment">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_bME4lIG7EdmHLJchyGYHWA" width="530" height="530"/>
+    </children>
+    <children xmi:id="_bME4lYG7EdmHLJchyGYHWA" type="Stereotype">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bMK_MIG7EdmHLJchyGYHWA" type="Kind">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bMK_MYG7EdmHLJchyGYHWA" type="Name">
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bMK_MoG7EdmHLJchyGYHWA" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMK_M4G7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bMK_NIG7EdmHLJchyGYHWA" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMK_NYG7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bMK_NoG7EdmHLJchyGYHWA" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMK_N4G7EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_bME4kYG7EdmHLJchyGYHWA" showStereotype="Label" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="vizref:///#jsrctype^vcore.target=uml2.Interface^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bME4koG7EdmHLJchyGYHWA" x="11130" y="10176"/>
+  </children>
+  <children xmi:id="_bXQi8IG9EdmHLJchyGYHWA" sourceEdges="_bZv2QIG9EdmHLJchyGYHWA">
+    <children xmi:id="_bXQi84G9EdmHLJchyGYHWA" type="ImageCompartment">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_bXQi9IG9EdmHLJchyGYHWA" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_bXQi9YG9EdmHLJchyGYHWA" type="Stereotype">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bXWpkIG9EdmHLJchyGYHWA" type="Name">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bXWpkYG9EdmHLJchyGYHWA" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bXWpkoG9EdmHLJchyGYHWA" filtering="Automatic" filteringKeys="private"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bXWpk4G9EdmHLJchyGYHWA" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bXWplIG9EdmHLJchyGYHWA" filtering="Automatic" filteringKeys="private"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bXWplYG9EdmHLJchyGYHWA" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bXWploG9EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_bXWpl4G9EdmHLJchyGYHWA" visible="false" type="StructureCompartment">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_bXWpmIG9EdmHLJchyGYHWA"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_bXQi8YG9EdmHLJchyGYHWA" showListSignature="true" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bXQi8oG9EdmHLJchyGYHWA" x="2862" y="-636"/>
+  </children>
+  <children xmi:id="_sIm8AIT5Edmxq-gslcM77g" sourceEdges="_sPrNUIT5Edmxq-gslcM77g _S7Xy8ImYEdmSAcOf_MnH8A">
+    <children xmi:id="_sIm8A4T5Edmxq-gslcM77g" type="ImageCompartment">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_sIm8BIT5Edmxq-gslcM77g" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_sIm8BYT5Edmxq-gslcM77g" type="Stereotype">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_sIm8BoT5Edmxq-gslcM77g" type="Name">
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_sIm8B4T5Edmxq-gslcM77g" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_sIm8CIT5Edmxq-gslcM77g"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_sIm8CYT5Edmxq-gslcM77g" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_sIm8CoT5Edmxq-gslcM77g"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_sIm8C4T5Edmxq-gslcM77g" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_sIm8DIT5Edmxq-gslcM77g"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <children xmi:id="_sIm8DYT5Edmxq-gslcM77g" visible="false" type="StructureCompartment">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_sIm8DoT5Edmxq-gslcM77g"/>
+      <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_sIm8AYT5Edmxq-gslcM77g" showListSignature="true" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="vizref:///#jsrctype^vcore.target=uml2.Class^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sIm8AoT5Edmxq-gslcM77g" x="1430" y="13038"/>
+  </children>
+  <children xmi:id="_S5FT8ImYEdmSAcOf_MnH8A" targetEdges="_S7Xy8ImYEdmSAcOf_MnH8A">
+    <children xmi:id="_S5FT84mYEdmSAcOf_MnH8A" type="ImageCompartment">
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_S5FT9ImYEdmSAcOf_MnH8A" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_S5FT9YmYEdmSAcOf_MnH8A" type="Stereotype">
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <children xmi:id="_S5FT9omYEdmSAcOf_MnH8A" type="Name">
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <children xmi:id="_S5LakImYEdmSAcOf_MnH8A" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_S5LakYmYEdmSAcOf_MnH8A" collapsed="true"/>
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <children xmi:id="_S5LakomYEdmSAcOf_MnH8A" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_S5Lak4mYEdmSAcOf_MnH8A" filtering="Manual">
+        <filteredObjects xmi:type="uml:Operation" href="vizref:///#jmethod^vcore.target=uml2.Operation^name=%3cclinit%3e^sign=()V[jbintype^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]]"/>
+      </styles>
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <children xmi:id="_S5LalImYEdmSAcOf_MnH8A" visible="false" type="SignalCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_S5LalYmYEdmSAcOf_MnH8A"/>
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <children xmi:id="_S5LalomYEdmSAcOf_MnH8A" visible="false" type="StructureCompartment">
+      <styles xmi:type="umlnotation:UMLShapeCompartmentStyle" xmi:id="_S5Lal4mYEdmSAcOf_MnH8A"/>
+      <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_S5FT8YmYEdmSAcOf_MnH8A" showStereotype="Label"/>
+    <element xmi:type="uml:Class" href="vizref:///#jbintype^vcore.target=uml2.Class^name=org.eclipse.core.expressions.Expression[project^vcore.target=uml2.Model^id=com.ibm.xtools.viz.core]"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_S5FT8omYEdmSAcOf_MnH8A" x="13674" y="13038"/>
+  </children>
+  <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_PDH0oYG5EdmHLJchyGYHWA"/>
+  <edges xmi:id="_YOZmgIG7EdmHLJchyGYHWA" source="_YMZbYIG7EdmHLJchyGYHWA" target="_2UPDkIG5EdmHLJchyGYHWA">
+    <children xmi:id="_YOftIIG7EdmHLJchyGYHWA" type="KindLabel">
+      <children xmi:id="_YOftIoG7EdmHLJchyGYHWA" type="Stereotype">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_YOftJIG7EdmHLJchyGYHWA" type="Kind">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_YOftI4G7EdmHLJchyGYHWA" type="Name">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YOftIYG7EdmHLJchyGYHWA" x="252" y="238"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_YOZmgYG7EdmHLJchyGYHWA" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_YOZmgoG7EdmHLJchyGYHWA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_bQRcEIG7EdmHLJchyGYHWA" source="_YMZbYIG7EdmHLJchyGYHWA" target="_bME4kIG7EdmHLJchyGYHWA">
+    <children xmi:id="_bQRcE4G7EdmHLJchyGYHWA" type="KindLabel">
+      <children xmi:id="_bQRcFYG7EdmHLJchyGYHWA" type="Stereotype">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_bQRcF4G7EdmHLJchyGYHWA" type="Kind">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_bQRcFoG7EdmHLJchyGYHWA" type="Name">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bQRcFIG7EdmHLJchyGYHWA" y="-185"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_bQRcEYG7EdmHLJchyGYHWA" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IModelConstraint[jcu^name=IModelConstraint.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bQRcEoG7EdmHLJchyGYHWA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_bZv2QIG9EdmHLJchyGYHWA" source="_bXQi8IG9EdmHLJchyGYHWA" target="_YMZbYIG7EdmHLJchyGYHWA">
+    <children xmi:id="_bZv2Q4G9EdmHLJchyGYHWA" type="KindLabel">
+      <children xmi:id="_bZv2RYG9EdmHLJchyGYHWA" type="Stereotype">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_bZ184YG9EdmHLJchyGYHWA" type="Kind">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_bZ184IG9EdmHLJchyGYHWA" type="Name">
+        <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_bZv2RIG9EdmHLJchyGYHWA" x="113" y="451"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_bZv2QYG9EdmHLJchyGYHWA" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="vizref:///#jdep^vcore.target=uml2.Usage[jsrctype^name=ClientContextManager[jcu^name=ClientContextManager.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientContext[jcu^name=IClientContext.java[jpack^name=org.eclipse.emf.validation.internal.service[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bZv2QoG9EdmHLJchyGYHWA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_sPrNUIT5Edmxq-gslcM77g" source="_sIm8AIT5Edmxq-gslcM77g" target="_2UPDkIG5EdmHLJchyGYHWA">
+    <children xmi:id="_sPrNU4T5Edmxq-gslcM77g" type="NameLabel">
+      <children xmi:id="_sPrNVYT5Edmxq-gslcM77g" type="Stereotype">
+        <element xmi:type="uml:Implementation" href="vizref:///#jimpl^vcore.target=uml2.Implementation[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <children xmi:id="_sPrNVoT5Edmxq-gslcM77g" type="Name">
+        <element xmi:type="uml:Implementation" href="vizref:///#jimpl^vcore.target=uml2.Implementation[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Implementation" href="vizref:///#jimpl^vcore.target=uml2.Implementation[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_sPrNVIT5Edmxq-gslcM77g" y="-185"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_sPrNUYT5Edmxq-gslcM77g" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Implementation" href="vizref:///#jimpl^vcore.target=uml2.Implementation[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]][jsrctype^name=IClientSelector[jcu^name=IClientSelector.java[jpack^name=org.eclipse.emf.validation.model[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sPrNUoT5Edmxq-gslcM77g" points="[-1800, -1058, -53, 2011]$[-1800, -2222, -53, 847]"/>
+  </edges>
+  <edges xmi:id="_S7Xy8ImYEdmSAcOf_MnH8A" source="_sIm8AIT5Edmxq-gslcM77g" target="_S5FT8ImYEdmSAcOf_MnH8A">
+    <children xmi:id="_S7Xy84mYEdmSAcOf_MnH8A" type="FromMultiplicityLabel">
+      <children xmi:id="_S7Xy9YmYEdmSAcOf_MnH8A" type="FromMultiplicity">
+        <element xmi:type="uml:Property" href="vizref:///#jfield^vcore.target=uml2.Property^name=expression[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Property" href="vizref:///#jfield^vcore.target=uml2.Property^name=expression[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_S7Xy9ImYEdmSAcOf_MnH8A" y="397"/>
+    </children>
+    <children xmi:id="_S7Xy9omYEdmSAcOf_MnH8A" type="FromRoleLabel">
+      <children xmi:id="_S7Xy-ImYEdmSAcOf_MnH8A" type="FromRole">
+        <element xmi:type="uml:Property" href="vizref:///#jfield^vcore.target=uml2.Property^name=expression[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      </children>
+      <element xmi:type="uml:Property" href="vizref:///#jfield^vcore.target=uml2.Property^name=expression[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_S7Xy94mYEdmSAcOf_MnH8A" x="-708" y="-296"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_S7Xy8YmYEdmSAcOf_MnH8A" showStereotype="Text"/>
+    <element xmi:type="uml:Property" href="vizref:///#jfield^vcore.target=uml2.Property^name=expression[jsrctype^name=XmlExpressionSelector[jcu^name=XmlExpressionSelector.java[jpack^name=org.eclipse.emf.validation.internal.util[jsrcroot^srcfolder=src[project^vcore.target=uml2.Model^id=org.eclipse.emf.validation]]]]]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_S7Xy8omYEdmSAcOf_MnH8A" points="[-20, -43, 230, 496]$[-249, -538, 1, 1]"/>
+  </edges>
+</notation:Diagram>

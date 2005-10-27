@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Validation Plug-in
+Bundle-SymbolicName: org.eclipse.emf.validation.examples; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.emf.validation.examples.ValidationPlugin
+Bundle-Vendor: IBM
+Bundle-Localization: plugin
+Export-Package: org.eclipse.emf.validation.examples,
+ org.eclipse.emf.validation.examples.actions,
+ org.eclipse.emf.validation.examples.constraints,
+ org.eclipse.emf.validation.examples.internal.l10n,
+ org.eclipse.emf.validation.examples.listeners
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.validation,
+ org.eclipse.emf.examples.library,
+ org.eclipse.emf.examples.library.edit,
+ org.eclipse.emf.examples.library.editor,
+ org.eclipse.ui.console
+Eclipse-LazyStart: true

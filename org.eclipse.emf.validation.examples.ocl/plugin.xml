@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!-- Copyright (c) 2005  IBM Corporation and others.                       -->
+<!-- All rights reserved. This program and the accompanying materials      -->
+<!-- are made available under the terms of the Eclipse Public License v1.0 -->
+<!-- which accompanies this distribution, and is available at              -->
+<!-- http://www.eclipse.org/legal/epl-v10.html                             -->
+<!--                                                                       -->
+<!-- Contributors:                                                         -->
+<!--    IBM Corporation - initial API and implementation                   -->
+<plugin>
+
+     <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            name="%category.name"
+            id="emf-validation-example/ocl">
+         %category.description
+      </category>
+      <constraintProvider cache="true">
+         <package namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/>
+         
+         <constraints categories="emf-validation-example/ocl">
+            <constraint
+                  lang="OCL"
+                  severity="WARNING"
+                  mode="Batch"
+                  name="%example1.name"
+                  id="example1"
+                  statusCode="101">
+               <description>%example1.desc</description>
+               <message>%example1.msg</message>
+               <!-- This constraint applies to writers. -->
+               <target class="Writer"/>
+               
+               <!-- Writers should not write books in more than two genres. -->
+               <![CDATA[
+                  self.books->collect(b : Book | b.category)->asSet()->size() <= 2
+               ]]>
+            </constraint>
+            <constraint
+                  lang="OCL"
+                  severity="ERROR"
+                  mode="Live"
+                  name="%example2.name"
+                  id="example2"
+                  statusCode="102">
+               <description>%example2.desc</description>
+               <message>%example2.msg</message>
+               <!-- This constraint applies to books, triggered when
+                    the author reference is set. -->
+               <target class="Book">
+                  <event name="Set">
+                     <feature name="author"/>
+                  </event>
+               </target>
+               
+               <!-- Books must have authors. -->
+               not author.oclIsUndefined()
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+</plugin>

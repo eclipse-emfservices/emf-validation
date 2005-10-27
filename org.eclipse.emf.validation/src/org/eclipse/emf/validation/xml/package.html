@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+/******************************************************************************
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    IBM Corporation - initial API and implementation 
+ ****************************************************************************/
+
+-->
+</head>
+<body>
+
+The API for specification and processing of constraints in XML.
+
+<h2>Package Specification</h2>
+
+<p>
+The types in this package constitute the provisional API for constraints
+contributed via XML from plug-in manifests.  The
+{@link org.eclipse.emf.validation.xml.XmlConstraintProvider} is
+a constraint provider implementation that loads constraint meta-data from the
+<tt>constraintProviders</tt> extension point into
+{@link org.eclipse.emf.validation.xml.IXmlConstraintDescriptor}s and
+uses the {@link org.eclipse.emf.validation.service.ConstraintFactory}
+to create constraint objects from them.
+</p>
+
+<p>
+Dynamic constraint providers may use the API in this package to specify
+constraints in languages that are supplied to the system by
+other plug-ins, and use the <code>ConstraintFactory</code> to instantiate
+constraints from these specifications:
+<ul>
+  <li>{@link org.eclipse.emf.validation.xml.IXmlConstraintDescriptor}:
+      the meta-data interface for constraints specified in plug-in manifest XML</li>
+  <li>{@link org.eclipse.emf.validation.xml.IXmlConstraintParser}:
+      a constraint parser understands a constraint specification (in the form
+      of an <code>IXmlConstraintDescriptor</code> in a particular language
+      and can construct an implementation of the
+      {@link org.eclipse.emf.validation.model.IModelConstraint}
+      interface from it</li>
+  <li>{@link org.eclipse.emf.validation.xml.XmlConstraintProvider}:
+      the default provider implementation used by plug-ins that specify
+      constraints in the XML.  Not generally used in any other way by plug-ins</li>
+</ul>
+</p>
+
+</body>
+</html>

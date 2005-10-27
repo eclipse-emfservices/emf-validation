@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="IBM Software Development Platform">
+<TITLE>Technical Note: Validation Client Context Bindings</TITLE>
+<LINK rel="stylesheet" href="../technote.css" type="text/css">
+</HEAD>
+<BODY>
+<A name="top"></A><IMG border="0" src="../logo.gif" width="629" height="192"><H1 align="center">Technical Note: Validation Client Context Bindings and Traversal Strategies</H1>
+<TABLE border="0" cellspacing="8">
+	<TBODY>
+		<TR>
+			<TD>Version: 0.3</TD>
+			<TD>Date: 2005/02/28</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2>Contents</H2>
+<UL>
+	<LI><A href="#intro">Introduction</A></LI>
+	<LI><A href="#refs">References</A></LI>
+	<LI><A href="#trace">Traceability</A></LI>
+	<LI><A href="#reqs">Requirements</A></LI>
+	<LI><A href="#constraints">Constraints</A></LI>
+	<LI><A href="#principles">Basic Principles</A></LI>
+	<LI><A href="#examples">Examples</A></LI>
+	<LI><A href="#models">Design/Code/Interaction Models</A></LI>
+	<LI><A href="#api">API Elaboration</A></LI>
+</UL>
+<HR>
+<H2><A name="intro"></A>Introduction</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>This document describes the EMF validation framework's facility for clients to bind constraints to a &quot;client context&quot; that they define. This effictively allows applications to choose the constraints from the library of available constraints that they want to apply to the elements of their models.</P>
+<P>Closely related to client contexts is the comcept of traversal strategy, which is a pluggable algorithm for traversing models. EMF's basic content-tree traversal is not suitable for all metamodels: sometimes non-containment relationships must be traversed to find more model content or branches of the content tree can be skipped entirely, and some clients may even provide end-user customization of the traversal.</P>
+<H2><A name="refs"></A>References</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>Documents in ClearCase:</P>
+<UL>
+	<LI>/r_aurora_gui/doc/Design/Model Services/EMF-Validation-FDS.doc</LI>
+</UL>
+<H2><A name="trace"></A>Traceability</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>This feature is tracked by the following RFEs in ClearQuest:</P>
+<UL>
+	<LI>RATLC00533159 &quot;Enhance the validation framework to provide a concept of &quot;client context&quot; to select constraints&quot;</LI>
+</UL>
+<H2><A name="reqs"></A>Requirements</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>This feature must satisfy the following requirements:</P>
+<UL>
+	<LI>Allow client applications to determine which constraints are applicable to elements of their models.</LI>
+	<LI>Ensure that when two applications co-resident in an Eclipse product require the same constraints, there is no conflict or ambiguity between client bindings.</LI>
+	<LI>In particular validation of a diagram
+	containing mixed content must be able to detect the appropriate context for
+	each element selected for validation. It is not appropriate to apply a single client context (e.g., determined from the diagram editor) to all of these elements.</LI>
+</UL>
+<H2><A name="constraints"></A>Constraints</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>This feature is subject to the following design constraints:</P>
+<UL>
+	<LI>Must not introduce any new platform dependencies into the existing EMF validation framework (this maintains, among other things, the existing level of RCP compliance).</LI>
+	<LI>Backward compatibility: this feature must allow constraints developed in the previous release of the framework to continue to function as before. In particular, clients of such &quot;grandfathered&quot; constraints should not be required to add bindings in order to enable them.</LI>
+	<LI>Performance in speed and memory should be maintained as much as possible.</LI>
+	<LI>Robustness: run-time exceptions in contributed extensions must not cause the validation system to fail.</LI>
+</UL>
+<P>This feature has the following limitations, which may be considered for future enhancements:</P>
+<UL>
+	<LI>This feature will not support dependencies between contexts. In particular:
+	<UL>
+		<LI>implication: in which a context declares  that it implies another
+		context (i.e., when context A matches an element, then B does also)</LI>
+		<LI>precedence: in which a context declares that it takes precedence over another (i.e., when context A and B both match, B is excluded because A takes precedence)</LI>
+	</UL>
+	</LI>
+</UL>
+<HR>
+<H2><A name="principles"></A>Basic Principles</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>The concept of a &quot;context&quot; is modeled loosely after the Eclipse <CODE><A
+	href="http://help.eclipse.org/help30/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/contexts/IContext.html"
+	target="_blank">IContext</A></CODE> API. This API is not used because it is defined in the <CODE>org.eclipse.<STRONG>ui</STRONG>.contexts</CODE> plug-in and because validation contexts do not need to be either dynamic or hierarchical.</P>
+<P>Applications specify bindings in XML between a <A href="#IClientContext_api">context</A> that they declare and constraint IDs defined in the constraint library. In order to determine the contexts that are associated with a particular model element (as there may be multiple), a context declares an enablement expression (using the Eclipse standard <A
+	href="http://help.eclipse.org/help30/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/expressions/package-summary.html"
+	target="_blank">expression language</A>) that is satisfied for objects belonging to the context. Where this language is not sufficient, a <A
+	href="#IClientSelector_api">selector</A> class may be declared instead that &quot;recognizes&quot; objects that belong to the context. An enablement expression effictively implements an XML selector.</P>
+<H3>Compatibility</H3>
+<P>Backward compatibility is provided by the notion of a &quot;default client context.&quot; A context defined by any plug-in may declare that it is a default context, which will be implicitly bound to  those constraints that do not have any explicit context bindings in any client. Obviously, all constraints defined by 2nd- and 3rd-party clients of the platform in release 6 fall into this category.</P>
+<H3>Robustness</H3>
+<P>The validation system protects itself against problems in the initialization and execution of client contexts and their selectors. Problems in the initialization of a client context (missing selector, invalid XML expression, invalid selector class) are logged with appropriate diagnostic information and result in the context not being defined.</P>
+<P>When a context is successfully initialized, any <CODE>CoreException</CODE> thrown by the expressions API in evaluating an enablement expression or any run-time exception thrown by a custom selector implementation is logged and results in the context being removed from the system. Thus, all dependent constraint bindings cease to exist. It is anticipated that, in typical models, any such exceptions will occur repeatedly on similar elements or editing gestures and, therefore, the framework would expect to spend much time processing exceptions if it did not discard the context. Besides, these exceptions are usually indicative of programming errors.</P>
+<H3>Performance</H3>
+<P>In the interest of performance in batch validation of large models, it is desirable to infer as much as possible the contexts of an element from the elements previously traversed. Thus, the traversal strategy determines when the client context needs to be computed for an element, depending on the points in a traversal where it may likely enter another client domain.</P>
+<P class="notabene"><B>Note:</B> Live validation does not consider traversal of the model structure. It will compute the contexts applicable to each validated element, individually.</P>
+<P>There are two extreme performance profiles to consider: at one extreme, a traversal assumes that
+client context is determined exclusively by a traversal root (i.e., one of the
+elements selected by the user in the UI). At the other extreme, the traversal strategy computes the contexts on every element that it encounters. The initial implementation of this feature for UML will apply the second approach and evaluate the resulting performance.</P><H2><A name="examples"></A>Examples</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<H3>Defining a Client Context</H3>
+<P>Client contexts are declared on the <A
+	href="#bindings_ext"><CODE>constraintBindings</CODE></A> extension point:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;clientContext id=&quot;com.example.MyClient&quot;&gt;
+      &lt;enablement&gt;
+         &lt;and&gt;
+            &lt;instanceof value=&quot;org.eclipse.uml2.Element&quot;/&gt;
+            &lt;test
+               property=&quot;com.ibm.xtools.emf.msl.objectType&quot;
+               value=&quot;Modeling&quot;/&gt;
+         &lt;/and&gt;
+      &lt;/enablement&gt;
+   &lt;/clientContext&gt;
+&lt;/extension&gt;</PRE>
+<P>When the expression language is not effective in specifying the
+matching condition, a custom selector may be provided:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;clientContext id=&quot;com.example.MyClient&quot;&gt;
+      &lt;selector class=&quot;com.example.MyClientSelector&quot;/&gt;
+   &lt;/clientContext&gt;
+&lt;/extension&gt;</PRE>
+<P>with a particular selector implementation perhaps looking like:</P>
+<PRE class="snippet">public class MyClientSelector implements IClientSelector {
+    public boolean selects(Object object) {
+        boolean result = false;
+        
+        if (object instanceof EObject) {
+            // it should be an EObject, but we'll be defensive
+            EObject eObject = (EObject) object;
+            
+            Resource res = eObject.eResource();
+            
+            if (res != null) {
+                result = isLibraryContentType(res);
+            }
+        }
+        
+        return result;
+    }
+    
+    private boolean isLibraryContentType(Resource res) {
+        // ... determine whether 'res' is an instance
+        //   of the &quot;library&quot; schema
+    }
+}</PRE>
+<H3>Binding Constraints to a Client Context</H3>
+<P>Client contexts can be bound to constraints, individually, or to constraint categories (to bind all of the constraints in the category). The latter option has the advantage of allowing new constraint contributions in a category to automatically be bound to the appropriate client context, even if the constraint is defined in a plug-in that is unaware of that context or its binding to the category. Category bindings are inherited by sub-categories from their ancestors.</P>
+<P>Example of a  binding for the UML specification's &quot;Classifier generalizations are acyclic&quot; constraint:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;binding
+      context=&quot;com.example.MyClient&quot;
+      constraint=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+&lt;/extension&gt;</PRE>
+<P>An alternative form that is slightly less cumbersome when binding multiple constraints to a context:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;binding context=&quot;com.example.MyClient&quot;&gt;
+      &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.namespace.distinctMembers&quot;/&gt;
+      &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+   &lt;/binding&gt;
+&lt;/extension&gt;</PRE>
+<P>Example of a binding for all of the constraints defined in the &quot;Classes&quot; package of the UML specification, including the &quot;Kernel&quot;, &quot;Interfaces&quot;, &quot;AssociationClasses&quot;, and other sub-packages:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;binding
+      context=&quot;com.example.MyClient&quot;
+      category=&quot;uml2/spec/classes&quot;/&gt;
+&lt;/extension&gt;</PRE>
+<P>The alternative form of category bindings looks like:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
+   &lt;binding context=&quot;com.example.MyClient&quot;&gt;
+      &lt;category ref=&quot;uml2/spec/classes/kernel/namespaces&quot;/&gt;
+      &lt;category ref=&quot;uml2/spec/classes/kernel/classifiers&quot;/&gt;
+   &lt;/binding&gt;
+&lt;/extension&gt;</PRE>
+<P>Note that nested <CODE>&lt;constraint&gt;</CODE> and <CODE>&lt;category&gt;</CODE> elements can be freely intermixed.</P>
+<H3>Defining a Traversal Strategy Extension</H3>
+<P>Implementers of EMF-based metamodels are encouraged to provide a default traversal strategy for their metamodel, as they control its structure. Considerations for traversal include</P>
+<UL>
+	<LI>the appropriateness of EMF's <CODE>TreeIterator</CODE>. Some metamodels make
+scant use of containment relationships, so it may not be very useful.</LI>
+	<LI>portions of the metamodel that are not constrained and, therefore, may be skipped over.</LI>
+	<LI>points at which the metamodel may bridge to another metamodel (this is a consideration for client contexts).</LI>
+</UL>
+<P>Default traversal strategies are contributed on the <CODE><A
+	href="#traversal_ext">traversal</A></CODE> extension point. For example, a traversal extension for the <CODE>org.eclipse.uml2</CODE> metamodel might look like:</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.traversal&quot;&gt;
+   &lt;traversalStrategy
+         namespaceUri=&quot;http://www.eclipse.org/uml2/1.0.0/UML&quot;
+         class=&quot;com.example.UmlTraversalStrategy&quot;&gt;
+   &lt;/traversalStrategy&gt;
+&lt;/extension&gt;</PRE>
+<P>A slightly more complex example might provide different strategies for <CODE>Model</CODE> or <CODE>Package</CODE> trees as for <CODE>Profile</CODE>s. The validation framework determines the appropriate traversal strategy from the root container of a traversal root, considering that root containers define a &quot;kind&quot; of model.</P>
+<PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.traversal&quot;&gt;
+   &lt;!-- The default strategy for non-profiles. --&gt;
+   &lt;traversalStrategy
+         namespaceUri=&quot;http://www.eclipse.org/uml2/1.0.0/UML&quot;
+         class=&quot;com.example.DefaultUmlTraversalStrategy&quot;&gt;
+   &lt;/traversalStrategy&gt;
+
+   &lt;!-- The strategy for profiles. --&gt;
+   &lt;traversalStrategy
+         namespaceUri=&quot;http://www.eclipse.org/uml2/1.0.0/UML&quot;
+         class=&quot;com.example.ProfileUmlTraversalStrategy&quot;&gt;
+      &lt;eclass name=&quot;uml2.Profile&quot;/&gt;
+   &lt;/traversalStrategy&gt;
+&lt;/extension&gt;</PRE>
+<P>A simple traversal strategy for UML might skip over all <CODE>EAnnotation</CODE>s, knowing that all of the <CODE>EClass</CODE>es in this metamodel ultimately extend the Ecore <CODE>EModelElement</CODE> metaclass. Note that this simple example doesn't handle cases where one traversal root is in the sub-tree of another, nor does it improve upon the inherited <CODE>isClientContextChanged()</CODE> implementation.</P>
+<PRE class="snippet">public class DefaultUmlTraversalStrategy
+        extends AbstractTraversalStrategy {
+    
+    protected Iterator createIterator(
+            final Collection traversalRoots) {
+        
+        return new Iterator() {
+            private TreeIterator delegate =
+                EcoreUtil.getAllContents(traversalRoots);
+            private Object next;
+            
+            public boolean hasNext() {
+                while (next == null &amp;&amp; delegate.hasNext()) {
+                    next = delegate.next();
+                    if (next instanceof EAnnotation) {
+                        next = null;
+                        delegate.prune();
+                    }
+                }
+
+                return next != null;
+            }
+
+            public Object next() {
+                if (!hasNext()) {
+                    return new NoSuchElementException();
+                }
+
+                Object result = next;
+                next = null;
+                return result;
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    protected int countElements(Collection traversalRoots) {
+        int result = 0;
+
+        Iterator iter = createIterator(traversalRoots);
+
+        while (iter.hasNext()) {
+            result++;
+            iter.next();
+        }
+
+        return result;
+    }
+}</PRE>
+<H3>Using a Custom Traversal Strategy</H3>
+<P>If the default traversal strategy registered on an extension point such as in the previous example isn't sufficient for a client application's needs, then it may override that default strategy when it performs a validation.</P>
+<PRE class="snippet">
+IProgressMonitor monitor = // ... get a progress monitor
+Collection selectedElements = // ... elements to validate
+
+IBatchValidator validator = (IBatchValidator)
+    ModelValidationService.getInstance().newValidator(
+        EvaluationMode.BATCH);
+
+validator.setTraversalStrategy(new MyTraversalStrategy());
+
+IStatus status = validator.validate(selectedElements, monitor);
+
+// ... do something with the status</PRE>
+<H2><A name="models"></A>Design/Code/Interaction Models</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>The main part of the client context API is depicted in the figure below.</P>
+<P><IMG border="1" src="ClientContexts.jpg" width="593" height="618"
+	usemap="#ClientContexts"><MAP name="ClientContexts">
+	<AREA shape="rect" href="#ClientContextManager_api"
+		coords="43,1,523,200">
+	<AREA shape="rect" target="_blank"
+		href="http://help.eclipse.org/help30/topic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/core/expressions/Expression.html"
+		coords="448,514,590,612">
+	<AREA shape="rect" href="#IClientContext_api" coords="123,219,450,365">
+	<AREA shape="rect" href="#IClientSelector_api" coords="3,398,265,496">
+	<AREA shape="default" nohref>
+</MAP></P>
+<P>The <CODE><A href="#ClientContextManager_api">ClientContextManager</A></CODE> is responsible for loading the client contexts and bindings from the <A
+	href="#bindings_ext"><CODE>constraintBindings</CODE></A> extension point, and for filtering the constraints applicable to an object according to its client context.</P>
+<P>The existing <CODE>IModelConstraint</CODE> interface is not changed by this feature.</P>
+<P>The sequence diagram below shows how the framework uses the <CODE>ClientContextManager</CODE> to filter the constraints that it applies to an <CODE>EObject</CODE>. Note that, for performance considerations, the flow may not be exactly as indicated. This sequence is meant to show the interaction in concept only.</P>
+<P>The steps are as follows:</P>
+<OL>
+	<LI>The validation framework asks the context manager for all client contexts that apply to a specific <CODE>EObject</CODE> (as a traversal root).
+	The context manager iterates over the available contexts:<OL>
+		<LI>The context manager requests the selector of a context.</LI>
+		<LI>The context returns the selector.</LI>
+		<LI>The context manager queries the selector whether it matches the specified <CODE>EObject</CODE>.</LI>
+		<LI>The selector returns <CODE>true</CODE> or <CODE>false</CODE> as appropriate.</LI>
+	</OL>
+	</LI>
+	<LI>The context manager returns all of the contexts whose selectors matched the <CODE>EObject</CODE>.</LI>
+	<LI>The validation framework iterates the contexts returned by the context manager:
+	<OL>
+		<LI>The framework requests a context's bindings from amongst the constraints that target the <CODE>EObject</CODE>'s metaclass. The context manager iterates the constraints:
+		<OL>
+			<LI>For each constraint, the context manager queries the context whether it includes the constraint.</LI>
+			<LI>The context returns <CODE>true</CODE> or <CODE>false</CODE> as appropriate.</LI>
+		</OL>
+		</LI>
+		<LI>The context manager returns the set of constraints that the context includes.</LI>
+	</OL>
+	The validation framework then goes on to apply the resulting constraints to the <CODE>EObject</CODE>.</LI>
+</OL>
+<P><IMG border="1" src="ClientContextUsage.jpg" width="901" height="969" usemap="#ClientContextUsage"><MAP
+	name="ClientContextUsage">
+	<AREA shape="rect" href="#IClientSelector_api" coords="534,37,670,108">
+	<AREA shape="rect" href="#IClientContext_api" coords="396,36,532,107">
+	<AREA shape="rect" href="#ClientContextManager_api"
+		coords="195,36,391,106">
+	<AREA shape="default" nohref>
+</MAP></P>
+<P>The relationships between the types in traversal strategy API is depected in the figure below.</P>
+<P><IMG border="1" src="TraversalStrategies.jpg" width="575"
+	height="474" usemap="#TraversalStrategies"><MAP
+	name="TraversalStrategies">
+	<AREA shape="rect" href="#AbstractTraversalStrategy_api"
+		coords="128,219,354,464">
+	<AREA shape="rect" href="#ITraversalStrategy.Recursive_api"
+		coords="375,330,567,469">
+	<AREA shape="rect" href="#ITraversalStrategy.Flat_api"
+		coords="375,220,519,326">
+	<AREA shape="rect" href="#ITraversalStrategy_api"
+		coords="276,4,476,145">
+	<AREA shape="rect" href="#IBatchValidator_api" coords="2,2,220,208">
+	<AREA shape="default" nohref>
+</MAP></P>
+<H2><A name="api"></A>API Elaboration</H2>
+<P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
+<P>The context binding and traversal strategy API and implementation are provided by the  <CODE>org.eclipse.emf.validation</CODE> plug-in.</P>
+<H3><A name="bindings_ext"></A>Constraint Bindings Extension Point</H3>
+<P>The <A href="../../doc/com_ibm_xtools_emf_validation_constraintBindings.html"
+	target="_blank"><CODE>constraintBindings</CODE></A> extension point is a  public API extension point in the <CODE>org.eclipse.emf.validation</CODE> namespace.</P>
+<H3><A name="traversal_ext"></A>Traversal Strategies Extension Point</H3>
+<P>The <A
+	href="../../doc/com_ibm_xtools_emf_validation_traversal.html"
+	target="_blank"><CODE>traversal</CODE></A> extension point is
+a public API extension point in the <CODE>org.eclipse.emf.validation</CODE>
+namespace.</P>
+<H3><A name="IClientSelector_api"></A>IClientSelector</H3>
+<DL>
+	<DT><CODE>public abstract boolean selects(Object object)</CODE></DT>
+	<DD>This method is implemented by custom client context selectors to determine whether the context includes the specified <CODE>object</CODE>, returning <CODE>true</CODE> if such is the case, otherwise <CODE>false</CODE>. Anything about the input element can be used to make this determination, subject to only a few restrictions:
+	<UL>
+		<LI>the method should run quickly (e.g., network access is a bad idea, and even causing other EMF resources to be loaded should be avoided if possible)</LI>
+		<LI>the method must not make any make any changes to the eObject or any other model element: the selector is evaluated in a strictly read-only context</LI>
+	</UL>
+	The input to a custom selector implementation will, in general, be an <CODE>EObject</CODE>, though it is prudent to check that such is the case. The signature of this method is <CODE>Object</CODE> primarily to assist the enablement expression support.</DD>
+</DL>
+<H3><A name="IClientContext_api"></A>IClientContext</H3>
+<P>This class is not intended to be used by clients of the validation framework; it does not constitute a part of the API.</P>
+<H3><A name="ClientContextManager_api"></A>ClientContextManager</H3>
+<P>This class is not intended to be used by clients of the validation
+framework; it does not constitute a part of the API.</P>
+
+<H3><A name="ITraversalStrategy_api"></A>ITraversalStrategy</H3>
+<DL>
+	<DT><CODE>public abstract void startTraversal(Collection traversalRoots,
+	IProgressMonitor monitor)</CODE></DT>
+	<DD>Provides the collection of EObjects to be traversed and a progress monitor to update as traversal progresses. The implementer is expected to configure the progress monitor with the amount of work to be done (according to the number of objects to be traversed).<BR>Note that traversal strategy instances are re-used, so that this method may be invoked any number of times.
+	</DD>
+	<DT><CODE>public abstract boolean hasNext()</CODE></DT>
+	<DD>Queries whether there are any elements remaining to be traversed. If this method returns <CODE>true</CODE>, then <CODE>next()</CODE> must return a valid <CODE>EObject</CODE>.</DD>
+	<DT><CODE>public abstract EObject next()</CODE></DT>
+	<DD>Returns the next model element in the traversal sequence. If <CODE>hasNext()</CODE> is <CODE>false</CODE>, then the implementer should throw a <CODE>java.lang.NoSuchElementException</CODE>.<BR>Traversal is acyclic: the implementer must never return an element that has already been traversed since the last invocation of <CODE>startTraversal()</CODE>.
+	</DD>
+	<DT><CODE>public abstract boolean isClientContextChanged()</CODE></DT>
+	<DD>Queries whether the <CODE>next()</CODE> element in the traversal can possibly be in a different client context than the previous. This will usually occur when the traversal follows a non-containment relationship or bridges to another metamodel via an <CODE>EAnnotation</CODE>. When this method returns <CODE>true</CODE>, the framework will re-compute the current client context from the next element. Thus it is safe to always return <CODE>true</CODE>, but considerably less efficient.</DD>
+	<DT><CODE>public abstract void elementValidated(EObject element,
+	IStatus status)</CODE></DT>
+	<DD>Called by the framework to inform the traversal of the result of validation of the last element returned from the <CODE>next()</CODE> method. This can be used by adaptive traversals to prune branches of the sequence or to otherwise alter their direction according to the <CODE>status</CODE>, and is recommended as an opportunity to update the progress monitor.</DD>
+</DL>
+<H3><A name="ITraversalStrategy.Flat_api"></A>ITraversalStrategy.Flat</H3>
+<P>A simple implementation of the traversal strategy which simply iterates the traversal roots and does not descend into their containment trees or follow any other kinds of reference.</P>
+<H3><A name="ITraversalStrategy.Recursive_api"></A>ITraversalStrategy.Recursive</H3>
+<P>A slightly less simple strategy than the <CODE>Flat</CODE>, which has the following characteristics:</P>
+<UL>
+	<LI>the traversal descends the containment trees of the traversal roots.</LI>
+	<LI>the traversal does not repeat any elements: any traversal root that is in the containment of another is visited only once.</LI>
+	<LI>only traversal roots are considered as potentially being in different client contexts. The assumption is that all contained elements are in the same client context as their containers but that there is no such relationship between the traversal roots.</LI>
+</UL>
+<H3><A name="AbstractTraversalStrategy_api"></A>AbstractTraversalStrategy</H3>
+<P>A convenient superclass for custom traversal strategy implementations. In particular, it takes care of managing the progress monitor. Subclasses provide an <CODE>Iterator</CODE> to make elements available. Note that this class's implementation of the <CODE>isClientContextChanged()</CODE> method is pessimistic: it always returns <CODE>true</CODE>. Subclasses should consider overriding this to take advantage of the particular metamodel structure.</P>
+<DL>
+	<DT><CODE>protected abstract int countElements(Collection
+	traversalRoots)</CODE></DT>
+	<DD>This method is invoked by the implementation of the <CODE>startTraversal()</CODE> method to determine the total amount of work for the progress monitor (one unit of work per element). A simple implementation might just count the number of elements returned by the iterator created by <CODE>createIterator()</CODE>, but there may be smarter ways. A subclass may even provide a different mapping of work units to elements, in which case the inherited implementation of <CODE>elementValidated()</CODE> should also be overridden.</DD>
+	<DT><CODE>protected abstract Iterator createIterator(Collection
+	traversalRoots)</CODE></DT>
+	<DD>Invoked by the abstract class to access the elements of the traversal.</DD>
+</DL>
+<H3><A name="IBatchValidator_api"></A>IBatchValidator</H3>
+<P>Most of the methods of the <CODE>IBatchValidator</CODE> interface do not relate particularly to the traversal strategy API. The exceptions are described in this section.</P>
+<DL>
+	<DT><CODE>public abstract void setTraversalStrategy(ITraversalStrategy
+	strategy)</CODE></DT>
+	<DD>Configures the batch validator with a custom traversal strategy. This is useful for clients that have specific traversal requirements that are not satisfied by the default strategy for the metamodel (which is contributed on the extension point). For example, an  application implementing a client context for constraint bindings may want to tailor the traversal strategy to match, for efficiency. The possibilities for customization include pruning of uninteresting sub-trees and determination of when the client context may change.</DD>
+	<DT><CODE>public abstract ITraversalStrategy getTraversalStrategy()</CODE></DT>
+	<DD>Retrieves the current traversal strategy used by the validator. Initially, this will be the default strategy (see below), but it may be overridden by the client via the <CODE>setTraversalStrategy()</CODE> method.</DD>
+	<DT><CODE>public abstract ITraversalStrategy
+	getDefaultTraversalStrategy()</CODE></DT>
+	<DD>Obtains a default traversal strategy which delegates to implementations of the extension point, if available for the particular metamodel. Otherwise, the default-default strategy for a metamodel is the <CODE><A
+		href="#ITraversalStrategy.Recursive_api">ITraversalStrategy.Recursive</A></CODE>.<BR>The default traversal strategy can be assigned to the batch validator at any time to undo the client's override.
+	</DD>
+</DL>
+<HR>
+<P><IMG border="0" src="../copyright.gif" width="324" height="14"></P>
+</BODY>
+</HTML>

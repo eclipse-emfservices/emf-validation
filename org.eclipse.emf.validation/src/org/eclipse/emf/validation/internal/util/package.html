@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+/******************************************************************************
+ * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    IBM Corporation - initial API and implementation 
+ ****************************************************************************/
+
+-->
+</head>
+<body>
+
+Various utility classes and operations in support of the
+EMF Validation plug-in.
+
+<h2>Package Specification</h2>
+
+<p>
+The hodge-podge of classes in this package provide a wide variety of functions
+to the EMF Validation plug-in, from such cross-cutting concerns as logging and
+tracing, to specialized functions such as instantiating constraints from
+descriptors via an abstract factory.
+</p>
+
+<p>
+None of the classes in this package is intended to be used by any other plug-in,
+with the exception of a few that may be of use (internally in xtools) to
+constraint providers:
+<ul>
+  <li>{@link org.eclipse.emf.validation.service.ConstraintFactory}:
+      an abstract factory for the creation of constraint objects from
+      descriptors.  A provider can leverage the extensible 
+      {@link org.eclipse.emf.validation.xml.IXmlConstraintParser constraint-parser}
+      API to construct constraints implemented in languages that are supplied
+      by other plug-ins.</li>
+  <li>{@link org.eclipse.emf.validation.internal.util.DisabledConstraintStatus}:
+      a convenient {@link org.eclipse.emf.validation.model.IConstraintStatus}
+      implementation indicating that a constraint has been disabled.  If a
+      constraint implementation prefers not to throw an exception to the
+      framework, it could conceivably use the
+      {@link org.eclipse.emf.validation.IValidationContext} API to disable
+      itself and return an instance of the <code>DisabledConstraintStatus</code>
+      to indicate that it has been disabled</li>
+</ul>
+</p>
+
+@see org.eclipse.emf.validation.xml.IXmlConstraintParser
+
+</body>
+</html>
