@@ -1,1 +1,2 @@
 plugin.properties
+src\org\eclipse\emf\validation\internal\l10n\ValidationMessages.properties
