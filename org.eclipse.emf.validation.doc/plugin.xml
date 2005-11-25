@@ -18,13 +18,4 @@
  * $Id:
  */
 -->
-<plugin>
-
-     <extension
-         point="org.eclipse.emf.validation.constraintParsers">
-      <constraintParser
-            class="org.eclipse.emf.validation.internal.ocl.OclConstraintParser"
-            lang="OCL">
-      </constraintParser>
-   </extension>
-</plugin>
+<plugin/>
