@@ -1,13 +1,19 @@
-/******************************************************************************
+/**
+ * <copyright>
+ *
  * Copyright (c) 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
+ * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
- ****************************************************************************/
+ *   IBM - Initial API and implementation
+ *
+ * </copyright>
+ *
+ * $Id$
+ */
 
 package ordersystem;
 
@@ -35,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getOrder()
- * @model 
+ *
  * @generated
  */
 public interface Order extends EObject{
@@ -102,7 +108,7 @@ public interface Order extends EObject{
 	 * @return the value of the '<em>Completed</em>' attribute.
 	 * @see #setCompleted(boolean)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Completed()
-	 * @model 
+	 *
 	 * @generated
 	 */
     boolean isCompleted();
@@ -128,7 +134,7 @@ public interface Order extends EObject{
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Id()
-	 * @model 
+	 *
 	 * @generated
 	 */
     String getId();

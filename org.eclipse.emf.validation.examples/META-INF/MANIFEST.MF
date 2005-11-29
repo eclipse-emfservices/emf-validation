@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Validation Plug-in
+Bundle-Name: %Plugin.name
 Bundle-SymbolicName: org.eclipse.emf.validation.examples; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.emf.validation.examples.ValidationPlugin
-Bundle-Vendor: IBM
+Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.examples,
  org.eclipse.emf.validation.examples.actions,

@@ -30,7 +30,7 @@ import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
  * <b>See also</b> the constraintProvider extension point.
  * </p>
  * 
- * @author cmcgee
+ * @author Chris McGee (cmcgee)
  */
 public abstract class AbstractXmlConstraintDescriptor
 	extends AbstractConstraintDescriptor

@@ -1,13 +1,19 @@
-/******************************************************************************
+/**
+ * <copyright>
+ *
  * Copyright (c) 2005 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
+ * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
- ****************************************************************************/
+ *   IBM - Initial API and implementation
+ *
+ * </copyright>
+ *
+ * $Id$
+ */
 
 package ordersystem;
 
@@ -30,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getAccount()
- * @model 
+ *
  * @generated
  */
 public interface Account extends EObject{
@@ -45,7 +51,7 @@ public interface Account extends EObject{
 	 * @return the value of the '<em>Payment Method</em>' attribute.
 	 * @see #setPaymentMethod(String)
 	 * @see ordersystem.OrderSystemPackage#getAccount_PaymentMethod()
-	 * @model 
+	 *
 	 * @generated
 	 */
     String getPaymentMethod();
@@ -71,7 +77,7 @@ public interface Account extends EObject{
 	 * @return the value of the '<em>Account Number</em>' attribute.
 	 * @see #setAccountNumber(String)
 	 * @see ordersystem.OrderSystemPackage#getAccount_AccountNumber()
-	 * @model 
+	 *
 	 * @generated
 	 */
     String getAccountNumber();

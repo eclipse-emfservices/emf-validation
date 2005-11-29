@@ -20,7 +20,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  *  {@link org.eclipse.emf.validation.service.IModelConstraintProvider}
  *  in order to provide live/batch validation constraints.
  * 
- * @author cmcgee
+ * @author Chris McGee (cmcgee)
  */
 public abstract class ModelConstraint
 	implements IModelConstraint {
