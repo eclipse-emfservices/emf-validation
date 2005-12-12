@@ -1,0 +1,255 @@
+<project default="run">
+	<target name="init">
+
+		<!-- new 040216 to resolve jar dependencies in using IBM JDK (core.jar + *.jar) instead of Sun JDK (rt.jar) -->
+		<path id="bc">
+			<fileset dir="${java.home}/lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+		<property name="bootclasspath" refid="bc" />
+
+		<property name="buildingOSGi" value="true" />
+		<property name="collectingFolder" value="eclipse" />
+		<property name="archivePrefix" value="eclipse" />
+
+		<!-- Reduce the amount of info in the build log -->
+		<property name="javacVerbose" value="false" />
+
+		<property name="buildDirectory" location="${basedir}/../src/eclipse" />
+		<property file="${basedir}/repoInfo.properties" />
+		<property name="testBase" location="${buildDirectory}/../testing" />
+		<available file="${buildDirectory}/label.properties" property="label.properties.exists" />
+		<antcall target="create.label.properties" />
+		<property file="${buildDirectory}/label.properties" />
+		
+		<echo message="buildAll.xml properties:"/>
+		<echo message="basedir = ${basedir}"/>
+
+		<!-- load a value for ${subprojectName} -->
+		<property name="transientPropertiesFile" value="${basedir}/../eclipse/transientProperties.txt" />
+		<available file="${transientPropertiesFile}" type="file" property="transientPropertiesIsAvailable" />
+		<fail message="Can't load transient properties from ${transientPropertiesFile}" unless="transientPropertiesIsAvailable"/>
+		<property file="${transientPropertiesFile}" />
+
+		<property name="buildConfigFile" value="${basedir}/maps/org.eclipse.emft.${subprojectName}/build.cfg"/>
+		<available file="${buildConfigFile}" type="file" property="buildConfigIsAvailable" />
+		<fail message="Can't load build properties from ${buildConfigFile}" unless="buildConfigIsAvailable"/>
+		<property file="${buildConfigFile}" />
+
+		<echo message="buildVer = ${buildVer}"/>
+		<echo message="subprojectName = ${subprojectName}"/>
+
+		<!-- <echo message="Base OS: ${baseos}; Base Window System: ${basews}"/> -->
+		<condition property="isWindows">
+			<equals arg1="${baseos}.${basews}" arg2="win32.win32" />
+		</condition>
+		<condition property="isLinuxGTK">
+			<equals arg1="${baseos}.${basews}" arg2="linux.gtk" />
+		</condition>
+		<condition property="isLinuxMotif">
+			<equals arg1="${baseos}.${basews}" arg2="linux.motif" />
+		</condition>
+
+		<!-- build emft.common.build.jar -->
+		<property name="subprojectName" value="foo"/>
+		<property name="projBuilderDir" location="${buildDirectory}/../org.eclipse.emft.${subprojectName}.releng" />
+		<ant antfile="${projBuilderDir}/org.eclipse.emft.common.build/build.xml" inheritall="false" 
+			dir="${projBuilderDir}/org.eclipse.emft.common.build" />
+	</target>
+
+	<target name="create.label.properties" unless="label.properties.exists">
+		<mkdir dir="${buildDirectory}" />
+		<tstamp />
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="I" />
+
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}${timestamp}" />
+
+		<property name="buildAlias" value="${buildLabel}" />
+		<property name="buildId" value="${buildAlias}" />
+
+		<!--store the build label information in a file-->
+		<echo file="${buildDirectory}/label.properties" append="true">
+		buildType=${buildType}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true">
+		buildId=${buildId}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true">
+		timestamp=${timestamp}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true">
+		buildLabel=${buildLabel}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true">
+		buildAlias=${buildAlias}
+		</echo>
+	</target>
+
+	<target name="run" depends="init">
+		<antcall target="runAll" />
+		<antcall target="cleanUp" />
+	</target>
+
+	<target name="runTestsOnly" depends="init">
+		<antcall target="runTestsOnlySetup" />
+		<antcall target="test" />
+		<antcall target="publish" />
+	</target>
+
+	<!-- make sure everything's in the right place(s) -->
+	<target name="runTestsOnlySetup">
+		<delete dir="${buildDirectory}" />
+		<mkdir dir="${buildDirectory}/${buildLabel}" />
+		<copy todir="${buildDirectory}/${buildLabel}">
+			<fileset dir="${buildDirectory}/..">
+				<include name="**/*.zip" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="runWithoutTest" depends="init">
+		<antcall target="buildAll" />
+		<antcall target="publish" />
+
+		<property name="indexFileName" value="index.html" />
+		<property name="result" value="${buildDirectory}/${buildLabel}" />
+		<replace file="${result}/${indexFileName}">
+			<replacefilter token="pending" value="skipped" />
+		</replace>
+
+		<antcall target="cleanUp" />
+	</target>
+
+	<target name="runAll" depends="init">
+		<antcall target="buildAll" />
+		<antcall target="test" />
+		<antcall target="publish" />
+	</target>
+
+	<target name="build" depends="init">
+		<antcall target="buildAll" />
+		<antcall target="cleanUp" />
+	</target>
+
+	<target name="buildAll" depends="init">
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="builder/sdk" />
+		</ant>
+
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="builder/runtime" />
+		</ant>
+
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="builder/examples" />
+		</ant>
+
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="builder/tests" />
+		</ant>
+
+		<!-- doc must be the last execution -->
+
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="builder/doc" />
+		</ant>
+
+		<!-- md5 files generation -->
+
+		<exec executable="bash" dir="${buildDirectory}/${buildLabel}">
+			<arg line="${basedir}/../org.eclipse.emft.common.releng/scripts/createZipCheckSum.sh" />
+		</exec>
+	</target>
+
+	<target name="cleanUp">
+		<echo message="** Copying generated zips to drop folder... **" />
+		<copy todir="${buildDirectory}/.." failonerror="false" overwrite="true">
+			<fileset dir="${buildDirectory}/${buildLabel}" />
+		</copy>
+	</target>
+
+	<!-- 
+	<target name="cleanUp">
+		<move todir="${buildDirectory}/.." failonerror="false" overwrite="true">
+        	<fileset dir="${buildDirectory}/${buildLabel}"/>
+		</move>
+		<delete dir="${buildDirectory}"/>
+	</target>
+-->
+
+	<target name="test" depends="init">
+		<property name="test.xml" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/test.xml" />
+		<antcall target="test-win32-local" />
+		<antcall target="test-linux-gtk-local" />
+		<antcall target="test-linux-motif-local" />
+	</target>
+
+	<target name="test-win32-local" if="isWindows">
+		<ant antfile="${test.xml}">
+			<property name="shell" value="relengbuildwin2.bat" />
+			<property name="tester" value="${basedir}/builder/tests/configs/local" />
+		</ant>
+	</target>
+
+	<target name="test-linux-gtk-local" if="isLinuxGTK">
+		<ant antfile="${test.xml}">
+			<property name="shell" value="relengbuildgtk.sh" />
+			<property name="tester" value="${basedir}/builder/tests/configs/local" />
+		</ant>
+	</target>
+
+	<target name="test-linux-motif-local" if="isLinuxMotif">
+		<ant antfile="${test.xml}">
+			<property name="shell" value="relengbuildmotif.sh" />
+			<property name="tester" value="${basedir}/builder/tests/configs/local" />
+		</ant>
+	</target>
+
+	<target name="publish" depends="init">
+		<property name="publish.xml" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
+
+		<property name="indexFileName" value="index.html" />
+		<property name="result" value="${buildDirectory}/${buildLabel}" />
+
+		<ant antfile="${publish.xml}" dir="${basedir}">
+			<property name="dropTokenList" value="%${subprojectName}runtime%,%${subprojectName}sdk%,%${subprojectName}tests%,%${subprojectName}examples%" />
+			<property name="isBuildTested" value="true" />
+		</ant>
+
+		<!--  Insert url for supported eclipse drop-->
+		<replace file="${result}/${indexFileName}">
+			<replacefilter token="@eclipseFile@" value="${eclipseFile}" />
+			<replacefilter token="@eclipseURL@" value="${eclipseURL}" />
+			<replacefilter token="@eclipseBuildURL@" value="${eclipseBuildURL}" />
+
+			<replacefilter token="@emfFile@" value="${emfFile}" />
+			<replacefilter token="@emfURL@" value="${emfURL}" />
+			<replacefilter token="@emfBuildURL@" value="${emfBuildURL}" />
+
+			<replacefilter token="@oclFile@" value="${oclFile}" />
+			<replacefilter token="@oclURL@" value="${oclURL}" />
+			<replacefilter token="@oclBuildURL@" value="${oclBuildURL}" />
+
+			<replacefilter token="@uml2File@" value="${uml2File}" />
+			<replacefilter token="@uml2URL@" value="${uml2URL}" />
+			<replacefilter token="@uml2BuildURL@" value="${uml2BuildURL}" />
+		</replace>
+		<antcall target="doExtraReplacements" />
+
+		<exec executable="bash" dir="${basedir}/../org.eclipse.emft.common.releng/scripts">
+			<arg line="./setSizes.sh ${buildDirectory}/${buildLabel} ${result}/${indexFileName}" />
+		</exec>
+	</target>
+
+	<target name="doExtraReplacements" if="transientPropertiesIsAvailable">
+		<echo message="@buildVer@ = ${buildVer}" />
+		<replace file="${result}/${indexFileName}">
+			<replacefilter token="@buildVer@" value="${buildVer}" />
+		</replace>
+	</target>
+</project>

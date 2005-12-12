@@ -1,0 +1,26 @@
+!***************  EMFT CONTRIBUTION  ******************************************************** 
+
+!*** Special entries from eclipse
+
+plugin@org.eclipse.test=v20050319,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
+fragment@org.eclipse.ant.optional.junit=v20050226,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
+
+!*** Default entries
+
+feature@org.eclipse.emf.query.sdk=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query-feature/org.eclipse.emf.query.sdk
+
+!*** EMFT plugins, features and fragments
+
+plugin@org.eclipse.emf.query=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query
+feature@org.eclipse.emf.query=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query-feature
+plugin@org.eclipse.emf.query.ocl=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query.ocl
+feature@org.eclipse.emf.query.ocl=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query.ocl-feature
+plugin@org.eclipse.emf.query.examples=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/examples/org.eclipse.emf.query.examples
+feature@org.eclipse.emf.query.examples=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/examples/org.eclipse.emf.query.examples-feature
+plugin@org.eclipse.emf.query.examples.ocl=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/examples/org.eclipse.emf.query.examples.ocl
+plugin@org.eclipse.emf.query.examples.adapter=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/examples/org.eclipse.emf.query.examples.adapter
+plugin@org.eclipse.emf.query.ocl.tests=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/tests/org.eclipse.emf.query.ocl.tests
+plugin@org.eclipse.emf.query.tests=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/tests/org.eclipse.emf.query.tests
+feature@org.eclipse.emf.query.tests=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/tests/org.eclipse.emf.query.tests-feature
+plugin@org.eclipse.emf.query.doc=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/doc/org.eclipse.emf.query.doc
+feature@org.eclipse.emf.query.doc=build_200512100257,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/doc/org.eclipse.emf.query.doc-feature

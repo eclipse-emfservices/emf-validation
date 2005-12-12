@@ -1,0 +1,180 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.eclipse.org/default_style.css" type="text/css">
+<title>EMFT - Download</title>
+</head>
+<body>
+&nbsp;
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%" >
+  <tr>
+    <td align="LEFT" width="80%">
+      <p><b><font face="Verdana" size="+3">@type@ Build: @build@</font></b><br>
+        @date@ </p>
+      <p>These downloads are provided under the <a href="http://www.eclipse.org/legal/notice.html">Eclipse.org
+        Software User Agreement</a>.</p>
+
+<p>To view the Release Notes for this Build click <a href="http://www.eclipse.org/emft/news/release-notes.xml">here</a>.<br>
+To view the Test Results and Compile Logs for this build click <a href="testResults.php">here</a>.<BR>
+To view the Map File Entries for this Build click <a href="directory.txt">here</a>.<br>
+To view the Overall Build Log for this Build click <a href="buildlog.txt">here</a>.<br>
+
+<p> Click <a href="verifyMD5.html">here</a> for instructions on how to verify the integrity of your downloads.</p></td></tr>
+
+</td>
+  </tr>
+</table>
+
+<br/>
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b><font face="Arial,Helvetica" color="#FFFFFF">Requirements</font></b></td>
+	</tr>
+	<tr><td>
+		<br/>
+		EMFT Validation requires Eclipse, EMF and EMFT OCL to run, and UML2 for its tests.
+		The Eclipse driver used in this build was <a href="@eclipseURL@">@eclipseFile@</a> - for details on this driver or to download it
+		for your platform, check out its <a href="@eclipseBuildURL@">build page</a>. <br/>
+		The EMF build was <a href="@emfURL@">@emfFile@</a> from this <a href="@emfBuildURL@">build page</a>. <br/> 
+		The OCL build was <a href="@oclURL@">@oclFile@</a> from this <a href="@oclBuildURL@">build page</a>. <br/>
+		The UML2 build was <a href="@uml2URL@">@uml2File@</a> from this <a href="@uml2BuildURL@">build page</a>.
+	</td></tr>
+</table>
+
+<table border=0 cellspacing=5 cellpadding=2 width="100%" >
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+
+
+<!-- SDK -->
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b><font face="Arial,Helvetica" color="#FFFFFF">SDK</font></b></td>
+	</tr>
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3">
+			This download is the developer's SDK.  It contains the runtime plug-ins, source, and documentation
+			for developers that want to extend and use EMFT.
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%" bordercolor="#999999">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+			<div align="LEFT"><b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+%validationsdk%
+	</tr>
+ </table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+
+
+<!-- Runtime -->
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b><font face="Arial,Helvetica" color="#FFFFFF">Runtime</font></b></td>
+	</tr>
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3">
+			This download is the runtime EMFT installation.  It contains the binary feature and plug-ins.
+			There is no source nor developer files. It is to be used for the typical customer installation.
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%" bordercolor="#999999">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+			<div align="LEFT"><b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+%validationruntime%
+	</tr>
+ </table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+
+
+<!-- Automated Tests -->
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">Automated Tests</font></b></td>
+	</tr>
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3">
+			This download contains the JUnit tests for the EMFT plug-ins.
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%" bordercolor="#999999">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+			<div align="LEFT"><b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+%validationtests%
+	</tr>
+ </table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+
+
+<!-- Examples -->
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP"  colspan="3" bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">Examples</font></b></td>
+	</tr>
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3">
+			This download contains the examples for EMFT. It includes source.
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%" bordercolor="#999999">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+			<div align="LEFT"><b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+%validationexamples%
+	</tr>
+ </table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+
+
+<p>&nbsp;</p>
+</body>
+</html>
