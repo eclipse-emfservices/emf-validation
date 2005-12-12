@@ -62,7 +62,7 @@
 		<move file="${eclipse-home}/plugins/${testPlugin}.jar" tofile="${eclipse-home}/plugins/${testPlugin}_.jar"/>
 		<unjar src="${eclipse-home}/plugins/${testPlugin}_.jar" dest="${eclipse-home}/plugins/${testPlugin}"/>
 		<delete file="${eclipse-home}/plugins/${testPlugin}_.jar"/>
-		<echo message="Running text.xml from jarfile ${eclipse-home}/plugins/${testPlugin} ... "/>
+		<echo message="Running test.xml from jarfile ${eclipse-home}/plugins/${testPlugin} ... "/>
 		<ant antfile="${eclipse-home}/plugins/${testPlugin}/test.xml" dir="${eclipse-home}"/>
 		<copy file="${eclipse-home}/${report}.xml" tofile="${results}/xml/${report}_${platform}.xml" />
 	</target>
