@@ -66,7 +66,8 @@ fi
 
 execCmd () 
 {
-	echo ""; echo "[runtests] [`date +%H\:%M\:%S`]"; echo "  $1" | sed -e 's/\ \-/\�\ \ \ \ \-/g' | tr "�" "\n"; echo "";
+	echo ""; echo "[runtests] [`date +%H\:%M\:%S`]"; 
+	for c in $1; do echo "  "$c; echo -n "  "; done; echo "";
 	$1;
 }
 
