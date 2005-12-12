@@ -66,7 +66,7 @@ fi
 
 execCmd () 
 {
-	echo ""; echo "[runtests] [`date +%H\:%M\:%S`]"; echo "  $1" | sed -e 's/\ \-/\¶\ \ \ \ \-/g' | tr "¶" "\n"; echo "";
+	echo ""; echo "[runtests] [`date +%H\:%M\:%S`]"; echo "  $1" | sed -e 's/\ \-/\ï¿½\ \ \ \ \-/g' | tr "ï¿½" "\n"; echo "";
 	$1;
 }
 
@@ -115,8 +115,8 @@ then
 	done
 
 	# run tests
-	echo "[runtests] [`date +%H\:%M\:%S`] Launching Eclipse (installmode = $installmode) ..."
-	execCmd "$vm $Xflags -cp $cp org.eclipse.core.launcher.Main -noupdate -ws $ws -os $os -arch $arch -application org.eclipse.ant.core.antRunner -data $workspaceDir -file test.xml $Dflags -Dws=$ws -Dos=$os -Darch=$arch -D$installmode=true $properties -logger org.apache.tools.ant.DefaultLogger";
+	echo "[runtests] [`date +%H\:%M\:%S`] Launching Eclipse (installmode = $installmode with -enableassertions turned on) ..."
+	execCmd "$vm $Xflags -enableassertions -cp $cp org.eclipse.core.launcher.Main -noupdate -ws $ws -os $os -arch $arch -application org.eclipse.ant.core.antRunner -data $workspaceDir -file test.xml $Dflags -Dws=$ws -Dos=$os -Darch=$arch -D$installmode=true $properties -logger org.apache.tools.ant.DefaultLogger";
 	echo "[runtests] [`date +%H\:%M\:%S`] Eclipse test run completed. "
 	
 	# display message to user if os, ws and arch are invalid
