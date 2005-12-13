@@ -57,6 +57,10 @@
 		</unzip>
 		
 		<echo message="Copy antlr.jar into plugins/antlr/lib ..."/>
+		<move todir="${install}/eclipse/plugins">
+			<fileset dir="${install}/eclipse/plugins"><include name="**/antlr_*"/></fileset>
+			<mapper type="regexp" from="antlr_*" to="antlr"/>
+		</move>
 		<copy 
 			todir="${install}/eclipse/plugins/antlr/lib" 
 			file="${downloadsDir}/antlr.jar" failonerror="true"/>
