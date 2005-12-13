@@ -55,6 +55,11 @@
 		<unzip dest="${install}" overwrite="true">
 		    <fileset dir="${dir}"><include name="**/emft-*.zip"/></fileset>
 		</unzip>
+		
+		<echo message="Copy antlr.jar into plugins/antlr/lib ..."/>
+		<copy 
+			todir="${install}/eclipse/plugins/antlr/lib" 
+			file="${downloadsDir}/antlr.jar" failonerror="true"/>
 	</target>
 
 	<target name="runtests" depends="setup" description="Runs ant on the test.xml for a specified plugin.  Requires a property value setting for testPlugin only if test.properties is not available.  The property testPlugin represents a directory name made up of the plugin id and plugin version.  This directory must contain a valid test.xml.">
