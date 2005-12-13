@@ -60,9 +60,9 @@
 		<property name="antlr.targ" value="${install}/eclipse/plugins/antlr"/>
 
 		<delete dir="${antlr.targ}" quiet="true"/>
-		<mkdir dir="${antlr.targ}/lib" quiet="true"/>
-		<mkdir dir="${antlr.targ}/META-INF" quiet="true"/>
-		<copy todir="${antlr.targ}/META-INF" quiet="true">
+		<mkdir dir="${antlr.targ}/lib"/>
+		<mkdir dir="${antlr.targ}/META-INF"/>
+		<copy todir="${antlr.targ}/META-INF">
 			<fileset dir="${install}/eclipse/plugins">
 				<include name="antlr_*/**/MANIFEST.MF"/>
 			</fileset>
