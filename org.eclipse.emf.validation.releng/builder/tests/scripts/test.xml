@@ -57,13 +57,21 @@
 		</unzip>
 		
 		<echo message="Copy antlr.jar into plugins/antlr/lib ..."/>
-		<move todir="${install}/eclipse/plugins">
-			<dirset dir="${install}/eclipse/plugins"><include name="**/antlr_*"/></dirset>
-			<mapper type="regexp" from="antlr_*" to="antlr"/>
-		</move>
-		<copy 
-			todir="${install}/eclipse/plugins/antlr/lib" 
-			file="${downloadsDir}/antlr.jar" failonerror="true"/>
+		<property name="antlr.targ" value="${install}/eclipse/plugins/antlr"/>
+
+		<delete dir="${antlr.targ}" quiet="true"/>
+		<mkdir dir="${antlr.targ}/lib" quiet="true"/>
+		<mkdir dir="${antlr.targ}/META-INF" quiet="true"/>
+		<copy todir="${antlr.targ}/META-INF" quiet="true">
+			<fileset dir="${install}/eclipse/plugins">
+				<include name="antlr_*/**/MANIFEST.MF"/>
+			</fileset>
+			<flattenmapper/>
+		</copy>
+		<delete quiet="true">
+			<fileset dir="${install}/eclipse/plugins"><include name="antlr_*/**"/></fileset>
+		</delete>		
+		<copy todir="${antlr.targ}/lib" file="${downloadsDir}/antlr.jar" failonerror="true"/>
 	</target>
 
 	<target name="runtests" depends="setup" description="Runs ant on the test.xml for a specified plugin.  Requires a property value setting for testPlugin only if test.properties is not available.  The property testPlugin represents a directory name made up of the plugin id and plugin version.  This directory must contain a valid test.xml.">
