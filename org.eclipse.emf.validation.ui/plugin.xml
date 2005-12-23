@@ -24,7 +24,6 @@
          point="org.eclipse.ui.preferencePages">
       <page
             name="%page.constraints.title"
-            category="org.eclipse.gmf.runtime.emf.ui.validation"
             class="org.eclipse.emf.validation.ui.internal.preferences.ConstraintsPreferencePage"
             id="org.eclipse.emf.validation.constraintsPrefs">
       </page>
