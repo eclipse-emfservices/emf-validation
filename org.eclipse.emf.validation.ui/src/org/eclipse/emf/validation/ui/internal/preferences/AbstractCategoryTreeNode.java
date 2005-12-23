@@ -151,6 +151,15 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 			currentChildren[i].revertFromPreferences();
 		}
 	}
+
+	// implements the inherited method
+	public void restoreDefaults() {
+		ICategoryTreeNode[] currentChildren = getChildren();
+		
+		for (int i = 0; i < currentChildren.length; i++) {
+			currentChildren[i].restoreDefaults();
+		}
+	}
 	
 	// implements the inherited method
 	public String getDescription() {

@@ -150,4 +150,9 @@ interface ICategoryTreeNode {
 	 * preferences.
 	 */
 	void revertFromPreferences();
+
+	/**
+	 * Restores, recursively, my state to the default.
+	 */
+	void restoreDefaults();
 }

@@ -226,6 +226,14 @@ public class ConstraintNode
 			constraint.getId()));
 	}
 
+	/* (non-Javadoc)
+	 * Implements the inherited method.
+	 */
+	public void restoreDefaults() {
+		setChecked(!EMFModelValidationPreferences.isConstraintDisabledByDefault(
+				constraint.getId()));
+	}
+
 	/**
 	 * Informs the categories that include me that my checked state has changed.
 	 * This allows them to update theirs, to match.

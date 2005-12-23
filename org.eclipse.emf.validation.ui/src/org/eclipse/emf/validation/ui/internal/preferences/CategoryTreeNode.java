@@ -431,6 +431,26 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 		super.revertFromPreferences();
 	}
 	
+	// extends the inherited method
+	public void restoreDefaults() {
+		if (!hasDelegate()) {
+			IConstraintNode node = null;
+			
+			for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
+				node = (IConstraintNode) iter.next();
+				
+				node.restoreDefaults();
+			}
+			
+			if (node != null) {
+				// force a recomputation of my check state
+				updateCheckState(node);
+			}
+		}
+		
+		super.restoreDefaults();
+	}
+	
 	/**
 	 * Extends the superclass method to return <code>null</code> if I have
 	 * a child node to which I delegate my own category's constraints.

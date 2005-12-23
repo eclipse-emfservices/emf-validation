@@ -136,4 +136,9 @@ interface IConstraintNode {
 	 * Reverts my state from the current constraint enablement preferences.
 	 */
 	void revertFromPreferences();
+
+	/**
+	 * Restores my state to the default.
+	 */
+	void restoreDefaults();
 }

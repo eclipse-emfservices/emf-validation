@@ -54,6 +54,17 @@ public class EMFModelValidationPreferences {
 	}
 
 	/**
+	 * Queries whether the specified constraint <code>ID</code> is disabled
+	 * by default.
+	 * 
+	 * @param id the constraint ID
+	 * @return whether it is disabled
+	 */
+	public static boolean isConstraintDisabledByDefault(String id) {
+		return prefs.getDefaultBoolean(CONSTRAINT_DISABLED_PREFIX + id);
+	}
+
+	/**
 	 * Sets whether the specified constraint <code>id</code> is disabled.
 	 * 
 	 * @param id the constraint ID

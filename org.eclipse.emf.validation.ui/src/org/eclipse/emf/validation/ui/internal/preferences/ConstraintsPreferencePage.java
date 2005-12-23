@@ -550,8 +550,8 @@ public class ConstraintsPreferencePage
 	
 	// extends the inherited method
 	protected void performDefaults() {
-		rootcategory.revertFromPreferences();
-		
+		rootcategory.restoreDefaults();
+
 		super.performDefaults();
 	}
 	
