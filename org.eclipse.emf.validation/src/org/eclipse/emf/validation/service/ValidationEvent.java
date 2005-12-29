@@ -33,6 +33,8 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 public final class ValidationEvent
 	extends EventObject {
 
+	private static final long serialVersionUID = -7900125537603879206L;
+	
 	private final EvaluationMode mode;
 	private final Map clientData;
 	private final IStatus status;

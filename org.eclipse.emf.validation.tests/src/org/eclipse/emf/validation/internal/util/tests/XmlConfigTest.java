@@ -74,7 +74,7 @@ public class XmlConfigTest extends TestCase {
 		// the <include> element is replaced by a single <constraint> element
 		assertEquals(1, children.length);
 		assertEquals(XmlConfig.E_CONSTRAINT, children[0].getName());
-		assertEquals(TEST_ID, children[0].getAttribute(XmlConfig.A_ID)); //$NON-NLS-1$
+		assertEquals(TEST_ID, children[0].getAttribute(XmlConfig.A_ID));
 		assertEquals("OCL", children[0].getAttribute(XmlConfig.A_LANG)); //$NON-NLS-1$
 		assertEquals("1", children[0].getAttribute(XmlConfig.A_STATUS_CODE)); //$NON-NLS-1$
 		assertEquals("true", children[0].getValue()); //$NON-NLS-1$
@@ -103,6 +103,6 @@ public class XmlConfigTest extends TestCase {
 		
 		// the <include> element is replaced by a single <constraint> element
 		assertTrue("Not enough child elements", children.length > 0); //$NON-NLS-1$
-		assertEquals(TEST_NAME, children[0].getAttribute(XmlConfig.A_NAME)); //$NON-NLS-1$
+		assertEquals(TEST_NAME, children[0].getAttribute(XmlConfig.A_NAME));
 	}
 }

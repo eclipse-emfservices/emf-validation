@@ -34,6 +34,8 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * @author Christian W. Damus (cdamus)
  */
 public final class EvaluationMode implements Serializable {
+	private static final long serialVersionUID = -2088295328444150344L;
+	
 	static final String LIVE_MODE = ValidationMessages.mode_live;
 	static final String BATCH_MODE = ValidationMessages.mode_batch;
 	static final String NULL_MODE = ValidationMessages.mode_unknown;

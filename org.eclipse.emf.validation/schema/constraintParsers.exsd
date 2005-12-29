@@ -55,7 +55,7 @@ constraints encoded in a particular language from an XML &lt;constraints/&gt; do
                <documentation>
                   Indicates the constraint language which this builder supports.
 
-This matches values of the &quot;lang&quot; attribute in &lt;Constraint&gt; elements in XML constraint declarations.
+This matches values of the &quot;lang&quot; attribute in &lt;Constraint/&gt; elements in XML constraint declarations.
 The language is not case-sensitive.
                </documentation>
             </annotation>

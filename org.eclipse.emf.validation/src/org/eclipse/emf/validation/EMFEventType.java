@@ -32,6 +32,8 @@ import org.eclipse.emf.common.notify.Notification;
  * @author Christian W. Damus (cdamus)
  */
 public final class EMFEventType implements Serializable {
+	private static final long serialVersionUID = 5785536193334824240L;
+
 	private static int nextOrdinal = 0;
 
 	/**

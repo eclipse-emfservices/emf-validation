@@ -33,6 +33,8 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * @author Christian W. Damus (cdamus)
  */
 public final class ConstraintSeverity implements Serializable {
+	private static final long serialVersionUID = -5310833954198275258L;
+
 	private static int nextOrdinal = 0;
 
 	/**

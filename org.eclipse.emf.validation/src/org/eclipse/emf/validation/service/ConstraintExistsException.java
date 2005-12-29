@@ -20,6 +20,8 @@ package org.eclipse.emf.validation.service;
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintExistsException extends Exception {
+	private static final long serialVersionUID = 5637732649693164987L;
+
 	/**
 	 * Initializes me with a message.
 	 * 

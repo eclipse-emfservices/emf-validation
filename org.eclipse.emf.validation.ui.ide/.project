@@ -3,8 +3,6 @@
 	<name>org.eclipse.emf.validation.ui.ide</name>
 	<comment></comment>
 	<projects>
-		<project>org.eclipse.gmf.runtime.common.core</project>
-		<project>org.eclipse.emf.validation</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

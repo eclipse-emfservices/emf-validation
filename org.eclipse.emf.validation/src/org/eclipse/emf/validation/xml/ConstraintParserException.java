@@ -25,6 +25,8 @@ package org.eclipse.emf.validation.xml;
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintParserException extends Exception {
+	private static final long serialVersionUID = -341693432752691706L;
+
 	/**
 	 * Initializes me with a user-friendly message but no cause.
 	 * 

@@ -140,6 +140,8 @@ public interface ITraversalStrategy {
 		 */
 		protected Iterator createIterator(Collection ignored) {
 			return new EcoreUtil.ContentTreeIterator(getRoots()) {
+				private static final long serialVersionUID = -5653134989235663973L;
+
 				public Iterator getChildren(Object obj) {
 					if (obj == getRoots()) {
 						return new Iterator() {
