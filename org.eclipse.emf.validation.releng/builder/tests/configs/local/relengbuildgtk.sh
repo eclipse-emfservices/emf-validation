@@ -18,7 +18,7 @@ echo " running as $USERNAME";
 Xflags="";
 Dflags="";
 
-# default target to run in org.eclipse.emf.releng.build/tests/scripts/test.xml (as called by tests/scripts/runtests, below)
+# default target to run in org.eclipse.emft/releng/[subproject]/builder/tests/scripts/test.xml (as called by tests/scripts/runtests, below)
 antTestTarget=all
 
 # process command line arguments
