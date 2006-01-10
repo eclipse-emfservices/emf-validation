@@ -46,19 +46,19 @@
 	
    <logFile name="plugins/org.eclipse.emf.validation_*/*.bin.log">
       <effectedFile id="SDK"></effectedFile>
-      <effectedFile id="UML2RUN"></effectedFile>
+      <effectedFile id="projRUN"></effectedFile>
    </logFile>
    <logFile name="plugins/org.eclipse.emf.validation.ocl_*/*.bin.log">
       <effectedFile id="SDK"></effectedFile>
-      <effectedFile id="UML2RUN"></effectedFile>
+      <effectedFile id="projRUN"></effectedFile>
    </logFile>
    <logFile name="plugins/org.eclipse.emf.validation.ui_*/*.bin.log">
       <effectedFile id="SDK"></effectedFile>
-      <effectedFile id="UML2RUN"></effectedFile>
+      <effectedFile id="projRUN"></effectedFile>
    </logFile>
    <logFile name="plugins/org.eclipse.emf.validation.ui.ide_*/*.bin.log">
       <effectedFile id="SDK"></effectedFile>
-      <effectedFile id="UML2RUN"></effectedFile>
+      <effectedFile id="projRUN"></effectedFile>
    </logFile>
    <logFile name="plugins/org.eclipse.emf.validation.examples_*/*.bin.log">
       <effectedFile id="EX"></effectedFile>
