@@ -126,16 +126,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	
 	/** Key for list separator. */
 	private static final String LIST_SEPARATOR = ValidationMessages.list_separator;
-	
-	/** Ksy for list separator only. */
-	private static final String LIST_SEPARATOR_ONLY = ValidationMessages.list_separator_only;
-	
-	/** Key for first list separator. */
-	private static final String LIST_SEPARATOR_FIRST = ValidationMessages.list_separator_first;
-	
-	/** Key for last list separator. */
-	private static final String LIST_SEPARATOR_LAST = ValidationMessages.list_separator_last;
-	
+		
 	/** Key for list prefix. */
 	private static final String LIST_PREFIX = ValidationMessages.list_prefix;
 	
@@ -755,9 +746,9 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		for (int i = 0; i <= max; i++) {
 			if (i == 1) {
-				result.append(getString(LIST_SEPARATOR_FIRST, sep));
+				result.append(getString(LIST_SEPARATOR, sep));
 			} else if (i == max) {
-				result.append(getString(LIST_SEPARATOR_LAST, sep));
+				result.append(getString(LIST_SEPARATOR, sep));
 			} else if (i > 1) {
 				result.append(sep);
 			}
@@ -792,11 +783,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		result.append(iter.next());
 
-		result.append(getString(
-						LIST_SEPARATOR_ONLY,
-						getString(
-								LIST_SEPARATOR,
-								DEFAULT_LIST_SEPARATOR)));
+		result.append(getString(LIST_SEPARATOR, DEFAULT_LIST_SEPARATOR));
 
 		result.append(iter.next());
 

@@ -23,9 +23,6 @@ public class ValidationMessages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.emf.validation.internal.l10n.ValidationMessages"; //$NON-NLS-1$
 
 	public static String list_separator;
-	public static String list_separator_only;
-	public static String list_separator_first;
-	public static String list_separator_last;
 	public static String list_prefix;
 	public static String list_suffix;
 	public static String category_default_name;
