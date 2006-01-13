@@ -75,7 +75,7 @@
 		<property name="isUnpackedFile" value="${buildDirectory}/plugins/org.eclipse.emf.ecore/plugin.xml"/>
 	</ant>
 	<ant target="getDependency" antfile="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml">
-		<property name="url" value="${emfBuildURL}/${emfExamplesFile}"/>
+		<property name="url" value="${emfExamplesURL}"/>
 		<property name="file" value="${emfExamplesFile}"/>
 		<property name="isUnpackedFile" value="${buildDirectory}/plugins/org.eclipse.emf.examples/plugin.xml"/>
 	</ant>

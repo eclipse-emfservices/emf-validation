@@ -36,7 +36,7 @@
 			<property name="unpackDest" value="${install}"/>
 		</ant>
 		<ant target="getTestDependency" antfile="${getTestDependencies.xml}" dir="${basedir}/../../../org.eclipse.emft.common.releng">
-			<property name="url" value="${emfBuildURL}/${emfExamplesFile}"/>
+			<property name="url" value="${emfExamplesURL}"/>
 			<property name="file" value="${emfExamplesFile}"/>
 			<property name="unpackDest" value="${install}"/>
 		</ant>
