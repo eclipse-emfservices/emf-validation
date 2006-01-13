@@ -37,39 +37,34 @@ To view the Overall Build Log for this Build click <a href="buildlog.txt">here</
 	</tr>
 	<tr><td>
 		<br/>
-		The EMFT @subprojectName@ subproject requires Eclipse, EMF and EMFT OCL to run, and UML2 for its tests.  
+		The EMFT @subprojectName@ project requires Eclipse, EMF and EMFT OCL to run, and UML2 for its tests.  
 		For details on these dependencies, or to download them for your platform, 
 		use the links below to access your nearest mirror.<br/>
-		<table>
+		<table border="0" cellspacing="5" cellpadding="2" width="100%">
 			<tr>
 				<td><b>Project Home</b></td>
-				<td><b>Driver</b></td>
-				<td><b>Build URL</b></td>
-				<td><b>Downloads URL</b></td>
+				<td><b>Download</b></td>
+				<td><b>Build Details &amp; Other Downloads</b></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/eclipse">Eclipse</a></td>
-				<td>@eclipseFile@</td>
-				<td><a href="@eclipseDownloadURL@@eclipseDropFile@">Build URL</a></td>
-				<td><a href="@eclipseDownloadURL@@eclipseBuildURL@">Downloads URL</a></td>
+				<td><a href="http://eclipse.org/eclipse/">Eclipse</a></td>
+				<td><a href="@eclipseDownloadURL@@eclipseDropFile@">@eclipseFile@</a></td>
+				<td><a href="@eclipseDownloadURL@@eclipseBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/emf">EMF</a></td>
-				<td>@emfFile@</td>
-				<td><a href="@eclipseDownloadURL@@emfDropFile@">Build URL</a></td>
-				<td><a href="@eclipseDownloadURL@@emfBuildURL@">Downloads URL</a></td>
+				<td><a href="http://eclipse.org/emf/">EMF</a></td>
+				<td><a href="@eclipseDownloadURL@@emfDropFile@">@emfFile@</a></td>
+				<td><a href="@eclipseDownloadURL@@emfBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
 				<td><a href="http://eclipse.org/emft/?proj=ocl">EMFT OCL</a></td>
-				<td>@oclFile@</td>
-				<td><a href="@eclipseDownloadURL@@oclDropFile@">Build URL</a></td>
-				<td><a href="@eclipseDownloadURL@@oclBuildURL@">Downloads URL</a></td>
+				<td><a href="@eclipseDownloadURL@@oclDropFile@">@oclFile@</a></td>
+				<td><a href="@eclipseDownloadURL@@oclBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/uml2">UML2</a></td>
-				<td>@uml2File@</td>
-				<td><a href="@eclipseDownloadURL@@uml2DropFile@">Build URL</a></td>
-				<td><a href="@eclipseDownloadURL@@uml2BuildURL@">Downloads URL</a></td>
+				<td><a href="http://eclipse.org/uml2/">UML2</a></td>
+				<td><a href="@eclipseDownloadURL@@uml2DropFile@">@uml2File@</a></td>
+				<td><a href="@eclipseDownloadURL@@uml2BuildURL@">Build Page</a></td>
 			</tr>
 		</table>
 	</td></tr>

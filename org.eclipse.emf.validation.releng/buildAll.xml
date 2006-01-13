@@ -247,7 +247,7 @@
 			<replacefilter token="@uml2DropFile@" value="${uml2DropFile}" />
 			<replacefilter token="@uml2BuildURL@" value="${uml2BuildURL}" />
 
-			<replacefilter token="@subprojectName" value="${subprojectName}" />
+			<replacefilter token="@subprojectName@" value="${subprojectName}" />
 
 			<!-- add download from mirror links -->
 			<replacefilter token="@eclipseDownloadURL@" value="${eclipseDownloadURL}" />
