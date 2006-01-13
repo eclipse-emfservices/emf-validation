@@ -232,20 +232,25 @@
 		<!--  Insert url for supported eclipse drop-->
 		<replace file="${result}/${indexFileName}">
 			<replacefilter token="@eclipseFile@" value="${eclipseFile}" />
-			<replacefilter token="@eclipseURL@" value="${eclipseURL}" />
+			<replacefilter token="@eclipseDropFile@" value="${eclipseDropFile}" />
 			<replacefilter token="@eclipseBuildURL@" value="${eclipseBuildURL}" />
 
 			<replacefilter token="@emfFile@" value="${emfFile}" />
-			<replacefilter token="@emfURL@" value="${emfURL}" />
+			<replacefilter token="@emfDropFile@" value="${emfDropFile}" />
 			<replacefilter token="@emfBuildURL@" value="${emfBuildURL}" />
 
 			<replacefilter token="@oclFile@" value="${oclFile}" />
-			<replacefilter token="@oclURL@" value="${oclURL}" />
+			<replacefilter token="@oclDropFile@" value="${oclDropFile}" />
 			<replacefilter token="@oclBuildURL@" value="${oclBuildURL}" />
 
 			<replacefilter token="@uml2File@" value="${uml2File}" />
-			<replacefilter token="@uml2URL@" value="${uml2URL}" />
+			<replacefilter token="@uml2DropFile@" value="${uml2DropFile}" />
 			<replacefilter token="@uml2BuildURL@" value="${uml2BuildURL}" />
+
+			<replacefilter token="@subprojectName" value="${subprojectName}" />
+
+			<!-- add download from mirror links -->
+			<replacefilter token="@eclipseDownloadURL@" value="${eclipseDownloadURL}" />
 		</replace>
 		<antcall target="doExtraReplacements" />
 
