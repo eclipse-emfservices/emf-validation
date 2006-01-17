@@ -89,6 +89,17 @@
 			<param name="testPlugin" value="${org.eclipse.emf.validation.tests}" />
 			<param name="report" value="org.eclipse.emf.validation.tests" />
 		</antcall>
+
+		<!-- test if chkpii script exists before proceeding -->
+		<property name="chkpii.xml" value="${basedir}/../../../org.eclipse.emft.common.releng/scripts/chkpii.xml"/>
+		<available file="${chkpii.xml}" property="chkpiiXMLAvailable"/>
+		<antcall target="runChkpii"/>
+	</target>
+
+	<target name="runChkpii" if="chkpiiXMLAvailable">
+		<ant target="chkpii" antfile="${chkpii.xml}" inheritall="true">
+			<property name="zipPattern" value="emft-*.zip"/>
+		</ant>
 	</target>
 
 	<target name="all">
