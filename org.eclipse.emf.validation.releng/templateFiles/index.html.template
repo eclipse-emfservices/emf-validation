@@ -17,7 +17,7 @@
       <p>These downloads are provided under the <a href="http://www.eclipse.org/legal/notice.html">Eclipse.org
         Software User Agreement</a>.</p>
 
-<p>To view the Release Notes for this Build click <a href="http://www.eclipse.org/emft/news/release-notes.xml">here</a>.<br>
+<p>To view the Release Notes for this Build click <a href="http://www.eclipse.org/emft/news/release-notes.php">here</a>.<br>
 To view the Test Results and Compile Logs for this build click <a href="testResults.php">here</a>.<BR>
 To view the Map File Entries for this Build click <a href="directory.txt">here</a>.<br>
 To view the Overall Build Log for this Build click <a href="buildlog.txt">here</a>.<br>
