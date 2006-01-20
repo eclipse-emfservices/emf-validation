@@ -20,5 +20,6 @@ Export-Package: org.eclipse.emf.validation,
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit,
  org.eclipse.core.expressions,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.ibm.icu
 Eclipse-LazyStart: true
