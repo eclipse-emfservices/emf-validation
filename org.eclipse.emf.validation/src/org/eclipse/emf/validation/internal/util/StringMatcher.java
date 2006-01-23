@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2002, 2005 IBM Corporation and others.
+ * Copyright (c) 2002, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,9 @@
 package org.eclipse.emf.validation.internal.util;
 
 import java.util.Vector;
+
+import com.ibm.icu.text.Normalizer;
+import com.ibm.icu.text.UTF16;
 
 /**
  * A string pattern matcher, supporting wildcard characters.
@@ -314,9 +317,12 @@ public class StringMatcher {
 	private void parseWildCards() {
 		if (fPattern.startsWith("*"))//$NON-NLS-1$
 			fHasLeadingStar = true;
-		if (fPattern.endsWith("*")) {//$NON-NLS-1$
+		// if it is equal to '*', then it clearly is not a UTF-32 surrogate
+		if (UTF16.charAt(fPattern, fLength - 1) == (int)'*') {
 			/* make sure it's not an escaped wildcard */
-			if (fLength > 1 && fPattern.charAt(fLength - 2) != '\\') {
+			// if it's a surrogate of some kind, that surrogate would not be
+			//    logically equivalent to '\\', anyway
+			if (fLength > 1 && UTF16.charAt(fPattern, fLength - 2) != (int) '\\') {
 				fHasTrailingStar = true;
 			}
 		}
@@ -326,20 +332,22 @@ public class StringMatcher {
 		int pos = 0;
 		StringBuffer buf = new StringBuffer();
 		while (pos < fLength) {
-			char c = fPattern.charAt(pos++);
+			int c = UTF16.charAt(fPattern, pos);
+			pos += UTF16.getCharCount(c);
 			switch (c) {
 				case '\\':
 					if (pos >= fLength) {
-						buf.append(c);
+						UTF16.append(buf, c);
 					} else {
-						char next = fPattern.charAt(pos++);
+						int next = UTF16.charAt(fPattern, pos);
+						pos += UTF16.getCharCount(next);
 						/* if it's an escape sequence */
 						if (next == '*' || next == '?' || next == '\\') {
-							buf.append(next);
+							UTF16.append(buf, next);
 						} else {
 							/* not an escape sequence, just insert literally */
-							buf.append(c);
-							buf.append(next);
+							UTF16.append(buf, c);
+							UTF16.append(buf, next);
 						}
 					}
 					break;
@@ -359,7 +367,7 @@ public class StringMatcher {
 					buf.append(fSingleWildCard);
 					break;
 				default:
-					buf.append(c);
+					UTF16.append(buf, c);
 			}
 		}
 
@@ -388,7 +396,7 @@ public class StringMatcher {
 		int max = end - fLength;
 
 		if (!fIgnoreCase) {
-			int i = text.indexOf(fPattern, start);
+			int i = UTF16.indexOf(text, fPattern, start);
 			if (i == -1 || i > max)
 				return -1;
 			return i;
@@ -455,8 +463,10 @@ public class StringMatcher {
 	protected boolean regExpRegionMatches(String text, int tStart, String p,
 			int pStart, int plen) {
 		while (plen-- > 0) {
-			char tchar = text.charAt(tStart++);
-			char pchar = p.charAt(pStart++);
+			int tchar = UTF16.charAt(text, tStart);
+			tStart += UTF16.getCharCount(tchar);
+			int pchar = UTF16.charAt(p, pStart);
+			pStart += UTF16.getCharCount(pchar);
 
 			/* process wild cards */
 			if (!fIgnoreWildCards) {
@@ -467,16 +477,9 @@ public class StringMatcher {
 			}
 			if (pchar == tchar)
 				continue;
-			if (fIgnoreCase) {
-				if (Character.toUpperCase(tchar) == Character
-					.toUpperCase(pchar))
-					continue;
-				// comparing after converting to upper case doesn't handle all
-				// cases;
-				// also compare after converting to lower case
-				if (Character.toLowerCase(tchar) == Character
-					.toLowerCase(pchar))
-					continue;
+			if (fIgnoreCase && Normalizer.compare(
+					tchar, pchar, Normalizer.COMPARE_IGNORE_CASE) == 0) {
+				continue;
 			}
 			return false;
 		}

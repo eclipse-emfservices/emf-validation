@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,14 +25,17 @@ import java.util.ResourceBundle;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.osgi.framework.Bundle;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
-import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import com.ibm.icu.text.SearchIterator;
+import com.ibm.icu.text.StringSearch;
+import com.ibm.icu.text.UTF16;
 
 /**
  * A SAX content handler for parsing the <tt>&lt;constraints&gt;</tt> XML.
@@ -340,12 +343,16 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	public void processingInstruction(String target, String data)
 			throws SAXException {
 		if (target.equals(XTOOLS_VALIDATION_INSTRUCTION)) {
+			SearchIterator search = new StringSearch("=", data); //$NON-NLS-1$
+			
 			int[] index = new int[1];
 			
-			for (int i = data.indexOf('='); i >= 0;) {
+			for (int i = search.first(); i != SearchIterator.DONE; i = search.next()) {
 				String parm = data.substring(index[0], i).trim();
 				
-				index[0] = i + 1;
+				// step over the matched "=" string
+				index[0] = i + search.getMatchLength();
+				
 				String value = extractQuotedString(data, index);
 				
 				if (value == null) {
@@ -360,7 +367,9 @@ public class ConstraintsContentHandler extends DefaultHandler {
 					handleNlInstruction(value);
 				}
 				
-				i = data.indexOf('=', index[0]);
+				// continue searching from the end of the quoted string that
+				//    we just extracted
+				search.setIndex(index[0]);
 			}
 		}
 	}
@@ -379,17 +388,27 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	private static String extractQuotedString(String text, int[] index) {
 		int start = index[0];
 		
-		if (text.charAt(start) != '"') {
+		// get the (potentially 32-bit) character at the start pos 
+		int ch = UTF16.charAt(text, start);
+		
+		if (ch != (int) '"') {  // these ASCII characters are always 16 bits
 			return null;
 		} else {
-			start++;
-			int end = text.indexOf('"', start);
+			// however many Java chars were required to represent that code point,
+			//    we step over all of them
+			start += UTF16.getCharCount(ch);
 			
-			if (end < 0) {
-				return null;
+			SearchIterator search = new StringSearch("\"", text); //$NON-NLS-1$
+			search.setIndex(start);  // start from right of the first '"'
+			int end = search.next();
+			
+			if (end == SearchIterator.DONE) {
+				return null;  // didn't find a closing '"'
 			} else {
-				index[0] = end + 1;
+				// position the OUT value to the right of the closing '"'
+				index[0] = end + search.getMatchLength();
 				
+				// extract everything between the '"'s
 				return text.substring(start, end);
 			}
 		}

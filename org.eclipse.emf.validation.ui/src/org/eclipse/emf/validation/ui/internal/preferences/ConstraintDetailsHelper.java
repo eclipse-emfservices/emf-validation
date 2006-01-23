@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003-2005 IBM Corporation and others.
+ * Copyright (c) 2003-2006 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
+
+import com.ibm.icu.text.UTF16;
 
 /**
  * Helper utilities for dealing with the display of constraint details.
@@ -146,7 +148,7 @@ class ConstraintDetailsHelper {
 		StringBuffer result = new StringBuffer(text.length());
 		
 		while (lastPos < text.length()) {
-			pos = text.indexOf(BOLD_START, lastPos);
+			pos = UTF16.indexOf(text, BOLD_START, lastPos);
 			
 			if (pos < 0) {
 				break;
@@ -155,7 +157,7 @@ class ConstraintDetailsHelper {
 				
 				lastPos = pos + BOLD_START.length();
 				
-				pos = text.indexOf(BOLD_END, lastPos);
+				pos = UTF16.indexOf(text, BOLD_END, lastPos);
 				
 				if (pos < 0) {
 					// implied </b> at end of input

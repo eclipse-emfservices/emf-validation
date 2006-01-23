@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003-2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,9 @@ import java.util.Set;
 import java.util.SortedSet;
 
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+
+import com.ibm.icu.text.Collator;
+import com.ibm.icu.text.UTF16;
 
 
 /**
@@ -54,6 +57,8 @@ public class Category implements Comparable {
 	 * not otherwise assigned to a known category.
 	 */
 	static final Category DEFAULT_CATEGORY = new Category("", GLOBAL_NAMESPACE); //$NON-NLS-1$
+	
+	private static Collator collator;
 	
 	private final String id;
 	
@@ -266,7 +271,7 @@ public class Category implements Comparable {
 			return getDescendent(descendentPath.substring(1), create);
 		}
 		
-		int slash = descendentPath.indexOf(SLASH);
+		int slash = UTF16.indexOf(descendentPath, SLASH);
 		if (slash < 0) {
 			Category result = getChild(descendentPath);
 			
@@ -369,17 +374,27 @@ public class Category implements Comparable {
 			&& ((Category)other).getPath().equals(getPath());
 	}
 	
+	static Collator getCollator() {
+		if (collator == null) {
+			collator = Collator.getInstance();
+		}
+		
+		return collator;
+	}
+	
 	// implements the interface method
 	public int compareTo(Object o) {
 		// this will throw if o has the wrong type.  That's expected
 		Category other = (Category)o;
+
+		Collator collator = getCollator();
 		
-		int result = getName().compareTo(other.getName());
+		int result = collator.compare(getName(), other.getName());
 		
 		if (result == 0) {
 			// sort by path to ensure that equivalent sort implies equality
 			//    and vice-versa
-			result = getPath().compareTo(other.getPath());
+			result = collator.compare(getPath(), other.getPath());
 		}
 		
 		return result;

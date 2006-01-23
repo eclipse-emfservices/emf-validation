@@ -11,5 +11,6 @@ Export-Package: org.eclipse.emf.validation.ui.internal,
  org.eclipse.emf.validation.ui.internal.preferences
 Require-Bundle: org.eclipse.emf.validation,
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.ibm.icu
 Eclipse-LazyStart: true
