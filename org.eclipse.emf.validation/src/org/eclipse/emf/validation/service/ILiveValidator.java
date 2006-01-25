@@ -15,7 +15,6 @@ package org.eclipse.emf.validation.service;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.validation.model.EvaluationMode;
 
 /**
  * <p>
