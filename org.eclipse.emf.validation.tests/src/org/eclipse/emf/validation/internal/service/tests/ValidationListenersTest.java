@@ -30,8 +30,6 @@ public class ValidationListenersTest extends TestBase {
 	}
 
 	public void test_UniversalListener() {
-		UniversalValidationListener.LAST_EVENT = null;
-		
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
 		batchValidator.validate(object);
@@ -44,8 +42,6 @@ public class ValidationListenersTest extends TestBase {
 	}
 	
 	public void test_ClientContextListener() {
-		ClientContextValidationListener.LISTENER_CALLED = false;
-		
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
 		batchValidator.validate(object);
@@ -56,11 +52,15 @@ public class ValidationListenersTest extends TestBase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
+		ClientContextValidationListener.LISTENER_CALLED = false;
+		UniversalValidationListener.LAST_EVENT = null;
 		UniversalValidationListener.enabled = true;
 	}
 	
 	protected void tearDown() throws Exception {
 		UniversalValidationListener.enabled = false;
+		UniversalValidationListener.LAST_EVENT = null;
+		ClientContextValidationListener.LISTENER_CALLED = false;
 		
 		super.tearDown();
 	}
