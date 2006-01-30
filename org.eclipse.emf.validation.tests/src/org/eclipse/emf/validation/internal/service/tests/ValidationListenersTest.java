@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2006 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,5 +51,17 @@ public class ValidationListenersTest extends TestBase {
 		batchValidator.validate(object);
 
 		assertTrue(ClientContextValidationListener.LISTENER_CALLED);
+	}
+	
+	protected void setUp() throws Exception {
+		super.setUp();
+		
+		UniversalValidationListener.enabled = true;
+	}
+	
+	protected void tearDown() throws Exception {
+		UniversalValidationListener.enabled = false;
+		
+		super.tearDown();
 	}
 }
