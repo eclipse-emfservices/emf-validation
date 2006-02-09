@@ -21,7 +21,6 @@ import java.util.SortedSet;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
 import com.ibm.icu.text.Collator;
-import com.ibm.icu.text.UTF16;
 
 
 /**
@@ -271,7 +270,7 @@ public class Category implements Comparable {
 			return getDescendent(descendentPath.substring(1), create);
 		}
 		
-		int slash = UTF16.indexOf(descendentPath, SLASH);
+		int slash = descendentPath.indexOf(SLASH);  // known BMP character
 		if (slash < 0) {
 			Category result = getChild(descendentPath);
 			

@@ -442,7 +442,7 @@ public class ModelValidationService {
 				classifier = epackage.getEClassifier(className);
 			} else if (packageHasName(epackage, packageNames)) {
 				// strip off the package prefix from the class name
-				className = className.substring(className.lastIndexOf('.') + 1);
+				className = className.substring(className.lastIndexOf('.') + 1); // known BMP code point
 				
 				// look up the simple class name in this package
 				classifier = epackage.getEClassifier(className);
@@ -489,7 +489,7 @@ public class ModelValidationService {
 	 */
 	private static List parsePackageNames(String qualifiedClassName) {
 		List result = null;
-		int end = qualifiedClassName.lastIndexOf('.');
+		int end = qualifiedClassName.lastIndexOf('.'); // known BMP code point
 		
 		if (end >= 0) {
 			result = new java.util.ArrayList();
@@ -497,7 +497,7 @@ public class ModelValidationService {
 			// skip the class name part and collect other parts in
 			//  reverse order
 			do {
-				int start = qualifiedClassName.lastIndexOf('.', end - 1);
+				int start = qualifiedClassName.lastIndexOf('.', end - 1); // known BMP code point
 				result.add(qualifiedClassName.substring(start + 1, end));
 				
 				end = start;

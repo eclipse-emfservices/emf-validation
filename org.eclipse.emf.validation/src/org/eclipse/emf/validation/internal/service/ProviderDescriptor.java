@@ -37,6 +37,8 @@ import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
 
+import com.ibm.icu.lang.UCharacter;
+
 
 /**
  * Primary implementation of the {@link IProviderDescriptor} interface.
@@ -84,11 +86,11 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		if (uri != null) {
 			uri = uri.trim();
 			
-			if (uri.indexOf('*') >= 0) {
+			if (uri.indexOf('*') >= 0) { // known BMP code point
 				// this is a URI matcher with wildcards.  Key on the lowercase
 				//    to avoid case-insensitive duplicates
 				uriMatcherMap.put(
-					uri.toLowerCase(),
+					UCharacter.toLowerCase(uri),
 					new StringMatcher(uri, true, false));
 			} else {
 				uriSet.add(uri);
@@ -105,7 +107,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 					// this is a URI matcher with wildcards.  Key on the
 					//   lowercase to avoid case-insensitive duplicates
 					uriMatcherMap.put(
-						uri.toLowerCase(),
+						UCharacter.toLowerCase(uri),
 						new StringMatcher(uri, true, false));
 				} else {
 					uriSet.add(uri);

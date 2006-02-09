@@ -25,17 +25,14 @@ import java.util.ResourceBundle;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
-import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.osgi.framework.Bundle;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.ibm.icu.text.SearchIterator;
-import com.ibm.icu.text.StringSearch;
-import com.ibm.icu.text.UTF16;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 
 /**
  * A SAX content handler for parsing the <tt>&lt;constraints&gt;</tt> XML.
@@ -343,16 +340,12 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	public void processingInstruction(String target, String data)
 			throws SAXException {
 		if (target.equals(XTOOLS_VALIDATION_INSTRUCTION)) {
-			SearchIterator search = new StringSearch("=", data); //$NON-NLS-1$
-			
 			int[] index = new int[1];
 			
-			for (int i = search.first(); i != SearchIterator.DONE; i = search.next()) {
+			for (int i = data.indexOf('='); i >= 0;) { // known BMP code point
 				String parm = data.substring(index[0], i).trim();
 				
-				// step over the matched "=" string
-				index[0] = i + search.getMatchLength();
-				
+				index[0] = i + 1; // known BMP code point
 				String value = extractQuotedString(data, index);
 				
 				if (value == null) {
@@ -367,9 +360,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 					handleNlInstruction(value);
 				}
 				
-				// continue searching from the end of the quoted string that
-				//    we just extracted
-				search.setIndex(index[0]);
+				i = data.indexOf('=', index[0]); // known BMP code point
 			}
 		}
 	}
@@ -388,27 +379,17 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	private static String extractQuotedString(String text, int[] index) {
 		int start = index[0];
 		
-		// get the (potentially 32-bit) character at the start pos 
-		int ch = UTF16.charAt(text, start);
-		
-		if (ch != (int) '"') {  // these ASCII characters are always 16 bits
+		if (text.charAt(start) != '"') { // known BMP code point
 			return null;
 		} else {
-			// however many Java chars were required to represent that code point,
-			//    we step over all of them
-			start += UTF16.getCharCount(ch);
+			start++; // known BMP code point
+			int end = text.indexOf('"', start); // known BMP code point
 			
-			SearchIterator search = new StringSearch("\"", text); //$NON-NLS-1$
-			search.setIndex(start);  // start from right of the first '"'
-			int end = search.next();
-			
-			if (end == SearchIterator.DONE) {
-				return null;  // didn't find a closing '"'
+			if (end < 0) {
+				return null;
 			} else {
-				// position the OUT value to the right of the closing '"'
-				index[0] = end + search.getMatchLength();
+				index[0] = end + 1; // known BMP code point
 				
-				// extract everything between the '"'s
 				return text.substring(start, end);
 			}
 		}
@@ -481,7 +462,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 					// stop the search:  the base name didn't work, so give up
 					searchName = null;
 				} else {
-					int lastUnderscore = locale.lastIndexOf('_');
+					int lastUnderscore = locale.lastIndexOf('_'); // known BMP code point
 					if (lastUnderscore > 0) {
 						locale = locale.substring(0, lastUnderscore);
 						

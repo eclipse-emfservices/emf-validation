@@ -25,6 +25,8 @@ import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
 
+import com.ibm.icu.lang.UCharacter;
+
 /**
  * <p>
  * Constraint factory implementation which parses constraints from the
@@ -100,7 +102,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 					XmlConfig.A_CLASS);
 
 			if (parser instanceof IXmlConstraintParser) {
-				parserMap.put(language.toUpperCase(), parser);
+				parserMap.put(UCharacter.toLowerCase(language), parser);
 				
 				Trace.trace(
 						EMFModelValidationDebugOptions.PARSERS,
@@ -131,7 +133,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * @return the parser, or <code>null</code> if it cannot be found
 	 */
 	private IXmlConstraintParser getParser(String language) {
-		return (IXmlConstraintParser)parserMap.get(language.toUpperCase());
+		return (IXmlConstraintParser)parserMap.get(UCharacter.toLowerCase(language));
 	}
 
 	/**

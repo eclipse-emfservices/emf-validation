@@ -273,7 +273,7 @@ public class StringMatcher {
 		while (i < segCount) {
 			current = fSegments[i];
 			int currentMatch;
-			int k = current.indexOf(fSingleWildCard);
+			int k = current.indexOf(fSingleWildCard); // known BMP code point
 			if (k < 0) {
 				currentMatch = textPosIn(text, tCurPos, end, current);
 				if (currentMatch < 0)
@@ -504,7 +504,7 @@ public class StringMatcher {
 		int max = end - plen;
 
 		if (!fIgnoreCase) {
-			int i = text.indexOf(p, start);
+			int i = UTF16.indexOf(text, p, start);
 			if (i == -1 || i > max)
 				return -1;
 			return i;
