@@ -23,7 +23,7 @@
      <extension
          point="org.eclipse.emf.validation.constraintParsers">
       <constraintParser
-            class="org.eclipse.emf.validation.internal.ocl.OclConstraintParser"
+            class="org.eclipse.emf.validation.internal.ocl.OCLConstraintParser"
             lang="OCL">
       </constraintParser>
    </extension>

@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id$
+ * $Id: OCLConstraintParser.java,v 1.1 2006/02/13 16:12:13 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;
@@ -32,16 +32,16 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class OclConstraintParser implements IXmlConstraintParser {
+public class OCLConstraintParser implements IXmlConstraintParser {
 	/**
 	 * Initializes me. 
 	 */
-	public OclConstraintParser() {
+	public OCLConstraintParser() {
 		super();
 	}
 
 	// implements the inherited method
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor desc) {
-		return new OclModelConstraint(desc);
+		return new OCLModelConstraint(desc);
 	}
 }

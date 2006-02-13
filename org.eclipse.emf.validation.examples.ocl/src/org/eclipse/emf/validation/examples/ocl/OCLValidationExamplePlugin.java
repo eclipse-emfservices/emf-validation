@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id$
+ * $Id: OCLValidationExamplePlugin.java,v 1.1 2006/02/13 16:12:15 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.examples.ocl;
@@ -23,15 +23,15 @@ import org.osgi.framework.BundleContext;
 /**
  * The main plugin class to be used in the desktop.
  */
-public class OclValidationExamplePlugin extends Plugin {
+public class OCLValidationExamplePlugin extends Plugin {
 
 	//The shared instance.
-	private static OclValidationExamplePlugin plugin;
+	private static OCLValidationExamplePlugin plugin;
 
 	/**
 	 * The constructor.
 	 */
-	public OclValidationExamplePlugin() {
+	public OCLValidationExamplePlugin() {
 		super();
 		plugin = this;
 	}
@@ -53,7 +53,7 @@ public class OclValidationExamplePlugin extends Plugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static OclValidationExamplePlugin getDefault() {
+	public static OCLValidationExamplePlugin getDefault() {
 		return plugin;
 	}
 }

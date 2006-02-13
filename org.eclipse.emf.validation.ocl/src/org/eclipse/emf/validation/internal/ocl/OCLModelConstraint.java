@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id$
+ * $Id: OCLModelConstraint.java,v 1.1 2006/02/13 16:12:13 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;
@@ -45,7 +45,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class OclModelConstraint implements IModelConstraint {
+public class OCLModelConstraint implements IModelConstraint {
 	private final IConstraintDescriptor descriptor;
 	
 	/**
@@ -62,7 +62,7 @@ public class OclModelConstraint implements IModelConstraint {
 	 * @param descriptor the descriptor, which must contain an OCL expression
 	 *   in its body
 	 */
-	public OclModelConstraint(IConstraintDescriptor descriptor) {
+	public OCLModelConstraint(IConstraintDescriptor descriptor) {
 		this.descriptor = descriptor;
 	}
 
