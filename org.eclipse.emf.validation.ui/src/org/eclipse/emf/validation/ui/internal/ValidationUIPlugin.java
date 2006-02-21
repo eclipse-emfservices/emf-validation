@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -552,8 +552,8 @@ public class ValidationUIPlugin
 	 * @return the corresponding image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String imageFile) {
-		URL fullPath = Platform.find(getPlugin().getBundle(), new Path(ICONS
-			+ imageFile));
+		URL fullPath = FileLocator.find(getPlugin().getBundle(), new Path(ICONS
+			+ imageFile), null);
 		if (fullPath != null) {
 			return ImageDescriptor.createFromURL(fullPath);
 		}

@@ -27,6 +27,7 @@ import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
 import ordersystem.special.SpecialFactory;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -72,9 +73,9 @@ public class FrameworkTest extends TestBase {
 		if (orderSystem == null) {
 			ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
 
-			java.net.URL file = Platform.find(
+			java.net.URL file = FileLocator.find(
 				Platform.getBundle(PLUGIN_ID),
-				new Path("test.ordersystem")); //$NON-NLS-1$
+				new Path("test.ordersystem"), null); //$NON-NLS-1$
 			
 			URI uri = URI.createURI(file.toExternalForm());
 			Resource res = resourceSet.getResource(uri, true);

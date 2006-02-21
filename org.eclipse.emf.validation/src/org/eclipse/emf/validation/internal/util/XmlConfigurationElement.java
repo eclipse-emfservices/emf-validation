@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IStatus;
@@ -270,8 +271,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		
 		if ((getBaseUrl() == null) || path.startsWith("/")) { //$NON-NLS-1$
 			// relative to the plug-in directory (pseudo-absolute)
-			
-			url = Platform.find(contributor, new Path(path));
+			url = FileLocator.find(contributor, new Path(path), null);
 		} else {
 			// relative to my base URL
 			

@@ -318,11 +318,11 @@ public class StringMatcher {
 		if (fPattern.startsWith("*"))//$NON-NLS-1$
 			fHasLeadingStar = true;
 		// if it is equal to '*', then it clearly is not a UTF-32 surrogate
-		if (UTF16.charAt(fPattern, fLength - 1) == (int)'*') {
+		if (UTF16.charAt(fPattern, fLength - 1) == '*') {
 			/* make sure it's not an escaped wildcard */
 			// if it's a surrogate of some kind, that surrogate would not be
 			//    logically equivalent to '\\', anyway
-			if (fLength > 1 && UTF16.charAt(fPattern, fLength - 2) != (int) '\\') {
+			if (fLength > 1 && UTF16.charAt(fPattern, fLength - 2) != '\\') {
 				fHasTrailingStar = true;
 			}
 		}

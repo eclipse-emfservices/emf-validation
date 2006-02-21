@@ -198,13 +198,6 @@ public class ConstraintDescriptorTest extends TestCase {
 					return null;
 				}
 
-				/**
-				 * @deprecated
-				 */
-				public org.eclipse.core.runtime.IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
-					return null;
-				}
-
 				public String getExtensionPointUniqueIdentifier() throws InvalidRegistryObjectException {
 					return null;
 				}
