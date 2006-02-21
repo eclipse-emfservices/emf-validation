@@ -41,10 +41,10 @@ import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
  */
 public class ConstraintsContentHandler extends DefaultHandler {
 	/**
-	 * Processing instruction target for XTools Validation plug-in:
-	 * <tt>&lt;?xtools-validation?&gt;</tt>.
+	 * Processing instruction target for EMF Validation plug-in:
+	 * <tt>&lt;?emf-validation?&gt;</tt>.
 	 */
-	static final String XTOOLS_VALIDATION_INSTRUCTION = "xtools-validation"; //$NON-NLS-1$
+	static final String EMF_VALIDATION_INSTRUCTION = "emf-validation"; //$NON-NLS-1$
 	
 	/**
 	 * Processing instruction parameter indicating the version of the
@@ -83,7 +83,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	
 	/**
 	 * My resource bundle for localization, if any is specified by a
-	 * <tt>&lt;?xtools-validation?&gt;</tt> processing instruction.
+	 * <tt>&lt;?emf-validation?&gt;</tt> processing instruction.
 	 */
 	private ResourceBundle resourceBundle;
 
@@ -331,7 +331,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	}
 	
 	/**
-	 * Implements the handling of the <tt>&lt;?xtools-validation?&gt;</tt>
+	 * Implements the handling of the <tt>&lt;?emf-validation?&gt;</tt>
 	 * processing instruction for the constraints markup.
 	 * 
 	 * @throws SAXException if a version is indicated in the processing
@@ -339,7 +339,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 */
 	public void processingInstruction(String target, String data)
 			throws SAXException {
-		if (target.equals(XTOOLS_VALIDATION_INSTRUCTION)) {
+		if (target.equals(EMF_VALIDATION_INSTRUCTION)) {
 			int[] index = new int[1];
 			
 			for (int i = data.indexOf('='); i >= 0;) { // known BMP code point
@@ -396,7 +396,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	}
 	
 	/**
-	 * Handles an <tt>&lt;?xtools-validation nl="<i>bundle-name</i>"?&gt;</tt>
+	 * Handles an <tt>&lt;?emf-validation nl="<i>bundle-name</i>"?&gt;</tt>
 	 * processing instruction by finding the bundle for use in subsequent
 	 * string translation.
 	 * 
@@ -491,7 +491,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	}
 	
 	/**
-	 * Handles an <tt>&lt;?xtools-validation version="<i>number</i>"?&gt;</tt>
+	 * Handles an <tt>&lt;?emf-validation version="<i>number</i>"?&gt;</tt>
 	 * processing instruction by ensuring that it is version 1.0.
 	 * 
 	 * @param version the version number indicated in the instruction
@@ -513,7 +513,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	/**
 	 * Implements the <tt>%<i>key</i></tt> localization mechanism in the
 	 * XML file that I am parsing.  Uses my extension to look up the resource,
-	 * unless a <tt>&lt;?xtools-validation?&gt;</tt> processing instruction
+	 * unless a <tt>&lt;?emf-validation?&gt;</tt> processing instruction
 	 * has indicated a different resource bundle.
 	 * 
 	 * @param s the string to localize, if it starts with a % character

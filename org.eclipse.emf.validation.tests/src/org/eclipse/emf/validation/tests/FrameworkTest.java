@@ -56,7 +56,7 @@ public class FrameworkTest extends TestBase {
 	 * start from a fresh, new test document.  This is not normally necessary.
 	 */
 	public static final String CREATE_NEW_TEST_DOCUMENT_PROPERTY =
-		"xtools.test.newdocument"; //$NON-NLS-1$
+		"emf.test.newdocument"; //$NON-NLS-1$
 	
 	private static OrderSystem orderSystem = null;
 
@@ -139,15 +139,15 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertEquals("Wrong number of constraints found for order system:", //$NON-NLS-1$
-				1,
-				status.length);
-
-		IModelConstraint constraint = ((IConstraintStatus)status[0]).getConstraint();
-
-		assertEquals("ordersystem.marker constraint not found:", //$NON-NLS-1$
-				ID_PREFIX + "ordersystem.marker", //$NON-NLS-1$
-				constraint.getDescriptor().getId());
+		for (int i=0; i<status.length; i++) {
+			IModelConstraint constraint = ((IConstraintStatus)status[i]).getConstraint();
+			
+			if (constraint.getDescriptor().getId().equals(ID_PREFIX + "ordersystem.marker")) { //$NON-NLS-1$
+				return;
+			}
+		}
+		
+		fail("ordersystem.marker constraint not found"); //$NON-NLS-1$
 	}
 
 	/**
@@ -384,9 +384,10 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertTrue(
-				"Got constraints from ordersystem namespace prefix provider.", //$NON-NLS-1$
-				status.length == 0);
+		for (int i=0; i<status.length; i++) {
+			IModelConstraint constraint = ((IConstraintStatus)status[i]).getConstraint();
+			assertFalse("Got constraints from ordersystem namespace prefix provider.", constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem")); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 		
 		assertTrue(
 				"Provider for ordersystem namespace prefix was not initialized.", //$NON-NLS-1$

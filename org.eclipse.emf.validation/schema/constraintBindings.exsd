@@ -269,7 +269,7 @@ Example of a binding of a single constraint to the MyClient context:
    &lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
       &lt;binding
          context=&quot;com.example.MyClient&quot;
-         constraint=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+         constraint=&quot;org.eclipse.uml2.validation.classifiers.genCycle&quot;/&gt;
    &lt;/extension&gt;
 &lt;/pre&gt;
 &lt;p&gt;
@@ -278,8 +278,8 @@ Example of binding multiple constraints and constraint categories to the MyClien
 &lt;pre&gt;
    &lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
       &lt;binding context=&quot;com.example.MyClient&quot;/&gt;
-         &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.namespace.distinctMembers&quot;/&gt;
-         &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+         &lt;constraint ref=&quot;org.eclipse.uml2.validation.namespace.distinctMembers&quot;/&gt;
+         &lt;constraint ref=&quot;org.eclipse.uml2.validation.classifiers.genCycle&quot;/&gt;
          &lt;category ref=&quot;uml2/spec/classes/kernel/namespaces&quot;/&gt;
          &lt;category ref=&quot;uml2/spec/classes/kernel/classifiers&quot;/&gt;
       &lt;/binding&gt;

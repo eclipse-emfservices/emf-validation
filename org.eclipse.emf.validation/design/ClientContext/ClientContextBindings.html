@@ -7,7 +7,7 @@
 <LINK rel="stylesheet" href="../technote.css" type="text/css">
 </HEAD>
 <BODY>
-<A name="top"></A><IMG border="0" src="../logo.gif" width="629" height="192"><H1 align="center">Technical Note: Validation Client Context Bindings and Traversal Strategies</H1>
+<A name="top"></A><H1 align="center">Technical Note: Validation Client Context Bindings and Traversal Strategies</H1>
 <TABLE border="0" cellspacing="8">
 	<TBODY>
 		<TR>
@@ -105,8 +105,8 @@ elements selected by the user in the UI). At the other extreme, the traversal st
          &lt;and&gt;
             &lt;instanceof value=&quot;org.eclipse.uml2.Element&quot;/&gt;
             &lt;test
-               property=&quot;com.ibm.xtools.emf.msl.objectType&quot;
-               value=&quot;Modeling&quot;/&gt;
+               property=&quot;org.foo.bar.someProperty&quot;
+               value=&quot;someValue&quot;/&gt;
          &lt;/and&gt;
       &lt;/enablement&gt;
    &lt;/clientContext&gt;
@@ -148,13 +148,13 @@ matching condition, a custom selector may be provided:</P>
 <PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
    &lt;binding
       context=&quot;com.example.MyClient&quot;
-      constraint=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+      constraint=&quot;org.eclipse.uml2.validation.classifiers.genCycle&quot;/&gt;
 &lt;/extension&gt;</PRE>
 <P>An alternative form that is slightly less cumbersome when binding multiple constraints to a context:</P>
 <PRE class="snippet">&lt;extension point=&quot;org.eclipse.emf.validation.constraintBindings&quot;&gt;
    &lt;binding context=&quot;com.example.MyClient&quot;&gt;
-      &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.namespace.distinctMembers&quot;/&gt;
-      &lt;constraint ref=&quot;com.ibm.xtools.uml.validation.classifiers.genCycle&quot;/&gt;
+      &lt;constraint ref=&quot;org.eclipse.uml2.validation.namespace.distinctMembers&quot;/&gt;
+      &lt;constraint ref=&quot;org.eclipse.uml2.validation.classifiers.genCycle&quot;/&gt;
    &lt;/binding&gt;
 &lt;/extension&gt;</PRE>
 <P>Example of a binding for all of the constraints defined in the &quot;Classes&quot; package of the UML specification, including the &quot;Kernel&quot;, &quot;Interfaces&quot;, &quot;AssociationClasses&quot;, and other sub-packages:</P>
@@ -338,11 +338,11 @@ IStatus status = validator.validate(selectedElements, monitor);
 <P class="backto"><FONT size="2">[<A href="#top">back to top</A>]</FONT></P>
 <P>The context binding and traversal strategy API and implementation are provided by the  <CODE>org.eclipse.emf.validation</CODE> plug-in.</P>
 <H3><A name="bindings_ext"></A>Constraint Bindings Extension Point</H3>
-<P>The <A href="../../doc/com_ibm_xtools_emf_validation_constraintBindings.html"
+<P>The <A href="../../doc/org_eclipse_emf_validation_constraintBindings.html"
 	target="_blank"><CODE>constraintBindings</CODE></A> extension point is a  public API extension point in the <CODE>org.eclipse.emf.validation</CODE> namespace.</P>
 <H3><A name="traversal_ext"></A>Traversal Strategies Extension Point</H3>
 <P>The <A
-	href="../../doc/com_ibm_xtools_emf_validation_traversal.html"
+	href="../../doc/org_eclipse_emf_validation_traversal.html"
 	target="_blank"><CODE>traversal</CODE></A> extension point is
 a public API extension point in the <CODE>org.eclipse.emf.validation</CODE>
 namespace.</P>
@@ -413,6 +413,5 @@ framework; it does not constitute a part of the API.</P>
 	</DD>
 </DL>
 <HR>
-<P><IMG border="0" src="../copyright.gif" width="324" height="14"></P>
 </BODY>
 </HTML>

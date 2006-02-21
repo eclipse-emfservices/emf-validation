@@ -386,14 +386,14 @@ public class Category implements Comparable {
 		// this will throw if o has the wrong type.  That's expected
 		Category other = (Category)o;
 
-		Collator collator = getCollator();
+		Collator aCollator = getCollator();
 		
-		int result = collator.compare(getName(), other.getName());
+		int result = aCollator.compare(getName(), other.getName());
 		
 		if (result == 0) {
 			// sort by path to ensure that equivalent sort implies equality
 			//    and vice-versa
-			result = collator.compare(getPath(), other.getPath());
+			result = aCollator.compare(getPath(), other.getPath());
 		}
 		
 		return result;

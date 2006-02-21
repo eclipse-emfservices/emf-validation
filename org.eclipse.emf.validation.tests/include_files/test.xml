@@ -11,7 +11,7 @@
 <!-- Example file for testing the "include" handling of the XmlConfig class.
      Do not change any of the strings in this file! -->
 
-<?xtools-validation
+<?emf-validation
        version="1.0"
        nl="org/eclipse/emf/validation/tests/l10n/messages" ?>
        

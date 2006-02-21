@@ -597,13 +597,13 @@ languages.
          &lt;p&gt;
 The &quot;Java&quot; language constraints are implemented using the facilities provided
 by the
-&lt;a href=&quot;../api/com/ibm/xtools/emf/validation/package-summary.html&quot;&gt;org.eclipse.emf.validation&lt;/a&gt;
+&lt;a href=&quot;../api/org/eclipse/emf/validation/package-summary.html&quot;&gt;org.eclipse.emf.validation&lt;/a&gt;
 package in the plug-in of the same name.
 &lt;/p&gt;
 &lt;p&gt;
 To apply the constraints defined on this extension point to the element(s) of
 a model, use the utilities offered by the
-&lt;a href=&quot;../api/com/ibm/xtools/emf/msl/core/EditingDomain.html&quot;&gt;org.eclipse.gmf.runtime.emf.core.EditingDomain&lt;/a&gt;
+&lt;a href=&quot;../api/org/eclipse/gmf/runtime/emf/core/EditingDomain.html&quot;&gt;org.eclipse.gmf.runtime.emf.core.EditingDomain&lt;/a&gt;
 class.
 These utilities validate the model against all batch and live constraints,
 returning the result in a composite status object.  Live validation is also

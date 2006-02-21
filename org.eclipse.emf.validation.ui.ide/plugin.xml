@@ -23,7 +23,7 @@
     	<extension point="org.eclipse.ui.ide.markerResolution"> 
 		<markerResolutionGenerator 
 			class="org.eclipse.emf.validation.ui.ide.internal.quickfix.ValidationMarkerResolution" 
-			markerType="com.ibm.xtools.modeler.validationProblem"> 
+			markerType="org.eclipse.emf.validationProblem"> 
    		</markerResolutionGenerator> 
 	</extension> 
 
