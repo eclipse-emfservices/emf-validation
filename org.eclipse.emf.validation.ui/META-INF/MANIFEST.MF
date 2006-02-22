@@ -7,8 +7,8 @@ Bundle-Activator: org.eclipse.emf.validation.ui.internal.ValidationUIPlugin$Impl
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.ui.internal,
- org.eclipse.emf.validation.ui.internal.l10n,
- org.eclipse.emf.validation.ui.internal.preferences
+ org.eclipse.emf.validation.ui.internal.l10n;x-internal:=true,
+ org.eclipse.emf.validation.ui.internal.preferences;x-internal:=true
 Require-Bundle: org.eclipse.emf.validation,
  org.eclipse.ui,
  org.eclipse.core.runtime,

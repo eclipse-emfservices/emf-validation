@@ -8,8 +8,9 @@ Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.examples,
  org.eclipse.emf.validation.examples.actions,
+ org.eclipse.emf.validation.examples.console,
  org.eclipse.emf.validation.examples.constraints,
- org.eclipse.emf.validation.examples.internal.l10n,
+ org.eclipse.emf.validation.examples.internal.l10n;x-internal:=true,
  org.eclipse.emf.validation.examples.listeners
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

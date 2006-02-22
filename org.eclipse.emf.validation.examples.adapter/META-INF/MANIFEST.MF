@@ -7,6 +7,7 @@ Bundle-Activator: org.eclipse.emf.validation.examples.adapter.ValidationExampleP
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.examples.adapter,
+ org.eclipse.emf.validation.examples.adapter.constraints,
  org.eclipse.emf.validation.examples.adapter.expressions
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.expressions,

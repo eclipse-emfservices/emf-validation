@@ -6,19 +6,19 @@ Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.emf.validation.tests.TestPlugin
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.emf.validation.internal.model.tests,
- org.eclipse.emf.validation.internal.service.impl.tests,
- org.eclipse.emf.validation.internal.service.tests,
- org.eclipse.emf.validation.internal.util.tests,
- org.eclipse.emf.validation.internal.xml.tests,
- org.eclipse.emf.validation.tests,
- org.eclipse.emf.validation.tests.l10n,
- ordersystem,
+Export-Package: ordersystem,
  ordersystem.impl,
  ordersystem.special,
  ordersystem.special.impl,
  ordersystem.special.util,
- ordersystem.util
+ ordersystem.util,
+ org.eclipse.emf.validation.internal.model.tests;x-internal:=true,
+ org.eclipse.emf.validation.internal.service.impl.tests;x-internal:=true,
+ org.eclipse.emf.validation.internal.service.tests;x-internal:=true,
+ org.eclipse.emf.validation.internal.util.tests;x-internal:=true,
+ org.eclipse.emf.validation.internal.xml.tests;x-internal:=true,
+ org.eclipse.emf.validation.tests,
+ org.eclipse.emf.validation.tests.l10n
 Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.emf.ecore,
  org.junit,
