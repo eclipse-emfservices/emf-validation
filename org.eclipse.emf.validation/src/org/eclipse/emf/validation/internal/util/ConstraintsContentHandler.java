@@ -404,7 +404,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 */
 	private void handleNlInstruction(String resourceBundleName) {
 		try {
-			Bundle bundle = Platform.getBundle(extension.getNamespace());
+			Bundle bundle = Platform.getBundle(extension.getNamespaceIdentifier());
 			
 			resourceBundle = resourceBundleCache.get(bundle, resourceBundleName);
 			if (resourceBundle == null) {
@@ -525,7 +525,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 			return s;
 		} else if (resourceBundle == null) {
 			return Platform.getResourceString(
-					Platform.getBundle(extension.getNamespace()),
+					Platform.getBundle(extension.getNamespaceIdentifier()),
 					s);
 		} else {
 			return localize(s, resourceBundle);

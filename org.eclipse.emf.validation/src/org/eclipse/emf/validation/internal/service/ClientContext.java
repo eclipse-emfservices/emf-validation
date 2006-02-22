@@ -92,7 +92,7 @@ public class ClientContext
 					EMFModelValidationPlugin.getMessage(
 						ValidationMessages.client_noId_ERROR_,
 						new Object[] {
-							config.getDeclaringExtension().getNamespace()}),
+							config.getDeclaringExtension().getNamespaceIdentifier()}),
 					null));
 			Trace.throwing(getClass(), "initializeId", ce); //$NON-NLS-1$
 			
@@ -133,7 +133,7 @@ public class ClientContext
 						ValidationMessages.client_noSelector_ERROR_,
 						new Object[] {
 							getId(),  // already initialized (and final)
-							config.getDeclaringExtension().getNamespace()}),
+							config.getDeclaringExtension().getNamespaceIdentifier()}),
 					null));
 			Trace.throwing(getClass(), "initializeSelector", ce); //$NON-NLS-1$
 			
@@ -166,7 +166,7 @@ public class ClientContext
 						ValidationMessages.client_badExpression_ERROR_,
 						new Object[] {
 							getId(),  // already initialized (and final)
-							enablement.getDeclaringExtension().getNamespace()}),
+							enablement.getDeclaringExtension().getNamespaceIdentifier()}),
 					e));
 			
 			Trace.throwing(getClass(), "initializeExpressionSelector", ce); //$NON-NLS-1$
@@ -197,7 +197,7 @@ public class ClientContext
 							result.getClass().getName(),
 							IClientSelector.class.getName(),
 							getId(), // already initialized (and final)
-							config.getDeclaringExtension().getNamespace()}),
+							config.getDeclaringExtension().getNamespaceIdentifier()}),
 					null));
 			Trace.throwing(getClass(), "initializeCustomSelector", ce); //$NON-NLS-1$
 			

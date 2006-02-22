@@ -28,6 +28,7 @@ import ordersystem.OrderSystemFactory;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IStatus;
@@ -69,7 +70,9 @@ public class ConstraintDescriptorTest extends TestCase {
 	private static XmlConstraintDescriptor fixture;
 	private static FixtureElement fixtureConfig;
 	
-	/** Handy implementation of the Eclipse extension configuration element. */
+	/** 
+	 * Handy implementation of the Eclipse extension configuration element. 
+	 */
 	public static class FixtureElement implements IConfigurationElement {
 		private final Map attributes = new java.util.HashMap();
 		private final List children = new java.util.ArrayList();
@@ -184,6 +187,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		// This method implemented solely so that the XmlConstraintDescriptor
 		// constructor can find the plug-in ID that it needs from the
 		// configuration element
+		/** @deprecated */
 		public IExtension getDeclaringExtension() {
 			return new IExtension() {
 				
@@ -191,6 +195,10 @@ public class ConstraintDescriptorTest extends TestCase {
 				 * Redefines the inherited method.
 				 */
 				public String getNamespace() {
+					return TEST_PLUGIN;
+				}
+
+				public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
 				}
 
@@ -216,6 +224,14 @@ public class ConstraintDescriptorTest extends TestCase {
 
 				public boolean isValid() {
 					return false;
+				}
+
+				public IContributor getContributor() throws InvalidRegistryObjectException {
+					return null;
+				}
+
+				public org.eclipse.core.runtime.IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
+					return null;
 				}				
 			};
 		}
@@ -262,6 +278,14 @@ public class ConstraintDescriptorTest extends TestCase {
 
 		public boolean isValid() {
 			return false;
+		}
+
+		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
+			return null;
+		}
+
+		public IContributor getContributor() throws InvalidRegistryObjectException {
+			return null;
 		}
 	}
 	

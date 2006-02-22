@@ -120,7 +120,7 @@ public class XmlConfig {
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.XML)) {
 			String sourcePluginId = constraints
 				.getDeclaringExtension()
-				.getNamespace();
+				.getNamespaceIdentifier();
 
 			Trace.trace(
 					EMFModelValidationDebugOptions.XML,
@@ -236,7 +236,7 @@ public class XmlConfig {
 		final CategoryManager mgr = CategoryManager.getInstance();
 		final String contributorId = constraints
 			.getDeclaringExtension()
-			.getNamespace();
+			.getNamespaceIdentifier();
 		
 		IConfigurationElement[] children = constraints.getChildren(
 				XmlConfig.E_CONSTRAINT);
@@ -345,7 +345,7 @@ public class XmlConfig {
 			return ((XmlConfigurationElement)element).getBaseUrl();
 		} else {
 			return Platform.getBundle(
-				element.getDeclaringExtension().getNamespace()).getEntry("/"); //$NON-NLS-1$
+				element.getDeclaringExtension().getNamespaceIdentifier()).getEntry("/"); //$NON-NLS-1$
 		}
 	}
 
@@ -390,7 +390,7 @@ public class XmlConfig {
 		} catch (Exception e) {
 			Trace.catching(XmlConfig.class, "load", e); //$NON-NLS-1$
 
-			String sourcePluginId = parent.getDeclaringExtension().getNamespace();
+			String sourcePluginId = parent.getDeclaringExtension().getNamespaceIdentifier();
 
 			CoreException ce = new CoreException(new Status(
 					IStatus.ERROR,

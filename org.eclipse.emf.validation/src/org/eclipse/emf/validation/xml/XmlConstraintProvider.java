@@ -303,7 +303,7 @@ public class XmlConstraintProvider extends AbstractConstraintProvider
 	private void addConstraint(IConfigurationElement config) {
 		final String contributorId = config
 			.getDeclaringExtension()
-			.getNamespace();
+			.getNamespaceIdentifier();
 		
 		String id = config.getAttribute(XmlConfig.A_ID);
 		if (id == null) {

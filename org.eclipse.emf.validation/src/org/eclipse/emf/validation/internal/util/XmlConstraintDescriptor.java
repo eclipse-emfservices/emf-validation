@@ -101,7 +101,7 @@ public final class XmlConstraintDescriptor
 
 		name = config.getAttribute(XmlConfig.A_NAME);
 		String statusCodeStr = config.getAttribute(XmlConfig.A_STATUS_CODE);
-		pluginId = config.getDeclaringExtension().getNamespace();
+		pluginId = config.getDeclaringExtension().getNamespaceIdentifier();
 		
 		// constraint ID is required to start with contributing plugin ID
 		id = normalizedId(pluginId, config.getAttribute(XmlConfig.A_ID));

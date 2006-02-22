@@ -163,7 +163,7 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 		Bundle bundle = Platform.getBundle(descriptor
 			.getConfig()
 			.getDeclaringExtension()
-			.getNamespace());
+			.getNamespaceIdentifier());
 
 		// old-style method attribute still supported
 		String methodName = descriptor.getConfig().getAttribute(

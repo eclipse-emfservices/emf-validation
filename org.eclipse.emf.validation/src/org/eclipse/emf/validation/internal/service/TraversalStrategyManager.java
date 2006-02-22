@@ -123,7 +123,7 @@ class TraversalStrategyManager {
 			Log.warningMessage(
 				EMFModelValidationStatusCodes.TRAVERSAL_NO_NAMESPACE_URI,
 				EMFModelValidationStatusCodes.TRAVERSAL_NO_NAMESPACE_URI_MSG,
-				new Object[] {config.getDeclaringExtension().getNamespace()});
+				new Object[] {config.getDeclaringExtension().getNamespaceIdentifier()});
 		} else if (className == null) {
 			Log.warningMessage(
 				EMFModelValidationStatusCodes.TRAVERSAL_NO_CLASS,

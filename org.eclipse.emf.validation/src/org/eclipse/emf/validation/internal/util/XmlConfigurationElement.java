@@ -21,6 +21,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IContributor;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
@@ -265,7 +266,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		assert path != null;
 
 		Bundle contributor = Platform.getBundle(
-			getDeclaringExtension().getNamespace());
+			getDeclaringExtension().getNamespaceIdentifier());
 
 		URL url;
 		
@@ -379,5 +380,13 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	public boolean isValid() {
 		return false;
+	}
+
+	public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
+		return null;
+	}
+
+	public IContributor getContributor() throws InvalidRegistryObjectException {
+		return null;
 	}
 }

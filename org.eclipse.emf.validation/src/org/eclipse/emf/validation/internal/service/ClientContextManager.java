@@ -356,7 +356,7 @@ public class ClientContextManager {
 						EMFModelValidationStatusCodes.BINDING_NO_CLIENT,
 						ValidationMessages.binding_noContextId_ERROR_,
 						new Object[] {
-							config.getDeclaringExtension().getNamespace()});
+							config.getDeclaringExtension().getNamespaceIdentifier()});
 				} else {
 					ClientContext context = (ClientContext) getClientContext(contextId);
 					
@@ -366,7 +366,7 @@ public class ClientContextManager {
 							ValidationMessages.binding_noSuchContext_ERROR_,
 							new Object[] {
 								contextId,
-								config.getDeclaringExtension().getNamespace()});
+								config.getDeclaringExtension().getNamespaceIdentifier()});
 					} else {
 						configureBindings(context, config);
 					}
@@ -405,7 +405,7 @@ public class ClientContextManager {
 					ValidationMessages.binding_noConstraintRef_WARN_,
 					new Object[] {
 						context.getId(),
-						config.getDeclaringExtension().getNamespace()});
+						config.getDeclaringExtension().getNamespaceIdentifier()});
 			} else {
 				context.bindConstraint(ref);
 			}
@@ -421,7 +421,7 @@ public class ClientContextManager {
 					ValidationMessages.binding_noCategoryRef_WARN_,
 					new Object[] {
 						context.getId(),
-						config.getDeclaringExtension().getNamespace()});
+						config.getDeclaringExtension().getNamespaceIdentifier()});
 			} else {
 				context.bindCategory(ref);
 			}
