@@ -15,7 +15,7 @@
  *
  * </copyright>
  *
- * $Id: feature.xml,v 1.2 2005/11/29 16:54:00 cdamus Exp $
+ * $Id: feature.xml,v 1.3 2006/02/23 14:03:47 cdamus Exp $
  */
 -->
 
@@ -58,4 +58,19 @@
         id="org.eclipse.emf.validation.examples"
         version="1.0.0"
         match="compatible"/>
+        
+    <includes
+         id="org.eclipse.emf.validation.source"
+         version="1.0.0"
+         match="compatible"/>
+        
+    <includes
+         id="org.eclipse.emf.validation.ocl.source"
+         version="1.0.0"
+         match="compatible"/>
+        
+    <includes
+         id="org.eclipse.emf.validation.examples.source"
+         version="1.0.0"
+         match="compatible"/>
 </feature>
