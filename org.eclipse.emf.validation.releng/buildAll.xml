@@ -71,7 +71,7 @@
 
 		<property name="buildAlias" value="${buildLabel}" />
 		<property name="buildId" value="${buildAlias}" />
-		<property name="forceContextQualifier" value="${timestamp}"/>
+		<property name="forceContextQualifier" value="v${timestamp}"/>
 
 		<!--store the build label information in a file-->
 		<echo file="${buildDirectory}/label.properties" append="true">
