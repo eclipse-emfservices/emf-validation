@@ -86,8 +86,9 @@ To view the Overall Build Log for this Build click <a href="buildlog.txt">here</
 	</tr>
 	<tr>
 		<td align="LEFT" valign="TOP" colspan="3">
-			This download is the developer's SDK.  It contains the runtime plug-ins, source, and documentation
-			for developers that want to extend and use EMFT.
+This download is the developer's SDK. It contains the runtime
+plug-ins, source, examples and documentation for developers that want to
+extend and use EMFT.
 		</td>
 	</tr>
 </table>
