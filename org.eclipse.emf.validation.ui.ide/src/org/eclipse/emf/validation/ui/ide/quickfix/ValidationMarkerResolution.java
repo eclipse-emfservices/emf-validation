@@ -14,11 +14,12 @@
  *
  * $Id$
  */
-package org.eclipse.emf.validation.ui.ide.internal.quickfix;
+package org.eclipse.emf.validation.ui.ide.quickfix;
 
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IMarker;
+import org.eclipse.emf.validation.marker.MarkerUtil;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.preferences.EMFModelValidationPreferences;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
@@ -41,9 +42,6 @@ import org.eclipse.ui.IMarkerResolutionGenerator;
 public class ValidationMarkerResolution
 	implements IMarkerResolutionGenerator {
 
-	/** Name of the marker attribute that contains the constraint ID. */
-	private static final String RULE_ATTRIBUTE = "rule"; //$NON-NLS-1$
-	
 	private static final IMarkerResolution[] EMPTY_RESOLUTIONS =
 		new IMarkerResolution[0];
 	
@@ -52,7 +50,7 @@ public class ValidationMarkerResolution
 	 */
 	public IMarkerResolution[] getResolutions(IMarker marker) {
 		String constraintId = marker.getAttribute(
-			RULE_ATTRIBUTE,
+			MarkerUtil.RULE_ATTRIBUTE,
 			""); //$NON-NLS-1$
 		
 		if (constraintId.length() > 0) {

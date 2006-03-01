@@ -12,6 +12,7 @@ Export-Package: org.eclipse.emf.validation,
  org.eclipse.emf.validation.internal.l10n;x-friends:="org.eclipse.emf.validation.tests",
  org.eclipse.emf.validation.internal.service;x-friends:="org.eclipse.emf.validation.tests",
  org.eclipse.emf.validation.internal.util;x-friends:="org.eclipse.emf.validation.tests",
+ org.eclipse.emf.validation.marker,
  org.eclipse.emf.validation.model,
  org.eclipse.emf.validation.preferences,
  org.eclipse.emf.validation.service,
@@ -21,5 +22,6 @@ Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit,
  org.eclipse.core.expressions,
  org.eclipse.core.runtime,
- com.ibm.icu
+ com.ibm.icu,
+ org.eclipse.core.resources
 Eclipse-LazyStart: true

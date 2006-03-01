@@ -22,11 +22,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.examples.extlibrary.presentation.EXTLibraryEditor;
+import org.eclipse.emf.validation.examples.ValidationPlugin;
 import org.eclipse.emf.validation.examples.constraints.ValidationDelegateClientSelector;
 import org.eclipse.emf.validation.examples.internal.l10n.ValidationMessages;
+import org.eclipse.emf.validation.marker.MarkerUtil;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IBatchValidator;
@@ -203,5 +206,12 @@ public class BatchValidationDelegate
 		}
 		
 		ValidationDelegateClientSelector.running = false;
+		
+		// Create problem markers on the resources with validation failures/warnings.
+		try {
+			MarkerUtil.createMarkers(status);
+		} catch (CoreException e) {
+			ValidationPlugin.getDefault().getLog().log(e.getStatus());
+		}
 	}
 }

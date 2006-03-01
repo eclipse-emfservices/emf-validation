@@ -19,12 +19,11 @@
  */
 -->
 <plugin>
-
     	<extension point="org.eclipse.ui.ide.markerResolution"> 
 		<markerResolutionGenerator 
-			class="org.eclipse.emf.validation.ui.ide.internal.quickfix.ValidationMarkerResolution" 
-			markerType="org.eclipse.emf.validationProblem"> 
+			class="org.eclipse.emf.validation.ui.ide.quickfix.ValidationMarkerResolution" 
+			markerType="org.eclipse.emf.validation.problem"> 
    		</markerResolutionGenerator> 
-	</extension> 
+	</extension>
 
 </plugin>

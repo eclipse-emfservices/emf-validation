@@ -37,5 +37,13 @@
             lang="EMF"
             class="org.eclipse.emf.validation.internal.emfadapter.EMFConstraintParser"/>
    </extension>
+   
+    <extension
+           id="problem"
+           point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.emf.ecore.diagnostic"/>
+        <persistent value="false"/>
+        <attribute name="rule"/>
+     </extension> 
 
 </plugin>

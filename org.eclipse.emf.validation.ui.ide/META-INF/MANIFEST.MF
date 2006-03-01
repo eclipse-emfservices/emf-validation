@@ -8,7 +8,7 @@ Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.ui.ide.internal,
  org.eclipse.emf.validation.ui.ide.internal.l10n;x-internal:=true,
- org.eclipse.emf.validation.ui.ide.internal.quickfix;x-internal:=true
+ org.eclipse.emf.validation.ui.ide.quickfix
 Require-Bundle: org.eclipse.emf.validation,
  org.eclipse.emf.validation.ui;visibility:=reexport,
  org.eclipse.ui,
