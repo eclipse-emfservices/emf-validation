@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="org.eclipse.emf.ocl.doc" default="build.jars" basedir=".">
+<project name="org.eclipse.emf.validation.doc" default="build.jars" basedir=".">
 
 	<!-- Plug-in information.  This is a HACK.  Do not forget to update version numbers, etc.. -->
 	<property name="plugin" value="org.eclipse.emf.validation"/>
