@@ -19,14 +19,27 @@
  */
 -->
 <plugin>
+   <extension-point id="UIRegisteredClientContext" name="UI Registered Client Context" schema="schema/UIRegisteredClientContext.exsd"/>
 
      <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            name="%page.constraints.title"
+            class="org.eclipse.emf.validation.ui.internal.preferences.ValidationPreferencePage"
+            id="org.eclipse.emf.validation.ui.rootPage"
+            name="%rootpage.title"/>
+      <page
+            category="org.eclipse.emf.validation.ui.rootPage"
             class="org.eclipse.emf.validation.ui.internal.preferences.ConstraintsPreferencePage"
-            id="org.eclipse.emf.validation.constraintsPrefs">
+            id="org.eclipse.emf.validation.constraintsPrefs"
+            name="%constaintsPage.title">
       </page>
+   </extension>
+     <extension
+           point="org.eclipse.emf.validation.validationListeners">
+        <listener class="org.eclipse.emf.validation.ui.internal.LiveValidationListener"/>
+     </extension>
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.emf.validation.ui.internal.preferences.PreferenceInitializer" />
    </extension>
 
 </plugin>

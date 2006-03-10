@@ -37,7 +37,23 @@ public class ValidationUIMessages extends NLS {
 	public static String prefs_description_constraint;
 	public static String prefs_description_constraint_error;
 	public static String prefs_constraints_also;
-
+	public static String Validation_liveValidationGroupLabel;
+	public static String Validation_liveValidationDestinationPrompt;
+	public static String Validation_liveValidationDestination_dialogComboItem;
+	public static String Validation_liveValidationDestination_consoleComboItem;
+	public static String Validation_liveValidationShowConsolePrompt;
+	public static String Validation_liveValidationWarnDialogPrompt;
+	public static String Validation_error;
+	public static String Validation_warn;
+	public static String Validation_note;
+	public static String Validation_problems;
+	public static String Validation_liveError;
+	public static String Validation_liveWarning_part1;
+	public static String Validation_liveWarning_part2;
+	public static String Validation_liveDialogTitle;
+	public static String Validation_dontShowCheck;
+	public static String Validation_outputProviderCategory;
+	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ValidationUIMessages.class);
 	}

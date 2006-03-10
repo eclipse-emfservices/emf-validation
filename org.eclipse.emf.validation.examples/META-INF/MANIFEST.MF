@@ -18,5 +18,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.examples.library,
  org.eclipse.emf.examples.library.edit,
  org.eclipse.emf.examples.library.editor,
- org.eclipse.ui.console
+ org.eclipse.ui.console,
+ org.eclipse.emf.validation.ui
 Eclipse-LazyStart: true

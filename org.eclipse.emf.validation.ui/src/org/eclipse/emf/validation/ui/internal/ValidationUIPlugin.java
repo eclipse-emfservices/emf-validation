@@ -23,9 +23,12 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 /**
  * Plug-in class for the EMF Model Validation UI plug-in.
@@ -150,6 +153,7 @@ public class ValidationUIPlugin
      * The Eclipse plug-in implementation that represents the EMF plug-in.
      */
     public static class Implementation extends EclipsePlugin {
+    	private IPreferenceStore preferenceStore;
     	
     	/** Initializes me. */
         public Implementation() {
@@ -158,6 +162,15 @@ public class ValidationUIPlugin
             // Remember the static instance.
             //
             plugin = this;
+        }
+        
+        public IPreferenceStore getPreferenceStore() {
+            // Create the preference store lazily.
+            if (preferenceStore == null) {
+                preferenceStore = new ScopedPreferenceStore(new InstanceScope(),getBundle().getSymbolicName());
+
+            }
+            return preferenceStore;
         }
     }
     

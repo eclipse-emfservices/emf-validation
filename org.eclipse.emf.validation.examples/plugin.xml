@@ -141,5 +141,9 @@
       <listener class="org.eclipse.emf.validation.examples.listeners.ValidationListener">
          <clientContext id="org.eclipse.emf.validation.pde.example.general.ui.libraryContext"/>
       </listener>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      <clientContext id="org.eclipse.emf.validation.pde.example.general.ui.libraryContext"/>
    </extension> 
 </plugin>
