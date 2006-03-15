@@ -168,6 +168,9 @@
 			<zipfileset src="${buildDirectory}/${buildLabel}/emft-${subprojectName}-SDK-${buildAlias}.zip">
 				<include name="**/org.eclipse.emf.${subprojectName}.ocl*"/>
 				<include name="**/org.eclipse.emf.${subprojectName}.ocl*/*"/>
+				<exclude name="**/org.eclipse.*.source*"/>
+				<exclude name="**/org.eclipse.*.source*/**"/>
+				<exclude name="**/*src.zip"/>
 			</zipfileset>
 	    </zip>
 		
