@@ -50,6 +50,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.emf"/>
       <import plugin="org.eclipse.emf.validation"/>
    </requires>
+        
+    <includes
+         id="org.eclipse.emf.validation.examples.source"
+         version="0.0.0"
+         match="compatible"/>
 
    <plugin
          id="org.eclipse.emf.validation.examples"

@@ -51,11 +51,6 @@
         id="org.eclipse.emf.validation.doc"
         version="0.0.0"
         match="compatible"/>
-
-    <includes
-        id="org.eclipse.emf.validation.examples"
-        version="0.0.0"
-        match="compatible"/>
         
     <includes
          id="org.eclipse.emf.validation.source"
@@ -64,11 +59,6 @@
         
     <includes
          id="org.eclipse.emf.validation.ocl.source"
-         version="0.0.0"
-         match="compatible"/>
-        
-    <includes
-         id="org.eclipse.emf.validation.examples.source"
          version="0.0.0"
          match="compatible"/>
 </feature>
