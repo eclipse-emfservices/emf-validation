@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<link rel="Stylesheet" type="text/css" href="../../doc.css" />
+		<link rel="Stylesheet" type="text/css" href="doc.css" />
 		<title>EMFT Validation Overview</title>
 	</head>
 	<body>
@@ -15,7 +15,7 @@
 			<ol>
 				<li>
 					The extension point
-					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintProviders.html">org.eclipse.emf.validation.constraintProviders</a>
+					<a href="../references/extension-points/org_eclipse_emf_validation_constraintProviders.html">org.eclipse.emf.validation.constraintProviders</a>
 					is used to provide constraints. Static constraint providers declare constraints in the plugin.xml. Constraints are grouped into hierarchically
 					structured categories. Constraint providers target one or more EPackages by namespace URI. A group of constraints declares categories in which
 					they are members. Each constraint has a variety of meta-data associated with it (Language, ID, severity, mode, name, message, triggers, etc.).
@@ -24,7 +24,7 @@
 					responsible for making constraints available on the appropriate triggers, organizing them into categories, etc.
 				</li>
 				<li>
-					The extension point <a href="../reference/extension-points/org_eclipse_emf_validation_traversal.html">org.eclipse.emf.validation.traversal</a>
+					The extension point <a href="../references/extension-points/org_eclipse_emf_validation_traversal.html">org.eclipse.emf.validation.traversal</a>
 					is used to provide customizable model traversal algorithms. Batch validation traverses a subset of the model starting from the user's
 					selections. No traversal is performed in live validation. Some meta-models require custom strategies for traversal. The default strategy
 					simply iterates the content tree via <code>eAllContents()</code> API. Some meta-models do not use EMF containment relationships extensively,
@@ -32,7 +32,7 @@
 				</li>
 				<li>
 					The extension point
-					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintParsers.html">org.eclipse.emf.validation.constraintParsers</a> is
+					<a href="../references/extension-points/org_eclipse_emf_validation_constraintParsers.html">org.eclipse.emf.validation.constraintParsers</a> is
 					used to provide constraint parsing for languages. The validation framework provides support for two languages: Java and OCL. Clients can
 					provide support for other constraint languages via constraint parsers. The <code>Language ID</code>:  used in the <code>lang</code> attribute
 					of constraint elements in the constraint XML. The <code>Class</code>:  identifies an implementation of the <code>IXmlConstraintParser</code>
@@ -41,7 +41,7 @@
 				</li>
 				<li>
 					The extension point
-					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintBindings.html">org.eclipse.emf.validation.constraintBindings</a>
+					<a href="../references/extension-points/org_eclipse_emf_validation_constraintBindings.html">org.eclipse.emf.validation.constraintBindings</a>
 					allows clients of the EMF Validation framework to define "client contexts" that describe the objects that they are interested in validating,
 					and to bind them to constraints that they are interested in enforcing on these objects. A client context can declare an
 					<code>enablement</code> expression that matches model elements that are included in the context. Where that is not sufficient, an alternative
@@ -53,7 +53,7 @@
 				</li>
 				<li>
 					The extension point
-					<a href="../reference/extension-points/org_eclipse_emf_validation_validationListeners.html">org.eclipse.emf.validation.validationListeners</a>
+					<a href="../references/extension-points/org_eclipse_emf_validation_validationListeners.html">org.eclipse.emf.validation.validationListeners</a>
 					is used to define validation listeners for the validation service (<code>org.eclipse.emf.validation.service.ModelValidationService</code>).
 					The validation service will inform this listener whenever validation has occurred, loading it if necessary in order to do so. This is most
 					useful for cases where client plug-ins need to find out about validation events even before they are loaded. Otherwise, it is usually simpler
