@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="EMF Validation Table of Contents">
+<toc label="EMFT Validation Documentation">
+
+
+	<anchor id="overviews-before" />
+	<topic label="Overviews">
+		<topic label="Validation Overview" href="references/overview/ValidationOverview.html" />
+	</topic>
+	<anchor id="overviews-after" />
+
+	<anchor id="tutorial-before" />
+	<topic label="Tutorials">	
+		<topic label="Validation Tutorial" href="tutorials/validationTutorial.html" />
+		<topic label="Validation Adapter Tutorial" href="tutorials/validationAdapterTutorial.html" />
+		<topic label="OCL Validation Tutorial" href="tutorials/oclValidationTutorial.html" />
+	</topic>
+	<anchor id="tutorial-after" />
+
+	<anchor id="example-guide-before" />
+	<topic label="Examples Guide">	
+		<topic label="Validation Example" href="references/examples/validationExample.html" />
+		<topic label="Validation Adapter Example" href="references/examples/validationAdapterExample.html" />		
+		<topic label="OCL Validation Example" href="references/examples/oclValidationExample.html" />	
+	</topic>
+	<anchor id="example-guide-after" />
+
+	<anchor id="reference-before" />
+	<topic label="Reference">
+		<anchor id="reference-ext-pt-before" />
+		<topic label="Extension Points Reference">
+			<topic label="org.eclipse.emf.validation.constraintBindings" href="reference/extension-points/org_eclipse_emf_validation_constraintBindings.html" />
+			<topic label="org.eclipse.emf.validation.constraintProviders" href="reference/extension-points/org_eclipse_emf_validation_constraintProviders.html" />
+			<topic label="org.eclipse.emf.validation.constraintParsers" href="reference/extension-points/org_eclipse_emf_validation_constraintParsers.html" />
+			<topic label="org.eclipse.emf.validation.traversal" href="reference/extension-points/org_eclipse_emf_validation_traversal.html" />
+			<topic label="org.eclipse.emf.validation.validationListeners" href="reference/extension-points/org_eclipse_emf_validation_validationListeners.html" />
+		</topic>
+		<anchor id="reference-ext-pt-after" />
+	</topic>	
+	<anchor id="reference-after" />
+
 	<topic label="Javadoc" href="references/javadoc/index.html"/>
 </toc>

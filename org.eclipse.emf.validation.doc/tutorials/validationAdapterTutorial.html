@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<link rel="Stylesheet" type="text/css" href="../doc.css" />
+		<title>Tutorial: EMF Validation Adapter</title>
+	</head>
+	<body>
+		<h1><a name="top">Tutorial: EMF Validation Adapter</a></h1>
+
+		<h2>Contents</h2>
+		<ul>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#refs">References</a></li>
+			<li><a href="#evalidator">Creating the EValidator Implementation</a></li>
+			<li><a href="#registering">Registering the EValidator Implementation</a></li>
+			<li><a href="#summary">Summary</a></li>
+		</ul>
+
+		<h2><a name="overview">Overview</a></h2>
+		<p>
+			The EMF Validation Framework provides a generic and extensible framework
+			for defining constraints on EMF metamodels and for checking models against those
+			constraints.  It differs from the
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			API in EMF in several important respects:
+			<ul>
+				<li>
+					support for automatic validation on transaction boundaries:  constraints
+					can indicate that they are evaluated in "live" mode, as changes are made
+					in a model, rather than by user demand.
+				</li>
+				<li>dynamic extensibility:  the framework is not based on code generation.</li>
+				<li>pluggable support for constraint languages such as OCL.</li>
+			</ul>
+		</p>
+		<p>
+			This tutorial will illustrate how a client application performs model validation
+			using the Validation Framework.  In particular, it will show you how to create an
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			implementation that delegates to the validation framework, to provide
+			user-demand "batch mode" validation from an EMF editor.
+		</p>
+		<p class="small">[<a href="#top">back to top</a>]</p>
+
+		<h2><a name="refs">References</a></h2>
+		<p>
+			This tutorial assumes that the reader is familiar with the Eclipse extension point
+			architecture.  There is an abundance of on-line help in Eclipse for those
+			unfamiliar with extension points.
+		</p>
+		<p>
+			To see the complete source code for the examples shown in this tutorial, install
+			the <a href="../references/examples/validationAdapterExample.html">Validation Adapter Example</a>
+			plug-in into your workspace.
+		</p>
+		<p>
+			Other references:
+			<ul>
+				<li>
+					For an environment in which to test the EValidator that you will create
+					in this tutorial, install the
+					<a href="../references/examples/exampleOverview.html">Library Metamodel</a>
+					example which provides a generated editor.
+				</li>
+				<li><a href="../references/javadoc/org/eclipse/emf/validation/service/ModelValidationService.html">ModelValidationService</a> API</li>
+				<li><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a> API</li>
+			</ul>
+		</p>
+		<p class="small">[<a href="#top">back to top</a>]</p>
+
+		<h2><a name="evalidator">Creating the EValidator Implementation</a></h2>
+		<p>
+			Our <code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			implementation will delegate to the EMF Validation Framework to evaluate all
+			active constraints on a sub-tree of a model.  The metamodel that will target is
+			the Library Metamodel example.
+		</p>
+		<p>
+			The <code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			API requires us to implement three methods, as shown:
+<pre class="codeblock">
+    boolean validate(EObject eObject, DiagnosticChain diagnostics, Map context);
+
+    boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map context);
+
+    boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics, Map context);
+</pre>
+		</p>
+		<p>
+			We will extend the <code>EObjectValidator</code> class from the EMF API to
+			inherit the basic <code>EObject</code> constraints.  Then, we will
+			concentrate our efforts on implementing the second of the
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			methods, above, implementing the first by delegating to the second.
+			The EMF Validation Framework does not validate
+			<code>EDataType</code> values directly; it relies on constraints on
+			<code>EClass</code>es to validate the <code>EAttribute</code>s of their
+			instances.
+		</p>
+<pre class="codeblock">
+public class EValidatorAdapter
+    extends EObjectValidator {
+
+    private final IBatchValidator batchValidator;
+    
+    public EValidatorAdapter() {
+        super();
+        
+        batchValidator =
+            (IBatchValidator) ModelValidationService.getInstance().newValidator(
+                EvaluationMode.BATCH);
+        batchValidator.setIncludeLiveConstraints(true);
+        batchValidator.setReportSuccesses(false);
+    }
+
+    public boolean validate(EObject eObject, DiagnosticChain diagnostics,
+            Map context) {
+        return validate(eObject.eClass(), eObject, diagnostics, context);
+    }
+</pre>
+			<p>
+			The snippet above shows how we use the
+			<code><a href="../references/javadoc/org/eclipse/emf/validation/service/ModelValidationService.html">ModelValidationService</a></code>
+			to create a validator object to perform batch (user-triggered) validation.  We
+			want to include any constraints that also run in live mode, and are not
+			interested in receiving informational statuses indicating which constraints
+			pass.
+		</p>
+		<p>
+			First, we perform the superclass's validation (whatever that might be), then
+			delegate to our
+			<code><a href="../references/javadoc/org/eclipse/emf/validation/service/IBatchValidator.html">IBatchValidator</a></code>
+			instance to evaluate constraints contributed to the EMF Validation Framework
+			and convert the results to EMF
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/common/util/Diagnostic.html">Diagnostic</a></code>s:
+<pre class="codeblock">
+    public boolean validate(EClass eClass, EObject eObject,
+            DiagnosticChain diagnostics, Map context) {
+        super.validate(eClass, eObject, diagnostics, context);
+        
+        IStatus status = Status.OK_STATUS;
+        
+        if (diagnostics != null) {
+            if (!hasProcessed(eObject, context)) {
+                status = batchValidator.validate(
+                    eObject,
+                    new NullProgressMonitor());
+                
+                processed(eObject, context, status);
+                
+                appendDiagnostics(status, diagnostics);
+            }
+        }
+        
+        return status.isOK();
+    }
+</pre>
+		</p>
+		<p>
+			When EMF's
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/util/Diagnostician.html">Diagnostician</a></code>
+			invokes our validator, it will assume that
+			we are evaluating only a single object (not an entire content tree).  The EMF Validation Framework takes the opposite approach:  by default, batch
+			validation is recursive over the object's content tree (though this can be
+			changed by a client or a metamodel provider).  This allows constraints to
+			detect and avoid redundancy in evaluation on related elements and to implement
+			other kinds of optimizations.  Because of this difference, we need to ensure
+			that our validator does not re-validate objects already reached from their
+			containers, using the <code>context</code> map provided by the diagnostician:
+<pre class="codeblock">
+    private void processed(EObject eObject, Map context, IStatus status) {
+        if (context != null) {
+            context.put(eObject, status);
+        }
+    }
+    
+    private boolean hasProcessed(EObject eObject, Map context) {
+        boolean result = false;
+        
+        if (context != null) {
+            while (eObject != null) {
+                if (context.containsKey(eObject)) {
+                    result = true;
+                    eObject = null;
+                } else {
+                    eObject = eObject.eContainer();
+                }
+            }
+        }
+        
+        return result;
+    }
+</pre>
+		</p>
+		<p>
+			Finally, we need to convert the <code>IStatus</code> objects reported by the
+			<code><a href="../references/javadoc/org/eclipse/emf/validation/service/IBatchValidator.html">IBatchValidator</a></code>
+			to represent constraint violations to
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/common/util/Diagnostic.html">Diagnostic</a></code>s:
+<pre class="codeblock">
+    private void appendDiagnostics(IStatus status, DiagnosticChain diagnostics) {
+        if (status.isMultiStatus()) {
+            IStatus[] children = status.getChildren();
+            
+            for (int i = 0; i < children.length; i++) {
+                appendDiagnostics(children[i], diagnostics);
+            }
+        } else if (status instanceof IConstraintStatus) {
+            diagnostics.add(new BasicDiagnostic(
+                status.getSeverity(),
+                status.getPlugin(),
+                status.getCode(),
+                status.getMessage(),
+                ((IConstraintStatus) status).getResultLocus().toArray()));
+        }
+    }
+</pre>
+		</p>
+		<p class="small">[<a href="#top">back to top</a>]</p>
+
+		<h2><a name="registering">Registering the EValidator Implementation</a></h2>
+		<p>
+			EMF provides extension points on which to register resource factories for
+			file extensions and <code>EPackage</code>s for namespace URIs.  However, there
+			is no extension point on which we can register our
+			<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code>
+			implementation for the Library Metamodel.  Instead, we will create an
+			<code>org.eclipse.ui.startup</code> extension to register our validator when
+			the Eclipse platform launches.  A real application would probably have some
+			better trigger point than this.  In our <code>plugin.xml</code> we define:
+<pre class="codeblock">
+   &lt;extension point="org.eclipse.ui.startup"&gt;
+      &lt;startup class="org.eclipse.emf.validation.examples.adapter.Startup"/&gt;
+   &lt;/extension&gt;
+</pre>
+		</p>
+		<p>
+			Our start-up class then just needs to instantiate our validator and add
+			it to the <code>EValidator.Registry</code>:
+<pre class="snippet">
+public class Startup
+	implements IStartup {
+
+	public void earlyStartup() {
+		EValidator.Registry.INSTANCE.put(
+			LibraryPackage.eINSTANCE,
+			new EValidatorAdapter());
+	}
+}
+</pre>
+		</p>
+		<p>
+			Now, any invocation of EMF's "Validate" menu in the Library Editor will
+			invoke the EMF Validation Framework to perform the validation.
+		</p>
+		<p class="small">[<a href="#top">back to top</a>]</p>
+
+		<h2><a name="summary">Summary</a></h2>
+		<p>
+			To illustrate how to implement an EMF Validation Framework client, we
+			<ol>
+				<li>
+					Created an EMF validator that performs validation using the model
+					validation service.
+				</li>
+				<li>
+					Registered the validator with an EMF metamodel to install the validator
+					in the editor.
+				</li>
+			</ol>
+		</p>
+		<p class="small">[<a href="#top">back to top</a>]</p>
+
+		<hr />
+		<p>
+			<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a>
+		</p>
+	</body>
+</html>

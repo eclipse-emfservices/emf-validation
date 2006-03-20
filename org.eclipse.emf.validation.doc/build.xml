@@ -64,6 +64,8 @@
 		
 		<antcall target="build.index"/>
 		
+		<antcall target="convertSchemaToHtml"/>
+		
 		<!-- Zip up all of the documentation artifacts - references(including javadoc), images, tutorials, etc. -->
 		<zip destfile="doc.zip" compress="true">
 			<!-- Add new folders for documentation zip here. -->
@@ -123,4 +125,12 @@
 		<delete dir="${temp.folder}"/>
 	</target>
 
+	<target name="convertSchemaToHtml">
+		<property name="schema-destination" value="./reference/extension-points" />
+		<pde.convertSchemaToHTML manifest="../org.eclipse.emf.validation/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="../org.eclipse.emf.validation.ocl/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="../org.eclipse.emf.validation.ui/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="../org.eclipse.emf.validation.ui.ide/plugin.xml" destination="${schema-destination}" />
+	</target>
+	
 </project>

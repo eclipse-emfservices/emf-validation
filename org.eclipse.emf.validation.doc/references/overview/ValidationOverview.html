@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<link rel="Stylesheet" type="text/css" href="../../doc.css" />
+		<title>EMFT Validation Overview</title>
+	</head>
+	<body>
+		<h1><a name="top">EMFT Validation Overview</a></h1>
+		<p>
+			The validation framework provides support for constraint providers for any EMF meta-model (batch and live constraints),
+			customizable model traversal algorithms, constraint parsing for languages, configurable constraint bindings to
+			application contexts and validation listeners. The following are the main extension points and classes to be used with
+			the validation framework.
+			<ol>
+				<li>
+					The extension point
+					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintProviders.html">org.eclipse.emf.validation.constraintProviders</a>
+					is used to provide constraints. Static constraint providers declare constraints in the plugin.xml. Constraints are grouped into hierarchically
+					structured categories. Constraint providers target one or more EPackages by namespace URI. A group of constraints declares categories in which
+					they are members. Each constraint has a variety of meta-data associated with it (Language, ID, severity, mode, name, message, triggers, etc.).
+					Dynamic constraint providers address situations where constraints cannot be declared statically. e.g., where constraints are defined in models
+					or other resources. Dynamic providers declare a class implementing the <code>IModelConstraintProvider</code> interface. This class is
+					responsible for making constraints available on the appropriate triggers, organizing them into categories, etc.
+				</li>
+				<li>
+					The extension point <a href="../reference/extension-points/org_eclipse_emf_validation_traversal.html">org.eclipse.emf.validation.traversal</a>
+					is used to provide customizable model traversal algorithms. Batch validation traverses a subset of the model starting from the user's
+					selections. No traversal is performed in live validation. Some meta-models require custom strategies for traversal. The default strategy
+					simply iterates the content tree via <code>eAllContents()</code> API. Some meta-models do not use EMF containment relationships extensively,
+					or implement logical models on multiple distinct resources, making containment-based traversal impractical.
+				</li>
+				<li>
+					The extension point
+					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintParsers.html">org.eclipse.emf.validation.constraintParsers</a> is
+					used to provide constraint parsing for languages. The validation framework provides support for two languages: Java and OCL. Clients can
+					provide support for other constraint languages via constraint parsers. The <code>Language ID</code>:  used in the <code>lang</code> attribute
+					of constraint elements in the constraint XML. The <code>Class</code>:  identifies an implementation of the <code>IXmlConstraintParser</code>
+					interface, which constructs a constraint from the XML configuration data. Constraint parsers are responsible for parsing the content of a
+					constraint element in the plugin.xml to produce <code>IModelConstraint</code> objects.
+				</li>
+				<li>
+					The extension point
+					<a href="../reference/extension-points/org_eclipse_emf_validation_constraintBindings.html">org.eclipse.emf.validation.constraintBindings</a>
+					allows clients of the EMF Validation framework to define "client contexts" that describe the objects that they are interested in validating,
+					and to bind them to constraints that they are interested in enforcing on these objects. A client context can declare an
+					<code>enablement</code> expression that matches model elements that are included in the context. Where that is not sufficient, an alternative
+					is to define a selector class using a <code>selector</code> element. Client contexts can be bound to constraints, individually, or to
+					constraint categories (to bind all of the constraints in the category). Binding to constraint categories has the advantage of allowing new
+					constraint contributions in a category to automatically be bound to the appropriate client context, even if the constraint is defined in a
+					plug-in that is unaware of that context or its binding to the category. Category bindings are inherited by sub-categories from their
+					ancestors.
+				</li>
+				<li>
+					The extension point
+					<a href="../reference/extension-points/org_eclipse_emf_validation_validationListeners.html">org.eclipse.emf.validation.validationListeners</a>
+					is used to define validation listeners for the validation service (<code>org.eclipse.emf.validation.service.ModelValidationService</code>).
+					The validation service will inform this listener whenever validation has occurred, loading it if necessary in order to do so. This is most
+					useful for cases where client plug-ins need to find out about validation events even before they are loaded. Otherwise, it is usually simpler
+					just to programmatically add a listener to the validation service. The value of the <code>listener</code> element class attribute must be the
+					fully qualified name of a class that implements the <code>IValidationListener</code> interface. Listeners can also be registered in code, at
+					run-time, using the <code>ModelValidationService.addValidationListener()</code> method.
+				</li>
+				<li>
+					The <code>ModelValidationService</code> singleton coordinates the invocation of validation. It defines a single factory method for creation of
+					<code>IValidator</code> for the batch and live evaluation modes. Validators validate one or more objects at a time; the kind of object
+					accepted as input depends on the evaluation mode. They can be configured to report constraint passes as well as failures, for verbose results.
+					Results are reported as <code>IValidationStatus</code>. Validators can be reused by a client for any number of validation operations. The
+					<code>ILiveValidator</code> validates EMF <code>Notifications</code>. The <code>IBatchValidator</code> validates <code>EObjects</code> and,
+					due to its support for model traversal, supports progress monitors. Registered traversal strategies can be overridden by the client.
+				</li>
+				<li>
+					Clients can create an
+					<code><a href="/help/topic/org.eclipse.emf.doc/references/javadoc/org/eclipse/emf/ecore/EValidator.html">EValidator</a></code> implementation
+					that delegates to the validation framework.
+				</li>
+				<li>
+					The framework provides implementation of an XML constraint parser (<code>org.eclipse.emf.validation.xml.IXmlConstraintParser</code>) API
+					that supports definition of XML constraints in OCL. The class <code>OclConstraintParser</code> is the constraint parser
+					implementation that creates instances of the <code>OclModelConstraint</code> class, the OCL-language constraint implementation,
+					from XML constraint descriptors. It uses the <code>Query</code> class to test model elements against an OCL constraint expression.
+				</li>
+			</ol>
+		</p>
+		<p>
+			Please refer to the tutorials <a href="../../tutorials/validationTutorial.html">Validation Tutorial</a>,
+			<a href="../../tutorials/validationAdapterTutorial.html">Validation Adapter Tutorial</a> and
+			<a href="../../tutorials/oclValidationTutorial.html">OCL Validation Tutorial</a> for reviewing some code
+			samples.
+		</p>
+
+		<hr/>
+
+		<p>
+			<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a>
+		</p>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<link rel="Stylesheet" type="text/css" href="../../doc.css" />
+		<title>Validation Adapter Example</title>
+	</head>
+	<body>
+
+		<h1>Validation Adapter Example</h1>
+
+		<h2>Introduction</h2>
+		<p>
+			This example describes the usage of the validation framework within the SDK.
+			It demonstrates how to implement an EMF <code>EValidator</code> interface that
+			delegates to model validation service and adapts the results to the EMF <code>Diagnostic</code> API.
+		</p>
+
+		<h2>References</h2>
+		<p>
+			Please refer to the document <a href="exampleOverview.html">Eclipse Modeling Framework Technology Examples Overview</a>
+			for reviewing the library meta-model used as the basis for demonstrating the capabilities in this example.
+		</p>
+
+		<h2>Description</h2>
+		<p>
+			This example plug-in is named <code>org.eclipse.emf.validation.examples.adapter</code>. This plug-in
+			does not contribute any menu items. It defines a client context and binds the context to a constraint category.
+			The client context enablement uses the Eclipse property tester API. This plug-in registers the <code>EValidator</code>
+			implementation with the <code>EValidator.Registry</code> through the Eclipse <code>org.eclipse.ui.startup</code>
+			extension point. The funtionality is triggered by invoking the menu item <b>Validate</b> from the editor's
+			context menu or main menu.
+		</p>
+
+		<p>
+			Please refer to the tutorial <a href="../../tutorials/validationAdapterTutorial.html">Validation Adapter Tutorial</a> 
+			for reviewing the code samples within this example
+		</p>
+
+		<img src="oclValidation.gif" alt="Validation Adapter Trigger" />
+
+		<h2>Usage</h2>
+		<p>
+			Refer to this example if you need:
+			<ol>
+				<li>To implement the EMF EValidator interface that delegates to the validation framework</li>
+			</ol>
+		</p>
+
+		<hr />
+
+		<p>
+			<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a>
+		</p>
+	</body>
+</html>
