@@ -47,22 +47,22 @@ To view the Overall Build Log for this Build click <a href="buildlog.txt">here</
 				<td><b>Build Details &amp; Other Downloads</b></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/eclipse/">Eclipse</a></td>
+				<td><a href="http://www.eclipse.org/eclipse/">Eclipse</a></td>
 				<td><a href="@eclipseDownloadURL@@eclipseDropFile@">@eclipseFile@</a></td>
 				<td><a href="@eclipseDownloadURL@@eclipseBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/emf/">EMF</a></td>
+				<td><a href="http://www.eclipse.org/emf/">EMF</a></td>
 				<td><a href="@eclipseDownloadURL@@emfDropFile@">@emfFile@</a></td>
 				<td><a href="@eclipseDownloadURL@@emfBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/emft/?proj=ocl">EMFT OCL</a></td>
+				<td><a href="http://www.eclipse.org/emft/?proj=ocl">EMFT OCL</a></td>
 				<td><a href="@eclipseDownloadURL@@oclDropFile@">@oclFile@</a></td>
 				<td><a href="@eclipseDownloadURL@@oclBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://eclipse.org/uml2/">UML2</a></td>
+				<td><a href="http://www.eclipse.org/uml2/">UML2</a></td>
 				<td><a href="@eclipseDownloadURL@@uml2DropFile@">@uml2File@</a></td>
 				<td><a href="@eclipseDownloadURL@@uml2BuildURL@">Build Page</a></td>
 			</tr>
