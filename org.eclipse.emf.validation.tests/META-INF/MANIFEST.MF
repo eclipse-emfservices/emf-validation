@@ -19,11 +19,10 @@ Export-Package: ordersystem,
  org.eclipse.emf.validation.internal.xml.tests;x-internal:=true,
  org.eclipse.emf.validation.tests,
  org.eclipse.emf.validation.tests.l10n
-Require-Bundle: org.eclipse.core.expressions,
- org.eclipse.emf.ecore,
- org.junit,
- org.eclipse.emf.ecore.xmi,
- org.eclipse.emf.validation,
- org.eclipse.uml2,
- org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.expressions;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)",
+ org.junit;bundle-version="[3.8.1,4.0.0)",
+ org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.emf.validation;bundle-version="1.0.0",
+ org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)"
 Eclipse-LazyStart: true

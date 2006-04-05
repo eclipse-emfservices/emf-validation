@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.eclipse.uml2.UML2Factory;
 
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.IConstraintStatus;
@@ -126,7 +125,6 @@ public class FrameworkTest extends TestBase {
 		
 		// this test has two parts
 		orderSystemNameSpace();
-		umlNameSpace();
 	}
 
 	/**
@@ -149,30 +147,6 @@ public class FrameworkTest extends TestBase {
 		}
 		
 		fail("ordersystem.marker constraint not found"); //$NON-NLS-1$
-	}
-
-	/**
-	 * Helper for the namespaces test, verifying that a known "marker" test is
-	 * found in the UML 2.0 namespace.
-	 */
-	private void umlNameSpace() {
-		// find the 'marker' constraint for a known type in the uml namespace
-		EObject object = UML2Factory.eINSTANCE.createActor();
-
-		IStatus[] status = getStatuses(batchValidator.validate(object));
-
-		assertTrue("No constraints found for UML", //$NON-NLS-1$
-				status.length > 0);
-
-		for (int i = 0; i < status.length; i++) {
-			IModelConstraint next = ((IConstraintStatus)status[i]).getConstraint();
-
-			if (next.getDescriptor().getId().equals(ID_PREFIX + "uml.marker")) { //$NON-NLS-1$
-				return;
-			}
-		}
-
-		fail("uml.marker constraint not found"); //$NON-NLS-1$
 	}
 
 	/**
