@@ -28,11 +28,11 @@
 	<topic label="Reference">
 		<anchor id="reference-ext-pt-before" />
 		<topic label="Extension Points Reference">
-			<topic label="org.eclipse.emf.validation.constraintBindings" href="references/org_eclipse_emf_validation_constraintBindings.html" />
-			<topic label="org.eclipse.emf.validation.constraintProviders" href="references/org_eclipse_emf_validation_constraintProviders.html" />
-			<topic label="org.eclipse.emf.validation.constraintParsers" href="references/org_eclipse_emf_validation_constraintParsers.html" />
-			<topic label="org.eclipse.emf.validation.traversal" href="references/org_eclipse_emf_validation_traversal.html" />
-			<topic label="org.eclipse.emf.validation.validationListeners" href="references/org_eclipse_emf_validation_validationListeners.html" />
+			<topic label="org.eclipse.emf.validation.constraintBindings" href="references/extension-points/org_eclipse_emf_validation_constraintBindings.html" />
+			<topic label="org.eclipse.emf.validation.constraintProviders" href="references/extension-points/org_eclipse_emf_validation_constraintProviders.html" />
+			<topic label="org.eclipse.emf.validation.constraintParsers" href="references/extension-points/org_eclipse_emf_validation_constraintParsers.html" />
+			<topic label="org.eclipse.emf.validation.traversal" href="references/extension-points/org_eclipse_emf_validation_traversal.html" />
+			<topic label="org.eclipse.emf.validation.validationListeners" href="references/extension-points/org_eclipse_emf_validation_validationListeners.html" />
 		</topic>
 		<anchor id="reference-ext-pt-after" />
 	</topic>	
