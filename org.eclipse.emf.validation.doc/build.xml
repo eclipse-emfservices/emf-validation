@@ -85,9 +85,8 @@
 	<target name="gather.bin.parts" depends="init" if="destination.temp.folder">
 		<mkdir dir="${destination.temp.folder}/${docPlugin}_${pluginVersion}.${forceContextQualifier}"/>
 		<copy todir="${destination.temp.folder}/${docPlugin}_${pluginVersion}.${forceContextQualifier}" failonerror="true" overwrite="false">
-			<fileset dir="${basedir}" includes="${filesToInclude}}"/>
+			<fileset dir="${basedir}" includes="${filesToInclude}"/>
 		</copy>
-		<exec command="ls"/>
 		<eclipse.versionReplacer 
 			path="${destination.temp.folder}/${docPlugin}_${pluginVersion}.${forceContextQualifier}" 
 			version="${pluginVersion}.${forceContextQualifier}"/>
