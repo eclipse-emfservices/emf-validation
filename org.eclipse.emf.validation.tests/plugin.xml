@@ -183,21 +183,6 @@ success = target.foo()
          </constraints>
       </constraintProvider>
    </extension>
-   <extension name="Marker constraint for UML namespace" point="org.eclipse.emf.validation.constraintProviders">
-      <constraintProvider>
-         <package namespaceUri="%uml2NsUri"/>
-         <constraints categories="test/framework">
-            <constraint name="UML Marker" statusCode="1" lang="OCL" id="uml.marker">
-               <message>
-                  Nothing to say.
-               </message>
-               <target class="Actor">
-               </target>
-               true
-            </constraint>
-         </constraints>
-      </constraintProvider>
-   </extension>
    <extension name="Test problems in XML for constraint provider" point="org.eclipse.emf.validation.constraintProviders">
       <constraintProvider class="org.eclipse.emf.validation.tests.TestBadXmlConfigProvider">
          <package namespaceUri="http://www.eclipse.org/emf/2002/Ecore" />
