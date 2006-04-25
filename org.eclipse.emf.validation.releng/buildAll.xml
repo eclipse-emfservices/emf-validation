@@ -2,8 +2,8 @@
 	<target name="init">
 
 		<!-- new 060413 due to changes in basebuilder (3.2M6) -->
-		<echo message="Set compilerArgs = '-enableJavadoc -encoding ISO-8859-1 -warn:-serial,-nls,-unchecked'"/>
-		<property name="compilerArg" value="-enableJavadoc -encoding ISO-8859-1 -warn:-serial,-nls,-unchecked" />
+		<echo message="Set compilerArgs = '-enableJavadoc -encoding ISO-8859-1 -warn:-serial,nls,unchecked'"/>
+		<property name="compilerArg" value="-enableJavadoc -encoding ISO-8859-1 -warn:-serial,nls,unchecked" />
 		
 		<!-- new 060413 due to changes in basebuilder (3.2M6) -->
 		<echo message="Set javacSource and javacTarget = 1.4"/>
