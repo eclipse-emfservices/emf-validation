@@ -79,7 +79,7 @@ which handles the associated XML constraint language.
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 
@@ -88,7 +88,18 @@ which handles the associated XML constraint language.
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;p&gt;
+To provide support for constraints defined in scripted Java embedded in the constraint provider XML, using BeanShell, one might define an extension like the following:
+&lt;/p&gt;
+&lt;pre&gt;
+     &lt;extension
+         point=&quot;org.eclipse.emf.validation.constraintParsers&quot;&gt;
+      &lt;constraintParser
+            class=&quot;com.example.validation.BeanShellConstraintParser&quot;
+            lang=&quot;Java-BeanShell&quot;&gt;
+      &lt;/constraintParser&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -97,7 +108,9 @@ which handles the associated XML constraint language.
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         The value of the &lt;tt&gt;&amp;lt;constraintParser&amp;gt;&lt;/tt&gt; element &lt;tt&gt;class&lt;/tt&gt; attribute must be the fully qualified name of a class that implements
+the &lt;code&gt;org.eclipse.emf.validation.xml.IXmlConstraintParser&lt;/code&gt; interface.  It is instantiated using the default (no-argument) constructor; only a single instance is created by the system.
+
       </documentation>
    </annotation>
 
@@ -106,7 +119,8 @@ which handles the associated XML constraint language.
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         The &lt;tt&gt;org.eclipse.emf.validation.ocl&lt;/tt&gt; plug-in provides support for OCL as a constraint language using a constraint parser.
+
       </documentation>
    </annotation>
 
@@ -115,13 +129,11 @@ which handles the associated XML constraint language.
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-        Copyright (c) 2005 IBM Corporation and others.&lt;br&gt;
-	All rights reserved. This program and the accompanying materials 
-	are made available under the terms of the Eclipse Public License v1.0 
-	which accompanies this distribution, and is available at 
-	&lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
-
-         
+         Copyright (c) 2005 IBM Corporation and others.&lt;br&gt;
+ All rights reserved. This program and the accompanying materials 
+ are made available under the terms of the Eclipse Public License v1.0 
+ which accompanies this distribution, and is available at 
+ &lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
       </documentation>
    </annotation>
 

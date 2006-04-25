@@ -82,8 +82,6 @@ public interface IValidationContext {
 	 * 
 	 * @return the raw {@link org.eclipse.emf.common.notify.Notification}s being validated, or an empty
 	 *    list if this is a batch validation.  This list is not modifiable
-	 * 
-	 * @since 7.0
 	 */
 	List getAllEvents();
 	
