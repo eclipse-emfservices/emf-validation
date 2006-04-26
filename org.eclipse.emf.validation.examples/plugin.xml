@@ -19,131 +19,33 @@
  */
 -->
 <plugin>
-
-     <extension point="org.eclipse.ui.editorActions"> 
-      <editorContribution 
-         id="org.eclipse.emf.validation.examples.editorContribution" 
-         targetID="org.eclipse.emf.examples.extlibrary.presentation.EXTLibraryEditorID"> 
-         <menu
-               label="%_UI_ValidationMenu_label"
-               path="org.eclipse.emf.examples.extlibraryMenuID/additions"
-               id="org.eclipse.emf.validationMenuID">
-            <separator name="additions"/>
-         </menu>
-         <action
-               label="%ValidateElementsAction.label"
-               icon="$nl$/icons/validate.gif"
-               class="org.eclipse.emf.validation.examples.actions.BatchValidationDelegate"
-               menubarPath="org.eclipse.emf.examples.extlibraryMenuID/org.eclipse.emf.validationMenuID/additions"
-               id="org.eclipse.emf.validation.pde.example.general.ui.validateAction"/>
-         <action
-               label="%EnableLiveValidationAction.label"
-               class="org.eclipse.emf.validation.examples.actions.EnableLiveValidationDelegate"
-               menubarPath="org.eclipse.emf.examples.extlibraryMenuID/org.eclipse.emf.validationMenuID/additions"
-               id="org.eclipse.emf.validation.pde.example.general.ui.enableLiveValidationAction"/>
-        <action
-              label="%ShowValidationEventsAction.label"
-              class="org.eclipse.emf.validation.examples.actions.ShowValidationEventsDelegate"
-              style="toggle"
-              state="false"
-              menubarPath="org.eclipse.emf.examples.extlibraryMenuID/org.eclipse.emf.validationMenuID/additions"
-              id="org.eclipse.emf.validation.pde.example.general.ui.showValidationEventsAction"/>               
-      </editorContribution> 
-   </extension> 
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <viewerContribution
-            targetID="org.eclipse.emf.examples.extlibrary.presentation.EXTLibraryEditorID"
-            id="org.eclipse.emf.validation.examples.viewerContribution">
-         <menu
-               label="%_UI_ValidationMenu_label"
-               path="additions"
-               id="org.eclipse.emf.validationMenuID">
-            <separator name="additions"/>
-         </menu>
-         <action
-               label="%ValidateElementsAction.label"
-               icon="$nl$/icons/validate.gif"
-               class="org.eclipse.emf.validation.examples.actions.BatchValidationDelegate"
-               menubarPath="org.eclipse.emf.validationMenuID/additions"
-               id="org.eclipse.emf.validation.pde.example.general.ui.validateAction"/>
-         <action
-               label="%EnableLiveValidationAction.label"
-               class="org.eclipse.emf.validation.examples.actions.EnableLiveValidationDelegate"
-               menubarPath="org.eclipse.emf.validationMenuID/additions"
-               id="org.eclipse.emf.validation.pde.example.general.ui.enableLiveValidationAction"/>
-        <action
-              label="%ShowValidationEventsAction.label"
-              class="org.eclipse.emf.validation.examples.actions.ShowValidationEventsDelegate"
-              style="toggle"
-              state="false"
-              menubarPath="org.eclipse.emf.validationMenuID/additions"
-              id="org.eclipse.emf.validation.pde.example.general.ui.showValidationEventsAction"/>               
-      </viewerContribution>
-   </extension>
-   <extension
-         point="org.eclipse.emf.validation.constraintProviders">
+         point="org.eclipse.ui.newWizards">
       <category
-            name="%EXTLibraryConstraintsCategory"
-            id="org.eclipse.emf.validation.pde.example.general.ui.library"/>
-      <constraintProvider
-            cache="true"
-            >
-         <package namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/>
-         <constraints categories="org.eclipse.emf.validation.pde.example.general.ui.library">
-            <constraint
-                  lang="Java"
-                  class="org.eclipse.emf.validation.examples.constraints.NonEmptyNamesConstraint"
-                  severity="ERROR"
-                  mode="Live"
-                  name="%NonEmptyNameConstraint"
-                  id="org.eclipse.emf.validation.pde.example.general.ui.NameNotEmpty"
-                  statusCode="1">
-               <description>
-                  %NonEmptyNameConstraint.description
-               </description>
-               <message>
-                  %NonEmptyNameConstraint.message
-               </message>
-               <target class="Library">
-                  <event name="Set">
-                     <feature name="name"/>
-                  </event>
-                  <event name="Unset">
-                     <feature name="name"/>
-                  </event>
-               </target>
-               <target class="Book">
-                  <event name="Set">
-                     <feature name="title"/>
-                  </event>
-                  <event name="Unset">
-                     <feature name="title"/>
-                  </event>
-               </target>
-            </constraint>
-         </constraints>
-      </constraintProvider>
+            id="org.eclipse.emf.validation.examples.category"
+            name="EMFT Validation"
+            parentCategory="org.eclipse.ui.Examples"/>
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
+            class="org.eclipse.emf.validation.examples.internal.wizard.GeneralExampleWizard"
+            hasPages="false"
+            id="org.eclipse.emf.validation.examples.general"
+            name="General Validation Example"/>
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
+            class="org.eclipse.emf.validation.examples.internal.wizard.AdapterExampleWizard"
+            hasPages="false"
+            id="org.eclipse.emf.validation.examples.adapter"
+            name="Live Validation Adapter Example"/>
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
+            class="org.eclipse.emf.validation.examples.internal.wizard.OCLExampleWizard"
+            hasPages="false"
+            id="org.eclipse.emf.validation.examples.ocl"
+            name="OCL Validation Example"/>
    </extension>
-   <extension
-         point="org.eclipse.emf.validation.constraintBindings">
-      <clientContext
-            default="false"
-            id="org.eclipse.emf.validation.pde.example.general.ui.libraryContext">
-         <selector class="org.eclipse.emf.validation.examples.constraints.ValidationDelegateClientSelector"/>
-      </clientContext>
-      <binding
-            context="org.eclipse.emf.validation.pde.example.general.ui.libraryContext"
-            category="org.eclipse.emf.validation.pde.example.general.ui.library"/>
-   </extension>
-   <extension
-         point="org.eclipse.emf.validation.validationListeners">
-      <listener class="org.eclipse.emf.validation.examples.listeners.ValidationListener">
-         <clientContext id="org.eclipse.emf.validation.pde.example.general.ui.libraryContext"/>
-      </listener>
-   </extension>
-   <extension
-         point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
-      <clientContext id="org.eclipse.emf.validation.pde.example.general.ui.libraryContext"/>
-   </extension> 
+
 </plugin>
