@@ -63,10 +63,10 @@
    <logFile name="plugins/org.eclipse.emf.validation.examples_*/*.bin.log">
       <effectedFile id="EX"></effectedFile>
    </logFile>
-   <logFile name="plugins/org.eclipse.emf.validation.examples.general_*/*.bin.log">
+   <logFile name="plugins/org.eclipse.emf.validation.examples.adapter_*/*.bin.log">
       <effectedFile id="EX"></effectedFile>
    </logFile>
-   <logFile name="plugins/org.eclipse.emf.validation.examples.adapter_*/*.bin.log">
+   <logFile name="plugins/org.eclipse.emf.validation.examples.general_*/*.bin.log">
       <effectedFile id="EX"></effectedFile>
    </logFile>
    <logFile name="plugins/org.eclipse.emf.validation.examples.ocl_*/*.bin.log">
