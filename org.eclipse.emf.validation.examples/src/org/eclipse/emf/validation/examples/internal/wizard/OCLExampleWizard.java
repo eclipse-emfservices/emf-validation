@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.validation.examples.internal.ValidationExamplesPlugin;
+
 
 public class OCLExampleWizard
 	extends AbstractExampleWizard {
@@ -18,5 +23,13 @@ public class OCLExampleWizard
 		projects.add(new ProjectDescriptor("org.eclipse.emf.validation.examples", "zips/ocl.zip", "org.eclipse.emf.validation.examples.ocl")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		
 		return projects;
+	}
+	
+	protected void log(Exception e) {
+		if (e instanceof CoreException) {
+			ValidationExamplesPlugin.getDefault().getLog().log(((CoreException)e).getStatus());
+		} else {
+			ValidationExamplesPlugin.getDefault().getLog().log(new Status(IStatus.ERROR, ValidationExamplesPlugin.getDefault().getBundle().getSymbolicName(),IStatus.ERROR, e.getMessage(),e));
+		}
 	}
 }
