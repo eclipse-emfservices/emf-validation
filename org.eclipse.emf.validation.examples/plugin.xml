@@ -38,14 +38,14 @@
             class="org.eclipse.emf.validation.examples.internal.wizard.AdapterExampleWizard"
             hasPages="false"
             id="org.eclipse.emf.validation.examples.adapter"
-            name="Live Validation Adapter Example"/>
+            name="Validation Adapter Example"/>
       <wizard
             canFinishEarly="true"
             category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
             class="org.eclipse.emf.validation.examples.internal.wizard.OCLExampleWizard"
             hasPages="false"
             id="org.eclipse.emf.validation.examples.ocl"
-            name="OCL Validation Example"/>
+            name="OCL Example"/>
    </extension>
 
 </plugin>
