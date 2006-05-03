@@ -39,7 +39,7 @@ import org.osgi.service.prefs.Preferences;
  * @author Christian W. Damus (cdamus)
  */
 public class AllTests extends TestCase implements IPlatformRunnable {
-	private static boolean executingUnitTests = false;
+	public static boolean executingUnitTests = false;
 	
 	static {
 		// register the .ordersystem extension for loading the example XMI file

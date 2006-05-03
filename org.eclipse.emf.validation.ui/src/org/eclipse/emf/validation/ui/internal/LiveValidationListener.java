@@ -113,7 +113,7 @@ public class LiveValidationListener
 				IConfigurationElement[] elements = extensions[i].getConfigurationElements();
 				
 				for (int j=0; j<elements.length; j++) {
-					registeredIds.add(elements[i].getAttribute(A_ID));
+					registeredIds.add(elements[j].getAttribute(A_ID));
 				}
 			}
 		}
@@ -170,7 +170,10 @@ public class LiveValidationListener
      * @param event the live validation occurred event
      */
     private void showLiveValidationDialog(final ValidationEvent event) {
-    	Display.getCurrent().syncExec(new Runnable() {
+    	if (!PlatformUI.isWorkbenchRunning())
+    		return;
+    	
+    	PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
             public void run() {
                 IWorkbenchWindow workbenchWindow =
                     PlatformUI.getWorkbench().getActiveWorkbenchWindow();

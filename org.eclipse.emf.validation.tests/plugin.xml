@@ -241,6 +241,23 @@ success = target.foo()
 	           </target>
 	           true
 	        </constraint>
+            <constraint
+                  id="validOrderId"
+                  lang="OCL"
+                  mode="Live"
+                  name="Orders must have valid ID&apos;s"
+                  severity="ERROR"
+                  statusCode="1">
+               <target class="Order">
+                  <event name="Set">
+                     <feature name="id"/>
+                  </event>
+               </target>
+               <message>
+                  This is a message.
+               </message>
+               self.id &lt;&gt; &apos;id&apos;
+            </constraint>
          </constraints>
       </constraintProvider>
       <constraintProvider mode="Batch" cache="false">
@@ -360,5 +377,9 @@ success = target.foo()
          <clientContext
                id="org.eclipse.emf.validation.tests.junit"/>
       </listener>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+      <clientContext id="org.eclipse.emf.validation.tests.junit"/>
    </extension>
 </plugin>
