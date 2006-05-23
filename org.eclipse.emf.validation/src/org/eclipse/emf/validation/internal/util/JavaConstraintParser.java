@@ -26,7 +26,6 @@ import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
-import org.eclipse.emf.validation.xml.IConstraintWithExtractions;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
 
@@ -42,8 +41,6 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * @author Christian W. Damus (cdamus)
  */
 public class JavaConstraintParser implements IXmlConstraintParser {
-	/** Name of the parameter indicating a method for Java constraints. */
-	private static final String PARAMETER_METHOD = "method"; //$NON-NLS-1$
 	
 	/**
 	 * Mapping of constraint implementation classes to instances, to support
@@ -84,34 +81,6 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 			return descriptor;
 		}
 	}
-	
-	/**
-	 * Adapts instances of {@link IConstraintWithExtractions} to the internal
-	 * constraint API.
-	 *
-	 * @author Christian W. Damus (cdamus)
-	 */
-	private static class ConstraintWithExtractionsAdapter
-			extends AbstractConstraintWithExtractionsAdapter {
-		
-		private final IConstraintWithExtractions delegate;
-		
-		ConstraintWithExtractionsAdapter(
-			IXmlConstraintDescriptor descriptor,
-			IConstraintWithExtractions delegate) {
-			
-			super(descriptor);
-			this.delegate = delegate;
-		}
-		
-		/**
-		 * Implements the inherited method.
-		 * @deprecated
-		 */
-		public boolean validate(IValidationContext ctx, Map extractions) {
-			return delegate.validate(ctx, extractions);
-		}
-	}
 
 	/**
 	 * Initializes me.
@@ -148,9 +117,7 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 	 * @param descriptor the constraint's descriptor
 	 * @return a constraint as described above
 	 * @throws ConstraintParserException if the constraint cannot be created
-	 *     for some reason (reflection problems, wrong signatures, etc.)
-	 * 
-	 * @see CustomConstraintAdapter
+	 *     for some reason.
 	 */
 	private IModelConstraint createCustomConstraint(
 			String className,
@@ -164,16 +131,6 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 			.getConfig()
 			.getDeclaringExtension()
 			.getNamespaceIdentifier());
-
-		// old-style method attribute still supported
-		String methodName = descriptor.getConfig().getAttribute(
-			PARAMETER_METHOD);
-		if (methodName == null) {
-			// try the new parameter mechanism
-			methodName = XmlConfig.getParameter(
-				descriptor.getConfig(),
-				PARAMETER_METHOD);
-		}
 		
 		try {
 			Class resultType = bundle.loadClass(className);
@@ -183,28 +140,12 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 				result = new ConstraintAdapter(
 					descriptor,
 					(AbstractModelConstraint)getInstance(resultType));
-			} else if (IConstraintWithExtractions.class.isAssignableFrom(resultType)){
-				// adapt the specified constraint to the IModelConstraint interface
-				result = new ConstraintWithExtractionsAdapter(
-					descriptor,
-					(IConstraintWithExtractions)getInstance(resultType));
-			} else {
-				// adapt the specified method to the IModelConstraint interface
-				result = new CustomConstraintAdapter(
-						descriptor,
-						resultType,
-						methodName);
 			}
 		} catch (ClassNotFoundException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
 					EMFModelValidationStatusCodes.DELEGATE_CLASS_NOT_FOUND_MSG,
 					new Object[] {descriptor.getId(), className});
-		} catch (NoSuchMethodException e) {
-			pendingException = e;
-			pendingMessage = EMFModelValidationPlugin.getMessage(
-					EMFModelValidationStatusCodes.DELEGATE_METHOD_NOT_FOUND_MSG,
-					new Object[] {descriptor.getId(), className, methodName});
 		} catch (InstantiationException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
@@ -214,7 +155,7 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
 					EMFModelValidationStatusCodes.DELEGATE_METHOD_INACCESSIBLE_MSG,
-					new Object[] {descriptor.getId(), className, methodName});
+					new Object[] {descriptor.getId(), className, null});
 		}
 
 		if (pendingException != null) {

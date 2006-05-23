@@ -55,7 +55,6 @@ public class ValidationMessages extends NLS {
 	public static String constraint_reason_no_id;
 	public static String constraint_target_type_WARN_;
 	public static String constraint_delegate_class_ERROR_;
-	public static String constraint_delegate_method_ERROR_;
 	public static String constraint_delegate_instantiation_ERROR_;
 	public static String constraint_delegate_inaccessible_ERROR_;
 	public static String constraint_delegate_failed_ERROR_;

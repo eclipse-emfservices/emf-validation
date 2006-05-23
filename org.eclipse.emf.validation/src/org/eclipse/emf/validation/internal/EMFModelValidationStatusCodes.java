@@ -98,7 +98,6 @@ public final class EMFModelValidationStatusCodes {
 	public static final String CONSTRAINT_NOT_INITED_MSG = ValidationMessages.constraint_not_init_WARN_;
 	public static final String TARGET_TYPE_NOT_FOUND_MSG = ValidationMessages.constraint_target_type_WARN_;
 	public static final String DELEGATE_CLASS_NOT_FOUND_MSG = ValidationMessages.constraint_delegate_class_ERROR_;
-	public static final String DELEGATE_METHOD_NOT_FOUND_MSG = ValidationMessages.constraint_delegate_method_ERROR_;
 	public static final String DELEGATE_INSTANTIATION_MSG = ValidationMessages.constraint_delegate_instantiation_ERROR_;
 	public static final String DELEGATE_METHOD_INACCESSIBLE_MSG = ValidationMessages.constraint_delegate_inaccessible_ERROR_;
 	public static final String DELEGATE_METHOD_FAILED_MSG = ValidationMessages.constraint_delegate_failed_ERROR_;
