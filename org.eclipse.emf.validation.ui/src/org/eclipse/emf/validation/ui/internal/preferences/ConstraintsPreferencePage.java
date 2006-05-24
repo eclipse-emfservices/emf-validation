@@ -338,6 +338,8 @@ public class ConstraintsPreferencePage
 	protected Control createContents(Composite parent) {
 		SashForm result = new SashForm(parent, SWT.VERTICAL);
 		
+		result.setFont(parent.getFont());
+		
 		SashForm topPart = new SashForm(result, SWT.HORIZONTAL);
 		createCategoryTree(topPart);
 		createConstraintList(topPart);
@@ -345,6 +347,8 @@ public class ConstraintsPreferencePage
 		createDetailsArea(result);
 		
 		result.setWeights(new int[] {70, 30});
+		
+		applyDialogFont(result);
 		
 		return result;
 	}

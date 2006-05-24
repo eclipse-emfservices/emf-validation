@@ -55,6 +55,7 @@ public class ValidationPreferencePage
     protected void createFieldEditors() {
         final Composite parent = getFieldEditorParent();
         Composite panel = new Composite(parent, SWT.NONE);
+        panel.setFont(parent.getFont());
         GridLayout panelLayout = new GridLayout();
         panelLayout.numColumns = 1;
         panel.setLayout(panelLayout);
@@ -66,7 +67,9 @@ public class ValidationPreferencePage
 		panel.setLayoutData(blockData);
 
 		// create groups
-		createLiveValidationProblemsGroup(panel);        
+		createLiveValidationProblemsGroup(panel);
+		
+		applyDialogFont(panel);
     }
     
     
