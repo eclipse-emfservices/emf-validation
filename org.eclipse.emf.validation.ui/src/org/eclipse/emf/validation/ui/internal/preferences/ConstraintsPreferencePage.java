@@ -16,6 +16,7 @@
  */
 package org.eclipse.emf.validation.ui.internal.preferences;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.eclipse.emf.validation.model.Category;
@@ -305,7 +306,17 @@ public class ConstraintsPreferencePage
 				description = NO_CATEGORY_DESCRIPTION;
 			}
 		
-			getDetailsArea().setText(description);
+			Category actualCategory = category.getCategory();
+			// If we are a mandatory category then we must provide some cue to this fact.
+			if (actualCategory != null && actualCategory.isMandatory()) {
+				getDetailsArea().setText(
+					MessageFormat.format(
+						ValidationUIMessages.prefs_mandatory_category,
+						new Object[] {description}));
+				
+			} else {
+				getDetailsArea().setText(description);
+			}
 		}
 	
 		/**

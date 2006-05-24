@@ -33,7 +33,9 @@ public class ValidationUIMessages extends NLS {
 	public static String prefs_no_selection;
 	public static String prefs_no_description_category;
 	public static String prefs_no_description_constraint;
+	public static String prefs_mandatory_category;
 	public static String prefs_delegate_name;
+	public static String prefs_mandatory_constraint;
 	public static String prefs_description_constraint;
 	public static String prefs_description_constraint_error;
 	public static String prefs_constraints_also;

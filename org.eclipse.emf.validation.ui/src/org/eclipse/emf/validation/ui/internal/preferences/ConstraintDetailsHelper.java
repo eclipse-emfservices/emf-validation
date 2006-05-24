@@ -16,6 +16,7 @@
  */
 package org.eclipse.emf.validation.ui.internal.preferences;
 
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -96,6 +97,10 @@ class ConstraintDetailsHelper {
 		if (categories.size() > 1) {
 			// also display the other categories that contain this constraint
 			text = text + getOtherCategories(selectedCategory, categories);
+		}
+		
+		if (constraint.isMandatory()) {
+			text = MessageFormat.format(ValidationUIMessages.prefs_mandatory_constraint, new Object[] {text});
 		}
 		
 		return parseStyles(text, styles);
