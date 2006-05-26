@@ -27,6 +27,7 @@
 	<anchor id="reference-before" />
 	<topic label="Reference">
 		<anchor id="reference-ext-pt-before" />
+		<link toc="topics_Reference.xml"/>
 		<topic label="Extension Points Reference">
 			<topic label="org.eclipse.emf.validation.constraintBindings" href="references/extension-points/org_eclipse_emf_validation_constraintBindings.html" />
 			<topic label="org.eclipse.emf.validation.constraintProviders" href="references/extension-points/org_eclipse_emf_validation_constraintProviders.html" />
@@ -37,6 +38,4 @@
 		<anchor id="reference-ext-pt-after" />
 	</topic>	
 	<anchor id="reference-after" />
-
-	<topic label="Javadoc" href="references/javadoc/index.html"/>
 </toc>
