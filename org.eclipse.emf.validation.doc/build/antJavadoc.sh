@@ -14,7 +14,7 @@ mkdir -p $destDir
 pluginName="org.eclipse.emf.validation"
 
 # Packages to exclude from the Javadoc
-javadocExclusions="<exclude name=\"**/internal/**\"/> <exclude name=\"**/examples/**\"/> <exclude name=\"**/tests/**\"/>";
+javadocExclusions="<exclude name=\"**/internal/**\"/> <exclude name=\"**/examples/**\"/> <exclude name=\"**/tests/**\"/> <exclude name=\"**/ordersystem/**\"/>";
 
 # Don't execute if the destination directory has files
 #if [ -d "$destDir" ]; then
