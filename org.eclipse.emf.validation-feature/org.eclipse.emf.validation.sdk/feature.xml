@@ -61,11 +61,4 @@
          id="org.eclipse.emf.validation.ocl.source"
          version="0.0.0"
          match="compatible"/>
-         
-   <plugin
-         id="org.eclipse.emf.validation.examples"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 </feature>
