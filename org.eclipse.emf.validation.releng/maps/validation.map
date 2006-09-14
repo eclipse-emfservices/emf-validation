@@ -7,25 +7,25 @@ fragment@org.eclipse.ant.optional.junit=v20050226,:pserver:anonymous@dev.eclipse
 
 !*** Default entries
 
-feature@org.eclipse.emf.validation.sdk=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation-feature/org.eclipse.emf.validation.sdk
+feature@org.eclipse.emf.validation.sdk=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation-feature/org.eclipse.emf.validation.sdk
 
 !*** EMFT plugins, features and fragments
 
-feature@org.eclipse.emf.validation.doc=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/doc/org.eclipse.emf.validation.doc-feature
-plugin@org.eclipse.emf.validation.doc=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/doc/org.eclipse.emf.validation.doc
-feature@org.eclipse.emf.validation.examples=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples-feature
-plugin@org.eclipse.emf.validation.examples.adapter=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.adapter
-plugin@org.eclipse.emf.validation.examples.general=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.general
-plugin@org.eclipse.emf.validation.examples.ocl=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.ocl
-plugin@org.eclipse.emf.validation.examples=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples
-feature@org.eclipse.emf.validation=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation-feature
-feature@org.eclipse.emf.validation.ocl=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl-feature
-plugin@org.eclipse.emf.validation.ocl=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl
-plugin@org.eclipse.emf.validation.ui.ide=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui.ide
-plugin@org.eclipse.emf.validation.ui=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui
-plugin@org.eclipse.emf.validation=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation
-feature@org.eclipse.emf.validation.tests=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/tests/org.eclipse.emf.validation.tests-feature
-plugin@org.eclipse.emf.validation.tests=build_200606261144,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/tests/org.eclipse.emf.validation.tests
+feature@org.eclipse.emf.validation.doc=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/doc/org.eclipse.emf.validation.doc-feature
+plugin@org.eclipse.emf.validation.doc=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/doc/org.eclipse.emf.validation.doc
+feature@org.eclipse.emf.validation.examples=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples-feature
+plugin@org.eclipse.emf.validation.examples.adapter=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.adapter
+plugin@org.eclipse.emf.validation.examples.general=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.general
+plugin@org.eclipse.emf.validation.examples.ocl=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples.ocl
+plugin@org.eclipse.emf.validation.examples=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/examples/org.eclipse.emf.validation.examples
+feature@org.eclipse.emf.validation=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation-feature
+feature@org.eclipse.emf.validation.ocl=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl-feature
+plugin@org.eclipse.emf.validation.ocl=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl
+plugin@org.eclipse.emf.validation.ui.ide=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui.ide
+plugin@org.eclipse.emf.validation.ui=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui
+plugin@org.eclipse.emf.validation=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation
+feature@org.eclipse.emf.validation.tests=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/tests/org.eclipse.emf.validation.tests-feature
+plugin@org.eclipse.emf.validation.tests=build_200609141050,:ext:nickb@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/tests/org.eclipse.emf.validation.tests
 
 !*** EMF Examples plugins
 plugin@org.eclipse.emf.examples.library=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library
