@@ -137,7 +137,7 @@ in mixed modes.
          <attribute name="class" type="string">
             <annotation>
                <documentation>
-                  For internal use only.
+                  An optional constraint provider class that will provide batch and live constraints.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.internal.service.IModelConstraintProvider"/>
@@ -215,6 +215,10 @@ events and/or features (for live constraints) the constraint applies to.
                   Optionally identifies the model element type to which constraints apply.
 If omitted, then the constraint applies to all types in the EPackage on which
 the constraint provider is defined.
+
+In the case of two model element types with the same name in two different packages, use the optional qualified namespace URI in the following format to ensure that the target is resolved correctly:
+
+myClass:http:///someNameSpaceURI/1.0.0/
                </documentation>
             </annotation>
          </attribute>

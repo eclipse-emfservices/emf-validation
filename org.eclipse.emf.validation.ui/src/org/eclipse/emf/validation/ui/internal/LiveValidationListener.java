@@ -134,6 +134,10 @@ public class LiveValidationListener
      * @param event the live validation occurred event
      */
     private void showProblemMessages(ValidationEvent event) {
+    	// The workbench must be running in order for us to display anything to the user
+    	if (!PlatformUI.isWorkbenchRunning())
+    		return;
+    	
         final ValidationLiveProblemsDestination destination =
         	ValidationLiveProblemsDestination.getPreferenceSetting();
         final boolean warningsInDialog =
@@ -141,8 +145,16 @@ public class LiveValidationListener
         		IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG);
         final String messages = getProblemMessages(event);
         
+        // Get the display if we are in the display thread
+        Display display = Display.getCurrent();
+        
+        // If the user decided to set the live validation preference to be the console
+        //  or there are just warnings and the user chose to not have warnings shown in a dialog
+        //  or we are not running in the UI thread
+        //  then we will place the validation errors and warnings in the console rather than a dialog.
     	if (destination == ValidationLiveProblemsDestination.CONSOLE
-    			|| (!getOutputUtility().hasErrors() && !warningsInDialog)) {
+    			|| (!getOutputUtility().hasErrors() && !warningsInDialog)
+    			|| display == null) {
             if (messages.length() > 0) {
             	
 	            println(ValidationUIMessages.Validation_problems);
@@ -170,67 +182,61 @@ public class LiveValidationListener
      * @param event the live validation occurred event
      */
     private void showLiveValidationDialog(final ValidationEvent event) {
-    	if (!PlatformUI.isWorkbenchRunning())
-    		return;
-    	
-    	PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-            public void run() {
-                IWorkbenchWindow workbenchWindow =
-                    PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-                if (workbenchWindow != null) {
-                	IStatus[] details = toStatusArray(event);
-                	
-                	String message = event.getSeverity() >= IStatus.ERROR
-						? ValidationUIMessages.Validation_liveError
-						: ValidationUIMessages.Validation_liveWarning_part1
-			    		+ "\n\n"	+ ValidationUIMessages.Validation_liveWarning_part2; //$NON-NLS-1$
-                	
-                	// the dialog should show INFO severity for errors because
-                	//   the corrective action has already been taken by the
-                	//   system; the user is just being informed that everything
-                	//   is still OK.  Warnings, however, require corrective
-                	//   action by the user.
-                	final int dialogSeverity = event.matches(IStatus.WARNING)
-						? IStatus.WARNING
-						: IStatus.INFO;
-                	
-                	// get the first of the most severe error messages and use
-                	//   it in the summary message presented to the user
-                	IStatus primary = getFirstStatus(details, event.getSeverity());
-                	
-                	IStatus toDisplay;
+        IWorkbenchWindow workbenchWindow =
+            PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        if (workbenchWindow != null) {
+        	IStatus[] details = toStatusArray(event);
+        	
+        	String message = event.getSeverity() >= IStatus.ERROR
+				? ValidationUIMessages.Validation_liveError
+				: ValidationUIMessages.Validation_liveWarning_part1
+	    		+ "\n\n"	+ ValidationUIMessages.Validation_liveWarning_part2; //$NON-NLS-1$
+        	
+        	// the dialog should show INFO severity for errors because
+        	//   the corrective action has already been taken by the
+        	//   system; the user is just being informed that everything
+        	//   is still OK.  Warnings, however, require corrective
+        	//   action by the user.
+        	final int dialogSeverity = event.matches(IStatus.WARNING)
+				? IStatus.WARNING
+				: IStatus.INFO;
+        	
+        	// get the first of the most severe error messages and use
+        	//   it in the summary message presented to the user
+        	IStatus primary = getFirstStatus(details, event.getSeverity());
+        	
+        	IStatus toDisplay;
+			
+			if (details.length > 1) {
+				toDisplay = new MultiStatus(
+                		ValidationUIPlugin.getPlugin().getBundle().getSymbolicName(),
+						0,
+						details,
+						primary.getMessage(),
+						null) {
 					
-					if (details.length > 1) {
-						toDisplay = new MultiStatus(
-		                		ValidationUIPlugin.getPlugin().getBundle().getSymbolicName(),
-								0,
-								details,
-								primary.getMessage(),
-								null) {
-							
-							/**
-							 * Redefines the inherited method to always return
-							 * the more appropriate severity for the dialog.
-							 */
-							public int getSeverity() {
-								return dialogSeverity;
-							}};
-					} else {
-						toDisplay = new Status(
-							dialogSeverity,
-							primary.getPlugin(),
-							primary.getCode(),
-							primary.getMessage(),
-							primary.getException());
-					}
-                	
-					new LiveValidationDialog(
-                		Display.getCurrent().getActiveShell(),
-                		ValidationUIMessages.Validation_liveDialogTitle,
-						message,
-						toDisplay).open();
-                }
-            }});
+					/**
+					 * Redefines the inherited method to always return
+					 * the more appropriate severity for the dialog.
+					 */
+					public int getSeverity() {
+						return dialogSeverity;
+					}};
+			} else {
+				toDisplay = new Status(
+					dialogSeverity,
+					primary.getPlugin(),
+					primary.getCode(),
+					primary.getMessage(),
+					primary.getException());
+			}
+        	
+			new LiveValidationDialog(
+        		Display.getCurrent().getActiveShell(),
+        		ValidationUIMessages.Validation_liveDialogTitle,
+				message,
+				toDisplay).open();
+        }
     }
 
     /**

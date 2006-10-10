@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003-2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: OCLModelConstraint.java,v 1.1 2006/02/13 16:12:13 cdamus Exp $
+ * $Id: OCLModelConstraint.java,v 1.2 2006/10/10 14:30:58 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;

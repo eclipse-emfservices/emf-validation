@@ -31,7 +31,8 @@
             class="org.eclipse.emf.validation.examples.internal.wizard.GeneralExampleWizard"
             hasPages="false"
             id="org.eclipse.emf.validation.examples.general"
-            name="General Validation Example">
+            name="General Validation Example"
+            icon="$nl$/icons/obj16/valexample_obj.gif">
          <description>%Validation_General_description</description>
       </wizard>
       <wizard
@@ -40,7 +41,8 @@
             class="org.eclipse.emf.validation.examples.internal.wizard.AdapterExampleWizard"
             hasPages="false"
             id="org.eclipse.emf.validation.examples.adapter"
-            name="Validation Adapter Example">
+            name="Validation Adapter Example"
+            icon="$nl$/icons/obj16/valadapter_obj.gif">
          <description>%Validation_Adapter_description</description>
       </wizard>
       <wizard
@@ -49,7 +51,8 @@
             class="org.eclipse.emf.validation.examples.internal.wizard.OCLExampleWizard"
             hasPages="false"
             id="org.eclipse.emf.validation.examples.ocl"
-            name="OCL Example">
+            name="OCL Example"
+            icon="$nl$/icons/obj16/oclexample_obj.gif">
          <description>%Validation_OCL_description</description>
       </wizard>
    </extension>

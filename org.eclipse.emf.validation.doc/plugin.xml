@@ -23,6 +23,10 @@
  <!-- ============================= -->
   <extension point="org.eclipse.pde.core.javadoc">
       <javadoc path="references/javadoc"> <!-- defaults to reference/api -->
+          <plugin id="org.eclipse.emf.validation"/>
+          <plugin id="org.eclipse.emf.validation.ocl"/>
+          <plugin id="org.eclipse.emf.validation.ui"/>
+          <plugin id="org.eclipse.emf.validation.ui.ide"/>
       </javadoc>
   </extension>
 </plugin>

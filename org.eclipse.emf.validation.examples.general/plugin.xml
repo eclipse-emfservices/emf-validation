@@ -32,7 +32,7 @@
          </menu>
          <action
                label="%ValidateElementsAction.label"
-               icon="$nl$/icons/validate.gif"
+               icon="$nl$/icons/elcl16/validate_co.gif"
                class="org.eclipse.emf.validation.examples.general.actions.BatchValidationDelegate"
                menubarPath="org.eclipse.emf.examples.extlibraryMenuID/org.eclipse.emf.validationMenuID/additions"
                id="org.eclipse.emf.validation.pde.example.general.ui.validateAction"/>
@@ -63,7 +63,7 @@
          </menu>
          <action
                label="%ValidateElementsAction.label"
-               icon="$nl$/icons/validate.gif"
+               icon="$nl$/icons/elcl16/validate_co.gif"
                class="org.eclipse.emf.validation.examples.general.actions.BatchValidationDelegate"
                menubarPath="org.eclipse.emf.validationMenuID/additions"
                id="org.eclipse.emf.validation.pde.example.general.ui.validateAction"/>

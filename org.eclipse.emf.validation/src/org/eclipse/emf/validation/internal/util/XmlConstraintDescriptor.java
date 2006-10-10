@@ -67,6 +67,7 @@ public final class XmlConstraintDescriptor
 	static final String RULE_BODY = ValidationMessages.rule_body;
 	static final String MESSAGE_PATTERN = ValidationMessages.rule_message;
 	
+	private static final String NAMESPACE_URI_SEPARATOR = ":"; //$NON-NLS-1$
 	private static final String EOBJECT_CLASS_NAME = "org.eclipse.emf.ecore.EObject"; //$NON-NLS-1$
 
 	private final IConfigurationElement config;
@@ -289,9 +290,21 @@ public final class XmlConstraintDescriptor
 			String typeName = (String)next.getKey();
 			
 			EClass targetEClass = null;
-			for (int i = 0; (targetEClass == null) && (i < namespaceUris.length); i++) {
-				targetEClass = ModelValidationService
-					.findClass(namespaceUris[i], typeName);
+			// See if the typeName value from the extension has a qualified
+			//  namespace URI in it. This might be used in cases where there
+			//  are two EClasses with the same name in two different EPackages.
+			int separatorPosition = typeName.indexOf(NAMESPACE_URI_SEPARATOR);
+			if (separatorPosition != -1) {
+				String namespaceUri = typeName.substring(separatorPosition+1);
+				typeName = typeName.substring(0,separatorPosition);
+				targetEClass = ModelValidationService.findClass(namespaceUri, typeName);
+			} else {
+				// Otherwise, we have to go through all of the namespace URI's provided
+				//  and find the EClass with the name in the first EPackage.
+				for (int i = 0; (targetEClass == null) && (i < namespaceUris.length); i++) {
+					targetEClass = ModelValidationService
+						.findClass(namespaceUris[i], typeName);
+				}
 			}
 
 			if (targetEClass != null) {
