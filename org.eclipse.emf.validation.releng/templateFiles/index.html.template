@@ -62,7 +62,7 @@ To view the Overall Build Log for this Build click <a href="buildlog.txt">here</
 				<td><a href="@eclipseDownloadURL@@oclBuildURL@">Build Page</a></td>
 			</tr>
 			<tr>
-				<td><a href="http://www.eclipse.org/uml2/">UML2</a></td>
+				<td><a href="http://www.eclipse.org/modeling/mdt/?project=uml2-uml#uml2-uml">UML2</a></td>
 				<td><a href="@eclipseDownloadURL@@uml2DropFile@">@uml2File@</a></td>
 				<td><a href="@eclipseDownloadURL@@uml2BuildURL@">Build Page</a></td>
 			</tr>
