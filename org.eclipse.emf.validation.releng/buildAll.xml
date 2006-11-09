@@ -36,12 +36,7 @@
 		<echo message="basedir = ${basedir}"/>
 
 		<!-- load a value for ${subprojectName} -->
-		<property name="transientPropertiesFile" value="${basedir}/../eclipse/transientProperties.txt" />
-		<available file="${transientPropertiesFile}" type="file" property="transientPropertiesIsAvailable" />
-		<fail message="Can't load transient properties from ${transientPropertiesFile}" unless="transientPropertiesIsAvailable"/>
-		<property file="${transientPropertiesFile}" />
-
-		<property name="buildConfigFile" value="${basedir}/maps/org.eclipse.emft.${subprojectName}/build.cfg"/>
+		<property name="buildConfigFile" value="${basedir}/../build.cfg"/>
 		<available file="${buildConfigFile}" type="file" property="buildConfigIsAvailable" />
 		<fail message="Can't load build properties from ${buildConfigFile}" unless="buildConfigIsAvailable"/>
 		<property file="${buildConfigFile}" />
@@ -267,18 +262,12 @@
 
 			<!-- add download from mirror links -->
 			<replacefilter token="@eclipseDownloadURL@" value="${eclipseDownloadURL}" />
+			<replacefilter token="@buildVer@" value="${buildVer}" />
 		</replace>
-		<antcall target="doExtraReplacements" />
 
 		<exec executable="bash" dir="${basedir}/../org.eclipse.emft.common.releng/scripts">
 			<arg line="./setSizes.sh ${buildDirectory}/${buildLabel} ${result}/${indexFileName}" />
 		</exec>
 	</target>
 
-	<target name="doExtraReplacements" if="transientPropertiesIsAvailable">
-		<echo message="@buildVer@ = ${buildVer}" />
-		<replace file="${result}/${indexFileName}">
-			<replacefilter token="@buildVer@" value="${buildVer}" />
-		</replace>
-	</target>
 </project>
