@@ -66,12 +66,7 @@
 <!-- ===================================================================== -->
 <target name="postSetup">
 	<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
-	<echo message="Download, then unpack: UML2 SDK, EMFT OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
-	<ant target="getDependency" antfile="${getDeps.xml}">
-		<property name="url" value="${uml2URL}"/>
-		<property name="file" value="${uml2File}"/>
-		<property name="isUnpackedFile" value="${buildDirectory}/plugins/org.eclipse.uml2/plugin.xml" />
-	</ant>
+	<echo message="Download, then unpack: EMFT OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
 	<ant target="getDependency" antfile="${getDeps.xml}">
 		<property name="url" value="${oclURL}"/>
 		<property name="file" value="${oclFile}"/>
