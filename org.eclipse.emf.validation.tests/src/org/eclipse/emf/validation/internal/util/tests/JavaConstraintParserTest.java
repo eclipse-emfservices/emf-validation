@@ -17,23 +17,22 @@
 
 package org.eclipse.emf.validation.internal.util.tests;
 
+import junit.framework.TestCase;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
+import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.JavaConstraintParser;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
-import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
-import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
-import org.eclipse.emf.validation.xml.IXmlConstraintParser;
-
-import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link JavaConstraintParser} class.
@@ -41,12 +40,12 @@ import junit.framework.TestCase;
  * @author Christian W. Damus (cdamus)
  */
 public class JavaConstraintParserTest extends TestCase {
-	IXmlConstraintParser parser = new JavaConstraintParser();
+	IParameterizedConstraintParser parser = new JavaConstraintParser();
 	
 	public void test_parseConstraint() {
 		try {
 			// this descriptor is known to exist and be parsable
-			parser.parseConstraint((IXmlConstraintDescriptor)
+			parser.parseConstraint((IParameterizedConstraintDescriptor)
 					ConstraintRegistry.getInstance().getDescriptor(
 							"org.eclipse.emf.validation.tests", //$NON-NLS-1$
 							"bad.constraint.disabled.runtime")); //$NON-NLS-1$

@@ -59,6 +59,9 @@ public abstract class ConstraintFactory {
 	 * @param descriptor the constraint descriptor
 	 * @return the corresponding constraint implementation
 	 * @see #createConstraint
+	 * 
+	 * @deprecated Use the {@link #newConstraint(IConstraintDescriptor)
+	 *   method, instead
 	 */
 	public final IModelConstraint newConstraint(
 			IXmlConstraintDescriptor descriptor) {
@@ -76,7 +79,46 @@ public abstract class ConstraintFactory {
 	 * 
 	 * @param descriptor a descriptor of the constraint to be created
 	 * @return the appropriate implementation of the constraint
+	 * 
+	 * @deprecated Use the {@link #createConstraint(IConstraintDescriptor)
+	 *   method, instead
 	 */
 	protected abstract IModelConstraint createConstraint(
 			IXmlConstraintDescriptor descriptor);
+
+	/**
+	 * Creates the constraint represented by the specified
+	 * <code>descriptor</code>.  This method never fails to return a valid
+	 * constraint implementation (though it may be a proxy for a disabled 
+	 * constraint if the <code>descriptor</code> is invalid).  This method
+	 * delegates to the superclass implementation of the
+	 * {@link #createConstraint} method.
+	 *  
+	 * @param descriptor the constraint descriptor
+	 * @return the corresponding constraint implementation
+	 * @see #createConstraint
+	 * 
+	 * @since 1.1
+	 */
+	public final IModelConstraint newConstraint(
+			IConstraintDescriptor descriptor) {
+		if (descriptor.isError()) {
+			return new DisabledConstraint(
+					descriptor,
+					descriptor.getException());
+		} else {
+			return createConstraint(descriptor);
+		}
+	}
+	
+	/**
+	 * Implemented by subclasses to do the hard work of creating a constraint.
+	 * 
+	 * @param descriptor a descriptor of the constraint to be created
+	 * @return the appropriate implementation of the constraint
+	 * 
+	 * @since 1.1
+	 */
+	protected abstract IModelConstraint createConstraint(
+			IConstraintDescriptor descriptor);
 }

@@ -14,12 +14,14 @@ package org.eclipse.emf.validation.internal.emfadapter;
 
 import java.lang.reflect.Method;
 
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
@@ -33,7 +35,8 @@ import org.osgi.framework.Bundle;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class EMFConstraintParser implements IXmlConstraintParser {
+public class EMFConstraintParser
+		implements IParameterizedConstraintParser, IXmlConstraintParser {
 	private static final String PARAMETER_CLASS = "class"; //$NON-NLS-1$
 	private static final String PARAMETER_METHOD = "method"; //$NON-NLS-1$
 	
@@ -58,13 +61,29 @@ public class EMFConstraintParser implements IXmlConstraintParser {
 	}
 
 	// implements the interface method
+	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
+			throws ConstraintParserException {
+		// the EMF interface name and method must be specified in the XML 
+		String className = descriptor.getParameterValue(PARAMETER_CLASS);
+		String methodName = descriptor.getParameterValue(PARAMETER_METHOD);
+		
+		return parseConstraint(className, methodName, descriptor);
+	}
+
+	// implements the interface method
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
 			throws ConstraintParserException {
-		IConfigurationElement config = descriptor.getConfig();
-		
 		// the EMF interface name and method must be specified in the XML 
-		String className = XmlConfig.getParameter(config, PARAMETER_CLASS);
-		String methodName = XmlConfig.getParameter(config, PARAMETER_METHOD);
+		String className = XmlConfig.getParameter(descriptor.getConfig(), PARAMETER_CLASS);
+		String methodName = XmlConfig.getParameter(descriptor.getConfig(), PARAMETER_METHOD);
+		
+		return parseConstraint(className, methodName, descriptor);
+	}
+
+	// implements the interface method
+	private IModelConstraint parseConstraint(String className, String methodName,
+			IConstraintDescriptor descriptor)
+			throws ConstraintParserException {
 		
 		if (className == null) {
 			throw new ConstraintParserException(NO_INTERFACE);

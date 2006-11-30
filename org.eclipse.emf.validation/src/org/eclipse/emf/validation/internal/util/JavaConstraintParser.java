@@ -16,18 +16,19 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.osgi.framework.Bundle;
-
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
+import org.osgi.framework.Bundle;
 
 /**
  * <p>
@@ -40,7 +41,8 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class JavaConstraintParser implements IXmlConstraintParser {
+public class JavaConstraintParser
+		implements IParameterizedConstraintParser, IXmlConstraintParser {
 	
 	/**
 	 * Mapping of constraint implementation classes to instances, to support
@@ -88,13 +90,12 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 	public JavaConstraintParser() {
 		super();
 	}
-
+	
 	// implements the interface method
-	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
-			throws ConstraintParserException {
+	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor) throws ConstraintParserException {
 		
-		String className = descriptor.getConfig()
-				.getAttribute(XmlConfig.A_CLASS);
+		String className = descriptor.getParameterValue(
+				IParameterizedConstraintDescriptor.CLASS_PARAMETER);
 
 		if (className == null) {
 			ConstraintParserException cpe = new ConstraintParserException(
@@ -106,14 +107,37 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 
 		return createCustomConstraint(
 				className,
+				descriptor.getParameterValue(
+						IParameterizedConstraintDescriptor.BUNDLE_PARAMETER),
 				descriptor);
 	}
+    
+    public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
+        throws ConstraintParserException {
+        
+        String className = descriptor.getConfig().getAttribute(XmlConfig.A_CLASS);
+
+        if (className == null) {
+            ConstraintParserException cpe = new ConstraintParserException(
+                    "No class name."); //$NON-NLS-1$
+            
+            Trace.throwing(getClass(), "parseConstraint", cpe); //$NON-NLS-1$
+            throw cpe;
+        }
+
+        return createCustomConstraint(
+                className,
+                descriptor.getConfig().getDeclaringExtension().getNamespaceIdentifier(),
+                descriptor);
+    }
 
 	/**
 	 * Helper method which creates an {@link IModelConstraint} adapter for the
 	 * specified subclass of {@link AbstractModelConstraint}.
 	 * 
 	 * @param className the name of a class implementing the constraint
+	 * @param bundleName the symbolic name of the bundle containing the constraint
+	 *    class
 	 * @param descriptor the constraint's descriptor
 	 * @return a constraint as described above
 	 * @throws ConstraintParserException if the constraint cannot be created
@@ -121,16 +145,14 @@ public class JavaConstraintParser implements IXmlConstraintParser {
 	 */
 	private IModelConstraint createCustomConstraint(
 			String className,
-			IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
+			String bundleName,
+			IConstraintDescriptor descriptor) throws ConstraintParserException {
 
 		IModelConstraint result = null;
 		Throwable pendingException = null;
 		String pendingMessage = null;
 
-		Bundle bundle = Platform.getBundle(descriptor
-			.getConfig()
-			.getDeclaringExtension()
-			.getNamespaceIdentifier());
+		Bundle bundle = Platform.getBundle(bundleName);
 		
 		try {
 			Class resultType = bundle.loadClass(className);

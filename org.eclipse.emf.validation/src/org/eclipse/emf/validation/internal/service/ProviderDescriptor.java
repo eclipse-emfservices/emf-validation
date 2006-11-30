@@ -12,6 +12,7 @@
 
 package org.eclipse.emf.validation.internal.service;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,10 +20,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
@@ -64,6 +65,20 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		NullProvider() {
 			super();
 		}
+		
+		public Collection getBatchConstraints(EObject eObject, Collection constraints) {
+			return noOp(constraints);			
+		}
+		
+		public Collection getLiveConstraints(Notification notification, Collection constraints) {
+			return noOp(constraints);
+		}
+		
+		private Collection noOp(Collection constraints) {
+			return (constraints == null)
+				? new java.util.ArrayList()
+				: constraints;
+		}		
 	}
 
 	/**

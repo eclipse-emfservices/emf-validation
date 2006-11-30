@@ -36,6 +36,7 @@ import org.eclipse.emf.validation.preferences.EMFModelValidationPreferences;
 import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
@@ -59,7 +60,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
  */
 public final class XmlConstraintDescriptor
 		extends AbstractConstraintDescriptor
-		implements IXmlConstraintDescriptor {
+		implements IXmlConstraintDescriptor, IParameterizedConstraintDescriptor {
 
 	static final String RULE_INCOMPLETE = ValidationMessages.rule_incomplete_ERROR_;
 	static final String RULE_ID = ValidationMessages.rule_id;
@@ -69,7 +70,7 @@ public final class XmlConstraintDescriptor
 	
 	private static final String NAMESPACE_URI_SEPARATOR = ":"; //$NON-NLS-1$
 	private static final String EOBJECT_CLASS_NAME = "org.eclipse.emf.ecore.EObject"; //$NON-NLS-1$
-
+	
 	private final IConfigurationElement config;
 
 	private String name;
@@ -469,6 +470,25 @@ public final class XmlConstraintDescriptor
 
 	private void setBody(String body) {
 		this.body = body;
+	}
+	
+	public String getLanguage() {
+		return getConfig().getAttribute(XmlConfig.A_LANG);
+	}
+	
+	public String getParameterValue(String name) {
+		String result = XmlConfig.getParameter(getConfig(), name);
+		
+		if (result == null) {
+			// some parameters have other ways of being derived
+			if (CLASS_PARAMETER.equals(name)) {
+				result = getConfig().getAttribute(XmlConfig.A_CLASS);
+			} else if (BUNDLE_PARAMETER.equals(name)) {
+				result = getConfig().getDeclaringExtension().getNamespaceIdentifier();
+			}
+		}
+		
+		return result;
 	}
 
 	/**

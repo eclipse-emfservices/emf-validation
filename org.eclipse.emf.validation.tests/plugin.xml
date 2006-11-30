@@ -4,7 +4,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2006 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,13 @@
                   </event>
                </target>
                true
+            </constraint>
+            <constraint name="A multi-constraint" statusCode="1" mode="Batch" lang="Java" id="order.multiConstraint" class="org.eclipse.emf.validation.tests.MultiConstraint">
+               <message>
+                  {0}
+               </message>
+               <target class="Order">
+               </target>
             </constraint>
             <constraint name="Order has an owner" statusCode="1" mode="Live" lang="OCL" id="order.hasOwner">
                <message>
@@ -381,5 +388,17 @@ success = target.foo()
    <extension
          point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
       <clientContext id="org.eclipse.emf.validation.tests.junit"/>
+   </extension>
+   
+   <extension point="org.eclipse.emf.validation.constraintProviders">
+      <constraintProvider cache="false" class="org.eclipse.emf.validation.internal.service.tests.ParameterizedConstraintParserTest$Provider">
+         <package namespaceUri="http:///ordersystem.ecore" />
+      </constraintProvider>
+   </extension>
+   <extension point="org.eclipse.emf.validation.constraintParsers">
+      <constraintParser
+            class="org.eclipse.emf.validation.internal.service.tests.ParameterizedConstraintParserTest$Parser"
+            lang="***test-lang***">
+      </constraintParser>
    </extension>
 </plugin>

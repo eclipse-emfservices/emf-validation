@@ -20,6 +20,10 @@ import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintFactory;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IConstraintParser;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
@@ -61,11 +65,19 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 		final String lang = config.getAttribute(XmlConfig.A_LANG);
 		
-		IXmlConstraintParser parser = getParser(lang);
-
+		IConstraintParser parser = getParser(lang);
+		IXmlConstraintParser xmlParser = null;
+		
+		if (parser instanceof IXmlConstraintParser) {
+			xmlParser = (IXmlConstraintParser) parser;
+		} else if ((parser instanceof IParameterizedConstraintParser)
+				&& (desc instanceof IParameterizedConstraintDescriptor)) {
+			return createConstraint((IParameterizedConstraintDescriptor) desc);
+		}
+	
 		try {
-			if (parser != null) {
-				return parser.parseConstraint(desc);
+			if (xmlParser != null) {
+				return xmlParser.parseConstraint(desc);
 			} else {
 				Trace.trace(
 						EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
@@ -85,6 +97,54 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			return new DisabledConstraint(desc, e);
 		}
 	}
+	
+	protected IModelConstraint createConstraint(IConstraintDescriptor descriptor) {
+		if (descriptor instanceof IXmlConstraintDescriptor) {
+			return createConstraint((IXmlConstraintDescriptor) descriptor);
+		} else if (descriptor instanceof IParameterizedConstraintDescriptor) {
+			return createConstraint((IParameterizedConstraintDescriptor) descriptor);
+		} else {
+			return new DisabledConstraint(
+					descriptor,
+					new IllegalArgumentException("unsupported constraint descriptor")); //$NON-NLS-1$
+		}
+	}
+	
+	protected IModelConstraint createConstraint(IParameterizedConstraintDescriptor descriptor) {
+		final String lang = descriptor.getLanguage();
+		
+		IConstraintParser parser = getParser(lang);
+		IParameterizedConstraintParser parmParser = null;
+		
+		if (parser instanceof IParameterizedConstraintParser) {
+			parmParser = (IParameterizedConstraintParser) parser;
+		} else if ((parser instanceof IXmlConstraintParser)
+				&& (descriptor instanceof IXmlConstraintDescriptor)) {
+			return createConstraint((IXmlConstraintDescriptor) descriptor);
+		}
+
+		try {
+			if (parmParser != null) {
+				return parmParser.parseConstraint(descriptor);
+			} else {
+				Trace.trace(
+						EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
+						"Constraint is disabled: " + descriptor.getId() + ".  See log for details."); //$NON-NLS-1$ //$NON-NLS-2$
+				ConstraintParserException e = new ConstraintParserException(
+					EMFModelValidationPlugin.getMessage(
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG,
+						new Object[] {lang}));
+				
+				Log.warning(
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING,
+						e.getMessage());
+				
+				return new DisabledConstraint(descriptor, e);
+			}
+		} catch (ConstraintParserException e) {
+			return new DisabledConstraint(descriptor, e);
+		}
+	}
 
 	/**
 	 * Registers a parser implementation against the language that it provides.
@@ -101,7 +161,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			Object parser = config.createExecutableExtension(
 					XmlConfig.A_CLASS);
 
-			if (parser instanceof IXmlConstraintParser) {
+			if (parser instanceof IXmlConstraintParser
+					|| parser instanceof IParameterizedConstraintParser) {
 				parserMap.put(UCharacter.toLowerCase(language), parser);
 				
 				Trace.trace(
@@ -132,8 +193,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * @param language a constraint language (not case-sensitive)
 	 * @return the parser, or <code>null</code> if it cannot be found
 	 */
-	private IXmlConstraintParser getParser(String language) {
-		return (IXmlConstraintParser)parserMap.get(UCharacter.toLowerCase(language));
+	private IConstraintParser getParser(String language) {
+		return (IConstraintParser) parserMap.get(UCharacter.toLowerCase(language));
 	}
 
 	/**

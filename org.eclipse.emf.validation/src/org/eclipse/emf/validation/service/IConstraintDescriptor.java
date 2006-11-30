@@ -30,9 +30,11 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  * meta-data declared about severity, evaluation mode, and triggers.
  * </p>
  * <p>
- * This class is intended to be implemented by clients that have constraintProviders
- *  that are contributing {@link org.eclipse.emf.validation.model.IModelConstraint}
- *  that are not described in standard XML.
+ * This interface is intended to be implemented by clients that have constraintProviders
+ * that are contributing {@link org.eclipse.emf.validation.model.IModelConstraint}
+ * that are not described in standard XML.  Note that the specialization
+ * {@link IParameterizedConstraintDescriptor} may be of particular value in
+ * describing constraints that are configurable and indicate their language.
  * </p>
  *
  * @author Christian W. Damus (cdamus)

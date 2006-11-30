@@ -7,7 +7,8 @@
       </appInfo>
       <documentation>
          This extension point allows plug-ins to register objects which know how to parse
-constraints encoded in a particular language from an XML &lt;constraints/&gt; document.
+constraints encoded in a particular language from the information supplied in an
+&lt;tt&gt;IConstraintDescriptor&lt;/tt&gt;.
       </documentation>
    </annotation>
 
@@ -46,7 +47,7 @@ constraints encoded in a particular language from an XML &lt;constraints/&gt; do
             <meta.element labelAttribute="lang"/>
          </appInfo>
          <documentation>
-            Defines an XML constraint parser.
+            Defines a constraint parser.
          </documentation>
       </annotation>
       <complexType>
@@ -55,7 +56,7 @@ constraints encoded in a particular language from an XML &lt;constraints/&gt; do
                <documentation>
                   Indicates the constraint language which this builder supports.
 
-This matches values of the &quot;lang&quot; attribute in &lt;Constraint/&gt; elements in XML constraint declarations.
+This matches values of the &quot;lang&quot; attribute in &lt;constraint/&gt; elements in XML constraint declarations.
 The language is not case-sensitive.
                </documentation>
             </annotation>
@@ -63,11 +64,10 @@ The language is not case-sensitive.
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  The name of a class implementing the IXmlConstraintParser interface,
-which handles the associated XML constraint language.
+                  The name of a class implementing a specialization of the &lt;code&gt;IConstraintParser&lt;/code&gt; interface, which handles the associated constraint language.
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.xml.IXmlConstraintParser"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.service.IConstraintParser"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -89,7 +89,7 @@ which handles the associated XML constraint language.
       </appInfo>
       <documentation>
          &lt;p&gt;
-To provide support for constraints defined in scripted Java embedded in the constraint provider XML, using BeanShell, one might define an extension like the following:
+To provide support for constraints defined in scripted Java embedded in the constraint &apos;body&apos;, using BeanShell, one might define an extension like the following:
 &lt;/p&gt;
 &lt;pre&gt;
      &lt;extension
@@ -108,9 +108,13 @@ To provide support for constraints defined in scripted Java embedded in the cons
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         The value of the &lt;tt&gt;&amp;lt;constraintParser&amp;gt;&lt;/tt&gt; element &lt;tt&gt;class&lt;/tt&gt; attribute must be the fully qualified name of a class that implements
-the &lt;code&gt;org.eclipse.emf.validation.xml.IXmlConstraintParser&lt;/code&gt; interface.  It is instantiated using the default (no-argument) constructor; only a single instance is created by the system.
-
+         &lt;p&gt;
+The value of the &lt;tt&gt;&amp;lt;constraintParser&amp;gt;&lt;/tt&gt; element &lt;tt&gt;class&lt;/tt&gt; attribute must be 
+the fully qualified name of a class that implements one of the specializations of
+the &lt;code&gt;org.eclipse.emf.validation.service.IConstraintParser&lt;/code&gt; interface defined by the framework.  The currently available specializations are &lt;code&gt;org.eclipse.emf.validation.service.IParameterizedConstraintParser&lt;/code&gt; and &lt;code&gt;org.eclipse.emf.validation.xml.IXmlConstraintParser&lt;/code&gt;.  Note that the latter interface is deprecated; the concrete implementations supplied by the framework (for Java, OCL, and EMF languages) implement the &lt;code&gt;IParameterizedConstraintParser&lt;/code&gt; interface, also.
+&lt;/p&gt;&lt;p&gt;
+A constraint parser is instantiated using the default (no-argument) constructor; only a single instance is created by the system.
+&lt;/p&gt;
       </documentation>
    </annotation>
 
@@ -120,7 +124,6 @@ the &lt;code&gt;org.eclipse.emf.validation.xml.IXmlConstraintParser&lt;/code&gt;
       </appInfo>
       <documentation>
          The &lt;tt&gt;org.eclipse.emf.validation.ocl&lt;/tt&gt; plug-in provides support for OCL as a constraint language using a constraint parser.
-
       </documentation>
    </annotation>
 
