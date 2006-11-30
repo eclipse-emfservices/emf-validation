@@ -12,10 +12,10 @@
  *
  * </copyright>
  *
- * $Id: OCLModelConstraint.java,v 1.2 2006/10/10 14:30:58 cdamus Exp $
+ * $Id: AbstractOCLModelConstraint.java,v 1.1 2006/11/30 22:52:53 cdamus Exp $
  */
 
-package org.eclipse.emf.validation.internal.ocl;
+package org.eclipse.emf.validation.ocl;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -23,7 +23,10 @@ import java.lang.ref.WeakReference;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.ocl.helper.HelperUtil;
+import org.eclipse.emf.ocl.helper.IOCLHelper;
+import org.eclipse.emf.ocl.helper.OCLParsingException;
+import org.eclipse.emf.ocl.parser.EnvironmentFactory;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.emf.validation.IValidationContext;
@@ -45,7 +48,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class OCLModelConstraint implements IModelConstraint {
+public abstract class AbstractOCLModelConstraint implements IModelConstraint {
 	private final IConstraintDescriptor descriptor;
 	
 	/**
@@ -62,9 +65,14 @@ public class OCLModelConstraint implements IModelConstraint {
 	 * @param descriptor the descriptor, which must contain an OCL expression
 	 *   in its body
 	 */
-	public OCLModelConstraint(IConstraintDescriptor descriptor) {
+	public AbstractOCLModelConstraint(IConstraintDescriptor descriptor) {
 		this.descriptor = descriptor;
 	}
+	
+	/**
+	 * To be implemented by a concrete OCL model constraint.
+	 */
+	protected abstract EnvironmentFactory createEnvironmentFactory();
 
 	/**
 	 * Obtains the cached OCL query/constraint that implements me for the
@@ -85,10 +93,14 @@ public class OCLModelConstraint implements IModelConstraint {
 			// lazily initialize the condition.  If a RuntimeException is thrown
 			//   by the QueryFactory because of a bad OCL expression, then the
 			//   constraints framework will catch it and disable me
-
-			result = QueryFactory.eINSTANCE.createQuery(
-						getDescriptor().getBody(),
-						eClass);
+			IOCLHelper oclHelper = HelperUtil.createOCLHelper(createEnvironmentFactory());
+			oclHelper.setContext(eClass);
+			try {
+				result = QueryFactory.eINSTANCE.createQuery(oclHelper.createQuery(getDescriptor().getBody()));
+			} catch(OCLParsingException e) {	
+				// TODO - a better error handling ?
+				throw new RuntimeException(e);
+			}
 
 			queries.put(eClass, new WeakReference(result));
 		}

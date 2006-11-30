@@ -12,12 +12,17 @@
  *
  * </copyright>
  *
- * $Id: OCLConstraintParser.java,v 1.2 2006/10/10 14:30:58 cdamus Exp $
+ * $Id: OCLConstraintParser.java,v 1.3 2006/11/30 22:52:54 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;
 
+import org.eclipse.emf.ocl.parser.EnvironmentFactory;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.ocl.AbstractOCLModelConstraint;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
+import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
 
@@ -32,7 +37,9 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class OCLConstraintParser implements IXmlConstraintParser {
+public class OCLConstraintParser
+		implements IParameterizedConstraintParser, IXmlConstraintParser {
+	
 	/**
 	 * Initializes me. 
 	 */
@@ -41,7 +48,19 @@ public class OCLConstraintParser implements IXmlConstraintParser {
 	}
 
 	// implements the inherited method
-	public IModelConstraint parseConstraint(IXmlConstraintDescriptor desc) {
-		return new OCLModelConstraint(desc);
+	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor desc) {
+		return new AbstractOCLModelConstraint(desc) {
+			protected EnvironmentFactory createEnvironmentFactory() {			
+				return EnvironmentFactory.ECORE_INSTANCE;
+			}
+		};
+	}
+	
+	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
+		return new AbstractOCLModelConstraint(descriptor) {
+			protected EnvironmentFactory createEnvironmentFactory() {			
+				return EnvironmentFactory.ECORE_INSTANCE;
+			}
+		};
 	}
 }
