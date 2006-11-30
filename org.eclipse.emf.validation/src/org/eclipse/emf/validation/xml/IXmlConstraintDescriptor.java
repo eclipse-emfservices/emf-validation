@@ -15,12 +15,17 @@ package org.eclipse.emf.validation.xml;
 import org.eclipse.core.runtime.IConfigurationElement;
 
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 
 /**
  * Interface provided by constraint descriptors that are parsed from XML
  * configuration data (such as is implemented in plug-in manifests).
  *
  * @author Christian W. Damus (cdamus)
+ * 
+ * @deprecated Use the {@link IParameterizedConstraintDescriptor} interface,
+ *     instead.  Note that the default implementation of this interface also
+ *     implements <code>IParameterizedConstraintDescriptor</code>.
  */
 public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	/**
