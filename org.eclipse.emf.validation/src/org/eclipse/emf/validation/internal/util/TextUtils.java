@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004 IBM Corporation and others.
+ * Copyright (c) 2004, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,8 +12,11 @@
 
 package org.eclipse.emf.validation.internal.util;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
@@ -22,6 +25,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * Utilities for working with text in EMF models.  So far, the following
@@ -29,6 +34,8 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
  * <ul>
  *   <li>obtaining text representations of model elements for use in the UI
  *       (see {@link #getText(EObject)})</li>
+ *   <li>formatting error messages
+ *       (see {@link #formatMessage(String, Object[])})</li>
  * </ul>
  *
  * @author Christian W. Damus (cdamus)
@@ -115,5 +122,67 @@ public class TextUtils {
 		}
 		
 		return result;
+	}
+
+	/**
+	 * Applies the specified arguments to my message pattern.
+	 * 
+	 * @param messagePattern the message pattern
+	 * @param inputArgs the pattern arguments
+	 * @return the formatted message string
+	 * 
+	 * @since 1.1
+	 */
+	public static String formatMessage(String messagePattern, Object[] inputArgs) {
+		Object[] args = new Object[inputArgs.length];
+
+		for (int i = 0; i < args.length; i++) {
+			Object inputArg = inputArgs[i];
+
+			if (inputArg instanceof Collection) {
+				inputArg = formatMultiValue((Collection)inputArg);
+			} else if (inputArg instanceof Object[]) {
+				inputArg = formatMultiValue(Arrays.asList((Object[])inputArg));
+			} else {
+				inputArg = formatScalarValue(inputArg);
+			}
+
+			args[i] = inputArg;
+		}
+
+		return NLS.bind(messagePattern, args);
+	}
+
+	/**
+	 * Helper method which converts multiple objects into a list as prescribed
+	 * by locale-specific conventions.
+	 * 
+	 * @param multiValuedArg the multiple objects
+	 * @return the string representation of the list
+	 */
+	private static String formatMultiValue(Collection multiValuedArg) {
+		List args = new java.util.ArrayList(multiValuedArg);
+
+		for (ListIterator iter = args.listIterator(); iter.hasNext(); ) {
+			iter.set(formatScalarValue(iter.next()));
+		}
+
+		return EMFModelValidationPlugin.formatList(args);
+	}
+
+	/**
+	 * Helper method which converts a single object to a string.  Model objects
+	 * are represented by their names, other objects by their default string
+	 * representation.
+	 * 
+	 * @param value the object to convert
+	 * @return the string conversion
+	 */
+	private static String formatScalarValue(Object value) {
+		if (value instanceof EObject) {
+			return TextUtils.getText((EObject)value);
+		} else {
+			return String.valueOf(value);
+		}
 	}
 }

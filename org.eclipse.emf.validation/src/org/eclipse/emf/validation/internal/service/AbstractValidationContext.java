@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,12 +13,10 @@
 package org.eclipse.emf.validation.internal.service;
 
 import java.util.AbstractCollection;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +25,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
@@ -40,7 +37,6 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.util.FilteredCollection;
-import org.eclipse.osgi.util.NLS;
 
 /**
  * A partial implementation of the {@link IValidationContext} interface.
@@ -394,8 +390,9 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	// implements the interface method
 	public IStatus createFailureStatus(Object[] messageArgs) {
 		
-		String message = formatMessage(
-			(messageArgs == null) ? new Object[0] : messageArgs);
+		String message = TextUtils.formatMessage(
+				getDescriptor().getMessagePattern(),
+				(messageArgs == null) ? new Object[0] : messageArgs);
 		
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS_EVALUATION)) {
 			Trace.trace(
@@ -408,68 +405,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 				getTarget(),
 				message,
 				getResultLocus());
-	}
-
-	/**
-	 * Applies the specified arguments to my message pattern.  See the
-	 * {@link #fail} method for a description of the arguments.
-	 * 
-	 * @param ctx the current validation context
-	 * @param inputArgs the pattern arguments
-	 * @return the formatted message string
-	 * @see #fail
-	 */
-	private String formatMessage(Object[] inputArgs) {
-		Object[] args = new Object[inputArgs.length];
-
-		for (int i = 0; i < args.length; i++) {
-			Object inputArg = inputArgs[i];
-
-			if (inputArg instanceof Collection) {
-				inputArg = formatMultiValue((Collection)inputArg);
-			} else if (inputArg instanceof Object[]) {
-				inputArg = formatMultiValue(Arrays.asList((Object[])inputArg));
-			} else {
-				inputArg = formatScalarValue(inputArg);
-			}
-
-			args[i] = inputArg;
-		}
-
-		return NLS.bind(getDescriptor().getMessagePattern(), args);
-	}
-
-	/**
-	 * Helper method which converts multiple objects into a list as prescribed
-	 * by locale-specific conventions.
-	 * 
-	 * @param multiValuedArg the multiple objects
-	 * @return the string representation of the list
-	 */
-	private String formatMultiValue(Collection multiValuedArg) {
-		List args = new java.util.ArrayList(multiValuedArg);
-
-		for (ListIterator iter = args.listIterator(); iter.hasNext(); ) {
-			iter.set(formatScalarValue(iter.next()));
-		}
-
-		return EMFModelValidationPlugin.formatList(args);
-	}
-
-	/**
-	 * Helper method which converts a single object to a string.  Model objects
-	 * are represented by their names, other objects by their default string
-	 * representation.
-	 * 
-	 * @param value the object to convert
-	 * @return the string conversion
-	 */
-	private String formatScalarValue(Object value) {
-		if (value instanceof EObject) {
-			return TextUtils.getText((EObject)value);
-		} else {
-			return String.valueOf(value);
-		}
 	}
 	
 	/**

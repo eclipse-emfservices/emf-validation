@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.validation.model.ConstraintStatus;
 
 /**
  * <p>
@@ -32,8 +33,14 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * what constraint implementation is calling it, but this is just a consequence
  * of the fact that constraints are invoked strictly one at a time by the
  * context, itself.
- * </p>
- * <p>
+ * </p><p>
+ * A single constraint implementation may check multiple conditions.  In such
+ * cases, it can return a
+ * {@link ConstraintStatus#createMultiStatus(IValidationContext, Collection) multi-status} of
+ * multiple results created by the overloaded variants of the
+ * {@link ConstraintStatus#createStatus(IValidationContext, Collection, String, Object[])}
+ * method.
+ * </p><p>
  * <b>Note</b> that the results of any method calls on the context object are
  * only valid during the invocation of the constraint's
  * {@link AbstractModelConstraint#validate validate()} method.  The results

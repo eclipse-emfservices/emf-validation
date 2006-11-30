@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,13 +12,20 @@
 
 package org.eclipse.emf.validation.model;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
+import org.eclipse.emf.validation.internal.util.TextUtils;
+import org.eclipse.emf.validation.service.ConstraintRegistry;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
 /**
  * <p>
@@ -38,17 +45,22 @@ import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
  * </p>
  * <p>
  * This class should not be extended outside of the validation framework.
+ * It may be instantiated by clients, especially using the <code>createStatus()</code>
+ * factory methods.
  * </p>
  * 
  * @see IModelConstraint#validate
  * 
  * @author Christian W. Damus (cdamus)
+ * 
+ * @see #createStatus(IValidationContext, Collection, String, Object[])
+ * @see #createMultiStatus(IValidationContext, Collection)
  */
 public class ConstraintStatus extends Status implements IConstraintStatus {
 	private final IModelConstraint constraint;
 	private final EObject target;
 	
-	private final Set resultLocus;
+	private Set resultLocus;
 
 	/**
 	 * Initializes me as a failure of the specified <code>constraint</code>
@@ -101,18 +113,18 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 * 
 	 * @param constraint the constraint that was evaluated
 	 * @param target the object on which validation was performed
-	 * @param status the status of the constraint evaluation
+	 * @param severity the severity of the constraint evaluation result
 	 * @param code the error code (if the constraint failed)
 	 * @param message the error message (if the constraint failed)
 	 * @param resultLocus the result locus (if the constraint failed)
 	 */
 	public ConstraintStatus(IModelConstraint constraint,
 							EObject target,
-							int status,
+							int severity,
 							int code,
 							String message,
 							Set resultLocus) {
-		super(status, constraint.getDescriptor().getPluginId(), code, message, null);
+		super(severity, constraint.getDescriptor().getPluginId(), code, message, null);
 		
 		assert constraint != null;
 		assert target != null;
@@ -126,7 +138,205 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 			? Collections.unmodifiableSet(new java.util.HashSet(resultLocus))
 			: Collections.EMPTY_SET;
 	}
-
+	
+	/**
+	 * Creates a status object indicating unsuccessful evaluation of the
+	 * current constraint on the current target element, as indicated by the
+	 * supplied validation context.  The status will have
+	 * the severity and error code defined in the constraint meta-data (its
+	 * descriptor), and a message composed from the specified pattern and
+	 * arguments.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems, with different messages, at the same
+	 * severity.
+	 * </p>
+	 * 
+	 * @param ctx the calling constraint's validation context.  Must not be
+	 *      <code>null</code>
+	 * @param resultLocus the objects involved in the problem that this status
+	 *      is to report.  If this collection does not contain the target object
+	 *      of the validation, then it is considered to contain it implicitly.
+	 *      Thus, this parameter may be <code>null</code> if only the target
+	 *      object is in the result locus
+	 * @param messagePattern the message pattern (with optional {0} etc.
+	 *      parameters)
+	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 *      replace in the message pattern (may by <code>null</code> if none
+	 *      are needed)
+	 * @return the status indicating a constraint violation
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createStatus(IValidationContext, Collection, int, int, String, Object[])
+	 */
+	public static ConstraintStatus createStatus(
+			IValidationContext ctx,
+			Collection resultLocus,
+			String messagePattern,
+			Object[] messageArguments) {
+		
+		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
+				ctx.getCurrentConstraintId());
+		
+		return createStatus(ctx, resultLocus,
+				desc.getSeverity().toIStatusSeverity(), desc.getStatusCode(),
+				messagePattern, messageArguments);
+	}
+	
+	
+	/**
+	 * Creates a status object indicating unsuccessful evaluation of the
+	 * current constraint on the current target element, as indicated by the
+	 * supplied validation context.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems, with different messages and severities.
+	 * </p>
+	 * 
+	 * @param ctx the calling constraint's validation context.  Must not be
+	 *      <code>null</code>
+	 * @param resultLocus the objects involved in the problem that this status
+	 *      is to report.  If this collection does not contain the target object
+	 *      of the validation, then it is considered to contain it implicitly.
+	 *      Thus, this parameter may be <code>null</code> if only the target
+	 *      object is in the result locus
+	 * @param severity the severity of the problem (one of the constants defined
+	 *      in the {@link IStatus} interface; should not be <code>OK</code>)
+	 * @param errorCode the error code.  A constraint may wish to use different
+	 *      error codes for different conditions, or just supply the
+	 *      {@link IConstraintDescriptor#getStatusCode() status code} provided
+	 *      by its is constraint descriptor
+	 * @param messagePattern the message pattern (with optional {0} etc.
+	 *      parameters)
+	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 *      replace in the message pattern (may by <code>null</code> if none
+	 *      are needed)
+	 * @return the status indicating a constraint violation
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createStatus(IValidationContext, Collection, String, Object[])
+	 */
+	public static ConstraintStatus createStatus(
+			IValidationContext ctx,
+			Collection resultLocus,
+			int severity,
+			int errorCode,
+			String messagePattern,
+			Object[] messageArguments) {
+		
+		// need a prototype status to get certain critical information, such
+		//    as the constraint object and target
+		ConstraintStatus result = (ConstraintStatus) ctx.createFailureStatus(null);
+		
+		Set results;
+		if (resultLocus == null) {
+			results = Collections.singleton(result.getTarget());
+		} else {
+			results = new java.util.HashSet(resultLocus);
+			if (!results.contains(result.getTarget())) {
+				results.add(result.getTarget());
+			}
+		}
+		
+		String message = TextUtils.formatMessage(
+				messagePattern,
+				(messageArguments == null)? new Object[0] : messageArguments);
+		
+		result.setMessage(message);
+		result.setSeverity(severity);
+		result.setCode(errorCode);
+		result.resultLocus = results;
+		
+		return result;
+	}
+	
+	/**
+	 * Creates a multi-status from the specified problem <tt>statuses</tt>.
+	 * The resulting status has a generic message and the error code
+	 * defined by the constraint's metadata.  The severity is, as with all
+	 * multi-statuses, the maximum of the severities of the supplied
+	 * <tt>statuses</tt>.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems.  A constraint may choose to compose and
+	 * return a {@link MultiStatus} if it wants different values for some of the
+	 * status properties.
+	 * </p>
+	 * @param ctx the calling constraint's current validation context
+	 * @param statuses the statuses to combine into a multi-status.  Must not
+	 *    be <code>null</code> or empty
+	 * 
+	 * @return a multi-status aggregating the supplied statuses
+	 * 
+	 * @throws IllegalArgumentException if the <tt>statuses</tt> is <code>null</code>
+	 *     or empty
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createMultiStatus(IValidationContext, String, Object[], Collection)
+	 */
+	public static IStatus createMultiStatus(IValidationContext ctx, Collection statuses) {
+		return createMultiStatus(
+				ctx,
+				ValidationMessages.eval_some_fail_WARN_, null,
+				statuses);
+	}
+	
+	/**
+	 * Creates a multi-status from the specified problem <tt>statuses</tt>.
+	 * The resulting status has a message composed from the specified pattern
+	 * and arguments, and the error code defined by the constraint's metadata.
+	 * The severity is, as with all multi-statuses, the maximum of the
+	 * severities of the supplied <tt>statuses</tt>.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems.  A constraint may choose to compose and
+	 * return a {@link MultiStatus} if it wants different values for some of the
+	 * status properties.
+	 * </p>
+	 * @param ctx the calling constraint's current validation context
+	 * @param messagePattern the message pattern (with optional {0} etc.
+	 *      parameters)
+	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 *      replace in the message pattern (may by <code>null</code> if none
+	 *      are needed)
+	 * @param statuses the statuses to combine into a multi-status.  Must not
+	 *    be <code>null</code> or empty
+	 * 
+	 * @return a multi-status aggregating the supplied statuses
+	 * 
+	 * @throws IllegalArgumentException if the <tt>statuses</tt> is <code>null</code>
+	 *     or empty
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createMultiStatus(IValidationContext, Collection)
+	 */
+	public static IStatus createMultiStatus(
+			IValidationContext ctx,
+			String messagePattern, Object[] messageArguments,
+			Collection statuses) {
+		if (statuses == null || statuses.isEmpty()) {
+			throw new IllegalArgumentException("no statuses to aggregate"); //$NON-NLS-1$
+		}
+		
+		IStatus[] children = (IStatus[]) statuses.toArray(new IStatus[statuses.size()]);
+		
+		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
+				ctx.getCurrentConstraintId());
+		
+		String message = TextUtils.formatMessage(
+				messagePattern,
+				(messageArguments == null)? new Object[0] : messageArguments);
+		
+		return new Multi(
+				desc.getPluginId(), desc.getStatusCode(),
+				children,
+				message);
+	}
+	
 	/**
 	 * Obtains the constraint which either succeeded or failed, according to
 	 * what I have to say.
@@ -157,5 +367,48 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 */
 	public final Set getResultLocus() {
 		return resultLocus;
+	}
+	
+	private static final class Multi
+			extends MultiStatus
+			implements IConstraintStatus {
+		private final IModelConstraint constraint;
+		private final EObject target;
+		private final Set resultLocus;
+		
+		Multi(String pluginId, int code, IStatus[] children, String message) {
+			super(pluginId, code, children, message, null);
+			
+			IConstraintStatus prototype = null;
+			
+			for (int i = 0; i < children.length; i++) {
+				if (children[i] instanceof IConstraintStatus) {
+					prototype = (IConstraintStatus) children[i];
+					break;
+				}
+			}
+			
+			if (prototype == null) {
+				constraint = null;
+				target = null;
+				resultLocus = Collections.EMPTY_SET;
+			} else {
+				constraint = prototype.getConstraint();
+				target = prototype.getTarget();
+				resultLocus = Collections.singleton(target);
+			}
+		}
+		
+		public IModelConstraint getConstraint() {
+			return constraint;
+		}
+		
+		public EObject getTarget() {
+			return target;
+		}
+		
+		public Set getResultLocus() {
+			return resultLocus;
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
 package org.eclipse.emf.validation;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.validation.model.ConstraintStatus;
 
 /**
  * <p>
@@ -52,12 +53,52 @@ public abstract class AbstractModelConstraint {
 	 * </p>
 	 * <p>
 	 * <b>Note</b> that it is best to use the
-	 * {@link IValidationContext#createSuccessStatus} and
-	 * {@link IValidationContext#createFailureStatus} methods of the context
+	 * {@link IValidationContext#createSuccessStatus()} and
+	 * {@link IValidationContext#createFailureStatus(Object[])} methods of the context
 	 * object to create the status object returned from this method, to ensure
 	 * that the status object returned is correctly handled by the validation
 	 * system.
+	 * </p><p>
+	 * A single constraint implementation may check multiple conditions.  In such
+	 * cases, it can return a
+	 * {@link ConstraintStatus#createMultiStatus(IValidationContext, Collection) multi-status} of
+	 * multiple results created by the overloaded variants of the
+	 * {@link ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[]))}
+	 * method.  In these cases, also, each resulting status can store a distinct
+	 * result locus.  For example:
 	 * </p>
+	 * <pre>
+	 *     public IStatus validate(IValidationContext ctx) {
+	 *         List problems = new java.util.ArrayList();
+	 *         
+	 *         // check the first condition.  This method adds results to the
+	 *         //    ctx's result locus if it finds a problem
+	 *         IStatus problem = checkFirstCondition(ctx);
+	 *         if (problem != null) problems.add(problem);
+	 *         
+	 *         // check another condition, involving different objects
+	 *         problem = checkSecondCondition(ctx);
+	 *         if (problem != null) problems.add(problem);
+	 *         
+	 *         return problems.isEmpty()? ctx.createSuccessStatus() :
+	 *             ConstraintStatus.createMultiStatus(ctx, problems);
+	 *     }
+	 *     
+	 *     private IStatus checkFirstCondition(IValidationContext ctx) {
+	 *         EObject target = ctx.getTarget();
+	 *         
+	 *         Collection problemElements = ...; // collect problem elements
+	 *         boolean ok = ... ;  // check the target and some related objects
+	 *         
+	 *         return ok? null : ConstraintStatus.createStatus(
+	 *                 ctx,
+	 *                 problemElements,
+	 *                 "Problem with {0}",
+	 *                 new Object[] {problemElements});
+	 *     }
+	 *     
+	 *     private IStatus checkSecondCondition(IValidationContext ctx) ...
+	 * </pre>
 	 * 
 	 * @param ctx the validation context that provides access to the current
 	 *         constraint evaluation environment.  The framework will never
@@ -67,9 +108,11 @@ public abstract class AbstractModelConstraint {
 	 *         {@link IStatus#OK} to indicate success,
 	 *         or some other value to indicate that validation failed.
 	 *         Must not return <code>null</code>
-	 * 
+	 *         
 	 * @see IValidationContext#createSuccessStatus()
 	 * @see IValidationContext#createFailureStatus(Object[])
+	 * @see ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[]))
+	 * @see ConstraintStatus#createMultiStatus(IValidationContext, Collection)
 	 */
 	public abstract IStatus validate(IValidationContext ctx);
 }

@@ -19,8 +19,10 @@ package org.eclipse.emf.validation.internal.service.tests;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import ordersystem.Address;
 import ordersystem.LineItem;
@@ -35,7 +37,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
+import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.MultiConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 
@@ -184,5 +188,71 @@ public class ModelValidationServiceTest extends TestBase {
 				"live", //$NON-NLS-1$
 				status,
 				targets);
+	}
+	
+	/**
+	 * Tests the new capability of reporting multiple results from a single
+	 * constraint, as a multi-status.
+	 */
+	public void test_validateConstraintsReturningMultipleResults_161558() {
+		Order order = OrderSystemFactory.eINSTANCE.createOrder();
+		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
+
+		MultiConstraint.enabled = true;
+		
+		IStatus[] status = getStatuses(batchValidator.validate(order));
+
+		MultiConstraint.enabled = false;
+		
+		assertAllConstraintsPresent(
+				"batch", //$NON-NLS-1$
+				status,
+				Arrays.asList(new String[] {
+						ID_PREFIX + "order.multiConstraint", //$NON-NLS-1$
+				}));
+		
+		status = getStatuses(status, ID_PREFIX + "order.multiConstraint"); //$NON-NLS-1$
+		assertEquals(3, status.length);
+		
+		boolean foundDefault = false;
+		boolean foundFun = false;
+		boolean foundSilly = false;
+		
+		final Set justOrder = Collections.singleton(order);
+		final Set orderAndItem = new java.util.HashSet();
+		orderAndItem.add(order);
+		orderAndItem.addAll(order.getItem());
+		
+		for (int i = 0; i < status.length; i++) {
+			IConstraintStatus cstat = (IConstraintStatus) status[i];
+			
+			switch (cstat.getCode()) {
+			case 1:
+				// default status
+				foundDefault = true;
+				assertEquals("Nothing to say.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals(IStatus.ERROR, cstat.getSeverity());
+				assertEquals(justOrder, cstat.getResultLocus());
+				break;
+			case 7:
+				// default status
+				foundSilly = true;
+				assertEquals("This is silly.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals(IStatus.WARNING, cstat.getSeverity());
+				assertEquals(justOrder, cstat.getResultLocus());
+				break;
+			case 13:
+				// default status
+				foundFun = true;
+				assertEquals("This is fun.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals(IStatus.INFO, cstat.getSeverity());
+				assertEquals(orderAndItem, cstat.getResultLocus());
+				break;
+			}
+		}
+		
+		assertTrue("Didn't find the default status", foundDefault); //$NON-NLS-1$
+		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
+		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
 	}
 }

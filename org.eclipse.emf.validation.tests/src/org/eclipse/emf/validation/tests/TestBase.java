@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ package org.eclipse.emf.validation.tests;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -230,6 +231,29 @@ public class TestBase extends TestCase {
 	}
 
 	/**
+	 * Helper method to find multiple statuses matching a constraint ID.
+	 * 
+	 * @param statuses the statuses to search
+	 * @param id the constraint ID to look for
+	 * @return the matching statuses, or empty array if none found
+	 * 
+	 * @since 1.1
+	 */
+	protected IStatus[] getStatuses(IStatus[] statuses, String id) {
+		List result = new java.util.ArrayList();
+		
+		for (int i = 0; i < statuses.length; i++) {
+			IConstraintStatus next = (IConstraintStatus)statuses[i];
+			
+			if (next.getConstraint().getDescriptor().getId().equals(id)) {
+				result.add(next);
+			}
+		}
+		
+		return (IStatus[]) result.toArray(new IStatus[result.size()]);
+	}
+
+	/**
 	 * Helper method to convert the specified <code>status</code> to an array
 	 * of statuses for uniform treatment of scalar and multi-statuses.  As a
 	 * special case, the scalar status indicating success because no constraints
@@ -240,12 +264,26 @@ public class TestBase extends TestCase {
 	 *    <code>status</code>
 	 */
 	protected IStatus[] getStatuses(IStatus status) {
-		if (status.isMultiStatus()) {
-			return status.getChildren();
-		} else if (status.getCode() == EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED){
+		if (status.getCode() == EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED) {
 			return new IStatus[0];
+		}
+		
+		List result = new java.util.ArrayList();
+		
+		collectStatuses(status, result);
+		
+		return (IStatus[]) result.toArray(new IStatus[result.size()]);
+	}
+	
+	private void collectStatuses(IStatus status, List statuses) {
+		if (status.isMultiStatus()) {
+			IStatus[] children = status.getChildren();
+			
+			for (int i = 0; i < children.length; i++) {
+				collectStatuses(children[i], statuses);
+			}
 		} else {
-			return new IStatus[] {status};
+			statuses.add(status);
 		}
 	}
 
