@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+	<provider id="org.eclipse.team.cvs.core.cvsnature">
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation,org.eclipse.emf.validation,HEAD"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl,org.eclipse.emf.validation.ocl,HEAD"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.emft/validation/tests/org.eclipse.emf.validation.tests,org.eclipse.emf.validation.tests,HEAD"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui,org.eclipse.emf.validation.ui,HEAD"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui.ide,org.eclipse.emf.validation.ui.ide,HEAD"/>
+	</provider>
+</psf>
