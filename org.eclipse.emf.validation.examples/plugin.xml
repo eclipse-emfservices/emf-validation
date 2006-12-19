@@ -30,6 +30,7 @@
             category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
             class="org.eclipse.emf.validation.examples.internal.wizard.GeneralExampleWizard"
             hasPages="false"
+            project="true"
             id="org.eclipse.emf.validation.examples.general"
             name="General Validation Example"
             icon="$nl$/icons/obj16/valexample_obj.gif">
@@ -40,6 +41,7 @@
             category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
             class="org.eclipse.emf.validation.examples.internal.wizard.AdapterExampleWizard"
             hasPages="false"
+            project="true"
             id="org.eclipse.emf.validation.examples.adapter"
             name="Validation Adapter Example"
             icon="$nl$/icons/obj16/valadapter_obj.gif">
@@ -50,6 +52,7 @@
             category="org.eclipse.ui.Examples/org.eclipse.emf.validation.examples.category"
             class="org.eclipse.emf.validation.examples.internal.wizard.OCLExampleWizard"
             hasPages="false"
+            project="true"
             id="org.eclipse.emf.validation.examples.ocl"
             name="OCL Example"
             icon="$nl$/icons/obj16/oclexample_obj.gif">
