@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,19 +12,24 @@
  *
  * </copyright>
  *
- * $Id: OCLConstraintParser.java,v 1.3 2006/11/30 22:52:54 cdamus Exp $
+ * $Id: OCLConstraintParser.java,v 1.4 2007/01/30 21:59:26 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;
 
-import org.eclipse.emf.ocl.parser.EnvironmentFactory;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.ocl.AbstractOCLModelConstraint;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
+import org.eclipse.ocl.ecore.Constraint;
+import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 
 /**
  * <p>
@@ -37,6 +42,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * 
  * @author Christian W. Damus (cdamus)
  */
+@SuppressWarnings("deprecation")
 public class OCLConstraintParser
 		implements IParameterizedConstraintParser, IXmlConstraintParser {
 	
@@ -49,18 +55,28 @@ public class OCLConstraintParser
 
 	// implements the inherited method
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor desc) {
-		return new AbstractOCLModelConstraint(desc) {
-			protected EnvironmentFactory createEnvironmentFactory() {			
-				return EnvironmentFactory.ECORE_INSTANCE;
-			}
-		};
+		return new EcoreOCLConstraint(desc);
 	}
 	
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
-		return new AbstractOCLModelConstraint(descriptor) {
-			protected EnvironmentFactory createEnvironmentFactory() {			
-				return EnvironmentFactory.ECORE_INSTANCE;
-			}
-		};
+        return new EcoreOCLConstraint(descriptor);
 	}
+    
+    /**
+     * A concrete implementation of OCL constraints for the Ecore metamodel.
+     *
+     * @author Christian W. Damus (cdamus)
+     */
+    private static class EcoreOCLConstraint
+            extends AbstractOCLModelConstraint<EClassifier, Constraint, EClass, EObject> {
+        
+        EcoreOCLConstraint(IConstraintDescriptor descriptor) {
+            super(descriptor);
+        }
+        
+        @Override
+        protected EcoreEnvironmentFactory createOCLEnvironmentFactory() {
+            return EcoreEnvironmentFactory.INSTANCE;
+        }
+    }
 }
