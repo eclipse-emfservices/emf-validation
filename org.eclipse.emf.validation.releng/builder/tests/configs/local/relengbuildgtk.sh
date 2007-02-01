@@ -5,15 +5,9 @@ echo -n "[relengbuild] relengbuildgtk.sh started on: `date +%Y%m%d\ %H\:%M\:%S`"
 # environment variables
 PATH=.:/bin:/usr/bin:/usr/bin/X11:/usr/local/bin:/usr/X11R6/bin:`pwd`/../linux;export PATH
 
-#According to http://archives.neohapsis.com/archives/dev/sapdb/2004-q4/0643.html this may no longer be required
-#LD_ASSUME_KERNEL=2.2.5
-
-#According to http://www.visi.com/~barr/ldpath.html, this is evil. 
-#And it doesn't work on emf.torolab, using Debian Sarge (Linux emf 2.6.8-11-amd64-k8-smp #1 SMP Jun 1 CEST 2005 x86_64 GNU/Linux)
-#LD_LIBRARY_PATH=.
-
 export USERNAME=`whoami`
 echo " running as $USERNAME";
+echo " currently in dir: `pwd`";
 
 Xflags="";
 Dflags="";
@@ -61,7 +55,8 @@ checkIfDefined ()
 
 execCmd ()
 {
-	echo ""; echo "[relengbuild] [`date +%H\:%M\:%S`]"; echo "  $1" | sed -e 's/\ \-/\¶\ \ \ \ \-/g' | tr "¶" "\n"; echo "";
+	echo ""; echo "[relengbuild] [`date +%H\:%M\:%S`]"; 
+	echo "  $1" | perl -pe "s/ -/\n  -/g";
 	if [ "x$2" != "x" ]; then
 		$1 | tee $2;
 	else
@@ -95,8 +90,6 @@ doFunction ()
 export DISPLAY=$HOSTNAME:43.0
 ulimit -c unlimited
 
-#export LD_ASSUME_KERNEL LD_LIBRARY_PATH
-
 # /home/www-data/build/emft/$proj/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing/linux.gtk_consolelog.txt
 echo "[relengbuild] runtests log: $PWD/$consolelog";
 
@@ -127,7 +120,7 @@ fi
 
 # execute command to run tests
 chmod 755 runtests
-execCmd "runtests -os linux -ws gtk -arch x86 -cp eclipse/startup.jar -Dplatform=linux.gtk $Dflags -vm $vmExecutable $antTestTarget $Xflags" $consolelog
+execCmd "runtests -os linux -ws gtk -arch x86 -Dplatform=linux.gtk $Dflags -vm $vmExecutable $antTestTarget $Xflags" $consolelog
 
 # supress errors by checking for the file first
 if [ -r /tmp/.X43-lock ] ; then
@@ -137,6 +130,11 @@ if [ -r /tmp/.X42-lock ] ; then
 	kill `cat /tmp/.X42-lock`
 fi
 
+if [[ ! -d $PWD/results ]]; then
+	echo "[relengbuild] No test results found in $PWD/results!";
+	echo "[relengbuild] Creating 'noclean' file to prevent cleanup after build completes."
+	echo "1" > $PWD/../../../noclean;
+else
 # if the build failed for some reason, don't clean up!
 xmls=`find $PWD/results/xml -name "*.xml"`;
 testsFailed=0;
@@ -151,5 +149,6 @@ for xml in $xmls; do
 		fi
 	fi
 done
+fi
 
 echo "[relengbuild] relengbuildgtk.sh completed on: `date +%Y%m%d\ %H\:%M\:%S`"
