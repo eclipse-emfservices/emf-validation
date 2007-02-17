@@ -55,11 +55,6 @@
 		<unzip dest="${install}" overwrite="true">
 		    <fileset dir="${dir}"><include name="**/emft-*.zip"/></fileset>
 		</unzip>
-		
-		<!-- equinox hack: create a copy of the launcher so that it can be referred to generically by org.eclipse.test/library.xml -->
-		<copy tofile="${install}/eclipse/plugins/org.eclipse.equinox.launcher.jar">
-			<fileset dir="${install}/eclipse/plugins" includes="**/org.eclipse.equinox.launcher_*.jar"/>
-		</copy>
 	</target>
 
 	<target name="runtests" depends="setup" description="Runs ant on the test.xml for a specified plugin.  Requires a property value setting for testPlugin only if test.properties is not available.  The property testPlugin represents a directory name made up of the plugin id and plugin version.  This directory must contain a valid test.xml.">

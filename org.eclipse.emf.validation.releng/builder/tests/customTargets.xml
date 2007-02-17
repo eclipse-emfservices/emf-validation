@@ -244,9 +244,6 @@
   	<!--the Ant move task leaves behind an empty directory-->
   	<delete dir="${workingDirectory}/eclipse/plugins/${org.eclipse.test}" includeEmptyDirs="true" />
 	
-	<!-- HACK: update org.eclipse.test/library.xml -->
-	<antcall target="fixLibraryXML"/>
-	
  	<!-- rezip the JUnit plugin tests -->
 	<zip destfile="${workingDirectory}/testing/emft-${subprojectName}-junit-tests-${buildAlias}.zip">
 		 <zipfileset dir="${workingDirectory}/eclipse" prefix="eclipse"/>
@@ -273,55 +270,6 @@
 
 	<delete file="${buildDirectory}/${buildLabel}/emft-${subprojectName}-junit-tests-${buildAlias}.zip"  />
 </target>
-
-	<target name="fixLibraryXML" description="Replace org.eclipse.test/library.xml with a version that uses equinox's launcher. Required for post-3.3M4.">
-		<!-- get path to library.xml and launcher jar -->
-		<property name="libraryXML" value="${workingDirectory}/eclipse/plugins/org.eclipse.test/library.xml"/>
-		<property name="launcherJar" value="plugins/org.eclipse.equinox.launcher.jar"/>
-		<echo>
-[Equinox Hack]
----
-libraryXML = ${libraryXML}
-launcherJar = ${launcherJar}
-</echo>		
-		<property name="perl.cmd1" value="s#startup.jar#${launcherJar}#g"/>
-		<property name="perl.cmd2" value="s#org.eclipse.core.launcher.Main#org.eclipse.equinox.launcher.Main#g"/>
-		<property name="perl.cmd3" value="s#-consolelog#-nosplash -consolelog#g"/> <!--  -Dosgi.framework=/path/to/osgi.jar ? -->
-		<property name="perl.cmd4" value="s#Running \$\{classname\}#Running \$\{classname\}, using eclipse-home = \$\{eclipse\-home\}#g"/>
-		<tempfile property="temp.file"/>
-		<echo message="Dynamic fix 1: perl -pe ${perl.cmd1} ${libraryXML} > ${temp.file}"/>
-		<exec executable="perl" output="${temp.file}">
-			<arg value="-pe"/>
-			<arg value="${perl.cmd1}"/>
-			<arg value="${libraryXML}"/>
-		</exec>
-		<echo message="Dynamic fix 2: perl -pe ${perl.cmd2} ${temp.file} > ${libraryXML}"/>
-		<exec executable="perl" output="${libraryXML}">
-			<arg value="-pe"/>
-			<arg value="${perl.cmd2}"/>
-			<arg value="${temp.file}"/>
-		</exec>
-		<echo message="Dynamic fix 3: perl -pe ${perl.cmd3} ${libraryXML} > ${temp.file}"/>
-		<exec executable="perl" output="${temp.file}">
-			<arg value="-pe"/>
-			<arg value="${perl.cmd3}"/>
-			<arg value="${libraryXML}"/>
-		</exec>
-		<echo message="Dynamic fix 4: perl -pe ${perl.cmd4} ${temp.file} > ${libraryXML}"/>
-		<exec executable="perl" output="${libraryXML}">
-			<arg value="-pe"/>
-			<arg value="${perl.cmd4}"/>
-			<arg value="${temp.file}"/>
-		</exec>
-		<!-- <move file="${temp.file}" tofile="${libraryXML}" overwrite="true"/> -->
-		<delete file="${temp.file}" deleteonexit="true" quiet="true"/>
-		<exec outputproperty="grepResults" executable="grep"><arg line="-E 'launcher|splash|Running' ${libraryXML}"/></exec>
-		<echo>
-[Equinox Hack]
----
-${grepResults}
-</echo>
-	</target>
 
 <!-- ===================================================================== -->
 <!-- Default target                                                        -->
