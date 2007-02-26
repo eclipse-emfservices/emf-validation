@@ -1,4 +1,4 @@
-<project name="Automated Testing for EMFT" default="all"  basedir="." >
+<project name="Automated Testing" default="all"  basedir="." >
 
 	<!--properties file containing the plugin directory name including version number-->
 	<property file="test.properties" />
