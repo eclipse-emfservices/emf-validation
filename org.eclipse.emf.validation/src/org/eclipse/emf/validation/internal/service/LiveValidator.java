@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,12 +23,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ILiveValidator;
+import org.eclipse.emf.validation.util.FilteredCollection;
 
 /**
  * Basic implementation of the {@link ILiveValidator} interface.
@@ -36,6 +36,8 @@ import org.eclipse.emf.validation.service.ILiveValidator;
  * @author Christian W. Damus (cdamus)
  */
 public class LiveValidator extends AbstractValidator implements ILiveValidator {
+	private FilteredCollection.Filter notificationFilter;
+
 	/**
 	 * Initializes me with the operation <code>executor</code> that I use to
 	 * execute provider operations.
@@ -172,13 +174,30 @@ public class LiveValidator extends AbstractValidator implements ILiveValidator {
 	 * constraints.
 	 * 
 	 * @param notification a notification
-	 * @return whether the notification is from an <code>EObject</code>
-	 *     that is attached to a resource (i.e., it is not deleted)
+	 * @return whether the notification is eligible based on
+     *         the notification filter
 	 */
 	private boolean isValidatable(Notification notification) {
-		return
-			(notification.getNotifier() instanceof EObject) &&
-				(((EObject)notification.getNotifier()).eResource() != null);
+		return getNotificationFilter().accept(notification);
+	}
+	
+	public void setNotificationFilter(FilteredCollection.Filter filter) {
+		notificationFilter = filter;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * The default filter implementation is the 
+	 * <code>AttachedToResourceNotificationFilter</code>.
+     * </p>
+	 */
+	public FilteredCollection.Filter getNotificationFilter() {
+		if (notificationFilter == null) {
+			notificationFilter = new AttachedToResourceNotificationFilter();
+		}
+        
+		return notificationFilter;
 	}
 	
 	/**
@@ -428,6 +447,23 @@ public class LiveValidator extends AbstractValidator implements ILiveValidator {
 			}
 			
 			return result;
+		}
+	}
+	
+	/**
+	 * Notification filter that accepts notifications whose target is an 
+	 * <code>EObject</code> that is attached to a resource (i.e., it is not
+	 * deleted)
+	 */
+	private class AttachedToResourceNotificationFilter implements FilteredCollection.Filter {
+		public boolean accept(Object element) {
+			if (element instanceof Notification) {
+				Notification notification = (Notification)element;
+				return (notification.getNotifier() instanceof EObject) &&
+					(((EObject)notification.getNotifier()).eResource() != null);
+			}
+            
+			return false;
 		}
 	}
 }

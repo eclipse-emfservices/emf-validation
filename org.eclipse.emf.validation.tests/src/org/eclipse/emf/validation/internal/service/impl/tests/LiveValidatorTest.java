@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,10 +17,10 @@
 
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
 import ordersystem.Customer;
 import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
@@ -29,23 +29,26 @@ import ordersystem.OrderSystemPackage;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.service.LiveValidator;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
+import org.eclipse.emf.validation.util.FilteredCollection;
 
 /**
  * Tests for {@link LiveValidator}.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class LiveValidatorTest extends TestCase {
+public class LiveValidatorTest extends TestBase {
 	private LiveValidator validator;
 	
 	/**
@@ -566,6 +569,54 @@ public class LiveValidatorTest extends TestCase {
 		assertEquals(
 			new Integer(3),
 			NotificationMergingTestConstraint.instance.getFeatureNewValue());
+	}
+	
+	public void test_notificationFilterDefault_177653() {
+		EObject object = OrderSystemFactory.eINSTANCE.createOrder(); // Don't add to a resource
+		Notification event = new TestNotification(object, Notification.SET);
+		
+		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		localValidator.setReportSuccesses(true);
+		IStatus[] status = getStatuses(localValidator.validate(event));
+		
+		// No constraints present because notification should have been ignored
+		assertAllConstraintsNotPresent(
+				"live", //$NON-NLS-1$
+				status,
+				Arrays.asList(new String[] {
+						ID_PREFIX + "order.hasName", //$NON-NLS-1$
+						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
+				}));
+	}
+	
+	public void test_notficationFilterCustom_177653() {
+		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
+		Notification event = new TestNotification(object, Notification.SET);
+		
+		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		localValidator.setReportSuccesses(true);
+		
+		// Set notification filter which accepts eObjects that are not attached
+		// to a resource
+		localValidator.setNotificationFilter(new FilteredCollection.Filter() {
+			public boolean accept(Object element) {
+				if (element instanceof Notification) {
+					Notification notification = (Notification)element;
+					return (notification.getNotifier() instanceof EObject);
+				}
+                
+				return false;
+			}});
+		
+		IStatus[] status = getStatuses(localValidator.validate(event));
+	
+		assertAllConstraintsPresent(
+				"live", //$NON-NLS-1$
+				status,
+				Arrays.asList(new String[] {
+						ID_PREFIX + "order.hasName", //$NON-NLS-1$
+						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
+				}));
 	}
 	
 	private static class NotificationGatherer extends AdapterImpl {
