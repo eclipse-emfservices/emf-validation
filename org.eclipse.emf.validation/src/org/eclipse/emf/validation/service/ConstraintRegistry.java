@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,10 @@ package org.eclipse.emf.validation.service;
 import java.util.Collection;
 import java.util.Map;
 
+import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.util.Log;
+import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 
 /**
@@ -45,6 +49,8 @@ public class ConstraintRegistry {
 	private static final ConstraintRegistry INSTANCE = new ConstraintRegistry();
 	
 	private final Map descriptors = new java.util.HashMap();
+	
+	private volatile IConstraintListener[] constraintListeners;
 	
 	/**
 	 * Initializes me.
@@ -118,6 +124,9 @@ public class ConstraintRegistry {
 		}
 		
 		descriptors.put(descriptor.getId(), descriptor);
+		
+		broadcastConstraintChangeEvent(new ConstraintChangeEvent(descriptor,
+				ConstraintChangeEventType.REGISTERED));
 	}
 	
 	/**
@@ -130,5 +139,129 @@ public class ConstraintRegistry {
 		assert descriptor != null;
 		
 		descriptors.remove(descriptor.getId());
+		
+		broadcastConstraintChangeEvent(new ConstraintChangeEvent(descriptor,
+				ConstraintChangeEventType.UNREGISTERED));
+	}
+	
+	/**
+	 * Adds an <code>IConstraintListener</code> to receive constraint change
+	 * events.  This method has no effect if the <code>IConstraintListener
+	 * </code> is already registered.
+	 * 
+	 * @param listener a new constraint listener
+	 * 
+	 * @since 1.1
+	 */
+	public synchronized void addConstraintListener(IConstraintListener listener) {
+		if (indexOf(listener) < 0) {
+			if (constraintListeners == null) {
+				constraintListeners = new IConstraintListener[] {listener};
+			} else {
+				IConstraintListener[] newListeners =
+					new IConstraintListener[constraintListeners.length + 1];
+				
+				System.arraycopy(constraintListeners, 0, newListeners, 0, constraintListeners.length);
+				newListeners[constraintListeners.length] = listener;
+				constraintListeners = newListeners;
+			}
+			
+			if (Trace.shouldTrace(EMFModelValidationDebugOptions.LISTENERS)) {
+				Trace.trace(
+						EMFModelValidationDebugOptions.LISTENERS,
+						"Registered constraint listener: " + listener.getClass().getName()); //$NON-NLS-1$
+			}
+		}
+	}
+	
+	/**
+	 * Removes the <code>IConstraintListener</code> from the list of listeners.
+	 * This method has no effect if the <code>IConstraintListener</code> is not
+	 * currently registered.
+	 * 
+	 * @param listener a constraint listener
+	 * 
+	 * @since 1.1
+	 */
+	public synchronized void removeConstraintListener(IConstraintListener listener) {
+		int index = indexOf(listener);
+		
+		if (index >= 0) {
+			IConstraintListener[] newListeners =
+				new IConstraintListener[constraintListeners.length - 1];
+			
+			System.arraycopy(constraintListeners, 0, newListeners, 0, index);
+			System.arraycopy(constraintListeners, index + 1, newListeners, index, constraintListeners.length - index - 1);
+			constraintListeners = newListeners;
+			
+			if (Trace.shouldTrace(EMFModelValidationDebugOptions.LISTENERS)) {
+				Trace.trace(
+						EMFModelValidationDebugOptions.LISTENERS,
+						"Deregistered constraint listener: " + listener.getClass().getName()); //$NON-NLS-1$
+			}
+		}
+	}
+	
+	/**
+	 * Computes the index of a specified <code>IConstraintListener</code> in
+	 * the array of registered listeners.
+	 * 
+	 * @param listener a constraint listener
+	 * @return the <code>constraint listener</code>'s index, or -1 if it is not
+	 *         in my list
+	 */
+	private int indexOf(IConstraintListener listener) {
+		int result = -1;
+		if (constraintListeners != null) {
+			for (int i = 0; i < constraintListeners.length; i++) {
+				if (constraintListeners[i] == listener) {
+					result = i;
+					break;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Broadcasts the specified <code>ConstraintChangeEvent</code> to all 
+     * constraint listeners.  This method is used internally by constraints
+     * to send notifications when they have changed.
+	 * <p>
+     * <b>Note</b> that this method should only be invoked by implementation of
+     * of the {@link IConstraintDescriptor} interface.
+     * </p>
+     * 
+	 * @param event a constraint change event to broadcast
+	 * 
+	 * @since 1.1
+	 */
+	public void broadcastConstraintChangeEvent(ConstraintChangeEvent event) {
+		// Check if listeners exist
+		if (constraintListeners == null) {
+			return;
+        }
+				
+		IConstraintListener[] array = constraintListeners; // copy the reference
+		
+		for (int i = 0; i < array.length; i++) {
+			try {
+				array[i].constraintChanged(event);
+			} catch (Exception e) {
+				Trace.catching(getClass(), "broadcastConstraintChangeEvent", e); //$NON-NLS-1$
+				
+				if (Trace.shouldTrace(EMFModelValidationDebugOptions.LISTENERS)) {
+					Trace.trace(
+							EMFModelValidationDebugOptions.LISTENERS,
+							"Uncaught exception in constraint listener: " + array[i].getClass().getName()); //$NON-NLS-1$
+				}
+				
+				Log.l7dWarning(
+					EMFModelValidationStatusCodes.LISTENER_UNCAUGHT_EXCEPTION,
+					EMFModelValidationStatusCodes.LISTENER_UNCAUGHT_EXCEPTION_MSG,
+					e);
+			}
+		}
 	}
 }

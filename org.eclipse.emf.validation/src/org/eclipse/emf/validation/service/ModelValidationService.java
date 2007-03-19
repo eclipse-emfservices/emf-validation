@@ -136,7 +136,7 @@ public class ModelValidationService {
 	 * 
 	 * @param listener a new validation listener
 	 */
-	public void addValidationListener(IValidationListener listener) {
+	public synchronized void addValidationListener(IValidationListener listener) {
 		if (indexOf(listener) < 0) {
 			if (listeners == null) {
 				listeners = new IValidationListener[] {listener};
@@ -163,7 +163,7 @@ public class ModelValidationService {
 	 * 
 	 * @param listener a validation listener
 	 */
-	public void removeValidationListener(IValidationListener listener) {
+	public synchronized void removeValidationListener(IValidationListener listener) {
 		int index = indexOf(listener);
 		
 		if (index >= 0) {

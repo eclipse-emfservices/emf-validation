@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -88,7 +88,15 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 			enabled = isMandatory();
 		}
 		
-		this.enabled = enabled;
+		if (this.enabled != enabled) {
+			this.enabled = enabled;
+			
+			ConstraintChangeEventType eventType = (this.enabled) ? ConstraintChangeEventType.ENABLED
+					: ConstraintChangeEventType.DISABLED;
+
+			ConstraintRegistry.getInstance().broadcastConstraintChangeEvent(
+					new ConstraintChangeEvent(this, eventType));
+		}
 	}
 	
 	/**
@@ -127,11 +135,23 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		if (categories.contains(defaultCategory)) {
 			// on entering the first explicit category, exit the default category
 			categories.remove(defaultCategory);
+			
+			ConstraintRegistry.getInstance()
+					.broadcastConstraintChangeEvent(
+							new ConstraintChangeEvent(this,
+									ConstraintChangeEventType.REMOVED_CATEGORY,
+									defaultCategory));
 		}
 		
 		if (!categories.contains(category)) {
 			categories.add(category);
 			category.addConstraint(this);
+			
+			ConstraintRegistry.getInstance()
+					.broadcastConstraintChangeEvent(
+							new ConstraintChangeEvent(this,
+									ConstraintChangeEventType.ADDED_CATEGORY,
+									category));
 		}
 	}
 	
@@ -140,6 +160,12 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		if (categories.contains(category)) {
 			categories.remove(category);
 			category.removeConstraint(this);
+			
+			ConstraintRegistry.getInstance()
+			.broadcastConstraintChangeEvent(
+					new ConstraintChangeEvent(this,
+							ConstraintChangeEventType.REMOVED_CATEGORY,
+							category));
 		}
 		
 		if (categories.isEmpty()) {
@@ -148,6 +174,12 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 
 			// on exiting the last category, add the default category
 			categories.add(defaultCategory);
+			
+			ConstraintRegistry.getInstance()
+					.broadcastConstraintChangeEvent(
+							new ConstraintChangeEvent(this,
+									ConstraintChangeEventType.ADDED_CATEGORY,
+									defaultCategory));
 		}
 	}
 
