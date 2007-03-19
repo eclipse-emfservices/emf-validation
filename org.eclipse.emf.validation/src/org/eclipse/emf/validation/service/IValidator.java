@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,4 +147,41 @@ public interface IValidator {
 	 * @see #validate(Object)
 	 */
 	IStatus validate(Collection objects);
+	
+	/**
+	 * Adds a constraint filter to this validator.  The validator
+	 * will only evaluate constraints that are accepted by its constraint
+	 * filters.  If a validator has no filters, then all constraints are
+     * validated.
+	 * 
+	 * @since 1.1
+	 * 
+	 * @param filter the constraint filter to add
+	 */
+	void addConstraintFilter(IConstraintFilter filter);
+    
+    /**
+     * Removes a constraint filter from this validator.
+     * If a validator has no filters, then all constraints are validated.
+     * 
+     * @since 1.1
+     * 
+     * @param filter the constraint filter to remove
+     * 
+     * @see #addConstraintFilter(IConstraintFilter)
+     */
+    void removeConstraintFilter(IConstraintFilter filter);
+	
+	/**
+     * Obtains a collection of {@link IConstraintFilter}s that define
+     * which constraints should be excluded for validation.
+     * 
+     * @return my constraint filters.  This list is not modifiable
+     * 
+     * @see #addConstraintFilter(IConstraintFilter)
+     * @see #removeConstraintFilter(IConstraintFilter)
+     * 
+     * @since 1.1
+     */
+	Collection getConstraintFilters();
 }

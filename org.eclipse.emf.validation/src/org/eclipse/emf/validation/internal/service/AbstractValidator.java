@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.internal.util.DisabledConstraintStatus;
@@ -32,6 +33,8 @@ import org.eclipse.emf.validation.internal.util.Log;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ValidationEvent;
@@ -49,6 +52,8 @@ abstract class AbstractValidator implements IValidator {
 	private final IProviderOperationExecutor executor;
 	
 	private boolean reportSuccesses = false;
+	
+	private Collection filters = null;
 	
 	/**
 	 * Initializes me with the evaluation <code>mode</code> that I support and
@@ -219,6 +224,10 @@ abstract class AbstractValidator implements IValidator {
 		for (Iterator iter = ctx.getConstraints().iterator(); iter.hasNext();) {
 			IModelConstraint next = (IModelConstraint)iter.next();
 
+			if (!acceptConstraint(next.getDescriptor(), ctx.getTarget())) {
+				continue;
+			}
+			
 			try {
 				IStatus status = next.validate(ctx);
 				
@@ -302,6 +311,42 @@ abstract class AbstractValidator implements IValidator {
 		}
 	}
 
+	private boolean acceptConstraint(IConstraintDescriptor constraint, EObject target) {
+        if (filters != null) {
+    		for (Iterator iter = filters.iterator(); iter.hasNext();) {
+    			IConstraintFilter filter = (IConstraintFilter)iter.next();
+                
+    			if (!filter.accept(constraint, target)) {
+    				return false;
+    			}
+    		}
+        }
+        
+		return true;
+	}
+
+	public void addConstraintFilter(IConstraintFilter filter) {
+		if (filters == null) {
+			filters = new BasicEList(4);
+		}
+        
+		filters.add(filter);
+	}
+
+    public void removeConstraintFilter(IConstraintFilter filter) {
+        if (filters != null) {
+            filters.remove(filter);
+        }
+    }
+    
+	public Collection getConstraintFilters() {
+		if (filters == null) {
+			return Collections.EMPTY_LIST;
+		}
+        
+		return Collections.unmodifiableCollection(filters);
+	}
+	
 	/**
 	 * A custom status type that aggregates multiple {@link IStatus}es and whose
 	 * severity is the worst severity among them.

@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
 
 package org.eclipse.emf.validation.internal.service.tests;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,12 +33,17 @@ import ordersystem.OrderSystemPackage;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
-
+import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IConstraintFilter;
+import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.MultiConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
@@ -254,5 +260,92 @@ public class ModelValidationServiceTest extends TestBase {
 		assertTrue("Didn't find the default status", foundDefault); //$NON-NLS-1$
 		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
 		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
+	}
+	
+	public void test_validateLiveConstraintFilter_177644() {
+		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
+		order1.setCompleted(true);
+		Order order2 = OrderSystemFactory.eINSTANCE.createOrder();
+		order2.setCompleted(false);
+		
+		EList contents = new XMIResourceImpl().getContents();
+		contents.add(order1);
+		contents.add(order2);
+		
+		Collection events = new ArrayList();
+		events.add(new TestNotification(order1, Notification.SET));
+		events.add(new TestNotification(order2, Notification.SET));
+		
+		IValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+        IConstraintFilter filter = new IConstraintFilter() {
+            public boolean accept(IConstraintDescriptor constraint,
+                    EObject object) {
+                if (object instanceof Order) {
+                    Order order = (Order)object;
+                    return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName"); //$NON-NLS-1$
+                }
+                return false;
+            }};
+		validator.addConstraintFilter(filter);
+		validator.setReportSuccesses(true);
+		
+		IStatus[] status = getStatuses(validator.validate(events));
+
+		assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order1);  //$NON-NLS-1$//$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order2);  //$NON-NLS-1$//$NON-NLS-2$
+
+        // remove the filter and assert the opposite
+        validator.removeConstraintFilter(filter);
+        
+        status = getStatuses(validator.validate(events));
+        assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
+        assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
+        assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order2);  //$NON-NLS-1$//$NON-NLS-2$
+	}
+	
+	public void test_validateBatchConstraintFilter_177644() {
+		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
+		order1.setCompleted(true);
+		Order order2 = OrderSystemFactory.eINSTANCE.createOrder();
+		order2.setCompleted(false);
+		
+		EList contents = new XMIResourceImpl().getContents();
+		contents.add(order1);
+		contents.add(order2);
+		
+		Collection targets = new ArrayList();
+		targets.add(order1);
+		targets.add(order2);
+		
+		IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
+        IConstraintFilter filter = new IConstraintFilter() {
+            public boolean accept(IConstraintDescriptor constraint,
+                    EObject object) {
+                if (object instanceof Order) {
+                    Order order = (Order)object;
+                    return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName"); //$NON-NLS-1$
+                }
+                return false;
+            }};
+		validator.addConstraintFilter(filter);
+		validator.setReportSuccesses(true);
+		validator.setIncludeLiveConstraints(true);
+		
+		IStatus[] status = getStatuses(validator.validate(targets));
+
+		assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order1);  //$NON-NLS-1$//$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
+		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order2);  //$NON-NLS-1$//$NON-NLS-2$
+        
+        // remove the filter and assert the opposite
+        validator.removeConstraintFilter(filter);
+        
+        status = getStatuses(validator.validate(targets));
+        assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
+        assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
+        assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order2);  //$NON-NLS-1$//$NON-NLS-2$
 	}
 }

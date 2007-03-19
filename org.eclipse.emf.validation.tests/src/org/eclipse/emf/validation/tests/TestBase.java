@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -209,6 +209,31 @@ public class TestBase extends TestCase {
 		}
 	}
 
+	protected void assertConstraintAndTargetNotPresent(String constraintType,
+			IStatus[] statuses, String constraintId, EObject target) {
+		for (int i = 0; i < statuses.length; i++) {
+			IConstraintStatus status = (IConstraintStatus)statuses[i];
+			IModelConstraint constraint  = ((IConstraintStatus)statuses[i]).getConstraint();
+			
+			if (target.equals(status.getTarget()) && constraintId.equals(constraint.getDescriptor().getId())) {
+				fail("Found unwanted " + constraintType + " constraint " + constraintId + " on " + target); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+		}
+	}
+
+	protected void assertConstraintAndTargetPresent(String constraintType,
+			IStatus[] statuses, String constraintId, EObject target) {
+		for (int i = 0; i < statuses.length; i++) {
+			IConstraintStatus status = (IConstraintStatus)statuses[i];
+			IModelConstraint constraint  = ((IConstraintStatus)statuses[i]).getConstraint();
+			
+			if (target.equals(status.getTarget()) && constraintId.equals(constraint.getDescriptor().getId())) {
+				return;
+			}
+		}
+		fail("Did not find " + constraintType + " constraint " + constraintId + " on " + target); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	}
+	
 	/**
 	 * Helper method to find the status matching a constraint ID.
 	 * 
