@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  */
 public class ConstraintStatus extends Status implements IConstraintStatus {
 	private final IModelConstraint constraint;
-	private final EObject target;
+	private EObject target;
 	
 	private Set resultLocus;
 
@@ -141,6 +141,127 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	
 	/**
 	 * Creates a status object indicating unsuccessful evaluation of the
+	 * current constraint on the provided target element.  The status will have
+	 * the severity and error code defined in the constraint meta-data (its
+	 * descriptor), and a message composed from the specified pattern and
+	 * arguments.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems, with different messages, at the same
+	 * severity.
+	 * </p>
+	 * 
+	 * @param ctx the calling constraint's validation context.  Must not be
+	 *      <code>null</code>
+	 * @param target the target for the status.  If the target is 
+	 *      <code>null</code>, the target from the validation context is used
+	 * @param resultLocus the objects involved in the problem that this status
+	 *      is to report.  If this collection does not contain the target object
+	 *      of the validation, then it is considered to contain it implicitly.
+	 *      Thus, this parameter may be <code>null</code> if only the target
+	 *      object is in the result locus
+	 * @param messagePattern the message pattern (with optional {0} etc.
+	 *      parameters)
+	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 *      replace in the message pattern (may by <code>null</code> if none
+	 *      are needed)
+	 * @return the status indicating a constraint violation
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createStatus(IValidationContext, Collection, int, int, String, Object[])
+	 */
+	public static ConstraintStatus createStatus(
+			IValidationContext ctx,
+			EObject target,
+			Collection resultLocus,
+			String messagePattern,
+			Object[] messageArguments) {
+		
+		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
+				ctx.getCurrentConstraintId());
+		
+		return createStatus(ctx, target, resultLocus,
+				desc.getSeverity().toIStatusSeverity(), desc.getStatusCode(),
+				messagePattern, messageArguments);
+	}
+	
+	
+	/**
+	 * Creates a status object indicating unsuccessful evaluation of the
+	 * current constraint on the provided target element.
+	 * <p>
+	 * This is useful in the case that a single constraint object reports
+	 * multiple distinct problems, with different messages and severities.
+	 * </p>
+	 * 
+	 * @param ctx the calling constraint's validation context.  Must not be
+	 *      <code>null</code>
+	 * @param target the target for the status.  If the target is 
+	 *      <code>null</code>, the target from the validation context is used
+	 * @param resultLocus the objects involved in the problem that this status
+	 *      is to report.  If this collection does not contain the target object
+	 *      of the validation, then it is considered to contain it implicitly.
+	 *      Thus, this parameter may be <code>null</code> if only the target
+	 *      object is in the result locus
+	 * @param severity the severity of the problem (one of the constants defined
+	 *      in the {@link IStatus} interface; should not be <code>OK</code>)
+	 * @param errorCode the error code.  A constraint may wish to use different
+	 *      error codes for different conditions, or just supply the
+	 *      {@link IConstraintDescriptor#getStatusCode() status code} provided
+	 *      by its is constraint descriptor
+	 * @param messagePattern the message pattern (with optional {0} etc.
+	 *      parameters)
+	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 *      replace in the message pattern (may by <code>null</code> if none
+	 *      are needed)
+	 * @return the status indicating a constraint violation
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createStatus(IValidationContext, Collection, String, Object[])
+	 */
+	public static ConstraintStatus createStatus(
+			IValidationContext ctx,
+			EObject target,
+			Collection resultLocus,
+			int severity,
+			int errorCode,
+			String messagePattern,
+			Object[] messageArguments) {
+		
+		// need a prototype status to get certain critical information, such
+		//    as the constraint object and target
+		ConstraintStatus result = (ConstraintStatus) ctx.createFailureStatus(null);
+		
+		if (target != null) {
+			result.target = target;
+		}
+		
+		Set results;
+		if (resultLocus == null) {
+			results = Collections.singleton(result.getTarget());
+		} else {
+			results = new java.util.HashSet(resultLocus);
+			if (!results.contains(result.getTarget())) {
+				results.add(result.getTarget());
+			}
+		}
+		
+		String message = TextUtils.formatMessage(
+				messagePattern,
+				(messageArguments == null)? new Object[0] : messageArguments);
+		
+		result.setMessage(message);
+		result.setSeverity(severity);
+		result.setCode(errorCode);
+		result.resultLocus = results;
+		
+		return result;
+	}
+	
+	/**
+	 * Creates a status object indicating unsuccessful evaluation of the
 	 * current constraint on the current target element, as indicated by the
 	 * supplied validation context.  The status will have
 	 * the severity and error code defined in the constraint meta-data (its
@@ -179,7 +300,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
 				ctx.getCurrentConstraintId());
 		
-		return createStatus(ctx, resultLocus,
+		return createStatus(ctx, null, resultLocus,
 				desc.getSeverity().toIStatusSeverity(), desc.getStatusCode(),
 				messagePattern, messageArguments);
 	}
@@ -225,31 +346,63 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 			int errorCode,
 			String messagePattern,
 			Object[] messageArguments) {
-		
-		// need a prototype status to get certain critical information, such
-		//    as the constraint object and target
-		ConstraintStatus result = (ConstraintStatus) ctx.createFailureStatus(null);
-		
-		Set results;
-		if (resultLocus == null) {
-			results = Collections.singleton(result.getTarget());
-		} else {
-			results = new java.util.HashSet(resultLocus);
-			if (!results.contains(result.getTarget())) {
-				results.add(result.getTarget());
+		return createStatus(ctx, null, resultLocus,
+				severity, errorCode,
+				messagePattern, messageArguments);
+	}
+	
+	
+	/**
+	 * Creates a status object indicating successful evaluation of the
+	 * current constraint on the provided target element.  The status will have
+	 * the severity and error code defined in by
+	 * {@link ConstraintStatus#ConstraintStatus(IModelConstraint, EObject)}
+	 * 
+	 * <p>
+	 * This method will only return a <code>ConstraintStatus</code> when the
+	 * validation context's {@link IValidationContext#createSuccessStatus()}
+	 * method returns an {@link IConstraintStatus}, otherwise it simply
+	 * returns the success created by the validation context
+	 * </p>
+	 * 
+	 * @param ctx the calling constraint's validation context.  Must not be
+	 *      <code>null</code>
+	 * @param target the target for the status.  Must not be <code>null</code>
+	 * @param resultLocus the objects involved in the success that this status
+	 *      is to report.  If this collection does not contain the target object
+	 *      of the validation, then it is considered to contain it implicitly.
+	 *      Thus, this parameter may be <code>null</code> if only the target
+	 *      object is in the result locus
+	 * @return the status indicating a success
+	 * 
+	 * @since 1.1
+	 * 
+	 * @see #createStatus(IValidationContext, Collection, int, int, String, Object[])
+	 */
+	public static IStatus createSuccessStatus(
+			IValidationContext ctx,
+			EObject target,
+			Collection resultLocus) {
+		IStatus status = ctx.createSuccessStatus();
+
+		if (status instanceof IConstraintStatus) {
+			IConstraintStatus successStatus = (IConstraintStatus)status;
+			ConstraintStatus constraintStatus = new ConstraintStatus(successStatus.getConstraint(), target);
+			
+			Set results;
+			if (resultLocus == null) {
+				results = Collections.singleton(target);
+			} else {
+				results = new java.util.HashSet(resultLocus);
+				if (!results.contains(target)) {
+					results.add(target);
+				}
 			}
+			
+			constraintStatus.resultLocus = results;
+			return constraintStatus;
 		}
-		
-		String message = TextUtils.formatMessage(
-				messagePattern,
-				(messageArguments == null)? new Object[0] : messageArguments);
-		
-		result.setMessage(message);
-		result.setSeverity(severity);
-		result.setCode(errorCode);
-		result.resultLocus = results;
-		
-		return result;
+		return status;
 	}
 	
 	/**

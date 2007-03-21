@@ -38,14 +38,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.MultiConstraint;
+import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 
@@ -260,6 +263,76 @@ public class ModelValidationServiceTest extends TestBase {
 		assertTrue("Didn't find the default status", foundDefault); //$NON-NLS-1$
 		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
 		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
+	}
+	
+	/**
+	 * Tests the new capability of having the constraint set a target
+	 * on the status that is different than the constraint's trigger
+	 */
+	public void test_validateSetTargetOnStatus_178121() {
+		Order order = OrderSystemFactory.eINSTANCE.createOrder();
+		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
+		order.getItem().add(item);
+
+		SetTargetConstraint.enabled = true;
+		
+		IStatus[] status = getStatuses(batchValidator.validate(order));
+
+		SetTargetConstraint.enabled = false;
+				
+		assertAllConstraintsPresent(
+				"batch", //$NON-NLS-1$
+				status,
+				Arrays.asList(new String[] {
+						ID_PREFIX + "order.setTargetConstraint", //$NON-NLS-1$
+				}));
+		
+		status = getStatuses(status, ID_PREFIX + "order.setTargetConstraint"); //$NON-NLS-1$
+		assertEquals(3, status.length);
+		
+		boolean foundFun = false;
+		boolean foundSilly = false;
+		boolean foundSuccess = false;
+		
+		final Set justItem = Collections.singleton(item);
+		final Set orderAndItem = new java.util.HashSet();
+		orderAndItem.add(order);
+		orderAndItem.addAll(order.getItem());
+		
+		for (int i = 0; i < status.length; i++) {
+			IConstraintStatus cstat = (IConstraintStatus) status[i];
+			
+			switch (cstat.getCode()) {
+			case IModelConstraint.STATUS_CODE_SUCCESS:
+				// success status
+				foundSuccess = true;
+				assertEquals(EMFModelValidationStatusCodes.CONSTRAINT_SUCCESS_MSG, cstat.getMessage());
+				assertEquals(IStatus.OK, cstat.getSeverity());
+				assertEquals(orderAndItem, cstat.getResultLocus());
+				assertSame(item, cstat.getTarget());
+				break;
+			case 7:
+				// silly status
+				foundSilly = true;
+				assertEquals("This is silly.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals(IStatus.WARNING, cstat.getSeverity());
+				assertEquals(justItem, cstat.getResultLocus());
+				assertSame(item, cstat.getTarget());
+				break;
+			case 13:
+				// default status
+				foundFun = true;
+				assertEquals("This is fun.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals(IStatus.INFO, cstat.getSeverity());
+				assertEquals(justItem, cstat.getResultLocus());
+				assertSame(item, cstat.getTarget());
+				break;
+			}
+		}
+		
+		assertTrue("Didn't find the success status", foundSuccess); //$NON-NLS-1$
+		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
+		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
 	}
 	
 	public void test_validateLiveConstraintFilter_177644() {
