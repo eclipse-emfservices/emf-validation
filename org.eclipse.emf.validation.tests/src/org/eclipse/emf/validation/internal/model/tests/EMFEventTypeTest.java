@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -111,6 +111,21 @@ public class EMFEventTypeTest extends TestCase {
 				EMFEventType.getInstance(Notification.UNSET));
 	}
 
+	public void test_getPredefinedInstances_177647() {
+		List instances = EMFEventType.getPredefinedInstances();
+		
+		assertTrue(instances.contains(EMFEventType.NULL));
+		assertTrue(instances.contains(EMFEventType.ADD));
+		assertTrue(instances.contains(EMFEventType.ADD_MANY));
+		assertTrue(instances.contains(EMFEventType.MOVE));
+		assertTrue(instances.contains(EMFEventType.REMOVE));
+		assertTrue(instances.contains(EMFEventType.REMOVE_MANY));
+		assertTrue(instances.contains(EMFEventType.REMOVING_ADAPTER));
+		assertTrue(instances.contains(EMFEventType.RESOLVE));
+		assertTrue(instances.contains(EMFEventType.SET));
+		assertTrue(instances.contains(EMFEventType.UNSET));
+	}
+	
 	public void test_getAllInstances() {
 		List instances = EMFEventType.getAllInstances();
 		
@@ -152,6 +167,28 @@ public class EMFEventTypeTest extends TestCase {
 		assertFalse(EMFEventType.UNSET.isNull());
 	}
 
+	public void test_customEventType_177647() {
+		EMFEventType specialOrder = EMFEventType.getInstance("Special Order"); //$NON-NLS-1$
+		assertNotNull(specialOrder); 
+		
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.NULL.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.ADD.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.ADD_MANY.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.MOVE.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.REMOVE.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.REMOVE_MANY.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.REMOVING_ADAPTER.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.RESOLVE.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.SET.toNotificationType());
+		assertFalse(specialOrder.toNotificationType() == EMFEventType.UNSET.toNotificationType());
+		
+		assertSame(specialOrder, EMFEventType.getInstance(specialOrder.toNotificationType()));
+		assertSame(specialOrder, EMFEventType.getInstance(specialOrder.getName()));
+		
+		assertFalse(EMFEventType.getPredefinedInstances().contains(specialOrder));
+		assertTrue(EMFEventType.getAllInstances().contains(specialOrder));
+	}
+	
 	public void test_readResolve() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 

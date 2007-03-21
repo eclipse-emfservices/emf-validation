@@ -12,6 +12,7 @@
 
 package org.eclipse.emf.validation.internal.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +28,9 @@ import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.emf.validation.service.ILiveValidator;
+import org.eclipse.emf.validation.service.INotificationGenerator;
 import org.eclipse.emf.validation.util.FilteredCollection;
 
 /**
@@ -60,9 +63,12 @@ public class LiveValidator extends AbstractValidator implements ILiveValidator {
 	 * Implements the inherited method.
 	 */
 	protected Collection doValidate(Collection objects, Set clientContexts) {
-		// merge similar notifications together to avoid repeated constraint
+		// Generate notifications for contributed emf event types
+		Collection notifications = generateNotifications(objects);
+			
+		// Merge similar notifications together to avoid repeated constraint
 		// evaluations on the same kind of change to the same feature
-		List events = mergeNotifications(objects);
+		List events = mergeNotifications(notifications);
 		Iterator iter = events.iterator();
 		
 		List result = new java.util.ArrayList(32); // anticipate moderate number
@@ -167,6 +173,22 @@ public class LiveValidator extends AbstractValidator implements ILiveValidator {
 		}
 		
 		return new java.util.ArrayList(result.keySet());
+	}
+	
+	private Collection generateNotifications(Collection notifications) {
+		Collection generators = EventTypeService.getInstance().getNotificationGenerators();
+		Collection newNotifications = new ArrayList();
+		
+		// Add generated notifications for each generator
+		for (Iterator iter = generators.iterator(); iter.hasNext();) {
+			INotificationGenerator generator = (INotificationGenerator)iter.next();
+			newNotifications.addAll(generator.generateNotifications(notifications));
+		}
+		
+		// Add existing notifications
+		newNotifications.addAll(notifications);
+		
+		return newNotifications;
 	}
 	
 	/**

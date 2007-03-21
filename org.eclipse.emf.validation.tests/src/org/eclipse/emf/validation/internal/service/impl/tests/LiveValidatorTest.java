@@ -22,14 +22,20 @@ import java.util.Collections;
 import java.util.List;
 
 import ordersystem.Customer;
+import ordersystem.LineItem;
+import ordersystem.Order;
 import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
+import ordersystem.Product;
+import ordersystem.special.impl.SpecialFactoryImpl;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.EMFEventType;
@@ -617,6 +623,43 @@ public class LiveValidatorTest extends TestBase {
 						ID_PREFIX + "order.hasName", //$NON-NLS-1$
 						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
 				}));
+	}
+	
+	public void test_notificationGenerator_177647() {
+		Order order = OrderSystemFactory.eINSTANCE.createOrder();
+		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
+		Product product = SpecialFactoryImpl.eINSTANCE.createLimitedEditionProduct();
+		
+		Resource res = new XMIResourceImpl();
+		
+		res.getContents().add(order);
+		res.getContents().add(item);
+		res.getContents().add(product);
+		
+		item.setProduct(product);
+		order.getItem().add(item);
+		
+		Notification event = new TestNotification(order, Notification.SET);
+		
+		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		localValidator.setReportSuccesses(true);
+		
+		IStatus[] status = getStatuses(localValidator.validate(event));
+	
+		assertAllConstraintsPresent(
+				"live", //$NON-NLS-1$
+				status,
+				Arrays.asList(new String[] {
+						ID_PREFIX + "limitedEdition.canIncludeInSpecial", //$NON-NLS-1$
+				}));
+		
+		// Ensure that a constraint targeted at ALL events (eg using wildcard),
+		// does not get triggered see
+		// XMLConstraintDescriptor#targetsEvent(Notification)
+		assertAllConstraintsNotPresent(
+				"live", status, Arrays.asList(new String[] { //$NON-NLS-1$
+						ID_PREFIX + "limitedEdition.hasDates", //$NON-NLS-1$
+						}));
 	}
 	
 	private static class NotificationGatherer extends AdapterImpl {

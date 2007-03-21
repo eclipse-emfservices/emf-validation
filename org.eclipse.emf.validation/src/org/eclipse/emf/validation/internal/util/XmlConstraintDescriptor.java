@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -427,7 +427,7 @@ public final class XmlConstraintDescriptor
 			
 			return ((eObject == null) || eventType.isNull())
 				? false
-				: isUniversal()
+				: (isUniversal() && EMFEventType.getPredefinedInstances().contains(eventType))
 					|| targetsEvent(
 							eObject.eClass(),
 							eventType,
@@ -600,8 +600,7 @@ public final class XmlConstraintDescriptor
 			if (getEvaluationMode().isLive()) {
 				// only live constraints are applied automatically in response
 				//   to events in the model
-				IConfigurationElement[] events = target.getChildren(
-						XmlConfig.E_EVENT);
+				IConfigurationElement[] events = XmlConfig.getEvents(target);
 
 				for (int j = 0; j < events.length; j++) {
 					EMFEventType eventType = EMFEventType.getInstance(
@@ -775,10 +774,11 @@ public final class XmlConstraintDescriptor
 			String featureName = (feature == null) ? null : feature.getName();
 			
 			// if no events are registered, and I explicitly support the EClass,
-			//    then it is implied that I support all events
+			// then it is implied that I support all predefined events
 			boolean result = nonFeatureSpecificEvents.isEmpty()
 					&& featureSpecificEvents.isEmpty()
-					&& isExplicit();
+					&& isExplicit() 
+					&& EMFEventType.getPredefinedInstances().contains(eventType);
 			
 			if (!result) {
 				// do I support this event for all features?  If so, the

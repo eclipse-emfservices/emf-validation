@@ -472,8 +472,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 				getClass(),
 				"providerHandlesEvent"); //$NON-NLS-1$
 	
-		IConfigurationElement[] events = config.getChildren(
-				XmlConfig.E_EVENT);
+		IConfigurationElement[] events = XmlConfig.getEvents(config);
 		boolean result = false;
 
 		if (events.length == 0) {

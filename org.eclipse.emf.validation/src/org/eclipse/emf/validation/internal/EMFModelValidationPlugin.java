@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.emf.validation.internal.service.ClientContextManager;
+import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.osgi.util.NLS;
 import org.osgi.framework.BundleContext;
@@ -155,11 +156,18 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		"constraintBindings"; //$NON-NLS-1$
 
 	/**
-	 * Extension point name for the cvalidation listeners extension point.
+	 * Extension point name for the validation listeners extension point.
 	 */
 	public static final String VALIDATION_LISTENERS_EXT_P_NAME =
 		"validationListeners"; //$NON-NLS-1$
 
+	/**
+	 * Extension point name for the event types extension point.
+	 */
+	public static final String EVENT_TYPES_EXT_P_NAME =
+		"eventTypes"; //$NON-NLS-1$
+	
+	
 	public static final EMFModelValidationPlugin INSTANCE =
 		new EMFModelValidationPlugin();
 
@@ -216,6 +224,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		public void start(BundleContext context) throws Exception {
 			super.start(context);
 
+			configureEventTypes();
 			configureConstraints();
 			configureConstraintBindings();
 			configureValidationListeners();
@@ -258,6 +267,21 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 					VALIDATION_LISTENERS_EXT_P_NAME);
 			
 			ModelValidationService.getInstance().configureListeners(configs);
+		}
+		
+		/**
+		 * Configures custom event types based on the 
+		 * <tt>eventTypes</tt> extension configuration
+         *
+         * @since 1.1
+		 */
+		protected void configureEventTypes() {
+			IConfigurationElement[] configs =
+				Platform.getExtensionRegistry().getConfigurationElementsFor(
+					getPluginId(),
+					EVENT_TYPES_EXT_P_NAME);
+			
+			EventTypeService.getInstance().configureEventTypes(configs);
 		}
 	}
 	

@@ -207,7 +207,10 @@ events and/or features (for live constraints) the constraint applies to.
       </annotation>
       <complexType>
          <sequence>
-            <element ref="event" minOccurs="0" maxOccurs="unbounded"/>
+            <choice minOccurs="0" maxOccurs="unbounded">
+               <element ref="event"/>
+               <element ref="customEvent"/>
+            </choice>
          </sequence>
          <attribute name="class" type="string">
             <annotation>
@@ -504,6 +507,41 @@ ancestor or descendent category.  This would be quite confusing to the user.
             <annotation>
                <documentation>
                   For internal use only.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="customEvent">
+      <annotation>
+         <documentation>
+            &lt;p&gt;
+A custom notification event that causes the validation of an instance of the
+associated model element type (live constraints only).  The custom events
+available are determined by the installed providers of event generators on the
+&lt;tt&gt;org.eclipse.emf.validation.eventTypes&lt;/tt&gt; extension point.
+&lt;/p&gt;&lt;p&gt;
+This element may
+optionally specify any number of specific features to which the constraint
+applies.  Any notifications for features not listed (if any are specified)
+will not trigger evaluation of the constraint.
+&lt;/p&gt;
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="feature" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Corresponds to the name of an EMF notification type.
+&lt;p&gt;
+Note that the &quot;Create&quot; event is not the deprecated EMF CREATE Notification type; it is a custom notification type that clients of the validation
+framework may choose to implement if they can simulate create notifications.
+Its Notification type code is &lt;tt&gt;0&lt;/tt&gt;.
+&lt;/p&gt;
                </documentation>
             </annotation>
          </attribute>

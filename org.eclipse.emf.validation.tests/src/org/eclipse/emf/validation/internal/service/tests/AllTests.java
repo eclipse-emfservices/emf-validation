@@ -39,5 +39,6 @@ public final class AllTests extends TestSuite {
 		addTestSuite(ValidationListenersTest.class);
 		addTestSuite(ParameterizedConstraintParserTest.class);
 		addTestSuite(ConstraintListenersTest.class);
+		addTestSuite(EventTypeServiceTest.class);
 	}
 }

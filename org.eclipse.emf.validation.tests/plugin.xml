@@ -37,6 +37,7 @@
 
       <constraintProvider>
          <package namespaceUri="http:///ordersystem.ecore" />
+         <package namespaceUri="http:///ordersystem/special.ecore" />
          <constraints categories="junit/validation">
             <constraint name="Test of constraints in intermediate categories in the tree" statusCode="1" lang="OCL" id="intermediate.category.constraint">
                <message>
@@ -88,6 +89,24 @@
                </target>
                true
             </constraint>
+            <constraint name="Limited edition can be included in special order" statusCode="1" mode="Live" lang="OCL" id="limitedEdition.canIncludeInSpecial">
+               <message>
+                  Nothing to say.
+               </message>
+               <target class="LimitedEditionProduct">
+                  <customEvent name="Special Order">
+                  </customEvent>
+               </target>
+               true
+            </constraint>
+            <constraint name="Limited Edition Product has dates set" statusCode="1" mode="Live" lang="OCL" id="limitedEdition.hasDates">
+            <message>
+                  Nothing to say.
+               </message>
+               <target class="LimitedEditionProduct">
+               </target>
+               true
+            </constraint>         
             <constraint name="Order has a name" statusCode="1" mode="Live" lang="OCL" id="order.hasName">
                <message>
                   Nothing to say.
@@ -415,5 +434,17 @@ success = target.foo()
             class="org.eclipse.emf.validation.internal.service.tests.ParameterizedConstraintParserTest$Parser"
             lang="***test-lang***">
       </constraintParser>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.eventTypes">
+      <eventType
+            featureSpecific="false"
+            name="Special Order"
+            notificationGenerator="org.eclipse.emf.validation.internal.model.tests.SpecialOrderNotificationGenerator">
+      </eventType>
+      <eventType
+            featureSpecific="true"
+            name="No notification Generator event">
+      </eventType>
    </extension>
 </plugin>

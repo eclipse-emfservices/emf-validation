@@ -80,6 +80,7 @@ public class XmlConfig {
 	public static final String E_TARGET = "target"; //$NON-NLS-1$
 	
 	public static final String E_EVENT = "event"; //$NON-NLS-1$
+    public static final String E_CUSTOM_EVENT = "customEvent"; //$NON-NLS-1$
 	public static final String A_NAME = "name"; //$NON-NLS-1$
 	
 	public static final String E_FEATURE = "feature"; //$NON-NLS-1$
@@ -414,4 +415,27 @@ public class XmlConfig {
 	public static void flushResourceBundles() {
 		ConstraintsContentHandler.flushResourceBundleCache();
 	}
+    
+    /**
+     * Obtains an array including all of the <tt>event</tt> and <tt>customEvent</tt>
+     * children of the specified <tt>config</tt>uration element.
+     * 
+     * @param config a configuration element
+     * @return its event children
+     * 
+     * @since 1.1
+     */
+    public static IConfigurationElement[] getEvents(IConfigurationElement config) {
+        IConfigurationElement[] events = config.getChildren(E_EVENT);
+        IConfigurationElement[] customEvents = config
+            .getChildren(E_CUSTOM_EVENT);
+
+        IConfigurationElement[] result = new IConfigurationElement[events.length
+            + customEvents.length];
+        System.arraycopy(events, 0, result, 0, events.length);
+        System.arraycopy(customEvents, 0, result, events.length,
+            customEvents.length);
+
+        return result;
+    }
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,29 +13,42 @@
 package org.eclipse.emf.validation;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.util.Trace;
+import org.eclipse.osgi.util.NLS;
 
 
 /**
- * An enumeration of named EMF event types.  These correspond to the
- * <code>int</code> constants defined by the {@link Notification} interface in
- * the EMF API.  This enumeration assigns names corresponding to the event names
+ * An enumeration of named EMF event types.  There are two types of EMF event
+ * types.  The first type correspond to the <code>int</code> constants defined
+ * by the {@link Notification} interface in the EMF API.  The second type
+ * correspond to event types contributed through the <tt>eventTypes<tt>
+ * extension point XML.
+ * 
+ * This enumeration assigns names corresponding to the event names
  * in the <tt>constraintProviders</tt> extension point XML.
  * 
  * @see Notification
  * 
  * @author Christian W. Damus (cdamus)
+ * @author David Cummings (dcummin)
  */
 public final class EMFEventType implements Serializable {
-	private static final long serialVersionUID = 5785536193334824240L;
+	private static final long serialVersionUID = 5785536193334824241L;
 
-	private static int nextOrdinal = 0;
-
+	private static int nextNotificationTypeCode = 0;
+	
+    private static final Map nameToInstance = new java.util.HashMap();
+    
 	/**
 	 * The EMF "Add" event (corresponds to {@link Notification#ADD}).
 	 */
@@ -129,7 +142,7 @@ public final class EMFEventType implements Serializable {
 			-1);
 
 	/** All of my values. */
-	private static final List instances = Collections.unmodifiableList(
+	private static final List predefinedInstances = Collections.unmodifiableList(
 			Arrays.asList(new EMFEventType[]{
 					ADD,
 					ADD_MANY,
@@ -144,11 +157,12 @@ public final class EMFEventType implements Serializable {
 					NULL,
 				}));
 
+	private static final List instances = new ArrayList(predefinedInstances);
+	
 	private final String name;
 	private final boolean featureSpecific;
-	private final int ordinal;
 	private final int notificationTypeCode;
-
+	
 	/**
 	 * Initializes me with my symbolic name and corresponding EMF
 	 * {@link Notification} type code.
@@ -157,17 +171,49 @@ public final class EMFEventType implements Serializable {
 	 * @param featureSpecific whether the event is specific to features only,
 	 *        not to objects
 	 * @param notificationTypeCode the EMF notification type code
+     * 
+     * @throws IllegalArgumentException on attempt to define an event type with
+     *     a name that is already used
 	 */
-	private EMFEventType(
-			String name,
-			boolean featureSpecific,
-			int notificationTypeCode) {
-		this.name = name;
-		this.featureSpecific = featureSpecific;
-		this.ordinal = nextOrdinal++;
-		this.notificationTypeCode = notificationTypeCode;
-	}
+	private EMFEventType(String name, boolean featureSpecific,
+            int notificationTypeCode) {
 
+        if (nameToInstance.containsKey(name)) {
+            IllegalArgumentException e = new IllegalArgumentException(
+                "Duplicate event type name: " + name); //$NON-NLS-1$
+
+            Trace.throwing(EMFEventType.class, "<init>", e); //$NON-NLS-1$
+
+            EMFModelValidationPlugin.log(
+                EMFModelValidationStatusCodes.DUPLICATE_EVENT_TYPE, NLS.bind(
+                    EMFModelValidationStatusCodes.DUPLICATE_EVENT_TYPE_MSG,
+                    name), e);
+
+            throw e;
+        }
+
+        this.name = name;
+        this.featureSpecific = featureSpecific;
+        this.notificationTypeCode = notificationTypeCode;
+        nextNotificationTypeCode = (notificationTypeCode + 1 > nextNotificationTypeCode) ? notificationTypeCode + 1
+            : nextNotificationTypeCode;
+
+        nameToInstance.put(name, this);
+    }
+	
+	/**
+	 * Initalizes me with my my symbolic name and the next available 
+	 * {@link Notification} type code.
+	 * 
+	 * @param name my name
+	 * @param featureSpecific whether the event is specific to features only,
+	 *        not to objects
+	 */
+	private EMFEventType(String name,
+			boolean featureSpecific) {
+		this(name, featureSpecific, nextNotificationTypeCode++);
+	}
+			
 	/**
 	 * Obtains the <code>name</code>d instance.
 	 * 
@@ -223,6 +269,18 @@ public final class EMFEventType implements Serializable {
 	}
 
 	/**
+	 * Obtains all predefined values of the enumeration, that is, those
+	 * who were not contributed through the extension point XML
+	 * 
+	 * @since 1.1
+	 * 
+	 * @return all predefined values
+	 */
+	public static final List getPredefinedInstances() {
+		return predefinedInstances;
+	}
+	
+	/**
 	 * Obtains my symbolic name.
 	 * 
 	 * @return my name
@@ -230,6 +288,22 @@ public final class EMFEventType implements Serializable {
 	 */
 	public final String getName() {
 		return name;
+	}
+	
+	/**
+	 * Adds a custom event type to the list of event types
+	 * 
+	 * @since 1.1
+     *
+ 	 * @param name my name
+	 * @param featureSpecific whether the event is specific to features only,
+	 *        not to objects
+     * 
+     * @throws IllegalArgumentException on attempt to define an event type with
+     *     a name that is already used
+	 */
+	public static void addEventType(String name, boolean featureSpecific) {
+		instances.add(new EMFEventType(name, featureSpecific));
 	}
 
 	/**
@@ -274,6 +348,6 @@ public final class EMFEventType implements Serializable {
 	 * @return the correct pre-defined instance of the enumeration
 	 */
 	private Object readResolve() {
-		return getAllInstances().get(ordinal);
+		return nameToInstance.get(name);
 	}
 }

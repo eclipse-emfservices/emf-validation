@@ -77,6 +77,8 @@ public final class EMFModelValidationStatusCodes {
 	
 	public static final int LISTENER_UNCAUGHT_EXCEPTION = 130;
 	
+    public static final int DUPLICATE_EVENT_TYPE = 140;
+    
 	//
 	// error messages
 	//
@@ -126,6 +128,8 @@ public final class EMFModelValidationStatusCodes {
 
 	public static final String LISTENER_UNCAUGHT_EXCEPTION_MSG = ValidationMessages.listener_uncaught_EXC_;
 	
+    public static final String DUPLICATE_EVENT_TYPE_MSG = ValidationMessages.duplicate_eventType_ERROR_;
+    
 	/**
 	 * Cannot be instantiated by clients.
 	 */
