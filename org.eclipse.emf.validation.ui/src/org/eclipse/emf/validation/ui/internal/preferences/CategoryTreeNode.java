@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ import java.util.ListIterator;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -35,7 +36,7 @@ import org.eclipse.osgi.util.NLS;
  * 
  * @author Christian W. Damus (cdamus)
  */
-class CategoryTreeNode extends AbstractCategoryTreeNode {
+public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	private boolean grayed;
 	private boolean checked;
 	
@@ -58,9 +59,10 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 		 * Initializes me with just the tree that owns me.
 		 * 
 		 * @param tree the tree that owns me
+         * @param filter a filter that defines which constraints I am interested in
 		 */
-		RootNode(CheckboxTreeViewer tree) {
-			super(tree, null, null);
+		RootNode(CheckboxTreeViewer tree, IConstraintFilter filter) {
+			super(tree, null, null, filter);
 		}
 		
 		// implements the inherited method to wrap the top-level categories
@@ -78,7 +80,8 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 							new CategoryTreeNode(
 									getTree(),
 									next,
-									this));
+									this,
+									getFilter()));
 				}
 			}
 			
@@ -136,13 +139,15 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 		 * @param tree the tree that owns me
 		 * @param category the category that I represent
 		 * @param parent my parent, which delegates to me
+         * @param filter a filter that defines which constraints I am interested in
 		 */
 		DelegateNode(
 			CheckboxTreeViewer tree,
 			Category category,
-			ICategoryTreeNode parent) {
+			ICategoryTreeNode parent,
+			IConstraintFilter filter) {
 			
-			super(tree, category, parent);
+			super(tree, category, parent, filter);
 		}
 		
 		// redefines the inherited method
@@ -172,13 +177,15 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * @param tree the tree that owns me
 	 * @param category the category that I represent
 	 * @param parent my parent in the tree
+     * @param filter a filter that defines which constraints I am interested in
 	 */
 	private CategoryTreeNode(
 			CheckboxTreeViewer tree,
 			Category category,
-			ICategoryTreeNode parent) {
+			ICategoryTreeNode parent,
+			IConstraintFilter filter) {
 		
-		super(tree, category, parent);
+		super(tree, category, parent, filter);
 	}
 	
 	/**
@@ -187,10 +194,11 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * as needed.
 	 * 
 	 * @param tree the tree viewer for which to create a root node
-	 * @return a suitable root node
+     * @param filter a filter that defines which constraints I am interested in	 
+     * @return a suitable root node
 	 */
-	public static ICategoryTreeNode createRoot(CheckboxTreeViewer tree) {
-		ICategoryTreeNode result = new RootNode(tree);
+	public static ICategoryTreeNode createRoot(CheckboxTreeViewer tree, IConstraintFilter filter) {
+		ICategoryTreeNode result = new RootNode(tree, filter);
 		
 		result.revertFromPreferences();
 		
@@ -214,12 +222,12 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 		
 		List result;
 		
-		if (!categoryChildren.isEmpty() && !category.getConstraints().isEmpty()) {
+		if (!categoryChildren.isEmpty() && !getConstraints(category, getFilter()).isEmpty()) {
 			// add one for the delegate child that contains my own constraints
 			result = new java.util.ArrayList(categoryChildren.size() + 1);
 			
 			// add my delegate
-			delegate = new DelegateNode(getTree(), category, this);
+			delegate = new DelegateNode(getTree(), category, this, getFilter());
 			result.add(delegate);
 		} else {
 			result = new java.util.ArrayList(categoryChildren.size());
@@ -232,7 +240,8 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 				result.add(new CategoryTreeNode(
 						getTree(),
 						next,
-						this));
+						this,
+						getFilter()));
 			}
 		}
 		
@@ -472,7 +481,7 @@ class CategoryTreeNode extends AbstractCategoryTreeNode {
 			constraints = Collections.EMPTY_LIST;
 		} else if (constraints == null) {
 			constraints = new java.util.ArrayList(
-				getCategory().getConstraints());
+                getConstraints(getCategory(), getFilter()));
 			
 			for (ListIterator iter = constraints.listIterator();
 					iter.hasNext();) {

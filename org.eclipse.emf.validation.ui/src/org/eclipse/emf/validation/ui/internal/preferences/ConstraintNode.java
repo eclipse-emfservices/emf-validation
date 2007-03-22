@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 1004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,7 +79,7 @@ public class ConstraintNode
 	 * Flushes the current cache of constraint nodes.  This should only be
 	 * called when the nodes are no longer in use.
 	 */
-	static void flushCache() {
+	public static void flushCache() {
 		instanceMap.clear();
 	}
 

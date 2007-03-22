@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,10 +18,12 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 
 import java.util.Iterator;
 import java.util.List;
-
-import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import java.util.Set;
 
 import org.eclipse.emf.validation.model.Category;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.IConstraintFilter;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
 
 /**
  * Partial implementation of the {@link ICategoryTreeNode} interface, useful for
@@ -36,6 +38,7 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	private ICategoryTreeNode[] children;
 	private final Category category;
 	private final ICategoryTreeNode parent;
+	private final IConstraintFilter filter;
 	
 	/**
 	 * Initializes me.
@@ -44,15 +47,18 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	 * @param category the category that I represent (may be <code>null</code>
 	 *        if I am an internal node)
 	 * @param parent my parent node, or <code>null</code> if I am the root
+     * @param filter a filter that defines which constraints I am interested in
 	 */
 	protected AbstractCategoryTreeNode(
 			CheckboxTreeViewer tree,
 			Category category,
-			ICategoryTreeNode parent) {
+			ICategoryTreeNode parent,
+			IConstraintFilter filter) {
 		
 		this.tree = tree;
 		this.category = category;
 		this.parent = parent;
+		this.filter = filter;
 	}
 	
 	/**
@@ -85,7 +91,7 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	 *     descendents have no constraints; <code>false</code>, otherwise
 	 */
 	protected boolean isRecursivelyEmpty(Category cat) {
-		boolean result = cat.getConstraints().isEmpty();
+		boolean result = getConstraints(cat, getFilter()).isEmpty();
 		
 		if (result) {
 			// check children, too
@@ -97,6 +103,31 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 		
 		return result;
 	}
+    
+    /**
+     * Obtains a filtered list of a category's constraints.
+     * 
+     * @param category a category, whose constraints are to be filtered
+     * @param filter a filter determining which of my constraints to return
+     * 
+     * @return the {@link IConstraintDescriptor}s that are members of me and that
+     *     match the provided filter
+     * 
+     * @since 1.1
+     */
+    protected static Set getConstraints(Category category, IConstraintFilter filter) {
+        Set filteredConstraints = new java.util.HashSet();
+        
+        for (Iterator iter = category.getConstraints().iterator(); iter.hasNext();) {
+            IConstraintDescriptor descriptor = (IConstraintDescriptor)iter.next();
+            
+            if (filter.accept(descriptor, null)) {
+                filteredConstraints.add(descriptor);
+            }
+        }
+        
+        return filteredConstraints;
+    }
 	
 	/**
 	 * Provides subclasses with access to the tree that I belong to.
@@ -173,6 +204,11 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 		return (getCategory() == null)
 			? "" //$NON-NLS-1$
 			: getCategory().getName();
+	}
+	
+	// implments the inherited method
+	public IConstraintFilter getFilter() {
+		return filter;
 	}
 }
 	

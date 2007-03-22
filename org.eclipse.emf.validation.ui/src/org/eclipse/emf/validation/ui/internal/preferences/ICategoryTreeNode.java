@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
 import org.eclipse.emf.validation.model.Category;
+import org.eclipse.emf.validation.service.IConstraintFilter;
 
 /**
  * Interface representing a node in the category preferences
@@ -44,7 +45,7 @@ import org.eclipse.emf.validation.model.Category;
  * 
  * @author Christian W. Damus (cdamus)
  */
-interface ICategoryTreeNode {
+public interface ICategoryTreeNode {
 	/**
 	 * Obtains the description of the category, to show in the GUI.
 	 * 
@@ -155,4 +156,13 @@ interface ICategoryTreeNode {
 	 * Restores, recursively, my state to the default.
 	 */
 	void restoreDefaults();
+	
+	/**
+     * Gets the constraint filter associated with this category.
+     * 
+     * @return my constraint filter
+     * 
+     * @since 1.1
+     */
+	IConstraintFilter getFilter();
 }

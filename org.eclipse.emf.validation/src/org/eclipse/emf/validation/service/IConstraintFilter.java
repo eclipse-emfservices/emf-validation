@@ -23,6 +23,15 @@ import org.eclipse.emf.ecore.EObject;
  * @author David Cummings (dcummin)
  */
 public interface IConstraintFilter {
+    /**
+     * A shared filter instance that doesn't filter out any constraints (all
+     * pass through).
+     */
+    IConstraintFilter IDENTITY_INSTANCE = new IConstraintFilter() { 
+        public boolean accept(IConstraintDescriptor constraint, EObject target) {
+            return true;
+        }};
+        
 	/**
 	 * Determines whether a given <code>constraint</code> and
 	 * <code>target</code> pair are accepted by this filter.  This is
