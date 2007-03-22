@@ -88,7 +88,10 @@ public class EventTypeService {
 								Boolean.valueOf(elements[i].getAttribute(A_FEATURE_SPECIFIC)).booleanValue()
 								);
 						
-						notificationGenerators.put(name, elements[i].createExecutableExtension(A_NOTIFICATION_GENERATOR));
+						String notificationGenerator = elements[i].getAttribute(A_NOTIFICATION_GENERATOR);
+						if ((notificationGenerator != null) && (notificationGenerator.length() > 0)) {
+							notificationGenerators.put(name, elements[i].createExecutableExtension(A_NOTIFICATION_GENERATOR));
+						}
 					}
 				} catch (CoreException e) {
 					Trace.catching(getClass(), "configureEventTypes()", e); //$NON-NLS-1$
