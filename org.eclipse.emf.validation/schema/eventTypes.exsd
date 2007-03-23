@@ -3,7 +3,7 @@
 <schema targetNamespace="org.eclipse.emf.validation">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.emf.validation" id="eventTypes" name="%extPoint.eventTypes"/>
+         <meta.schema plugin="org.eclipse.emf.validation" id="eventTypes" name="EMF Model Validation Custom Event Types"/>
       </appInfo>
       <documentation>
          This extension point allows clients of the EMF Validation
