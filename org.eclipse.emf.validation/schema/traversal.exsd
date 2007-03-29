@@ -35,6 +35,9 @@ traversal of EMF metamodels that they define, in batch validation.
                <documentation>
                   
                </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>

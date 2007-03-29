@@ -37,6 +37,9 @@ This extension point allows plug-ins to contribute constraints into the model va
                <documentation>
                   
                </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -75,6 +78,9 @@ then the expectation is that so is the meaning.
                <documentation>
                   The localized name of the category.
                </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="mandatory" type="boolean">
@@ -178,6 +184,9 @@ constraints provided must be explicitly declared.
 
    <element name="description" type="string">
       <annotation>
+         <appInfo>
+            <meta.element translatable="true"/>
+         </appInfo>
          <documentation>
             Optional localizable description for an element in the extension point
 implementation.  May appear in the GUI, depending on the element being
@@ -341,6 +350,9 @@ and/or one or more parameters.
                <documentation>
                   A localizable name for the constraint (appears in the GUI).
                </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
          <attribute name="lang" type="string" use="required">
@@ -457,6 +469,9 @@ value is assumed to be in the body of the &quot;param&quot; element.
 
    <element name="message" type="string">
       <annotation>
+         <appInfo>
+            <meta.element translatable="true"/>
+         </appInfo>
          <documentation>
             The error message pattern to display to the user.
 The pattern may contain {0}, {1}, etc. placeholders for replacement at

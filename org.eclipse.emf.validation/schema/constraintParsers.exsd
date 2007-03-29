@@ -36,6 +36,9 @@ constraints encoded in a particular language from the information supplied in an
                <documentation>
                   
                </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
