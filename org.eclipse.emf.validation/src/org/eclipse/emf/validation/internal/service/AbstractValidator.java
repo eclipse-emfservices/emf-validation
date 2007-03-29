@@ -139,6 +139,8 @@ abstract class AbstractValidator implements IValidator {
 		
 		try {
 			result = createStatus(doValidate(objects, encounteredClientContexts));
+        } catch (ValidationCanceledException e) {
+            result = e.getStatus();
 		} catch (OperationCanceledException e) {
 			result = new Status(
 				IStatus.CANCEL,
@@ -239,13 +241,20 @@ abstract class AbstractValidator implements IValidator {
 						
 						if (resultStatus.matches(IStatus.CANCEL)) {
 							// cancel the current validation operation
-							throw new OperationCanceledException(
-								resultStatus.getMessage());
+							throw new ValidationCanceledException(resultStatus);
 						}
 					}
 					
 					results.add(status);
 				}
+            } catch (ValidationCanceledException e) {
+                // propagate to cancel the validation operation and return
+                //    a cancel status
+                throw e;
+            } catch (OperationCanceledException e) {
+                // propagate to cancel the validation operation and return
+                //    a cancel status
+                throw e;
 			} catch (RuntimeException e) {
 				// protect against uncaught exceptions in the validation
 				

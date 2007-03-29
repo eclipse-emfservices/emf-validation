@@ -131,6 +131,13 @@
                <target class="Order">
                </target>
             </constraint>
+            <constraint name="A CANCEL severity constraint" severity="CANCEL" statusCode="1" mode="Live" lang="Java" id="order.cancelConstraint" class="org.eclipse.emf.validation.tests.CancelConstraint">
+               <message>
+                  {0}
+               </message>
+               <target class="Order">
+               </target>
+            </constraint>
             <constraint name="Test new language parser API" statusCode="1" mode="Batch" lang="***test-lang***" id="order.newParserAPI">
                <message>
                   {0}

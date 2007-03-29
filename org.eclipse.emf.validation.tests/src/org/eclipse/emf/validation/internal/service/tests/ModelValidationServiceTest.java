@@ -47,6 +47,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.CancelConstraint;
 import org.eclipse.emf.validation.tests.MultiConstraint;
 import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
@@ -421,4 +422,73 @@ public class ModelValidationServiceTest extends TestBase {
         assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
         assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order2);  //$NON-NLS-1$//$NON-NLS-2$
 	}
+    
+    /**
+     * Tests that evaluation of a cancel-severity constraint does not result
+     * in the constraint being disabled in batch validation.
+     */
+    public void test_cancelSeverity_batch_bug179776() {
+        CancelConstraint.enabled = true;
+        
+        EObject object = OrderSystemFactory.eINSTANCE.createOrder();
+
+        batchValidator.setIncludeLiveConstraints(true);
+        IStatus[] status = getStatuses(batchValidator.validate(object));
+
+        assertAllConstraintsPresent(
+                "batch", //$NON-NLS-1$
+                status,
+                Arrays.asList(new String[] {
+                        ID_PREFIX + "order.cancelConstraint", //$NON-NLS-1$
+                }));
+        
+        IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
+        assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
+        IConstraintStatus cstat = (IConstraintStatus) particular;
+        
+        assertEquals(IStatus.CANCEL, cstat.getSeverity());
+        assertFalse(cstat.getConstraint().getDescriptor().isError());
+    }
+    
+    /**
+     * Tests that evaluation of a cancel-severity constraint does not result
+     * in the constraint being disabled in live validation.
+     */
+    public void test_cancelSeverity_live_bug179776() {
+        CancelConstraint.enabled = true;
+        
+        Resource res = new XMIResourceImpl();
+        EObject object = OrderSystemFactory.eINSTANCE.createOrder();
+        res.getContents().add(object);    // must be in a resource
+
+        Collection events = new ArrayList();
+        events.add(new TestNotification(object, Notification.SET));
+        IStatus[] status = getStatuses(liveValidator.validate(events));
+
+        assertAllConstraintsPresent(
+                "live", //$NON-NLS-1$
+                status,
+                Arrays.asList(new String[] {
+                        ID_PREFIX + "order.cancelConstraint", //$NON-NLS-1$
+                }));
+        
+        IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
+        assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
+        IConstraintStatus cstat = (IConstraintStatus) particular;
+        
+        assertEquals(IStatus.CANCEL, cstat.getSeverity());
+        assertFalse(cstat.getConstraint().getDescriptor().isError());
+    }
+        
+    //
+    // Framework methods
+    //
+    
+    protected void tearDown()
+        throws Exception {
+        
+        CancelConstraint.enabled = false;
+        
+        super.tearDown();
+    }
 }
