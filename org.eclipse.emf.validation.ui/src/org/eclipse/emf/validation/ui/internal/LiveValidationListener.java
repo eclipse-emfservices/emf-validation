@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IValidationListener;
+import org.eclipse.emf.validation.service.ValidationEvent;
+import org.eclipse.emf.validation.ui.internal.console.ConsoleUtil;
+import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
+import org.eclipse.emf.validation.ui.internal.preferences.IPreferenceConstants;
+import org.eclipse.emf.validation.ui.internal.preferences.ValidationLiveProblemsDestination;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -40,14 +47,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-
-import org.eclipse.emf.validation.model.EvaluationMode;
-import org.eclipse.emf.validation.service.IValidationListener;
-import org.eclipse.emf.validation.service.ValidationEvent;
-import org.eclipse.emf.validation.ui.internal.console.ConsoleUtil;
-import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
-import org.eclipse.emf.validation.ui.internal.preferences.IPreferenceConstants;
-import org.eclipse.emf.validation.ui.internal.preferences.ValidationLiveProblemsDestination;
 
 
 /**
@@ -189,8 +188,7 @@ public class LiveValidationListener
         	
         	String message = event.getSeverity() >= IStatus.ERROR
 				? ValidationUIMessages.Validation_liveError
-				: ValidationUIMessages.Validation_liveWarning_part1
-	    		+ "\n\n"	+ ValidationUIMessages.Validation_liveWarning_part2; //$NON-NLS-1$
+				: null; // show the constraint message as the primary message
         	
         	// the dialog should show INFO severity for errors because
         	//   the corrective action has already been taken by the
@@ -427,17 +425,19 @@ public class LiveValidationListener
 		 * @param composite The composite to parent from.
 		 * @return <code>composite</code>
 		 */
-		protected Control createMessageArea(Composite composite) {
-			super.createMessageArea(composite);
-
-			if (status.getSeverity() >= IStatus.WARNING) {
+		protected Control createDialogArea(Composite composite) {
+			Composite result;
+            
+			if (status.getSeverity() < IStatus.WARNING) {
+                // don't create the extra composite as the superclass would do
+                result = (Composite) createMessageArea(composite);
+            } else {
 				// showing warnings?  Let the user opt not to show again
 
-				// a spacer to offset the "Don't show this dialog again"
-				//   checkbox from the warning message
-				Control spacer = new Label(composite, SWT.NONE);
-
-				final Button checkbox = new Button(composite, SWT.CHECK);
+                // let the superclass create the dialog area
+                result = (Composite) super.createDialogArea(composite);
+                
+				final Button checkbox = new Button(result, SWT.CHECK);
 				checkbox.setText(ValidationUIMessages.Validation_dontShowCheck);
 
 				GridData data = new GridData(GridData.GRAB_HORIZONTAL
@@ -446,12 +446,6 @@ public class LiveValidationListener
 				data.horizontalSpan = 2; // span icon and label
 
 				checkbox.setLayoutData(data);
-
-				data = new GridData(GridData.GRAB_HORIZONTAL
-					| GridData.HORIZONTAL_ALIGN_FILL
-					| GridData.VERTICAL_ALIGN_BEGINNING);
-				data.horizontalSpan = 2; // span icon and label
-				spacer.setLayoutData(data);
 
 				checkbox.addSelectionListener(new SelectionAdapter() {
 
@@ -468,7 +462,7 @@ public class LiveValidationListener
 				});
 			}
 
-			return composite;
+			return result;
 		}
 	}
 	
