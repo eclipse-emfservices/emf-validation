@@ -24,7 +24,7 @@
     image= "modeling32.png"
     provider-name="%providerName">
 
-    <description>
+    <description url="http://www.eclipse.org/modeling/emf/?project=validation">
         %description
     </description>
    
