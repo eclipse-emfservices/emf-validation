@@ -425,13 +425,13 @@ public final class XmlConstraintDescriptor
 				changedFeature = (EStructuralFeature)notification.getFeature();
 			}
 			
+            // if we specify no targets ("universal case"), then we match if
+            //   and only if the event type is an EMF-standard type.  Only if
+            //   we are not universal do we check whether we match a custom event
 			return ((eObject == null) || eventType.isNull())
 				? false
 				: (isUniversal() && EMFEventType.getPredefinedInstances().contains(eventType))
-					|| targetsEvent(
-							eObject.eClass(),
-							eventType,
-							changedFeature);
+					|| (!isUniversal() && targetsEvent(eObject.eClass(), eventType, changedFeature));
 		} else {
 			return false;
 		}
