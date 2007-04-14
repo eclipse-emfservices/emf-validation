@@ -18,7 +18,7 @@
 <!-- ===================================================================== -->
 
 <target name="assemble.org.eclipse.emf.validation.tests">
-	<property name="archiveName" value="emft-${subprojectName}-junit-tests-${buildAlias}.zip"/>
+	<property name="archiveName" value="emf-${subprojectName}-junit-tests-${buildAlias}.zip"/>
 	<ant antfile="${assembleScriptName}"/>
 <!-- ADD POST STEPS -->
 </target>
@@ -36,23 +36,24 @@
 	<!-- ***  change the repo info -->
 	<property name="mapCvsRoot" value=":${cvsReadProtocol}:${cvsReadUser}@${cvsHost}:${cvsRep}" />
 	<property name="mapVersionTag" value="HEAD" />
-    
-		<cvs cvsRsh="ssh" cvsRoot="${mapCvsRoot}" tag="${mapVersionTag}" 
-			package="org.eclipse.emft/releng/${subprojectName}/maps" dest="${buildDirectory}/maps" />
-    <copy todir="${buildDirectory}/maps/CVS" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps/CVS" />
+	<property name="packagePath" value="org.eclipse.${projectName}/org.eclipse.emf.${subprojectName}.releng/maps"/>
+
+	<cvs cvsRsh="ssh" cvsRoot="${mapCvsRoot}" tag="${mapVersionTag}" 
+		package="${packagePath}" dest="${buildDirectory}/maps" />
+	<copy todir="${buildDirectory}/maps/CVS" overwrite="true">
+		<fileset dir="${buildDirectory}/maps/${packagePath}/CVS" />
 	</copy>
 	<copy todir="${buildDirectory}/maps" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps" />
+		<fileset dir="${buildDirectory}/maps/${packagePath}" />
 	</copy>
-		<delete dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}" />
+	<delete dir="${buildDirectory}/maps/org.eclipse.${projectName}" />
 
 	<!--tag the map files project-->
 	<antcall target="tagMapFiles" />
 </target>
 
 <target name="tagMapFiles" if="tagMaps">
-	<cvs dest="${buildDirectory}/maps/org.eclipse.emft.${subprojectName}" command="tag v${timestamp}" />
+	<cvs dest="${buildDirectory}/maps/org.eclipse.${subprojectName}" command="tag v${timestamp}" />
 </target>
 
 <!-- ===================================================================== -->
@@ -65,8 +66,8 @@
 <!-- Steps to do after setup but before starting the build proper -->
 <!-- ===================================================================== -->
 <target name="postSetup">
-	<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
-	<echo message="Download, then unpack: EMFT OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
+	<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/getDependencies.xml"/>
+	<echo message="Download, then unpack: OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
 	<ant target="getDependency" antfile="${getDeps.xml}">
 		<property name="url" value="${oclURL}"/>
 		<property name="file" value="${oclFile}"/>
@@ -122,21 +123,12 @@
 <!-- Steps to do before generating build scripts -->
 <!-- ===================================================================== -->
 <target name="preGenerate">
-	<echo message="Run ChangeBundleClasspath in bundlesDirectory: ${buildDirectory}/plugins" />
-	<java classname="org.eclipse.emft.common.build.ChangeBundleClasspath" 
-		classpath="${projBuilderDir}/org.eclipse.emft.common.build/emft.common.build.jar">
-	    <arg line="-bundleDirectoryMatchRegex org\\.eclipse\\.emf.*" />
-		<arg line="-bundlesDirectory ${buildDirectory}/plugins" />
-		<arg line="-includeTest"/>
-		<arg line="-verbose" />
-	</java>
 </target>
 
 <!-- ===================================================================== -->
 <!-- Steps to do after generating the build scripts -->
 <!-- ===================================================================== -->
 <target name="postGenerate">
-	<antcall target="clean" />
 </target>
 
 <!-- ===================================================================== -->
@@ -202,7 +194,7 @@
 </target>
 
 <target name="packageTestFramework">
-	<!--package automated test framework used in emft-${subprojectName} builds-->
+	<!--package automated test framework used in emf-${subprojectName} builds-->
 
 	<property name="workingDirectory" value="${buildDirectory}/test.assembly" />
 	<echo message="workingDirectory:  ${workingDirectory}"/>
@@ -210,7 +202,7 @@
 	<!--unzip the junit tests-->
     <mkdir dir="${workingDirectory}/eclipse" />
 	<unzip dest="${workingDirectory}" overwrite="true">
-		<fileset dir="${buildDirectory}/${buildLabel}"><include name="**/emft*junit*.zip"/></fileset>
+		<fileset dir="${buildDirectory}/${buildLabel}"><include name="**/emf-${subprojectName}-junit-tests*.zip"/></fileset>
 	</unzip>
 	
 	<!-- create top level testing directory-->    
@@ -223,7 +215,6 @@
     <!--eclipse.home is relative to the scripts directory in the org.eclipse.pde.build plugin.  Assume the plugins used in the classpath are in the same directory as org.eclipse.pde.build-->
     <property name="eclipse.home" value="../../.." />
 
-	<!-- new 2005-08-16 -->
     <generateTestProperties 
             buildDirectory="${buildDirectory}" 
             featureId="org.eclipse.emf.${subprojectName}.tests" 
@@ -245,7 +236,7 @@
   	<delete dir="${workingDirectory}/eclipse/plugins/${org.eclipse.test}" includeEmptyDirs="true" />
 	
  	<!-- rezip the JUnit plugin tests -->
-	<zip destfile="${workingDirectory}/testing/emft-${subprojectName}-junit-tests-${buildAlias}.zip">
+	<zip destfile="${workingDirectory}/testing/emf-${subprojectName}-junit-tests-${buildAlias}.zip">
 		 <zipfileset dir="${workingDirectory}/eclipse" prefix="eclipse"/>
 	</zip>
  	
@@ -264,11 +255,11 @@
 	<chmod file="${workingDirectory}/testing/runtests" perm="755"/>
 
 	<!--create zip file of the automated testing framework-->	
-	<zip destfile="${buildDirectory}/${buildLabel}/emft-${subprojectName}-automated-tests-${buildAlias}.zip">
+	<zip destfile="${buildDirectory}/${buildLabel}/emf-${subprojectName}-automated-tests-${buildAlias}.zip">
 		 <zipfileset dir="${workingDirectory}/testing" prefix="testing"/>
 	</zip>
 
-	<delete file="${buildDirectory}/${buildLabel}/emft-${subprojectName}-junit-tests-${buildAlias}.zip"  />
+	<delete file="${buildDirectory}/${buildLabel}/emf-${subprojectName}-junit-tests-${buildAlias}.zip"  />
 </target>
 
 <!-- ===================================================================== -->

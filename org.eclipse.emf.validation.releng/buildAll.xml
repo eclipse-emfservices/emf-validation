@@ -50,11 +50,6 @@
 			<equals arg1="${baseos}.${basews}" arg2="linux.motif" />
 		</condition>
 
-		<!-- build emft.common.build.jar -->
-		<property name="subprojectName" value="foo"/>
-		<property name="projBuilderDir" location="${buildDirectory}/../org.eclipse.emft.${subprojectName}.releng" />
-		<ant antfile="${projBuilderDir}/org.eclipse.emft.common.build/build.xml" inheritall="false" 
-			dir="${projBuilderDir}/org.eclipse.emft.common.build" />
 	</target>
 
 	<target name="create.label.properties" unless="label.properties.exists">
@@ -94,18 +89,13 @@
 	</target>
 
 	<target name="run" depends="init">
-		<antcall target="runAll" />
+		<antcall target="buildAll" />
+		<antcall target="test" />
+		<antcall target="publish" />
 		<antcall target="cleanUp" />
 	</target>
 
 	<target name="runTestsOnly" depends="init">
-		<antcall target="runTestsOnlySetup" />
-		<antcall target="test" />
-		<antcall target="publish" />
-	</target>
-
-	<!-- make sure everything's in the right place(s) -->
-	<target name="runTestsOnlySetup">
 		<delete dir="${buildDirectory}" />
 		<mkdir dir="${buildDirectory}/${buildLabel}" />
 		<copy todir="${buildDirectory}/${buildLabel}">
@@ -113,33 +103,23 @@
 				<include name="**/*.zip" />
 			</fileset>
 		</copy>
+		<antcall target="test" />
+		<antcall target="publish" />
+		<antcall target="cleanUp" />
 	</target>
 
 	<target name="runWithoutTest" depends="init">
 		<antcall target="buildAll" />
 		<antcall target="publish" />
-
-		<property name="indexFileName" value="index.html" />
-		<property name="result" value="${buildDirectory}/${buildLabel}" />
-		<replace file="${result}/${indexFileName}">
-			<replacefilter token="pending" value="skipped" />
-		</replace>
-
 		<antcall target="cleanUp" />
 	</target>
 
-	<target name="runAll" depends="init">
-		<antcall target="buildAll" />
-		<antcall target="test" />
-		<antcall target="publish" />
-	</target>
-
-	<target name="build" depends="init">
+	<target name="buildOnly" depends="init">
 		<antcall target="buildAll" />
 		<antcall target="cleanUp" />
 	</target>
 
-	<target name="buildAll" depends="init">
+	<target name="buildAll">
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="builder/sdk" />
 		</ant>
@@ -163,8 +143,8 @@
 		</ant>
 
 		<!-- add .ocl feature + plugin from SDK to runtime -->
-	    <zip destfile="${buildDirectory}/${buildLabel}/emft-${subprojectName}-runtime-${buildAlias}.zip" update="true">
-			<zipfileset src="${buildDirectory}/${buildLabel}/emft-${subprojectName}-SDK-${buildAlias}.zip">
+	    <zip destfile="${buildDirectory}/${buildLabel}/emf-${subprojectName}-runtime-${buildAlias}.zip" update="true">
+			<zipfileset src="${buildDirectory}/${buildLabel}/emf-${subprojectName}-SDK-${buildAlias}.zip">
 				<include name="**/org.eclipse.emf.${subprojectName}.ocl*"/>
 				<include name="**/org.eclipse.emf.${subprojectName}.ocl*/*"/>
 				<exclude name="**/org.eclipse.*.source*"/>
@@ -176,7 +156,7 @@
 		<!-- md5 files generation -->
 
 		<exec executable="bash" dir="${buildDirectory}/${buildLabel}">
-			<arg line="${basedir}/../org.eclipse.emft.common.releng/scripts/createZipCheckSum.sh" />
+			<arg line="${basedir}/../org.eclipse.modeling.common.releng/scripts/createZipCheckSum.sh" />
 		</exec>
 	</target>
 
@@ -196,7 +176,7 @@
 	</target>
 -->
 
-	<target name="test" depends="init">
+	<target name="test">
 		<property name="test.xml" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/test.xml" />
 		<antcall target="test-win32-local" />
 		<antcall target="test-linux-gtk-local" />
@@ -224,10 +204,10 @@
 		</ant>
 	</target>
 
-	<target name="publish" depends="init">
+	<target name="publish">
 		<copy todir="${buildDirectory}/${buildLabel}" overwrite="true">
 			<fileset
-				dir="${buildDirectory}/../org.eclipse.emft.common.releng/staticDropFiles" />
+				dir="${buildDirectory}/../org.eclipse.modeling.common.releng/staticDropFiles" />
 		</copy>
 	</target>
 

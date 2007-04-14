@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -n "[relengbuild] relengbuildgtk.sh started on: `date +%Y%m%d\ %H\:%M\:%S`";
+echo -n "[relengbuild] $0 started on: `date +%Y%m%d\ %H\:%M\:%S`";
 
 # environment variables
 PATH=.:/bin:/usr/bin:/usr/bin/X11:/usr/local/bin:/usr/X11R6/bin:`pwd`/../linux;export PATH
@@ -9,10 +9,17 @@ export USERNAME=`whoami`
 echo " running as $USERNAME";
 echo " currently in dir: `pwd`";
 
+if [[ ! $JAVA_HOME ]]; then
+	echo -n "[relengbuild] Get JAVA_HOME from build.cfg ... ";
+	buildcfg=$PWD/../../../build.cfg;
+	export JAVA_HOME=$(grep "JAVA_HOME=" $buildcfg | egrep -v "^#" | tail -1 | sed -e "s/JAVAHOME=//");
+	echo "$JAVA_HOME";
+fi
+
 Xflags="";
 Dflags="";
 
-# default target to run in org.eclipse.emft/releng/[subproject]/builder/tests/scripts/test.xml (as called by tests/scripts/runtests, below)
+# default target to run in org.eclipse.$subprojectName.releng/builder/tests/scripts/test.xml
 antTestTarget=all
 
 # process command line arguments
@@ -21,7 +28,6 @@ do
 	case "$1" in
 		-vmExecutable) vmExecutable="$2"; shift;;
 		-consolelog)   consolelog="$2";   shift;;
-		-vmFileName)   vmFileName="$2";   shift;;
 		-X*) Xflags=$Xflags\ $1;;
 		-D*) Dflags=$Dflags\ $1;;
 	esac
@@ -86,15 +92,11 @@ doFunction ()
 # doFunction Xvfb ":42 -screen 0 1024x768x24 -ac & "
 # doFunction Xnest ":43 -display :42 -depth 24 & "
 # doFunction fvwm2 "-display localhost:43.0 & "
-
-export DISPLAY=$HOSTNAME:43.0
-ulimit -c unlimited
-
-# /home/www-data/build/emft/$proj/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing/linux.gtk_consolelog.txt
-echo "[relengbuild] runtests log: $PWD/$consolelog";
+#export DISPLAY=$HOSTNAME:43.0
+#ulimit -c unlimited
 
 getBuildID()
-{	# given $PWD: /home/www-data/build/emft/$proj/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing
+{	# given $PWD: /home/www-data/build/modeling/$projectName/$subprojectName/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing
 	# return N200502110400
 	buildID=$1; #echo "buildID=$buildID";
 	buildID=${buildID##*drops\/}; # trim up to drops/ (from start) (substring notation)
@@ -104,7 +106,7 @@ getBuildID()
 buildID=""; getBuildID $PWD; #echo buildID=$buildID;
 
 getBranch()
-{	# given $PWD: /home/www-data/build/emft/$proj/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing
+{	# given $PWD: /home/www-data/build/modeling/$projectName/$subprojectName/downloads/drops/1.1.0/N200502112049/testing/N200502112049/testing
 	# return 1.1.0
 	branch=$1; #echo "branch=$branch";
 	branch=${branch##*drops\/}; # trim up to drops/ (from start) (substring notation)
@@ -112,15 +114,89 @@ getBranch()
 }
 branch=""; getBranch $PWD; #echo branch=$branch;
 
-# determine consolelog file based on value in properties file
-testOnlyTimeStamp=`cat testing.properties | grep "emf.test.testOnlyTimeStamp" | grep -v "#emf.test.testOnlyTimeStamp"`; testOnlyTimeStamp=${testOnlyTimeStamp##*=};
-if [ "x$testOnlyTimeStamp" != "x" ]; then
-	consolelog=${consolelog%%\.txt}$testOnlyTimeStamp".txt"; # eg., linux.gtk_consolelog.txt -> linux.gtk_consolelog_200504031234.txt
+############################# BEGIN RUN TESTS #############################  
+
+
+# operating system, windowing system and architecture variables
+# for *nix systems, os, ws and arch values must be specified
+Dflags=$Dflags" "-Dplatform=linux.gtk
+os=linux
+ws=gtk
+arch=x86
+
+# default value to determine if eclipse should be reinstalled between running of tests
+installmode="clean"
+
+#this value must be set when using rsh to execute this script, otherwise the script will execute from the user's home directory
+dir=.
+cd $dir
+workspaceDir="$dir/eclipse/workspace"
+
+# Replace the boot eclipse (The eclipse used to run the main test.xml, this will start another eclipse later)
+if [ -d $dir/eclipse ] ; then
+	rm -rf $dir/eclipse
+fi
+if [ -d $workspaceDir ] ; then
+	rm -rf $dir/workspace
 fi
 
-# execute command to run tests
-chmod 755 runtests
-execCmd "runtests -os linux -ws gtk -arch x86 -Dplatform=linux.gtk $Dflags -vm $vmExecutable $antTestTarget $Xflags" $consolelog
+echo "[runtests] Currently in `pwd`:"
+# need conditional processing here: M3.0.2 = zip, I3.1.0 = tar.gz
+sdks=`find $dir -name "eclipse-SDK-*"`
+# get extension from file(s)
+for sdk in $sdks; do
+	sdk="eclipse"${sdk##*eclipse}; # trim up to eclipse (substring notation)
+	#echo -n "[runtests] Eclipse SDK $sdk is a";
+	ext=${sdk%%\.zip}; # trim off .zip (substring notation)
+	if [ "$ext" != "$sdk" ]; then # it's a zip
+		#echo " zip. Unpacking...";
+		unzip -qq -o $sdk
+	else
+		ext=${sdk%%\.tar\.gz}; # trim off .tar.gz (substring notation)
+		if [ "$ext" != "$sdk" ]; then # it's a tar.gz
+			#echo " tar.gz. Unpacking...";
+			tar -xzf $sdk
+		else
+			ext=${sdk%%\.tar\.Z}; # trim off .tar.Z (substring notation)
+			if [ "$ext" != "$sdk" ]; then # it's a tar.Z
+				#echo " tar.Z. Unpacking...";
+				tar -xZf $sdk
+			else
+				echo "[runtests] ERROR: Eclipse SDK $sdk is an UNKNOWN file type. Failure.";
+				exit 2
+			fi
+		fi
+	fi
+done
+
+J2SE15flags="";
+# TODO: if a 1.5 JDK and want source/target = 1.5, leave these in
+# TODO: if source/target = 1.4, remove these!
+if [ ${JAVA_HOME##*1.5*}"" = "" -o ${JAVA_HOME##*15*}"" = "" -o ${JAVA_HOME##*5.0*}"" = "" -o ${JAVA_HOME##*50*}"" = "" ]; then
+	# set J2SE-1.5 properties (-Dflags)
+	bootclasspath="."`find $JAVA_HOME/jre/lib -name "*.jar" -printf ":%p"`;
+	J2SE15flags=$J2SE15flags" -DJ2SE-1.5=$bootclasspath"
+	J2SE15flags=$J2SE15flags" -DbundleBootClasspath=$bootclasspath"
+	J2SE15flags=$J2SE15flags" -DjavacSource=1.5"
+	J2SE15flags=$J2SE15flags" -DjavacTarget=1.5"
+	J2SE15flags=$J2SE15flags" -DbundleJavacSource=1.5"
+	J2SE15flags=$J2SE15flags" -DbundleJavacTarget=1.5"
+fi
+
+# default classpath
+# up to Eclipse 3.3M4, use eclipse/startup.jar
+# after Eclipse 3.3M4, use eclipse/plugins/org.eclipse.equinox.launcher_*.jar
+cp=`find eclipse/ -name "org.eclipse.equinox.launcher_*.jar" | sort | head -1`
+
+# run tests
+echo "[runtests] [`date +%H\:%M\:%S`] Launching Eclipse (installmode = $installmode with -enableassertions turned on) ..."
+execCmd "$JAVA_HOME/bin/java $Xflags -enableassertions -cp $cp org.eclipse.equinox.launcher.Main -ws $ws -os $os -arch $arch \
+-application org.eclipse.ant.core.antRunner -data $workspaceDir -file test.xml $antTestTarget \
+$Dflags -Dws=$ws -Dos=$os -Darch=$arch -D$installmode=true $J2SE15flags \
+$properties -logger org.apache.tools.ant.DefaultLogger" $consolelog;
+echo "[runtests] [`date +%H\:%M\:%S`] Eclipse test run completed. "
+
+############################# END RUN TESTS #############################  
 
 # supress errors by checking for the file first
 if [ -r /tmp/.X43-lock ] ; then
@@ -149,6 +225,7 @@ for xml in $xmls; do
 		fi
 	fi
 done
-fi
+fi;
 
 echo "[relengbuild] relengbuildgtk.sh completed on: `date +%Y%m%d\ %H\:%M\:%S`"
+

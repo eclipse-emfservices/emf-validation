@@ -1,5 +1,7 @@
 <project name="Build specific targets and properties" default="noDefault" basedir=".">
 
+<property name="archiveName" value="emf-${subprojectName}-SDK-${buildAlias}.zip" />
+	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
 	<!-- ===================================================================== -->
@@ -18,7 +20,6 @@
 	<!-- ===================================================================== -->
 
 	<target name="assemble.org.eclipse.emf.validation.sdk">
-		<property name="archiveName" value="emft-${subprojectName}-SDK-${buildAlias}.zip" />
 		<ant antfile="${assembleScriptName}" />
 		<!-- ADD POST STEPS -->
 	</target>
@@ -35,18 +36,18 @@
 
 		<!-- ***  change the repo info -->
 		<property name="mapCvsRoot" value=":${cvsReadProtocol}:${cvsReadUser}@${cvsHost}:${cvsRep}" />
-
 		<property name="mapVersionTag" value="HEAD" />
+		<property name="packagePath" value="org.eclipse.${projectName}/org.eclipse.emf.${subprojectName}.releng/maps"/>
 
 		<cvs cvsRsh="ssh" cvsRoot="${mapCvsRoot}" tag="${mapVersionTag}" 
-			package="org.eclipse.emft/releng/${subprojectName}/maps" dest="${buildDirectory}/maps" />
+			package="${packagePath}" dest="${buildDirectory}/maps" />
 		<copy todir="${buildDirectory}/maps/CVS" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps/CVS" />
+			<fileset dir="${buildDirectory}/maps/${packagePath}/CVS" />
 		</copy>
 		<copy todir="${buildDirectory}/maps" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps" />
+			<fileset dir="${buildDirectory}/maps/${packagePath}" />
 		</copy>
-		<delete dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}" />
+		<delete dir="${buildDirectory}/maps/org.eclipse.${projectName}" />
 
 		<!--tag the map files project-->
 		<antcall target="tagMapFiles" />
@@ -66,8 +67,8 @@
 	<!-- Steps to do after setup but before starting the build proper :: get dependent bundles -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
-		<echo message="Download, then unpack: EMFT OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
+		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/getDependencies.xml"/>
+		<echo message="Download, then unpack: OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
 		<ant target="getDependency" antfile="${getDeps.xml}">
 			<property name="url" value="${oclURL}"/>
 			<property name="file" value="${oclFile}"/>
@@ -90,7 +91,7 @@
 		</ant>
 		<!-- unpack examples plugins since actual code is nested inside the jar and can't be found by javac -->
 		<echo message="Massage emf.examples.library*.jar to expose class files..."/>
-		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
+		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/getDependencies.xml"/>
 		<ant target="massagePluginJar" antfile="${getDeps.xml}">
 			<property name="theJar" value="org.eclipse.emf.examples.library.jar"/>
 			<property name="theDir" value="${buildDirectory}/plugins"/>
@@ -153,19 +154,12 @@
 	<!-- Steps to do before generating build scripts -->
 	<!-- ===================================================================== -->
 	<target name="preGenerate">
-		<property name="projBuilderDir" location="${buildDirectory}/../org.eclipse.emft/releng/${subprojectName}" />
-		<echo message="projBuilderDir: ${projBuilderDir}" />
-		<java classname="org.eclipse.emft.common.build.ChangeBundleClasspath" classpath="${projBuilderDir}/org.eclipse.emft.common.build/emft.common.build.jar">
-			<arg line="-bundlesDirectory ${buildDirectory}/plugins" />
-			<arg line="-verbose" />
-		</java>
 	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do after generating the build scripts -->
 	<!-- ===================================================================== -->
 	<target name="postGenerate">
-		<antcall target="clean" />
 	</target>
 
 	<!-- ===================================================================== -->

@@ -18,7 +18,7 @@
 	<!-- ===================================================================== -->
 
 	<target name="assemble.org.eclipse.emf.validation.examples">
-		<property name="archiveName" value="emft-${subprojectName}-examples-${buildAlias}.zip" />
+		<property name="archiveName" value="emf-${subprojectName}-examples-${buildAlias}.zip" />
 		<ant antfile="${assembleScriptName}" />
 		<!-- ADD POST STEPS -->
 	</target>
@@ -37,16 +37,17 @@
 		<property name="mapCvsRoot" value=":${cvsReadProtocol}:${cvsReadUser}@${cvsHost}:${cvsRep}" />
 
 		<property name="mapVersionTag" value="HEAD" />
+		<property name="packagePath" value="org.eclipse.${projectName}/org.eclipse.emf.${subprojectName}.releng/maps"/>
 
 		<cvs cvsRsh="ssh" cvsRoot="${mapCvsRoot}" tag="${mapVersionTag}" 
-			package="org.eclipse.emft/releng/${subprojectName}/maps" dest="${buildDirectory}/maps" />
+			package="${packagePath}" dest="${buildDirectory}/maps" />
 		<copy todir="${buildDirectory}/maps/CVS" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps/CVS" />
+			<fileset dir="${buildDirectory}/maps/${packagePath}/CVS" />
 		</copy>
-		<copy todir="${buildDirectory}/maps/org.eclipse.emft.${subprojectName}" overwrite="true">
-			<fileset dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}/maps" />
+		<copy todir="${buildDirectory}/maps" overwrite="true">
+			<fileset dir="${buildDirectory}/maps/${packagePath}" />
 		</copy>
-		<delete dir="${buildDirectory}/maps/org.eclipse.emft/releng/${subprojectName}" />
+		<delete dir="${buildDirectory}/maps/org.eclipse.${projectName}" />
 
 		<!--tag the map files project-->
 		<antcall target="tagMapFiles" />
@@ -66,8 +67,8 @@
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
-		<echo message="Download, then unpack: EMFT OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
+		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/getDependencies.xml"/>
+		<echo message="Download, then unpack: OCL SDK, EMF Examples, EMF SDK + Eclipse SDK..."/>
 		<ant target="getDependency" antfile="${getDeps.xml}">
 			<property name="url" value="${oclURL}"/>
 			<property name="file" value="${oclFile}"/>
@@ -90,7 +91,7 @@
 		</ant>
 		<!-- unpack examples plugins since actual code is nested inside the jar and can't be found by javac -->
 		<echo message="Massage emf.examples.library*.jar to expose class files..."/>
-		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.emft.common.releng/scripts/getDependencies.xml"/>
+		<property name="getDeps.xml" location="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/getDependencies.xml"/>
 		<ant target="massagePluginJar" antfile="${getDeps.xml}">
 			<property name="theJar" value="org.eclipse.emf.examples.library.jar"/>
 			<property name="theDir" value="${buildDirectory}/plugins"/>

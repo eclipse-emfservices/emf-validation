@@ -5,10 +5,10 @@
 </head>
 
 <body bgcolor="#FFFFFF" text="#000000">
-<font size="+2"> Automated Testing of EMFT Builds</font> 
+<font size="+2"> Automated Testing of Modeling Project Builds</font> 
 <p>last updated: November 9, 2005</p>
 <p><font size="+1">Description</font></p>
-<p>This document describes how to run the EMFT JUnit test plugins from the command 
+<p>This document describes how to run the your project's JUnit test plugins from the command 
   line. This is the same mechanism used in the builds.</p>
 <p>Click <a href="testframework.html">here</a> for a description of the testing 
   framework, and how it can be used outside of the setup described here.</p>
@@ -25,16 +25,16 @@
   2. <a href="http://www.info-zip.org/pub/infozip/UnZip.html">Info-ZIP UnZip</a> 
   version 5.41 or later installed and added to the path.<br>
   3. The Automated Test feature from a
-  <a href="http://www.eclipse.org/emft"> EMFT downloads</a>. 
+  <a href="http://www.eclipse.org/modeling/emf/downloads/"> EMF downloads</a>. 
   This contains the test framework plugins and the JUnit test plugins to run.<br>
-  4. The EMFT zip file from the same build as the Automated Test feature.  You can use the emft-*-SDK zip file instead of the individual files.<br>
+  4. The zip file from the same build as the Automated Test feature.  You can use the emf-*-SDK zip file instead of the individual files.<br>
   5. An Eclipse SDK zip file. The URL and build name of the required builds 
   are specified in the build.cfg file included in the Automated Test zip file.</p>
 <p><font size="+1">Setup</font></p>
-<p>1. Extract the emft-*-automated-tests-&lt;buildid&gt;.zip. On Window, extract 
+<p>1. Extract the emf-*-automated-tests-&lt;buildid&gt;.zip. On Window, extract 
   this file close to the root of the drive to prevent some path names from exceeding 
   the 255 character limit. This will create a top-level directory &quot;<i>testing</i>&quot;.<br>
-  2. Place the Eclipse SDK zip file and the EMFT runtime in the <i>testing</i> directory. 
+  2. Place the Eclipse SDK zip file and the project's runtime in the <i>testing</i> directory. 
   Do not unzip these files. (The test scripts will take care of this)<br>
 </p>
 <p><font size="+1">Running Tests</font></p>
@@ -44,7 +44,7 @@
   &lt;architecture&gt;] [-noclean] [&lt;testTarget&gt;][-properties &lt;path&gt;][-vm 
   &lt;path to java executable&gt;]</b></p>
 All parameters and targets are optional on windows systems. Just running &quot;runtests&quot; 
-will run <b>ALL</b> tests on Windows, installing a clean Eclipse and EMFT SDK between 
+will run <b>ALL</b> tests on Windows, installing a clean Eclipse and your project's SDK between 
 each test target. On *nix systems, the os, ws and arch parameters must be specified. 
 <br>
 <br>
@@ -102,7 +102,7 @@ Test results are placed in the <i>testing</i>/<i>results</i> directory in xml an
     <td>Runs all the targets below.</td>
   </tr>
   <tr> 
-    <td>emft</td>
+    <td>emf</td>
     <td>Runs the JUnit tests located in the test plug-ins</td>
   </tr>
   <tr> 
