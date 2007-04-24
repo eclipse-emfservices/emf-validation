@@ -34,6 +34,13 @@
 		<property name="buildConfigFile" value="${basedir}/../build.cfg"/>
 		<available file="${buildConfigFile}" type="file" property="buildConfigIsAvailable" />
 		<fail message="Can't load build properties from ${buildConfigFile}" unless="buildConfigIsAvailable"/>
+		
+		<!-- TODO: set any special build-related properties here by echoing them into ${buildConfigFile}:
+		<echo file="${buildConfigFile}" append="true">
+
+# extra properties specific to just this build
+propertyName=propertyValue
+</echo>	-->
 		<property file="${buildConfigFile}" />
 
 		<echo message="buildVer = ${buildVer}"/>
@@ -65,7 +72,6 @@
 
 		<property name="buildAlias" value="${buildLabel}" />
 		<property name="buildId" value="${buildAlias}" />
-		<property name="forceContextQualifier" value="v${timestamp}"/>
 
 		<!--store the build label information in a file-->
 		<echo file="${buildDirectory}/label.properties" append="true">
@@ -82,9 +88,6 @@
 		</echo>
 		<echo file="${buildDirectory}/label.properties" append="true">
 		buildAlias=${buildAlias}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		forceContextQualifier=${forceContextQualifier}
 		</echo>
 	</target>
 
@@ -166,15 +169,6 @@
 			<fileset dir="${buildDirectory}/${buildLabel}" />
 		</copy>
 	</target>
-
-	<!-- 
-	<target name="cleanUp">
-		<move todir="${buildDirectory}/.." failonerror="false" overwrite="true">
-        	<fileset dir="${buildDirectory}/${buildLabel}"/>
-		</move>
-		<delete dir="${buildDirectory}"/>
-	</target>
--->
 
 	<target name="test">
 		<property name="test.xml" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/test.xml" />
