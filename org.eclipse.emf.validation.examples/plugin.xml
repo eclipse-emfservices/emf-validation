@@ -32,7 +32,7 @@
             hasPages="false"
             project="true"
             id="org.eclipse.emf.validation.examples.general"
-            name="General Validation Example"
+            name="%Validation_General_name"
             icon="$nl$/icons/obj16/valexample_obj.gif">
          <description>%Validation_General_description</description>
       </wizard>
@@ -43,7 +43,7 @@
             hasPages="false"
             project="true"
             id="org.eclipse.emf.validation.examples.adapter"
-            name="Validation Adapter Example"
+            name="%Validation_Adapter_name"
             icon="$nl$/icons/obj16/valadapter_obj.gif">
          <description>%Validation_Adapter_description</description>
       </wizard>
@@ -54,7 +54,7 @@
             hasPages="false"
             project="true"
             id="org.eclipse.emf.validation.examples.ocl"
-            name="OCL Example"
+            name="%Validation_OCL_name"
             icon="$nl$/icons/obj16/oclexample_obj.gif">
          <description>%Validation_OCL_description</description>
       </wizard>
