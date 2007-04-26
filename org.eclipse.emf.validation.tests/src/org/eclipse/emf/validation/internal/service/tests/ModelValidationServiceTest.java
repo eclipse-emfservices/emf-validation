@@ -30,12 +30,15 @@ import ordersystem.LineItem;
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
+import ordersystem.impl.OrderImpl;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -478,6 +481,42 @@ public class ModelValidationServiceTest extends TestBase {
         
         assertEquals(IStatus.CANCEL, cstat.getSeverity());
         assertFalse(cstat.getConstraint().getDescriptor().isError());
+    }
+
+    /**
+     * Checks that a constraint targeting an EClass from some package also
+     * gets instances of EClasses from other packages extending that EClass
+     * in some other package unknown to the constraint author.
+     */
+    public void test_validateInstanceOfExtendingEClassInOtherPackage_183917() {
+        EPackage epackage = EcoreFactory.eINSTANCE.createEPackage();
+        epackage.setNsURI("http://test/extending/package"); //$NON-NLS-1$
+        epackage.setNsPrefix("test"); //$NON-NLS-1$
+        epackage.setName("testextendingpackage"); //$NON-NLS-1$
+        
+        final EClass myOrderClass = EcoreFactory.eINSTANCE.createEClass();
+        epackage.getEClassifiers().add(myOrderClass);
+        
+        class MyOrderImpl extends OrderImpl {
+            public EClass eClass() {
+                return myOrderClass;
+            }
+        }
+        myOrderClass.setName("MyOrder"); //$NON-NLS-1$
+        myOrderClass.setInstanceClass(MyOrderImpl.class);
+        myOrderClass.getESuperTypes().add(OrderSystemPackage.eINSTANCE.getOrder());
+        
+        Order order = new MyOrderImpl();
+        
+        IStatus[] status = getStatuses(batchValidator.validate(order));
+
+        assertAllConstraintsPresent(
+            "batch", //$NON-NLS-1$
+            status,
+            Arrays.asList(new String[] {
+                    ID_PREFIX + "order.hasContents", //$NON-NLS-1$
+                    ID_PREFIX + "order.notFilledBeforePlacement", //$NON-NLS-1$
+            }));
     }
         
     //

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
 package org.eclipse.emf.validation.internal.service;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,6 +56,9 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	private final boolean shouldCacheConstraints;
 
 	private final EvaluationMode mode;
+    
+    // map of (String => Boolean) caching whether a namespace is provided
+    private final Map providedNamespaces = new java.util.WeakHashMap();
 
 	/**
 	 * The "null" provider never provides any constraints.  It is used as a
@@ -438,31 +442,148 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		EPackage epkg = eObject.eClass().getEPackage();
 		String targetNsUri = epkg.getNsURI();
 		
-		boolean result = false;
-		
-		for (int i = 0; !result && (i < nsUris.length); i++) {
-			result = targetNsUri.equalsIgnoreCase(nsUris[i]);
-		}
-		for (int i = 0; !result && (i < nsUriMatchers.length); i++) {
-			result = nsUriMatchers[i].match(targetNsUri);
-		}
-		
-		Trace.exiting(getClass(), "providerHandlesNamespace", //$NON-NLS-1$
-				result ? Boolean.TRUE : Boolean.FALSE);
+        Boolean result = (Boolean) providedNamespaces.get(targetNsUri);
+        if (result == null) {
+            result = providerHandlesNamespace(targetNsUri, targetNsUri);
 
-		return result;
+            if (result == null) {
+                // look for EPackages that this package extends
+                Set extended = getExtendedEPackages(epkg);
+
+                if (!extended.isEmpty()) {
+                    for (Iterator iter = extended.iterator(); iter.hasNext()
+                        && (result == null);) {
+                        
+                        EPackage next = (EPackage) iter.next();
+                        result = providerHandlesNamespace(targetNsUri, next
+                            .getNsURI());
+                    }
+                }
+            }
+
+            if (result == null) {
+                // cache a miss on this namespace
+                result = Boolean.FALSE;
+            }
+
+            // cache the result for quick lookup next time
+            providedNamespaces.put(targetNsUri, result);
+        }
+		
+		Trace.exiting(getClass(), "providerHandlesNamespace", result); //$NON-NLS-1$
+
+        return result.booleanValue();
 	}
+    
+    /**
+     * Queries whether this provider has any constraints for the specified
+     * namespace.
+     * 
+     * @param originalTargetNamespace
+     *            the namespace of the type of the object being validated
+     * @param namespace
+     *            a namespace for which, perhaps, this provider defines
+     *            constraints
+     * @return <code>Boolean.TRUE</code> if this provider targets the
+     *         specified namespace; <code>null</code> otherwise (to trigger a
+     *         continued search)
+     */
+    private Boolean providerHandlesNamespace(String originalTargetNamespace,
+            String namespace) {
+        boolean result = false;
 
+        for (int i = 0; !result && (i < nsUris.length); i++) {
+            result = namespace.equalsIgnoreCase(nsUris[i]);
+
+            if (result && !namespace.equals(originalTargetNamespace)) {
+                // we found a package that extends the declared target. Cache it
+                addTargetNamespaceURI(originalTargetNamespace);
+            }
+        }
+
+        for (int i = 0; !result && (i < nsUriMatchers.length); i++) {
+            result = nsUriMatchers[i].match(namespace);
+
+            if (result) {
+                // we found a pattern match. Cache it
+                addTargetNamespaceURI(originalTargetNamespace);
+            }
+        }
+
+        return result ? Boolean.TRUE
+            : null;
+    }
+
+    /**
+     * Adds the specified namespace URI to the list of namespaces that I target.
+     * This may be the result of a pattern match or it may be a namespace that
+     * has types that I target by inheritance.
+     * 
+     * @param namespaceURI
+     *            a namespace that I target
+     */
+    private synchronized void addTargetNamespaceURI(String namespaceURI) {
+        String[] newURIs = new String[nsUris.length + 1];
+        System.arraycopy(nsUris, 0, newURIs, 0, nsUris.length);
+        newURIs[nsUris.length] = namespaceURI;
+        nsUris = newURIs;
+    }
+
+    /**
+     * Obtains the set of all packages that the specified <code>epackage</code>
+     * extends, by having classifiers that extend some classifier(s) in those
+     * packages.
+     * 
+     * @param epackage
+     *            a package
+     * @return all of the packages containing classifiers extended by this
+     *         package's classifiers, not including the original package
+     */
+    private Set getExtendedEPackages(EPackage epackage) {
+        Set result = new java.util.HashSet();
+
+        getExtendedEPackages(epackage, result);
+        result.remove(epackage);
+
+        return result;
+    }
+
+    /**
+     * Recursive helper implementation of
+     * {@link #getExtendedEPackages(EPackage)}.
+     */
+    private void getExtendedEPackages(EPackage epackage, Set result) {
+        for (Iterator iter = epackage.getEClassifiers().iterator(); iter
+            .hasNext();) {
+            Object next = iter.next();
+
+            if (next instanceof EClass) {
+                for (Iterator jter = ((EClass) next).getESuperTypes()
+                    .iterator(); jter.hasNext();) {
+                    EPackage nextPackage = ((EClass) jter.next()).getEPackage();
+
+                    if ((nextPackage != epackage)
+                        && !result.contains(nextPackage)) {
+                        result.add(nextPackage);
+                        getExtendedEPackages(nextPackage, result);
+                    }
+                }
+            }
+        }
+    }
+    
 	/**
-	 * Helper method to determine whether my provider handles the specified
-	 * event type.
-	 * 
-	 * @param eventType an EMF event type
-	 * @param config the data from an &lt;event&gt; element in the provider
-	 *    XML which indicates one of the EMF events for which the provider
-	 *    can supply constraints
-	 * @return whether this EMF event type is recognized by my provider
-	 */
+     * Helper method to determine whether my provider handles the specified
+     * event type.
+     * 
+     * @param eventType
+     *            an EMF event type
+     * @param config
+     *            the data from an &lt;event&gt; element in the provider XML
+     *            which indicates one of the EMF events for which the provider
+     *            can supply constraints
+     * @return whether this EMF event type is recognized by my provider
+     */
 	private boolean providerHandlesEvent(
 			EMFEventType eventType,
 			IConfigurationElement config) {
