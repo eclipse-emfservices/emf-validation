@@ -6,8 +6,8 @@
 pluginName="org.eclipse.emf.validation"; 
 
 # string labels for javadoc content
-windowTitle="EMFT Validation Javadoc";
-groupTitle="EMFT Validation";
+windowTitle="EMF Validation Framework Javadoc";
+groupTitle="EMF Validation Framework";
 
 # files to exclude from javadoc process - use Ant syntax
 javadocExclusions="<exclude name=\"**/internal/**\"/> <exclude name=\"**/examples/**\"/> <exclude name=\"**/tests/**\"/> <exclude name=\"**/ordersystem/**\"/>";
