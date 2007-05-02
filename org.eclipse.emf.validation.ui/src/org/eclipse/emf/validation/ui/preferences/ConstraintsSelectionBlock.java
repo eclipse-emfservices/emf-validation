@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintsSelectionBlock.java,v 1.1 2007/03/22 20:42:58 cdamus Exp $
+ * $Id: ConstraintsSelectionBlock.java,v 1.2 2007/05/02 21:38:36 cdamus Exp $
  */
 package org.eclipse.emf.validation.ui.preferences;
 
@@ -598,6 +598,25 @@ public class ConstraintsSelectionBlock {
      */
 	public void performDefaults() {
 		rootcategory.restoreDefaults();
+        
+        // update the checked state of the current contents of the Constraints
+        // list (if any)
+        CheckboxTableViewer viewer = getConstraintList();
+        Object input = viewer.getInput();
+        
+        if (input != null) {
+            Object[] elements = ((IStructuredContentProvider) getConstraintList()
+                    .getContentProvider()).getElements(input);
+            
+            if (elements != null) {
+                int length = elements.length;
+                
+                for (int i = 0; i < length; i++) {
+                    IConstraintNode node = (IConstraintNode) elements[i];
+                    viewer.setChecked(node, node.isChecked());
+                }
+            }
+        }
 	}
 	
 	/**
