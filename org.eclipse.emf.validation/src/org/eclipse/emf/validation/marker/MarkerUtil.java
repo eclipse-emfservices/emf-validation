@@ -160,6 +160,7 @@ public final class MarkerUtil {
 						IMarker.SEVERITY_WARNING);
 					marker.setAttribute(IMarker.PRIORITY,
 						IMarker.PRIORITY_NORMAL);
+					break;
 				case IStatus.ERROR:
 				case IStatus.CANCEL:
 					marker.setAttribute(IMarker.SEVERITY,
