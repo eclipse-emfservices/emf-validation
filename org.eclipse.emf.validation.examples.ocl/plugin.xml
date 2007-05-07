@@ -20,7 +20,7 @@
 -->
 <plugin>
 
-     <extension
+   <extension
          point="org.eclipse.emf.validation.constraintProviders">
       <category
             name="%category.name"
@@ -71,4 +71,18 @@
          </constraints>
       </constraintProvider>
    </extension>
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders"
+         id="oclProvider">
+      
+      <!-- Custom constraint provider using OCL documents -->
+      <constraintProvider
+            class="org.eclipse.emf.validation.examples.ocl.OCLConstraintProvider"
+            category="Constraints from an OCL Document">
+         
+         <package namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/>
+         
+         <ocl path="constraints/library.ocl"/>
+      </constraintProvider>
+  </extension>
 </plugin>
