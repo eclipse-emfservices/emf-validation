@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -149,7 +149,7 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @return whether I represent an errored constraint
 	 */
-	public abstract boolean isError();
+	boolean isError();
 	
 	/**
 	 * If I am an {@link #isError error} constraint, obtains the exception
@@ -157,7 +157,7 @@ public interface IConstraintDescriptor {
 	 *  
 	 * @return my exception
 	 */
-	public abstract Throwable getException();
+	Throwable getException();
 	
 	/**
 	 * Queries whether the constraint is enabled.  {@link #isError Errored}
@@ -166,7 +166,7 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @return whether the constraint that I represent is enabled
 	 */
-	public abstract boolean isEnabled();
+	boolean isEnabled();
 	
 	/**
 	 * Sets whether the constraint is enabled.  Note that this only has any
@@ -177,7 +177,7 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @see #isEnabled()
 	 */
-	public abstract void setEnabled(boolean enabled);
+	void setEnabled(boolean enabled);
 	
 	/**
 	 * <p>
@@ -189,14 +189,14 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @param exception the exception that causes me to be an error constraint
 	 */
-	public abstract void setError(Throwable exception);
+	void setError(Throwable exception);
 	
 	/**
 	 * Queries the categories that I am a member of.
 	 * 
 	 * @return an unmodifiable set of {@link Category}s
 	 */
-	public abstract Set getCategories();
+	Set getCategories();
 	
 	/**
 	 * Adds a category to me.  If, previously, I was in the default category,
@@ -207,14 +207,14 @@ public interface IConstraintDescriptor {
 	 * @throws IllegalArgumentException if <code>category</code> is the default
 	 *     category, as this is not allowed to be set explicitly
 	 */
-	public abstract void addCategory(Category category);
+	void addCategory(Category category);
 	
 	/**
 	 * Removes a category from me.
 	 * 
 	 * @param category a category
 	 */
-	public abstract void removeCategory(Category category);
+	void removeCategory(Category category);
 	
 	/**
 	 * Obtains the localized message pattern configured in the XML for my
@@ -224,7 +224,7 @@ public interface IConstraintDescriptor {
 	 * @return my message pattern
 	 * @see org.eclipse.osgi.util.NLS
 	 */
-	public abstract String getMessagePattern();
+	String getMessagePattern();
 	
 	/**
 	 * If I represent an in-line constraint (whose algorithm is implemented in
@@ -233,5 +233,5 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @return the constraint body, if appropriate to the language
 	 */
-	public abstract String getBody();
+	String getBody();
 }
