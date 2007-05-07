@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" type="text/css" href="doc.css" />
+<title>Static Constraint Providers</title>
+</head>
+<body>
+<h1><a name="top">Static Constraint Providers</a></h1>
+<p>
+Constraints are contributed into the EMF Validation Framework by <i>constraint providers</i>.
+These are declared as extensions on the
+<em class="CodeName">org.eclipse.emf.validation.constraintProviders</em> point.  The framework
+offers support for two kinds of providers:  static providers, which declare all of their
+constraints in the <em class="CodeName">plugin.xml</em>, and
+<a href="dynamicProviders.html">dynamic providers</a>, which obtain their constraints at
+run-time from some source that they determine.  Static providers, the subject of this topic,
+are really just a built-in implementation of the dynamic provider API.
+</p>
+
+<a name="declare"></a>
+<h2>Statically Declaring Constraints</h2>
+<p>
+The static constraint provider declares all of its constraints in its extension in
+the <em class="CodeName">plugin.xml</em> file on the
+<a href="../extension-points/org_eclipse_emf_validation_constraintProviders.html"><em class="CodeName">org.eclipse.emf.validation.constraintProviders</em></a>
+extension point.  Each <em class="CodeName">&lt;constraint&gt;</em>
+element provides all of the metadata required by the
+<a href="constraints.html">constraint descriptor</a>, plus a language-specific declaration
+of the constraint's implementation.  For <a href="ocl.html">OCL constraints</a>, this is
+simply the constraint expression.  For <a href="constraints.html#implementing">Java constraints</a>,
+it is the class name.
+</p>
+<pre class="Code">
+&lt;extension point="<b>org.eclipse.emf.validation.constraintProviders</b>"&gt;
+  &lt;<b>category</b> name="Library Constraints" id="<b>org.eclipse.example.library</b>"&gt;
+
+  &lt;constraintProvider&gt;
+    &lt;<b>package</b> namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/&gt;
+    &lt;constraints <b>categories</b>="<b>org.eclipse.example.library</b>"&gt;
+      &lt;constraint
+            <b>lang</b>="Java"
+            <b>class</b>="com.example.constraints.UniqueLibraryName"
+            <b>severity</b>="WARNING"
+            <b>mode</b>="Live"
+            <b>name</b>="Library Must have a Unique Name"
+            <b>id</b>="org.eclipse.example.library.LibraryNameIsUnique"
+            statusCode="1"&gt;
+        &lt;<b>description</b>&gt;Libraries have unique names.&lt;/description&gt;
+        &lt;<b>message</b>&gt;<b>{0}</b> has the same name as another library.&lt;/message&gt;
+        &lt;<b>target</b> class="<b>Library</b>"&gt;
+            &lt;<b>event</b> name="Set"&gt;
+                 &lt;<b>feature</b> name="name"/&gt;
+            &lt;/event&gt;
+        &lt;/target"&gt;
+      &lt;/constraint&gt;
+    &lt;/constraints&gt;
+  &lt;/constraintProvider&gt;
+&lt;/extension&gt;
+</pre>
+<p>
+The example above declares a category with an ID and a localizable name.  This category is
+referenced as one of the categorizations of the group of constraints that is declared in
+the <em class="CodeName">&lt;constraintProvider&gt;</em> element.
+</p><p>
+The constraint provider class is implicit; the provider that obtains static constraint
+definitions from the <em class="CodeName">plugin.xml</em> is provided by the framework and
+is the default provider.  This example indicates that it provides constraints for the
+<em class="CodeName">EXTLibrary</em> example model.  This is a high-level enablement
+condition, which allows the framework to not consult or even instantiate this provider
+until it needs to validate library objects.  Any number of packages can be specified.
+</p><p>
+Next is a group of <em class="CodeName">&lt;constraints&gt;</em> which, as mentioned already,
+is associated with the category defined earlier.  This example declares a single constraint
+in this group.  It is a Java-language constraint implemented by the class indicated, which
+must be accessible on the declaring plug-in's classpath (not necessarily deployed in this
+plug-in).  It specifies severity (error would be the default), evaluation mode (batch is
+the default), localizable name, and unique ID.  The ID's uniqueness is ensured by the
+framework; if it is not already prepended by the declaring plug-in's ID, then the framework
+will prepend it on the plug-in's behalf.  Thus, the ID could have been specified simply as
+"LibraryNameIsUnique."
+</p><p>
+The status code is arbitrary, used merely to populate the <em class="CodeName">IStatus</em>
+objects created by the framework on constraint violation.  The localizable description
+appears in the preference page, and the message appears in problems reported by the
+constraint.  Any number of positional arguments (in the <em class="CodeName">MessageFormat</em>
+pattern) may be specified.  The constraint implementation determines how they are filled.
+</p><p>
+Last, but very important, is the declaration of the <em class="CodeName">EClass</em>es
+targeted by this constraint and the events that trigger it.  Zero or more targets may be
+specified (none implying any object of the constraint provider's packages).  This example
+is a live constraint, and specifies that it is triggered by
+<em class="CodeName">Notification.SET</em> event types on the <em class="CodeName">name</em>
+feature.  A batch constraint would not specify such triggers.
+</p><p>
+Note that these events are not really sufficient to ensure that live validation always
+detects when duplication of library names occurs.  For example, a library that already has
+a duplicate name may be attached to the model.  In this case, the application may not
+receive and events from the name because it doesn't start listening until the library is
+attached.  <a href="customNotifications.html">Another topic</a> discusses a mechanism that
+can help with this problem.
+</p>
+
+<hr/>
+<p>
+<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000, 2007 IBM Corporation and others. All Rights Reserved.</a>
+</p>
+</body>
+</html>

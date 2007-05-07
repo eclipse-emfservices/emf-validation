@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" type="text/css" href="doc.css" />
+<title>Overview of Constraints</title>
+</head>
+<body>
+<h1><a name="top">Overview of Constraints</a></h1>
+
+<p>
+Constraints are implemented in the EMF Validation Framework as instance of the
+<a href="../javadoc/org/eclipse/emf/validation/model/IModelConstraint.html"><em class="CodeName">IModelConstraint</em></a>
+interface.  A constraint has only two features:  a <em class="CodeName">validate()</em>
+operation that evaluates the constraint on some target object, and a
+<a href="../javadoc/org/eclipse/emf/validation/service/IConstraintDescriptor.html">descriptor</a>
+that supplies all of the meta-data about the constraint that the framework needs in order
+to work with it.
+</p>
+
+<blockquote>
+	<img src="images/constraints.png" alt="Constraint Descriptor API"/><br/>
+	<font size="-2">[<a href="images/constraints.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+The <a href="../javadoc/org/eclipse/emf/validation/service/IConstraintDescriptor.html"><em class="CodeName">IConstraintDescriptor</em></a>
+provides:
+</p>
+<ul>
+  <li>an ID and a localizable name to identify the constraint to the system and to users</li>
+  <li>the evaluation mode, whether live or batch</li>
+  <li>the <em class="CodeName">EClass</em>es that the constraint targets</li>
+  <li>in the case of a live constraint, the
+      <a href="../javadoc/org/eclipse/emf/validation/EMFEventType.html">event types</a> and features that trigger it</li>
+  <li>the <a href="../javadoc/org/eclipse/emf/validation/model/ConstraintSeverity.html">severity</a>,
+      error code, and error message pattern, for construction of
+      Eclipse <em class="CodeName">IStatus</em> objects on violation of the constraint</li>
+  <li>categorization:  <a href="../javadoc/org/eclipse/emf/validation/model/Category.html">categories</a>
+      are hierarchical, and a constraint can be a member of zero or more categories</li>
+  <li>enablement state:  constraints can be selectively enabled by the user, or can be
+      disabled by the system if they are misconfigured or throw run-time exceptions</li>
+</ul>
+<p>
+Much of this information appears in the preferences dialog, in the
+<em class="UILabel">Model Validation / Constraints</em> page, for presentation to the user.
+</p>
+
+<a name="implementing"></a>
+<h2>Implementing Constraints</h2>
+<p>
+Constraints can be implemented in Java or in other languages, according to the available
+contributions of <a href="languages.html">language providers</a>.  The implementation of
+a constraint in some language is separate from the contribution of that constraint by a
+<a href="staticProviders.html">constraint provider</a>.
+</p>
+
+<blockquote>
+	<img src="images/javaConstraint.png" alt="Java Constraint API"/><br/>
+	<font size="-2">[<a href="images/javaConstraint.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+A Java constraint is implementated as a subclass of the
+<a href="../javadoc/org/eclipse/emf/validation/AbstractModelConstraint.html"><em class="CodeName">AbstractModelConstraint</em></a>
+class.  It implements the <em class="CodeName">validate()</em> method accepting an
+<a href="../javadoc/org/eclipse/emf/validation/IValidationContext.html"><em class="CodeName">IValidationContext</em></a>
+and return an <em class="CodeName">IStatus</em> reporting the validation result.
+</p><p>
+The <em class="CodeName">ValidationContext</em> object provides a variety of information
+about the current validation operation, including:
+</p>
+<ul>
+    <li>the <em class="CodeName">target</em> of validation, the element to be validated</li>
+    <li>the <em class="CodeName">eventType</em>, in the case of live validation</li>
+    <li>the <em class="CodeName">feature</em> and its new value, in the case of live validation</li>
+    <li>the <em class="CodeName">currentConstraintId</em>, indicating the constraint that
+        is being invoked.  This allows a single Java class to implement any number of
+        (probably related) constraints, and switch on the ID to determine what to check</li>
+</ul>
+<p>
+In addition to this contextual information, the validation context provides a variety of
+other services to the constraint.  Using the <em class="CodeName">get/putCurrentConstraintData()</em>,
+a constraint can cache some information that will help it to optimize the validation of
+multiple objects by persisting data between invocations on different objects in the same
+validation operation.  This cache can take the form of any object.
+</p><p>
+Another time-saving measure is the <em class="CodeName">skipCurrentConstraintFor()</em>
+method, which allows a constraint to indicate that it has already validated some other
+objects while checking the current target, so that it does not need to be invoked on them
+later.  For example, a constraint that checks for dependency cycles in a graph will, if it
+does or does not find a cycle, have indirectly validated a number of other objects in
+doing so.
+</p>
+
+<h2>Reporting Validation Results</h2>
+<p>
+An implementation of a constraint will report validation results when the constraint fails,
+in the form of an <em class="CodeName">IStatus</em> object.  More precisely, validation
+problems are implemented as
+<a href="../javadoc/org/eclipse/emf/validation/model/IConstraintStatus.html"><em class="CodeName">IConstraintStatus</em></a>es.
+The constraint may construct these results, itself, using the factory methods on the
+<a href="../javadoc/org/eclipse/emf/validation/model/ConstraintStatus.html"><em class="CodeName">ConstraintStatus</em></a>
+class.  Indeed, in order to create a multi-status result reporting multiple discrete
+problems, it is necessary to work with the <em class="CodeName">ConstraintStatus</em> class.
+</p>
+
+<blockquote>
+	<img src="images/status.png" alt="Constraint Status API"/><br/>
+	<font size="-2">[<a href="images/status.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+For simpler cases, the <em class="CodeName">IValidationContext</em> provides convenient API
+for creating the validation results.  The <em class="CodeName">addResult()</em> and
+<em class="CodeName">addResults()</em> methods add problem elements to the result.  These
+are elements that are somehow related to the violation of the constraint on the target
+element, which should be highlighted when the user double-clicks the problem marker reporting
+the violation. 
+</p><p>
+The <em class="CodeName">createFailureStatus()</em> method creates a result status encapsulating
+the current result set (as constructed via <em class="CodeName">addResult()</em> calls)
+and referencing the current constraint and target element.  The arguments to the
+<em class="CodeName">createFailureStatus()</em> method are the positional arguments to slot
+into the error message pattern declared by the constraint's descriptor.  The validation
+framework provides formatting of <em class="CodeName">EObject</em>s using the label
+providers from their metamodels' <em class="CodeName">*.edit</em> plug-ins, as well as
+pretty-printing of collections.
+</p><p>
+In the case that a constraint
+finds no problems, it should return the result of <em class="CodeName">createSuccessStatus()</em>.
+This method will return an appropriate status object if the client invoking validation
+requested results for successful constraint evaluations as well as failures.  Otherwise,
+this method returns <em class="CodeName">null</em>.  So, a well-behaved constraint will
+always use this to report success.
+</p><p>
+To illustrate several of these concepts, consider a constraint on the
+<em class="CodeName">Library</em> metaclass that requires libraries to be uniquely named.
+Note, in particular, that a violation of this constraint for one library necessarily means
+that multiple libraries are in violation of the same constraint:
+</p>
+<pre class="Code">
+public class LibraryNameIsUnique extends <b>AbstractModelConstraint</b> {
+    public IStatus <b>validate</b>(IValidationContext <b>ctx</b>) {
+        // the constraint is declared to target only Library, so we can safely cast
+        Library target = (Library) ctx.<b>getTarget</b>(); // object to validate
+
+        // does this library have a unique name?
+        Set&lt;Library&gt; libs = findLibrariesWithName(target.getName());
+        if (libs.size() > 1) {
+            // report this problem against all like-named libraries
+            ctx.<b>addResults</b>(libs);
+       
+            // don’t need to validate these other libraries
+            libs.remove(target);
+            ctx.<b>skipCurrentConstraintFor</b>(libs);
+
+            // arguments are slotted into the message pattern
+            return ctx.<b>createFailureStatus</b>(new Object[] {
+                target, libs});
+        }
+    }
+
+    return ctx.<b>createSuccessStatus</b>();
+  }    
+}
+</pre>
+
+<hr/>
+<p>
+<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000, 2007 IBM Corporation and others. All Rights Reserved.</a>
+</p>
+</body>
+</html>

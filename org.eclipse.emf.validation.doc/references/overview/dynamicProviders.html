@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" type="text/css" href="doc.css" />
+<title>Dynamic Constraint Providers</title>
+</head>
+<body>
+<h1><a name="top">Dynamic Constraint Providers</a></h1>
+<p>
+For simple applications, or cases where only a few constraints are required, possibly to
+extend those already provided by another plug-in, the
+<a href="staticProviders.html">static constraint provider</a> works well.  However, this
+approach is limited by its verbosity and the load on the Eclipse Platform's extension
+registry.  Like their static counterparts, though, these providers are also declared on the
+<a href="../extension-points/org_eclipse_emf_validation_constraintProviders.html"><em class="CodeName">org.eclipse.emf.validation.constraintProviders</em></a>
+extension point.
+</p><p>
+A more flexible approach is the dynamic constraint provider.  Many applications naturally
+have their own ways of defining constraints, and the provider is required only as an integrator,
+to make them available to the EMF Validation Framework.
+</p>
+
+<blockquote>
+	<img src="images/provider.png" alt="Constraint Provider API"/><br/>
+	<font size="-2">[<a href="images/provider.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+A dynamic constraint provider extends the
+<a href="../javadoc/org/eclipse/emf/validation/service/AbstractConstraintProvider.html"><em class="CodeName">AbstractConstraintProvider</em></a>
+class and extends the <em class="CodeName">setInitializationData()</em> method to initialize
+its constraints.  This consists of constructing instances of the
+<a href="../javadoc/org/eclipse/emf/validation/service/AbstractConstraintDescriptor.html"><em class="CodeName">AbstractConstraintDescriptor</em></a>
+class, as appropriate, and creating a suitable subclass of the
+<a href="../javadoc/org/eclipse/emf/validation/model/ModelConstraint.html"><em class="CodeName">ModelConstraint</em></a>
+class to implement the constraints.
+</p>
+
+<a name="creating"></a>
+<h2>Creating Constraints</h2>
+<p>
+The <em class="CodeName">AbstractConstraintProvider</em> class provides two convenience
+methods for creating constraints based on <a href="languages.html">constraint languages</a>
+available in the system.  The <em class="CodeName">createModelConstraint(IConstraintDescriptor)</em>
+method looks up the language provider and delegates to it to create a constraint with the
+supplied descriptor, which must specify the appropriate language and whatever else is
+required by that language (such as class name for Java or body expression for OCL).
+</p><p>
+The <em class="CodeName">createModelConstraintProxy(IConstraintDescriptor)</em> method does
+much the same, except that it returns a proxy object wrapping the descriptor that will
+lazily instantiate the concrete constraint implementation when it is actually called upon
+to validate.  This supports deferral of potentially expensive initialization, such as
+parsing OCL or performing I/O.
+</p><p>
+The <em class="CodeName">org.eclipse.emf.validation.examples.ocl</em> example plug-in
+includes a constraint provider implementation that loads OCL constraints from
+<em class="CodeName">*.ocl</em> files.  The declaration of an instance of this provider
+looks like:
+</p>
+<pre class="Code">
+   &lt;extension
+         point="org.eclipse.emf.validation.constraintProviders"
+         id="oclProvider"&gt;
+      
+      &lt;!-- Custom constraint provider using OCL documents --&gt;
+      &lt;constraintProvider
+            class="<b>org.eclipse.emf.validation.examples.ocl.OCLConstraintProvider</b>"
+            category="Constraints from an OCL Document"&gt;
+         
+         &lt;<b>package</b> namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/&gt;
+         
+         &lt;<b>ocl</b> path="constraints/library.ocl"/&gt;
+      &lt;/constraintProvider&gt;
+  &lt;/extension&gt;
+</pre>
+<p>
+As we can see, the constraint provider declares a class instead of using the default
+XML-based implementation for static constraint definitions.  As with the static provider,
+this example declares the namespace(s) of the models for which it provides constraints.
+The difference is in the features offered by this particular implementation:  a
+<em class="CodeName">category</em> element providing a localized name for the category in
+which the constraints will be grouped (because OCL, the language, does not have a notion of
+categorization) and an <em class="CodeName">&lt;ocl&gt;</em> element that identifies an
+file containing the OCL constraints.</p>
+<p>
+The implementation of this provider extends the <em class="CodeName">setInitializationData()</em>
+method to parse the OCL document and encapsulate its invariant constraints in
+<em class="CodeName">OCLConstraint</em>s:
+</p>
+<pre class="Code">
+    private void parseConstraints(Category category, String namespace, InputStream input)
+            throws ParserException {
+        
+        OCLInput oclInput = new OCLInput(input);
+        
+        OCL ocl = OCL.newInstance();
+        
+        for (Constraint constraint : ocl.<b>parse</b>(oclInput)) {
+            if (isInvariant(constraint)) {
+                // only add invariant constraints for validation
+                addConstraint(category, namespace, ocl, constraint);
+            }
+        }
+    }
+    
+    private void addConstraint(Category category, String namespace, OCL ocl, Constraint constraint) {
+        @SuppressWarnings("unchecked")
+        Collection&lt;OCLConstraint&gt; constraints = <b>getConstraints</b>();
+        
+        OCLConstraintDescriptor desc = new <b>OCLConstraintDescriptor</b>(
+                namespace, constraint, constraints.size() + 1);
+        if (category != null) {
+            category.addConstraint(desc);
+        }
+        
+        constraints.<b>add</b>(new <b>OCLConstraint</b>(desc, ocl));
+    }
+</pre>
+<p>
+The <em class="CodeName">OCLConstraint</em> implementation basically just delegates to the
+invariant <em class="CodeName">Constraint</em> object parsed from the file.  So does the
+<em class="CodeName">OCLConstraintDescriptor</em>, to some degree:  it delegates the
+target metaclass to the constraint's context classifier, its description to the body
+expression, etc.  Because this example defines its own constraint implementation, not
+delegating through the language mechanism to the framework, it does not use the superclass's
+<em class="CodeName">createModelConstraintProxy()</em> method to create constraints.
+</p>
+
+
+<hr/>
+<p>
+<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000, 2007 IBM Corporation and others. All Rights Reserved.</a>
+</p>
+</body>
+</html>

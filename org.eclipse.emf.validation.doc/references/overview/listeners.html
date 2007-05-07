@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" type="text/css" href="doc.css" />
+<title>Validation Listeners and Problem Reporting</title>
+</head>
+<body>
+<h1><a name="top">Validation Listeners and Problem Reporting</a></h1>
+
+<p>
+One kind of validation client is the one that performs validation operations via the
+<a href="../javadoc/org/eclipse/emf/validation/service/ModelValidationService.html"><em class="CodeName">ModelValidationService</em></a>
+API.  Another kind of client is the one that responds to validation operations by
+reporting problems to the user or by taking some other appropriate action.  These are
+the validation listeners.
+</p>
+
+<h2>Validation Listeners</h2>
+
+<p>
+The same <em class="CodeName">ModelValidationService</em> that provides the invocation of
+validation operations also provides a listener API for clients to learn about validation
+that has occurred and the results generated.  Listeners may be registered at run-time
+using the <em class="CodeName">addValidationListener(IValidationListener)</em> method.
+More commonly, however, they are registered statically on the
+<a href="../extension-points/org_eclipse_emf_validation_validationListeners.html"><em class="CodeName">org.eclipse.emf.validation.validationListeners</em></a>
+extension point.
+</p>
+
+<blockquote>
+	<img src="images/listener.png" alt="Validation Listener API"/><br/>
+	<font size="-2">[<a href="images/listener.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+A listener is registered on the extension point with an association to zero or more
+client contexts.  This serves to filter out events for validation operations that are
+not of interest to the particular client application, that did not occur in its context.
+</p>
+<pre class="Code">
+   &lt;extension point="<b>org.eclipse.emf.validation.validationListeners</b>"&gt;
+       &lt;<b>listener</b> class="org.eclipse.example.validation.ProblemsReporter"&gt;
+           &lt;<b>clientContext</b> id="com.example.MyClientContext"/&gt;
+       &lt;/listener&gt;
+   &lt;/extension&gt;
+</pre>
+<p>
+The <a href="../javadoc/org/eclipse/emf/validation/service/ValidationEvent.html"><em class="CodeName">ValidationEvent</em></a>
+provides a good deal of information about the validation operation, including:
+</p>
+<ul>
+   <li>the evaluation mode, indicating whether the operation was a batch or a live validation</li>
+   <li>the target elements that were validated (the root selections in the case of batch
+       validation or the notifications that were validated in the case of live validation)</li>
+   <li>the validation results, as a list of <em class="CodeName">IConstraintStatus</em>es</li>
+   <li>the client context IDs matching the elements that were validated</li>
+   <li>a mapping of data, under string keys, provided by the client that performed validation
+       for the purpose of communicating it to listeners.  This information is supplied via
+       the <a href="../javadoc/org/eclipse/emf/validation/service/IValidator.html#putClientData(java.lang.String, java.lang.Object)"><em class="CodeName">IValidator.putClientData()</em></a>
+       API</li>
+   <li>the overall severity of the validation problems</li>
+</ul>
+
+<h2>Reporting Validation Problems</h2>
+<p>
+One of the validation listeners provided by the EMF Validation Framework, itself, is the
+internal <em class="CodeName">LiveValidationListener</em> class, which shows results from
+live validation operations in a dialog or a console (subject to the user's settings in the
+<em class="UILabel">Model Validation</em> preference page).
+</p><p>
+An application that wishes to have its live validation results shown in this dialog may
+simply register its <a href="bindings.html">Client context</a> on the
+<a href="../extension-points/org_eclipse_emf_validation_UIRegisteredClientContext.html"><em class="CodeName">org.eclipse.emf.validation.UIRegisteredClientContext</em></a>
+extension point.
+</p>
+<pre class="Code">
+   &lt;extension
+         point="org.eclipse.emf.validation.ui.UIRegisteredClientContext"&gt;
+      &lt;<b>clientContext</b> id="org.eclipse.example.libraryContext"/&gt;
+   &lt;/extension&gt; 
+</pre>
+<p>
+For a listener that wishes to report batch validation problems to the problems view, the
+framework provides a convenient utility class
+<a href="../javadoc/org/eclipse/emf/validation/marker/MarkerUtil.html"><em class="CodeName">MarkerUtil</em></a>
+that creates problem markers from the <em class="CodeName">IStatus</em> results of
+validation:
+</p>
+<pre class="Code">
+public class ProblemsReporter implements <b>IValidationListener</b> {
+    public void <b>validationOccurred</b>(<b>ValidationEvent</b> event) {
+        if (event.<b>matches</b>(IStatus.WARNING | IStatus.ERROR)) {
+            // fabricate a multi-status for the MarkerUtil to consume
+            List results = event.<b>getValidationResults</b>(); 
+            IConstraintStatus multi = new MultiStatus(
+                  "org.eclipse.example.MyPlugin", 1,
+                  (IStatus[]) results.toArray(new IStatus[results.size()]),
+                  "Problems were found by validation", null);
+
+            try {
+                // create problem markers on the appropriate resources
+                <b>MarkerUtil.createMarkers</b>(multi);
+            } catch (CoreException e) {
+                // creation of problem markers failed for some reason
+                MyPlugin.getLog().log(e.getStatus());
+            }
+        }
+    }    
+}
+</pre>
+<p>
+By default, the markers are created using the
+<em class="CodeName">org.eclipse.emf.validation.problem</em> marker type that extends
+EMF core's <em class="CodeName">org.eclipse.emf.ecore.diagnostic</em> marker type.
+Clients can specify their own marker type, if they wish.
+</p>
+
+<hr/>
+<p>
+<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000, 2007 IBM Corporation and others. All Rights Reserved.</a>
+</p>
+</body>
+</html>

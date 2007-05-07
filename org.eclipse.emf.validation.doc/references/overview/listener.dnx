@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.0/notation" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.2/Umlnotation" xmi:id="_0xx4EPzaEduT9MDCYvJ-BQ" type="Class" name="listener.dnx">
+  <children xmi:id="_BchFUfzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_BchFVPzbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_BchFVfzbEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_BchFVvzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_BchFV_zbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_BchFWPzbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_BchFWfzbEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_BchFWvzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_BchFW_zbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_BchFXPzbEduT9MDCYvJ-BQ" filtering="Manual">
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=ModelValidationService%5Esign=()V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=getInstance%5Esign=()QModelValidationService;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=newValidator%5Esign=(QEvaluationMode;)QIValidator;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=indexOf%5Esign=(QIValidationListener;)I%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=configureListeners%5Esign=(%255bQIConfigurationElement;)V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=configureProviders%5Esign=(%255bQIConfigurationElement;)V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=replaceInCache%5Esign=(QIModelConstraint;QIModelConstraint;)V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=getProviders%5Esign=()QCollection;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=execute%5Esign=(QIProviderOperation;)V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=loadXmlConstraintDeclarations%5Esign=()V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=loadXmlConstraintDeclarations%5Esign=(QCollection;)V%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=findClass%5Esign=(QString;QString;)QEClass;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=findPackage%5Esign=(QString;)QEPackage;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=parsePackageNames%5Esign=(QString;)QList;%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=packageHasName%5Esign=(QEPackage;QList;)Z%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+      </styles>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_BchFUvzbEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BchFU_zbEduT9MDCYvJ-BQ" x="634" y="1585"/>
+  </children>
+  <children xmi:id="_ESE9MPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_ESE9M_zbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_ESE9NPzbEduT9MDCYvJ-BQ" width="530" height="530"/>
+    </children>
+    <children xmi:id="_ESE9NfzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_ESE9NvzbEduT9MDCYvJ-BQ" type="Kind"/>
+    <children xmi:id="_ESE9N_zbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_ESE9OPzbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_ESE9OfzbEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_ESE9OvzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_ESE9O_zbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_ESE9PPzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_ESE9MfzbEduT9MDCYvJ-BQ" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=IValidationListener%5Bjcu%5Ename=IValidationListener.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ESE9MvzbEduT9MDCYvJ-BQ" x="7925" y="1585"/>
+  </children>
+  <children xmi:id="_M3hJAPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_M3hJA_zbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_M3hJBPzbEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_M3hJBfzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_M3hJBvzbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_M3hJB_zbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_M3nPoPzbEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_M3nPofzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_M3nPovzbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_M3nPo_zbEduT9MDCYvJ-BQ"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_M3hJAfzbEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M3hJAvzbEduT9MDCYvJ-BQ" x="7925" y="4438"/>
+  </children>
+  <children xmi:id="_QEkT0PzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_QEkT0_zbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_QEkT1PzbEduT9MDCYvJ-BQ" width="530" height="530"/>
+    </children>
+    <children xmi:id="_QEkT1fzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_QEkT1vzbEduT9MDCYvJ-BQ" type="Kind"/>
+    <children xmi:id="_QEkT1_zbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_QEkT2PzbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_QEkT2fzbEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_QEkT2vzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_QEkT2_zbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_QEkT3PzbEduT9MDCYvJ-BQ" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_QEkT0fzbEduT9MDCYvJ-BQ" showParent="Name" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jbintype%5Ename=org.eclipse.core.runtime.IStatus%5Bproject%5Eid=org.eclipse.emf.validation%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QEkT0vzbEduT9MDCYvJ-BQ" x="14582" y="4438"/>
+  </children>
+  <children xmi:id="_U9cHQPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_U9cHQ_zbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_U9cHRPzbEduT9MDCYvJ-BQ" width="530" height="530"/>
+    </children>
+    <children xmi:id="_U9cHRfzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_U9cHRvzbEduT9MDCYvJ-BQ" type="Kind"/>
+    <children xmi:id="_U9cHR_zbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_U9cHSPzbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_U9cHSfzbEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_U9cHSvzbEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_U9cHS_zbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_U9cHTPzbEduT9MDCYvJ-BQ" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_U9cHQfzbEduT9MDCYvJ-BQ" showParent="Name" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jbintype%5Ename=org.eclipse.emf.ecore.EObject%5Bproject%5Eid=org.eclipse.emf.validation%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_U9cHQvzbEduT9MDCYvJ-BQ" x="14582" y="6023"/>
+  </children>
+  <children xmi:id="_WNwfoPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_WNwfo_zbEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_WNwfpPzbEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_WNwfpfzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_WNwfpvzbEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_WNwfp_zbEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_WNwfqPzbEduT9MDCYvJ-BQ" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_WNwfqfzbEduT9MDCYvJ-BQ" filtering="Manual">
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=serialVersionUID%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=LIVE_MODE%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=BATCH_MODE%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=NULL_MODE%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=nextOrdinal%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=instances%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=name%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=ordinal%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+        <filteredObjects xmi:type="uml:Property" href="mmi:///#jfield%5Ename=localizedName%5Bjsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+      </styles>
+    </children>
+    <children xmi:id="_WNwfqvzbEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_WNwfq_zbEduT9MDCYvJ-BQ" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_WNwfofzbEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=EvaluationMode%5Bjcu%5Ename=EvaluationMode.java%5Bjpack%5Ename=org.eclipse.emf.validation.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WNwfovzbEduT9MDCYvJ-BQ" x="14582" y="7925"/>
+  </children>
+  <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_0x3-sPzaEduT9MDCYvJ-BQ"/>
+  <element xsi:nil="true"/>
+  <edges xmi:id="_EULO8PzbEduT9MDCYvJ-BQ" source="_BchFUfzbEduT9MDCYvJ-BQ" target="_ESE9MPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_EULO8_zbEduT9MDCYvJ-BQ" type="FromMultiplicityLabel">
+      <children xmi:id="_EULO9fzbEduT9MDCYvJ-BQ" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EULO9PzbEduT9MDCYvJ-BQ" y="396"/>
+    </children>
+    <children xmi:id="_EULO9vzbEduT9MDCYvJ-BQ" type="FromRoleLabel">
+      <children xmi:id="_EULO-PzbEduT9MDCYvJ-BQ" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EULO9_zbEduT9MDCYvJ-BQ" x="-679" y="-306"/>
+    </children>
+    <children xmi:id="_EULO-fzbEduT9MDCYvJ-BQ" visible="false" type="associationTypeLabel">
+      <children xmi:id="_EULO-_zbEduT9MDCYvJ-BQ" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EULO-vzbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_EULO8fzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=listeners%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EULO8vzbEduT9MDCYvJ-BQ" points="[-120, -197, 36, 59]$[-156, -256, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_M6MCg_zbEduT9MDCYvJ-BQ" source="_BchFUfzbEduT9MDCYvJ-BQ" target="_M3hJAPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_M6MChvzbEduT9MDCYvJ-BQ" type="KindLabel">
+      <children xmi:id="_M6MCiPzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_M6MCivzbEduT9MDCYvJ-BQ" type="Kind"/>
+      <children xmi:id="_M6MCifzbEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M6MCh_zbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_M6MChPzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=ModelValidationService%5Bjcu%5Ename=ModelValidationService.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_M6MChfzbEduT9MDCYvJ-BQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_M6SJIPzbEduT9MDCYvJ-BQ" source="_ESE9MPzbEduT9MDCYvJ-BQ" target="_M3hJAPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_M6SJI_zbEduT9MDCYvJ-BQ" type="KindLabel">
+      <children xmi:id="_M6SJJfzbEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_M6SJJ_zbEduT9MDCYvJ-BQ" type="Kind"/>
+      <children xmi:id="_M6SJJvzbEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M6SJJPzbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_M6SJIfzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=IValidationListener%5Bjcu%5Ename=IValidationListener.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_M6SJIvzbEduT9MDCYvJ-BQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_QGke8PzbEduT9MDCYvJ-BQ" source="_M3hJAPzbEduT9MDCYvJ-BQ" target="_QEkT0PzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_QGke8_zbEduT9MDCYvJ-BQ" visible="false" type="FromMultiplicityLabel">
+      <children xmi:id="_QGqlkfzbEduT9MDCYvJ-BQ" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QGqlkPzbEduT9MDCYvJ-BQ" y="396"/>
+    </children>
+    <children xmi:id="_QGqlkvzbEduT9MDCYvJ-BQ" type="FromRoleLabel">
+      <children xmi:id="_QGqllPzbEduT9MDCYvJ-BQ" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QGqlk_zbEduT9MDCYvJ-BQ" x="-658" y="-390"/>
+    </children>
+    <children xmi:id="_QGqllfzbEduT9MDCYvJ-BQ" visible="false" type="associationTypeLabel">
+      <children xmi:id="_QGqll_zbEduT9MDCYvJ-BQ" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QGqllvzbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_QGke8fzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=status%5Bjsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QGke8vzbEduT9MDCYvJ-BQ" points="[-92, -81, 319, 282]$[-411, -363, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_VAA6IPzbEduT9MDCYvJ-BQ" source="_M3hJAPzbEduT9MDCYvJ-BQ" target="_U9cHQPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_VAA6I_zbEduT9MDCYvJ-BQ" type="FromMultiplicityLabel">
+      <children xmi:id="_VAA6JfzbEduT9MDCYvJ-BQ" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VAA6JPzbEduT9MDCYvJ-BQ" y="396"/>
+    </children>
+    <children xmi:id="_VAA6JvzbEduT9MDCYvJ-BQ" type="FromRoleLabel">
+      <children xmi:id="_VAHAwPzbEduT9MDCYvJ-BQ" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VAA6J_zbEduT9MDCYvJ-BQ" x="-579" y="-419"/>
+    </children>
+    <children xmi:id="_VAHAwfzbEduT9MDCYvJ-BQ" visible="false" type="associationTypeLabel">
+      <children xmi:id="_VAHAw_zbEduT9MDCYvJ-BQ" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VAHAwvzbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_VAA6IfzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=targets%5Bjsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VAA6IvzbEduT9MDCYvJ-BQ" points="[-92, -79, 319, 276]$[-411, -355, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_WOVHYPzbEduT9MDCYvJ-BQ" source="_M3hJAPzbEduT9MDCYvJ-BQ" target="_WNwfoPzbEduT9MDCYvJ-BQ">
+    <children xmi:id="_WOVHY_zbEduT9MDCYvJ-BQ" visible="false" type="FromMultiplicityLabel">
+      <children xmi:id="_WOVHZfzbEduT9MDCYvJ-BQ" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_WOVHZPzbEduT9MDCYvJ-BQ" y="396"/>
+    </children>
+    <children xmi:id="_WOVHZvzbEduT9MDCYvJ-BQ" type="FromRoleLabel">
+      <children xmi:id="_WOVHaPzbEduT9MDCYvJ-BQ" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_WOVHZ_zbEduT9MDCYvJ-BQ" x="-368" y="-290"/>
+    </children>
+    <children xmi:id="_WOVHafzbEduT9MDCYvJ-BQ" visible="false" type="associationTypeLabel">
+      <children xmi:id="_WOVHa_zbEduT9MDCYvJ-BQ" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_WOVHavzbEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_WOVHYfzbEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=mode%5Bjsrctype%5Ename=ValidationEvent%5Bjcu%5Ename=ValidationEvent.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WOVHYvzbEduT9MDCYvJ-BQ" points="[-92, -78, 319, 269]$[-411, -347, 0, 0]"/>
+  </edges>
+</notation:Diagram>
