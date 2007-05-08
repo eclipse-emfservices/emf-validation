@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.0/notation" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.2/Umlnotation" xmi:id="_SH6SgP0FEduT9MDCYvJ-BQ" type="Class" name="traversal.dnx">
+  <children xmi:id="_TBTYoP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_TBlsgP0FEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_TBlsgf0FEduT9MDCYvJ-BQ" width="530" height="530"/>
+    </children>
+    <children xmi:id="_TBlsgv0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_TBlsg_0FEduT9MDCYvJ-BQ" type="Kind"/>
+    <children xmi:id="_TBlshP0FEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_TBlshf0FEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_TBlshv0FEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_TBlsh_0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_TBlsiP0FEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_TBlsif0FEduT9MDCYvJ-BQ" filtering="Manual">
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=isIncludeLiveConstraints%5Esign=()Z%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=setIncludeLiveConstraints%5Esign=(Z)V%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=validate%5Esign=(QCollection;QIProgressMonitor;)QIStatus;%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=validate%5Esign=(QObject;)QIStatus;%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+        <filteredObjects xmi:type="uml:Operation" href="mmi:///#jmethod%5Ename=validate%5Esign=(QCollection;)QIStatus;%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Operation"/>
+      </styles>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_TBTYof0FEduT9MDCYvJ-BQ" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TBTYov0FEduT9MDCYvJ-BQ" x="1852" y="3492"/>
+  </children>
+  <children xmi:id="_bMMWcP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_bMMWc_0FEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_bMMWdP0FEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_bMMWdf0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_bMMWdv0FEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_bMMWd_0FEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_bMMWeP0FEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMMWef0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_bMMWev0FEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMMWe_0FEduT9MDCYvJ-BQ" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_bMMWcf0FEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Recursive%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bMMWcv0FEduT9MDCYvJ-BQ" x="8876" y="13948"/>
+  </children>
+  <children xmi:id="_bMMWfP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_bMMWf_0FEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_bMMWgP0FEduT9MDCYvJ-BQ" width="530" height="530"/>
+    </children>
+    <children xmi:id="_bMMWgf0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_bMMWgv0FEduT9MDCYvJ-BQ" type="Kind"/>
+    <children xmi:id="_bMMWg_0FEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_bMMWhP0FEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_bMMWhf0FEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMMWhv0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_bMMWh_0FEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMMWiP0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLClassifierStyle" xmi:id="_bMMWff0FEduT9MDCYvJ-BQ" useClassifierShape="true"/>
+    <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Interface"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bMMWfv0FEduT9MDCYvJ-BQ" x="9193" y="3487"/>
+  </children>
+  <children xmi:id="_bMYjsP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_bMYjs_0FEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_bMYjtP0FEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_bMYjtf0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_bMYjtv0FEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_bMYjt_0FEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_bMYjuP0FEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMYjuf0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_bMYjuv0FEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_bMYju_0FEduT9MDCYvJ-BQ" collapsed="true"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_bMYjsf0FEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Flat%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bMYjsv0FEduT9MDCYvJ-BQ" x="12046" y="13948"/>
+  </children>
+  <children xmi:id="_4Nka8P0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_4N2u0P0FEduT9MDCYvJ-BQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_4N2u0f0FEduT9MDCYvJ-BQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:id="_4N2u0v0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+    <children xmi:id="_4N2u0_0FEduT9MDCYvJ-BQ" type="Name"/>
+    <children xmi:id="_4N2u1P0FEduT9MDCYvJ-BQ" type="Parent"/>
+    <children xmi:id="_4N2u1f0FEduT9MDCYvJ-BQ" visible="false" type="AttributeCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_4N2u1v0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <children xmi:id="_4N2u1_0FEduT9MDCYvJ-BQ" type="OperationCompartment">
+      <styles xmi:type="umlnotation:UMLListCompartmentStyle" xmi:id="_4N2u2P0FEduT9MDCYvJ-BQ"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLShapeStyle" xmi:id="_4Nka8f0FEduT9MDCYvJ-BQ"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=AbstractTraversalStrategy%5Bjcu%5Ename=AbstractTraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4Nka8v0FEduT9MDCYvJ-BQ" x="8876" y="7608"/>
+  </children>
+  <styles xmi:type="umlnotation:UMLDiagramStyle" xmi:id="_SH6Sgf0FEduT9MDCYvJ-BQ"/>
+  <element xsi:nil="true"/>
+  <edges xmi:id="_bPKK4P0FEduT9MDCYvJ-BQ" source="_TBTYoP0FEduT9MDCYvJ-BQ" target="_bMMWfP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_bPKK4_0FEduT9MDCYvJ-BQ" type="KindLabel">
+      <children xmi:id="_bPKK5f0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_bPKK5_0FEduT9MDCYvJ-BQ" type="Kind"/>
+      <children xmi:id="_bPKK5v0FEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bPKK5P0FEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_bPKK4f0FEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=IBatchValidator%5Bjcu%5Ename=IBatchValidator.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Usage"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bPKK4v0FEduT9MDCYvJ-BQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+  <edges xmi:id="_bPQRgP0FEduT9MDCYvJ-BQ" type="OwnedElement" source="_bMMWfP0FEduT9MDCYvJ-BQ" target="_bMMWcP0FEduT9MDCYvJ-BQ">
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_bPQRgf0FEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bPQRgv0FEduT9MDCYvJ-BQ" points="[-2354, 714, -1005, -8837]$[-3622, 714, -2273, -8837]$[-3622, 9366, -2273, -185]$[-2672, 9366, -1323, -185]"/>
+  </edges>
+  <edges xmi:id="_bPQRg_0FEduT9MDCYvJ-BQ" type="OwnedElement" source="_bMMWfP0FEduT9MDCYvJ-BQ" target="_bMYjsP0FEduT9MDCYvJ-BQ">
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_bPQRhP0FEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bPQRhf0FEduT9MDCYvJ-BQ" points="[2461, 714, 1111, -8837]$[3704, 714, 2354, -8837]$[3704, 9472, 2354, -79]$[2302, 9472, 952, -79]"/>
+  </edges>
+  <edges xmi:id="_4RM9wP0FEduT9MDCYvJ-BQ" source="_bMMWcP0FEduT9MDCYvJ-BQ" target="_4Nka8P0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_4RM9w_0FEduT9MDCYvJ-BQ" type="NameLabel">
+      <children xmi:id="_4RM9xf0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_4RM9xv0FEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4RM9xP0FEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_4RM9wf0FEduT9MDCYvJ-BQ" routing="Tree" showStereotype="Text"/>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=Recursive%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=AbstractTraversalStrategy%5Bjcu%5Ename=AbstractTraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4RM9wv0FEduT9MDCYvJ-BQ" points="[-344, 529, -1984, -3440]$[-344, 1508, -1984, -2461]"/>
+  </edges>
+  <edges xmi:id="_4RM9x_0FEduT9MDCYvJ-BQ" source="_bMYjsP0FEduT9MDCYvJ-BQ" target="_4Nka8P0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_4RM9yv0FEduT9MDCYvJ-BQ" type="NameLabel">
+      <children xmi:id="_4RM9zP0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_4RM9zf0FEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4RM9y_0FEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_4RM9yP0FEduT9MDCYvJ-BQ" routing="Tree" showStereotype="Text"/>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=Flat%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=AbstractTraversalStrategy%5Bjcu%5Ename=AbstractTraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4RM9yf0FEduT9MDCYvJ-BQ" points="[185, 529, 1244, -3440]$[185, 1508, 1244, -2461]"/>
+  </edges>
+  <edges xmi:id="_4RM9zv0FEduT9MDCYvJ-BQ" source="_4Nka8P0FEduT9MDCYvJ-BQ" target="_bMMWfP0FEduT9MDCYvJ-BQ">
+    <children xmi:id="_4RM90f0FEduT9MDCYvJ-BQ" type="NameLabel">
+      <children xmi:id="_4RM90_0FEduT9MDCYvJ-BQ" type="Stereotype"/>
+      <children xmi:id="_4RM91P0FEduT9MDCYvJ-BQ" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4RM90v0FEduT9MDCYvJ-BQ" y="-186"/>
+    </children>
+    <styles xmi:type="umlnotation:UMLConnectorStyle" xmi:id="_4RM9z_0FEduT9MDCYvJ-BQ" routing="Rectilinear" showStereotype="Text"/>
+    <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=AbstractTraversalStrategy%5Bjcu%5Ename=AbstractTraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=ITraversalStrategy%5Bjcu%5Ename=ITraversalStrategy.java%5Bjpack%5Ename=org.eclipse.emf.validation.service%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=org.eclipse.emf.validation%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4RM90P0FEduT9MDCYvJ-BQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+  </edges>
+</notation:Diagram>

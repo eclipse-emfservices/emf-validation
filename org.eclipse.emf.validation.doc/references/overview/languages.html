@@ -3,10 +3,88 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="Stylesheet" type="text/css" href="doc.css" />
-<title></title>
+<title>Constraint Languages</title>
 </head>
 <body>
-<h1><a name="top"></a></h1>
+<h1><a name="top">Constraint Languages</a></h1>
+
+<p>
+Out of the box, the EMF Validation Framework provides support for defining constraints in
+two languages:  Java and OCL.  Clients can plug in additional languages by providing
+constraint parsers on the
+<a href="../extension-points/org_eclipse_emf_validation_constraintParsers.html"><em class="CodeName">org.eclipse.emf.validation.constraintParsers</em></a>
+extension point.  Extension associate an implementation of the
+<a href="../javadoc/org/eclipse/emf/validation/service/IConstraintParser.html"><em class="CodeName">IConstraintParser</em></a>
+interface with an unique language name.
+</p>
+
+<blockquote>
+	<img src="images/parser.png" alt="Constraint Parser API"/><br/>
+	<font size="-2">[<a href="images/parser.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+The <em class="CodeName">IConstraintParser</em> interface exists to unify the deprecated
+<em class="CodeName">IXmlConstraintParser</em> and new
+<a href="../javadoc/org/eclipse/emf/validation/service/IParameterizedConstraintParser.html"><em class="CodeName">IParameterizedConstraintParser</em></a>
+interfaces.  A constraint parser accepts an
+<a href="../javadoc/org/eclipse/emf/validation/service/IParameterizedConstraintDescriptor.html"><em class="CodeName">IParameterizedConstraintDescriptor</em></a>
+bearing its language and parameters which a
+<a href="dynamicProviders.html">constraint provider</a> will supply according to what the
+language requires.  If the descriptor supplied by a constraint provider does not have all of
+the parameters required by the constraint parser, it should throw a
+<a href="../javadoc/org/eclipse/emf/validation/xml/ConstraintParserException.html"><em class="CodeName">ConstraintParserException</em></a>.
+</p><p>
+The following example is the framework's OCL constraint parser, from the
+<em class="CodeName">org.eclipse.emf.validation.ocl</em> plug-in:
+</p>
+<pre class="Code">
+	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor desc) {
+		return new EcoreOCLConstraint(desc);
+	}
+</pre>
+<p>
+</p>
+
+<pre class="Code">
+public class OCLConstraintParser implements <b>IParameterizedConstraintParser</b> {
+	public IModelConstraint <b>parseConstraint</b>(IParameterizedConstraintDescriptor desc) {
+		return new EcoreOCLConstraint(desc);
+	}
+	
+    private static class EcoreOCLConstraint
+            extends AbstractOCLModelConstraint&lt;EClassifier, Constraint, EClass, EObject&gt; {
+        
+        EcoreOCLConstraint(IConstraintDescriptor descriptor) {
+            super(descriptor);
+        }
+        
+        @Override
+        protected EcoreEnvironmentFactory createOCLEnvironmentFactory() {
+            return EcoreEnvironmentFactory.INSTANCE;
+        }
+    }
+}
+</pre>
+
+<p>
+The <a href="../javadoc/org/eclipse/emf/validation/ocl/AbstractOCLModelConstraint.html"><em class="CodeName">AbstractOCLModelConstraint</em></a>
+class obtains an OCL expression from the <em class="CodeName">body</em> attribute of the
+constraint descriptor and parses it in the context of the <em class="CodeName">EClass</em>(es)
+that the constraint targets.  The framework's implementation assumes a basic Ecore environment.
+Clients may define their own variants of the OCL language, via constraint parsers that create
+custom subclasses of the <em class="CodeName">AbstractOCLModelConstraint</em>, in order to
+</p>
+<ul>
+  <li>use a different environment implementation (e.g., for the UML metamodel)</li>
+  <li>introduce custom ("global") variables</li>
+  <li>to use an OCL environment that includes additional operations and/or attributes,
+      themselves defined using OCL</li>
+</ul>
+<p>
+See the <a href="../../../org.eclipse.ocl.doc/references/overview/parsingConstraints.html">MDT OCL Programmer's Guide</a>
+for more information about working with OCL.
+</p>
 
 <hr/>
 <p>

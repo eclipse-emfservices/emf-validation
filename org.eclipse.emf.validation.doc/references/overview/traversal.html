@@ -3,10 +3,88 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="Stylesheet" type="text/css" href="doc.css" />
-<title></title>
+<title>Traversal Strategies</title>
 </head>
 <body>
-<h1><a name="top"></a></h1>
+<h1><a name="top">Traversal Strategies</a></h1>
+
+<p>
+The batch validator, by default, recursively validates the content tree of the
+<em class="CodeName">EObject</em>s that are presented to it for validation.  However,
+a model may not necessarily be hierarchically structured, but may have a flat or highly
+cross-referenced structure.  At its logical extreme, it may be normal for instances of a
+model to be distributed across a considerable number of resources, even with just one
+element in each resource.  To support models like this, clients can define
+<em class="UILabel">traversal strategies</em> to help the validator to discover the
+graph of related elements to validate.
+</p>
+
+<blockquote>
+	<img src="images/traversal.png" alt="Traversal Strategy API"/><br/>
+	<font size="-2">[<a href="images/traversal.svg">as SVG</a>]</font>
+</blockquote>
+
+<p>
+An <a href="../javadoc/org/eclipse/emf/validation/service/ITraversalStrategy.html"><em class="CodeName">ITraversalStrategy</em></a>
+is basically an iterator, providing some additional context information and controls.
+In fact, clients are encouraged to extend the
+<a href="../javadoc/org/eclipse/emf/validation/service/AbstractTraversalStrategy.html"><em class="CodeName">AbstractTraversalStrategy</em></a>
+class because it requires simply an estimate of the amount of work (for the progress monitor)
+and an iterator that supplies the elements to validate, in sequence.
+</p><p>
+When the validation operation begins, the framework first calls the
+<em class="CodeName">startTraversal(Collection, IProgressMonitor)</em> method, providing the
+elements serving as roots of the traversal (e.g., the user's selection in the UI) and the
+progress monitor.  Then, the <em class="CodeName">hasNext()</em> and
+<em class="CodeName">next()</em> are used in the usual way as for iterators to obtain
+elements to validate.  After each element is validated, the framework calls the
+<em class="CodeName">elementValidated()</em> method, indicating the result of the element
+validation in case that might influence the subsequent traversal.
+</p><p>
+The final consideration concerns <a href="bindings.html">client contexts</a>.  With each
+element that it provides, the traversal strategy is asked whether it is in a different
+client context than the one before.  This is the trigger for the framework to recompute
+the client context, which can be a computationally expensive operation.  In general, it
+makes sense to recompute the client context when the traversal follows a cross-reference
+(non-containment) but not when it follows a containment reference.
+</p>
+
+<h2>Using Traversal Strategies</h2>
+
+<p>
+An <a href="../javadoc/org/eclipse/emf/validation/service/IBatchValidator.html"><em class="CodeName">IBatchValidator</em></a>
+can be configured with a traversal strategy.  The framework provides two default implementations
+as inner classes of the <em class="CodeName">ITraversalStrategy</em> class:  the
+<em class="CodeName">Flat</em> and <em class="CodeName">Recursive</em> strategies.  The
+latter traverses the content trees of the traversal roots, while the latter only returns
+those roots without descending into their contents.
+</p><p>
+The default traversal strategy, where the client does not specify one explicitly, is a
+composite strategy that delegates to implementations registered on the
+<a href="../extension-points/org_eclipse_emf_validation_traversalStrategies.html"><em class="CodeName">org.eclipse.emf.validation.traversalStrategies</em></a>
+extension point.  Where it cannot find a delegate on the extension point, it uses the
+<em class="CodeName">ITraversalStrategy.Recursive</em> as a default.
+</p>
+<pre>
+   &lt;extension
+         point="<b>org.eclipse.emf.validation.traversal</b>"&gt;
+         
+      &lt;<b>traversalStrategy</b>
+            namespaceUri="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"
+            class="org.eclipse.example.validation.traversal.EXTLibraryTraversalStrategy"/&gt;
+         &lt;<b>eclass</b> name="Person" /&gt;
+         &lt;<b>eclass</b> name="Item" /&gt;
+      &lt;/traversalStrategy&gt;
+   &lt;/extension&gt;
+</pre>
+<p>
+This example shows an extension that declares a traversal strategy for the EXTLibrary
+meta-model.  It applies to traversals starting at <em class="CodeName">Person</em>s or
+<em class="CodeName">Item</em>s (rather than at libraries), perhaps because its purpose is
+to back-track to the nearest containing Library and start from there.  When traversal starts
+from a Library, this extension indicates that the default strategy (recursion over the
+containment tree) is sufficient.
+</p>
 
 <hr/>
 <p>

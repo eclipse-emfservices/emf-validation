@@ -3,8 +3,22 @@
 
 <toc label="EMF Validation Framework Developer Guide">
 	<anchor id="overviews-before" />
-	<topic label="Programmer&apos;s Guides">
-		<topic label="Validation Programmer&apos;s Guide" href="references/overview/ValidationOverview.html" />
+	<topic label="Programmer&apos;s Guide">
+		<topic label="Validation Framework Overview" href="references/overview/ValidationOverview.html" />
+		<topic label="The Validation Service" href="references/overview/invocation.html" />
+		<topic label="Contributing Constraints">
+			<topic label="Overview of Constraints" href="references/overview/constraints.html" />
+			<topic label="Static Constraint Providers" href="references/overview/staticProviders.html" />
+			<topic label="Dynamic Constraint Providers" href="references/overview/dynamicProviders.html" />
+			<topic label="Using OCL" href="references/overview/ocl.html" />
+		</topic>
+		<topic label="Binding Constraints to Applications" href="references/overview/bindings.html" />
+		<topic label="Validation Listeners and Problem Reporting" href="references/overview/listeners.html" />
+		<topic label="Advanced Topics">
+			<topic label="Constraint Languages" href="references/overview/languages.html" />
+			<topic label="Traversal Strategies" href="references/overview/traversal.html" />
+			<topic label="Defining Custom Notifications" href="references/overview/customNotifications.html" />
+		</topic>
 	</topic>
 	<anchor id="overviews-after" />
 
