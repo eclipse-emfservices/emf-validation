@@ -148,13 +148,20 @@ public final class MarkerUtil {
 		}
 		
 		if (file != null) {
-			if (!status.matches(IStatus.ERROR | IStatus.WARNING | IStatus.CANCEL)) {
-				return;
-			}
+			if (!status.matches(IStatus.INFO | IStatus.ERROR | IStatus.WARNING
+                | IStatus.CANCEL)) {
+                return;
+            }
 			
 			IMarker marker = file.createMarker(markerType);
 
 			switch (status.getSeverity()) {
+                case IStatus.INFO:
+                    marker.setAttribute(IMarker.SEVERITY,
+                        IMarker.SEVERITY_INFO);
+                    marker.setAttribute(IMarker.PRIORITY,
+                        IMarker.PRIORITY_LOW);
+                    break;
 				case IStatus.WARNING:
 					marker.setAttribute(IMarker.SEVERITY,
 						IMarker.SEVERITY_WARNING);
@@ -167,6 +174,7 @@ public final class MarkerUtil {
 						IMarker.SEVERITY_ERROR);
 					marker.setAttribute(IMarker.PRIORITY,
 						IMarker.PRIORITY_HIGH);
+                    break;
 			}
 
 			marker.setAttribute(IMarker.MESSAGE, status.getMessage());
