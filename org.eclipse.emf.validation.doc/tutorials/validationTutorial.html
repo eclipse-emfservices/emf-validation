@@ -435,7 +435,7 @@ class LiveValidationContentAdapter extends EContentAdapter {
 	public void notifyChanged(final Notification notification) {
 		super.notifyChanged(notification);
 		
-		if (validator == null)
+		if (validator == null) {
 			ILiveValidator validator = 
 				(ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 			
@@ -482,7 +482,7 @@ class LiveValidationContentAdapter extends EContentAdapter {
 		<hr />
 
 		<p>
-			<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000,2005 IBM Corporation and others. All Rights Reserved.</a>
+			<a href="http://www.eclipse.org/legal/epl-v10.html">Copyright (c) 2000, 2007 IBM Corporation and others. All Rights Reserved.</a>
 		</p>
 	</body>
 </html>
