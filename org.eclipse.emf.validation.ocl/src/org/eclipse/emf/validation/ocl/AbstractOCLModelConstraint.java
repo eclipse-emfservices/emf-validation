@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: AbstractOCLModelConstraint.java,v 1.2 2007/01/30 21:59:26 cdamus Exp $
+ * $Id: AbstractOCLModelConstraint.java,v 1.3 2007/05/24 20:54:26 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.ocl;
@@ -117,9 +117,9 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 
     /**
      * Obtains the cached OCL query/constraint that implements me for the
-     * specified EMF type.
+     * specified element's metaclass.
      * 
-     * @param eClass an EMF model object type
+     * @param target a model element
      * @return the corresponding OCL query
      */
     public Query<C, CLS, E> getConstraintCondition(EObject target) {

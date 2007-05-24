@@ -63,7 +63,7 @@ public abstract class AbstractModelConstraint {
 	 * cases, it can return a
 	 * {@link ConstraintStatus#createMultiStatus(IValidationContext, Collection) multi-status} of
 	 * multiple results created by the overloaded variants of the
-	 * {@link ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[]))}
+	 * {@link ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[])}
 	 * method.  In these cases, also, each resulting status can store a distinct
 	 * result locus.  For example:
 	 * </p>
@@ -111,7 +111,7 @@ public abstract class AbstractModelConstraint {
 	 *         
 	 * @see IValidationContext#createSuccessStatus()
 	 * @see IValidationContext#createFailureStatus(Object[])
-	 * @see ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[]))
+	 * @see ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[])
 	 * @see ConstraintStatus#createMultiStatus(IValidationContext, Collection)
 	 */
 	public abstract IStatus validate(IValidationContext ctx);

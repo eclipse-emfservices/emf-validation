@@ -60,7 +60,7 @@ public abstract class ConstraintFactory {
 	 * @return the corresponding constraint implementation
 	 * @see #createConstraint
 	 * 
-	 * @deprecated Use the {@link #newConstraint(IConstraintDescriptor)
+	 * @deprecated Use the {@link #newConstraint(IConstraintDescriptor)}
 	 *   method, instead
 	 */
 	public final IModelConstraint newConstraint(
@@ -80,7 +80,7 @@ public abstract class ConstraintFactory {
 	 * @param descriptor a descriptor of the constraint to be created
 	 * @return the appropriate implementation of the constraint
 	 * 
-	 * @deprecated Use the {@link #createConstraint(IConstraintDescriptor)
+	 * @deprecated Use the {@link #createConstraint(IConstraintDescriptor)}
 	 *   method, instead
 	 */
 	protected abstract IModelConstraint createConstraint(

@@ -22,8 +22,8 @@ import java.util.Collection;
  * <tt>eventTypes</tt> Eclipse extension point.
  * </p>
  * 
- * @see {@link EventTypeService#getNotificationGenerator(String)}
- * @see {@link EventTypeService#getNotificationGenerators()}
+ * @see EventTypeService#getNotificationGenerator(String)
+ * @see EventTypeService#getNotificationGenerators()
  *
  * @since 1.1
  *

@@ -173,7 +173,7 @@ public interface IConstraintDescriptor {
 	 * effect on constraints that are not {@link #isError() errored} and are
 	 * not in a {@link Category#isMandatory() mandatory} category.
 	 * 
-	 * @return whether the constraint that I represent is enabled
+	 * @param enabled whether the constraint that I represent is enabled
 	 * 
 	 * @see #isEnabled()
 	 */

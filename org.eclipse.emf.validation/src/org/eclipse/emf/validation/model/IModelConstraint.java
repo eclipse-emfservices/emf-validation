@@ -51,7 +51,7 @@ public interface IModelConstraint {
 	 * cases, it can return a
 	 * {@link ConstraintStatus#createMultiStatus(IValidationContext, Collection) multi-status} of
 	 * multiple results created by the overloaded variants of the
-	 * {@link ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[]))}
+	 * {@link ConstraintStatus#createStatus(IValidationContext, org.eclipse.emf.ecore.EObject, Collection, String, Object[])}
 	 * method.  In these cases, also, each resulting status can store a distinct
 	 * result locus.  For example:
 	 * </p>
@@ -99,7 +99,7 @@ public interface IModelConstraint {
 	 *         
 	 * @see IValidationContext#createSuccessStatus()
 	 * @see IValidationContext#createFailureStatus(Object[])
-	 * @see IValidationContext#createFailureStatus(int, int, String, Object[])
+	 * @see ConstraintStatus#createStatus(IValidationContext, org.eclipse.emf.ecore.EObject, Collection, String, Object[])
 	 */
 	IStatus validate(IValidationContext ctx);
 	

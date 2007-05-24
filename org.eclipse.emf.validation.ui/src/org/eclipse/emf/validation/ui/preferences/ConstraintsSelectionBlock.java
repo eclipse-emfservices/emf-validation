@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintsSelectionBlock.java,v 1.2 2007/05/02 21:38:36 cdamus Exp $
+ * $Id: ConstraintsSelectionBlock.java,v 1.3 2007/05/24 20:54:25 cdamus Exp $
  */
 package org.eclipse.emf.validation.ui.preferences;
 
@@ -380,7 +380,7 @@ public class ConstraintsSelectionBlock {
      * the composite based on the provided filter.
      *
      * @param parent parent for the newly created composite
-     * @result the resulting constraint selection composite
+     * @return the resulting constraint selection composite
      */
 	public Composite createComposite(Composite parent) {
 		SashForm result = new SashForm(parent, SWT.VERTICAL);

@@ -38,7 +38,8 @@ import org.eclipse.emf.validation.service.IValidator;
 
 /**
  * This class provides utility methods that aid in the creation of {@link IResource} markers
- *  ({@link IMarker}). Markers created by this utility will have the {@link ValidationMarkerResolution}
+ *  ({@link IMarker}). Markers created by this utility will have the
+ *  {@link org.eclipse.emf.validation.ui.ide.quickfix.ValidationMarkerResolution}
  *  registered as a resolution that simply disables the constraint unless they are using a
  *  marker subtype. In that case they will have to explicitly register the ValidationMarkerResolution
  *  against their marker type.
