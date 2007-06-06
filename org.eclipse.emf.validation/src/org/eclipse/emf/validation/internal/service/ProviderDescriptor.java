@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Radek Dvorak (Borland) - Bugzilla 165661
  ****************************************************************************/
 
 

@@ -9,10 +9,11 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Radek Dvorak (Borland) - Bugzilla 165458
  *
  * </copyright>
  *
- * $Id: AbstractOCLModelConstraint.java,v 1.3 2007/05/24 20:54:26 cdamus Exp $
+ * $Id: AbstractOCLModelConstraint.java,v 1.4 2007/06/06 22:28:11 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.ocl;

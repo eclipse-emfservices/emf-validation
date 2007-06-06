@@ -9,10 +9,11 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Radek Dvorak (Borland) - Bugzilla 165458
  *
  * </copyright>
  *
- * $Id: OCLConstraintParser.java,v 1.4 2007/01/30 21:59:26 cdamus Exp $
+ * $Id: OCLConstraintParser.java,v 1.5 2007/06/06 22:28:11 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.ocl;
