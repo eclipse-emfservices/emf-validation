@@ -105,8 +105,9 @@ public class EMFConstraintAdapter implements IModelConstraint {
 		} finally {
 			// clear this reference so that, if I am the last constraint to
 			//    be evaluated in the current validation operation, the
-			//    Aurora context can be GCed ASAP to free the EMF map
+			//    validation context can be GCed ASAP to free the EMF map
 			ctxAdapter.setAdaptedContext(null);
+			validationArgs[1] = null;
 		}
 	}
 	

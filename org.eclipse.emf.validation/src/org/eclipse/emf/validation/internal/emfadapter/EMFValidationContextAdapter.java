@@ -24,7 +24,7 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
 
 /**
- * An adapter from the the Aurora {@link IValidationContext} interface
+ * An adapter from the {@link IValidationContext} interface to
  * EMF API's validation context interface.  Essentially, I just shunt
  * {@link Diagnostic}s into the wrapped validation context.
  *
@@ -86,6 +86,7 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 	 */
 	void setAdaptedContext(IValidationContext adaptedContext) {
 		this.adaptedContext = adaptedContext;
+		this.lastStatus = null;  // clear the last status to free memory
 	}
 	
 	/**
