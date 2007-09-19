@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin.name
 Bundle-SymbolicName: org.eclipse.emf.validation.tests; singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.100.qualifier
 Bundle-Activator: org.eclipse.emf.validation.tests.TestPlugin
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
@@ -17,14 +17,16 @@ Export-Package: ordersystem,
  org.eclipse.emf.validation.internal.service.tests;x-internal:=true,
  org.eclipse.emf.validation.internal.util.tests;x-internal:=true,
  org.eclipse.emf.validation.internal.xml.tests;x-internal:=true,
+ org.eclipse.emf.validation.marker.tests,
  org.eclipse.emf.validation.tests,
  org.eclipse.emf.validation.tests.l10n
 Require-Bundle: org.eclipse.core.expressions;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)",
  org.junit;bundle-version="[3.8.1,4.0.0)",
  org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,3.0.0)",
- org.eclipse.emf.validation;bundle-version="1.1.1",
+ org.eclipse.emf.validation;bundle-version="1.1.100",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.validation.ui;bundle-version="1.0.1",
  org.eclipse.ui;bundle-version="[3.2.0,4.0.0)"
 Eclipse-LazyStart: true

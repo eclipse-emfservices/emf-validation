@@ -126,7 +126,7 @@ public final class MarkerUtil {
 				StringBuffer platformResourcePath = new StringBuffer();
 				for (int j = 1, size = uri.segmentCount(); j < size; ++j) {
 					platformResourcePath.append('/');
-					platformResourcePath.append(uri.segment(j));
+					platformResourcePath.append(URI.decode(uri.segment(j)));
 				}
 	
 				file = ResourcesPlugin.getWorkspace().getRoot().getFile(
@@ -135,7 +135,7 @@ public final class MarkerUtil {
 				StringBuffer fileResourcePath = new StringBuffer();
 				for (int j=1, size = uri.segmentCount(); j < size; ++j) {
 					fileResourcePath.append('/');
-					fileResourcePath.append(uri.segment(j));
+					fileResourcePath.append(URI.decode(uri.segment(j)));
 				}
 				
 				file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(
