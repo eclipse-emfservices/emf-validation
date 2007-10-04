@@ -213,11 +213,11 @@ if [[ ! -d $PWD/results ]]; then
 else
 # if the build failed for some reason, don't clean up!
 xmls=`find $PWD/results/xml -name "*.xml"`;
-testsFailed=0;
+testsFailed=1;
 for xml in $xmls; do
-	if [ $testsFailed -eq 0 ]; then
-		testsFailed=`cat $xml | grep -c "Failure"`
-		if [ $testsFailed -gt 0 ]; then
+	if [ $testsFailed -eq 1 ]; then
+		testsFailed=`cat $xml | grep -c "<testsuite errors=\"0\" failures=\"0\""`
+		if [ $testsFailed -lt 1 ]; then
 			echo "[relengbuild] Found test failure(s) in $xml!";
 			echo "[relengbuild] Creating 'noclean' file to prevent cleanup after build completes."
 			echo "1" > $PWD/../../../noclean;
