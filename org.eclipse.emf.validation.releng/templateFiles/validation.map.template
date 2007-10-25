@@ -14,6 +14,6 @@ feature@org.eclipse.emf.validation.sdk=@cvsTag@,@cvsRoot1@,,org.eclipse.emf/org.
 @entries@
 
 !*** EMF Examples plugins
-plugin@org.eclipse.emf.examples.library=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library
-plugin@org.eclipse.emf.examples.library.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library.edit
-plugin@org.eclipse.emf.examples.library.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library.editor
+plugin@org.eclipse.emf.examples.library=R2_3_1RC,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf/examples/org.eclipse.emf.examples.library
+plugin@org.eclipse.emf.examples.library.edit=R2_3_1RC,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emforg.eclipse.emf/examples/org.eclipse.emf.examples.library.edit
+plugin@org.eclipse.emf.examples.library.editor=R2_3_1RC,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emforg.eclipse.emf/examples/org.eclipse.emf.examples.library.editor
