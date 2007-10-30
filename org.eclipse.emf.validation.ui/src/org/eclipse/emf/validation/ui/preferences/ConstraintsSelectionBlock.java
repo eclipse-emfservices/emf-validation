@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintsSelectionBlock.java,v 1.3 2007/05/24 20:54:25 cdamus Exp $
+ * $Id: ConstraintsSelectionBlock.java,v 1.4 2007/10/30 15:28:03 cdamus Exp $
  */
 package org.eclipse.emf.validation.ui.preferences;
 
@@ -478,7 +478,7 @@ public class ConstraintsSelectionBlock {
 		data.right = new FormAttachment(100, 0);
 		prompt.setLayoutData(data);
 		
-		constraintList = CheckboxTableViewer.newCheckList(form, SWT.CHECK);
+		constraintList = CheckboxTableViewer.newCheckList(form, SWT.CHECK | SWT.BORDER);
 		data = new FormData();
 		data.top = new FormAttachment(prompt, 4);
 		data.left = new FormAttachment(0, 0);
