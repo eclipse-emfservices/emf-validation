@@ -46,6 +46,7 @@ public final class EMFModelValidationStatusCodes {
 	public static final int PROVIDER_NOT_INITED = 60;
 	public static final int PROVIDER_FAILURE = 61;
 	public static final int PROVIDER_NO_NAMESPACE_URI = 62;
+	public static final int PROVIDER_DUPLICATE_CONSTRAINT = 63;
 	
 	public static final int CONSTRAINT_NOT_INITED = 70;
 	public static final int CONSTRAINT_PARSER_NOT_INITED = 71;
@@ -96,6 +97,7 @@ public final class EMFModelValidationStatusCodes {
 	public static final String PROVIDER_NOT_INITED_MSG = ValidationMessages.provider_not_init_ERROR_;
 	public static final String PROVIDER_FAILURE_MSG = ValidationMessages.provider_failed_WARN_;
 	public static final String PROVIDER_NO_NAMESPACE_URI_MSG = ValidationMessages.provider_no_nsuri_ERROR_;
+    public static final String PROVIDER_DUPLICATE_CONSTRAINT_MSG = ValidationMessages.provider_dupe_constraint_WARN_;
 	
 	public static final String CONSTRAINT_NOT_INITED_MSG = ValidationMessages.constraint_not_init_WARN_;
 	public static final String TARGET_TYPE_NOT_FOUND_MSG = ValidationMessages.constraint_target_type_WARN_;

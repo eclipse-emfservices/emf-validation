@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@
 package org.eclipse.emf.validation.tests;
 
 import org.eclipse.core.runtime.Plugin;
+import org.osgi.framework.BundleContext;
 
 
 /**
@@ -28,10 +29,33 @@ import org.eclipse.core.runtime.Plugin;
 public class TestPlugin
 	extends Plugin {
 
+    private static LogCapture log;
+    
 	/**
 	 * Initializes me.
 	 */
 	public TestPlugin() {
 		super();
+	}
+	
+	public static LogCapture getLogCapture() {
+	    return log;
+	}
+	
+	public void start(BundleContext context)
+	    throws Exception {
+	    
+	    super.start(context);
+	    
+	    log = new LogCapture();
+	}
+	
+	public void stop(BundleContext context)
+	    throws Exception {
+	    
+	    log.stop();
+	    log = null;
+	    
+	    super.stop(context);
 	}
 }

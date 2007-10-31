@@ -28,6 +28,7 @@ import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.internal.util.ConstraintsConfigurationElement;
 import org.eclipse.emf.validation.internal.util.ConstraintsContentHandler;
+import org.eclipse.emf.validation.internal.util.Log;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.internal.util.XmlConfigurationElement;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
@@ -267,6 +268,12 @@ public class XmlConfig {
 							// shouldn't happen because I checked for existence
 							continue;
 						}
+					} else {
+					    // duplicate constraint case.  Log it
+                        Log.warningMessage(
+                            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT,
+                            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT_MSG,
+                            new Object[] {constraint.getId()});
 					}
 					
 					Category category = mgr.findCategory(path);

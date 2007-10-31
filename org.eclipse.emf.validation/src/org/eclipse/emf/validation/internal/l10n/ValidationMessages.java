@@ -46,6 +46,7 @@ public class ValidationMessages extends NLS {
 	public static String provider_not_init_ERROR_;
 	public static String provider_failed_WARN_;
 	public static String provider_no_nsuri_ERROR_;
+	public static String provider_dupe_constraint_WARN_;
 	public static String traversal_nonsuri_WARN_;
 	public static String traversal_noclass_WARN_;
 	public static String traversal_interface_ERROR_;

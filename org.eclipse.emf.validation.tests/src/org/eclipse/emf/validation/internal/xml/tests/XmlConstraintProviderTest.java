@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
@@ -38,6 +38,7 @@ import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
+import org.eclipse.emf.validation.tests.TestPlugin;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
 
 /**
@@ -181,4 +182,10 @@ public class XmlConstraintProviderTest extends TestBase {
 						ID_PREFIX + "product.live2", //$NON-NLS-1$
 					}));
 	}
+    
+    public void test_duplicateConstraintsLogged_207988() {
+        List statuses = TestPlugin.getLogCapture().getLogs(
+            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
+        assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
+    }
 }
