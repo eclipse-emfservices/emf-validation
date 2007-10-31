@@ -368,6 +368,12 @@ success = target.foo()
                <target class="ordersystem.special.LimitedEditionProduct" />
                true
             </constraint>
+            <!-- Deliberately declared duplicate constraint for bug 207988. -->
+            <constraint name="Qualified Test" mode="Batch" statusCode="1" lang="OCL" id="qualifiedName.test">
+               <message>Nothing to say.</message>
+               <target class="ordersystem.special.LimitedEditionProduct" />
+               true
+            </constraint>
          </constraints>
       </constraintProvider>
    </extension>
@@ -453,5 +459,15 @@ success = target.foo()
             featureSpecific="true"
             name="No notification Generator event">
       </eventType>
+   </extension>
+   <extension
+         point="org.eclipse.emf.validation.traversal">
+      <traversalStrategy
+            class="org.eclipse.emf.validation.internal.service.tests.ModelValidationServiceTest$TestTraversalStrategy"
+            namespaceUri="http:///ordersystem/special.ecore">
+         <eclass
+               name="PreferredCustomer">
+         </eclass>
+      </traversalStrategy>
    </extension>
 </plugin>

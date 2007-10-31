@@ -31,8 +31,13 @@ import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
 import ordersystem.impl.OrderImpl;
+import ordersystem.special.PreferredCustomer;
+import ordersystem.special.SpecialFactory;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -48,6 +53,7 @@ import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
+import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.CancelConstraint;
@@ -518,6 +524,98 @@ public class ModelValidationServiceTest extends TestBase {
                     ID_PREFIX + "order.notFilledBeforePlacement", //$NON-NLS-1$
             }));
     }
+    
+    /**
+     * Tests that the default recursive traversal strategy implementation does
+     * not repeatedly validate an element.
+     */
+    public void test_recursiveTraversalStrategy_207990() {
+        Collection objects = new java.util.ArrayList();
+        
+        Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
+        LineItem item1 = OrderSystemFactory.eINSTANCE.createLineItem();
+        
+        order1.getItem().add(item1);
+        
+        objects.add(item1);  // child element precedes ancestor
+        objects.add(order1);
+
+        Set visited = new java.util.HashSet();
+        ITraversalStrategy traversal = batchValidator.getDefaultTraversalStrategy();
+        
+        traversal.startTraversal(objects, new NullProgressMonitor());
+        while (traversal.hasNext()) {
+            EObject next = traversal.next();
+            assertTrue("Already traversed this element", visited.add(next)); //$NON-NLS-1$
+            traversal.elementValidated(next, Status.OK_STATUS);
+        }
+    }
+    
+    /**
+     * Tests that using the same batch validator twice in succession does not
+     * result in creation of new traversal strategies (from the extension point).
+     */
+    public void test_traversalStrategiesNotShared_sameValidator_207992() {
+        TestTraversalStrategy.reset();
+        
+        PreferredCustomer customer = SpecialFactory.eINSTANCE.createPreferredCustomer();
+        
+        IBatchValidator batchValidator1 =
+            (IBatchValidator) ModelValidationService.getInstance().newValidator(
+                EvaluationMode.BATCH);
+        
+        IBatchValidator batchValidator2 =
+            (IBatchValidator) ModelValidationService.getInstance().newValidator(
+                EvaluationMode.BATCH);
+        
+        batchValidator1.validate(customer);
+        
+        // sequential execution on same thread
+        batchValidator2.validate(customer);
+        
+        assertTrue(TestTraversalStrategy.wasUsed());
+        assertEquals(1, TestTraversalStrategy.getInstanceCount());
+    }
+    
+    /**
+     * Tests that two different batch validators do result in creation of
+     * distinct traversal strategy instances (from the extension point).
+     */
+    public void test_traversalStrategiesNotShared_differentValidators_207992() {
+        TestTraversalStrategy.reset();
+        
+        final PreferredCustomer customer = SpecialFactory.eINSTANCE.createPreferredCustomer();
+        
+        final IBatchValidator batchValidator1 =
+            (IBatchValidator) ModelValidationService.getInstance().newValidator(
+                EvaluationMode.BATCH);
+        final IBatchValidator batchValidator2 =
+            (IBatchValidator) ModelValidationService.getInstance().newValidator(
+                EvaluationMode.BATCH);
+        
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                batchValidator1.validate(customer);
+            }});
+        
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                batchValidator2.validate(customer);
+            }});
+        
+        t1.start();
+        t2.start();
+        
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            fail("Test was interrupted"); //$NON-NLS-1$
+        }
+        
+        assertTrue(TestTraversalStrategy.wasUsed());
+        assertEquals(2, TestTraversalStrategy.getInstanceCount());
+    }
         
     //
     // Framework methods
@@ -529,5 +627,57 @@ public class ModelValidationServiceTest extends TestBase {
         CancelConstraint.enabled = false;
         
         super.tearDown();
+    }
+    
+    public static class TestTraversalStrategy implements ITraversalStrategy {
+        static int instances = 0;
+        static boolean used;
+        
+        private final ITraversalStrategy delegate = new ITraversalStrategy.Recursive();
+        
+        public TestTraversalStrategy() {
+            synchronized (TestTraversalStrategy.class) {
+                instances++;
+            }
+        }
+        
+        synchronized static int getInstanceCount() {
+            return instances;
+        }
+        
+        synchronized static void reset() {
+            instances = 0;
+            used = false;
+        }
+        
+        synchronized static boolean wasUsed() {
+            return used;
+        }
+        
+        public void elementValidated(EObject element, IStatus status) {
+            delegate.elementValidated(element, status);
+        }
+
+        public boolean hasNext() {
+            return delegate.hasNext();
+        }
+
+        public boolean isClientContextChanged() {
+            return delegate.isClientContextChanged();
+        }
+
+        public EObject next() {
+            return delegate.next();
+        }
+
+        public void startTraversal(Collection traversalRoots,
+                IProgressMonitor monitor) {
+            synchronized (TestTraversalStrategy.class) {
+                used = true;
+            }
+            
+            delegate.startTraversal(traversalRoots, monitor);
+        }
+        
     }
 }
