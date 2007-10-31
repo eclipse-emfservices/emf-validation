@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2005 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 
@@ -188,22 +189,19 @@ public interface ITraversalStrategy {
 			//    that we include are not included, because they will be
 			//    traversed by recursion, anyway
 			
-			for (Iterator outer = objects.iterator(); outer.hasNext();) {
-				EObject outerNext = (EObject)outer.next();
-				
-				for (Iterator inner = result.iterator(); inner.hasNext();) {
-					EObject innerNext = (EObject)inner.next();
-					
-					if (EcoreUtil.isAncestor(innerNext, outerNext)) {
-						outerNext = null;  // forget this one
-						break;
-					}
-				}
-				
-				if (outerNext != null) {
-					result.add(outerNext);
-				}
-			}
+	        for (Iterator it = objects.iterator(); it.hasNext();) {
+	            EObject target = (EObject)it.next();
+	            
+	            // EcoreUtil uses the InternalEObject interface to check
+	            // containment, so we do the same.  Also, we kip up a level to
+	            // the immediate container for efficiency:  an object is its
+	            // own ancestor, so we can "pre-step" up a level to avoid the
+	            // cost of doing it individually for every miss in the collection
+	            if (!EcoreUtil.isAncestor(objects,
+	                ((InternalEObject) target).eInternalContainer())) {
+	                result.add(target);
+	            }
+	        }
 			
 			return result;
 		}};
