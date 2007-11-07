@@ -87,4 +87,14 @@ public class ConstraintChangeEvent {
 	public Category getCategory() {
 		return this.category;
 	}
+	
+	/**
+	 * Sets the constraint descriptor for re-use of an event instance in
+	 * bulk notifications.
+	 * 
+	 * @param constraint the descriptor to set
+	 */
+	void setConstraint(IConstraintDescriptor constraint) {
+	    this.constraint = constraint;
+	}
 }

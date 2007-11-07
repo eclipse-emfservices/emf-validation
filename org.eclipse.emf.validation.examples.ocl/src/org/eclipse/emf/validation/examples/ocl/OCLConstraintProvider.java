@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: OCLConstraintProvider.java,v 1.1 2007/05/07 16:12:12 cdamus Exp $
+ * $Id: OCLConstraintProvider.java,v 1.2 2007/11/07 17:30:16 cdamus Exp $
  */
 package org.eclipse.emf.validation.examples.ocl;
 
@@ -24,11 +24,14 @@ import java.util.Collection;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
+import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.ocl.OCLInput;
 import org.eclipse.ocl.ParserException;
 import org.eclipse.ocl.ecore.Constraint;
@@ -42,20 +45,21 @@ import org.osgi.framework.Bundle;
  * @author Christian W. Damus (cdamus)
  */
 public class OCLConstraintProvider extends AbstractConstraintProvider {
-	private static final String E_OCL = "ocl";
-	private static final String A_PATH = "path";
-	private static final String A_CATEGORY = "category";
+	private static final String E_OCL = "ocl"; //$NON-NLS-1$
+	private static final String A_PATH = "path"; //$NON-NLS-1$
+	private static final String A_CATEGORY = "category"; //$NON-NLS-1$
 	
-	public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
+	@Override
+    public void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		super.setInitializationData(config, propertyName, data);
 
 		// create the constraint category
 		String categoryID = config.getDeclaringExtension().getUniqueIdentifier();
 		if (categoryID == null) {
-			categoryID = "OCLProvider@" + Long.toHexString(System.identityHashCode(this));
+			categoryID = "OCLProvider@" + Long.toHexString(System.identityHashCode(this)); //$NON-NLS-1$
 		}
 		
-		categoryID = "emf-validation-example/" + categoryID;
+		categoryID = "emf-validation-example/" + categoryID; //$NON-NLS-1$
 		
 		Category category = CategoryManager.getInstance().getCategory(categoryID);
 		category.setName(config.getAttribute(A_CATEGORY));
@@ -74,6 +78,17 @@ public class OCLConstraintProvider extends AbstractConstraintProvider {
 						CategoryManager.getInstance().getCategory(category, ipath.lastSegment()),
 						contributor, path);
 			}
+		}
+		
+		try {
+		    registerConstraints(getConstraints());
+		} catch (ConstraintExistsException e) {
+		    throw new CoreException(new Status(
+		        IStatus.ERROR,
+		        OCLValidationExamplePlugin.getID(),
+		        1,
+		        "Registration of OCL constraints failed",
+		        e));
 		}
 	}
 	

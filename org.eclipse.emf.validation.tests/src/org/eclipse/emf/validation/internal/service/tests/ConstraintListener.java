@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintListener.java,v 1.1 2007/03/19 16:47:07 cdamus Exp $
+ * $Id: ConstraintListener.java,v 1.2 2007/11/07 17:30:08 cdamus Exp $
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
@@ -21,6 +21,7 @@ import org.eclipse.emf.validation.service.IConstraintListener;
 
 public class ConstraintListener implements IConstraintListener {
 
+    private int eventCount = 0;
 	private ConstraintChangeEvent lastEvent = null;
 	private boolean enabled = false;
 	
@@ -40,11 +41,16 @@ public class ConstraintListener implements IConstraintListener {
 	public void constraintChanged(ConstraintChangeEvent event) {
 		if (isEnabled()) {
 			this.lastEvent = event;
+			eventCount++;
 		}
 	}
 	
 	public ConstraintChangeEvent getLastEvent() {
 		return this.lastEvent;
+	}
+	
+	public int getEventCount() {
+	    return eventCount;
 	}
 	
 	public boolean isEnabled() {
@@ -57,6 +63,11 @@ public class ConstraintListener implements IConstraintListener {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public void reset() {
+	    lastEvent = null;
+	    eventCount = 0;
 	}
 	
 }

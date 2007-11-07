@@ -13,6 +13,7 @@
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
@@ -104,44 +105,55 @@ public class ConstraintRegistry {
 	 *     collection
 	 */
 	public Collection getAllDescriptors() {
-		return descriptors.values();
+	    synchronized (descriptors) {
+	        return new java.util.ArrayList(descriptors.values());
+	    }
 	}
 	
 	/**
-	 * Registers a new constraint descriptor.
+	 * Registers a constraint descriptor.
 	 * 
 	 * @param descriptor a new constraint descriptor, which must have a
 	 *     unique ID (not <code>null</code>)
-	 * @throws ConstraintExistsException if the <code>descriptor</code>'s ID
-	 *     already exists in the registry
+	 * @throws ConstraintExistsException if a different descriptor is already
+	 *     registered under the given <code>descriptor</code>'s ID
 	 */
 	public void register(IConstraintDescriptor descriptor)
 			throws ConstraintExistsException {
-		assert descriptor != null;
-		
-		if (descriptors.containsKey(descriptor.getId())) {
-			throw new ConstraintExistsException(descriptor.getId());
-		}
-		
-		descriptors.put(descriptor.getId(), descriptor);
-		
-		broadcastConstraintChangeEvent(new ConstraintChangeEvent(descriptor,
-				ConstraintChangeEventType.REGISTERED));
-	}
+	    
+	    boolean registered;
+	    
+	    synchronized (descriptors) {
+	        registered = doRegister(descriptor);
+	    }
+	    
+        if (registered) {
+            broadcastConstraintChangeEvent(new ConstraintChangeEvent(
+                descriptor, ConstraintChangeEventType.REGISTERED));
+        }
+    }
 	
 	/**
-	 * Unregisters an existing constraint descriptor.  This
-	 * <code>descriptor</code>'s ID will subsequently be available for re-use.
-	 * 
-	 * @param descriptor a constraint descriptor (not <code>null</code>)
-	 */
+     * Unregisters an existing constraint descriptor. This
+     * <code>descriptor</code>'s ID will subsequently be available for
+     * re-use.
+     * 
+     * @param descriptor
+     *            a constraint descriptor (not <code>null</code>)
+     */
 	public void unregister(IConstraintDescriptor descriptor) {
 		assert descriptor != null;
 		
-		descriptors.remove(descriptor.getId());
+		boolean unregistered;
 		
-		broadcastConstraintChangeEvent(new ConstraintChangeEvent(descriptor,
-				ConstraintChangeEventType.UNREGISTERED));
+		synchronized (descriptors) {
+		    unregistered = descriptors.remove(descriptor.getId()) != null;
+		}
+		
+		if (unregistered) {
+    		broadcastConstraintChangeEvent(new ConstraintChangeEvent(descriptor,
+    				ConstraintChangeEventType.UNREGISTERED));
+		}
 	}
 	
 	/**
@@ -263,5 +275,67 @@ public class ConstraintRegistry {
 					e);
 			}
 		}
+	}
+	
+	/**
+	 * Implements the registration of a constraint.  <b>This method requires
+	 * that the caller synchronize on the <tt>descriptors</tt> map</b>.
+	 * 
+	 * @param descriptor a descriptor to register
+	 * @return whether the descriptor was added to the registry or not
+	 *    (<code>false</code> in the case the same descriptor was already
+	 *    registered, which is OK)
+	 * 
+	 * @throws ConstraintExistsException if a different descriptor was already
+	 *    registered under the same ID
+	 */
+	private boolean doRegister(IConstraintDescriptor descriptor)
+            throws ConstraintExistsException {
+	    
+        boolean result = false;
+        String id = descriptor.getId();
+
+        Object existing = descriptors.get(id);
+
+        if (existing == null) {
+            result = true;
+            descriptors.put(id, descriptor);
+        } else if (existing != descriptor) {
+            throw new ConstraintExistsException(id);
+        }
+
+        return result;
+    }
+	
+	/**
+	 * Performs a bulk registration of constraints for efficiency.
+	 * 
+	 * @param constraints the constraints to register
+	 * 
+	 * @throws ConstraintExistsException if any constraint's ID is already
+	 *    registered under a different descriptor
+	 */
+	void bulkRegister(Collection constraints) throws ConstraintExistsException {
+	    Collection registered = new java.util.ArrayList(constraints.size());
+	    
+	    synchronized (descriptors) {
+    	    for (Iterator iter = constraints.iterator(); iter.hasNext();) {
+    	        IConstraintDescriptor next = (IConstraintDescriptor) iter.next();
+    	        
+    	        if (doRegister(next)) {
+    	            registered.add(next);
+    	        }
+    	    }
+	    }
+	    
+	    if (!registered.isEmpty()) {
+	        ConstraintChangeEvent event =
+	            new ConstraintChangeEvent(null, ConstraintChangeEventType.REGISTERED);
+	        
+    	    for (Iterator iter = registered.iterator(); iter.hasNext();) {
+    	        event.setConstraint((IConstraintDescriptor) iter.next());
+                broadcastConstraintChangeEvent(event);
+    	    }
+	    }
 	}
 }

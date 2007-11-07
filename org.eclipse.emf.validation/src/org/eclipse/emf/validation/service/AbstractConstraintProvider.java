@@ -52,7 +52,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * This class may be subclassed by clients of the validation framework.
  * </p>
  * 
- * @see org.eclipse.emf.validation.xml.XmlConstraintProvider
+ * @see AbstractConstraintDescriptor
  * 
  * @author Christian W. Damus (cdamus)
  */
@@ -210,7 +210,6 @@ public abstract class AbstractConstraintProvider
 		return myConstraints;
 	}
 	
-
 	/**
 	 * Obtains the namespace URIs of the EMF packages that I provide constraints
 	 * for.
@@ -342,5 +341,29 @@ public abstract class AbstractConstraintProvider
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Bulk-registers the specified constraints so that they are accessible to
+	 * applications via the {@link ConstraintRegistry} and are visible in the
+	 * preferences UI.
+	 * 
+	 * @param constraints the constraints to register
+	 * 
+	 * @throws ConstraintExistsException in case any of the constraints has an
+	 *     ID that is already registered for a different constraint
+	 * 
+	 * @since 1.2
+	 */
+	protected void registerConstraints(Collection constraints) throws ConstraintExistsException {
+	    if (!constraints.isEmpty()) {
+    	    List descriptors = new java.util.ArrayList(constraints.size());
+    	    
+    	    for (Iterator iter = constraints.iterator(); iter.hasNext();) {
+    	        descriptors.add(((IModelConstraint) iter.next()).getDescriptor());
+    	    }
+    	    
+    	    ConstraintRegistry.getInstance().bulkRegister(descriptors);
+	    }
 	}
 }

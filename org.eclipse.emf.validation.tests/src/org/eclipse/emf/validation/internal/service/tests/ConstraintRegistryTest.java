@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,12 +19,16 @@ package org.eclipse.emf.validation.internal.service.tests;
 
 import java.util.Collection;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.model.ConstraintSeverity;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
+import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
@@ -111,7 +115,8 @@ public class ConstraintRegistryTest extends TestBase {
 		//    occurs when necessary
 		
 		try {
-			ConstraintRegistry.getInstance().register(descriptor);
+		    FixtureDescriptor duplicate = new FixtureDescriptor(descriptor.getId());
+			ConstraintRegistry.getInstance().register(duplicate);
 			fail("ConstraintRegistry.register() did not throw."); //$NON-NLS-1$
 		} catch (ConstraintExistsException e) {
 			// success
@@ -135,7 +140,99 @@ public class ConstraintRegistryTest extends TestBase {
 			fail("ConstraintRegistry.register() should not have thrown."); //$NON-NLS-1$
 		}
 	}
+	
+	public void test_repeatedlyRegisterSameDescriptor() {
+        try {
+            ConstraintRegistry.getInstance().unregister(descriptor);
+            
+            ConstraintListener.getInstance().reset();
+            
+            ConstraintRegistry.getInstance().register(descriptor);
+            ConstraintRegistry.getInstance().register(descriptor);
+            ConstraintRegistry.getInstance().register(descriptor);
+            
+            // only one event sent
+            assertEquals(1, ConstraintListener.getInstance().getEventCount());
+        } catch (ConstraintExistsException e) {
+            // success
+            fail("ConstraintRegistry.register() should not have thrown: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        } catch (Exception e) {
+            fail("Unexpected exception type thrown by register(): " + e); //$NON-NLS-1$
+        }
+	}
+    
+    public void test_repeatedlyUnregisterSameDescriptor() {
+        ConstraintRegistry reg = ConstraintRegistry.getInstance();
 
+        try {
+            ConstraintListener.getInstance().reset();
+            
+            reg.unregister(descriptor);
+            reg.unregister(descriptor);
+            reg.unregister(descriptor);
+            
+            // only one event sent
+            assertEquals(1, ConstraintListener.getInstance().getEventCount());
+        } finally {
+            try {
+                reg.register(descriptor);
+            } catch (ConstraintExistsException e) {
+                fail("ConstraintRegistry.register() should not have thrown."); //$NON-NLS-1$
+            }
+        }
+    }
+	
+	public void test_bulkRegister() {
+        ConstraintListener.getInstance().reset();
+        
+        Collection constraints = new java.util.ArrayList();
+        constraints.add(new FixtureConstraint());
+        constraints.add(new FixtureConstraint());
+        constraints.add(new FixtureConstraint());
+        constraints.add(new FixtureConstraint());
+        
+        class ProviderAccess extends AbstractConstraintProvider {
+            public void registerConstraints(Collection constraints)
+                throws ConstraintExistsException {
+                super.registerConstraints(constraints);
+            }}
+        
+        try {
+            new ProviderAccess().registerConstraints(constraints);
+        } catch (ConstraintExistsException e) {
+            fail("Should not have thrown ConstraintExistsException: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        }
+        
+        // must get all events
+        assertEquals(constraints.size(), ConstraintListener.getInstance().getEventCount());
+	}
+
+	//
+	// Test fixtures
+	//
+    
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        ConstraintListener listener = ConstraintListener.getInstance();
+        ConstraintRegistry.getInstance().addConstraintListener(listener);
+        
+        listener.reset();
+        listener.setEnabled(true);
+    }
+    
+    protected void tearDown() throws Exception {
+        ConstraintListener listener = ConstraintListener.getInstance();
+        
+        listener.setEnabled(false);
+        listener.reset();
+        
+        ConstraintRegistry.getInstance().removeConstraintListener(listener);
+        
+        super.tearDown();
+    }
+	
+	
 	private static class FixtureDescriptor extends AbstractConstraintDescriptor {
 		private final String id;
 		
@@ -190,5 +287,19 @@ public class ConstraintRegistryTest extends TestBase {
 		public boolean targetsFeature(EObject eObject, String feature) {
 			return false;
 		}
+	}
+	
+	private static class FixtureConstraint implements IModelConstraint {
+	    private static int counter = 0;
+	    private final FixtureDescriptor desc = new FixtureDescriptor(
+	        descriptor.getId() + "$" + (counter++)); //$NON-NLS-1$
+	    
+        public IConstraintDescriptor getDescriptor() {
+            return desc;
+        }
+
+        public IStatus validate(IValidationContext ctx) {
+            return Status.OK_STATUS;
+        }
 	}
 }
