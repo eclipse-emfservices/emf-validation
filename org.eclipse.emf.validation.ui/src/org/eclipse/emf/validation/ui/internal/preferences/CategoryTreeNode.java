@@ -22,8 +22,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
+import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
@@ -197,8 +199,22 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
      * @param filter a filter that defines which constraints I am interested in	 
      * @return a suitable root node
 	 */
-	public static ICategoryTreeNode createRoot(CheckboxTreeViewer tree, IConstraintFilter filter) {
-		ICategoryTreeNode result = new RootNode(tree, filter);
+	public static ICategoryTreeNode createRoot(CheckboxTreeViewer tree, final IConstraintFilter filter) {
+	    // only show in the UI those constraints that are registered, because
+	    // otherwise the provider wanted to hide them and we couldn't manage
+	    // their preferences
+	    IConstraintFilter registeredOnly = new IConstraintFilter() {
+            public boolean accept(IConstraintDescriptor constraint, EObject target) {
+                if (ConstraintRegistry.getInstance().getDescriptor(
+                    constraint.getId()) == constraint) {
+                    
+                    return filter.accept(constraint, target);
+                }
+                
+                return false;
+            }};
+            
+		ICategoryTreeNode result = new RootNode(tree, registeredOnly);
 		
 		result.revertFromPreferences();
 		
