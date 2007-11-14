@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.util.Trace;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.util.FilteredCollection;
 
@@ -30,15 +31,17 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public abstract class AbstractGetConstraintsOperation implements IProviderOperation {
+public abstract class AbstractGetConstraintsOperation
+		implements IProviderOperation<Collection<IModelConstraint>> {
 	
 	/** The EMF object to be validated. */
 	private EObject eObject;
 
 	/** The constraints which I have gathered from providers. */
-	private final Collection myConstraints = new java.util.ArrayList();
+	private final Collection<IModelConstraint> myConstraints =
+		new java.util.ArrayList<IModelConstraint>();
 	
-	private Collection filteredConstraints;
+	private Collection<IModelConstraint> filteredConstraints;
 	
 	private AbstractValidationContext context;
 
@@ -86,14 +89,14 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 		// initialize the context now, if necessary
 		if (context == null) {
 			context = createContext();
-			filteredConstraints = new FilteredCollection(
+			filteredConstraints = new FilteredCollection<IModelConstraint>(
 					getUnfilteredConstraints(),
 					context.getConstraintFilter());
 		}
 	}
 	
 	// implements the interface method
-	public final Collection getConstraints() {
+	public final Collection<IModelConstraint> getConstraints() {
 		return filteredConstraints;
 	}
 
@@ -104,7 +107,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	 * 
 	 * @return my full collection of constraints
 	 */
-	protected Collection getUnfilteredConstraints() {
+	protected Collection<IModelConstraint> getUnfilteredConstraints() {
 		return myConstraints;
 	}
 	
@@ -117,7 +120,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	 * @param provider a constraint provider
 	 * @return my unmodifiable constraints collection
 	 */
-	public Object execute(IModelConstraintProvider provider) {
+	public Collection<IModelConstraint> execute(IModelConstraintProvider provider) {
 		Trace.entering(
 				EMFModelValidationDebugOptions.PROVIDERS,
 				getClass(),
@@ -153,5 +156,5 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	 */
 	protected abstract void executeImpl(
 			IModelConstraintProvider provider,
-			Collection constraints);
+			Collection<IModelConstraint> constraints);
 }

@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: MarkerUtilTest.java,v 1.1 2007/09/19 16:13:44 cdamus Exp $
+ * $Id: MarkerUtilTest.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.marker.tests;
@@ -88,6 +88,7 @@ public class MarkerUtilTest
     // Framework methods
     //
     
+    @Override
     protected void setUp()
         throws Exception {
         
@@ -120,6 +121,7 @@ public class MarkerUtilTest
         testResource.save(Collections.EMPTY_MAP);
     }
     
+    @Override
     protected void tearDown()
         throws Exception {
         

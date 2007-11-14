@@ -33,6 +33,7 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
  *     OCL, Java, and EMF languages) also implement
  *     <code>IParameterizedConstraintParser</code>.
  */
+@Deprecated
 public interface IXmlConstraintParser extends IConstraintParser {
 	/**
 	 * Parses the XML content of a constraint <code>descriptor</code> to create

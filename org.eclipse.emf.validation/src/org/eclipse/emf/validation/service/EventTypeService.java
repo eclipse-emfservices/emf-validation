@@ -43,13 +43,13 @@ public class EventTypeService {
 	private static final String A_FEATURE_SPECIFIC = "featureSpecific"; //$NON-NLS-1$
 	private static final String A_NOTIFICATION_GENERATOR = "notificationGenerator"; //$NON-NLS-1$
 	
-	private final Map notificationGenerators;
+	private final Map<String, INotificationGenerator> notificationGenerators;
 	
 	/**
 	 * Cannot be instantiated by clients.
 	 */
 	private EventTypeService() {
-		notificationGenerators = new HashMap();
+		notificationGenerators = new HashMap<String, INotificationGenerator>();
 	}
 
 	/**
@@ -79,18 +79,20 @@ public class EventTypeService {
 	public void configureEventTypes(IConfigurationElement[] elements) {
 		assert elements != null;
 
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i].getName().equals("eventType")) { //$NON-NLS-1$
+		for (IConfigurationElement element : elements) {
+			if (element.getName().equals("eventType")) { //$NON-NLS-1$
 				try {
-					String name = elements[i].getAttribute(A_NAME);
+					String name = element.getAttribute(A_NAME);
 					if ((name != null) && (name.length() > 0)) {
 						EMFEventType.addEventType(name,
-								Boolean.valueOf(elements[i].getAttribute(A_FEATURE_SPECIFIC)).booleanValue()
+								Boolean.valueOf(element.getAttribute(A_FEATURE_SPECIFIC)).booleanValue()
 								);
 						
-						String notificationGenerator = elements[i].getAttribute(A_NOTIFICATION_GENERATOR);
+						String notificationGenerator = element.getAttribute(A_NOTIFICATION_GENERATOR);
 						if ((notificationGenerator != null) && (notificationGenerator.length() > 0)) {
-							notificationGenerators.put(name, elements[i].createExecutableExtension(A_NOTIFICATION_GENERATOR));
+							notificationGenerators.put(
+								name,
+								(INotificationGenerator) element.createExecutableExtension(A_NOTIFICATION_GENERATOR));
 						}
 					}
 				} catch (CoreException e) {
@@ -107,7 +109,7 @@ public class EventTypeService {
 	 * 
 	 * @return collection of notification generators
 	 */
-	public Collection getNotificationGenerators() {
+	public Collection<INotificationGenerator> getNotificationGenerators() {
 		return Collections.unmodifiableCollection(notificationGenerators.values());
 	}
 	
@@ -120,6 +122,6 @@ public class EventTypeService {
 	 *         null otherwise
 	 */
 	public INotificationGenerator getNotificationGenerator(String eventName) {
-		return (INotificationGenerator)notificationGenerators.get(eventName);
+		return notificationGenerators.get(eventName);
 	}
 }

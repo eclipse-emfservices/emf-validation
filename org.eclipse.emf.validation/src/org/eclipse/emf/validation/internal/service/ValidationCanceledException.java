@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ValidationCanceledException.java,v 1.1 2007/03/29 16:50:25 cdamus Exp $
+ * $Id: ValidationCanceledException.java,v 1.2 2007/11/14 18:03:52 cdamus Exp $
  */
 package org.eclipse.emf.validation.internal.service;
 
@@ -29,6 +29,8 @@ import org.eclipse.core.runtime.IStatus;
  * @author Christian W. Damus (cdamus)
  */
 public class ValidationCanceledException extends RuntimeException {
+    private static final long serialVersionUID = -2541909077699487325L;
+    
     private final IStatus status;
     
     /**

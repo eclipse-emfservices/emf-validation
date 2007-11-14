@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,19 +20,14 @@ package ordersystem.impl;
 import ordersystem.Account;
 import ordersystem.Address;
 import ordersystem.Customer;
-
 import ordersystem.OrderSystemPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
@@ -101,7 +96,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 * @generated
 	 * @ordered
 	 */
-    protected Address billingAddress = null;
+    protected Address billingAddress;
 
 	/**
 	 * The cached value of the '{@link #getShippingAddress() <em>Shipping Address</em>}' containment reference.
@@ -111,7 +106,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 * @generated
 	 * @ordered
 	 */
-    protected Address shippingAddress = null;
+    protected Address shippingAddress;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,8 +122,9 @@ public class AccountImpl extends EObjectImpl implements Account {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getAccount();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.ACCOUNT;
 	}
 
 	/**
@@ -180,7 +176,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 */
     public Customer getOwner() {
 		if (eContainerFeatureID != OrderSystemPackage.ACCOUNT__OWNER) return null;
-		return (Customer)eContainer;
+		return (Customer)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOwner(Customer newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.ACCOUNT__OWNER, msgs);
+		return msgs;
 	}
 
 	/**
@@ -189,15 +195,15 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 * @generated
 	 */
     public void setOwner(Customer newOwner) {
-		if (newOwner != eContainer || (eContainerFeatureID != OrderSystemPackage.ACCOUNT__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.ACCOUNT__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, OrderSystemPackage.CUSTOMER__ACCOUNT, Customer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.ACCOUNT__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -292,70 +298,60 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ACCOUNT__OWNER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, OrderSystemPackage.ACCOUNT__OWNER, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ACCOUNT__OWNER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetOwner((Customer)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ACCOUNT__OWNER:
-					return eBasicSetContainer(null, OrderSystemPackage.ACCOUNT__OWNER, msgs);
-				case OrderSystemPackage.ACCOUNT__BILLING_ADDRESS:
-					return basicSetBillingAddress(null, msgs);
-				case OrderSystemPackage.ACCOUNT__SHIPPING_ADDRESS:
-					return basicSetShippingAddress(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ACCOUNT__OWNER:
+				return basicSetOwner(null, msgs);
+			case OrderSystemPackage.ACCOUNT__BILLING_ADDRESS:
+				return basicSetBillingAddress(null, msgs);
+			case OrderSystemPackage.ACCOUNT__SHIPPING_ADDRESS:
+				return basicSetShippingAddress(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case OrderSystemPackage.ACCOUNT__OWNER:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.CUSTOMER__ACCOUNT, Customer.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case OrderSystemPackage.ACCOUNT__OWNER:
+				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.CUSTOMER__ACCOUNT, Customer.class, msgs);
 		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.ACCOUNT__PAYMENT_METHOD:
 				return getPaymentMethod();
 			case OrderSystemPackage.ACCOUNT__ACCOUNT_NUMBER:
@@ -367,16 +363,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 			case OrderSystemPackage.ACCOUNT__SHIPPING_ADDRESS:
 				return getShippingAddress();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.ACCOUNT__PAYMENT_METHOD:
 				setPaymentMethod((String)newValue);
 				return;
@@ -393,16 +390,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 				setShippingAddress((Address)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ACCOUNT__PAYMENT_METHOD:
 				setPaymentMethod(PAYMENT_METHOD_EDEFAULT);
 				return;
@@ -419,16 +417,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 				setShippingAddress((Address)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ACCOUNT__PAYMENT_METHOD:
 				return PAYMENT_METHOD_EDEFAULT == null ? paymentMethod != null : !PAYMENT_METHOD_EDEFAULT.equals(paymentMethod);
 			case OrderSystemPackage.ACCOUNT__ACCOUNT_NUMBER:
@@ -440,13 +439,14 @@ public class AccountImpl extends EObjectImpl implements Account {
 			case OrderSystemPackage.ACCOUNT__SHIPPING_ADDRESS:
 				return shippingAddress != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

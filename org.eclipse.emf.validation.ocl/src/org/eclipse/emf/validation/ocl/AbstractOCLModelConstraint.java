@@ -13,7 +13,7 @@
  *
  * </copyright>
  *
- * $Id: AbstractOCLModelConstraint.java,v 1.4 2007/06/06 22:28:11 cdamus Exp $
+ * $Id: AbstractOCLModelConstraint.java,v 1.5 2007/11/14 18:03:54 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.ocl;
@@ -111,8 +111,9 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	 * @deprecated Override the {@link #createOCLEnvironmentFactory()} method,
      * instead.
 	 */
+	@Deprecated
 	protected org.eclipse.emf.ocl.parser.EnvironmentFactory createEnvironmentFactory() {
-        return org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory.ECORE_INSTANCE;
+        return org.eclipse.emf.ocl.parser.EnvironmentFactory.ECORE_INSTANCE;
     }
 
 
@@ -165,6 +166,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
      * 
      * @deprecated Use the {@link #getConstraintCondition(EObject)} method, instead.
 	 */
+	@Deprecated
 	public org.eclipse.emf.ocl.query.Query getCondition(EClass eClass) {
 		org.eclipse.emf.ocl.query.Query result = null;
 		
@@ -209,7 +211,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 			//   variable and result locus, as OCL has no way to provide
 			//   additional extractions.  Also, there is no way for the OCL
 			//   to access the context object
-			return ctx.createFailureStatus(new Object[]{target});
+			return ctx.createFailureStatus(target);
 		}
 	}
     

@@ -64,10 +64,12 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * weak map to avoid interfering with garbage-collection of EMF metamodels
 	 * (and to clean up the cache when metamodels disappear!).
 	 */
-	private final Map buckets = new java.util.WeakHashMap();
+	private final Map<EClass, EClassBucket> buckets =
+		new java.util.WeakHashMap<EClass, EClassBucket>();
 	
 	/** The cacheable providers. */
-	private final Collection providers = new java.util.ArrayList();
+	private final Collection<IProviderDescriptor> providers =
+		new java.util.ArrayList<IProviderDescriptor>();
 	
 	/**
 	 * A container for the constraints provided by all cacheable providers
@@ -76,8 +78,9 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class EClassBucket {
-		private Collection batchConstraints;
-		private final Map liveConstraints = new java.util.HashMap();
+		private Collection<IModelConstraint> batchConstraints;
+		private final Map<EMFEventType, Map<String, Collection<IModelConstraint>>>
+		liveConstraints = new java.util.HashMap<EMFEventType, Map<String, Collection<IModelConstraint>>>();
 		
 		/**
 		 * Initializes me.
@@ -92,7 +95,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 		 * @return my batch constraints, or <code>null</code> if they have not
 		 *    yet been retrieved from my registered providers
 		 */
-		Collection getBatchConstraints() {
+		Collection<IModelConstraint> getBatchConstraints() {
 			return batchConstraints;
 		}
 		
@@ -101,8 +104,8 @@ public class ConstraintCache implements IModelConstraintProvider {
 		 * 
 		 * @param constraints the batch constraints
 		 */
-		void cacheBatchConstraints(Collection constraints) {
-			batchConstraints = new java.util.ArrayList(constraints);
+		void cacheBatchConstraints(Collection<IModelConstraint> constraints) {
+			batchConstraints = new java.util.ArrayList<IModelConstraint>(constraints);
 		}
 		
 		/**
@@ -116,15 +119,16 @@ public class ConstraintCache implements IModelConstraintProvider {
 		 * @return the corresponding constraints, or <code>null</code> if they
 		 *     have not yet been retrieved from my registered providers
 		 */
-		Collection getLiveConstraints(EMFEventType eventType, String featureName) {
+		Collection<IModelConstraint> getLiveConstraints(EMFEventType eventType, String featureName) {
 			if (featureName == null) {
 				featureName = NOT_A_FEATURE_NAME;
 			}
 			
-			Map constraintMap = (Map)liveConstraints.get(eventType);
+			Map<String, Collection<IModelConstraint>> constraintMap =
+				liveConstraints.get(eventType);
 			
 			if (constraintMap != null) {
-				return (Collection)constraintMap.get(featureName);
+				return constraintMap.get(featureName);
 			} else {
 				return null;
 			}
@@ -143,22 +147,23 @@ public class ConstraintCache implements IModelConstraintProvider {
 		void cacheLiveConstraints(
 				EMFEventType eventType,
 				String featureName,
-				Collection constraints) {
+				Collection<IModelConstraint> constraints) {
 			
 			if (featureName == null) {
 				featureName = NOT_A_FEATURE_NAME;
 			}
 	
-			Map constraintMap = (Map)liveConstraints.get(eventType);
+			Map<String, Collection<IModelConstraint>> constraintMap =
+				liveConstraints.get(eventType);
 	
 			if (constraintMap == null) {
-				constraintMap = new java.util.HashMap();
+				constraintMap = new java.util.HashMap<String, Collection<IModelConstraint>>();
 				liveConstraints.put(eventType, constraintMap);
 			}
 			
 			constraintMap.put(
 					featureName,
-					new java.util.ArrayList(constraints));
+					new java.util.ArrayList<IModelConstraint>(constraints));
 		}
 		
 		/**
@@ -175,12 +180,8 @@ public class ConstraintCache implements IModelConstraintProvider {
 			}
 			
 			// replace in the live constraints, if appropriate
-			for (Iterator iter = liveConstraints.values().iterator(); iter.hasNext();) {
-				Map next = (Map) iter.next();
-				
-				for (Iterator nested = next.values().iterator(); nested.hasNext();) {
-					Collection constraints = (Collection) nested.next();
-					
+			for (Map<String, Collection<IModelConstraint>> next : liveConstraints.values()) {
+				for (Collection<IModelConstraint> constraints : next.values()) {
 					if ((constraints != null) && constraints.remove(oldConstraint)) {
 						constraints.add(newConstraint);
 					}
@@ -204,7 +205,8 @@ public class ConstraintCache implements IModelConstraintProvider {
 	public IProviderDescriptor getDescriptor() {
 		return new IProviderDescriptor() {
 			// the cache is assumed to always have an answer
-			public boolean provides(IProviderOperation operation) {
+			public boolean provides(
+					IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 				return true;
 			}
 
@@ -234,7 +236,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * 
 	 * @return the cached providers
 	 */
-	public Collection getProviders() {
+	public Collection<IProviderDescriptor> getProviders() {
 		return providers;
 	}
 
@@ -258,7 +260,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * @return the corresponding bucket
 	 */
 	private EClassBucket getBucket(EClass clazz) {
-		EClassBucket result = (EClassBucket)buckets.get(clazz);
+		EClassBucket result = buckets.get(clazz);
 		
 		if (result == null) {
 			result = new EClassBucket();
@@ -274,10 +276,9 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * @param operation the operation to execute
 	 * @return the constraints retrieved by the operation
 	 */
-	private Collection execute(AbstractGetConstraintsOperation operation) {
-		for (Iterator iter = getProviders().iterator(); iter.hasNext(); ) {
-			IProviderDescriptor next =
-				(IProviderDescriptor)iter.next();
+	private Collection<IModelConstraint> execute(AbstractGetConstraintsOperation operation) {
+		for (Iterator<IProviderDescriptor> iter = getProviders().iterator(); iter.hasNext(); ) {
+			IProviderDescriptor next = iter.next();
 
 			if (next.provides(operation)) {
 				try {
@@ -298,16 +299,16 @@ public class ConstraintCache implements IModelConstraintProvider {
 	}
 
 	// implements the interface method
-	public Collection getLiveConstraints(
+	public Collection<IModelConstraint> getLiveConstraints(
 			Notification notification,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		
 		assert notification != null;
 		
-		Collection result = constraints;
+		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList();
+			result = new java.util.ArrayList<IModelConstraint>();
 		}
 
 		if (notification.getNotifier() instanceof EObject) {
@@ -322,7 +323,8 @@ public class ConstraintCache implements IModelConstraintProvider {
 			}
 			
 			EClassBucket bucket = getBucket(eObject.eClass());
-			Collection cached = bucket.getLiveConstraints(eventType, featureName);
+			Collection<IModelConstraint> cached = bucket.getLiveConstraints(
+				eventType, featureName);
 			
 			if (cached == null) {
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.CACHE)) {
@@ -354,18 +356,18 @@ public class ConstraintCache implements IModelConstraintProvider {
 	}
 
 	// implements the interface method
-	public Collection getBatchConstraints(
+	public Collection<IModelConstraint> getBatchConstraints(
 			EObject eObject,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 
-		Collection result = constraints;
+		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList();
+			result = new java.util.ArrayList<IModelConstraint>();
 		}
 
 		EClassBucket bucket = getBucket(eObject.eClass());
-		Collection cached = bucket.getBatchConstraints();
+		Collection<IModelConstraint> cached = bucket.getBatchConstraints();
 		if (cached == null) {
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CACHE)) {
 				Trace.trace(
@@ -440,9 +442,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 		
 		// ask each bucket to replace the old constraint with the new, if
 		// that constraint is in that bucket
-		for (Iterator iter = buckets.values().iterator(); iter.hasNext();) {
-			EClassBucket next = (EClassBucket) iter.next();
-			
+		for (EClassBucket next : buckets.values()) {
 			next.replace(oldConstraint, newConstraint);
 		}
 	}

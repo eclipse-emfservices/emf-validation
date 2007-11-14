@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,6 +105,7 @@ public class ClientContextManagerTest
 				{"class", TestSelector.class.getName()}})); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected void setUp() {
 		// this setup effectively tests the configureBindings() method,
 		//    including the ability of the system to ignore
@@ -158,7 +159,7 @@ public class ClientContextManagerTest
 	
 	public void test_getBindings_eobject() {
 		IModelConstraint constraint = new TestConstraint();
-		Collection constraints = Collections.singleton(constraint);
+		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 		
 		assertTrue(mgr.getBindings(product, constraints).contains(constraint));
 		assertFalse(mgr.getBindings(order, constraints).contains(constraint));
@@ -166,14 +167,14 @@ public class ClientContextManagerTest
 	
 	public void test_getBindings_eobject_none() {
 		IModelConstraint constraint = new TestConstraint();
-		Collection constraints = Collections.singleton(constraint);
+		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 		
 		assertTrue(mgr.getBindings(order, constraints).isEmpty());
 	}
 	
 	public void test_getBindings_context() {
 		IModelConstraint constraint = new TestConstraint();
-		Collection constraints = Collections.singleton(constraint);
+		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 		
 		assertTrue(mgr.getBindings(ctx, constraints).contains(constraint));
 		assertFalse(mgr.getBindings(ctx2, constraints).contains(constraint));
@@ -181,12 +182,12 @@ public class ClientContextManagerTest
 	
 	public void test_getBindings_contexts() {
 		IModelConstraint constraint = new TestConstraint();
-		Collection constraints = Collections.singleton(constraint);
+		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 		
 		assertTrue(mgr.getBindings(
-			Arrays.asList(new Object[] {ctx, ctx2}), constraints).contains(constraint));
+			Arrays.asList(ctx, ctx2), constraints).contains(constraint));
 		assertFalse(mgr.getBindings(
-			Arrays.asList(new Object[] {ctx2, ctx2}), constraints).contains(constraint));
+			Arrays.asList(ctx2, ctx2), constraints).contains(constraint));
 	}
 	
 	public void test_defaultBindings_context() {
@@ -211,7 +212,7 @@ public class ClientContextManagerTest
 					return descr;
 				}};
 			
-			Collection constraints = Collections.singleton(constraint);
+			Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 			
 			IClientContext junitCtx = mgr.getClientContext(JUNIT_CLIENT);
 			
@@ -244,11 +245,11 @@ public class ClientContextManagerTest
 					return descr;
 				}};
 			
-			Collection contexts = new java.util.ArrayList();
+			Collection<IClientContext> contexts = new java.util.ArrayList<IClientContext>();
 			contexts.add(ctx);
 			contexts.add(ctx2);
 			
-			Collection constraints = Collections.singleton(constraint);
+			Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 			
 			IClientContext junitCtx = mgr.getClientContext(JUNIT_CLIENT);
 			

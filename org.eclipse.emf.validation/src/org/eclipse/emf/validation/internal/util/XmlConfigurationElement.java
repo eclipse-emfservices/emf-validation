@@ -14,7 +14,6 @@ package org.eclipse.emf.validation.internal.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +27,10 @@ import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.osgi.framework.Bundle;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.util.XmlConfig;
+import org.osgi.framework.Bundle;
 
 /**
  * A custom implementation of the Eclipse configuration element API which is
@@ -48,8 +46,9 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	private final URL baseUrl;
 
 	private String value;
-	private final Map attributes;
-	private final List children = new java.util.ArrayList();
+	private final Map<String, String> attributes;
+	private final List<IConfigurationElement> children =
+		new java.util.ArrayList<IConfigurationElement>();
 	private Object parent;
 
 	/**
@@ -60,7 +59,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 * @param baseUrl the base of any relative URL of files that I load
 	 */
 	XmlConfigurationElement(String name, IExtension extension, URL baseUrl) {
-		this(name, new java.util.HashMap(), extension, baseUrl);
+		this(name, new java.util.HashMap<String, String>(), extension, baseUrl);
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 */
 	XmlConfigurationElement(
 			String name,
-			Map attributes,
+			Map<String, String> attributes,
 			IExtension extension,
 			URL baseUrl) {
 		this.myName = name;
@@ -111,7 +110,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	// implements the interface method
 	public String getAttribute(String name) {
-		return (String)attributes.get(name);
+		return attributes.get(name);
 	}
 
 	// implements the interface method
@@ -121,8 +120,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	// implements the interface method
 	public String[] getAttributeNames() {
-		return (String[])attributes.keySet()
-				.toArray(new String[attributes.size()]);
+		return attributes.keySet().toArray(new String[attributes.size()]);
 	}
 
 	/**
@@ -137,24 +135,21 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	// implements the interface method
 	public IConfigurationElement[] getChildren() {
-		return (IConfigurationElement[])children.toArray(
-				new IConfigurationElement[children.size()]);
+		return children.toArray(new IConfigurationElement[children.size()]);
 	}
 
 	// implements the interface method
 	public IConfigurationElement[] getChildren(String name) {
-		java.util.List result = new java.util.ArrayList(children.size());
+		java.util.List<IConfigurationElement> result =
+			new java.util.ArrayList<IConfigurationElement>(children.size());
 
-		for (Iterator iter = children.iterator(); iter.hasNext(); ) {
-			IConfigurationElement next = (IConfigurationElement)iter.next();
-
+		for (IConfigurationElement next : children) {
 			if (next.getName().equals(name)) {
 				result.add(next);
 			}
 		}
 
-		return (IConfigurationElement[])result.toArray(
-				new IConfigurationElement[result.size()]);
+		return result.toArray(new IConfigurationElement[result.size()]);
 	}
 
 	/**
@@ -217,9 +212,9 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 *     constraintses
 	 */
 	public void flatten(IConfigurationElement[] constraintses) throws CoreException {
-		for (int i = 0; i < constraintses.length; i++) {
-			flatten(constraintses[i]);
-			removeChild(constraintses[i]);
+		for (IConfigurationElement element : constraintses) {
+			flatten(element);
+			removeChild(element);
 		}
 	}
 
@@ -247,8 +242,8 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 *     files
 	 */
 	public void include(IConfigurationElement[] includes) throws CoreException {
-		for (int i = 0; i < includes.length; i++) {
-			include(includes[i]);
+		for (IConfigurationElement element : includes) {
+			include(element);
 		}
 	}
 
@@ -322,12 +317,13 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	private void absorb(IConfigurationElement includedConstraints) {
 		IConfigurationElement[] elements = includedConstraints.getChildren();
 		
-		for (int i = 0; i < elements.length; i++) {
-			addChild(elements[i]);
+		for (IConfigurationElement element : elements) {
+			addChild(element);
 		}
 	}
 
 	// redefines the inherited method
+	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer(64);
 

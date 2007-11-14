@@ -204,15 +204,15 @@ public class XmlConfig {
 		IConfigurationElement constraint,
 		String name) {
 		
-		List result = new java.util.ArrayList();
+		List<String> result = new java.util.ArrayList<String>();
 		
 		IConfigurationElement[] parms = constraint.getChildren(E_PARAM);
-		for (int i = 0; i < parms.length; i++) {
-			if (name.equals(parms[i].getAttribute(A_NAME))) {
-				String value = parms[i].getAttribute(A_VALUE);
+		for (IConfigurationElement element : parms) {
+			if (name.equals(element.getAttribute(A_NAME))) {
+				String value = element.getAttribute(A_VALUE);
 				
 				if (value == null) {
-					value = parms[i].getValue();
+					value = element.getValue();
 				}
 				
 				if (value != null) {
@@ -221,7 +221,7 @@ public class XmlConfig {
 			}
 		}
 		
-		return (String[])result.toArray(new String[result.size()]);
+		return result.toArray(new String[result.size()]);
 	}
 
 	/**
@@ -253,8 +253,8 @@ public class XmlConfig {
 			String path = tokens.nextToken().trim();
 			
 			if (path.length() > 0) {
-				for (int i = 0; i < children.length; i++) {
-					final String id = children[i].getAttribute(A_ID);
+				for (IConfigurationElement element : children) {
+					final String id = element.getAttribute(A_ID);
 					
 					IConstraintDescriptor constraint =
 						ConstraintRegistry.getInstance().getDescriptor(
@@ -263,7 +263,7 @@ public class XmlConfig {
 					
 					if (constraint == null) {
 						try {
-							constraint = new XmlConstraintDescriptor(children[i]);
+							constraint = new XmlConstraintDescriptor(element);
 						} catch (ConstraintExistsException e) {
 							// shouldn't happen because I checked for existence
 							continue;

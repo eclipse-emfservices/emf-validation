@@ -12,6 +12,9 @@
 
 package org.eclipse.emf.validation.internal.service;
 
+import java.util.Collection;
+
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
@@ -33,7 +36,8 @@ public interface IProviderDescriptor {
 	 * @return whether the provider has any chance of providing constraints
 	 *     for this context
 	 */
-	boolean provides(IProviderOperation operation);
+	boolean provides(
+			IProviderOperation<? extends Collection<? extends IModelConstraint>> operation);
 	
 	/**
 	 * Queries whether the system should cache constraints retrieved from

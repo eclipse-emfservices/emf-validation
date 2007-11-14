@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,27 +17,15 @@
 
 package ordersystem.special.impl;
 
-import java.util.Collection;
 import java.util.Date;
 
-import ordersystem.OrderSystem;
-import ordersystem.OrderSystemPackage;
-
 import ordersystem.impl.CustomerImpl;
-
 import ordersystem.special.PreferredCustomer;
 import ordersystem.special.SpecialPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,8 +75,9 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
-		return SpecialPackage.eINSTANCE.getPreferredCustomer();
+		return SpecialPackage.Literals.PREFERRED_CUSTOMER;
 	}
 
 	/**
@@ -117,85 +106,13 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, SpecialPackage.PREFERRED_CUSTOMER__OWNER, msgs);
-				case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-					return ((InternalEList)getAccount()).basicAdd(otherEnd, msgs);
-				case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-					return ((InternalEList)getOrder()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-					return eBasicSetContainer(null, SpecialPackage.PREFERRED_CUSTOMER__OWNER, msgs);
-				case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-					return ((InternalEList)getAccount()).basicRemove(otherEnd, msgs);
-				case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-					return ((InternalEList)getOrder()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystem.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.PREFERRED_CUSTOMER__LAST_NAME:
-				return getLastName();
-			case SpecialPackage.PREFERRED_CUSTOMER__FIRST_NAME:
-				return getFirstName();
-			case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-				return getOwner();
-			case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-				return getAccount();
-			case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-				return getOrder();
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
 				return getSince();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -203,30 +120,14 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.PREFERRED_CUSTOMER__LAST_NAME:
-				setLastName((String)newValue);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__FIRST_NAME:
-				setFirstName((String)newValue);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-				setOwner((OrderSystem)newValue);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-				getAccount().clear();
-				getAccount().addAll((Collection)newValue);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-				getOrder().clear();
-				getOrder().addAll((Collection)newValue);
-				return;
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
 				setSince((Date)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -234,28 +135,14 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.PREFERRED_CUSTOMER__LAST_NAME:
-				setLastName(LAST_NAME_EDEFAULT);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__FIRST_NAME:
-				setFirstName(FIRST_NAME_EDEFAULT);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-				setOwner((OrderSystem)null);
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-				getAccount().clear();
-				return;
-			case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-				getOrder().clear();
-				return;
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
 				setSince(SINCE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -263,22 +150,13 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.PREFERRED_CUSTOMER__LAST_NAME:
-				return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
-			case SpecialPackage.PREFERRED_CUSTOMER__FIRST_NAME:
-				return FIRST_NAME_EDEFAULT == null ? firstName != null : !FIRST_NAME_EDEFAULT.equals(firstName);
-			case SpecialPackage.PREFERRED_CUSTOMER__OWNER:
-				return getOwner() != null;
-			case SpecialPackage.PREFERRED_CUSTOMER__ACCOUNT:
-				return account != null && !account.isEmpty();
-			case SpecialPackage.PREFERRED_CUSTOMER__ORDER:
-				return order != null && !order.isEmpty();
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
 				return SINCE_EDEFAULT == null ? since != null : !SINCE_EDEFAULT.equals(since);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -286,6 +164,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

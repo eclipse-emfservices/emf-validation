@@ -16,7 +16,6 @@
  */
 package org.eclipse.emf.validation.ui.internal.preferences;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +66,7 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	 * 
 	 * @return my children
 	 */
-	protected abstract List createChildren();
+	protected abstract List<ICategoryTreeNode> createChildren();
 	
 	/**
 	 * Lazily initializes my children on first access.
@@ -76,9 +75,8 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	 */
 	private void initChildren() {
 		if (children == null) {
-			List childList = createChildren();
-			children = (ICategoryTreeNode[])childList.toArray(
-					new ICategoryTreeNode[childList.size()]);
+			List<ICategoryTreeNode> childList = createChildren();
+			children = childList.toArray(new ICategoryTreeNode[childList.size()]);
 		}
 	}
 	
@@ -96,8 +94,8 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 		if (result) {
 			// check children, too
 			
-			for (Iterator iter = cat.getChildren().iterator(); result && iter.hasNext();) {
-				result = isRecursivelyEmpty((Category) iter.next());
+			for (Category child : cat.getChildren()) {
+				result = isRecursivelyEmpty(child);
 			}
 		}
 		
@@ -115,12 +113,11 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
      * 
      * @since 1.1
      */
-    protected static Set getConstraints(Category category, IConstraintFilter filter) {
-        Set filteredConstraints = new java.util.HashSet();
+    protected static Set<IConstraintDescriptor> getConstraints(Category category, IConstraintFilter filter) {
+        Set<IConstraintDescriptor> filteredConstraints =
+        	new java.util.HashSet<IConstraintDescriptor>();
         
-        for (Iterator iter = category.getConstraints().iterator(); iter.hasNext();) {
-            IConstraintDescriptor descriptor = (IConstraintDescriptor)iter.next();
-            
+        for (IConstraintDescriptor descriptor : category.getConstraints()) {
             if (filter.accept(descriptor, null)) {
                 filteredConstraints.add(descriptor);
             }
@@ -169,8 +166,8 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	public void applyToPreferences() {
 		ICategoryTreeNode[] currentChildren = getChildren();
 		
-		for (int i = 0; i < currentChildren.length; i++) {
-			currentChildren[i].applyToPreferences();
+		for (ICategoryTreeNode element : currentChildren) {
+			element.applyToPreferences();
 		}
 	}
 	
@@ -178,8 +175,8 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	public void revertFromPreferences() {
 		ICategoryTreeNode[] currentChildren = getChildren();
 		
-		for (int i = 0; i < currentChildren.length; i++) {
-			currentChildren[i].revertFromPreferences();
+		for (ICategoryTreeNode element : currentChildren) {
+			element.revertFromPreferences();
 		}
 	}
 
@@ -187,8 +184,8 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	public void restoreDefaults() {
 		ICategoryTreeNode[] currentChildren = getChildren();
 		
-		for (int i = 0; i < currentChildren.length; i++) {
-			currentChildren[i].restoreDefaults();
+		for (ICategoryTreeNode element : currentChildren) {
+			element.restoreDefaults();
 		}
 	}
 	
@@ -200,6 +197,7 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 	}
 	
 	// redefines the inherited method
+	@Override
 	public String toString() {
 		return (getCategory() == null)
 			? "" //$NON-NLS-1$

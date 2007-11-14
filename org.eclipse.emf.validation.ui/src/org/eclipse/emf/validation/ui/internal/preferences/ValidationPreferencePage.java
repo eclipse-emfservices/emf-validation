@@ -52,6 +52,7 @@ public class ValidationPreferencePage
 	/**
      * The field editors for this preference page are inserted in this method.
      */
+    @Override
     protected void createFieldEditors() {
         final Composite parent = getFieldEditorParent();
         Composite panel = new Composite(parent, SWT.NONE);
@@ -77,7 +78,8 @@ public class ValidationPreferencePage
 	 * Extends the inherited method to set up the enablement of the checkboxes
 	 * according to the current preference settings.
 	 */
-	protected void initialize() {
+	@Override
+    protected void initialize() {
 		super.initialize();
 		
         // initialize the enablement of the checkboxes after the current
@@ -110,7 +112,8 @@ public class ValidationPreferencePage
         		{ValidationUIMessages.Validation_liveValidationDestination_consoleComboItem, ValidationLiveProblemsDestination.CONSOLE.getName()}},
 			outerComposite) {
         	
-        	protected void fireValueChanged(String property, Object oldValue, Object newValue) {
+        	@Override
+            protected void fireValueChanged(String property, Object oldValue, Object newValue) {
         		super.fireValueChanged(property, oldValue, newValue);
         		setCheckboxesEnablement((String)newValue);
         	}
@@ -125,7 +128,8 @@ public class ValidationPreferencePage
                 ValidationUIMessages.Validation_liveValidationWarnDialogPrompt,
                 innerComposite1) {
         	
-        	protected void fireStateChanged(String property, boolean oldValue, boolean newValue) {
+        	@Override
+            protected void fireStateChanged(String property, boolean oldValue, boolean newValue) {
         		setCheckboxesEnablement(null);
         	}
         };
@@ -169,6 +173,7 @@ public class ValidationPreferencePage
      * 
      * @return IPreferenceStore the returned preference store
      */
+    @Override
     protected IPreferenceStore doGetPreferenceStore() {
         return ValidationUIPlugin.getPlugin().getPreferenceStore();
     }
@@ -186,6 +191,7 @@ public class ValidationPreferencePage
      * <P>Looking at the samples, I don't think they expect this
      * to be false.
      */
+    @Override
     public boolean performOk() {
         super.performOk();
         

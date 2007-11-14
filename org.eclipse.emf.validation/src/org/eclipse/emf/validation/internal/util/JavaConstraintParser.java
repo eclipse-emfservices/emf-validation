@@ -49,7 +49,8 @@ public class JavaConstraintParser
 	 * the single-instance model of {@link AbstractModelConstraint} any class
 	 * implementing one or more ad hoc validation method signatures.
 	 */
-	private static final Map constraintImplementationMap = new java.util.HashMap();
+	private static final Map<Class<?>, Object> constraintImplementationMap =
+		new java.util.HashMap<Class<?>, Object>();
 	
 	/**
 	 * Adapts instances of {@link AbstractModelConstraint} to the internal
@@ -112,6 +113,7 @@ public class JavaConstraintParser
 				descriptor);
 	}
     
+	@SuppressWarnings("deprecation")
     public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
         throws ConstraintParserException {
         
@@ -155,7 +157,7 @@ public class JavaConstraintParser
 		Bundle bundle = Platform.getBundle(bundleName);
 		
 		try {
-			Class resultType = bundle.loadClass(className);
+			Class<?> resultType = bundle.loadClass(className);
 
 			if (AbstractModelConstraint.class.isAssignableFrom(resultType)) {
 				// instantiate the class extending AbstractModelConstraint
@@ -212,7 +214,7 @@ public class JavaConstraintParser
 	 * @throws IllegalAccessException if the instance needs to be created
 	 *     and the default constructor is not accessible
 	 */
-	static Object getInstance(Class constraintClass)
+	static Object getInstance(Class<?> constraintClass)
 			throws InstantiationException, IllegalAccessException {
 		
 		Object result = constraintImplementationMap.get(constraintClass);

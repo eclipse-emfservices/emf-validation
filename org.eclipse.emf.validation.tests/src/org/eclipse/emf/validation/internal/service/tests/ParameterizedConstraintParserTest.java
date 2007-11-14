@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2006 IBM Corporation and others.
+ * Copyright (c) 2006, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,11 +12,10 @@
  *
  * </copyright>
  *
- * $Id: ParameterizedConstraintParserTest.java,v 1.2 2006/12/01 00:23:37 cdamus Exp $
+ * $Id: ParameterizedConstraintParserTest.java,v 1.3 2007/11/14 18:03:42 cdamus Exp $
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 import ordersystem.Order;
@@ -79,7 +78,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				statuses,
-				Arrays.asList(new String[] {TEST_ID1}));
+				TEST_ID1);
 		
 		IStatus status = getStatus(statuses, TEST_ID1);
 		
@@ -109,7 +108,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				statuses,
-				Arrays.asList(new String[] {TEST_ID2}));
+				TEST_ID2);
 		
 		IStatus status = getStatus(statuses, TEST_ID2);
 		
@@ -138,7 +137,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				statuses,
-				Arrays.asList(new String[] {ID_PREFIX + "order.newParserAPI"})); //$NON-NLS-1$
+				ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
 		
 		IStatus status = getStatus(statuses, ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
 		
@@ -200,6 +199,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 	public static final class JavaConstraint extends AbstractModelConstraint {
 		static boolean enabled = false;
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			assertTrue(ctx.getTarget() instanceof Order);
 			
@@ -251,7 +251,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			return "Test constraint"; //$NON-NLS-1$
 		}
 
-		public EvaluationMode getEvaluationMode() {
+		public EvaluationMode<?> getEvaluationMode() {
 			return EvaluationMode.BATCH;
 		}
 

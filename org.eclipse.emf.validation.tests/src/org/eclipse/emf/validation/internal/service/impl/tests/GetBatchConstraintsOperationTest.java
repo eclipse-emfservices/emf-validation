@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import ordersystem.OrderSystemFactory;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.validation.internal.service.GetBatchConstraintsOperation;
+import org.eclipse.emf.validation.model.IModelConstraint;
 
 /**
  * Tests for {@link GetBatchConstraintsOperation}.
@@ -45,6 +46,7 @@ public class GetBatchConstraintsOperationTest
 	/* (non-Javadoc)
 	 * Extends the inherited method.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -60,18 +62,16 @@ public class GetBatchConstraintsOperationTest
 	}
 
 	public void test_execute() {
-		Object o = getFixture().execute(new TestProvider());
-		assertNotNull(o);
-		assertTrue("Execution result not collection", o instanceof Collection);//$NON-NLS-1$
+		Collection<IModelConstraint> c = getFixture().execute(new TestProvider());
+		assertNotNull(c);
 		
-		Collection c = (Collection)o;
 		assertTrue("Token not found", c.contains(BATCH_TOKEN));//$NON-NLS-1$
 	}
 
 	public void test_getConstraints() {
 		getFixture().execute(new TestProvider());
 		
-		Collection c = getFixture().getConstraints();
+		Collection<IModelConstraint> c = getFixture().getConstraints();
 		
 		// check that the token is in this collection
 		assertTrue("Token not found", c.contains(BATCH_TOKEN)); //$NON-NLS-1$

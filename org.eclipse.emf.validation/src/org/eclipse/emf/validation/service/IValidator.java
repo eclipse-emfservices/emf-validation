@@ -59,18 +59,20 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  * <b>Note</b> that clients are not intended to implement this interface.
  * </p>
  * 
+ * @param <T> the kind of target element validated by the validator
+ * 
  * @see ModelValidationService#newValidator(EvaluationMode)
  * 
  * @author Christian W. Damus (cdamus)
  */
-public interface IValidator {
+public interface IValidator<T> {
 	/**
 	 * Indicates the evaluation mode that I support.  This indicates the kind
 	 * of objects expected by the <code>validate()</code> methods to process.
 	 * 
 	 * @return my evaluation mode
 	 */
-	EvaluationMode getEvaluationMode();
+	EvaluationMode<T> getEvaluationMode();
 	
 	/**
 	 * Queries whether successful constraint evaluations are reported, in
@@ -130,7 +132,7 @@ public interface IValidator {
 	 * @throws ClassCastException if the <code>object</code> is not of
 	 *    the correct type for this validator
 	 */
-	IStatus validate(Object object);
+	IStatus validate(T object);
 	
 	/**
 	 * Validates multiple objects, all in the same
@@ -146,7 +148,7 @@ public interface IValidator {
 	 *    not of the correct type for this validator
 	 * @see #validate(Object)
 	 */
-	IStatus validate(Collection objects);
+	IStatus validate(Collection<? extends T> objects);
 	
 	/**
 	 * Adds a constraint filter to this validator.  The validator
@@ -183,5 +185,5 @@ public interface IValidator {
      * 
      * @since 1.1
      */
-	Collection getConstraintFilters();
+	Collection<IConstraintFilter> getConstraintFilters();
 }

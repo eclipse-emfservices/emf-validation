@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,21 +19,12 @@ package ordersystem.special.impl;
 
 import java.util.Date;
 
-import ordersystem.OrderSystem;
-import ordersystem.OrderSystemPackage;
-
 import ordersystem.impl.ProductImpl;
-
 import ordersystem.special.LimitedEditionProduct;
 import ordersystem.special.SpecialPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -84,8 +75,9 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
-		return SpecialPackage.eINSTANCE.getLimitedEditionProduct();
+		return SpecialPackage.Literals.LIMITED_EDITION_PRODUCT;
 	}
 
 	/**
@@ -114,75 +106,13 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-					return eBasicSetContainer(null, SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystem.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__NAME:
-				return getName();
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__SKU:
-				return getSku();
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__PRICE:
-				return new Double(getPrice());
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-				return getOwner();
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
 				return getAvailableUntil();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -190,25 +120,14 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__NAME:
-				setName((String)newValue);
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__SKU:
-				setSku((String)newValue);
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__PRICE:
-				setPrice(((Double)newValue).doubleValue());
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-				setOwner((OrderSystem)newValue);
-				return;
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
 				setAvailableUntil((Date)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -216,25 +135,14 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__SKU:
-				setSku(SKU_EDEFAULT);
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__PRICE:
-				setPrice(PRICE_EDEFAULT);
-				return;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-				setOwner((OrderSystem)null);
-				return;
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
 				setAvailableUntil(AVAILABLE_UNTIL_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -242,20 +150,13 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__SKU:
-				return SKU_EDEFAULT == null ? sku != null : !SKU_EDEFAULT.equals(sku);
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__PRICE:
-				return price != PRICE_EDEFAULT;
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__OWNER:
-				return getOwner() != null;
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
 				return AVAILABLE_UNTIL_EDEFAULT == null ? availableUntil != null : !AVAILABLE_UNTIL_EDEFAULT.equals(availableUntil);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -263,6 +164,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

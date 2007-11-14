@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +33,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 import org.eclipse.emf.validation.model.Category;
@@ -60,7 +60,7 @@ public class ConstraintDescriptorTest extends TestCase {
 	private static final String TEST_BODY = "self.name = 'Ottawa'";//$NON-NLS-1$
 	private static final int TEST_CODE = 1000;
 	private static final ConstraintSeverity TEST_SEVERITY = ConstraintSeverity.WARNING;
-	private static final EvaluationMode TEST_MODE = EvaluationMode.LIVE;
+	private static final EvaluationMode<Notification> TEST_MODE = EvaluationMode.LIVE;
 	private static final String TEST_NAMESPACE_URI = "http:///ordersystem.ecore"; //$NON-NLS-1$
 	private static final String TEST_CLASS = "Warehouse"; //$NON-NLS-1$
 	private static final String TEST_EVENT = "Set"; //$NON-NLS-1$
@@ -74,8 +74,8 @@ public class ConstraintDescriptorTest extends TestCase {
 	 * Handy implementation of the Eclipse extension configuration element. 
 	 */
 	public static class FixtureElement implements IConfigurationElement {
-		private final Map attributes = new java.util.HashMap();
-		private final List children = new java.util.ArrayList();
+		private final Map<String, String> attributes = new java.util.HashMap<String, String>();
+		private final List<IConfigurationElement> children = new java.util.ArrayList<IConfigurationElement>();
 		private Object parent;
 		private final String myName;
 		private String value = ""; //$NON-NLS-1$
@@ -99,8 +99,8 @@ public class ConstraintDescriptorTest extends TestCase {
 			FixtureElement result = new FixtureElement(name);
 			
 			if (attributes != null) {
-				for (int i = 0; i < attributes.length; i++) {
-					result.putAttribute(attributes[i][0], attributes[i][1]);
+				for (String[] element : attributes) {
+					result.putAttribute(element[0], element[1]);
 				}
 			}
 				
@@ -111,7 +111,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		
 		// implements/extends the inherited method
 		public String getAttribute(String name) {
-			return (String)attributes.get(name);
+			return attributes.get(name);
 		}
 		
 		public FixtureElement putAttribute(String name, String newValue) {
@@ -127,30 +127,25 @@ public class ConstraintDescriptorTest extends TestCase {
 
 		// implements/extends the inherited method
 		public String[] getAttributeNames() {
-			return (String[])attributes.keySet().toArray(
-					new String[attributes.size()]);
+			return attributes.keySet().toArray(new String[attributes.size()]);
 		}
 
 		// implements/extends the inherited method
 		public IConfigurationElement[] getChildren() {
-			return (IConfigurationElement[])children.toArray(
-					new IConfigurationElement[children.size()]);
+			return children.toArray(new IConfigurationElement[children.size()]);
 		}
 
 		// implements/extends the inherited method
 		public IConfigurationElement[] getChildren(String name) {
-			List result = new java.util.ArrayList();
+			List<IConfigurationElement> result = new java.util.ArrayList<IConfigurationElement>();
 			
-			for (Iterator iter = children.iterator(); iter.hasNext(); ) {
-				IConfigurationElement next = (IConfigurationElement)iter.next();
-				
+			for (IConfigurationElement next : children) {
 				if (next.getName().equals(name)) {
 					result.add(next);
 				}
 			}
 			
-			return (IConfigurationElement[])result.toArray(
-					new IConfigurationElement[result.size()]);
+			return result.toArray(new IConfigurationElement[result.size()]);
 		}
 		
 		public FixtureElement addChild(IConfigurationElement child) {
@@ -188,6 +183,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		// constructor can find the plug-in ID that it needs from the
 		// configuration element
 		/** @deprecated */
+		@Deprecated
 		public IExtension getDeclaringExtension() {
 			return new IExtension() {
 				
@@ -418,7 +414,7 @@ public class ConstraintDescriptorTest extends TestCase {
 	}
 
 	public void test_getCategories() {
-		Set categories = Collections.singleton(
+		Set<Category> categories = Collections.singleton(
 				CategoryManager.getInstance().getDefaultCategory());
 		
 		assertEquals(categories, getFixture().getCategories());

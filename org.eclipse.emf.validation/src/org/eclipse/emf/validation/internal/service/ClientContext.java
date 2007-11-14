@@ -55,10 +55,10 @@ public class ClientContext
 	private final boolean isDefault;
 	
 	// set of String constraint IDs that are bound to me
-	private final Set constraintBindings = new java.util.HashSet();
+	private final Set<String> constraintBindings = new java.util.HashSet<String>();
 	
 	// set of String category IDs that are bound to me
-	private final Set categoryBindings = new java.util.HashSet();
+	private final Set<String> categoryBindings = new java.util.HashSet<String>();
 	
 	/**
 	 * Initializes me with my XML configuration.
@@ -266,11 +266,11 @@ public class ClientContext
 	 * @return <code>true</code> if any of the <code>categories</code> is bound,
 	 *     or if any of their ancestors is bound; <code>false</code>, otherwise
 	 */
-	private boolean hasCategoryBinding(Collection categories) {
+	private boolean hasCategoryBinding(Collection<Category> categories) {
 		boolean result = false;
 		
-		for (Iterator iter = categories.iterator(); !result && iter.hasNext();) {
-			Category category = (Category) iter.next();
+		for (Iterator<Category> iter = categories.iterator(); !result && iter.hasNext();) {
+			Category category = iter.next();
 			
 			result = categoryBindings.contains(category.getPath());
 			
@@ -316,6 +316,7 @@ public class ClientContext
 	/**
 	 * The context ID fully determines equality.
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		return (obj instanceof ClientContext)
 			&& ((ClientContext) obj).getId().equals(getId());
@@ -324,10 +325,12 @@ public class ClientContext
 	/**
 	 * The context ID fully determines equality.
 	 */
+	@Override
 	public int hashCode() {
 		return getId().hashCode();
 	}
 	
+	@Override
 	public String toString() {
 		return "ClientContext[" + getId() + ']'; //$NON-NLS-1$
 	}

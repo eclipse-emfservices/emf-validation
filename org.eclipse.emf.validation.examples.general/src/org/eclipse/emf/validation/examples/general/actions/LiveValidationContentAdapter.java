@@ -51,14 +51,15 @@ class LiveValidationContentAdapter extends EContentAdapter {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 	 */
+	@Override
 	public void notifyChanged(final Notification notification) {
 		super.notifyChanged(notification);
 		
 		actionDelegate.shell.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				if (validator == null) {
-					validator = (ILiveValidator) ModelValidationService
-							.getInstance().newValidator(EvaluationMode.LIVE);
+					validator = ModelValidationService.getInstance().newValidator(
+						EvaluationMode.LIVE);
 				}
 				
 				ValidationDelegateClientSelector.running = true;

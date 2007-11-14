@@ -99,7 +99,7 @@ public class ConstraintRegistryTest extends TestBase {
 	}
 
 	public void testGetAllDescriptors() {
-		Collection allFound =
+		Collection<IConstraintDescriptor> allFound =
 			ConstraintRegistry.getInstance().getAllDescriptors();
 		
 		assertNotNull(allFound);
@@ -185,14 +185,16 @@ public class ConstraintRegistryTest extends TestBase {
 	public void test_bulkRegister() {
         ConstraintListener.getInstance().reset();
         
-        Collection constraints = new java.util.ArrayList();
+        Collection<IModelConstraint> constraints = new java.util.ArrayList<IModelConstraint>();
         constraints.add(new FixtureConstraint());
         constraints.add(new FixtureConstraint());
         constraints.add(new FixtureConstraint());
         constraints.add(new FixtureConstraint());
         
         class ProviderAccess extends AbstractConstraintProvider {
-            public void registerConstraints(Collection constraints)
+            @Override
+            public void registerConstraints(
+                    Collection<? extends IModelConstraint> constraints)
                 throws ConstraintExistsException {
                 super.registerConstraints(constraints);
             }}
@@ -211,6 +213,7 @@ public class ConstraintRegistryTest extends TestBase {
 	// Test fixtures
 	//
     
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -221,6 +224,7 @@ public class ConstraintRegistryTest extends TestBase {
         listener.setEnabled(true);
     }
     
+    @Override
     protected void tearDown() throws Exception {
         ConstraintListener listener = ConstraintListener.getInstance();
         
@@ -272,7 +276,7 @@ public class ConstraintRegistryTest extends TestBase {
 			return 0;
 		}
 		
-		public EvaluationMode getEvaluationMode() {
+		public EvaluationMode<?> getEvaluationMode() {
 			return null;
 		}
 

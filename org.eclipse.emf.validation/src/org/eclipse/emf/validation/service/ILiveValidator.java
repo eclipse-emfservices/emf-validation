@@ -31,7 +31,7 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public interface ILiveValidator extends IValidator {
+public interface ILiveValidator extends IValidator<Notification> {
 	/**
 	 * Validates the specified {@link Notification EMF event}.  This method is a
 	 * synonym for the inherited {@link IValidator#validate(Object)}.
@@ -41,15 +41,6 @@ public interface ILiveValidator extends IValidator {
 	 * @see IValidator#validate(Object)
 	 */
 	IStatus validate(Notification notification);
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @param object must be a {@link Notification}
-	 * @throws ClassCastException if <code>object</code> is not a
-	 *      {@link Notification}
-	 */
-	IStatus validate(Object object);
 	
     /**
      * Obtains a filter that is used to determine which notifications will be
@@ -64,7 +55,7 @@ public interface ILiveValidator extends IValidator {
      * 
      * @since 1.1
      */
-    FilteredCollection.Filter getNotificationFilter();
+    FilteredCollection.Filter<Notification> getNotificationFilter();
     
 	/**
 	 * Sets the filter that is used to determine which notifications will be
@@ -76,5 +67,5 @@ public interface ILiveValidator extends IValidator {
      * 
      * @since 1.1
 	 */
-	void setNotificationFilter(FilteredCollection.Filter filter);
+	void setNotificationFilter(FilteredCollection.Filter<Notification> filter);
 }

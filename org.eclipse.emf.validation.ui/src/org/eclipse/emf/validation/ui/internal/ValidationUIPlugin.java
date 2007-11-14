@@ -136,7 +136,8 @@ public class ValidationUIPlugin
         super(new ResourceLocator[] {});
     }
 
-    public ResourceLocator getPluginResourceLocator() {
+    @Override
+	public ResourceLocator getPluginResourceLocator() {
         return plugin;
     }
 
@@ -178,7 +179,8 @@ public class ValidationUIPlugin
     	/**
     	 * The cached debug options (for optimization).
     	 */
-    	private static final Map cachedOptions = new HashMap();
+    	private static final Map<String, Boolean> cachedOptions =
+    		new HashMap<String, Boolean>();
 
     	/**
     	 * Retrieves a Boolean value indicating whether tracing is enabled.
@@ -203,13 +205,12 @@ public class ValidationUIPlugin
     			Boolean value = null;
     			
     			synchronized (cachedOptions) {
-    				value = (Boolean) cachedOptions.get(option);
+    				value = cachedOptions.get(option);
     	
     				if (null == value) {
     					value =
-    						new Boolean(
-    							Boolean.TRUE.toString().equalsIgnoreCase(
-    								org.eclipse.core.runtime.Platform.getDebugOption(option)));
+    						Boolean.valueOf(
+    								org.eclipse.core.runtime.Platform.getDebugOption(option));
     	
     					cachedOptions.put(option, value);
     				}
@@ -320,7 +321,7 @@ public class ValidationUIPlugin
     	 */
     	public static void changing(
             String option,
-            Class clazz,
+            Class<?> clazz,
             String methodName,
             String valueDescription,
             Object oldValue,
@@ -359,7 +360,7 @@ public class ValidationUIPlugin
     	 */
     	public static void catching(
     		String option,
-    		Class clazz,
+    		Class<?> clazz,
     		String methodName,
     		Throwable throwable) {
 
@@ -392,7 +393,7 @@ public class ValidationUIPlugin
     	 */
     	public static void throwing(
     		String option,
-    		Class clazz,
+    		Class<?> clazz,
     		String methodName,
     		Throwable throwable) {
 
@@ -413,58 +414,6 @@ public class ValidationUIPlugin
     	}
 
     	/**
-    	 * Traces the entering into the specified method of the specified class.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class whose method is being entered.
-    	 * @param methodName The name of method that is being entered.
-    	 * 
-    	 */
-    	public static void entering(
-    		String option,
-    		Class clazz,
-    		String methodName) {
-
-    		if (shouldTrace(option)) {
-
-    			trace(
-    				PREFIX_ENTERING
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName);
-    		}
-    	}
-
-    	/**
-    	 * Traces the entering into the specified method of the specified class,
-    	 * with the specified parameter.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class whose method is being entered.
-    	 * @param methodName The name of method that is being entered.
-    	 * @param parameter The parameter to the method being entered.
-    	 * 
-    	 */
-    	public static void entering(
-    		String option,
-    		Class clazz,
-    		String methodName,
-    		Object parameter) {
-
-    		if (shouldTrace(option)) {
-
-    			trace(
-    				PREFIX_ENTERING
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ PARENTHESIS_OPEN
-    					+ getArgumentString(parameter)
-    					+ PARENTHESIS_CLOSE);
-    		}
-    	}
-
-    	/**
     	 * Traces the entering into the specified method of the specified class,
     	 * with the specified parameters.
     	 * 
@@ -476,9 +425,9 @@ public class ValidationUIPlugin
     	 */
     	public static void entering(
     		String option,
-    		Class clazz,
+    		Class<?> clazz,
     		String methodName,
-    		Object[] parameters) {
+    		Object... parameters) {
 
     		if (shouldTrace(option)) {
 
@@ -503,7 +452,7 @@ public class ValidationUIPlugin
     	 */
     	public static void exiting(
     		String option,
-    		Class clazz,
+    		Class<?> clazz,
     		String methodName) {
 
     		if (shouldTrace(option)) {
@@ -528,7 +477,7 @@ public class ValidationUIPlugin
     	 */
     	public static void exiting(
     		String option,
-    		Class clazz,
+    		Class<?> clazz,
     		String methodName,
     		Object returnValue) {
 

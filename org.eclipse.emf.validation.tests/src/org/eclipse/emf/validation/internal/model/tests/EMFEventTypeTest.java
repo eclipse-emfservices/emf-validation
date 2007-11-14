@@ -27,7 +27,6 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -112,7 +111,7 @@ public class EMFEventTypeTest extends TestCase {
 	}
 
 	public void test_getPredefinedInstances_177647() {
-		List instances = EMFEventType.getPredefinedInstances();
+		List<EMFEventType> instances = EMFEventType.getPredefinedInstances();
 		
 		assertTrue(instances.contains(EMFEventType.NULL));
 		assertTrue(instances.contains(EMFEventType.ADD));
@@ -127,7 +126,7 @@ public class EMFEventTypeTest extends TestCase {
 	}
 	
 	public void test_getAllInstances() {
-		List instances = EMFEventType.getAllInstances();
+		List<EMFEventType> instances = EMFEventType.getAllInstances();
 		
 		assertTrue(instances.contains(EMFEventType.NULL));
 		assertTrue(instances.contains(EMFEventType.ADD));
@@ -198,8 +197,8 @@ public class EMFEventTypeTest extends TestCase {
 		try {
 			output = new ObjectOutputStream(stream);
 			
-			for (Iterator i = EMFEventType.getAllInstances().iterator(); i.hasNext();) {
-				output.writeObject(i.next());
+			for (EMFEventType next : EMFEventType.getAllInstances()) {
+				output.writeObject(next);
 			}
 			
 			output.flush();
@@ -207,8 +206,8 @@ public class EMFEventTypeTest extends TestCase {
 			input =	new ObjectInputStream(
 					new ByteArrayInputStream(stream.toByteArray()));
 			
-			for (Iterator i = EMFEventType.getAllInstances().iterator(); i.hasNext();) {
-				assertSame(i.next(), input.readObject());
+			for (EMFEventType next : EMFEventType.getAllInstances()) {
+				assertSame(next, input.readObject());
 			}
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());

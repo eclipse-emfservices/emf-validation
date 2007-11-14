@@ -47,7 +47,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			"constraintParsers"; //$NON-NLS-1$
 
 	/** Mapping of language names to parser implementations. */
-	private final java.util.Map parserMap = new java.util.HashMap();
+	private final java.util.Map<String, IConstraintParser> parserMap =
+		new java.util.HashMap<String, IConstraintParser>();
 
 	/**
 	 * Initializes me.  I load my parsers from the <tt>constraintParsers</tt>
@@ -60,6 +61,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	}
 
 	// implements the inherited method
+	@Override
+	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IXmlConstraintDescriptor desc) {
 		IConfigurationElement config = desc.getConfig();
 
@@ -98,6 +101,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		}
 	}
 	
+	@Override
+	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IConstraintDescriptor descriptor) {
 		if (descriptor instanceof IXmlConstraintDescriptor) {
 			return createConstraint((IXmlConstraintDescriptor) descriptor);
@@ -110,6 +115,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IParameterizedConstraintDescriptor descriptor) {
 		final String lang = descriptor.getLanguage();
 		
@@ -151,6 +157,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * 
 	 * @param config the Eclipse extension configuration data for the parser
 	 */
+	@SuppressWarnings("deprecation")
 	void registerParser(IConfigurationElement config) {
 		assert config != null;
 
@@ -163,7 +170,8 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 			if (parser instanceof IXmlConstraintParser
 					|| parser instanceof IParameterizedConstraintParser) {
-				parserMap.put(UCharacter.toLowerCase(language), parser);
+				parserMap.put(UCharacter.toLowerCase(language),
+					(IConstraintParser) parser);
 				
 				Trace.trace(
 						EMFModelValidationDebugOptions.PARSERS,
@@ -194,7 +202,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * @return the parser, or <code>null</code> if it cannot be found
 	 */
 	private IConstraintParser getParser(String language) {
-		return (IConstraintParser) parserMap.get(UCharacter.toLowerCase(language));
+		return parserMap.get(UCharacter.toLowerCase(language));
 	}
 
 	/**
@@ -207,9 +215,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 				EMFModelValidationPlugin.getPluginId(),
 				CONSTRAINT_PARSERS_EXT_P_NAME);
 
-		for (int i = 0; i < configs.length; i++) {
-			IConfigurationElement config = configs[i];
-
+		for (IConfigurationElement config : configs) {
 			registerParser(config);
 		}
 	}

@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getProduct()
- *
+ * @model
  * @generated
  */
 public interface Product extends EObject{
@@ -50,7 +50,7 @@ public interface Product extends EObject{
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Name()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getName();
@@ -76,7 +76,7 @@ public interface Product extends EObject{
 	 * @return the value of the '<em>Sku</em>' attribute.
 	 * @see #setSku(String)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Sku()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getSku();
@@ -102,7 +102,7 @@ public interface Product extends EObject{
 	 * @return the value of the '<em>Price</em>' attribute.
 	 * @see #setPrice(double)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Price()
-	 *
+	 * @model
 	 * @generated
 	 */
     double getPrice();

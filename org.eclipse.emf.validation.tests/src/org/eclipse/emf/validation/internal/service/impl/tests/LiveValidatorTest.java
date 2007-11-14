@@ -17,7 +17,6 @@
 
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,8 +27,7 @@ import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
 import ordersystem.Product;
-import ordersystem.special.impl.SpecialFactoryImpl;
-
+import ordersystem.special.SpecialFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -43,7 +41,6 @@ import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.service.LiveValidator;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ILiveValidator;
-import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
@@ -68,6 +65,7 @@ public class LiveValidatorTest extends TestBase {
 	/* (non-Javadoc)
 	 * Extends the inherited method.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -101,7 +99,7 @@ public class LiveValidatorTest extends TestBase {
 	 * Class to test for IStatus validate(Object)
 	 */
 	public void test_validate_object() {
-		Object target = new TestNotification(
+		Notification target = new TestNotification(
 				OrderSystemFactory.eINSTANCE.createProduct(),
 				Notification.SET,
 				OrderSystemPackage.PRODUCT__SKU,
@@ -112,13 +110,6 @@ public class LiveValidatorTest extends TestBase {
 			getValidator().validate(target);
 		} catch (Exception e) {
 			fail("Should not throw."); //$NON-NLS-1$
-		}
-		
-		try {
-			getValidator().validate("foo"); //$NON-NLS-1$
-			fail("Should throw."); //$NON-NLS-1$
-		} catch (Exception e) {
-			// good
 		}
 	}
 
@@ -144,7 +135,7 @@ public class LiveValidatorTest extends TestBase {
 	 * Class to test for IStatus validate(Collection)
 	 */
 	public void test_validateCollection() {
-		Object target = new TestNotification(
+		Notification target = new TestNotification(
 				OrderSystemFactory.eINSTANCE.createProduct(),
 				Notification.SET,
 				OrderSystemPackage.PRODUCT__SKU,
@@ -153,16 +144,9 @@ public class LiveValidatorTest extends TestBase {
 		
 		try {
 			getValidator().validate(Collections.singleton(target));
-			getValidator().validate(Collections.EMPTY_SET);
+			getValidator().validate(Collections.<Notification>emptySet());
 		} catch (Exception e) {
 			fail("Should not throw."); //$NON-NLS-1$
-		}
-		
-		try {
-			getValidator().validate(Collections.singleton("foo")); //$NON-NLS-1$
-			fail("Should throw."); //$NON-NLS-1$
-		} catch (Exception e) {
-			// good
 		}
 	}
 	
@@ -187,7 +171,7 @@ public class LiveValidatorTest extends TestBase {
 		os.getCustomer().add(c);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -219,7 +203,7 @@ public class LiveValidatorTest extends TestBase {
 		}
 		
 		// add a few customers, individually, to record separate notifications
-		List customers = new java.util.ArrayList();
+		List<Customer> customers = new java.util.ArrayList<Customer>();
 		Customer c = OrderSystemFactory.eINSTANCE.createCustomer();
 		os.getCustomer().add(c);  // one
 		customers.add(c);
@@ -231,7 +215,7 @@ public class LiveValidatorTest extends TestBase {
 		customers.add(c);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -256,7 +240,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 		
 		// add a few customers
-		List customers = new java.util.ArrayList();
+		List<Customer> customers = new java.util.ArrayList<Customer>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -271,11 +255,11 @@ public class LiveValidatorTest extends TestBase {
 		}
 		
 		// remove a customer
-		Customer c = (Customer) customers.get(0);
+		Customer c = customers.get(0);
 		os.getCustomer().remove(c);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -300,7 +284,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 		
 		// add a few customers
-		List customers = new java.util.ArrayList();
+		List<Customer> customers = new java.util.ArrayList<Customer>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -320,7 +304,7 @@ public class LiveValidatorTest extends TestBase {
 		os.getCustomer().remove(customers.get(2));  // three
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -345,7 +329,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 		
 		// add a few customers
-		List customers = new java.util.ArrayList();
+		List<Customer> customers = new java.util.ArrayList<Customer>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -363,7 +347,7 @@ public class LiveValidatorTest extends TestBase {
 		os.getCustomer().move(0, 2);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -388,7 +372,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 		
 		// add a few customers
-		List customers = new java.util.ArrayList();
+		List<Customer> customers = new java.util.ArrayList<Customer>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -408,7 +392,7 @@ public class LiveValidatorTest extends TestBase {
 		os.getCustomer().move(0, 1);  // three
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -444,7 +428,7 @@ public class LiveValidatorTest extends TestBase {
 		os.eAdapters().remove(ng);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -484,7 +468,7 @@ public class LiveValidatorTest extends TestBase {
 		os.eAdapters().remove(ng);  // three
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -519,7 +503,7 @@ public class LiveValidatorTest extends TestBase {
 		os.setVersion(3);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -556,7 +540,7 @@ public class LiveValidatorTest extends TestBase {
 		os.setVersion(3);
 		
 		// validate the changes, using a real validator
-		IValidator realValidator =
+		ILiveValidator realValidator =
 			ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		realValidator.validate(ng.getNotifications());
 		
@@ -581,7 +565,8 @@ public class LiveValidatorTest extends TestBase {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder(); // Don't add to a resource
 		Notification event = new TestNotification(object, Notification.SET);
 		
-		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		ILiveValidator localValidator = ModelValidationService.getInstance().newValidator(
+			EvaluationMode.LIVE);
 		localValidator.setReportSuccesses(true);
 		IStatus[] status = getStatuses(localValidator.validate(event));
 		
@@ -589,29 +574,22 @@ public class LiveValidatorTest extends TestBase {
 		assertAllConstraintsNotPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasName", //$NON-NLS-1$
-						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasName", //$NON-NLS-1$
+				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
 	}
 	
 	public void test_notficationFilterCustom_177653() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		Notification event = new TestNotification(object, Notification.SET);
 		
-		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		ILiveValidator localValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		localValidator.setReportSuccesses(true);
 		
 		// Set notification filter which accepts eObjects that are not attached
 		// to a resource
-		localValidator.setNotificationFilter(new FilteredCollection.Filter() {
-			public boolean accept(Object element) {
-				if (element instanceof Notification) {
-					Notification notification = (Notification)element;
-					return (notification.getNotifier() instanceof EObject);
-				}
-                
-				return false;
+		localValidator.setNotificationFilter(new FilteredCollection.Filter<Notification>() {
+			public boolean accept(Notification element) {
+				return (element.getNotifier() instanceof EObject);
 			}});
 		
 		IStatus[] status = getStatuses(localValidator.validate(event));
@@ -619,16 +597,14 @@ public class LiveValidatorTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasName", //$NON-NLS-1$
-						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasName", //$NON-NLS-1$
+				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
 	}
 	
 	public void test_notificationGenerator_177647() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
-		Product product = SpecialFactoryImpl.eINSTANCE.createLimitedEditionProduct();
+		Product product = SpecialFactory.eINSTANCE.createLimitedEditionProduct();
 		
 		Resource res = new XMIResourceImpl();
 		
@@ -641,7 +617,7 @@ public class LiveValidatorTest extends TestBase {
 		
 		Notification event = new TestNotification(order, Notification.SET);
 		
-		ILiveValidator localValidator = (ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		ILiveValidator localValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		localValidator.setReportSuccesses(true);
 		
 		IStatus[] status = getStatuses(localValidator.validate(event));
@@ -649,30 +625,29 @@ public class LiveValidatorTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "limitedEdition.canIncludeInSpecial", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "limitedEdition.canIncludeInSpecial"); //$NON-NLS-1$
 		
 		// Ensure that a constraint targeted at ALL events (eg using wildcard),
 		// does not get triggered see
 		// XMLConstraintDescriptor#targetsEvent(Notification)
 		assertAllConstraintsNotPresent(
-				"live", status, Arrays.asList(new String[] { //$NON-NLS-1$
-						ID_PREFIX + "limitedEdition.hasDates", //$NON-NLS-1$
-						}));
+				"live", status, //$NON-NLS-1$
+				ID_PREFIX + "limitedEdition.hasDates"); //$NON-NLS-1$
 	}
 	
 	private static class NotificationGatherer extends AdapterImpl {
-		private List notifications = new java.util.ArrayList();
+		private final List<Notification> notifications =
+			new java.util.ArrayList<Notification>();
 		
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public void notifyChanged(Notification msg) {
 			notifications.add(msg);
 		}
 		
-		List getNotifications() {
+		List<Notification> getNotifications() {
 			return notifications;
 		}
 		
@@ -691,6 +666,7 @@ public class LiveValidatorTest extends TestBase {
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			instance = this;
 			invocationCount++;

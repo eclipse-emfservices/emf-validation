@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
@@ -51,10 +50,10 @@ public class ClientContextManager {
 	
 	private static final ClientContextManager INSTANCE = new ClientContextManager();
 	
-	private final Set clientContexts = new java.util.HashSet();
-	private final Map clientContextMap = new java.util.HashMap();
+	private final Set<IClientContext> clientContexts = new java.util.HashSet<IClientContext>();
+	private final Map<String, IClientContext> clientContextMap = new java.util.HashMap<String, IClientContext>();
 	
-	private final Set defaultContexts = new java.util.HashSet();
+	private final Set<ClientContext> defaultContexts = new java.util.HashSet<ClientContext>();
 	
 	/**
 	 * Not instantiable by clients.
@@ -80,7 +79,7 @@ public class ClientContextManager {
 	 *     under this ID
 	 */
 	public IClientContext getClientContext(String contextId) {
-		return (IClientContext) clientContextMap.get(contextId);
+		return clientContextMap.get(contextId);
 	}
 	
 	/**
@@ -88,7 +87,7 @@ public class ClientContextManager {
 	 * 
 	 * @return the available {@link IClientContext}s
 	 */
-	public Set getClientContexts() {
+	public Set<IClientContext> getClientContexts() {
 		return clientContexts;
 	}
 
@@ -100,13 +99,13 @@ public class ClientContextManager {
 	 *    <code>eObject</code> belongs.  This may be empty if no context
 	 *    selector matches this element
 	 */
-	public Collection getClientContextsFor(EObject eObject) {
-		Collection result = new java.util.ArrayList();
+	public Collection<IClientContext> getClientContextsFor(EObject eObject) {
+		Collection<IClientContext> result = new java.util.ArrayList<IClientContext>();
 		
 		EvaluationContext ctx = new EvaluationContext(null, eObject);
 		
-		for (Iterator iter = getClientContexts().iterator(); iter.hasNext();) {
-			IClientContext next = (IClientContext) iter.next();
+		for (Iterator<IClientContext> iter = getClientContexts().iterator(); iter.hasNext();) {
+			IClientContext next = iter.next();
 			IClientSelector selector = next.getSelector();
 			
 			final Object toTest = (selector instanceof XmlExpressionSelector)
@@ -149,20 +148,20 @@ public class ClientContextManager {
 	 * @return the {@link IModelConstraint}s from amongst the specified
 	 *     <code>constraints</code> that are bound to the <code>context</code>
 	 */
-	public Collection getBindings(EObject eObject, Collection constraints) {
-		Collection result;
+	public <T extends IModelConstraint> Collection<T> getBindings(EObject eObject,
+			Collection<? extends T> constraints) {
 		
-		Collection contexts = getClientContextsFor(eObject);
+		Collection<T> result;
+		
+		Collection<IClientContext> contexts = getClientContextsFor(eObject);
 		
 		if (contexts.isEmpty()) {
 			// no context recognizes this object?  Oh, well, then there are
 			//   no constraints
-			result = Collections.EMPTY_LIST;
+			result = Collections.emptyList();
 		} else if (contexts.size() == 1) {
 			// easy when there's just one context
-			result = getBindings(
-				(IClientContext) contexts.iterator().next(),
-				constraints); 
+			result = getBindings(contexts.iterator().next(), constraints); 
 		} else {
 			// multiple contexts require more looping
 			result = getBindings(contexts, constraints);
@@ -180,12 +179,12 @@ public class ClientContextManager {
 	 * @return the {@link IModelConstraint}s from amongst the specified
 	 *     <code>constraints</code> that are bound to the <code>context</code>
 	 */
-	public Collection getBindings(IClientContext context, Collection constraints) {
-		Collection result = new java.util.ArrayList(constraints.size());
+	public <T extends IModelConstraint> Collection<T> getBindings(IClientContext context,
+			Collection<? extends T> constraints) {
 		
-		for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-			IModelConstraint constraint = (IModelConstraint) iter.next();
-			
+		Collection<T> result = new java.util.ArrayList<T>(constraints.size());
+		
+		for (T constraint : constraints) {
 			if (context.includes(constraint)) {
 				result.add(constraint);
 			} else if (context.isDefault()) {
@@ -209,29 +208,30 @@ public class ClientContextManager {
 	 * @return the {@link IModelConstraint}s from amongst the specified
 	 *     <code>constraints</code> that are bound to the <code>context</code>
 	 */
-	public Collection getBindings(Collection contexts, Collection constraints) {
-		Collection result = new java.util.ArrayList(constraints.size());
+	public <T extends IModelConstraint> Collection<T> getBindings(
+			Collection<? extends IClientContext> contexts,
+			Collection<? extends T> constraints) {
+		
+		Collection<T> result = new java.util.ArrayList<T>(constraints.size());
 		
 		// use an array for performance (to avoid creating so many iterators)
-		IClientContext[] ctxArray = (IClientContext[]) contexts.toArray(
-			new IClientContext[contexts.size()]);
+		IClientContext[] ctxArray = contexts.toArray(new IClientContext[contexts.size()]);
 		
 		// in case we don't find an explicit binding, we need to know whether
 		//   we need to look for default bindings.  This will only be the case
 		//   if any of the current contexts is default
 		boolean anyContextIsDefault = false;
 		
-		for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-			IModelConstraint constraint = (IModelConstraint) iter.next();
+		for (T constraint : constraints) {
 			boolean bound = false;
 			
-			for (int i = 0; i < ctxArray.length; i++) {
-				bound = ctxArray[i].includes(constraint);
+			for (IClientContext element : ctxArray) {
+				bound = element.includes(constraint);
 				
 				if (bound) {
 					result.add(constraint);
 					break;  // needn't look at any more contexts
-				} else if (ctxArray[i].isDefault()) {
+				} else if (element.isDefault()) {
 					// no need to check for default contexts as long as we
 					//   find explicit bindings
 					anyContextIsDefault = true;
@@ -270,15 +270,17 @@ public class ClientContextManager {
 		boolean result = true;
 		String id = constraint.getDescriptor().getId();
 		
-		for (Iterator iter = clientContexts.iterator(); result && iter.hasNext();) {
-			result = !((IClientContext) iter.next()).includes(constraint);
+		for (Iterator<IClientContext> iter = clientContexts.iterator();
+				result && iter.hasNext();) {
+			
+			result = !iter.next().includes(constraint);
 		}
 		
 		if (result) {
 			// add the constraint to all default contexts so that we don't do
 			//   this computation again
-			for (Iterator iter = defaultContexts.iterator(); iter.hasNext();) {
-				((ClientContext) iter.next()).bindConstraint(id);
+			for (ClientContext next : defaultContexts) {
+				next.bindConstraint(id);
 			}
 		}
 		
@@ -313,9 +315,7 @@ public class ClientContextManager {
 	 *     <code>constraintBindings</code> extension point
 	 */
 	private void configureClientContexts(IConfigurationElement[] elements) {
-		for (int i = 0; i < elements.length; i++) {
-			IConfigurationElement config = elements[i];
-			
+		for (IConfigurationElement config : elements) {
 			if (E_CLIENT_CONTEXT.equals(config.getName())) {
 				try {
 					ClientContext context = new ClientContext(config);
@@ -345,9 +345,7 @@ public class ClientContextManager {
 	 *     <code>constraintBindings</code> extension point
 	 */
 	private void configureBindings(IConfigurationElement[] elements) {
-		for (int i = 0; i < elements.length; i++) {
-			IConfigurationElement config = elements[i];
-			
+		for (IConfigurationElement config : elements) {
 			if (E_BINDING.equals(config.getName())) {
 				String contextId = config.getAttribute(A_CONTEXT);
 				
@@ -396,8 +394,8 @@ public class ClientContextManager {
 		}
 		
 		IConfigurationElement[] children = config.getChildren(A_CONSTRAINT);
-		for (int i = 0; i < children.length; i++) {
-			final String ref = children[i].getAttribute(A_REF);
+		for (IConfigurationElement element : children) {
+			final String ref = element.getAttribute(A_REF);
 			
 			if (ref == null) {
 				Log.warningMessage(
@@ -412,8 +410,8 @@ public class ClientContextManager {
 		}
 		
 		children = config.getChildren(A_CATEGORY);
-		for (int i = 0; i < children.length; i++) {
-			final String ref = children[i].getAttribute(A_REF);
+		for (IConfigurationElement element : children) {
+			final String ref = element.getAttribute(A_REF);
 			
 			if (ref == null) {
 				Log.errorMessage(

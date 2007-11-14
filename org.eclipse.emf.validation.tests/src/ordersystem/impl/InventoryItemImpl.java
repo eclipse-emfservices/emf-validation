@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,14 +26,10 @@ import ordersystem.Warehouse;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
@@ -122,7 +118,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 * @generated
 	 * @ordered
 	 */
-    protected Product product = null;
+    protected Product product;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,8 +134,9 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getInventoryItem();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.INVENTORY_ITEM;
 	}
 
 	/**
@@ -212,7 +209,17 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 */
     public Warehouse getWarehouse() {
 		if (eContainerFeatureID != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE) return null;
-		return (Warehouse)eContainer;
+		return (Warehouse)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetWarehouse(Warehouse newWarehouse, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newWarehouse, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE, msgs);
+		return msgs;
 	}
 
 	/**
@@ -221,15 +228,15 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 * @generated
 	 */
     public void setWarehouse(Warehouse newWarehouse) {
-		if (newWarehouse != eContainer || (eContainerFeatureID != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE && newWarehouse != null)) {
+		if (newWarehouse != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE && newWarehouse != null)) {
 			if (EcoreUtil.isAncestor(this, newWarehouse))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newWarehouse != null)
 				msgs = ((InternalEObject)newWarehouse).eInverseAdd(this, OrderSystemPackage.WAREHOUSE__ITEM, Warehouse.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newWarehouse, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE, msgs);
+			msgs = basicSetWarehouse(newWarehouse, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -243,8 +250,8 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 */
     public Product getProduct() {
 		if (product != null && product.eIsProxy()) {
-			Product oldProduct = product;
-			product = (Product)eResolveProxy((InternalEObject)product);
+			InternalEObject oldProduct = (InternalEObject)product;
+			product = (Product)eResolveProxy(oldProduct);
 			if (product != oldProduct) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OrderSystemPackage.INVENTORY_ITEM__PRODUCT, oldProduct, product));
@@ -276,66 +283,56 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetWarehouse((Warehouse)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
-					return eBasicSetContainer(null, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
+				return basicSetWarehouse(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.WAREHOUSE__ITEM, Warehouse.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
+				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.WAREHOUSE__ITEM, Warehouse.class, msgs);
 		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
 				return new Integer(getInStock());
 			case OrderSystemPackage.INVENTORY_ITEM__RESTOCK_THRESHOLD:
@@ -348,16 +345,17 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 				if (resolve) return getProduct();
 				return basicGetProduct();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
 				setInStock(((Integer)newValue).intValue());
 				return;
@@ -374,16 +372,17 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 				setProduct((Product)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
 				setInStock(IN_STOCK_EDEFAULT);
 				return;
@@ -400,16 +399,17 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 				setProduct((Product)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
 				return inStock != IN_STOCK_EDEFAULT;
 			case OrderSystemPackage.INVENTORY_ITEM__RESTOCK_THRESHOLD:
@@ -421,13 +421,14 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 			case OrderSystemPackage.INVENTORY_ITEM__PRODUCT:
 				return product != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

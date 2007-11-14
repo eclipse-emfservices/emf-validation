@@ -21,25 +21,29 @@ import java.util.NoSuchElementException;
  * Wrapper for a Java 2 {@link Collection} that provides a filtered view of its
  * contents according to a client-specified filter algorithm.
  * 
+ * @param <E> the collection element type
+ * 
  * @author Christian W. Damus (cdamus)
  */
-public class FilteredCollection extends AbstractCollection {
+public class FilteredCollection<E> extends AbstractCollection<E> {
 	/**
 	 * Indicates the end of iteration.  Cannot use 'null' for this purpose, as
 	 * it may legitimately be present in a collection.
 	 */
 	private static final Object END_TOKEN = new Object();
 	
-	private final Collection filteree;
-	private final Filter filter;
+	private final Collection<? extends E> filteree;
+	private final Filter<? super E> filter;
 	
 	/**
 	 * Interface for the algorithm that determines which elements are in and
 	 * which are out of the filtered collection.
 	 * 
+	 * @param <E> the collection element type to filter
+	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
-	public static interface Filter {
+	public static interface Filter<E> {
 		/**
 		 * Determines whether to accept or reject the specified
 		 * <code>element</code> from the collection.
@@ -48,7 +52,7 @@ public class FilteredCollection extends AbstractCollection {
 		 * @return <CODE>true</CODE> if the <code>element</code> should be
 		 *     included in the filtered view; <CODE>false</CODE>, otherwise
 		 */
-		boolean accept(Object element);
+		boolean accept(E element);
 	}
 	
 	/**
@@ -65,7 +69,7 @@ public class FilteredCollection extends AbstractCollection {
 	 * @param collection the collection that I am to filter 
 	 * @param filter the filter algorithm to apply
 	 */
-	public FilteredCollection(Collection collection, Filter filter) {
+	public FilteredCollection(Collection<? extends E> collection, Filter<? super E> filter) {
 		this.filteree = collection;
 		this.filter = filter;
 	}
@@ -77,7 +81,7 @@ public class FilteredCollection extends AbstractCollection {
 	 * 
 	 * @return my filter
 	 */
-	public final Filter getFilter() {
+	public final Filter<? super E> getFilter() {
 		return filter;
 	}
 
@@ -87,9 +91,11 @@ public class FilteredCollection extends AbstractCollection {
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
-	private class Iter implements Iterator { 
-		private final Iterator filteredIterator = filteree.iterator();
-		private Object next = END_TOKEN;
+	@SuppressWarnings("unchecked")
+	private class Iter implements Iterator<E> { 
+		private final Iterator<? extends E> filteredIterator = filteree.iterator();
+		
+		private E next = (E) END_TOKEN;
 		
 		/**
 		 * Queries whether I have another object that matches the
@@ -105,7 +111,7 @@ public class FilteredCollection extends AbstractCollection {
 						break;
 					} else {
 						// try again
-						next = END_TOKEN;
+						next = (E) END_TOKEN;
 					}
 				}
 			}
@@ -116,14 +122,14 @@ public class FilteredCollection extends AbstractCollection {
 		/**
 		 * Retrieves the next object that matches my {@link #getFilter filter}.
 		 */
-		public Object next() {
+		public E next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
 			
-			Object result = next;
+			E result = next;
 			
-			next = END_TOKEN;
+			next = (E) END_TOKEN;
 			
 			return result;
 		}
@@ -146,7 +152,8 @@ public class FilteredCollection extends AbstractCollection {
 	 * @return an iterator the exposes only the elements of my wrapped
 	 *     collection that match my filter
 	 */
-	public Iterator iterator() {
+	@Override
+	public Iterator<E> iterator() {
 		return new Iter();
 	}
 
@@ -164,10 +171,11 @@ public class FilteredCollection extends AbstractCollection {
 	 * @return the number of elements in my wrapped collection that match my
 	 *      filter
 	 */
+	@Override
 	public int size() {
 		int result = 0;
 		
-		for (Iterator iter = iterator(); iter.hasNext(); iter.next()) {
+		for (Iterator<E> iter = iterator(); iter.hasNext(); iter.next()) {
 			result++;
 		}
 		

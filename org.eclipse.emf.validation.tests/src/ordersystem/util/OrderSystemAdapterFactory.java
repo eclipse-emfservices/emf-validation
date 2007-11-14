@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,7 +63,8 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-    public boolean isFactoryForType(Object object) {
+    @Override
+				public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -79,36 +80,46 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected OrderSystemSwitch modelSwitch =
-		new OrderSystemSwitch() {
-			public Object caseOrder(Order object) {
+    protected OrderSystemSwitch<Adapter> modelSwitch =
+		new OrderSystemSwitch<Adapter>() {
+			@Override
+			public Adapter caseOrder(Order object) {
 				return createOrderAdapter();
 			}
-			public Object caseProduct(Product object) {
+			@Override
+			public Adapter caseProduct(Product object) {
 				return createProductAdapter();
 			}
-			public Object caseWarehouse(Warehouse object) {
+			@Override
+			public Adapter caseWarehouse(Warehouse object) {
 				return createWarehouseAdapter();
 			}
-			public Object caseOrderSystem(OrderSystem object) {
+			@Override
+			public Adapter caseOrderSystem(OrderSystem object) {
 				return createOrderSystemAdapter();
 			}
-			public Object caseLineItem(LineItem object) {
+			@Override
+			public Adapter caseLineItem(LineItem object) {
 				return createLineItemAdapter();
 			}
-			public Object caseInventoryItem(InventoryItem object) {
+			@Override
+			public Adapter caseInventoryItem(InventoryItem object) {
 				return createInventoryItemAdapter();
 			}
-			public Object caseCustomer(Customer object) {
+			@Override
+			public Adapter caseCustomer(Customer object) {
 				return createCustomerAdapter();
 			}
-			public Object caseAddress(Address object) {
+			@Override
+			public Adapter caseAddress(Address object) {
 				return createAddressAdapter();
 			}
-			public Object caseAccount(Account object) {
+			@Override
+			public Adapter caseAccount(Account object) {
 				return createAccountAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -121,13 +132,14 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-    public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+    @Override
+				public Adapter createAdapter(Notifier target) {
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link ordersystem.OrderSystem <em>OrderSystem</em>}'.
+	 * Creates a new adapter for an object of class '{@link ordersystem.OrderSystem <em>Order System</em>}'.
 	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.

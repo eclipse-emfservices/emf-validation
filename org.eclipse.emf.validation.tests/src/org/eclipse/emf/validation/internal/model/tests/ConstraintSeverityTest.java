@@ -25,7 +25,6 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -53,7 +52,7 @@ public class ConstraintSeverityTest extends TestCase {
 	}
 
 	public void test_getAllInstances() {
-		List instances = ConstraintSeverity.getAllInstances();
+		List<ConstraintSeverity> instances = ConstraintSeverity.getAllInstances();
 		
 		assertTrue(instances.contains(ConstraintSeverity.NULL));
 		assertTrue(instances.contains(ConstraintSeverity.INFO));
@@ -84,8 +83,8 @@ public class ConstraintSeverityTest extends TestCase {
 		try {
 			output = new ObjectOutputStream(stream);
 			
-			for (Iterator i = ConstraintSeverity.getAllInstances().iterator(); i.hasNext();) {
-				output.writeObject(i.next());
+			for (ConstraintSeverity next : ConstraintSeverity.getAllInstances()) {
+				output.writeObject(next);
 			}
 			
 			output.flush();
@@ -93,8 +92,8 @@ public class ConstraintSeverityTest extends TestCase {
 			input =	new ObjectInputStream(
 					new ByteArrayInputStream(stream.toByteArray()));
 			
-			for (Iterator i = ConstraintSeverity.getAllInstances().iterator(); i.hasNext();) {
-				assertSame(i.next(), input.readObject());
+			for (ConstraintSeverity next : ConstraintSeverity.getAllInstances()) {
+				assertSame(next, input.readObject());
 			}
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());

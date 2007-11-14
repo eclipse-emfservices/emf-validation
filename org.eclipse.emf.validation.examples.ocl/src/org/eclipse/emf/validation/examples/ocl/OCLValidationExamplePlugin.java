@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: OCLValidationExamplePlugin.java,v 1.2 2007/05/07 16:12:12 cdamus Exp $
+ * $Id: OCLValidationExamplePlugin.java,v 1.3 2007/11/14 18:03:39 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.examples.ocl;
@@ -50,14 +50,16 @@ public class OCLValidationExamplePlugin extends Plugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
-	public void start(BundleContext context) throws Exception {
+	@Override
+    public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
 
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
-	public void stop(BundleContext context) throws Exception {
+	@Override
+    public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
 

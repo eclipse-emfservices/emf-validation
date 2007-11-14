@@ -85,6 +85,7 @@ public class XmlConstraintProvider extends AbstractConstraintProvider
 	 * @throws CoreException if the superclass implementation of this
 	 *    method throws or on an error in accessing the <code>config</code>
 	 */
+	@Override
 	public void setInitializationData(
 			IConfigurationElement config,
 			String propertyName,
@@ -95,14 +96,14 @@ public class XmlConstraintProvider extends AbstractConstraintProvider
 		IConfigurationElement[] constraintses = config.getChildren(
 				XmlConfig.E_CONSTRAINTS);
 		
-		for (int i = 0; i < constraintses.length; i++) {
+		for (IConfigurationElement element : constraintses) {
 			IConfigurationElement next =
-				XmlConfig.parseConstraintsWithIncludes(constraintses[i]);
+				XmlConfig.parseConstraintsWithIncludes(element);
 			
 			IConfigurationElement[] configs = next.getChildren();
 
-			for (int j = 0; j < configs.length; j++) {
-				addConstraint(configs[j]);
+			for (IConfigurationElement element2 : configs) {
+				addConstraint(element2);
 			}
 		}
 		
@@ -115,6 +116,7 @@ public class XmlConstraintProvider extends AbstractConstraintProvider
 	 * 
 	 * @param config the <TT>&lt;constraint&gt;</TT> element
 	 */
+	@SuppressWarnings("deprecation")
 	private void addConstraint(IConfigurationElement config) {
 		final String contributorId = config
 			.getDeclaringExtension()

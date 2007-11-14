@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintListenersTest.java,v 1.1 2007/03/19 16:47:07 cdamus Exp $
+ * $Id: ConstraintListenersTest.java,v 1.2 2007/11/14 18:03:42 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.internal.service.tests;
@@ -138,6 +138,7 @@ public class ConstraintListenersTest extends TestBase {
 		assertNull("Remove category for non-associated category incorrectly sent an event", listener.getLastEvent()); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -149,6 +150,7 @@ public class ConstraintListenersTest extends TestBase {
 		listener.setEnabled(true);
 	}
 	
+	@Override
 	protected void tearDown() throws Exception {
 		listener.setEnabled(false);
 		listener.setLastEvent(null);
@@ -199,8 +201,8 @@ public class ConstraintListenersTest extends TestBase {
 			return 0;
 		}
 		
-		public EvaluationMode getEvaluationMode() {
-			return null;
+		public EvaluationMode<?> getEvaluationMode() {
+			return EvaluationMode.NULL;
 		}
 
 		public boolean targetsTypeOf(EObject eObject) {

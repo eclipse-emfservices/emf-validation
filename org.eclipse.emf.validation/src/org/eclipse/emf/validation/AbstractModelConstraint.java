@@ -54,7 +54,7 @@ public abstract class AbstractModelConstraint {
 	 * <p>
 	 * <b>Note</b> that it is best to use the
 	 * {@link IValidationContext#createSuccessStatus()} and
-	 * {@link IValidationContext#createFailureStatus(Object[])} methods of the context
+	 * {@link IValidationContext#createFailureStatus(Object...)} methods of the context
 	 * object to create the status object returned from this method, to ensure
 	 * that the status object returned is correctly handled by the validation
 	 * system.
@@ -110,7 +110,7 @@ public abstract class AbstractModelConstraint {
 	 *         Must not return <code>null</code>
 	 *         
 	 * @see IValidationContext#createSuccessStatus()
-	 * @see IValidationContext#createFailureStatus(Object[])
+	 * @see IValidationContext#createFailureStatus(Object...)
 	 * @see ConstraintStatus#createStatus(IValidationContext, java.util.Collection, String, Object[])
 	 * @see ConstraintStatus#createMultiStatus(IValidationContext, Collection)
 	 */

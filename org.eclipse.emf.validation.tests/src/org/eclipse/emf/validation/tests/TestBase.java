@@ -17,8 +17,8 @@
 
 package org.eclipse.emf.validation.tests;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -31,8 +31,8 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
-import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 
 /**
@@ -49,19 +49,17 @@ public class TestBase extends TestCase {
 	
 	protected final IBatchValidator batchValidator;
 	protected final IBatchValidator treeValidator;
-	protected final IValidator liveValidator;
+	protected final ILiveValidator liveValidator;
 	
 	public TestBase(String name) {
 		super(name);
 		
-		batchValidator = (IBatchValidator)
-			ModelValidationService.getInstance().newValidator(
+		batchValidator = ModelValidationService.getInstance().newValidator(
 				EvaluationMode.BATCH);
 		batchValidator.setTraversalStrategy(new ITraversalStrategy.Flat());
 		batchValidator.setReportSuccesses(true);
 		
-		treeValidator = (IBatchValidator)
-			ModelValidationService.getInstance().newValidator(
+		treeValidator = ModelValidationService.getInstance().newValidator(
 				EvaluationMode.BATCH);
 		treeValidator.setTraversalStrategy(new ITraversalStrategy.Recursive());
 		treeValidator.setReportSuccesses(true);
@@ -82,16 +80,16 @@ public class TestBase extends TestCase {
 	protected void assertAllConstraintsNotPresent(
 			String constraintType,
 			IStatus[] statuses,
-			Collection ids) {
+			String... ids) {
 		
-		Collection found = new java.util.ArrayList();
+		Collection<String> found = new java.util.ArrayList<String>();
 		
-		for (int i = 0; i < statuses.length; i++) {
-			IModelConstraint next = ((IConstraintStatus)statuses[i]).getConstraint();
+		for (IStatus element : statuses) {
+			IModelConstraint next = ((IConstraintStatus)element).getConstraint();
 			
 			String id = next.getDescriptor().getId();
 			
-			if (ids.contains(id)) {
+			if (Arrays.asList(ids).contains(id)) {
 				found.add(id);
 			}
 		}
@@ -111,17 +109,15 @@ public class TestBase extends TestCase {
 	 */
 	protected void assertAllConstraintsNotPresent(
 			String constraintType,
-			Collection constraints,
-			Collection ids) {
+			Collection<IModelConstraint> constraints,
+			String... ids) {
 		
-		Collection found = new java.util.ArrayList();
+		Collection<String> found = new java.util.ArrayList<String>();
 		
-		for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-			IModelConstraint next = (IModelConstraint)iter.next();
-			
+		for (IModelConstraint next : constraints) {
 			String id = next.getDescriptor().getId();
 			
-			if (ids.contains(id)) {
+			if (Arrays.asList(ids).contains(id)) {
 				found.add(id);
 			}
 		}
@@ -142,12 +138,12 @@ public class TestBase extends TestCase {
 	protected void assertAllConstraintsPresent(
 			String constraintType,
 			IStatus[] statuses,
-			Collection ids) {
+			String... ids) {
 		
-		Collection notFound = new java.util.LinkedList(ids);
+		Collection<String> notFound = new java.util.LinkedList<String>(Arrays.asList(ids));
 		
-		for (int i = 0; i < statuses.length; i++) {
-			IModelConstraint next = ((IConstraintStatus)statuses[i]).getConstraint();
+		for (IStatus element : statuses) {
+			IModelConstraint next = ((IConstraintStatus)element).getConstraint();
 			
 			notFound.remove(next.getDescriptor().getId());
 		}
@@ -167,14 +163,12 @@ public class TestBase extends TestCase {
 	 */
 	protected void assertAllConstraintsPresent(
 			String constraintType,
-			Collection constraints,
-			Collection ids) {
+			Collection<IModelConstraint> constraints,
+			String... ids) {
 		
-		Collection notFound = new java.util.LinkedList(ids);
+		Collection<String> notFound = new java.util.LinkedList<String>(Arrays.asList(ids));
 		
-		for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-			IModelConstraint next = (IModelConstraint)iter.next();
-			
+		for (IModelConstraint next : constraints) {
 			notFound.remove(next.getDescriptor().getId());
 		}
 		
@@ -194,12 +188,12 @@ public class TestBase extends TestCase {
 	protected void assertAllTargetsPresent(
 			String constraintType,
 			IStatus[] statuses,
-			Collection targets) {
+			Collection<? extends EObject> targets) {
 		
-		Collection notFound = new java.util.LinkedList(targets);
+		Collection<EObject> notFound = new java.util.LinkedList<EObject>(targets);
 		
-		for (int i = 0; i < statuses.length; i++) {
-			IConstraintStatus next = (IConstraintStatus)statuses[i];
+		for (IStatus element : statuses) {
+			IConstraintStatus next = (IConstraintStatus)element;
 			
 			notFound.remove(next.getTarget());
 		}
@@ -211,9 +205,9 @@ public class TestBase extends TestCase {
 
 	protected void assertConstraintAndTargetNotPresent(String constraintType,
 			IStatus[] statuses, String constraintId, EObject target) {
-		for (int i = 0; i < statuses.length; i++) {
-			IConstraintStatus status = (IConstraintStatus)statuses[i];
-			IModelConstraint constraint  = ((IConstraintStatus)statuses[i]).getConstraint();
+		for (IStatus element : statuses) {
+			IConstraintStatus status = (IConstraintStatus)element;
+			IModelConstraint constraint  = ((IConstraintStatus)element).getConstraint();
 			
 			if (target.equals(status.getTarget()) && constraintId.equals(constraint.getDescriptor().getId())) {
 				fail("Found unwanted " + constraintType + " constraint " + constraintId + " on " + target); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -223,9 +217,9 @@ public class TestBase extends TestCase {
 
 	protected void assertConstraintAndTargetPresent(String constraintType,
 			IStatus[] statuses, String constraintId, EObject target) {
-		for (int i = 0; i < statuses.length; i++) {
-			IConstraintStatus status = (IConstraintStatus)statuses[i];
-			IModelConstraint constraint  = ((IConstraintStatus)statuses[i]).getConstraint();
+		for (IStatus element : statuses) {
+			IConstraintStatus status = (IConstraintStatus)element;
+			IModelConstraint constraint  = ((IConstraintStatus)element).getConstraint();
 			
 			if (target.equals(status.getTarget()) && constraintId.equals(constraint.getDescriptor().getId())) {
 				return;
@@ -244,8 +238,8 @@ public class TestBase extends TestCase {
 	protected IStatus getStatus(IStatus[] statuses, String id) {
 		IStatus result = null;
 		
-		for (int i = 0; i < statuses.length; i++) {
-			IConstraintStatus next = (IConstraintStatus)statuses[i];
+		for (IStatus element : statuses) {
+			IConstraintStatus next = (IConstraintStatus)element;
 			
 			if (next.getConstraint().getDescriptor().getId().equals(id)) {
 				result = next;
@@ -265,17 +259,17 @@ public class TestBase extends TestCase {
 	 * @since 1.1
 	 */
 	protected IStatus[] getStatuses(IStatus[] statuses, String id) {
-		List result = new java.util.ArrayList();
+		List<IStatus> result = new java.util.ArrayList<IStatus>();
 		
-		for (int i = 0; i < statuses.length; i++) {
-			IConstraintStatus next = (IConstraintStatus)statuses[i];
+		for (IStatus element : statuses) {
+			IConstraintStatus next = (IConstraintStatus) element;
 			
 			if (next.getConstraint().getDescriptor().getId().equals(id)) {
 				result.add(next);
 			}
 		}
 		
-		return (IStatus[]) result.toArray(new IStatus[result.size()]);
+		return result.toArray(new IStatus[result.size()]);
 	}
 
 	/**
@@ -293,19 +287,19 @@ public class TestBase extends TestCase {
 			return new IStatus[0];
 		}
 		
-		List result = new java.util.ArrayList();
+		List<IStatus> result = new java.util.ArrayList<IStatus>();
 		
 		collectStatuses(status, result);
 		
-		return (IStatus[]) result.toArray(new IStatus[result.size()]);
+		return result.toArray(new IStatus[result.size()]);
 	}
 	
-	private void collectStatuses(IStatus status, List statuses) {
+	private void collectStatuses(IStatus status, List<IStatus> statuses) {
 		if (status.isMultiStatus()) {
 			IStatus[] children = status.getChildren();
 			
-			for (int i = 0; i < children.length; i++) {
-				collectStatuses(children[i], statuses);
+			for (IStatus element : children) {
+				collectStatuses(element, statuses);
 			}
 		} else {
 			statuses.add(status);
@@ -327,8 +321,8 @@ public class TestBase extends TestCase {
 		System.out.println(o);
 	
 		final int childTabs = tabs + 1;
-		for (Iterator iter = o.eContents().iterator(); iter.hasNext(); ) {
-			showRecursive((EObject)iter.next(), childTabs);
+		for (EObject next : o.eContents()) {
+			showRecursive(next, childTabs);
 		}
 	}
 

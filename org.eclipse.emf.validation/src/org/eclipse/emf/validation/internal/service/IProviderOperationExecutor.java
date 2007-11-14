@@ -13,12 +13,15 @@
 package org.eclipse.emf.validation.internal.service;
 
 
+
 /**
  * Interface implemented by objects that know how to execute
  * {@link IProviderOperation provider operations}.  Used by the
  * {@link org.eclipse.emf.validation.service.IValidator}
  * implementations in this package to execute operations
  * in the context of the object that created them.
+ *
+ * @param <T> the result type of the operation that I execute
  *
  * @author Christian W. Damus (cdamus)
  */
@@ -29,5 +32,5 @@ public interface IProviderOperationExecutor {
 	 * @param op the operation to execute.  The execution result must be
 	 *     obtained from it
 	 */
-	void execute(IProviderOperation op);
+	<T> T execute(IProviderOperation<? extends T> op);
 }

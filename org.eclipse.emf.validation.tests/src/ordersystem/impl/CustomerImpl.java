@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,21 +23,15 @@ import ordersystem.Account;
 import ordersystem.Customer;
 import ordersystem.Order;
 import ordersystem.OrderSystem;
-
 import ordersystem.OrderSystemPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -108,7 +102,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList account = null;
+    protected EList<Account> account;
 
 	/**
 	 * The cached value of the '{@link #getOrder() <em>Order</em>}' containment reference list.
@@ -118,7 +112,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList order = null;
+    protected EList<Order> order;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,8 +128,9 @@ public class CustomerImpl extends EObjectImpl implements Customer {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getCustomer();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.CUSTOMER;
 	}
 
 	/**
@@ -187,7 +182,17 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 */
     public OrderSystem getOwner() {
 		if (eContainerFeatureID != OrderSystemPackage.CUSTOMER__OWNER) return null;
-		return (OrderSystem)eContainer;
+		return (OrderSystem)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOwner(OrderSystem newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.CUSTOMER__OWNER, msgs);
+		return msgs;
 	}
 
 	/**
@@ -196,15 +201,15 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 * @generated
 	 */
     public void setOwner(OrderSystem newOwner) {
-		if (newOwner != eContainer || (eContainerFeatureID != OrderSystemPackage.CUSTOMER__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.CUSTOMER__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystem.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.CUSTOMER__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -216,9 +221,9 @@ public class CustomerImpl extends EObjectImpl implements Customer {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getAccount() {
+    public EList<Account> getAccount() {
 		if (account == null) {
-			account = new EObjectContainmentWithInverseEList(Account.class, this, OrderSystemPackage.CUSTOMER__ACCOUNT, OrderSystemPackage.ACCOUNT__OWNER);
+			account = new EObjectContainmentWithInverseEList<Account>(Account.class, this, OrderSystemPackage.CUSTOMER__ACCOUNT, OrderSystemPackage.ACCOUNT__OWNER);
 		}
 		return account;
 	}
@@ -228,83 +233,74 @@ public class CustomerImpl extends EObjectImpl implements Customer {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getOrder() {
+    public EList<Order> getOrder() {
 		if (order == null) {
-			order = new EObjectContainmentWithInverseEList(Order.class, this, OrderSystemPackage.CUSTOMER__ORDER, OrderSystemPackage.ORDER__OWNER);
+			order = new EObjectContainmentWithInverseEList<Order>(Order.class, this, OrderSystemPackage.CUSTOMER__ORDER, OrderSystemPackage.ORDER__OWNER);
 		}
 		return order;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.CUSTOMER__OWNER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, OrderSystemPackage.CUSTOMER__OWNER, msgs);
-				case OrderSystemPackage.CUSTOMER__ACCOUNT:
-					return ((InternalEList)getAccount()).basicAdd(otherEnd, msgs);
-				case OrderSystemPackage.CUSTOMER__ORDER:
-					return ((InternalEList)getOrder()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	@SuppressWarnings("unchecked")
+		@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.CUSTOMER__OWNER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetOwner((OrderSystem)otherEnd, msgs);
+			case OrderSystemPackage.CUSTOMER__ACCOUNT:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAccount()).basicAdd(otherEnd, msgs);
+			case OrderSystemPackage.CUSTOMER__ORDER:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getOrder()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.CUSTOMER__OWNER:
-					return eBasicSetContainer(null, OrderSystemPackage.CUSTOMER__OWNER, msgs);
-				case OrderSystemPackage.CUSTOMER__ACCOUNT:
-					return ((InternalEList)getAccount()).basicRemove(otherEnd, msgs);
-				case OrderSystemPackage.CUSTOMER__ORDER:
-					return ((InternalEList)getOrder()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.CUSTOMER__OWNER:
+				return basicSetOwner(null, msgs);
+			case OrderSystemPackage.CUSTOMER__ACCOUNT:
+				return ((InternalEList<?>)getAccount()).basicRemove(otherEnd, msgs);
+			case OrderSystemPackage.CUSTOMER__ORDER:
+				return ((InternalEList<?>)getOrder()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case OrderSystemPackage.CUSTOMER__OWNER:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystem.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case OrderSystemPackage.CUSTOMER__OWNER:
+				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystem.class, msgs);
 		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.CUSTOMER__LAST_NAME:
 				return getLastName();
 			case OrderSystemPackage.CUSTOMER__FIRST_NAME:
@@ -316,16 +312,18 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 			case OrderSystemPackage.CUSTOMER__ORDER:
 				return getOrder();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@SuppressWarnings("unchecked")
+		@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.CUSTOMER__LAST_NAME:
 				setLastName((String)newValue);
 				return;
@@ -337,23 +335,24 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 				return;
 			case OrderSystemPackage.CUSTOMER__ACCOUNT:
 				getAccount().clear();
-				getAccount().addAll((Collection)newValue);
+				getAccount().addAll((Collection<? extends Account>)newValue);
 				return;
 			case OrderSystemPackage.CUSTOMER__ORDER:
 				getOrder().clear();
-				getOrder().addAll((Collection)newValue);
+				getOrder().addAll((Collection<? extends Order>)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.CUSTOMER__LAST_NAME:
 				setLastName(LAST_NAME_EDEFAULT);
 				return;
@@ -370,16 +369,17 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 				getOrder().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.CUSTOMER__LAST_NAME:
 				return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
 			case OrderSystemPackage.CUSTOMER__FIRST_NAME:
@@ -391,13 +391,14 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 			case OrderSystemPackage.CUSTOMER__ORDER:
 				return order != null && !order.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

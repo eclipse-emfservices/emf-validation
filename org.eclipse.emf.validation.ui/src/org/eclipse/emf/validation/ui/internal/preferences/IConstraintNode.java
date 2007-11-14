@@ -19,6 +19,7 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 
 import java.util.Collection;
 
+import org.eclipse.emf.validation.model.Category;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
 
@@ -60,7 +61,7 @@ public interface IConstraintNode {
 	 * 
 	 * @return the categories of the constraint that I represent
 	 */
-	Collection getCategories();
+	Collection<Category> getCategories();
 	
 	/**
 	 * Obtains the evaluation mode of the constraint, to show in the GUI.

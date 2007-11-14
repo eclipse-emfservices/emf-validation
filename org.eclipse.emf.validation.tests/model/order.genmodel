@@ -4,7 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.validation.tests/src"
     editDirectory="/org.eclipse.emf.validation.tests.edit/src" editorDirectory="/org.eclipse.emf.validation.tests.editor/src"
     modelPluginID="org.eclipse.emf.validation.tests" modelName="Order" editPluginClass="ordersystem.provider.OrderEditPlugin"
-    editorPluginClass="ordersystem.presentation.OrderEditorPlugin" nonNLSMarkers="true">
+    editorPluginClass="ordersystem.presentation.OrderEditorPlugin" nonNLSMarkers="true"
+    complianceLevel="5.0">
   <foreignModel>OrderSystem.mdl</foreignModel>
   <genPackages prefix="OrderSystem" ecorePackage="OrderSystem.ecore#/">
     <genDataTypes ecoreDataType="OrderSystem.ecore#//JavaDate"/>

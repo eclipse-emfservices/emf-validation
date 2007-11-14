@@ -18,8 +18,7 @@
 package org.eclipse.emf.validation.examples.general.actions;
 
 import java.util.Collection;
-import java.util.Iterator;
-
+import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.examples.extlibrary.presentation.EXTLibraryEditor;
@@ -60,7 +59,7 @@ public class EnableLiveValidationDelegate
 	/**
 	 * Selected EObjects
 	 */
-	protected Collection selectedEObjects = null;
+	protected Collection<Resource> selectedResources = null;
 
 	String title = ValidationMessages.EnableLiveValidationDelegate_title;
 
@@ -69,28 +68,35 @@ public class EnableLiveValidationDelegate
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
+	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, final ISelection selection) {
-		this.selectedEObjects = null;
+		this.selectedResources = null;
 		try {
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				this.selectedEObjects = structuredSelection.toList();
+				
+				Collection<?> selectedHunh = structuredSelection.toList();
+				
+				for (Object next : selectedHunh) {
+					if (!(next instanceof Resource)) {
+						action.setEnabled(false);
+					} else if (resourceHasAdapter((Resource) next)) {
+						action.setEnabled(false);
+					}
+				}
+				
+				if (action.isEnabled()) {
+					this.selectedResources = (Collection<Resource>) selectedHunh;
+				} else {
+					this.selectedResources = null;
+				}
 			}
 		} catch (Exception e) {
 			// Exceptions are not expected
 			MessageDialog.openInformation(shell, title, MESSAGE_EXCEPTION);
 			throw new RuntimeException(e);
 		} finally {
-			action.setEnabled((null != selectedEObjects));
-		}
-		
-		for (Iterator i = selectedEObjects.iterator(); i.hasNext();) {
-			Object o = i.next();
-			if (!(o instanceof Resource)) {
-				action.setEnabled(false);
-			} else if (resourceHasAdapter((Resource)o)) {
-				action.setEnabled(false);
-			}
+			action.setEnabled((null != selectedResources));
 		}
 	}
 
@@ -131,9 +137,7 @@ public class EnableLiveValidationDelegate
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
 	public void run(IAction action) {
-		for (Iterator i = selectedEObjects.iterator(); i.hasNext();) {
-			Resource r = (Resource)i.next();
-			
+		for (Resource r : selectedResources) {
 			if (!resourceHasAdapter(r)) {
 				EContentAdapter liveValidationContentAdapter = new LiveValidationContentAdapter(this);
 				r.eAdapters().add(liveValidationContentAdapter);
@@ -142,10 +146,8 @@ public class EnableLiveValidationDelegate
 	}
 	
 	private boolean resourceHasAdapter(Resource r) {
-		Collection adapters = r.eAdapters();
-		for (Iterator j = adapters.iterator(); j.hasNext();) {
-			Object o = j.next();
-			if (o instanceof LiveValidationContentAdapter) {
+		for (Adapter next : r.eAdapters()) {
+			if (next instanceof LiveValidationContentAdapter) {
 				return true;
 			}
 		}

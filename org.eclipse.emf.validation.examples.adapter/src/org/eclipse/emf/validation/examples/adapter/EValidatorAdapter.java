@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,23 +54,24 @@ public class EValidatorAdapter
 	public EValidatorAdapter() {
 		super();
 		
-		batchValidator =
-			(IBatchValidator) ModelValidationService.getInstance().newValidator(
+		batchValidator = ModelValidationService.getInstance().newValidator(
 				EvaluationMode.BATCH);
 		batchValidator.setIncludeLiveConstraints(true);
 		batchValidator.setReportSuccesses(false);
 	}
 
+	@Override
 	public boolean validate(EObject eObject, DiagnosticChain diagnostics,
-			Map context) {
+			Map<Object, Object> context) {
 		return validate(eObject.eClass(), eObject, diagnostics, context);
 	}
 
 	/**
 	 * Implements validation by delegation to the EMF validation framework.
 	 */
+	@Override
 	public boolean validate(EClass eClass, EObject eObject,
-			DiagnosticChain diagnostics, Map context) {
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		// first, do whatever the basic EcoreValidator does
 		super.validate(eClass, eObject, diagnostics, context);
 		
@@ -102,8 +103,9 @@ public class EValidatorAdapter
 	 * validation framework; they are validated indirectly via the
 	 * {@link EObject}s that hold their values.
 	 */
+	@Override
 	public boolean validate(EDataType eDataType, Object value,
-			DiagnosticChain diagnostics, Map context) {
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return super.validate(eDataType, value, diagnostics, context);
 	}
 	
@@ -115,7 +117,7 @@ public class EValidatorAdapter
 	 * @param context the context (may be <code>null</code>)
 	 * @param status the element's validation status
 	 */
-	private void processed(EObject eObject, Map context, IStatus status) {
+	private void processed(EObject eObject, Map<Object, Object> context, IStatus status) {
 		if (context != null) {
 			context.put(eObject, status);
 		}
@@ -132,7 +134,7 @@ public class EValidatorAdapter
 	 *     the <code>eObject</code> or one of its containers has already been
 	 *     validated;  <code>false</code>, otherwise
 	 */
-	private boolean hasProcessed(EObject eObject, Map context) {
+	private boolean hasProcessed(EObject eObject, Map<Object, Object> context) {
 		boolean result = false;
 		
 		if (context != null) {
@@ -160,8 +162,8 @@ public class EValidatorAdapter
 		if (status.isMultiStatus()) {
 			IStatus[] children = status.getChildren();
 			
-			for (int i = 0; i < children.length; i++) {
-				appendDiagnostics(children[i], diagnostics);
+			for (IStatus element : children) {
+				appendDiagnostics(element, diagnostics);
 			}
 		} else if (status instanceof IConstraintStatus) {
 			diagnostics.add(new BasicDiagnostic(

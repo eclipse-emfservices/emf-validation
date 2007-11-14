@@ -15,15 +15,17 @@ package org.eclipse.emf.validation.internal.service;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
  * Interface describing an {@link IModelConstraintProvider} operation.
  * 
+ * @param <T> the result type of the operation
+ * 
  * @author Christian W. Damus (cdamus)
  */
-public interface IProviderOperation {
+public interface IProviderOperation<T extends Collection<? extends IModelConstraint>> {
 	/**
 	 * Obtains the EMF object that is to be validated.
 	 * 
@@ -37,7 +39,7 @@ public interface IProviderOperation {
 	 * 
 	 * @return the constraints
 	 */
-	Collection getConstraints();
+	T getConstraints();
 	
 	/**
 	 * Executes me on the specified constraint <code>provider</code>.
@@ -45,5 +47,5 @@ public interface IProviderOperation {
 	 * @param provider a constraint provider
 	 * @return my {@link #getConstraints constraints collection}
 	 */
-	Object execute(IModelConstraintProvider provider);
+	T execute(IModelConstraintProvider provider);
 }

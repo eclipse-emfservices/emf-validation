@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getCustomer()
- *
+ * @model
  * @generated
  */
 public interface Customer extends EObject{
@@ -53,7 +53,7 @@ public interface Customer extends EObject{
 	 * @return the value of the '<em>Last Name</em>' attribute.
 	 * @see #setLastName(String)
 	 * @see ordersystem.OrderSystemPackage#getCustomer_LastName()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getLastName();
@@ -79,7 +79,7 @@ public interface Customer extends EObject{
 	 * @return the value of the '<em>First Name</em>' attribute.
 	 * @see #setFirstName(String)
 	 * @see ordersystem.OrderSystemPackage#getCustomer_FirstName()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getFirstName();
@@ -135,10 +135,10 @@ public interface Customer extends EObject{
 	 * @return the value of the '<em>Account</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getCustomer_Account()
 	 * @see ordersystem.Account#getOwner
-	 * @model type="ordersystem.Account" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getAccount();
+    EList<Account> getAccount();
 
 	/**
 	 * Returns the value of the '<em><b>Order</b></em>' containment reference list.
@@ -153,9 +153,9 @@ public interface Customer extends EObject{
 	 * @return the value of the '<em>Order</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getCustomer_Order()
 	 * @see ordersystem.Order#getOwner
-	 * @model type="ordersystem.Order" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getOrder();
+    EList<Order> getOrder();
 
 } // Customer

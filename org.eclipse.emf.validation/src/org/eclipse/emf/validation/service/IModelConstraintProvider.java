@@ -16,6 +16,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.validation.model.IModelConstraint;
 
 /**
  * <p>
@@ -62,7 +63,8 @@ public interface IModelConstraintProvider {
 	 *        <CODE>constraints </CODE> parameter (with additions), or a new
 	 *        collection if <CODE>constraints == null</CODE>
 	 */
-	Collection getBatchConstraints(EObject eObject, Collection constraints);
+	Collection<IModelConstraint> getBatchConstraints(EObject eObject,
+		Collection<IModelConstraint> constraints);
 
 	/**
 	 * Obtains a collection of live
@@ -83,7 +85,7 @@ public interface IModelConstraintProvider {
 	 *        <CODE>constraints </CODE> parameter (with additions), or a new
 	 *        collection if <CODE>constraints == null</CODE>
 	 */
-	Collection getLiveConstraints(
+	Collection<IModelConstraint> getLiveConstraints(
 			Notification notification,
-			Collection constraints);
+			Collection<IModelConstraint> constraints);
 }

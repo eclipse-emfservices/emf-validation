@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
 
 package org.eclipse.emf.validation.tests;
 
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 
 import org.eclipse.emf.ecore.EClass;
@@ -33,7 +34,7 @@ import java.util.Collection;
 public class CachedTestProvider extends AbstractConstraintProvider {
 	private static CachedTestProvider instance;
 	
-	private final java.util.Map hits = new java.util.HashMap();
+	private final java.util.Map<EClass, Integer> hits = new java.util.HashMap<EClass, Integer>();
 	
 	/**
 	 * Initializes me and remembers me for static access.
@@ -47,8 +48,9 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	}
 	
 	// redefines the inherited method
-	public Collection getBatchConstraints(EObject eObject,
-			Collection constraints) {
+	@Override
+	public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
+			Collection<IModelConstraint> constraints) {
 		// I don't actually need to provide any constraints in order to
 		//   register a hit.  The cache will remember that there are no
 		//   constraints!
@@ -64,7 +66,7 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	 * @param clazz the EMF type
 	 */
 	private final void registerHit(EClass clazz) {
-		hits.put(clazz, new Integer(getHitCount(clazz) + 1));
+		hits.put(clazz, getHitCount(clazz) + 1);
 	}
 	
 	/**
@@ -84,8 +86,8 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	 * @return the number of times that I have provided constraints
 	 */
 	public int getHitCount(EClass clazz) {
-		Integer result = (Integer)hits.get(clazz);
+		Integer result = hits.get(clazz);
 		
-		return (result == null) ? 0 : result.intValue();
+		return (result == null) ? 0 : result;
 	}
 }

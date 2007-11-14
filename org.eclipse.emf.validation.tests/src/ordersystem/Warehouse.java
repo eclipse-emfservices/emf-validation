@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getWarehouse()
- *
+ * @model
  * @generated
  */
 public interface Warehouse extends EObject{
@@ -52,7 +52,7 @@ public interface Warehouse extends EObject{
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Name()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getName();
@@ -108,10 +108,10 @@ public interface Warehouse extends EObject{
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Item()
 	 * @see ordersystem.InventoryItem#getWarehouse
-	 * @model type="ordersystem.InventoryItem" opposite="Warehouse" containment="true"
+	 * @model opposite="Warehouse" containment="true"
 	 * @generated
 	 */
-    EList getItem();
+    EList<InventoryItem> getItem();
 
 	/**
 	 * Returns the value of the '<em><b>Location</b></em>' containment reference.

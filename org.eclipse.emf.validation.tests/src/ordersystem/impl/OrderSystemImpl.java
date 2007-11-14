@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,16 +27,11 @@ import ordersystem.Warehouse;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -85,7 +80,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList customer = null;
+    protected EList<Customer> customer;
 
 	/**
 	 * The cached value of the '{@link #getProduct() <em>Product</em>}' containment reference list.
@@ -95,7 +90,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList product = null;
+    protected EList<Product> product;
 
 	/**
 	 * The cached value of the '{@link #getWarehouse() <em>Warehouse</em>}' containment reference list.
@@ -105,7 +100,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList warehouse = null;
+    protected EList<Warehouse> warehouse;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,8 +116,9 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getOrderSystem();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.ORDER_SYSTEM;
 	}
 
 	/**
@@ -151,9 +147,9 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getCustomer() {
+    public EList<Customer> getCustomer() {
 		if (customer == null) {
-			customer = new EObjectContainmentWithInverseEList(Customer.class, this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystemPackage.CUSTOMER__OWNER);
+			customer = new EObjectContainmentWithInverseEList<Customer>(Customer.class, this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystemPackage.CUSTOMER__OWNER);
 		}
 		return customer;
 	}
@@ -163,9 +159,9 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getProduct() {
+    public EList<Product> getProduct() {
 		if (product == null) {
-			product = new EObjectContainmentWithInverseEList(Product.class, this, OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystemPackage.PRODUCT__OWNER);
+			product = new EObjectContainmentWithInverseEList<Product>(Product.class, this, OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystemPackage.PRODUCT__OWNER);
 		}
 		return product;
 	}
@@ -175,64 +171,58 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getWarehouse() {
+    public EList<Warehouse> getWarehouse() {
 		if (warehouse == null) {
-			warehouse = new EObjectContainmentWithInverseEList(Warehouse.class, this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystemPackage.WAREHOUSE__OWNER);
+			warehouse = new EObjectContainmentWithInverseEList<Warehouse>(Warehouse.class, this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystemPackage.WAREHOUSE__OWNER);
 		}
 		return warehouse;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-					return ((InternalEList)getCustomer()).basicAdd(otherEnd, msgs);
-				case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-					return ((InternalEList)getProduct()).basicAdd(otherEnd, msgs);
-				case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-					return ((InternalEList)getWarehouse()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	@SuppressWarnings("unchecked")
+		@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCustomer()).basicAdd(otherEnd, msgs);
+			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getProduct()).basicAdd(otherEnd, msgs);
+			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getWarehouse()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-					return ((InternalEList)getCustomer()).basicRemove(otherEnd, msgs);
-				case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-					return ((InternalEList)getProduct()).basicRemove(otherEnd, msgs);
-				case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-					return ((InternalEList)getWarehouse()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+				return ((InternalEList<?>)getCustomer()).basicRemove(otherEnd, msgs);
+			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+				return ((InternalEList<?>)getProduct()).basicRemove(otherEnd, msgs);
+			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+				return ((InternalEList<?>)getWarehouse()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
 				return new Integer(getVersion());
 			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
@@ -242,42 +232,45 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
 				return getWarehouse();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@SuppressWarnings("unchecked")
+		@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
 				setVersion(((Integer)newValue).intValue());
 				return;
 			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
 				getCustomer().clear();
-				getCustomer().addAll((Collection)newValue);
+				getCustomer().addAll((Collection<? extends Customer>)newValue);
 				return;
 			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
 				getProduct().clear();
-				getProduct().addAll((Collection)newValue);
+				getProduct().addAll((Collection<? extends Product>)newValue);
 				return;
 			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
 				getWarehouse().clear();
-				getWarehouse().addAll((Collection)newValue);
+				getWarehouse().addAll((Collection<? extends Warehouse>)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
 				setVersion(VERSION_EDEFAULT);
 				return;
@@ -291,16 +284,17 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 				getWarehouse().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
 				return version != VERSION_EDEFAULT;
 			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
@@ -310,13 +304,14 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
 				return warehouse != null && !warehouse.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

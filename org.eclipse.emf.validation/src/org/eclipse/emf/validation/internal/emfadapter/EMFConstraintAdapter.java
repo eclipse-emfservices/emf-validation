@@ -54,7 +54,8 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	 * since the EMF APIs have no access to it and there is nothing else in
 	 * this adapter layer maintains a reference to it.
 	 */
-	private static final Map contextMapCache = new java.util.WeakHashMap();
+	private static final Map<IValidationContext, Map<Object, Object>> contextMapCache =
+		new java.util.WeakHashMap<IValidationContext, Map<Object,Object>>();
 	
 	private final IConstraintDescriptor descriptor;
 	private final Method validationMethod;
@@ -88,7 +89,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 			(EMFValidationContextAdapter)validationArgs[0];
 		
 		ctxAdapter.setAdaptedContext(ctx);
-		validationArgs[1] = getEmfContextFor(ctx);
+		validationArgs[1] = getEMFContextFor(ctx);
 		
 		try {
 			boolean success = ((Boolean)validationMethod.invoke(
@@ -131,7 +132,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	private IStatus fail(EMFValidationContextAdapter ctxAdapter) {
 		final IValidationContext ctx = ctxAdapter.getAdaptedContext();
 		
-		List resultLocus = new java.util.ArrayList(ctx.getResultLocus());
+		List<EObject> resultLocus = new java.util.ArrayList<EObject>(ctx.getResultLocus());
 		resultLocus.remove(ctx.getTarget());
 		
 		Diagnostic status = ctxAdapter.getLastStatus();
@@ -142,9 +143,8 @@ public class EMFConstraintAdapter implements IModelConstraint {
 		//   1 - the result locus minus the target(as a collection of
 		//       model elements)
 		return ctx.createFailureStatus(
-			new Object[] {
 				(status == null) ? null : status.getMessage(),
-				resultLocus});
+				resultLocus);
 	}
 	
 	/**
@@ -164,8 +164,8 @@ public class EMFConstraintAdapter implements IModelConstraint {
 			getDescriptor().getStatusCode(),
 			EMFModelValidationPlugin.getMessage(
 				ValidationMessages.emfadapter_disabled_WARN_,
-				new Object[] {getDescriptor().getName()}),
-			Collections.EMPTY_SET);
+				getDescriptor().getName()),
+			Collections.<EObject>emptySet());
 		
 		EMFModelValidationPlugin.getPlugin().getLog().log(
 			new Status(
@@ -185,11 +185,11 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	 * @param ctx our validation context
 	 * @return the corresponding EMF validation context
 	 */
-	private static Map getEmfContextFor(IValidationContext ctx) {
-		Map result = (Map) contextMapCache.get(ctx);
+	private static Map<Object, Object> getEMFContextFor(IValidationContext ctx) {
+		Map<Object, Object> result = contextMapCache.get(ctx);
 		
 		if (result == null) {
-			result = new java.util.HashMap();
+			result = new java.util.HashMap<Object, Object>();
 			
 			// add a substitution label provider for good measure
 			result.put(

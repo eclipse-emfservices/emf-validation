@@ -35,7 +35,8 @@ public class PreferenceInitializer
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
-	public void initializeDefaultPreferences() {
+	@Override
+    public void initializeDefaultPreferences() {
 		Preferences prefs = ValidationUIPlugin.getPlugin().getPluginPreferences();
 		
 		//validation preference defaults

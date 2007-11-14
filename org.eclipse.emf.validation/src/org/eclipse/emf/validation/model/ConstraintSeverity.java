@@ -12,13 +12,12 @@
 
 package org.eclipse.emf.validation.model;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
 /**
@@ -32,47 +31,40 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public final class ConstraintSeverity implements Serializable {
-	private static final long serialVersionUID = -5310833954198275258L;
-
-	private static int nextOrdinal = 0;
-
+public enum ConstraintSeverity implements Enumerator {
 	/**
 	 * Indicates that failure of the constraint should only generate an
 	 * informational message to the user.
 	 */
-	public static final ConstraintSeverity INFO = new ConstraintSeverity(
-			"INFO", ValidationMessages.severity_info, IStatus.INFO); //$NON-NLS-1$
+	INFO("INFO", ValidationMessages.severity_info, IStatus.INFO), //$NON-NLS-1$
 	
 	/**
 	 * Indicates that failure of the constraint constitutes a warning condition.
 	 */
-	public static final ConstraintSeverity WARNING = new ConstraintSeverity(
-			"WARNING", ValidationMessages.severity_warning, IStatus.WARNING); //$NON-NLS-1$
+	WARNING("WARNING", ValidationMessages.severity_warning, IStatus.WARNING), //$NON-NLS-1$
 
 	/**
 	 * Indicates that failure of the constraint constitutes an error condition.
 	 */
-	public static final ConstraintSeverity ERROR = new ConstraintSeverity(
-			"ERROR", ValidationMessages.severity_error, IStatus.ERROR); //$NON-NLS-1$
+	ERROR("ERROR", ValidationMessages.severity_error, IStatus.ERROR), //$NON-NLS-1$
 
 	/**
 	 * Indicates that failure of the constraint constitutes an error condition
 	 * that should cancel the validation operation (no further constraints are
 	 * evaluated).
 	 */
-	public static final ConstraintSeverity CANCEL = new ConstraintSeverity(
-			"CANCEL", ValidationMessages.severity_cancel, IStatus.CANCEL); //$NON-NLS-1$
+	CANCEL("CANCEL", ValidationMessages.severity_cancel, IStatus.CANCEL), //$NON-NLS-1$
 	/**
 	 * This special value is a pointer-safe null value according to the
 	 * <i>Null Object</i> pattern.  It is not a valid severity for
 	 * a constraint.
 	 */
-	public static final ConstraintSeverity NULL = new ConstraintSeverity(
-			"none", ValidationMessages.severity_null, IStatus.OK); //$NON-NLS-1$
+	NULL("none", ValidationMessages.severity_null, IStatus.OK); //$NON-NLS-1$
+
+	private static final long serialVersionUID = -5310833954198275258L;
 
 	/** All of my values. */
-	private static final List instances = Collections.unmodifiableList(
+	private static final List<ConstraintSeverity> instances = Collections.unmodifiableList(
 			Arrays.asList(new ConstraintSeverity[]{
 					INFO,
 					WARNING,
@@ -83,7 +75,6 @@ public final class ConstraintSeverity implements Serializable {
 
 	private final String name;
 	private final String localizedName;
-	private final int ordinal;
 	private final int istatusSeverity;
 
 	/**
@@ -96,7 +87,6 @@ public final class ConstraintSeverity implements Serializable {
 	 */
 	private ConstraintSeverity(String name, String localizedName, int istatusSeverity) {
 		this.name = name;
-		this.ordinal = nextOrdinal++;
 		this.istatusSeverity = istatusSeverity;
 		
 		this.localizedName = localizedName;
@@ -112,9 +102,7 @@ public final class ConstraintSeverity implements Serializable {
 	public static ConstraintSeverity getInstance(String name) {
 		ConstraintSeverity result = NULL;
 
-		for (Iterator iter = instances.iterator(); iter.hasNext(); ) {
-			ConstraintSeverity next = (ConstraintSeverity)iter.next();
-
+		for (ConstraintSeverity next : instances) {
 			if (next.getName().equalsIgnoreCase(name)) {
 				result = next;
 				break;
@@ -129,7 +117,7 @@ public final class ConstraintSeverity implements Serializable {
 	 * 
 	 * @return all values
 	 */
-	public static final List getAllInstances() {
+	public static final List<ConstraintSeverity> getAllInstances() {
 		return instances;
 	}
 
@@ -173,17 +161,16 @@ public final class ConstraintSeverity implements Serializable {
 	}
 
 	// re-implements the inherited method
+	@Override
 	public String toString() {
 		return getName();
 	}
-
-	/**
-	 * Implements the instance substitution protocol defined by the Java
-	 * Serialization Specification.
-	 * 
-	 * @return the correct pre-defined instance of the enumeration
-	 */
-	private Object readResolve() {
-		return getAllInstances().get(ordinal);
+	
+	public int getValue() {
+		return ordinal();
+	}
+	
+	public String getLiteral() {
+		return getName();
 	}
 }

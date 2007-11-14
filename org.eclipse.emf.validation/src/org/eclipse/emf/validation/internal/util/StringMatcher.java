@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2002, 2006 IBM Corporation and others.
+ * Copyright (c) 2002, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,12 +60,12 @@ public class StringMatcher {
 		/*
 		 * (Non JavaDoc)
 		 */
-		private int start; //inclusive
+		private final int start; //inclusive
 
 		/*
 		 * (Non JavaDoc)
 		 */
-		private int end; //exclusive
+		private final int end; //exclusive
 
 		/**
 		 * Creates a new position.
@@ -124,8 +124,9 @@ public class StringMatcher {
 	 */
 	public StringMatcher(String pattern, boolean ignoreCase,
 			boolean ignoreWildCards) {
-		if (pattern == null)
+		if (pattern == null) {
 			throw new IllegalArgumentException();
+		}
 		fIgnoreCase = ignoreCase;
 		fIgnoreWildCards = ignoreWildCards;
 		fPattern = pattern;
@@ -153,28 +154,35 @@ public class StringMatcher {
 	 * is returned. For a pattern like"*??*" in text "abcdf", (1,3) is returned
 	 */
 	public StringMatcher.Position find(String text, int start, int end) {
-		if (text == null)
+		if (text == null) {
 			throw new IllegalArgumentException();
+		}
 
 		int tlen = text.length();
-		if (start < 0)
+		if (start < 0) {
 			start = 0;
-		if (end > tlen)
+		}
+		if (end > tlen) {
 			end = tlen;
-		if (end < 0 || start >= end)
+		}
+		if (end < 0 || start >= end) {
 			return null;
-		if (fLength == 0)
+		}
+		if (fLength == 0) {
 			return new Position(start, start);
+		}
 		if (fIgnoreWildCards) {
 			int x = posIn(text, start, end);
-			if (x < 0)
+			if (x < 0) {
 				return null;
+			}
 			return new Position(x, x + fLength);
 		}
 
 		int segCount = fSegments.length;
-		if (segCount == 0)//pattern contains only '*'(s)
+		if (segCount == 0) {
 			return new Position(start, end);
+		}
 
 		int curPos = start;
 		int matchStart = -1;
@@ -182,14 +190,17 @@ public class StringMatcher {
 		for (i = 0; i < segCount && curPos < end; ++i) {
 			String current = fSegments[i];
 			int nextMatch = regExpPosIn(text, curPos, end, current);
-			if (nextMatch < 0)
+			if (nextMatch < 0) {
 				return null;
-			if (i == 0)
+			}
+			if (i == 0) {
 				matchStart = nextMatch;
+			}
 			curPos = nextMatch + current.length();
 		}
-		if (i < segCount)
+		if (i < segCount) {
 			return null;
+		}
 		return new Position(matchStart, curPos);
 	}
 
@@ -221,36 +232,45 @@ public class StringMatcher {
 	 *            substring
 	 */
 	public boolean match(String text, int start, int end) {
-		if (null == text)
+		if (null == text) {
 			throw new IllegalArgumentException();
+		}
 
-		if (start > end)
+		if (start > end) {
 			return false;
+		}
 
-		if (fIgnoreWildCards)
+		if (fIgnoreWildCards) {
 			return (end - start == fLength)
 				&& fPattern.regionMatches(fIgnoreCase, 0, text, start, fLength);
+		}
 		int segCount = fSegments.length;
-		if (segCount == 0 && (fHasLeadingStar || fHasTrailingStar)) // pattern
+		if (segCount == 0 && (fHasLeadingStar || fHasTrailingStar)) {
 			// contains
 			// only
 			// '*'(s)
 			return true;
-		if (start == end)
+		}
+		if (start == end) {
 			return fLength == 0;
-		if (fLength == 0)
+		}
+		if (fLength == 0) {
 			return start == end;
+		}
 
 		int tlen = text.length();
-		if (start < 0)
+		if (start < 0) {
 			start = 0;
-		if (end > tlen)
+		}
+		if (end > tlen) {
 			end = tlen;
+		}
 
 		int tCurPos = start;
 		int bound = end - fBound;
-		if (bound < 0)
+		if (bound < 0) {
 			return false;
+		}
 		int i = 0;
 		String current = fSegments[i];
 		int segLength = current.length();
@@ -276,12 +296,14 @@ public class StringMatcher {
 			int k = current.indexOf(fSingleWildCard); // known BMP code point
 			if (k < 0) {
 				currentMatch = textPosIn(text, tCurPos, end, current);
-				if (currentMatch < 0)
+				if (currentMatch < 0) {
 					return false;
+				}
 			} else {
 				currentMatch = regExpPosIn(text, tCurPos, end, current);
-				if (currentMatch < 0)
+				if (currentMatch < 0) {
 					return false;
+				}
 			}
 			tCurPos = currentMatch + current.length();
 			i++;
@@ -315,8 +337,9 @@ public class StringMatcher {
 	 *            and/or '?'
 	 */
 	private void parseWildCards() {
-		if (fPattern.startsWith("*"))//$NON-NLS-1$
+		if (fPattern.startsWith("*")) { //$NON-NLS-1$
 			fHasLeadingStar = true;
+		}
 		// if it is equal to '*', then it clearly is not a UTF-32 surrogate
 		if (UTF16.charAt(fPattern, fLength - 1) == '*') {
 			/* make sure it's not an escaped wildcard */
@@ -327,7 +350,7 @@ public class StringMatcher {
 			}
 		}
 
-		Vector temp = new Vector();
+		Vector<String> temp = new Vector<String>();
 
 		int pos = 0;
 		StringBuffer buf = new StringBuffer();
@@ -397,14 +420,16 @@ public class StringMatcher {
 
 		if (!fIgnoreCase) {
 			int i = UTF16.indexOf(text, fPattern, start);
-			if (i == -1 || i > max)
+			if (i == -1 || i > max) {
 				return -1;
+			}
 			return i;
 		}
 
 		for (int i = start; i <= max; ++i) {
-			if (text.regionMatches(true, i, fPattern, 0, fLength))
+			if (text.regionMatches(true, i, fPattern, 0, fLength)) {
 				return i;
+			}
 		}
 
 		return -1;
@@ -429,8 +454,9 @@ public class StringMatcher {
 
 		int max = end - plen;
 		for (int i = start; i <= max; ++i) {
-			if (regExpRegionMatches(text, i, p, 0, plen))
+			if (regExpRegionMatches(text, i, p, 0, plen)) {
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -475,8 +501,9 @@ public class StringMatcher {
 					continue;
 				}
 			}
-			if (pchar == tchar)
+			if (pchar == tchar) {
 				continue;
+			}
 			if (fIgnoreCase && Normalizer.compare(
 					tchar, pchar, Normalizer.COMPARE_IGNORE_CASE) == 0) {
 				continue;
@@ -505,14 +532,16 @@ public class StringMatcher {
 
 		if (!fIgnoreCase) {
 			int i = UTF16.indexOf(text, p, start);
-			if (i == -1 || i > max)
+			if (i == -1 || i > max) {
 				return -1;
+			}
 			return i;
 		}
 
 		for (int i = start; i <= max; ++i) {
-			if (text.regionMatches(true, i, p, 0, plen))
+			if (text.regionMatches(true, i, p, 0, plen)) {
 				return i;
+			}
 		}
 
 		return -1;

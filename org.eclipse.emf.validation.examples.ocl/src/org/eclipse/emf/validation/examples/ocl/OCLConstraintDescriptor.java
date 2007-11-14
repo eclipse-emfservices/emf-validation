@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: OCLConstraintDescriptor.java,v 1.1 2007/05/07 16:12:12 cdamus Exp $
+ * $Id: OCLConstraintDescriptor.java,v 1.2 2007/11/14 18:03:39 cdamus Exp $
  */
 package org.eclipse.emf.validation.examples.ocl;
 
@@ -61,7 +61,7 @@ class OCLConstraintDescriptor extends AbstractConstraintDescriptor {
 		return getBody();
 	}
 
-	public EvaluationMode getEvaluationMode() {
+	public EvaluationMode<?> getEvaluationMode() {
 		return EvaluationMode.BATCH;
 	}
 
@@ -70,7 +70,7 @@ class OCLConstraintDescriptor extends AbstractConstraintDescriptor {
 	}
 
 	public String getMessagePattern() {
-		return "Constraint " + getName() + " violated on {0}";
+		return String.format("Constraint %s violated on {0}", getName()); //$NON-NLS-1$
 	}
 
 	public String getName() {

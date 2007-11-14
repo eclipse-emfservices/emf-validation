@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ package org.eclipse.emf.validation.model;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -41,7 +41,7 @@ import com.ibm.icu.text.Collator;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class Category implements Comparable {
+public class Category implements Comparable<Category> {
 	static final String SLASH = "/"; //$NON-NLS-1$
 	
 	/**
@@ -70,9 +70,11 @@ public class Category implements Comparable {
 	private boolean mandatory;
 	
 	private final Category parent;
-	private final java.util.Map children = new java.util.HashMap();
+	private final Map<String, Category> children =
+		new java.util.HashMap<String, Category>();
 	
-	private final Set constraints = new java.util.HashSet();
+	private final Set<IConstraintDescriptor> constraints =
+		new java.util.HashSet<IConstraintDescriptor>();
 	
 	/**
 	 * Initializes me with my ID and parent category.
@@ -165,7 +167,7 @@ public class Category implements Comparable {
 	 * @return the {@link IConstraintDescriptor}s that are members of me as an
 	 *     unmodifiable set
 	 */
-	public Set getConstraints() {
+	public Set<IConstraintDescriptor> getConstraints() {
 		return Collections.unmodifiableSet(constraints);
 	}
 	
@@ -225,9 +227,9 @@ public class Category implements Comparable {
 	 * @return an unmodifiable set of the {@link Category}s that are
 	 *     my children, sorted by {@link #getName name}.  May be an empty set
 	 */
-	public SortedSet getChildren() {
+	public SortedSet<Category> getChildren() {
 		return Collections.unmodifiableSortedSet(
-				new java.util.TreeSet(children.values()));
+				new java.util.TreeSet<Category>(children.values()));
 	}
 	
 	/**
@@ -238,7 +240,7 @@ public class Category implements Comparable {
 	 * @return the matching category, or <code>null</code> if not found
 	 */
 	public Category getChild(String childId) {
-		return (Category)children.get(childId);
+		return children.get(childId);
 	}
 	
 	/**
@@ -363,11 +365,13 @@ public class Category implements Comparable {
 	}
 	
 	// redefines the inherited method
+	@Override
 	public int hashCode() {
 		return getPath().hashCode();
 	}
 	
 	// redefines the inherited method
+	@Override
 	public boolean equals(Object other) {
 		return (other instanceof Category)
 			&& ((Category)other).getPath().equals(getPath());
@@ -382,10 +386,7 @@ public class Category implements Comparable {
 	}
 	
 	// implements the interface method
-	public int compareTo(Object o) {
-		// this will throw if o has the wrong type.  That's expected
-		Category other = (Category)o;
-
+	public int compareTo(Category other) {
 		Collator aCollator = getCollator();
 		
 		int result = aCollator.compare(getName(), other.getName());
@@ -400,6 +401,7 @@ public class Category implements Comparable {
 	}
 	
 	// redefines the inherited method
+	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer(32);
 		
@@ -418,14 +420,12 @@ public class Category implements Comparable {
 	 * 
 	 * @param collection the collection of mandatory categories to which I append
 	 */
-	void getMandatoryCategories(Collection collection) {
+	void getMandatoryCategories(Collection<? super Category> collection) {
 		if (isMandatory()) {
 			collection.add(this);
 		}
 		
-		for (Iterator iter = getChildren().iterator(); iter.hasNext(); ) {
-			Category next = (Category)iter.next();
-			
+		for (Category next : getChildren()) {
 			next.getMandatoryCategories(collection);
 		}
 	}

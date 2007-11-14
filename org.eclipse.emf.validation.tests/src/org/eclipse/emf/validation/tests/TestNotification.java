@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,12 +66,14 @@ public class TestNotification extends NotificationImpl {
 	}
 
 	// redefines the inherited method
-	public Object getNotifier() {
+	@Override
+    public Object getNotifier() {
 		return notifier;
 	}
 	
 	// redefiness the inherited method
-	public Object getFeature() {
+	@Override
+    public Object getFeature() {
 		if (featureId == Notification.NO_FEATURE_ID) {
 			return null;
 		} else {

@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: EventTypeServiceTest.java,v 1.1 2007/03/21 21:06:30 cdamus Exp $
+ * $Id: EventTypeServiceTest.java,v 1.2 2007/11/14 18:03:42 cdamus Exp $
  */
  
 
@@ -46,7 +46,8 @@ public class EventTypeServiceTest extends TestCase {
 	}
 	
 	public void test_getNotificationGenerators_177647() {
-		Collection generators = EventTypeService.getInstance().getNotificationGenerators();
+		Collection<INotificationGenerator> generators =
+			EventTypeService.getInstance().getNotificationGenerators();
 		
 		assertEquals(generators.size(), 1);
 	}

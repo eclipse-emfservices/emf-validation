@@ -17,9 +17,7 @@
 
 package org.eclipse.emf.validation.internal.xml.tests;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import ordersystem.OrderSystemFactory;
@@ -27,6 +25,7 @@ import ordersystem.OrderSystemPackage;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -34,7 +33,6 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
-import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
@@ -57,10 +55,9 @@ public class XmlConstraintProviderTest extends TestBase {
 		// validate an object for which the test plug-in does not define any
 		//    constraints at all, to force the providers to be loaded (so
 		//    that the static "fixture" instance will be initialized)
-		IValidator validator = ModelValidationService.getInstance().newValidator(
+		IBatchValidator validator = ModelValidationService.getInstance().newValidator(
 				EvaluationMode.BATCH);
-		((IBatchValidator)validator).setTraversalStrategy(
-			new ITraversalStrategy.Flat());
+		validator.setTraversalStrategy(new ITraversalStrategy.Flat());
 		validator.validate(OrderSystemFactory.eINSTANCE.createInventoryItem());
 	}
 	
@@ -73,11 +70,13 @@ public class XmlConstraintProviderTest extends TestBase {
 		private boolean initializationDataWasSet = false;
 		
 		// gives the outer class access to the protected superclass method
-		protected List getConstraints() {
+		@Override
+		protected List<IModelConstraint> getConstraints() {
 			return super.getConstraints();
 		}
 		
 		// extends the inherited method to record the fact of this being set
+		@Override
 		public void setInitializationData(IConfigurationElement config,
 				String propertyName, Object data) throws CoreException {
 			super.setInitializationData(config, propertyName, data);
@@ -99,22 +98,18 @@ public class XmlConstraintProviderTest extends TestBase {
 	}
 	
 	public void test_getConstraints() {
-		Collection result = fixture.getConstraints();
+		Collection<IModelConstraint> result = fixture.getConstraints();
 		
 		assertAllConstraintsPresent(
 				"various", //$NON-NLS-1$
 				result,
-				Arrays.asList(new Object[] {
-						ID_PREFIX + "product.batch1", //$NON-NLS-1$
-						ID_PREFIX + "product.batch2", //$NON-NLS-1$
-						ID_PREFIX + "product.live1", //$NON-NLS-1$
-						ID_PREFIX + "product.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "product.batch1", //$NON-NLS-1$
+				ID_PREFIX + "product.batch2", //$NON-NLS-1$
+				ID_PREFIX + "product.live1", //$NON-NLS-1$
+				ID_PREFIX + "product.live2"); //$NON-NLS-1$
 		
 		// check that all of the constraints are proxies
-		for (Iterator iter = result.iterator(); iter.hasNext();) {
-			IModelConstraint next = (IModelConstraint)iter.next();
-			
+		for (IModelConstraint next : result) {
 			assertTrue(next.getClass().getName().endsWith("$ConstraintProxy")); //$NON-NLS-1$
 		}
 	}
@@ -122,23 +117,21 @@ public class XmlConstraintProviderTest extends TestBase {
 	public void test_getBatchConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 		
-		Collection result = new java.util.HashSet();
+		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
 		
 		fixture.getBatchConstraints(object, result);
 		
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				result,
-				Arrays.asList(new Object[] {
-						ID_PREFIX + "product.batch1", //$NON-NLS-1$
-						ID_PREFIX + "product.batch2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "product.batch1", //$NON-NLS-1$
+				ID_PREFIX + "product.batch2"); //$NON-NLS-1$
 	}
 
 	public void test_getLiveConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 		
-		Collection result = new java.util.HashSet();
+		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
 		
 		fixture.getLiveConstraints(
 				new TestNotification(object, Notification.SET),
@@ -147,22 +140,18 @@ public class XmlConstraintProviderTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				result,
-				Arrays.asList(new Object[] {
-						ID_PREFIX + "product.live1", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "product.live1"); //$NON-NLS-1$
 		
 		assertAllConstraintsNotPresent(
 				"live", //$NON-NLS-1$
 				result,
-				Arrays.asList(new Object[] {
-						ID_PREFIX + "product.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
 
 	public void test_getLiveConstraintsForFeature() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 		
-		Collection result = new java.util.HashSet();
+		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
 		
 		fixture.getLiveConstraints(
 				new TestNotification(
@@ -177,14 +166,12 @@ public class XmlConstraintProviderTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				result,
-				Arrays.asList(new Object[] {
-						ID_PREFIX + "product.live1", //$NON-NLS-1$
-						ID_PREFIX + "product.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "product.live1", //$NON-NLS-1$
+				ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
     
     public void test_duplicateConstraintsLogged_207988() {
-        List statuses = TestPlugin.getLogCapture().getLogs(
+        List<IStatus> statuses = TestPlugin.getLogCapture().getLogs(
             EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
         assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
     }

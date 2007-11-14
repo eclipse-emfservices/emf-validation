@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getAddress()
- *
+ * @model
  * @generated
  */
 public interface Address extends EObject{
@@ -53,7 +53,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Number</em>' attribute.
 	 * @see #setNumber(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Number()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getNumber();
@@ -79,7 +79,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Street</em>' attribute.
 	 * @see #setStreet(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Street()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getStreet();
@@ -105,7 +105,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Apartment</em>' attribute.
 	 * @see #setApartment(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Apartment()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getApartment();
@@ -131,7 +131,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>City</em>' attribute.
 	 * @see #setCity(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_City()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getCity();
@@ -157,7 +157,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Province</em>' attribute.
 	 * @see #setProvince(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Province()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getProvince();
@@ -183,7 +183,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Postal Code</em>' attribute.
 	 * @see #setPostalCode(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_PostalCode()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getPostalCode();
@@ -209,7 +209,7 @@ public interface Address extends EObject{
 	 * @return the value of the '<em>Country</em>' attribute.
 	 * @see #setCountry(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Country()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getCountry();

@@ -13,7 +13,6 @@
 package org.eclipse.emf.validation.internal.util;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
@@ -24,7 +23,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
@@ -76,13 +74,14 @@ public final class XmlConstraintDescriptor
 	private String name;
 	private String id;
 	private int statusCode;
-	private String pluginId;
+	private final String pluginId;
 
 	private String description;
 	private ConstraintSeverity severity = ConstraintSeverity.ERROR;
-	private EvaluationMode mode;
+	private EvaluationMode<?> mode;
 
-	private Map targetMap = new java.util.HashMap();
+	private Map<Object, TargetDescriptor> targetMap =
+		new java.util.HashMap<Object, TargetDescriptor>();
 
 	private String messagePattern;
 
@@ -243,7 +242,7 @@ public final class XmlConstraintDescriptor
 					new Object[] {key});
 		}
 
-		TargetDescriptor result = (TargetDescriptor)targetMap.get(key);
+		TargetDescriptor result = targetMap.get(key);
 
 		if (result == null) {
 			result = new TargetDescriptor();
@@ -263,11 +262,11 @@ public final class XmlConstraintDescriptor
 	}
 
 	// implements the interface method
-	public EvaluationMode getEvaluationMode() {
+	public EvaluationMode<?> getEvaluationMode() {
 		return mode;
 	}
 
-	private void setEvaluationMode(EvaluationMode mode) {
+	private void setEvaluationMode(EvaluationMode<?> mode) {
 		this.mode = mode;
 	}
 
@@ -282,13 +281,11 @@ public final class XmlConstraintDescriptor
 		
 		resolved = true;
 		
-		Map oldMap = targetMap;
-		targetMap = new java.util.HashMap();
+		Map<Object, TargetDescriptor> oldMap = targetMap;
+		targetMap = new java.util.HashMap<Object, TargetDescriptor>();
 
-		for (Iterator iter = oldMap.entrySet().iterator(); iter.hasNext(); ) {
-			Map.Entry next = (Map.Entry)iter.next();
-
-			String typeName = (String)next.getKey();
+		for (Map.Entry<Object, TargetDescriptor> next : oldMap.entrySet()) {
+			String typeName = (String) next.getKey();
 			
 			EClass targetEClass = null;
 			// See if the typeName value from the extension has a qualified
@@ -337,12 +334,8 @@ public final class XmlConstraintDescriptor
 		// that are for ancestor EClasses.  This is an O{n**2) algorithm, but
 		// there are not expected ever to be more than a handful of targets in
 		// any given constraint
-		for (Iterator iter = targetMap.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry next = (Map.Entry) iter.next();
-			
-			inheritTriggers(
-				(EClass) next.getKey(),
-				(TargetDescriptor) next.getValue());
+		for (Map.Entry<Object, TargetDescriptor> next : targetMap.entrySet()) {
+			inheritTriggers((EClass) next.getKey(), next.getValue());
 		}
 	}
 	
@@ -355,12 +348,11 @@ public final class XmlConstraintDescriptor
 	 * @param descriptor its descriptor
 	 */
 	private void inheritTriggers(EClass target, TargetDescriptor descriptor) {
-		for (Iterator iter = targetMap.entrySet().iterator(); iter.hasNext();) {
-			Map.Entry next = (Map.Entry) iter.next();
+		for (Map.Entry<Object, TargetDescriptor> next : targetMap.entrySet()) {
 			EClass otherTarget = (EClass) next.getKey();
 			
 			if ((otherTarget != target) && (otherTarget.isSuperTypeOf(target))) {
-				descriptor.merge((TargetDescriptor) next.getValue());
+				descriptor.merge(next.getValue());
 			}
 		}
 	}
@@ -591,9 +583,7 @@ public final class XmlConstraintDescriptor
 
 		IConfigurationElement[] targets = extConfig.getChildren(XmlConfig.E_TARGET);
 
-		for (int i = 0; i < targets.length; i++) {
-			final IConfigurationElement target = targets[i];
-
+		for (final IConfigurationElement target : targets) {
 			TargetDescriptor targetType = addTargetType(
 					target.getAttribute(XmlConfig.A_CLASS));
 			
@@ -602,22 +592,22 @@ public final class XmlConstraintDescriptor
 				//   to events in the model
 				IConfigurationElement[] events = XmlConfig.getEvents(target);
 
-				for (int j = 0; j < events.length; j++) {
+				for (IConfigurationElement element : events) {
 					EMFEventType eventType = EMFEventType.getInstance(
-							events[j].getAttribute(XmlConfig.A_NAME));
+							element.getAttribute(XmlConfig.A_NAME));
 
 					if (!eventType.isNull()) {
 						// add specific supported features, if any
 						IConfigurationElement[] features =
-							events[j].getChildren(XmlConfig.E_FEATURE);
+							element.getChildren(XmlConfig.E_FEATURE);
 						
 						if ((features == null) || (features.length == 0)) {
 							targetType.addEvent(eventType);
 						} else {
-							for (int k = 0; k < features.length; k++) {
+							for (IConfigurationElement element2 : features) {
 								targetType.addEvent(
 										eventType,
-										features[k].getAttribute(
+										element2.getAttribute(
 												XmlConfig.A_NAME));
 							}
 						}
@@ -652,7 +642,7 @@ public final class XmlConstraintDescriptor
 				EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
 				EMFModelValidationPlugin.getMessage(
 						RULE_INCOMPLETE,
-						new String[]{missingItem}),
+						missingItem),
 				null));
 			
 			Trace.throwing(getClass(), "assertNotNull", ce); //$NON-NLS-1$
@@ -685,8 +675,10 @@ public final class XmlConstraintDescriptor
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class TargetDescriptor {
-		private final Collection nonFeatureSpecificEvents = new java.util.HashSet();
-		private final Map featureSpecificEvents = new java.util.HashMap();
+		private final Collection<EMFEventType> nonFeatureSpecificEvents =
+			new java.util.HashSet<EMFEventType>();
+		private final Map<EMFEventType, Collection<String>> featureSpecificEvents =
+			new java.util.HashMap<EMFEventType, Collection<String>>();
 
 		/**
 		 * Indicates whether I explicitly support my target EClass, or whether
@@ -743,11 +735,11 @@ public final class XmlConstraintDescriptor
 		 */
 		void addEvent(EMFEventType eventType, String featureName) {
 			if (featureName != null) {
-				Collection currentFeatures = (Collection)featureSpecificEvents.get(
+				Collection<String> currentFeatures = featureSpecificEvents.get(
 						eventType);
 				
 				if (currentFeatures == null) {
-					currentFeatures = new java.util.HashSet();
+					currentFeatures = new java.util.HashSet<String>();
 					featureSpecificEvents.put(eventType, currentFeatures);
 				}
 				
@@ -792,8 +784,8 @@ public final class XmlConstraintDescriptor
 						// see whether the collection of supported event
 						//   types includes this feature
 						if (featureSpecificEvents.containsKey(eventType)) {
-							Collection eventFeatures =
-								(Collection)featureSpecificEvents.get(eventType);
+							Collection<String> eventFeatures =
+								featureSpecificEvents.get(eventType);
 							
 							// if no features are registered and I am supported and
 							//    I have no parents, then it is implied that I
@@ -827,19 +819,18 @@ public final class XmlConstraintDescriptor
 			
 			this.nonFeatureSpecificEvents.addAll(parent.nonFeatureSpecificEvents);
 			
-			for (Iterator iter = parent.featureSpecificEvents.entrySet().iterator(); iter.hasNext();) {
-				Map.Entry next = (Map.Entry) iter.next();
-				Object eventType = next.getKey();
-				Collection features = (Collection) next.getValue();
+			for (Map.Entry<EMFEventType, Collection<String>> next : parent.featureSpecificEvents.entrySet()) {
+				EMFEventType eventType = next.getKey();
+				Collection<String> features = next.getValue();
 				
-				Collection myFeatures = (Collection) this.featureSpecificEvents.get(eventType);
+				Collection<String> myFeatures = this.featureSpecificEvents.get(eventType);
 				if (myFeatures == null) {
 					// add all of my parent's features.  Need to create a copy
 					// because I might inherit other features from a different
 					// parent
 					this.featureSpecificEvents.put(
 						eventType,
-						new java.util.HashSet(features));
+						new java.util.HashSet<String>(features));
 				} else {
 					myFeatures.addAll(features);
 				}

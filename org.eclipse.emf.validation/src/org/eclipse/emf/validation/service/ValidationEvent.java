@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 
@@ -27,7 +26,7 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 /**
  * Event notifying {@link IValidationListener}s that a validation operation
  * has occurred.
- *
+ * 
  * @author Christian W. Damus (cdamus)
  */
 public final class ValidationEvent
@@ -35,18 +34,20 @@ public final class ValidationEvent
 
 	private static final long serialVersionUID = -7900125537603879206L;
 	
-	private final EvaluationMode mode;
-	private final Map clientData;
+	private final EvaluationMode<?> mode;
+	private final Map<String, Object> clientData;
 	private final IStatus status;
-	private final Collection targets;
-	private List results;
+	private final Collection<?> targets;
+	private List<IConstraintStatus> results;
 	
-	private Collection clientContextIds = null;
+	private Collection<String> clientContextIds = null;
 	
 	/**
 	 * Initializes me with the evaluation mode, client data, elements or
 	 * notifications validated, and validation results that I will pass along
 	 * to listeners.
+	 * 
+	 * @param <T> the kind of objects that were validated
 	 * 
 	 * @param mode the evaluation mode
 	 * @param clientData data specific to the particular validation client
@@ -55,10 +56,10 @@ public final class ValidationEvent
 	 *      mode) that were validated
 	 * @param status the validation results
 	 */
-	public ValidationEvent(
-		EvaluationMode mode,
-		Map clientData,
-		Collection targets,
+	public <T> ValidationEvent(
+		EvaluationMode<T> mode,
+		Map<String, ?> clientData,
+		Collection<? extends T> targets,
 		IStatus status) {
 		
 		super(ModelValidationService.getInstance());
@@ -68,7 +69,7 @@ public final class ValidationEvent
 		this.targets = Collections.unmodifiableCollection(targets);
 		
 		if (clientData == null) {
-			this.clientData = Collections.EMPTY_MAP;
+			this.clientData = Collections.emptyMap();
 		} else {
 			this.clientData = Collections.unmodifiableMap(clientData);
 		}
@@ -77,8 +78,11 @@ public final class ValidationEvent
 	/**
 	 * Initializes me with the evaluation mode, client data, elements or
 	 * notifications validated, and validation results that I will pass along
-	 * to listeners. Also, I will be initialized with the client context Ids
+	 * to listeners. Also, I will be initialized with the client context IDs
 	 * that were involved in the validation.
+	 * 
+	 * 
+	 * @param <T> the kind of objects that were validated
 	 * 
 	 * @param mode the evaluation mode
 	 * @param clientData data specific to the particular validation client
@@ -89,12 +93,12 @@ public final class ValidationEvent
 	 * @param clientContextIds the client context Ids that were involved in the
 	 *  validation.
 	 */
-	public ValidationEvent(
-		EvaluationMode mode,
-		Map clientData,
-		Collection targets,
+	public <T> ValidationEvent(
+		EvaluationMode<T> mode,
+		Map<String, ?> clientData,
+		Collection<? extends T> targets,
 		IStatus status,
-		Collection clientContextIds) {
+		Collection<String> clientContextIds) {
 		
 		this(mode,clientData,targets,status);
 		
@@ -108,9 +112,9 @@ public final class ValidationEvent
 	 * @return A collection of the client context ids in String form. These
 	 *  ids should not be modified in any way as they may affect other listeners.
 	 */
-	public Collection getClientContextIds() {
+	public Collection<String> getClientContextIds() {
 		if (clientContextIds == null) {
-			clientContextIds = Collections.EMPTY_LIST;
+			clientContextIds = Collections.emptyList();
 		}
 		return clientContextIds;
 	}
@@ -121,7 +125,7 @@ public final class ValidationEvent
 	 * @return the evaluation mode; never <code>null</code> or
 	 *     even {@link EvaluationMode#NULL}
 	 */
-	public EvaluationMode getEvaluationMode() {
+	public EvaluationMode<?> getEvaluationMode() {
 		return mode;
 	}
 	
@@ -137,7 +141,7 @@ public final class ValidationEvent
 	 * 
 	 * @return an unmodifiable mapping of client data
 	 */
-	public Map getClientData() {
+	public Map<String, Object> getClientData() {
 		return clientData;
 	}
 	
@@ -150,7 +154,7 @@ public final class ValidationEvent
 	 * 
 	 * @see #getValidationResults()
 	 */
-	public Collection getValidationTargets() {
+	public Collection<?> getValidationTargets() {
 		return targets;
 	}
 	
@@ -188,22 +192,22 @@ public final class ValidationEvent
 	 * 
 	 * @see #getValidationTargets()
 	 */
-	public List getValidationResults() {
+	public List<IConstraintStatus> getValidationResults() {
 		if (results == null) {
 			// lazily compute the results
 			if (status.isMultiStatus()) {
 				IStatus[] children = status.getChildren();
-				results = new java.util.ArrayList(children.length);
-				for (int i = 0; i < children.length; i++) {
-					if (children[i] instanceof IConstraintStatus) {
-						results.add(children[i]);
+				results = new java.util.ArrayList<IConstraintStatus>(children.length);
+				for (IStatus element : children) {
+					if (element instanceof IConstraintStatus) {
+						results.add((IConstraintStatus) element);
 					}
 				}
 				results = Collections.unmodifiableList(results);
 			} else if (status instanceof IConstraintStatus) {
-				results = Collections.singletonList(status);
+				results = Collections.singletonList((IConstraintStatus) status);
 			} else {
-				results = Collections.EMPTY_LIST;
+				results = Collections.emptyList();
 			}
 		}
 		

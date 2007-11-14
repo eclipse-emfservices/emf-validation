@@ -94,7 +94,7 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @return my evaluation mode
 	 */
-	EvaluationMode getEvaluationMode();
+	EvaluationMode<?> getEvaluationMode();
 
 	/**
 	 * Queries whether I target the type (or any supertype) of the specified
@@ -196,7 +196,7 @@ public interface IConstraintDescriptor {
 	 * 
 	 * @return an unmodifiable set of {@link Category}s
 	 */
-	Set getCategories();
+	Set<Category> getCategories();
 	
 	/**
 	 * Adds a category to me.  If, previously, I was in the default category,

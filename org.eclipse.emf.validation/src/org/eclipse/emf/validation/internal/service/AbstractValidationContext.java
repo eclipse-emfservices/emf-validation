@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractValidationContext implements IValidationContext {
-	private final IProviderOperation operation;
+	private final IProviderOperation<Collection<IModelConstraint>> operation;
 	
 	// tracks the eObjects that are ignored by a constraint
 	private final ConstraintIgnorement ignoredConstraints =
@@ -52,20 +52,21 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	
 	private ConstraintFilter filter;  // lazily initialized
 	
-	private final java.util.Map constraintData = new java.util.HashMap();
+	private final Map<IConstraintDescriptor, Object> constraintData =
+		new java.util.HashMap<IConstraintDescriptor, Object>();
 
 	private IModelConstraint currentConstraint = null;
 	private IConstraintDescriptor currentDescriptor = null;
 		
-	private Set resultLocus = new java.util.HashSet();
+	private final Set<EObject> resultLocus = new java.util.HashSet<EObject>();
 	
 	private boolean reportSuccesses = false;
 	
-	private Collection clientContexts = Collections.EMPTY_SET;
+	private Collection<IClientContext> clientContexts = Collections.emptySet();
 	
 	//	filters out all ignored and disabled, as well as constraints
 	//	   that have already been executed on the current target
-	private class ConstraintFilter implements FilteredCollection.Filter {
+	private class ConstraintFilter implements FilteredCollection.Filter<IModelConstraint> {
 		/** Initializes me. */
 		ConstraintFilter() {
 			// nothing to initialize.  Just declare the constructor explicitly
@@ -75,9 +76,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * I filter out any constraint that is disabled, ignored, or has already
 		 * been evaluated against the current target object.
 		 */
-		public boolean accept(Object constraint) {
-			IConstraintDescriptor desc =
-				((IModelConstraint)constraint).getDescriptor();
+		public boolean accept(IModelConstraint constraint) {
+			IConstraintDescriptor desc = constraint.getDescriptor();
 			
 			return (desc.isEnabled() && !isIgnored(desc));
 		}
@@ -100,7 +100,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	//    whether they are triggered for specific features (in the live and
 	//    feature validation cases) or just by the object type (batch mode)
 	private class ConstraintIgnorement {
-		private final Map ignoreMap = new java.util.HashMap();
+		private final Map<EObject, Collection<IConstraintDescriptor>> ignoreMap =
+			new java.util.HashMap<EObject, Collection<IConstraintDescriptor>>();
 		
 		/**
 		 * Ignores the specified <code>constraint</code> for this
@@ -111,7 +112,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * @param constraint the constraint
 		 */
 		void ignore(EObject eObject, IConstraintDescriptor constraint) {
-			Collection ignored = getIgnoredConstraints(eObject);
+			Collection<IConstraintDescriptor> ignored = getIgnoredConstraints(eObject);
 			
 			if (ignored == null) {
 				ignored = initIgnoredConstraints(eObject);
@@ -130,7 +131,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * @return whether the <code>constraint</code> is ignored
 		 */
 		boolean isIgnored(EObject eObject, IConstraintDescriptor constraint) {
-			Collection ignored = getIgnoredConstraints(eObject);
+			Collection<IConstraintDescriptor> ignored = getIgnoredConstraints(eObject);
 			
 			return (ignored != null) && ignored.contains(constraint);
 		}
@@ -145,8 +146,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 *    and that are not triggered by a feature, or <code>null</code> if
 		 *    no ignored constraints collection exists, yet
 		 */
-		private Collection getIgnoredConstraints(EObject target) {
-			return (Collection) ignoreMap.get(target);
+		private Collection<IConstraintDescriptor> getIgnoredConstraints(EObject target) {
+			return ignoreMap.get(target);
 		}
 	
 		/**
@@ -156,8 +157,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * @param target a validation target object
 		 * @return the new ignored constraints collection
 		 */
-		private Collection initIgnoredConstraints(EObject target) {
-			Collection result = new java.util.HashSet();
+		private Collection<IConstraintDescriptor> initIgnoredConstraints(EObject target) {
+			Collection<IConstraintDescriptor> result = new java.util.HashSet<IConstraintDescriptor>();
 			
 			ignoreMap.put(target, result);
 		
@@ -171,7 +172,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * @param operation the operation for which I provide a validation context
 	 */
 	protected AbstractValidationContext(
-			IProviderOperation operation) {
+			IProviderOperation<Collection<IModelConstraint>> operation) {
 		this.operation = operation;
 	}
 
@@ -180,7 +181,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * 
 	 * @return my operation
 	 */
-	protected final IProviderOperation getOperation() {
+	protected final IProviderOperation<Collection<IModelConstraint>> getOperation() {
 		return operation;
 	}
 	
@@ -194,8 +195,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Default implementation simply returns an empty list.
 	 */
-	public List getAllEvents() {
-		return Collections.EMPTY_LIST;
+	public List<Notification> getAllEvents() {
+		return Collections.emptyList();
 	}
 
 	/**
@@ -225,10 +226,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 	
 	// implements the interface method
-	public void skipCurrentConstraintForAll(Collection eObjects) {
-		for (Iterator iter = eObjects.iterator(); iter.hasNext();) {
-			Object next = iter.next();
-			
+	public void skipCurrentConstraintForAll(Collection<?> eObjects) {
+		for (Object next : eObjects) {
 			if (next instanceof EObject) {
 				skipCurrentConstraintFor((EObject)next);
 			}
@@ -243,7 +242,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * 
 	 * @return a constraint filter for this context
 	 */
-	public FilteredCollection.Filter getConstraintFilter() {
+	public FilteredCollection.Filter<IModelConstraint> getConstraintFilter() {
 		if (filter == null) {
 			filter = new ConstraintFilter();
 		}
@@ -268,7 +267,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	
 	// implements the interface method
 	public final Object putCurrentConstraintData(Object newData) {
-		return constraintData.put(getConstraint(), newData);
+		return constraintData.put(getConstraint().getDescriptor(), newData);
 	}
 	
 	/**
@@ -298,18 +297,18 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		resultLocus.add(eObject);
 	}
 	
-	public void addResults(Collection eObjects) {
+	public void addResults(Collection<? extends EObject> eObjects) {
 		assert eObjects != null;
 		
 		// explicitly iterate instead of calling resultLocus.addAll() in order
 		//    to assert the types of the elements by casting
-		for (Iterator iter = eObjects.iterator(); iter.hasNext();) {
-			addResult((EObject)iter.next());
+		for (EObject next : eObjects) {
+			addResult(next);
 		}
 	}
 	
 	// implements the interface method
-	public Set getResultLocus() {
+	public Set<EObject> getResultLocus() {
 		return java.util.Collections.unmodifiableSet(resultLocus);
 	}
 	
@@ -328,7 +327,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 	
 	/**
-	 * Obtains the dscriptor of the constraint currently being evaluated.
+	 * Obtains the descriptor of the constraint currently being evaluated.
 	 * 
 	 * @return the current constraint'sdescriptor
 	 */
@@ -388,7 +387,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
-	public IStatus createFailureStatus(Object[] messageArgs) {
+	public IStatus createFailureStatus(Object... messageArgs) {
 		
 		String message = TextUtils.formatMessage(
 				getDescriptor().getMessagePattern(),
@@ -412,18 +411,18 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * 
 	 * @return my constraints
 	 */
-	final Collection getConstraints() {
+	final Collection<IModelConstraint> getConstraints() {
 		// use only those constraints that match the client contexts
-		final Collection delegate = ClientContextManager.getInstance().getBindings(
+		final Collection<IModelConstraint> delegate = ClientContextManager.getInstance().getBindings(
 				clientContexts,
 				getOperation().getConstraints());
 		
 		// wraps my constraints collection's iterator in order to access
 		//    the descriptor of each constraint as it is traversed
-		class ConstraintsIterator implements Iterator {
-			private final Iterator delegateIterator;
+		class ConstraintsIterator implements Iterator<IModelConstraint> {
+			private final Iterator<? extends IModelConstraint> delegateIterator;
 
-			ConstraintsIterator(Collection delegateCollection) {
+			ConstraintsIterator(Collection<? extends IModelConstraint> delegateCollection) {
 				this.delegateIterator = delegateCollection.iterator();
 			}
 			
@@ -435,11 +434,11 @@ public abstract class AbstractValidationContext implements IValidationContext {
 			// implements the interface method, additionally setting attributes
 			//    of the enclosing context object from the next constraint
 			//    descriptor
-			public Object next() {
-				Object result = delegateIterator.next();
+			public IModelConstraint next() {
+				IModelConstraint result = delegateIterator.next();
 				
 				// make this descriptor available in the context
-				setConstraint((IModelConstraint)result);
+				setConstraint(result);
 				
 				// set the default result locus for this next constraint
 				AbstractValidationContext.this.initializeResultLocus();
@@ -452,11 +451,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 				throw new UnsupportedOperationException();
 			}}
 		
-		return new AbstractCollection() {
-			public Iterator iterator() {
+		return new AbstractCollection<IModelConstraint>() {
+			@Override
+			public Iterator<IModelConstraint> iterator() {
 				return new ConstraintsIterator(delegate);
 			}
 
+			@Override
 			public int size() {
 				return delegate.size();
 			}};
@@ -470,9 +471,9 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 *    {@link org.eclipse.emf.validation.internal.service.IClientContext}s
 	 *    or <code>null</code> to specify none
 	 */
-	final void setClientContexts(Collection clientContexts) {
+	final void setClientContexts(Collection<IClientContext> clientContexts) {
 		if (clientContexts == null) {
-			clientContexts = Collections.EMPTY_SET;
+			clientContexts = Collections.emptySet();
 		}
 		
 		this.clientContexts = clientContexts;
@@ -485,7 +486,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * @return a collection of
 	 *    {@link org.eclipse.emf.validation.internal.service.IClientContext}s
 	 */
-	final Collection getClientContexts() {
+	final Collection<IClientContext> getClientContexts() {
 		return clientContexts;
 	}
 	
@@ -522,8 +523,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		public Set getResultLocus() {
-			return Collections.EMPTY_SET;
+		public Set<EObject> getResultLocus() {
+			return Collections.emptySet();
 		}
 	}
 }

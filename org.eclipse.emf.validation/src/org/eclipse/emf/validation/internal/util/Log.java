@@ -16,7 +16,6 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 
 /**
@@ -487,7 +486,7 @@ public class Log {
 		if (patternArgs instanceof Object[]) {
 			args = (Object[])patternArgs;
 		} else if (patternArgs instanceof Collection) {
-			Collection argsCollection = (Collection)patternArgs;
+			Collection<?> argsCollection = (Collection<?>) patternArgs;
 			
 			args = argsCollection.toArray(new Object[argsCollection.size()]);
 		} else {
@@ -555,7 +554,7 @@ public class Log {
 		
 		log(severity,
 			code,
-			EMFModelValidationPlugin.getMessage(messagePattern, patternArgKeys),
-			exception);
+			EMFModelValidationPlugin.getMessage(messagePattern,
+			    (Object[]) patternArgKeys), exception);
 	}
 }

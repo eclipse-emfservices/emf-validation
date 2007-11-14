@@ -49,5 +49,5 @@ public interface IConstraintStatus extends IStatus {
 	 *     successful validation, the result is an empty collection.  The result
 	 *     is never <code>null</code>
 	 */
-	Set getResultLocus();
+	Set<EObject> getResultLocus();
 }

@@ -101,7 +101,7 @@ public interface ICategoryTreeNode {
 	 * 
 	 * @return my constraints, or an empty list if I am not a leaf node
 	 */
-	List getConstraints();
+	List<IConstraintNode> getConstraints();
 	
 	/**
 	 * Obtains the category that I represent if I am a leaf node.

@@ -14,7 +14,6 @@
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -62,7 +61,7 @@ public abstract class AbstractConstraintProvider
 			IExecutableExtension {
 
 	private String[] namespaceUris;
-	private List myConstraints = new java.util.ArrayList();
+	private final List<IModelConstraint> myConstraints = new java.util.ArrayList<IModelConstraint>();
 	
 	/**
 	 * A proxy for a lazily instantiated implementation of the
@@ -137,7 +136,7 @@ public abstract class AbstractConstraintProvider
 			
 			// replace me with my delegate in the list of constraints, to avoid
 			//   the delegation in future invocations and to free some memory
-			for (ListIterator iter = getConstraints().listIterator();
+			for (ListIterator<IModelConstraint> iter = getConstraints().listIterator();
 					iter.hasNext();) {
 				
 				if (iter.next() == this) {
@@ -206,7 +205,7 @@ public abstract class AbstractConstraintProvider
 	 * 
 	 * @since 1.1
 	 */
-	protected List getConstraints() {
+	protected List<IModelConstraint> getConstraints() {
 		return myConstraints;
 	}
 	
@@ -232,7 +231,7 @@ public abstract class AbstractConstraintProvider
 			String propertyName,
 			Object data) throws CoreException {
 		
-		Set uris = new java.util.HashSet();
+		Set<String> uris = new java.util.HashSet<String>();
 		
 		// backwards compatibility to the namespaceUri attribute
 		String uri = config.getAttribute(
@@ -243,8 +242,8 @@ public abstract class AbstractConstraintProvider
 		
 		IConfigurationElement[] pkgs = config.getChildren(XmlConfig.E_PACKAGE);
 		
-		for (int i = 0; i < pkgs.length; i++) {
-			uri = pkgs[i].getAttribute(XmlConfig.A_NAMESPACE_URI);
+		for (IConfigurationElement element : pkgs) {
+			uri = element.getAttribute(XmlConfig.A_NAMESPACE_URI);
 			if (uri != null) {
 				uris.add(uri.trim());
 			}
@@ -266,15 +265,15 @@ public abstract class AbstractConstraintProvider
 			throw e;
 		}
 		
-		namespaceUris = (String[]) uris.toArray(new String[uris.size()]);
+		namespaceUris = uris.toArray(new String[uris.size()]);
 	}
 	
 	/**
 	 * @since 1.1
 	 */
-	public Collection getLiveConstraints(
+	public Collection<IModelConstraint> getLiveConstraints(
 			Notification notification,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		
 		assert notification != null;
 		
@@ -282,17 +281,16 @@ public abstract class AbstractConstraintProvider
 			Trace.entering(getClass(), "getLiveConstraints"); //$NON-NLS-1$
 		}
 		
-		Collection result = constraints;
+		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList();
+			result = new java.util.ArrayList<IModelConstraint>();
 		}
 		
 		if (notification.getNotifier() instanceof EObject) {
 			EObject eObject = (EObject)notification.getNotifier();
 			
-			for (Iterator iter = getConstraints().iterator(); iter.hasNext(); ) {
-				IModelConstraint next = (IModelConstraint)iter.next();
+			for (IModelConstraint next : getConstraints()) {
 				IConstraintDescriptor desc = next.getDescriptor();
 	
 				if (desc.isLive() && desc.targetsTypeOf(eObject)
@@ -313,22 +311,21 @@ public abstract class AbstractConstraintProvider
 	/**
 	 * @since 1.1
 	 */
-	public Collection getBatchConstraints(
+	public Collection<IModelConstraint> getBatchConstraints(
 			EObject eObject,
-			Collection constraints) {		
+			Collection<IModelConstraint> constraints) {		
 		
 		if (Trace.shouldTraceEntering(EMFModelValidationDebugOptions.PROVIDERS)) {
 			Trace.entering(getClass(), "getBatchConstraints"); //$NON-NLS-1$
 		}
 		
-		Collection result = constraints;
+		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList();
+			result = new java.util.ArrayList<IModelConstraint>();
 		}
 
-		for (Iterator iter = getConstraints().iterator(); iter.hasNext(); ) {
-			IModelConstraint next = (IModelConstraint)iter.next();
+		for (IModelConstraint next : getConstraints()) {
 			IConstraintDescriptor desc = next.getDescriptor();
 
 			if (desc.isBatch() && desc.targetsTypeOf(eObject)) {
@@ -355,12 +352,16 @@ public abstract class AbstractConstraintProvider
 	 * 
 	 * @since 1.2
 	 */
-	protected void registerConstraints(Collection constraints) throws ConstraintExistsException {
+	protected void registerConstraints(
+	        Collection<? extends IModelConstraint> constraints)
+	        throws ConstraintExistsException {
+	    
 	    if (!constraints.isEmpty()) {
-    	    List descriptors = new java.util.ArrayList(constraints.size());
+    	    List<IConstraintDescriptor> descriptors =
+    	        new java.util.ArrayList<IConstraintDescriptor>(constraints.size());
     	    
-    	    for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-    	        descriptors.add(((IModelConstraint) iter.next()).getDescriptor());
+    	    for (IModelConstraint next : constraints) {
+    	        descriptors.add(next.getDescriptor());
     	    }
     	    
     	    ConstraintRegistry.getInstance().bulkRegister(descriptors);

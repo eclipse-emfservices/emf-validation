@@ -34,13 +34,15 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 public class ConstraintNode
 	implements IConstraintNode {
 
-	private static final java.util.Map instanceMap = new java.util.HashMap();
+	private static final java.util.Map<String, IConstraintNode> instanceMap =
+		new java.util.HashMap<String, IConstraintNode>();
 	
 	private final IConstraintDescriptor constraint;
 	private Boolean mandatory;
 	private boolean checked = false;
 	
-	private final java.util.Set categories = new java.util.HashSet();
+	private final java.util.Set<ICategoryTreeNode> categories =
+		new java.util.HashSet<ICategoryTreeNode>();
 	
 	/**
 	 * Initializes me with the constraint that I represent.
@@ -64,7 +66,7 @@ public class ConstraintNode
 		IConstraintNode result = null;
 		
 		if (id != null) {
-			result = (IConstraintNode) instanceMap.get(id);
+			result = instanceMap.get(id);
 			
 			if (result == null) {
 				result = new ConstraintNode(constraint);
@@ -107,7 +109,7 @@ public class ConstraintNode
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
-	public Collection getCategories() {
+	public Collection<Category> getCategories() {
 		return constraint.getCategories();
 	}
 
@@ -158,10 +160,10 @@ public class ConstraintNode
 		if (mandatory == null) {
 			boolean m = false;
 			
-			for (Iterator iter = constraint.getCategories().iterator();
+			for (Iterator<Category> iter = constraint.getCategories().iterator();
 					!m && iter.hasNext();) {
 				
-				if (((Category) iter.next()).isMandatory()) {
+				if (iter.next().isMandatory()) {
 					m = true;
 				}
 			}
@@ -239,9 +241,7 @@ public class ConstraintNode
 	 * This allows them to update theirs, to match.
 	 */
 	private void updateCategories() {
-		for (Iterator iter = categories.iterator(); iter.hasNext();) {
-			ICategoryTreeNode next = (ICategoryTreeNode) iter.next();
-			
+		for (ICategoryTreeNode next : categories) {
 			next.updateCheckState(this);
 		}
 	}

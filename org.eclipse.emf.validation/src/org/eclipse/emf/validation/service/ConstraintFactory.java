@@ -63,7 +63,8 @@ public abstract class ConstraintFactory {
 	 * @deprecated Use the {@link #newConstraint(IConstraintDescriptor)}
 	 *   method, instead
 	 */
-	public final IModelConstraint newConstraint(
+	@Deprecated
+    public final IModelConstraint newConstraint(
 			IXmlConstraintDescriptor descriptor) {
 		if (descriptor.isError()) {
 			return new DisabledConstraint(
@@ -83,7 +84,8 @@ public abstract class ConstraintFactory {
 	 * @deprecated Use the {@link #createConstraint(IConstraintDescriptor)}
 	 *   method, instead
 	 */
-	protected abstract IModelConstraint createConstraint(
+	@Deprecated
+    protected abstract IModelConstraint createConstraint(
 			IXmlConstraintDescriptor descriptor);
 
 	/**

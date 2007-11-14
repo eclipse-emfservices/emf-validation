@@ -14,6 +14,8 @@ package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+
 /**
  * Interface implemented by clients who wish to define a notification
  * generator.
@@ -37,5 +39,6 @@ public interface INotificationGenerator {
 	 * @param notifications that are eligible for validation
 	 * @return collection of newly generated notifications
 	 */
-	public Collection generateNotifications(Collection notifications);
+	public Collection<Notification> generateNotifications(
+		Collection<? extends Notification> notifications);
 }

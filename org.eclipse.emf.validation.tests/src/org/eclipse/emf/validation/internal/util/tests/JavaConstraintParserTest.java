@@ -136,7 +136,8 @@ public class JavaConstraintParserTest extends TestCase {
 		}
 		
 		// Dummy implementation to make the compiler happy
-		public IStatus validate(IValidationContext ctx) {
+		@Override
+        public IStatus validate(IValidationContext ctx) {
 			return Status.OK_STATUS;
 		}
 	}

@@ -35,6 +35,7 @@ import org.osgi.framework.Bundle;
  *
  * @author Christian W. Damus (cdamus)
  */
+@SuppressWarnings("deprecation")
 public class EMFConstraintParser
 		implements IParameterizedConstraintParser, IXmlConstraintParser {
 	private static final String PARAMETER_CLASS = "class"; //$NON-NLS-1$
@@ -48,7 +49,7 @@ public class EMFConstraintParser
 	private static final String METHOD_NOT_FOUND = ValidationMessages.emfadapter_methodNotFound_WARN_;
 	
 	/** The signature of validation methods in the EMF API. */
-	private static final Class[] VALIDATION_METHOD_SIGNATURE = new Class[] {
+	private static final Class<?>[] VALIDATION_METHOD_SIGNATURE = new Class<?>[] {
 			DiagnosticChain.class,
 			java.util.Map.class,
 		};
@@ -100,7 +101,7 @@ public class EMFConstraintParser
 		try {
 			// use the contributing plug-in's class loader to get the interface
 			//    type (in case the plug-in isn't my own)
-			Class emfInterface = bundle.loadClass(className);
+			Class<?> emfInterface = bundle.loadClass(className);
 			
 			// get the method, which we know has always the same signature in
 			//    the EMF API

@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,21 +23,15 @@ import java.util.Date;
 import ordersystem.Customer;
 import ordersystem.LineItem;
 import ordersystem.Order;
-
 import ordersystem.OrderSystemPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -149,7 +143,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 * @generated
 	 * @ordered
 	 */
-    protected EList item = null;
+    protected EList<LineItem> item;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -165,8 +159,9 @@ public class OrderImpl extends EObjectImpl implements Order {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getOrder();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.ORDER;
 	}
 
 	/**
@@ -260,7 +255,17 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 */
     public Customer getOwner() {
 		if (eContainerFeatureID != OrderSystemPackage.ORDER__OWNER) return null;
-		return (Customer)eContainer;
+		return (Customer)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetOwner(Customer newOwner, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.ORDER__OWNER, msgs);
+		return msgs;
 	}
 
 	/**
@@ -269,15 +274,15 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 * @generated
 	 */
     public void setOwner(Customer newOwner) {
-		if (newOwner != eContainer || (eContainerFeatureID != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
 				msgs = ((InternalEObject)newOwner).eInverseAdd(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
-			msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.ORDER__OWNER, msgs);
+			msgs = basicSetOwner(newOwner, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
@@ -289,79 +294,70 @@ public class OrderImpl extends EObjectImpl implements Order {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getItem() {
+    public EList<LineItem> getItem() {
 		if (item == null) {
-			item = new EObjectContainmentWithInverseEList(LineItem.class, this, OrderSystemPackage.ORDER__ITEM, OrderSystemPackage.LINE_ITEM__OWNER);
+			item = new EObjectContainmentWithInverseEList<LineItem>(LineItem.class, this, OrderSystemPackage.ORDER__ITEM, OrderSystemPackage.LINE_ITEM__OWNER);
 		}
 		return item;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ORDER__OWNER:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, OrderSystemPackage.ORDER__OWNER, msgs);
-				case OrderSystemPackage.ORDER__ITEM:
-					return ((InternalEList)getItem()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	@SuppressWarnings("unchecked")
+		@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ORDER__OWNER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetOwner((Customer)otherEnd, msgs);
+			case OrderSystemPackage.ORDER__ITEM:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getItem()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case OrderSystemPackage.ORDER__OWNER:
-					return eBasicSetContainer(null, OrderSystemPackage.ORDER__OWNER, msgs);
-				case OrderSystemPackage.ORDER__ITEM:
-					return ((InternalEList)getItem()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OrderSystemPackage.ORDER__OWNER:
+				return basicSetOwner(null, msgs);
+			case OrderSystemPackage.ORDER__ITEM:
+				return ((InternalEList<?>)getItem()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case OrderSystemPackage.ORDER__OWNER:
-					return (eContainer).eInverseRemove(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case OrderSystemPackage.ORDER__OWNER:
+				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
 		}
-		return (eContainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER__PLACED_ON:
 				return getPlacedOn();
 			case OrderSystemPackage.ORDER__FILLED_ON:
@@ -375,16 +371,18 @@ public class OrderImpl extends EObjectImpl implements Order {
 			case OrderSystemPackage.ORDER__ITEM:
 				return getItem();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@SuppressWarnings("unchecked")
+		@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER__PLACED_ON:
 				setPlacedOn((Date)newValue);
 				return;
@@ -402,19 +400,20 @@ public class OrderImpl extends EObjectImpl implements Order {
 				return;
 			case OrderSystemPackage.ORDER__ITEM:
 				getItem().clear();
-				getItem().addAll((Collection)newValue);
+				getItem().addAll((Collection<? extends LineItem>)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER__PLACED_ON:
 				setPlacedOn(PLACED_ON_EDEFAULT);
 				return;
@@ -434,16 +433,17 @@ public class OrderImpl extends EObjectImpl implements Order {
 				getItem().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ORDER__PLACED_ON:
 				return PLACED_ON_EDEFAULT == null ? placedOn != null : !PLACED_ON_EDEFAULT.equals(placedOn);
 			case OrderSystemPackage.ORDER__FILLED_ON:
@@ -457,13 +457,14 @@ public class OrderImpl extends EObjectImpl implements Order {
 			case OrderSystemPackage.ORDER__ITEM:
 				return item != null && !item.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

@@ -40,7 +40,8 @@ public class ConstraintsPreferencePage
 	private ConstraintsSelectionBlock constraintsComposite;
     
 	// implements the inherited method
-	protected Control createContents(Composite parent) {
+	@Override
+    protected Control createContents(Composite parent) {
 		Composite result = new Composite(parent, SWT.NONE);
 		FillLayout layout = new FillLayout();
 		result.setLayout(layout);
@@ -58,12 +59,14 @@ public class ConstraintsPreferencePage
 	}
 	
 	// redefines the inherited method
-	public boolean performOk() {
+	@Override
+    public boolean performOk() {
 		return constraintsComposite.performOk();
 	}
 	
 	// extends the inherited method
-	protected void performDefaults() {
+	@Override
+    protected void performDefaults() {
 		constraintsComposite.performDefaults();
 	}
 }

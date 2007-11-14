@@ -13,7 +13,6 @@
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
@@ -49,7 +48,8 @@ import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 public class ConstraintRegistry {
 	private static final ConstraintRegistry INSTANCE = new ConstraintRegistry();
 	
-	private final Map descriptors = new java.util.HashMap();
+	private final Map<String, IConstraintDescriptor> descriptors =
+	    new java.util.HashMap<String, IConstraintDescriptor>();
 	
 	private volatile IConstraintListener[] constraintListeners;
 	
@@ -78,7 +78,7 @@ public class ConstraintRegistry {
 	 *     does not exist
 	 */
 	public IConstraintDescriptor getDescriptor(String id) {
-		return (IConstraintDescriptor)descriptors.get(id);
+		return descriptors.get(id);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class ConstraintRegistry {
 	 *     does not exist
 	 */
 	public IConstraintDescriptor getDescriptor(String pluginId, String id) {
-		return (IConstraintDescriptor)descriptors.get(
+		return descriptors.get(
 				XmlConstraintDescriptor.normalizedId(pluginId, id));
 	}
 	
@@ -104,9 +104,9 @@ public class ConstraintRegistry {
 	 * @return the available constraint descriptors, as an unmodifiable
 	 *     collection
 	 */
-	public Collection getAllDescriptors() {
+	public Collection<IConstraintDescriptor> getAllDescriptors() {
 	    synchronized (descriptors) {
-	        return new java.util.ArrayList(descriptors.values());
+	        return new java.util.ArrayList<IConstraintDescriptor>(descriptors.values());
 	    }
 	}
 	
@@ -315,13 +315,13 @@ public class ConstraintRegistry {
 	 * @throws ConstraintExistsException if any constraint's ID is already
 	 *    registered under a different descriptor
 	 */
-	void bulkRegister(Collection constraints) throws ConstraintExistsException {
-	    Collection registered = new java.util.ArrayList(constraints.size());
+	void bulkRegister(Collection<? extends IConstraintDescriptor> constraints)
+	throws ConstraintExistsException {
+	    Collection<IConstraintDescriptor> registered =
+	        new java.util.ArrayList<IConstraintDescriptor>(constraints.size());
 	    
 	    synchronized (descriptors) {
-    	    for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-    	        IConstraintDescriptor next = (IConstraintDescriptor) iter.next();
-    	        
+    	    for (IConstraintDescriptor next : constraints) {
     	        if (doRegister(next)) {
     	            registered.add(next);
     	        }
@@ -332,8 +332,8 @@ public class ConstraintRegistry {
 	        ConstraintChangeEvent event =
 	            new ConstraintChangeEvent(null, ConstraintChangeEventType.REGISTERED);
 	        
-    	    for (Iterator iter = registered.iterator(); iter.hasNext();) {
-    	        event.setConstraint((IConstraintDescriptor) iter.next());
+    	    for (IConstraintDescriptor next : registered) {
+    	        event.setConstraint(next);
                 broadcastConstraintChangeEvent(event);
     	    }
 	    }

@@ -44,7 +44,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	/** Don't allow client's progress to count more steps than this number. */
 	private static final int MAX_PROGRESS_TICKS = 2048;
 	
-	private Iterator iterator;
+	private Iterator<? extends EObject> iterator;
 	private IProgressMonitor monitor;
 	
 	/**
@@ -62,7 +62,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * updates).
 	 */
 	public void startTraversal(
-		Collection traversalRoots,
+		Collection<? extends EObject> traversalRoots,
 		IProgressMonitor progressMonitor) {
 
 		int taskSize = countElements(traversalRoots);
@@ -110,7 +110,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * @return the total number of elements to be validated within these
 	 *     sub-trees
 	 */
-	protected abstract int countElements(Collection traversalRoots);
+	protected abstract int countElements(Collection<? extends EObject> traversalRoots);
 	
 	/**
 	 * Implemented by subclasses to return an iterator that provides all of the
@@ -120,7 +120,8 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * @param traversalRoots the roots of the traversal sub-trees
 	 * @return an iterator that covers all of the elements to be validated
 	 */
-	protected abstract Iterator createIterator(Collection traversalRoots);
+	protected abstract Iterator<? extends EObject> createIterator(
+		Collection<? extends EObject> traversalRoots);
 	
 	/**
 	 * Provides subclasses with access to the progress monitor, if they want it
@@ -148,7 +149,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * @see #createIterator
 	 */
 	public EObject next() {
-		return (EObject)iterator.next();
+		return iterator.next();
 	}
 	
 	/**

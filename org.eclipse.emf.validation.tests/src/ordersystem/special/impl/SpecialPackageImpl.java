@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,9 +18,7 @@
 package ordersystem.special.impl;
 
 import ordersystem.OrderSystemPackage;
-
 import ordersystem.impl.OrderSystemPackageImpl;
-
 import ordersystem.special.LimitedEditionProduct;
 import ordersystem.special.PreferredCustomer;
 import ordersystem.special.SpecialFactory;
@@ -29,7 +27,6 @@ import ordersystem.special.SpecialPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -102,23 +99,26 @@ public class SpecialPackageImpl extends EPackageImpl implements SpecialPackage {
 	 * @generated
 	 */
 	public static SpecialPackage init() {
-		if (isInited) return (SpecialPackage)EPackage.Registry.INSTANCE.get(SpecialPackage.eNS_URI);
+		if (isInited) return (SpecialPackage)EPackage.Registry.INSTANCE.getEPackage(SpecialPackage.eNS_URI);
 
-		// Obtain or create and register package.
-		SpecialPackageImpl theSpecialPackage = (SpecialPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SpecialPackageImpl());
+		// Obtain or create and register package
+		SpecialPackageImpl theSpecialPackage = (SpecialPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof SpecialPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new SpecialPackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		OrderSystemPackageImpl theOrderSystemPackage = (OrderSystemPackageImpl)(EPackage.Registry.INSTANCE.get(OrderSystemPackage.eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.get(OrderSystemPackage.eNS_URI) : OrderSystemPackageImpl.eINSTANCE);
+		OrderSystemPackageImpl theOrderSystemPackage = (OrderSystemPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(OrderSystemPackage.eNS_URI) instanceof OrderSystemPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(OrderSystemPackage.eNS_URI) : OrderSystemPackage.eINSTANCE);
 
-		// Step 1: create meta-model objects
+		// Create package meta-data objects
 		theSpecialPackage.createPackageContents();
 		theOrderSystemPackage.createPackageContents();
 
-		// Step 2: complete initialization
+		// Initialize created meta-data
 		theSpecialPackage.initializePackageContents();
 		theOrderSystemPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		theSpecialPackage.freeze();
 
 		return theSpecialPackage;
 	}
@@ -218,17 +218,21 @@ public class SpecialPackageImpl extends EPackageImpl implements SpecialPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		OrderSystemPackageImpl theOrderSystemPackage = (OrderSystemPackageImpl)EPackage.Registry.INSTANCE.getEPackage(OrderSystemPackage.eNS_URI);
+		OrderSystemPackage theOrderSystemPackage = (OrderSystemPackage)EPackage.Registry.INSTANCE.getEPackage(OrderSystemPackage.eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
 
 		// Add supertypes to classes
 		preferredCustomerEClass.getESuperTypes().add(theOrderSystemPackage.getCustomer());
 		limitedEditionProductEClass.getESuperTypes().add(theOrderSystemPackage.getProduct());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(preferredCustomerEClass, PreferredCustomer.class, "PreferredCustomer", !IS_ABSTRACT, !IS_INTERFACE); //$NON-NLS-1$
-		initEAttribute(getPreferredCustomer_Since(), theOrderSystemPackage.getJavaDate(), "since", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(preferredCustomerEClass, PreferredCustomer.class, "PreferredCustomer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getPreferredCustomer_Since(), theOrderSystemPackage.getJavaDate(), "since", null, 0, 1, PreferredCustomer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(limitedEditionProductEClass, LimitedEditionProduct.class, "LimitedEditionProduct", !IS_ABSTRACT, !IS_INTERFACE); //$NON-NLS-1$
-		initEAttribute(getLimitedEditionProduct_AvailableUntil(), theOrderSystemPackage.getJavaDate(), "availableUntil", null, 0, 1, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(limitedEditionProductEClass, LimitedEditionProduct.class, "LimitedEditionProduct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLimitedEditionProduct_AvailableUntil(), theOrderSystemPackage.getJavaDate(), "availableUntil", null, 0, 1, LimitedEditionProduct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 	}
 } //SpecialPackageImpl

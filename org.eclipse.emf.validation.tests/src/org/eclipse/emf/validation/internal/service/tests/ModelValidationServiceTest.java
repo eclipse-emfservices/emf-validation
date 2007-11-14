@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import ordersystem.Address;
@@ -53,8 +52,8 @@ import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
+import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
-import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.CancelConstraint;
 import org.eclipse.emf.validation.tests.MultiConstraint;
@@ -99,14 +98,12 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-						ID_PREFIX + "order.notFilledBeforePlacement", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasContents", //$NON-NLS-1$
+				ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
 	}
 
 	public void test_validateBatchCollection() {
-		Collection objects = new java.util.ArrayList();
+		Collection<EObject> objects = new java.util.ArrayList<EObject>();
 		objects.add(OrderSystemFactory.eINSTANCE.createOrder());
 		objects.add(OrderSystemFactory.eINSTANCE.createAddress());
 
@@ -129,14 +126,14 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllTargetsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new Object[] {
+				Arrays.asList(new EObject[] {
 						order,
 						item,
 				}));
 	}
 
 	public void test_validateSubtreeBatchCollection() {
-		Collection orders = new java.util.ArrayList();
+		Collection<EObject> orders = new java.util.ArrayList<EObject>();
 		
 		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item1 = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -155,7 +152,7 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllTargetsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new Object[] {
+				Arrays.asList(new EObject[] {
 						order1,
 						item1,
 						order2,
@@ -173,14 +170,12 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasName", //$NON-NLS-1$
-						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasName", //$NON-NLS-1$
+				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
 	}
 
 	public void test_validateLiveList() {
-		List events = new java.util.ArrayList();
+		List<Notification> events = new java.util.ArrayList<Notification>();
 		Resource res = new XMIResourceImpl();
 		
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
@@ -197,10 +192,10 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(events));
 
-		List targets = new java.util.LinkedList(events);
+		List<EObject> targets = new java.util.ArrayList<EObject>(events.size());
 		
-		for (ListIterator iter = targets.listIterator(); iter.hasNext();) {
-			iter.set(((Notification)iter.next()).getNotifier());
+		for (Notification next : events) {
+			targets.add((EObject) next.getNotifier());
 		}
 		
 		assertAllTargetsPresent(
@@ -226,9 +221,7 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.multiConstraint", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.multiConstraint"); //$NON-NLS-1$
 		
 		status = getStatuses(status, ID_PREFIX + "order.multiConstraint"); //$NON-NLS-1$
 		assertEquals(3, status.length);
@@ -237,8 +230,8 @@ public class ModelValidationServiceTest extends TestBase {
 		boolean foundFun = false;
 		boolean foundSilly = false;
 		
-		final Set justOrder = Collections.singleton(order);
-		final Set orderAndItem = new java.util.HashSet();
+		final Set<Order> justOrder = Collections.singleton(order);
+		final Set<EObject> orderAndItem = new java.util.HashSet<EObject>();
 		orderAndItem.add(order);
 		orderAndItem.addAll(order.getItem());
 		
@@ -293,9 +286,7 @@ public class ModelValidationServiceTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.setTargetConstraint", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.setTargetConstraint"); //$NON-NLS-1$
 		
 		status = getStatuses(status, ID_PREFIX + "order.setTargetConstraint"); //$NON-NLS-1$
 		assertEquals(3, status.length);
@@ -304,8 +295,8 @@ public class ModelValidationServiceTest extends TestBase {
 		boolean foundSilly = false;
 		boolean foundSuccess = false;
 		
-		final Set justItem = Collections.singleton(item);
-		final Set orderAndItem = new java.util.HashSet();
+		final Set<LineItem> justItem = Collections.singleton(item);
+		final Set<EObject> orderAndItem = new java.util.HashSet<EObject>();
 		orderAndItem.add(order);
 		orderAndItem.addAll(order.getItem());
 		
@@ -351,15 +342,16 @@ public class ModelValidationServiceTest extends TestBase {
 		Order order2 = OrderSystemFactory.eINSTANCE.createOrder();
 		order2.setCompleted(false);
 		
-		EList contents = new XMIResourceImpl().getContents();
+		EList<EObject> contents = new XMIResourceImpl().getContents();
 		contents.add(order1);
 		contents.add(order2);
 		
-		Collection events = new ArrayList();
+		Collection<Notification> events = new ArrayList<Notification>();
 		events.add(new TestNotification(order1, Notification.SET));
 		events.add(new TestNotification(order2, Notification.SET));
 		
-		IValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
+		ILiveValidator validator = ModelValidationService.getInstance().newValidator(
+		    EvaluationMode.LIVE);
         IConstraintFilter filter = new IConstraintFilter() {
             public boolean accept(IConstraintDescriptor constraint,
                     EObject object) {
@@ -394,11 +386,11 @@ public class ModelValidationServiceTest extends TestBase {
 		Order order2 = OrderSystemFactory.eINSTANCE.createOrder();
 		order2.setCompleted(false);
 		
-		EList contents = new XMIResourceImpl().getContents();
+		EList<EObject> contents = new XMIResourceImpl().getContents();
 		contents.add(order1);
 		contents.add(order2);
 		
-		Collection targets = new ArrayList();
+		Collection<EObject> targets = new ArrayList<EObject>();
 		targets.add(order1);
 		targets.add(order2);
 		
@@ -447,9 +439,7 @@ public class ModelValidationServiceTest extends TestBase {
         assertAllConstraintsPresent(
                 "batch", //$NON-NLS-1$
                 status,
-                Arrays.asList(new String[] {
-                        ID_PREFIX + "order.cancelConstraint", //$NON-NLS-1$
-                }));
+                ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
         
         IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
         assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
@@ -470,16 +460,14 @@ public class ModelValidationServiceTest extends TestBase {
         EObject object = OrderSystemFactory.eINSTANCE.createOrder();
         res.getContents().add(object);    // must be in a resource
 
-        Collection events = new ArrayList();
+        Collection<Notification> events = new ArrayList<Notification>();
         events.add(new TestNotification(object, Notification.SET));
         IStatus[] status = getStatuses(liveValidator.validate(events));
 
         assertAllConstraintsPresent(
                 "live", //$NON-NLS-1$
                 status,
-                Arrays.asList(new String[] {
-                        ID_PREFIX + "order.cancelConstraint", //$NON-NLS-1$
-                }));
+                ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
         
         IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
         assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
@@ -504,6 +492,7 @@ public class ModelValidationServiceTest extends TestBase {
         epackage.getEClassifiers().add(myOrderClass);
         
         class MyOrderImpl extends OrderImpl {
+            @Override
             public EClass eClass() {
                 return myOrderClass;
             }
@@ -519,10 +508,8 @@ public class ModelValidationServiceTest extends TestBase {
         assertAllConstraintsPresent(
             "batch", //$NON-NLS-1$
             status,
-            Arrays.asList(new String[] {
-                    ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-                    ID_PREFIX + "order.notFilledBeforePlacement", //$NON-NLS-1$
-            }));
+            ID_PREFIX + "order.hasContents", //$NON-NLS-1$
+            ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
     }
     
     /**
@@ -530,7 +517,7 @@ public class ModelValidationServiceTest extends TestBase {
      * not repeatedly validate an element.
      */
     public void test_recursiveTraversalStrategy_207990() {
-        Collection objects = new java.util.ArrayList();
+        Collection<EObject> objects = new java.util.ArrayList<EObject>();
         
         Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
         LineItem item1 = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -540,7 +527,7 @@ public class ModelValidationServiceTest extends TestBase {
         objects.add(item1);  // child element precedes ancestor
         objects.add(order1);
 
-        Set visited = new java.util.HashSet();
+        Set<EObject> visited = new java.util.HashSet<EObject>();
         ITraversalStrategy traversal = batchValidator.getDefaultTraversalStrategy();
         
         traversal.startTraversal(objects, new NullProgressMonitor());
@@ -621,6 +608,7 @@ public class ModelValidationServiceTest extends TestBase {
     // Framework methods
     //
     
+    @Override
     protected void tearDown()
         throws Exception {
         
@@ -670,7 +658,7 @@ public class ModelValidationServiceTest extends TestBase {
             return delegate.next();
         }
 
-        public void startTraversal(Collection traversalRoots,
+        public void startTraversal(Collection<? extends EObject> traversalRoots,
                 IProgressMonitor monitor) {
             synchronized (TestTraversalStrategy.class) {
                 used = true;

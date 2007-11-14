@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ import ordersystem.OrderSystemFactory;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -84,7 +85,7 @@ public class DisabledConstraintTest extends TestCase {
 	
 	public static class ValidationContext implements IValidationContext {
 		private final EObject target;
-		private Set resultLocus = new java.util.HashSet();
+		private final Set<EObject> resultLocus = new java.util.HashSet<EObject>();
 		
 		public ValidationContext(EObject target) {
 			this.target = target;
@@ -107,8 +108,8 @@ public class DisabledConstraintTest extends TestCase {
 		}
 
 		// implements the inherited method
-		public List getAllEvents() {
-			return Collections.EMPTY_LIST;
+		public List<Notification> getAllEvents() {
+			return Collections.emptyList();
 		}
 
 		// implements the inherited method
@@ -127,7 +128,7 @@ public class DisabledConstraintTest extends TestCase {
 		}
 
 		// implements the inherited method
-		public void skipCurrentConstraintForAll(Collection eObjects) {
+		public void skipCurrentConstraintForAll(Collection<?> eObjects) {
 			// no need to do anything in this test fixture
 		}
 		
@@ -147,7 +148,7 @@ public class DisabledConstraintTest extends TestCase {
 		}
 
 		// implements the inherited method
-		public Set getResultLocus() {
+		public Set<EObject> getResultLocus() {
 			return resultLocus;
 		}
 		
@@ -157,8 +158,8 @@ public class DisabledConstraintTest extends TestCase {
 		}
 		
 		// implements the inherited method
-		public void addResults(Collection eObjects) {
-			resultLocus.add(eObjects);
+		public void addResults(Collection<? extends EObject> eObjects) {
+			resultLocus.addAll(eObjects);
 		}
 
 		/* (non-Javadoc)
@@ -171,7 +172,7 @@ public class DisabledConstraintTest extends TestCase {
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
-		public IStatus createFailureStatus(Object[] messageArguments) {
+		public IStatus createFailureStatus(Object... messageArguments) {
 			return new Status(
 				IStatus.ERROR,
 				"org.eclipse.emf.validation.tests", //$NON-NLS-1$

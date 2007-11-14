@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,14 +18,10 @@
 package ordersystem.impl;
 
 import ordersystem.Address;
-
 import ordersystem.OrderSystemPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -203,8 +199,9 @@ public class AddressImpl extends EObjectImpl implements Address {
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
-		return OrderSystemPackage.eINSTANCE.getAddress();
+    @Override
+				protected EClass eStaticClass() {
+		return OrderSystemPackage.Literals.ADDRESS;
 	}
 
 	/**
@@ -356,11 +353,12 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case OrderSystemPackage.ADDRESS__NUMBER:
 				return getNumber();
 			case OrderSystemPackage.ADDRESS__STREET:
@@ -376,16 +374,17 @@ public class AddressImpl extends EObjectImpl implements Address {
 			case OrderSystemPackage.ADDRESS__COUNTRY:
 				return getCountry();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case OrderSystemPackage.ADDRESS__NUMBER:
 				setNumber((String)newValue);
 				return;
@@ -408,16 +407,17 @@ public class AddressImpl extends EObjectImpl implements Address {
 				setCountry((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ADDRESS__NUMBER:
 				setNumber(NUMBER_EDEFAULT);
 				return;
@@ -440,16 +440,17 @@ public class AddressImpl extends EObjectImpl implements Address {
 				setCountry(COUNTRY_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case OrderSystemPackage.ADDRESS__NUMBER:
 				return NUMBER_EDEFAULT == null ? number != null : !NUMBER_EDEFAULT.equals(number);
 			case OrderSystemPackage.ADDRESS__STREET:
@@ -465,13 +466,14 @@ public class AddressImpl extends EObjectImpl implements Address {
 			case OrderSystemPackage.ADDRESS__COUNTRY:
 				return COUNTRY_EDEFAULT == null ? country != null : !COUNTRY_EDEFAULT.equals(country);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
-    /**
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      */
+    @Override
     public String toString() {
         if (eIsProxy()) return super.toString();
 

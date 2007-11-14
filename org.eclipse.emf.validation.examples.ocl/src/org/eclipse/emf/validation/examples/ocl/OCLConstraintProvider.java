@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: OCLConstraintProvider.java,v 1.2 2007/11/07 17:30:16 cdamus Exp $
+ * $Id: OCLConstraintProvider.java,v 1.3 2007/11/14 18:03:39 cdamus Exp $
  */
 package org.eclipse.emf.validation.examples.ocl;
 
@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.ocl.OCLInput;
@@ -136,8 +137,7 @@ public class OCLConstraintProvider extends AbstractConstraintProvider {
 	}
 	
 	private void addConstraint(Category category, String namespace, OCL ocl, Constraint constraint) {
-		@SuppressWarnings("unchecked")
-		Collection<OCLConstraint> constraints = getConstraints();
+		Collection<IModelConstraint> constraints = getConstraints();
 		
 		OCLConstraintDescriptor desc = new OCLConstraintDescriptor(
 				namespace, constraint, constraints.size() + 1);

@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,8 @@ public final class EMFEventType implements Serializable {
 
 	private static int nextNotificationTypeCode = 0;
 	
-    private static final Map nameToInstance = new java.util.HashMap();
+    private static final Map<String, EMFEventType> nameToInstance =
+    	new java.util.HashMap<String, EMFEventType>();
     
 	/**
 	 * The EMF "Add" event (corresponds to {@link Notification#ADD}).
@@ -142,7 +142,7 @@ public final class EMFEventType implements Serializable {
 			-1);
 
 	/** All of my values. */
-	private static final List predefinedInstances = Collections.unmodifiableList(
+	private static final List<EMFEventType> predefinedInstances = Collections.unmodifiableList(
 			Arrays.asList(new EMFEventType[]{
 					ADD,
 					ADD_MANY,
@@ -157,7 +157,8 @@ public final class EMFEventType implements Serializable {
 					NULL,
 				}));
 
-	private static final List instances = new ArrayList(predefinedInstances);
+	private static final List<EMFEventType> instances = new ArrayList<EMFEventType>(
+			predefinedInstances);
 	
 	private final String name;
 	private final boolean featureSpecific;
@@ -224,9 +225,7 @@ public final class EMFEventType implements Serializable {
 	public static EMFEventType getInstance(String name) {
 		EMFEventType result = NULL;
 
-		for (Iterator iter = instances.iterator(); iter.hasNext(); ) {
-			EMFEventType next = (EMFEventType)iter.next();
-
+		for (EMFEventType next : instances) {
 			if (next.getName().equalsIgnoreCase(name)) {
 				result = next;
 				break;
@@ -247,9 +246,7 @@ public final class EMFEventType implements Serializable {
 	public static EMFEventType getInstance(int code) {
 		EMFEventType result = NULL;
 
-		for (Iterator iter = instances.iterator(); iter.hasNext(); ) {
-			EMFEventType next = (EMFEventType)iter.next();
-
+		for (EMFEventType next : instances) {
 			if (next.toNotificationType() == code) {
 				result = next;
 				break;
@@ -264,7 +261,7 @@ public final class EMFEventType implements Serializable {
 	 * 
 	 * @return all values
 	 */
-	public static final List getAllInstances() {
+	public static final List<EMFEventType> getAllInstances() {
 		return instances;
 	}
 
@@ -276,7 +273,7 @@ public final class EMFEventType implements Serializable {
 	 * 
 	 * @return all predefined values
 	 */
-	public static final List getPredefinedInstances() {
+	public static final List<EMFEventType> getPredefinedInstances() {
 		return predefinedInstances;
 	}
 	
@@ -337,6 +334,7 @@ public final class EMFEventType implements Serializable {
 	}
 
 	// re-implements the inherited method
+	@Override
 	public String toString() {
 		return getName();
 	}

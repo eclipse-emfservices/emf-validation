@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,9 +23,9 @@ import ordersystem.OrderSystemFactory;
 
 import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.CoreException;
-
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.XmlExpressionSelector;
+import org.eclipse.emf.validation.util.XmlConfig;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.
@@ -36,7 +36,8 @@ public class XmlExpressionSelectorTest extends TestCase {
 	private OrderSystemFactory fact;
 	private ConstraintDescriptorTest.FixtureElement expression;
 	
-	protected void setUp() {
+	@Override
+    protected void setUp() {
 		fact = OrderSystemFactory.eINSTANCE;
 		
 		expression = new ConstraintDescriptorTest.FixtureElement(

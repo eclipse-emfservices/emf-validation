@@ -18,7 +18,6 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.validation.model.Category;
@@ -70,7 +69,7 @@ public class ConstraintDetailsHelper {
 	public static String formatConstraintDescription(
 			IConstraintNode constraint,
 			Category selectedCategory,
-			List styles) {
+			List<? super StyleRange> styles) {
 		
 		String description = constraint.getDescription();
 		
@@ -93,7 +92,7 @@ public class ConstraintDetailsHelper {
 						   description,
 						   constraint.getSeverity()});
 		
-		Collection categories = constraint.getCategories();
+		Collection<Category> categories = constraint.getCategories();
 		if (categories.size() > 1) {
 			// also display the other categories that contain this constraint
 			text = text + getOtherCategories(selectedCategory, categories);
@@ -117,14 +116,12 @@ public class ConstraintDetailsHelper {
 	 */
 	private static String getOtherCategories(
 			Category selected,
-			Collection categories) {
+			Collection<? extends Category> categories) {
 		
 		StringBuffer result = new StringBuffer(64);
 		result.append(ALSO_IN_CATEGORIES);
 		
-		for (Iterator iter = categories.iterator(); iter.hasNext();) {
-			Category next = (Category)iter.next();
-			
+		for (Category next : categories) {
 			if (next != selected) {
 				result.append(PLATFORM_NEWLINE);
 				result.append(next.getQualifiedName());
@@ -144,7 +141,7 @@ public class ConstraintDetailsHelper {
 	 * @param styles a list which collects the corresponding style ranges
 	 * @return the original <code>text</code> minus the markup
 	 */
-	private static String parseStyles(String text, List styles) {
+	private static String parseStyles(String text, List<? super StyleRange> styles) {
 		int pos = -1;
 		int lastPos = 0;
 		

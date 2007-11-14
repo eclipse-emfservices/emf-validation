@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.EvaluationMode;
@@ -40,7 +39,7 @@ import org.eclipse.emf.validation.service.ITraversalStrategy;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class BatchValidator extends AbstractValidator implements IBatchValidator {
+public class BatchValidator extends AbstractValidator<EObject> implements IBatchValidator {
 	private boolean includeLiveConstraints = false;
 	private IProgressMonitor progressMonitor = null;
 	
@@ -96,7 +95,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 
 		this.traversalStrategy = strategy;
 	}
-
+	
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
@@ -113,7 +112,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
-	public IStatus validate(Collection objects, IProgressMonitor monitor) {
+	public IStatus validate(Collection<? extends EObject> objects, IProgressMonitor monitor) {
 		IStatus result;
 		
 		progressMonitor = monitor;
@@ -126,8 +125,11 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
-	protected Collection doValidate(Collection objects, Set clientContexts) {
-		List result = new java.util.ArrayList(64);  // anticipate large scale
+	@Override
+	protected Collection<IStatus> doValidate(Collection<? extends EObject> objects,
+			Set<IClientContext> clientContexts) {
+		
+		List<IStatus> result = new java.util.ArrayList<IStatus>(64);  // anticipate large scale
 		
 		GetBatchConstraintsOperation operation =
 			new GetBatchConstraintsOperation(!isIncludeLiveConstraints());
@@ -155,11 +157,11 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 	 */
 	private void validate(
 			ITraversalStrategy traversal,
-			List evaluationResults,
+			List<IStatus> evaluationResults,
 			AbstractValidationContext ctx,
-			Collection objects,
+			Collection<? extends EObject> objects,
 			GetBatchConstraintsOperation operation, 
-			Set clientContexts) {
+			Set<IClientContext> clientContexts) {
 		
 		IProgressMonitor monitor = progressMonitor;
 		if (monitor == null) {
@@ -181,7 +183,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 				final EObject next = traversal.next();
 
 				if (recomputeClients) {
-					Collection contexts = ClientContextManager.getInstance()
+					Collection<IClientContext> contexts = ClientContextManager.getInstance()
 							.getClientContextsFor(next);
 					ctx.setClientContexts(contexts);
 					clientContexts.addAll(contexts);
@@ -225,7 +227,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 			AbstractValidationContext ctx,
 			EObject eObject,
 			GetBatchConstraintsOperation operation,
-			List results) {
+			List<IStatus> results) {
 		if (Trace.shouldTraceEntering(EMFModelValidationDebugOptions.PROVIDERS)) {
 			Trace.entering(getClass(), "validate", //$NON-NLS-1$
 					new Object[] {eObject});
@@ -248,30 +250,31 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 	}
 	
 	private static class DefaultRecursiveTraversalStrategy implements ITraversalStrategy {
-		private Map delegates;
-		private Iterator delegateIterator;
+		private Map<ITraversalStrategy, Collection<EObject>> delegates;
+		private Map<ITraversalStrategy, IProgressMonitor> monitors;
+		private Iterator<ITraversalStrategy> delegateIterator;
 		private ITraversalStrategy current;
 		
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
-		public void startTraversal(Collection traversalRoots, IProgressMonitor monitor) {
+		public void startTraversal(Collection<? extends EObject> traversalRoots,
+				IProgressMonitor monitor) {
 			delegates = initDelegates(traversalRoots);
+			monitors = new java.util.HashMap<ITraversalStrategy, IProgressMonitor>();
 			
 			monitor.beginTask("", delegates.size() * 1024); //$NON-NLS-1$
 			
-			for (Iterator iter = delegates.entrySet().iterator(); iter.hasNext();) {
-				Map.Entry next = (Map.Entry)iter.next();
+			for (Map.Entry<ITraversalStrategy, Collection<EObject>> next :
+					delegates.entrySet()) {
 				
 				SubProgressMonitor sub = new SubProgressMonitor(
 					monitor,
 					1024,
 					SubProgressMonitor.SUPPRESS_SUBTASK_LABEL);
-				((ITraversalStrategy)next.getKey()).startTraversal(
-					(Collection)next.getValue(),
-					sub);
+				next.getKey().startTraversal(next.getValue(), sub);
 				
-				next.setValue(sub);
+				monitors.put(next.getKey(), sub);
 			}
 			
 			delegateIterator = delegates.keySet().iterator();
@@ -282,7 +285,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 		 */
 		public boolean hasNext() {
 			if ((current == null) && (delegateIterator.hasNext())) {
-				current = (ITraversalStrategy)delegateIterator.next();
+				current = delegateIterator.next();
 			}
 			
 			if (current == null) {
@@ -290,7 +293,7 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 			}
 			
 			if (!current.hasNext()) {
-				((IProgressMonitor)delegates.get(current)).done();
+				monitors.get(current).done();
 				current = null;
 				
 				return hasNext();  // get the next delegate and try it
@@ -328,18 +331,19 @@ public class BatchValidator extends AbstractValidator implements IBatchValidator
 			current.elementValidated(element, status);
 		}
 		
-		private Map initDelegates(Collection traversalRoots) {
-			Map result = new java.util.HashMap();
+		private Map<ITraversalStrategy, Collection<EObject>> initDelegates(
+				Collection<? extends EObject> traversalRoots) {
 			
-			for (Iterator iter = traversalRoots.iterator(); iter.hasNext();) {
-				EObject next = (EObject)iter.next();
-				
+			Map<ITraversalStrategy, Collection<EObject>> result =
+				new java.util.HashMap<ITraversalStrategy, Collection<EObject>>();
+			
+			for (EObject next : traversalRoots) {
 				ITraversalStrategy delegate = TraversalStrategyManager
 					.getInstance().getTraversalStrategy(next);
 				
-				Collection delegateRoots = (Collection)result.get(delegate);
+				Collection<EObject> delegateRoots = result.get(delegate);
 				if (delegateRoots == null) {
-					delegateRoots = new java.util.LinkedList();
+					delegateRoots = new java.util.ArrayList<EObject>();
 					result.put(delegate, delegateRoots);
 				}
 				

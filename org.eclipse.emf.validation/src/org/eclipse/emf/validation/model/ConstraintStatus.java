@@ -60,7 +60,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	private final IModelConstraint constraint;
 	private EObject target;
 	
-	private Set resultLocus;
+	private Set<EObject> resultLocus;
 
 	/**
 	 * Initializes me as a failure of the specified <code>constraint</code>
@@ -76,7 +76,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	public ConstraintStatus(IModelConstraint constraint,
 							EObject target,
 							String message,
-							Set resultLocus) {
+							Set<? extends EObject> resultLocus) {
 		this(
 			constraint,
 			target,
@@ -123,7 +123,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 							int severity,
 							int code,
 							String message,
-							Set resultLocus) {
+							Set<? extends EObject> resultLocus) {
 		super(severity, constraint.getDescriptor().getPluginId(), code, message, null);
 		
 		assert constraint != null;
@@ -135,8 +135,8 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 		
 		// unmodifiable defensive copy
 		this.resultLocus = (resultLocus != null)
-			? Collections.unmodifiableSet(new java.util.HashSet(resultLocus))
-			: Collections.EMPTY_SET;
+			? Collections.unmodifiableSet(new java.util.HashSet<EObject>(resultLocus))
+			: Collections.<EObject>emptySet();
 	}
 	
 	/**
@@ -174,9 +174,9 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	public static ConstraintStatus createStatus(
 			IValidationContext ctx,
 			EObject target,
-			Collection resultLocus,
+			Collection<? extends EObject> resultLocus,
 			String messagePattern,
-			Object[] messageArguments) {
+			Object... messageArguments) {
 		
 		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
 				ctx.getCurrentConstraintId());
@@ -224,25 +224,25 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	public static ConstraintStatus createStatus(
 			IValidationContext ctx,
 			EObject target,
-			Collection resultLocus,
+			Collection<? extends EObject> resultLocus,
 			int severity,
 			int errorCode,
 			String messagePattern,
-			Object[] messageArguments) {
+			Object... messageArguments) {
 		
 		// need a prototype status to get certain critical information, such
 		//    as the constraint object and target
-		ConstraintStatus result = (ConstraintStatus) ctx.createFailureStatus(null);
+		ConstraintStatus result = (ConstraintStatus) ctx.createFailureStatus();
 		
 		if (target != null) {
 			result.target = target;
 		}
 		
-		Set results;
+		Set<EObject> results;
 		if (resultLocus == null) {
 			results = Collections.singleton(result.getTarget());
 		} else {
-			results = new java.util.HashSet(resultLocus);
+			results = new java.util.HashSet<EObject>(resultLocus);
 			if (!results.contains(result.getTarget())) {
 				results.add(result.getTarget());
 			}
@@ -293,9 +293,9 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 */
 	public static ConstraintStatus createStatus(
 			IValidationContext ctx,
-			Collection resultLocus,
+			Collection<? extends EObject> resultLocus,
 			String messagePattern,
-			Object[] messageArguments) {
+			Object... messageArguments) {
 		
 		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
 				ctx.getCurrentConstraintId());
@@ -341,11 +341,11 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 */
 	public static ConstraintStatus createStatus(
 			IValidationContext ctx,
-			Collection resultLocus,
+			Collection<? extends EObject> resultLocus,
 			int severity,
 			int errorCode,
 			String messagePattern,
-			Object[] messageArguments) {
+			Object... messageArguments) {
 		return createStatus(ctx, null, resultLocus,
 				severity, errorCode,
 				messagePattern, messageArguments);
@@ -382,18 +382,18 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	public static IStatus createSuccessStatus(
 			IValidationContext ctx,
 			EObject target,
-			Collection resultLocus) {
+			Collection<? extends EObject> resultLocus) {
 		IStatus status = ctx.createSuccessStatus();
 
 		if (status instanceof IConstraintStatus) {
 			IConstraintStatus successStatus = (IConstraintStatus)status;
 			ConstraintStatus constraintStatus = new ConstraintStatus(successStatus.getConstraint(), target);
 			
-			Set results;
+			Set<EObject> results;
 			if (resultLocus == null) {
 				results = Collections.singleton(target);
 			} else {
-				results = new java.util.HashSet(resultLocus);
+				results = new java.util.HashSet<EObject>(resultLocus);
 				if (!results.contains(target)) {
 					results.add(target);
 				}
@@ -430,7 +430,8 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 * 
 	 * @see #createMultiStatus(IValidationContext, String, Object[], Collection)
 	 */
-	public static IStatus createMultiStatus(IValidationContext ctx, Collection statuses) {
+	public static IStatus createMultiStatus(IValidationContext ctx,
+			Collection<? extends IStatus> statuses) {
 		return createMultiStatus(
 				ctx,
 				ValidationMessages.eval_some_fail_WARN_, null,
@@ -470,12 +471,12 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	public static IStatus createMultiStatus(
 			IValidationContext ctx,
 			String messagePattern, Object[] messageArguments,
-			Collection statuses) {
+			Collection<? extends IStatus> statuses) {
 		if (statuses == null || statuses.isEmpty()) {
 			throw new IllegalArgumentException("no statuses to aggregate"); //$NON-NLS-1$
 		}
 		
-		IStatus[] children = (IStatus[]) statuses.toArray(new IStatus[statuses.size()]);
+		IStatus[] children = statuses.toArray(new IStatus[statuses.size()]);
 		
 		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(
 				ctx.getCurrentConstraintId());
@@ -518,7 +519,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 	 *     successful validation, the result is an empty collection.  The result
 	 *     is never <code>null</code>
 	 */
-	public final Set getResultLocus() {
+	public final Set<EObject> getResultLocus() {
 		return resultLocus;
 	}
 	
@@ -527,16 +528,16 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 			implements IConstraintStatus {
 		private final IModelConstraint constraint;
 		private final EObject target;
-		private final Set resultLocus;
+		private final Set<EObject> resultLocus;
 		
 		Multi(String pluginId, int code, IStatus[] children, String message) {
 			super(pluginId, code, children, message, null);
 			
 			IConstraintStatus prototype = null;
 			
-			for (int i = 0; i < children.length; i++) {
-				if (children[i] instanceof IConstraintStatus) {
-					prototype = (IConstraintStatus) children[i];
+			for (IStatus element : children) {
+				if (element instanceof IConstraintStatus) {
+					prototype = (IConstraintStatus) element;
 					break;
 				}
 			}
@@ -544,7 +545,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 			if (prototype == null) {
 				constraint = null;
 				target = null;
-				resultLocus = Collections.EMPTY_SET;
+				resultLocus = Collections.emptySet();
 			} else {
 				constraint = prototype.getConstraint();
 				target = prototype.getTarget();
@@ -560,7 +561,7 @@ public class ConstraintStatus extends Status implements IConstraintStatus {
 			return target;
 		}
 		
-		public Set getResultLocus() {
+		public Set<EObject> getResultLocus() {
 			return resultLocus;
 		}
 	}

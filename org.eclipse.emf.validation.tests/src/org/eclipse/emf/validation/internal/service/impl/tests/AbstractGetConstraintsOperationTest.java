@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,8 +40,8 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * @author Christian W. Damus (cdamus)
  */
 abstract class AbstractGetConstraintsOperationTest extends TestBase {
-	protected static final Object BATCH_TOKEN = newConstraint(EvaluationMode.BATCH);
-	protected static final Object LIVE_TOKEN = newConstraint(EvaluationMode.LIVE);
+	protected static final IModelConstraint BATCH_TOKEN = newConstraint(EvaluationMode.BATCH);
+	protected static final IModelConstraint LIVE_TOKEN = newConstraint(EvaluationMode.LIVE);
 	
 	private AbstractGetConstraintsOperation fixture;
 	
@@ -61,7 +61,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		this.fixture = fixture;
 	}
 	
-	private static TestConstraint newConstraint(EvaluationMode mode) {
+	private static TestConstraint newConstraint(EvaluationMode<?> mode) {
 		ConstraintDescriptorTest.FixtureElement config =
 			ConstraintDescriptorTest.newFixtureConfig();
 		
@@ -83,27 +83,29 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
-		public Collection getBatchConstraints(
+		public Collection<IModelConstraint> getBatchConstraints(
 				EObject eObject,
-				Collection constraints) {
+				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, BATCH_TOKEN);
 		}
 
 		/* (non-Javadoc)
 		 * Redefines/Implements/Extends the inherited method.
 		 */
-		public Collection getLiveConstraints(
+		public Collection<IModelConstraint> getLiveConstraints(
 				Notification notification,
-				Collection constraints) {
+				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, LIVE_TOKEN);
 		}
 		
-		private Collection appendTo(Collection c, Object o) {
+		private Collection<IModelConstraint> appendTo(Collection<IModelConstraint> c,
+				IModelConstraint constraint) {
+			
 			if (c == null) {
-				c = new java.util.ArrayList(1);
+				c = new java.util.ArrayList<IModelConstraint>(1);
 			}
 			
-			c.add(o);
+			c.add(constraint);
 			
 			return c;
 		}

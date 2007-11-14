@@ -15,9 +15,10 @@ package org.eclipse.emf.validation.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
 /**
@@ -31,16 +32,13 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * still want critical constraints to be evaluated on batch invocations.
  * </p>
  * 
+ * @param <T> the kind of object that is validated in an evaluation mode
+ * 
  * @author Christian W. Damus (cdamus)
  */
-public final class EvaluationMode implements Serializable {
-	private static final long serialVersionUID = -2088295328444150344L;
+public final class EvaluationMode<T> implements Serializable {
 	
-	static final String LIVE_MODE = ValidationMessages.mode_live;
-	static final String BATCH_MODE = ValidationMessages.mode_batch;
-	static final String NULL_MODE = ValidationMessages.mode_unknown;
-	
-	private static int nextOrdinal = 0;
+	private static final long serialVersionUID = 1862313226055912569L;
 
 	/**
 	 * <p>
@@ -56,37 +54,32 @@ public final class EvaluationMode implements Serializable {
 	 * contexts.
 	 * </b> 
 	 */
-	public static final EvaluationMode LIVE =
-		new EvaluationMode("Live", LIVE_MODE); //$NON-NLS-1$
+	public static final EvaluationMode<Notification> LIVE = new EvaluationMode<Notification>("Live", //$NON-NLS-1$
+		ValidationMessages.mode_live);
 	
 	/**
 	 * Constraints executed in the "Batch" context are intended to be
 	 * constraints that are evaluated on demand (when the user elects to
-	 * evaluate them).  These do not, therefore, udually define conditions for
+	 * evaluate them).  These do not, therefore, usually define conditions for
 	 * data integrity, but rather semantic rules that guide a user to creating
 	 * a better model.
 	 */
-	public static final EvaluationMode BATCH =
-		new EvaluationMode("Batch", BATCH_MODE); //$NON-NLS-1$
+	public static final EvaluationMode<EObject> BATCH = new EvaluationMode<EObject>("Batch", //$NON-NLS-1$
+		ValidationMessages.mode_batch);
 
 	/**
 	 * This special value is a pointer-safe null value according to the
 	 * <i>Null Object</i> pattern.  It is not a valid evaluation mode for
 	 * a constraint.
 	 */
-	public static final EvaluationMode NULL =
-		new EvaluationMode("none", NULL_MODE); //$NON-NLS-1$
+	public static final EvaluationMode<Void> NULL = new EvaluationMode<Void>("none", //$NON-NLS-1$
+		ValidationMessages.mode_unknown);
 
 	/** All valid instances. */
-	private static final List instances = Collections.unmodifiableList(
-		Arrays.asList(new EvaluationMode[]{
-				LIVE,
-				BATCH,
-				NULL,
-			}));
+	private static final List<EvaluationMode<?>> instances = Collections.unmodifiableList(
+		Arrays.asList(new EvaluationMode<?>[] {LIVE, BATCH, NULL}));
 
 	private final String name;
-	private final int ordinal;
 	private final String localizedName;
 
 	/**
@@ -98,7 +91,6 @@ public final class EvaluationMode implements Serializable {
 	 */
 	private EvaluationMode(String name, String localizedName) {
 		this.name = name;
-		this.ordinal = nextOrdinal++;
 		this.localizedName = localizedName;
 	}
 
@@ -111,14 +103,13 @@ public final class EvaluationMode implements Serializable {
 	 * @param name the name of the instance to retrieve (not case-sensitive)
 	 * @return the named instance, or {@link #NULL} if no such instance exists
 	 */
-	public static EvaluationMode getInstance(String name) {
-		EvaluationMode result = NULL;
+	@SuppressWarnings("unchecked")
+	public static <T> EvaluationMode<T> getInstance(String name) {
+		EvaluationMode<T> result = (EvaluationMode<T>) NULL;
 
-		for (Iterator iter = instances.iterator(); iter.hasNext(); ) {
-			EvaluationMode next = (EvaluationMode)iter.next();
-
+		for (EvaluationMode<?> next : instances) {
 			if (next.getName().equalsIgnoreCase(name)) {
-				result = next;
+				result = (EvaluationMode<T>) next;
 				break;
 			}
 		}
@@ -131,7 +122,7 @@ public final class EvaluationMode implements Serializable {
 	 * 
 	 * @return all values
 	 */
-	public static final List getAllInstances() {
+	public static final List<EvaluationMode<?>> getAllInstances() {
 		return instances;
 	}
 
@@ -193,17 +184,12 @@ public final class EvaluationMode implements Serializable {
 	}
 
 	// re-implements the inherited method
+	@Override
 	public String toString() {
 		return getName();
 	}
-
-	/**
-	 * Implements the instance substitution protocol defined by the Java
-	 * Serialization Specification.
-	 * 
-	 * @return the correct pre-defined instance of the enumeration
-	 */
+	
 	private Object readResolve() {
-		return getAllInstances().get(ordinal);
+		return getInstance(getName());
 	}
 }

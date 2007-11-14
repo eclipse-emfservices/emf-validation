@@ -36,6 +36,7 @@ public class NonEmptyNamesConstraint
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.validation.AbstractModelConstraint#validate(org.eclipse.emf.validation.IValidationContext)
 	 */
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		EObject eObj = ctx.getTarget();
 		EMFEventType eType = ctx.getEventType();
@@ -50,7 +51,7 @@ public class NonEmptyNamesConstraint
 			}
 			
 			if (name == null || name.length() == 0) {
-				return ctx.createFailureStatus(new Object[] {eObj.eClass().getName()});
+				return ctx.createFailureStatus(eObj.eClass().getName());
 			}
 		// In the case of live mode.
 		} else {
@@ -58,7 +59,7 @@ public class NonEmptyNamesConstraint
 			
 			if (newValue == null
 				|| ((String)newValue).length() == 0) {
-				return ctx.createFailureStatus(new Object[] {eObj.eClass().getName()});
+				return ctx.createFailureStatus(eObj.eClass().getName());
 			}
 		}
 		

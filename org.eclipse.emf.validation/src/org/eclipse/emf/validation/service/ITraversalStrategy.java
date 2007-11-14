@@ -61,14 +61,17 @@ public interface ITraversalStrategy {
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		protected int countElements(Collection traversalRoots) {
+		@Override
+        protected int countElements(Collection<? extends EObject> traversalRoots) {
 			return traversalRoots.size();
 		}
 
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		protected Iterator createIterator(Collection traversalRoots) {
+		@Override
+        protected Iterator<? extends EObject> createIterator(
+                Collection<? extends EObject> traversalRoots) {
 			return traversalRoots.iterator();
 		}
 	}
@@ -89,7 +92,7 @@ public interface ITraversalStrategy {
 	 * @author Christian W. Damus (cdamus)
 	 */
 	final class Recursive extends AbstractTraversalStrategy {
-		private Collection roots;
+		private Collection<EObject> roots;
 		private boolean contextChanged = true;
 		
 		/**
@@ -99,8 +102,9 @@ public interface ITraversalStrategy {
 			super();
 		}
 		
-		public void startTraversal(
-				Collection traversalRoots,
+		@Override
+        public void startTraversal(
+				Collection<? extends EObject> traversalRoots,
 				IProgressMonitor progressMonitor) {
 			
 			roots = makeTargetsDisjoint(traversalRoots);
@@ -108,29 +112,25 @@ public interface ITraversalStrategy {
 			super.startTraversal(traversalRoots, progressMonitor);
 		}
 		
-		private Collection getRoots() {
+		private Collection<EObject> getRoots() {
 			return roots;
 		}
 		
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		protected int countElements(Collection ignored) {
+		@Override
+        protected int countElements(Collection<? extends EObject> ignored) {
 			return countRecursive(getRoots());
 		}
 		
-		private int countRecursive(Collection elements) {
+		private int countRecursive(Collection<? extends EObject> elements) {
 			int result = 0;
 			
 			result = elements.size();
 			
-			for (Iterator iter = elements.iterator(); iter.hasNext(); ) {
-				Object next = iter.next();
-				
-				if (next instanceof EObject) {
-					result = result + countRecursive(
-							((EObject)next).eContents());
-				}
+			for (EObject next : elements) {
+				result = result + countRecursive(next.eContents());
 			}
 			
 			return result;
@@ -139,21 +139,25 @@ public interface ITraversalStrategy {
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		protected Iterator createIterator(Collection ignored) {
-			return new EcoreUtil.ContentTreeIterator(getRoots()) {
+		@Override
+        protected Iterator<? extends EObject> createIterator(
+                Collection<? extends EObject> ignored) {
+		    
+			return new EcoreUtil.ContentTreeIterator<EObject>(getRoots()) {
 				private static final long serialVersionUID = -5653134989235663973L;
 
-				public Iterator getChildren(Object obj) {
+				@Override
+                public Iterator<EObject> getChildren(Object obj) {
 					if (obj == getRoots()) {
-						return new Iterator() {
-							private final Iterator delegate =
+						return new Iterator<EObject>() {
+							private final Iterator<EObject> delegate =
 								getRoots().iterator();
 							
 							public boolean hasNext() {
 								return delegate.hasNext();
 							}
 
-							public Object next() {
+							public EObject next() {
 								// if I'm being asked for my next element, then
 								//    we are stepping to another traversal root
 								contextChanged = true;
@@ -169,7 +173,8 @@ public interface ITraversalStrategy {
 					}
 				}
 				
-				public Object next() {
+				@Override
+                public EObject next() {
 					// this will be set to true again the next time we test hasNext() at
 					//    the traversal root level
 					contextChanged = false;
@@ -178,27 +183,26 @@ public interface ITraversalStrategy {
 				}};
 		}
 		
-		public boolean isClientContextChanged() {
+		@Override
+        public boolean isClientContextChanged() {
 			return contextChanged;
 		}
 		
-		private Set makeTargetsDisjoint(Collection objects) {
-			Set result = new java.util.HashSet();
+		private Set<EObject> makeTargetsDisjoint(Collection<? extends EObject> objects) {
+			Set<EObject> result = new java.util.HashSet<EObject>();
 			
 			// ensure that any contained (descendent) elements of other elements
 			//    that we include are not included, because they will be
 			//    traversed by recursion, anyway
 			
-	        for (Iterator it = objects.iterator(); it.hasNext();) {
-	            EObject target = (EObject)it.next();
-	            
+	        for (EObject target : objects) {
 	            // EcoreUtil uses the InternalEObject interface to check
 	            // containment, so we do the same.  Also, we kip up a level to
 	            // the immediate container for efficiency:  an object is its
 	            // own ancestor, so we can "pre-step" up a level to avoid the
 	            // cost of doing it individually for every miss in the collection
 	            if (!EcoreUtil.isAncestor(objects,
-	                ((InternalEObject) target).eInternalContainer())) {
+	                    ((InternalEObject) target).eInternalContainer())) {
 	                result.add(target);
 	            }
 	        }
@@ -222,7 +226,8 @@ public interface ITraversalStrategy {
 	 * @param monitor the progress monitor used to track progress.  The receiver
 	 *     may retain this progress monitor for the duration of the traversal
 	 */
-	void startTraversal(Collection traversalRoots, IProgressMonitor monitor);
+	void startTraversal(Collection<? extends EObject> traversalRoots,
+	        IProgressMonitor monitor);
 	
 	/**
 	 * Queries whether there is another element to be validated.

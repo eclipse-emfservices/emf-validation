@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,14 +45,14 @@ import org.eclipse.emf.validation.service.ValidationEvent;
  *
  * @author Christian W. Damus (cdamus)
  */
-abstract class AbstractValidator implements IValidator {
-	private final EvaluationMode mode;
-	private final Map clientData = new java.util.HashMap();
+abstract class AbstractValidator<T> implements IValidator<T> {
+	private final EvaluationMode<T> mode;
+	private final Map<String, Object> clientData = new java.util.HashMap<String, Object>();
 	private final IProviderOperationExecutor executor;
 	
 	private boolean reportSuccesses = false;
 	
-	private Collection filters = null;
+	private Collection<IConstraintFilter> filters = null;
 	
 	/**
 	 * Initializes me with the evaluation <code>mode</code> that I support and
@@ -66,7 +65,7 @@ abstract class AbstractValidator implements IValidator {
 	 *      <code>null</code>)
 	 */
 	protected AbstractValidator(
-			EvaluationMode mode,
+			EvaluationMode<T> mode,
 			IProviderOperationExecutor executor) {
 		assert mode != null && !mode.isNull();
 		assert executor != null;
@@ -78,7 +77,7 @@ abstract class AbstractValidator implements IValidator {
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
-	public final EvaluationMode getEvaluationMode() {
+	public final EvaluationMode<T> getEvaluationMode() {
 		return mode;
 	}
 
@@ -116,7 +115,7 @@ abstract class AbstractValidator implements IValidator {
 	 * validation API is also encouraged to delegate to this method after
 	 * first checking that arguments are of or coerced to the correct types.
 	 */
-	public final IStatus validate(Object object) {
+	public final IStatus validate(T object) {
 		return validate(Collections.singleton(object));
 	}
 
@@ -132,10 +131,10 @@ abstract class AbstractValidator implements IValidator {
 	 * returns an appropriate {@link IStatus#CANCEL} status when it catches one.
 	 * </p>
 	 */
-	public final IStatus validate(Collection objects) {
+	public final IStatus validate(Collection<? extends T> objects) {
 		IStatus result;
 		
-		Set encounteredClientContexts = new HashSet();
+		Set<IClientContext> encounteredClientContexts = new HashSet<IClientContext>();
 		
 		try {
 			result = createStatus(doValidate(objects, encounteredClientContexts));
@@ -173,17 +172,17 @@ abstract class AbstractValidator implements IValidator {
 	 * @return The client contexts ids provided to this validator by the last call
 	 *  to the {@link #evaluateConstraints(AbstractValidationContext, List) method.
 	 */
-	private Collection getClientContextIds(Collection clientContexts) {
-		List contextIds = new ArrayList();
+	private Collection<String> getClientContextIds(Collection<IClientContext> clientContexts) {
+		List<String> contextIds = new ArrayList<String>();
 		
 		if (clientContexts == null) {
 			return contextIds;
 		}
 		
-		for (Iterator i = clientContexts.iterator(); i.hasNext();) {
-			IClientContext context = (IClientContext)i.next();
+		for (IClientContext context : clientContexts) {
 			contextIds.add(context.getId());
 		}
+		
 		return contextIds;
 	}
 
@@ -200,7 +199,8 @@ abstract class AbstractValidator implements IValidator {
 	 *     canceled (e.g., when a constraint returns
 	 *     {@link IStatus#CANCEL} status)
 	 */
-	protected abstract Collection doValidate(Collection objects, Set clientContexts);
+	protected abstract Collection<IStatus> doValidate(Collection<? extends T> objects,
+		Set<IClientContext> clientContexts);
 	
 	/**
 	 * Helper method to evaluate a bunch of constraints.  Disabled constraints
@@ -220,11 +220,11 @@ abstract class AbstractValidator implements IValidator {
 	 */
 	protected IStatus evaluateConstraints(
 			AbstractValidationContext ctx,
-			List results) {
+			List<? super IStatus> results) {
 		IStatus resultStatus = Status.OK_STATUS;
 		
-		for (Iterator iter = ctx.getConstraints().iterator(); iter.hasNext();) {
-			IModelConstraint next = (IModelConstraint)iter.next();
+		for (Object element : ctx.getConstraints()) {
+			IModelConstraint next = (IModelConstraint)element;
 
 			if (!acceptConstraint(next.getDescriptor(), ctx.getTarget())) {
 				continue;
@@ -282,8 +282,9 @@ abstract class AbstractValidator implements IValidator {
 	 * 
 	 * @param operation the operation to execute
 	 */
-	protected final void execute(IProviderOperation operation) {
-		getOperationExecutor().execute(operation);
+	protected final Collection<? extends IModelConstraint> execute(
+	        IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
+		return getOperationExecutor().execute(operation);
 	}
 	
 	/**
@@ -305,7 +306,7 @@ abstract class AbstractValidator implements IValidator {
 	 * @return a multi-status if more than one result; a plain {@link IStatus},
 	 *     otherwise
 	 */
-	private IStatus createStatus(Collection results) {	
+	private IStatus createStatus(Collection<IStatus> results) {	
 		if (results.isEmpty()) {
 			return new org.eclipse.core.runtime.Status(
 				IStatus.OK,
@@ -314,7 +315,7 @@ abstract class AbstractValidator implements IValidator {
 				EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED_MSG,
 				null);
 		} else if (results.size() == 1) {
-			return (IStatus)results.iterator().next();
+			return results.iterator().next();
 		} else {
 			return new AggregateStatus(results);
 		}
@@ -322,9 +323,7 @@ abstract class AbstractValidator implements IValidator {
 
 	private boolean acceptConstraint(IConstraintDescriptor constraint, EObject target) {
         if (filters != null) {
-    		for (Iterator iter = filters.iterator(); iter.hasNext();) {
-    			IConstraintFilter filter = (IConstraintFilter)iter.next();
-                
+    		for (IConstraintFilter filter : filters) {
     			if (!filter.accept(constraint, target)) {
     				return false;
     			}
@@ -336,7 +335,7 @@ abstract class AbstractValidator implements IValidator {
 
 	public void addConstraintFilter(IConstraintFilter filter) {
 		if (filters == null) {
-			filters = new BasicEList(4);
+			filters = new BasicEList<IConstraintFilter>(4);
 		}
         
 		filters.add(filter);
@@ -348,9 +347,9 @@ abstract class AbstractValidator implements IValidator {
         }
     }
     
-	public Collection getConstraintFilters() {
+	public Collection<IConstraintFilter> getConstraintFilters() {
 		if (filters == null) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
         
 		return Collections.unmodifiableCollection(filters);
@@ -363,7 +362,7 @@ abstract class AbstractValidator implements IValidator {
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class AggregateStatus implements IStatus {
-		private final Collection children;
+		private final Collection<? extends IStatus> children;
 		private final int severity;
 		private final int code;
 		private final String message;
@@ -375,7 +374,7 @@ abstract class AbstractValidator implements IValidator {
 		 * 
 		 * @param statuses the statuses that I aggregate
 		 */
-		AggregateStatus(Collection statuses) {
+		AggregateStatus(Collection<? extends IStatus> statuses) {
 			// aggregate the results into a multi-status
 
 			int maxSeverity = getMaximalSeverity(statuses);
@@ -413,7 +412,7 @@ abstract class AbstractValidator implements IValidator {
 		
 		// implements the interface method
 		public IStatus[] getChildren() {
-			return (IStatus[])children.toArray(new IStatus[children.size()]);
+			return children.toArray(new IStatus[children.size()]);
 		}
 
 		// implements the interface method
@@ -462,16 +461,19 @@ abstract class AbstractValidator implements IValidator {
 		 * @param statuses a collection of {@link IStatus} objects
 		 * @return the maximal severity amongst the <code>statuses</code>
 		 */
-		private int getMaximalSeverity(Collection statuses) {
+		private int getMaximalSeverity(Collection<? extends IStatus> statuses) {
 			int result = IStatus.OK;
 		
-			for (Iterator iter = statuses.iterator();
-					(result < IStatus.ERROR) && iter.hasNext();) {
-			
-				IStatus next = (IStatus)iter.next();
-			
+			for (IStatus next : statuses) {
 				if (next.getSeverity() > result) {
 					result = next.getSeverity();
+					
+					// note that we are not interested in CANCEL severity for
+					// our purposes, because that overrides even the
+					// AggregateStatus
+					if (result >= IStatus.ERROR) {
+					    break;
+					}
 				}
 			}
 		

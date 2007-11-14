@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.validation.model.ConstraintStatus;
@@ -90,7 +91,7 @@ public interface IValidationContext {
 	 * @return the raw {@link org.eclipse.emf.common.notify.Notification}s being validated, or an empty
 	 *    list if this is a batch validation.  This list is not modifiable
 	 */
-	List getAllEvents();
+	List<Notification> getAllEvents();
 	
 	/**
 	 * In the case of a live constraint evaluation, obtains the particular
@@ -174,7 +175,7 @@ public interface IValidationContext {
 	 * 
 	 * @see #skipCurrentConstraintFor(EObject)
 	 */
-	void skipCurrentConstraintForAll(Collection eObjects);
+	void skipCurrentConstraintForAll(Collection<?> eObjects);
 	
 	/**
 	 * <p>
@@ -234,7 +235,7 @@ public interface IValidationContext {
 	 * 
 	 * @see #addResult(EObject)
 	 */
-	Set getResultLocus();
+	Set<EObject> getResultLocus();
 	
 	/**
 	 * Adds a result to the result locus of the current constraint.  The result
@@ -257,7 +258,7 @@ public interface IValidationContext {
 	 * 
 	 * @see #addResult(EObject)
 	 */
-	void addResults(Collection eObjects);
+	void addResults(Collection<? extends EObject> eObjects);
 	
 	/**
 	 * Creates a status object indicating successful evaluation of the
@@ -273,10 +274,10 @@ public interface IValidationContext {
 	 * the severity, error code, and message defined in the constraint meta-data
 	 * in the XML.
 	 * 
-	 * @param messageArguments the positional {0}, {1}, etc. arguments to
+	 * @param messageArgument the positional {0}, {1}, etc. arguments to
 	 *      replace in the message pattern (may by <code>null</code> if none
 	 *      are needed)
 	 * @return the status indicating a constraint violation
 	 */
-	IStatus createFailureStatus(Object[] messageArguments);
+	IStatus createFailureStatus(Object... messageArgument);
 }

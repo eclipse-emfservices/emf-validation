@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import ordersystem.OrderSystemFactory;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.service.GetBatchConstraintsOperation;
 import org.eclipse.emf.validation.internal.service.GetLiveConstraintsOperation;
 import org.eclipse.emf.validation.internal.service.ProviderDescriptor;
@@ -52,7 +51,8 @@ public class ProviderDescriptorTest extends TestBase {
 	/* (non-Javadoc)
 	 * Extends the inherited method.
 	 */
-	protected void setUp() throws Exception {
+	@Override
+    protected void setUp() throws Exception {
 		super.setUp();
 		
 		config = ConstraintDescriptorTest.FixtureElement.build(

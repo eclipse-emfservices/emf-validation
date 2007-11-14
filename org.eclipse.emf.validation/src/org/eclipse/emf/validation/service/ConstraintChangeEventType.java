@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * Enumeration for a constraint change event type.
@@ -25,52 +25,41 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * 
  * @author David Cummings (dcummin)
  */
-public final class ConstraintChangeEventType
-	extends AbstractEnumerator {
-
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * An internal unique identifier for this enumerated type.
-	 */
-	private static int nextOrdinal = 0;
+public enum ConstraintChangeEventType
+	implements Enumerator {
 
 	/**
 	 * Registered constraint change event type
 	 */
-	public static final ConstraintChangeEventType REGISTERED = new ConstraintChangeEventType(
-		"Registered"); //$NON-NLS-1$
+	REGISTERED("Registered"), //$NON-NLS-1$
 
 	/**
 	 * Unregistered constraint change event type
 	 */
-	public static final ConstraintChangeEventType UNREGISTERED = new ConstraintChangeEventType(
-		"Unregistered"); //$NON-NLS-1$
+	UNREGISTERED ("Unregistered"), //$NON-NLS-1$
 
 	/**
 	 * Enabled constraint change event type
 	 */
-	public static final ConstraintChangeEventType ENABLED = new ConstraintChangeEventType(
-		"Enabled"); //$NON-NLS-1$
+	ENABLED("Enabled"), //$NON-NLS-1$
 	
 	/**
 	 * Disabled constraint change event type
 	 */
-	public static final ConstraintChangeEventType DISABLED = new ConstraintChangeEventType(
-		"Disabled"); //$NON-NLS-1$
+	DISABLED("Disabled"), //$NON-NLS-1$
 	
 	/**
 	 * Added category constraint change event type
 	 */
-	public static final ConstraintChangeEventType ADDED_CATEGORY  = new ConstraintChangeEventType(
-		"Added Category"); //$NON-NLS-1$
+	ADDED_CATEGORY("Added Category"), //$NON-NLS-1$
 	
 	/**
 	 * Removed category constraint change event type
 	 */
-	public static final ConstraintChangeEventType REMOVED_CATEGORY = new ConstraintChangeEventType(
-		"Removed Category"); //$NON-NLS-1$
+	REMOVED_CATEGORY ("Removed Category"); //$NON-NLS-1$
 
+
+	private static final long serialVersionUID = 1L;
 	
 	private static final ConstraintChangeEventType[] VALUES = { REGISTERED,
 																UNREGISTERED,
@@ -79,24 +68,16 @@ public final class ConstraintChangeEventType
 																ADDED_CATEGORY,
 																REMOVED_CATEGORY };
 
+	private final String name;
+	
 	/**
 	 * Constructs a new constraint change event type with the specified name and
 	 * ordinal.
 	 * 
 	 * @param name The name of the constraint change event type
-	 * @param ordinal The ordinal for the constraint change event type.
-	 */
-	private ConstraintChangeEventType(String name, int ordinal) {
-		super(ordinal, name);
-	}
-
-	/**
-	 * Constructs a new constraint change event type with the specified name.
-	 * 
-	 * @param name The name of the new constraint change event type.
 	 */
 	private ConstraintChangeEventType(String name) {
-		this(name, nextOrdinal++);
+		this.name = name;
 	}
 
 	/**
@@ -104,7 +85,19 @@ public final class ConstraintChangeEventType
 	 * 
 	 * @return an unmodifiable collection of the event types
 	 */
-	protected List getValues() {
+	protected List<ConstraintChangeEventType> getValues() {
 		return Collections.unmodifiableList(Arrays.asList(VALUES));
+	}
+	
+	public int getValue() {
+		return ordinal();
+	}
+	
+	public String getLiteral() {
+		return getName();
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

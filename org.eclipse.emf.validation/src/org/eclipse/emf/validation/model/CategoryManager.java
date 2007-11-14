@@ -13,7 +13,6 @@
 package org.eclipse.emf.validation.model;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.SortedSet;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -76,7 +75,7 @@ public class CategoryManager {
 	 * @return an unmodifiable set of {@link Category}s, sorted by their
 	 *     names
 	 */
-	public SortedSet getTopLevelCategories() {
+	public SortedSet<Category> getTopLevelCategories() {
 		return globalCategory.getChildren();
 	}
 	
@@ -174,17 +173,19 @@ public class CategoryManager {
 		}
 		
 		// first, recursively remove the child categories
-		Collection children = new java.util.ArrayList(category.getChildren());
-		for (Iterator iter = children.iterator(); iter.hasNext();) {
-			removeCategory((Category)iter.next());
+		Collection<Category> children = category.getChildren();
+		Category[] childrenArray = children.toArray(new Category[children.size()]);
+		for (Category child : childrenArray) {
+			removeCategory(child);
 		}
 		
 		// purge the constraints from this category, so that they know they
 		//   are no longer in it
-		Collection constraints = new java.util.ArrayList(
-				category.getConstraints());
-		for (Iterator iter = constraints.iterator(); iter.hasNext();) {
-			category.removeConstraint((IConstraintDescriptor)iter.next());
+		Collection<IConstraintDescriptor> constraints = category.getConstraints();
+		IConstraintDescriptor[] constraintsArray = constraints.toArray(
+			new IConstraintDescriptor[constraints.size()]);
+		for (IConstraintDescriptor constraint : constraintsArray) {
+			category.removeConstraint(constraint);
 		}
 		
 		// finally, remove the category from its parent
@@ -234,9 +235,7 @@ public class CategoryManager {
 				EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME)
 					.getConfigurationElements();
 		
-		for (int i = 0; i < elements.length; i++) {
-			IConfigurationElement next = elements[i];
-			
+		for (IConfigurationElement next : elements) {
 			if (next.getName().equals(XmlConfig.E_CATEGORY)) {
 				loadCategories(globalCategory, next);
 			}
@@ -272,9 +271,9 @@ public class CategoryManager {
 			IConfigurationElement[] subcategories = element.getChildren(
 					XmlConfig.E_CATEGORY);
 		
-			for (int i = 0; i < subcategories.length; i++) {
+			for (IConfigurationElement element2 : subcategories) {
 				// recursively load the child categories, if any
-				loadCategories(category, subcategories[i]);
+				loadCategories(category, element2);
 			}
 		} else {
 			Trace.trace(
@@ -289,8 +288,8 @@ public class CategoryManager {
 	 *  
 	 * @return the mandatory categories
 	 */
-	public Collection getMandatoryCategories() {
-		Collection result = new java.util.ArrayList();
+	public Collection<Category> getMandatoryCategories() {
+		Collection<Category> result = new java.util.ArrayList<Category>();
 		
 		globalCategory.getMandatoryCategories(result);
 		

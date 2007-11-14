@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,8 +22,6 @@ import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 
 import java.util.Collection;
-import java.util.Iterator;
-
 import junit.framework.TestCase;
 
 /**
@@ -101,10 +99,10 @@ public class CategoryTest extends TestCase {
 	 * Tests the consistency of the top-level categories query.
 	 */
 	public void test_getTopLevelCategories() {
-		Collection topLevel = mgr.getTopLevelCategories();
+		Collection<Category> topLevel = mgr.getTopLevelCategories();
 		
-		for (Iterator iter = topLevel.iterator(); iter.hasNext();) {
-			assertNull(((Category)iter.next()).getParent());
+		for (Category next : topLevel) {
+			assertNull(next.getParent());
 		}
 	}
 	
@@ -112,10 +110,10 @@ public class CategoryTest extends TestCase {
 	 * Tests the consistency of the mandatory categories query.
 	 */
 	public void test_getMandatoryCategories() {
-		Collection topLevel = mgr.getMandatoryCategories();
+		Collection<Category> topLevel = mgr.getMandatoryCategories();
 		
-		for (Iterator iter = topLevel.iterator(); iter.hasNext();) {
-			assertTrue(((Category)iter.next()).isMandatory());
+		for (Category next : topLevel) {
+			assertTrue(next.isMandatory());
 		}
 	}
 	
@@ -136,8 +134,8 @@ public class CategoryTest extends TestCase {
 	public void test_dumpCategories() {
 		Trace.trace(">>> Testing dumpCategories"); //$NON-NLS-1$
 		
-		for (Iterator iter = mgr.getTopLevelCategories().iterator(); iter.hasNext();) {
-			dumpCategory((Category)iter.next());
+		for (Category next : mgr.getTopLevelCategories()) {
+			dumpCategory(next);
 		}
 	}
 	
@@ -149,12 +147,12 @@ public class CategoryTest extends TestCase {
 	private void dumpCategory(Category category) {
 		Trace.trace(category.toString());
 		
-		for (Iterator iter = category.getConstraints().iterator(); iter.hasNext();) {
-			Trace.trace("    " + iter.next()); //$NON-NLS-1$
+		for (Object next : category.getConstraints()) {
+			Trace.trace("    " + next); //$NON-NLS-1$
 		}
 		
-		for (Iterator iter = category.getChildren().iterator(); iter.hasNext();) {
-			dumpCategory((Category)iter.next());
+		for (Category child : category.getChildren()) {
+			dumpCategory(child);
 		}
 	}
 }

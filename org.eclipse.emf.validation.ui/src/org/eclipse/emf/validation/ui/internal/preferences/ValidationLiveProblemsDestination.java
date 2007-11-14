@@ -15,6 +15,7 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 
 
@@ -23,17 +24,11 @@ import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ValidationLiveProblemsDestination {
-    /**
-     * An internal unique identifier for this enumerated type.
-     */
-    private static int nextOrdinal = 0;
-    
-    private String name;
-    private int ordinal;
+public enum ValidationLiveProblemsDestination implements Enumerator {
+    DIALOG("Dialog"), //$NON-NLS-1$
+    CONSOLE("Console"); //$NON-NLS-1$
 
-    public static final ValidationLiveProblemsDestination DIALOG = new ValidationLiveProblemsDestination("Dialog"); //$NON-NLS-1$
-    public static final ValidationLiveProblemsDestination CONSOLE = new ValidationLiveProblemsDestination("Console"); //$NON-NLS-1$
+    private String name;
 
     /**
      * The list of values for this enumerated type.
@@ -65,7 +60,6 @@ public class ValidationLiveProblemsDestination {
      */
     private ValidationLiveProblemsDestination(String name) {
         this.name = name;
-        this.ordinal = nextOrdinal++;
     }
 
     /**
@@ -73,15 +67,23 @@ public class ValidationLiveProblemsDestination {
      * 
      * @return The list of constants for this enumerated type.
      */
-    protected List getValues() {
+    protected List<ValidationLiveProblemsDestination> getValues() {
         return Arrays.asList(VALUES);
     }
     
     public int getOrdinal() {
-    	return ordinal;
+    	return getValue();
     }
     
     public String getName() {
     	return name;
+    }
+    
+    public int getValue() {
+    	return ordinal();
+    }
+    
+    public String getLiteral() {
+    	return getName();
     }
 }

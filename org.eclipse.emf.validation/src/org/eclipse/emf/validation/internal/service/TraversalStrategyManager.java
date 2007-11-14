@@ -52,7 +52,8 @@ class TraversalStrategyManager {
 	private static final TraversalStrategyManager INSTANCE =
 		new TraversalStrategyManager();
 	
-	private final Map packageDescriptors = new java.util.HashMap();
+	private final Map<String, Descriptor> packageDescriptors =
+	    new java.util.HashMap<String, Descriptor>();
 	
 	/**
 	 * Not instantiated by clients.
@@ -144,7 +145,7 @@ class TraversalStrategyManager {
 	 * @return the corresponding descriptor
 	 */
 	private Descriptor getDescriptor(String nsUri) {
-		Descriptor result = (Descriptor)packageDescriptors.get(nsUri);
+		Descriptor result = packageDescriptors.get(nsUri);
 		
 		if (result == null) {
 			result = new Descriptor(nsUri);
@@ -162,8 +163,9 @@ class TraversalStrategyManager {
 	 */
 	private static class Descriptor {
 		private final String nsUri;
-		private Map eclassMap = new java.util.HashMap();
-		private ThreadLocalLazyStrategy packageDefaultStrategy;
+		private Map<Object, ThreadLocal<ITraversalStrategy>> eclassMap =
+		    new java.util.HashMap<Object, ThreadLocal<ITraversalStrategy>>();
+		private ThreadLocal<ITraversalStrategy> packageDefaultStrategy;
 		private boolean isResolved;
 		
 		/**
@@ -188,14 +190,16 @@ class TraversalStrategyManager {
 		 * Determines whether <code>other</code> is a descriptor for the
 		 * same EPackage as me. 
 		 */
-		public boolean equals(Object other) {
+		@Override
+        public boolean equals(Object other) {
 			return (other instanceof Descriptor) && 
 				getNamespaceUri().equals(
 					((Descriptor)other).getNamespaceUri());
 		}
 		
 		// overrides the inherited implementation
-		public int hashCode() {
+		@Override
+        public int hashCode() {
 			return getNamespaceUri().hashCode();
 		}
 		
@@ -208,10 +212,13 @@ class TraversalStrategyManager {
 		 */
 		void addTraversalStrategy(IConfigurationElement config) {
 			IConfigurationElement[] eclasses = config.getChildren(E_ECLASS);
+
+            ThreadLocal<ITraversalStrategy> strategy =
+                new ThreadLocalLazyStrategy(config);
 			
 			if ((eclasses.length == 0) && (packageDefaultStrategy == null)) {
 				// can only have one wildcard strategy
-				packageDefaultStrategy = new ThreadLocalLazyStrategy(config);
+				packageDefaultStrategy = strategy;
 			} else {
 				for (int i = 0; i < eclasses.length; i++) {
 					IConfigurationElement next = eclasses[i];
@@ -219,7 +226,7 @@ class TraversalStrategyManager {
 					
 					if (!eclassMap.containsKey(eclassName)) {
 						// take the first one registered against a name
-						eclassMap.put(eclassName, config);
+						eclassMap.put(eclassName, strategy);
 					}
 				}
 			}
@@ -234,16 +241,15 @@ class TraversalStrategyManager {
 		private void resolve(EPackage ePackage) {
 			isResolved = true;
 			
-			Map newMap = new java.util.HashMap();
+			Map<Object, ThreadLocal<ITraversalStrategy>> newMap =
+			    new java.util.HashMap<Object, ThreadLocal<ITraversalStrategy>>();
 			
-			for (Iterator iter = eclassMap.entrySet().iterator(); iter.hasNext();) {
-				Map.Entry next = (Map.Entry)iter.next();
+			for (Map.Entry<Object, ThreadLocal<ITraversalStrategy>> next : eclassMap.entrySet()) {
 				String eclassName = (String)next.getKey();
 				
 				EClassifier eclass = ePackage.getEClassifier(eclassName);
 				if (eclass instanceof EClass) {
-					newMap.put(eclass, new ThreadLocalLazyStrategy(
-					    (IConfigurationElement) next.getValue()));
+					newMap.put(eclass, next.getValue());
 				} else {
 					// not a valid eclass
 					Log.warningMessage(
@@ -274,14 +280,14 @@ class TraversalStrategyManager {
     				resolve(eclass.getEPackage());
     			}
     			
-				ThreadLocal strategy = (ThreadLocal) eclassMap.get(eclass);
+    			ThreadLocal<ITraversalStrategy> strategy = eclassMap.get(eclass);
 				
     			if (strategy == null) {
     				strategy = inheritStrategy(eclass);
     				eclassMap.put(eclass, strategy);
     			}
                 
-                return (ITraversalStrategy) strategy.get();
+                return strategy.get();
 			}
 		}
 		
@@ -295,8 +301,8 @@ class TraversalStrategyManager {
 		 * @return the inherited strategy, or the package's default, if none
 		 *     better is found
 		 */
-		private ThreadLocal inheritStrategy(EClass eclass) {
-			ThreadLocal result = getInheritedStrategy(eclass);
+		private ThreadLocal<ITraversalStrategy> inheritStrategy(EClass eclass) {
+		    ThreadLocal<ITraversalStrategy> result = getInheritedStrategy(eclass);
 			
 			if (result == null) {
 				// use the wildcard strategy
@@ -320,16 +326,16 @@ class TraversalStrategyManager {
 		 * @return the inherited strategy, or <code>null</code> if none was
 		 *     provided by any extension point
 		 */
-		private ThreadLocal getInheritedStrategy(EClass eclass) {
-			ThreadLocal result = null;
+		private ThreadLocal<ITraversalStrategy> getInheritedStrategy(EClass eclass) {
+		    ThreadLocal<ITraversalStrategy> result = null;
 			
-			for (Iterator iter = eclass.getESuperTypes().iterator();
+			for (Iterator<EClass> iter = eclass.getESuperTypes().iterator();
 					(result == null) && iter.hasNext();) {
 				
-				EClass next = (EClass)iter.next();
+				EClass next = iter.next();
 				
 				if (eclassMap.containsKey(next)) {
-					result = (ThreadLocal) eclassMap.get(next);
+					result = eclassMap.get(next);
 				} else {
 					result = getInheritedStrategy(next);
 				}
@@ -367,19 +373,17 @@ class TraversalStrategyManager {
 			// replace all ocurrences of the configuration element with the
 			//   newly instantiated traversal strategy for future look-ups
 			if (packageDefaultStrategy != null) {
-			    packageDefaultStrategy.preinitialize(result, config);
+			    ((ThreadLocalLazyStrategy) packageDefaultStrategy).preinitialize(result, config);
 			}
 			
-			for (Iterator iter = eclassMap.values().iterator(); iter.hasNext();) {
-				ThreadLocalLazyStrategy next = (ThreadLocalLazyStrategy) iter.next();
-				
-				next.preinitialize(result, config);
+			for (Object next : eclassMap.values()) {
+				((ThreadLocalLazyStrategy) next).preinitialize(result, config);
 			}
 			
 			return result;
 		}
 		
-		private class ThreadLocalLazyStrategy extends ThreadLocal {
+		private class ThreadLocalLazyStrategy extends ThreadLocal<ITraversalStrategy> {
 		    private final IConfigurationElement config;
             
             ThreadLocalLazyStrategy() {
@@ -390,7 +394,8 @@ class TraversalStrategyManager {
 		        this.config = config;
 		    }
 		    
-		    protected Object initialValue() {
+		    @Override
+            protected ITraversalStrategy initialValue() {
 		        return (config == null)? new ITraversalStrategy.Recursive() :
 		            initializeStrategy(config);
 		    }

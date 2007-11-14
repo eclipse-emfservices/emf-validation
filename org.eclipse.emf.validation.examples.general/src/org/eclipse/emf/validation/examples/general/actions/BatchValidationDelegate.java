@@ -19,7 +19,6 @@ package org.eclipse.emf.validation.examples.general.actions;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
@@ -41,6 +40,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate2;
@@ -74,23 +74,36 @@ public class BatchValidationDelegate
 	/**
 	 * Selected EObjects
 	 */
-	protected Collection selectedEObjects = null;
+	protected Collection<EObject> selectedEObjects = null;
 
 	/**
 	 * The InputDialog title
 	 */
-	private String title = ValidationMessages.BatchValidationDelegate_title;
+	private final String title = ValidationMessages.BatchValidationDelegate_title;
 
 	/*
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
+	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedEObjects = null;
 		try {
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				this.selectedEObjects = structuredSelection.toList();
+				
+				Collection<?> selectedHunh = structuredSelection.toList();
+				for (Object next : selectedHunh) {
+					if (!(next instanceof EObject)) {
+						action.setEnabled(false);
+					}
+				}
+				
+				if (action.isEnabled()) {
+					this.selectedEObjects = (Collection<EObject>) selectedHunh;
+				} else {
+					this.selectedEObjects = null;
+				}
 			}
 		} catch (Exception e) {
 			// Exceptions are not expected
@@ -100,11 +113,6 @@ public class BatchValidationDelegate
 			action.setEnabled((null != selectedEObjects));
 		}
 		
-		for (Iterator i = selectedEObjects.iterator(); i.hasNext();) {
-			if (!(i.next() instanceof EObject)) {
-				action.setEnabled(false);
-			}
-		}
 	}
 
 	/*
@@ -146,7 +154,7 @@ public class BatchValidationDelegate
 	public void run(IAction action) {
 		ValidationDelegateClientSelector.running = true;
 		
-		IBatchValidator validator = (IBatchValidator)ModelValidationService.getInstance()
+		IBatchValidator validator = ModelValidationService.getInstance()
 			.newValidator(EvaluationMode.BATCH);
 		validator.setIncludeLiveConstraints(true);
 		
@@ -179,6 +187,7 @@ public class BatchValidationDelegate
 				}
 			});
 			dialog.setLabelProvider(new LabelProvider() {
+				@Override
 				public String getText(Object element) {
 					if (element instanceof IStatus) {
 						return ((IStatus)element).getMessage();
@@ -189,15 +198,15 @@ public class BatchValidationDelegate
 			dialog.setBlockOnOpen(true);
 			dialog.setMessage(ValidationMessages.BatchValidationDelegate_errorMessage);
 			
-			if (ListDialog.OK == dialog.open()) {
-				Set errorSelections = new HashSet();
+			if (Window.OK == dialog.open()) {
+				Set<EObject> errorSelections = new HashSet<EObject>();
 				if (!status.isMultiStatus()) {
 					IConstraintStatus cstatus = (IConstraintStatus)status;
 					errorSelections.add(cstatus.getTarget());
 				} else {
 					IStatus[] children = status.getChildren();
-					for (int i = 0; i<children.length; i++) {
-						IConstraintStatus cstatus = (IConstraintStatus)children[i];
+					for (IStatus element : children) {
+						IConstraintStatus cstatus = (IConstraintStatus)element;
 						errorSelections.add(cstatus.getTarget());
 					}
 				}

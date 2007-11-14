@@ -91,13 +91,13 @@ public final class MarkerUtil {
 			public void run(IProgressMonitor m)
 				throws CoreException {
 				
-				final Map visitedResources = new HashMap();
+				final Map<URI, IFile> visitedResources = new HashMap<URI, IFile>();
 				
 				if (validationStatus.isMultiStatus()) {
 					IStatus[] children = validationStatus.getChildren();
-					for (int i=0; i<children.length ;i++) {
-						if (children[i] instanceof IConstraintStatus) {
-							createMarker((IConstraintStatus)children[i], markerType, configurator, visitedResources);
+					for (IStatus element : children) {
+						if (element instanceof IConstraintStatus) {
+							createMarker((IConstraintStatus)element, markerType, configurator, visitedResources);
 						}
 					}
 				} else if (validationStatus instanceof IConstraintStatus) {
@@ -110,7 +110,8 @@ public final class MarkerUtil {
 	}
 
 	private static void createMarker(IConstraintStatus status,
-			String markerType, IMarkerConfigurator configurator, Map visitedResources) throws CoreException {
+			String markerType, IMarkerConfigurator configurator,
+			Map<URI, IFile> visitedResources) throws CoreException {
 
 		Resource r = status.getTarget().eResource();
 		URI uri = r.getURI();
@@ -118,7 +119,7 @@ public final class MarkerUtil {
 		// Normalize the URI to something that we can deal with like file or platform scheme
 		uri = r.getResourceSet().getURIConverter().normalize(uri);
 
-		IFile file = (IFile)visitedResources.get(uri);
+		IFile file = visitedResources.get(uri);
 		
 		if (file == null) {
 			if (PLATFORM_SCHEME.equals(uri.scheme()) && uri.segmentCount() > 1

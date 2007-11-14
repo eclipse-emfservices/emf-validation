@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ConstraintsSelectionBlock.java,v 1.4 2007/10/30 15:28:03 cdamus Exp $
+ * $Id: ConstraintsSelectionBlock.java,v 1.5 2007/11/14 18:03:47 cdamus Exp $
  */
 package org.eclipse.emf.validation.ui.preferences;
 
@@ -363,7 +363,8 @@ public class ConstraintsSelectionBlock {
 		 * @param constraint the constraint meta-data
 		 */
 		private void setDetails(IConstraintNode constraint) {
-			List styles = new java.util.ArrayList(32); // lots of style info
+			// lots of style info
+			List<StyleRange> styles = new java.util.ArrayList<StyleRange>(32);
 			String text = ConstraintDetailsHelper.formatConstraintDescription(
 					constraint,
 					getCurrentCategorySelection(),
@@ -371,7 +372,7 @@ public class ConstraintsSelectionBlock {
 		
 			getDetailsArea().setText(text);
 			getDetailsArea().setStyleRanges(
-					(StyleRange[])styles.toArray(new StyleRange[styles.size()]));
+					styles.toArray(new StyleRange[styles.size()]));
 		}
 	}
 	
@@ -432,11 +433,13 @@ public class ConstraintsSelectionBlock {
 				ValidationUIPlugin.getImageDescriptor(LOCK_ICON).createImage(
 						true);
 			
+			@Override
 			public void dispose() {
 				lockImage.dispose();
 				super.dispose();
 			}
 
+			@Override
 			public Image getImage(Object element) {
 				ICategoryTreeNode node = (ICategoryTreeNode)element;
 				
@@ -494,12 +497,14 @@ public class ConstraintsSelectionBlock {
 						true);
 			
 			// extends the inherited method
+			@Override
 			public void dispose() {
 				lockImage.dispose();
 				super.dispose();
 			}
 
 			// redefines the inherited method
+			@Override
 			public Image getImage(Object element) {
 				IConstraintNode constraint = (IConstraintNode) element;
 				
@@ -514,6 +519,7 @@ public class ConstraintsSelectionBlock {
 			}
 			
 			// redefines the inherited method
+			@Override
 			public String getText(Object element) {
 				return ((IConstraintNode)element).getName();
 			}});
@@ -646,9 +652,7 @@ public class ConstraintsSelectionBlock {
 	}
 	
 	private void markEnabledCategories(ICategoryTreeNode[] categories) {
-		for (int i = 0; i < categories.length; i++) {
-			ICategoryTreeNode next = categories[i];
-			
+		for (ICategoryTreeNode next : categories) {
 			getCategoryTree().setChecked(
 				next,
 				next.isChecked());

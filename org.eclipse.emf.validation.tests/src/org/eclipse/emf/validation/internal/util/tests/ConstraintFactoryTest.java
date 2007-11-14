@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,13 +33,14 @@ import junit.framework.TestCase;
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintFactoryTest extends TestCase {
-	private ConstraintFactory factory = ConstraintFactory.getInstance();
+	private final ConstraintFactory factory = ConstraintFactory.getInstance();
 	
 	public void test_getInstance() {
 		assertSame(factory, ConstraintFactory.getInstance());
 	}
 
 	public void test_newConstraint() {
+		@SuppressWarnings("deprecation")
 		IModelConstraint constraint = factory.newConstraint(
 				ConstraintDescriptorTest.getFixture());
 		
@@ -66,6 +67,7 @@ public class ConstraintFactoryTest extends TestCase {
 		try {
 			XmlConstraintDescriptor desc = new XmlConstraintDescriptor(element);
 			
+			@SuppressWarnings("deprecation")
 			IModelConstraint constraint = factory.newConstraint(desc);
 			
 			assertFalse(desc.isEnabled());

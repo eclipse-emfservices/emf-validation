@@ -22,6 +22,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.validation.examples.general.console.ConsoleUtil;
 import org.eclipse.emf.validation.examples.general.internal.l10n.ValidationMessages;
+import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IValidationListener;
 import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.osgi.util.NLS;
@@ -99,9 +100,7 @@ public class ValidationListener
 	    private void appendProblemsRecursive(
 	        IStatus[] statuses,
 	        StringBuffer output) {
-	        for (int i = 0; i < statuses.length; i++) {
-	            IStatus next = statuses[i];
-	
+	        for (IStatus next : statuses) {
 	            if (!next.isOK()) {
 	                final String messagePattern;
 	
@@ -222,9 +221,8 @@ public class ValidationListener
      * @return its validation results, as a status array
      */
     private static IStatus[] toStatusArray(ValidationEvent event) {
-    	List results = event.getValidationResults();
+    	List<IConstraintStatus> results = event.getValidationResults();
     	
-    	return (IStatus[]) results.toArray(
-    		new IStatus[results.size()]);
+    	return results.toArray(new IStatus[results.size()]);
     }    	
 }

@@ -16,7 +16,6 @@ import java.lang.ref.SoftReference;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,7 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IValidationListener;
 import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.emf.validation.ui.internal.console.ConsoleUtil;
@@ -63,7 +63,7 @@ public class LiveValidationListener
 	private static final String EP_UI_REGISTERED_CLIENT_CONTEXTS = "org.eclipse.emf.validation.ui.UIRegisteredClientContext"; //$NON-NLS-1$
 	private static final String A_ID = "id"; //$NON-NLS-1$
 	
-	private static SoftReference registeredClientContextIds = null;
+	private static SoftReference<Set<String>> registeredClientContextIds = null;
 	
     /**
      * Helper object for creating message to output view.
@@ -98,26 +98,29 @@ public class LiveValidationListener
 	 *  
 	 * @return true if there is a supported client context in the collection, false otherwise
 	 */
-    private synchronized static boolean isSupportedClientContexts(Collection clientContextIds) {
-		Set registeredIds = registeredClientContextIds != null ? (Set)registeredClientContextIds.get() : null;
+    private synchronized static boolean isSupportedClientContexts(
+    		Collection<String> clientContextIds) {
+		Set<String> registeredIds = registeredClientContextIds != null
+			? registeredClientContextIds.get() : null;
+			
     	if (registeredIds == null) {
-    		registeredIds = new HashSet();
-			registeredClientContextIds = new SoftReference(registeredIds);
+    		registeredIds = new HashSet<String>();
+			registeredClientContextIds = new SoftReference<Set<String>>(registeredIds);
 			
 			IExtensionPoint point = Platform.getExtensionRegistry().getExtensionPoint(EP_UI_REGISTERED_CLIENT_CONTEXTS);
 			IExtension[] extensions = point.getExtensions();
 			
-			for (int i=0; i<extensions.length; i++) {
-				IConfigurationElement[] elements = extensions[i].getConfigurationElements();
+			for (IExtension element : extensions) {
+				IConfigurationElement[] elements = element.getConfigurationElements();
 				
-				for (int j=0; j<elements.length; j++) {
-					registeredIds.add(elements[j].getAttribute(A_ID));
+				for (IConfigurationElement element2 : elements) {
+					registeredIds.add(element2.getAttribute(A_ID));
 				}
 			}
 		}
     	
-    	for (Iterator i = clientContextIds.iterator(); i.hasNext();) {
-    		if (registeredIds.contains(i.next())) {
+    	for (String next : clientContextIds) {
+    		if (registeredIds.contains(next)) {
     			return true;
     		}
     	}
@@ -133,8 +136,9 @@ public class LiveValidationListener
      */
     private void showProblemMessages(ValidationEvent event) {
     	// The workbench must be running in order for us to display anything to the user
-    	if (!PlatformUI.isWorkbenchRunning())
-    		return;
+    	if (!PlatformUI.isWorkbenchRunning()) {
+			return;
+		}
     	
         final ValidationLiveProblemsDestination destination =
         	ValidationLiveProblemsDestination.getPreferenceSetting();
@@ -216,6 +220,7 @@ public class LiveValidationListener
 					 * Redefines the inherited method to always return
 					 * the more appropriate severity for the dialog.
 					 */
+					@Override
 					public int getSeverity() {
 						return dialogSeverity;
 					}};
@@ -262,9 +267,9 @@ public class LiveValidationListener
      *     first in the array if none is found
      */
     static IStatus getFirstStatus(IStatus[] statuses, int severity) {
-    	for (int i = 0; i < statuses.length; i++) {
-			if (statuses[i].matches(severity)) {
-				return statuses[i];
+    	for (IStatus element : statuses) {
+			if (element.matches(severity)) {
+				return element;
 			}
 		}
     	
@@ -278,10 +283,9 @@ public class LiveValidationListener
      * @return its validation results, as a status array
      */
     private static IStatus[] toStatusArray(ValidationEvent event) {
-    	List results = event.getValidationResults();
+    	List<IConstraintStatus> results = event.getValidationResults();
     	
-    	return (IStatus[]) results.toArray(
-    		new IStatus[results.size()]);
+    	return results.toArray(new IStatus[results.size()]);
     }
 
     /**
@@ -354,9 +358,7 @@ public class LiveValidationListener
         private void appendProblemsRecursive(
             IStatus[] statuses,
             StringBuffer output) {
-            for (int i = 0; i < statuses.length; i++) {
-                IStatus next = statuses[i];
-
+            for (IStatus next : statuses) {
                 if (!next.isOK()) {
                     final String messagePattern;
 
@@ -424,6 +426,7 @@ public class LiveValidationListener
 		 * @param composite The composite to parent from.
 		 * @return <code>composite</code>
 		 */
+		@Override
 		protected Control createDialogArea(Composite composite) {
 			Composite result;
             
@@ -448,6 +451,7 @@ public class LiveValidationListener
 
 				checkbox.addSelectionListener(new SelectionAdapter() {
 
+					@Override
 					public void widgetSelected(SelectionEvent e) {
 						// toggle the preference setting for display of live
 						//   warnings according to user's selection

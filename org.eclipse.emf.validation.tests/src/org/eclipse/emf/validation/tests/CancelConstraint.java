@@ -10,7 +10,7 @@
  * Contributors:
  *   IBM - Initial API and implementation
  *
- * $Id: CancelConstraint.java,v 1.1 2007/03/29 16:50:24 cdamus Exp $
+ * $Id: CancelConstraint.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
  * 
  * </copyright>
  */
@@ -29,7 +29,8 @@ public class CancelConstraint extends AbstractModelConstraint {
 	public static boolean enabled = false;
 	
 	// Documentation copied from the inherited specification
-	public IStatus validate(IValidationContext ctx) {
+	@Override
+    public IStatus validate(IValidationContext ctx) {
 		if (!enabled) {
 			return ctx.createSuccessStatus();
 		}

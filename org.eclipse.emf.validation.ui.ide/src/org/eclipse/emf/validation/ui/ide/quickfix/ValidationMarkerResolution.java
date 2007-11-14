@@ -88,10 +88,10 @@ public class ValidationMarkerResolution
 		if (result) {
 			// see whether this constraint is in any mandatory category
 			
-			for (Iterator iter = constraint.getCategories().iterator();
+			for (Iterator<Category> iter = constraint.getCategories().iterator();
 					result && iter.hasNext();) {
 				
-				result = !((Category) iter.next()).isMandatory();
+				result = !iter.next().isMandatory();
 			}
 		}
 		

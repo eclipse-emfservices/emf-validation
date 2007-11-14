@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.validation.EMFEventType;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
@@ -39,7 +40,7 @@ public class GetLiveConstraintsOperation
 	
 	private EMFEventType eventType;
 	private Notification notification;
-	private List allEvents;
+	private List<Notification> allEvents;
 	
 	/**
 	 * Initializes me.
@@ -72,7 +73,7 @@ public class GetLiveConstraintsOperation
 	 * 
 	 * @param events the {@link Notification}s
 	 */
-	protected void setAllEvents(List events) {
+	protected void setAllEvents(List<? extends Notification> events) {
 		this.allEvents = Collections.unmodifiableList(events);
 	}
 
@@ -90,7 +91,7 @@ public class GetLiveConstraintsOperation
 	 * 
 	 * @return the events
 	 */
-	public final List getAllEvents() {
+	public final List<Notification> getAllEvents() {
 		return allEvents;
 	}
 	
@@ -104,18 +105,21 @@ public class GetLiveConstraintsOperation
 	}
 
 	// implements the inherited method
+	@Override
 	protected void executeImpl(
 			IModelConstraintProvider provider,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		assert provider != null;
 
 		provider.getLiveConstraints(getNotification(), constraints);
 	}
 	
 	// implements the inherited method
+	@Override
 	protected AbstractValidationContext createContext() {
 		return new AbstractValidationContext(this) {
 			// re-implements the inherited method
+			@Override
 			public EStructuralFeature getFeature() {
 				EStructuralFeature result = null;
 				
@@ -129,6 +133,7 @@ public class GetLiveConstraintsOperation
 			/*
 			 * Redefines the inherited method.
 			 */
+			@Override
 			public Object getFeatureNewValue() {
 				Object result = null;
 				
@@ -153,15 +158,18 @@ public class GetLiveConstraintsOperation
 			}
 			
 			// re-implements the inherited method
+			@Override
 			public EMFEventType getEventType() {
 				return GetLiveConstraintsOperation.this.getEventType();
 			}
 			
 			// re-implements the inherited method
-			public List getAllEvents() {
+			@Override
+			public List<Notification> getAllEvents() {
 				return GetLiveConstraintsOperation.this.getAllEvents();
 			}
 
+			@Override
 			public Notification getNotification() {
 				return GetLiveConstraintsOperation.this.getNotification();
 			}};

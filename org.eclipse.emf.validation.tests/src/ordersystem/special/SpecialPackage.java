@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EPackage;
  * </ul>
  * <!-- end-user-doc -->
  * @see ordersystem.special.SpecialFactory
+ * @model kind="package"
  * @generated
  */
 public interface SpecialPackage extends EPackage{
@@ -135,7 +136,7 @@ public interface SpecialPackage extends EPackage{
 	int PREFERRED_CUSTOMER__SINCE = OrderSystemPackage.CUSTOMER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Preferred Customer</em>' class.
+	 * The number of structural features of the '<em>Preferred Customer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -199,7 +200,7 @@ public interface SpecialPackage extends EPackage{
 	int LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL = OrderSystemPackage.PRODUCT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Limited Edition Product</em>' class.
+	 * The number of structural features of the '<em>Limited Edition Product</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -258,5 +259,56 @@ public interface SpecialPackage extends EPackage{
 	 * @generated
 	 */
 	SpecialFactory getSpecialFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+		/**
+		 * The meta object literal for the '{@link ordersystem.special.impl.PreferredCustomerImpl <em>Preferred Customer</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ordersystem.special.impl.PreferredCustomerImpl
+		 * @see ordersystem.special.impl.SpecialPackageImpl#getPreferredCustomer()
+		 * @generated
+		 */
+		EClass PREFERRED_CUSTOMER = eINSTANCE.getPreferredCustomer();
+
+		/**
+		 * The meta object literal for the '<em><b>Since</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PREFERRED_CUSTOMER__SINCE = eINSTANCE.getPreferredCustomer_Since();
+
+		/**
+		 * The meta object literal for the '{@link ordersystem.special.impl.LimitedEditionProductImpl <em>Limited Edition Product</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ordersystem.special.impl.LimitedEditionProductImpl
+		 * @see ordersystem.special.impl.SpecialPackageImpl#getLimitedEditionProduct()
+		 * @generated
+		 */
+		EClass LIMITED_EDITION_PRODUCT = eINSTANCE.getLimitedEditionProduct();
+
+		/**
+		 * The meta object literal for the '<em><b>Available Until</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL = eINSTANCE.getLimitedEditionProduct_AvailableUntil();
+
+	}
 
 } //SpecialPackage

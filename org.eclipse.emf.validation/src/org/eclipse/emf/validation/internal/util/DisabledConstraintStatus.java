@@ -55,7 +55,8 @@ public class DisabledConstraintStatus extends ConstraintStatus {
 	}
 	
 	// implements/extends the inherited method
-	public Throwable getException() {
+	@Override
+    public Throwable getException() {
 		return exception;
 	}
 }

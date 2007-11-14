@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@
 package org.eclipse.emf.validation.tests;
 
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.Random;
 
 import ordersystem.Account;
@@ -88,9 +87,8 @@ class Example1 {
 		result.setLocation(createAddress(city));
 
 		int i = 1;
-		for (Iterator iter = os.getProduct().iterator(); iter.hasNext(); ) {
-			result.getItem()
-					.add(createInventoryItem((Product)iter.next(), i++));
+		for (Product next : os.getProduct()) {
+			result.getItem().add(createInventoryItem(next, i++));
 		}
 
 		os.getWarehouse().add(result);

@@ -12,7 +12,6 @@
 
 package org.eclipse.emf.validation.internal.emfadapter;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -49,16 +48,15 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 	/* (non-Javadoc)
 	 * Redefines the inherited method
 	 */
+	@Override
 	public void add(Diagnostic diagnostic) {
 		if (diagnostic.getSeverity() != Diagnostic.OK) {
-			List ddata = diagnostic.getData();
+			List<?> ddata = diagnostic.getData();
 			
 			if (ddata != null) {
 				// add any EObjects that we find to our results
 				
-				for (Iterator iter = ddata.iterator(); iter.hasNext();) {
-					Object next = iter.next();
-					
+				for (Object next : ddata) {
 					if (next instanceof EObject) {
 						adaptedContext.addResult((EObject) next);
 					}

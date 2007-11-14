@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.model.Category;
@@ -49,7 +48,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 */
 	private ICategoryTreeNode delegate;
 	
-	private List constraints;
+	private List<IConstraintNode> constraints;
 	
 	/**
 	 * Implementation of the root node of the category selection tree.
@@ -68,22 +67,15 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 		
 		// implements the inherited method to wrap the top-level categories
-		protected List createChildren() {
-			List result = new java.util.ArrayList(
-					CategoryManager.getInstance().getTopLevelCategories());
+		@Override
+        protected List<ICategoryTreeNode> createChildren() {
+		    Collection<Category> topLevel = CategoryManager.getInstance().getTopLevelCategories();
+			List<ICategoryTreeNode> result = new java.util.ArrayList<ICategoryTreeNode>(
+					topLevel.size());
 			
-			for (ListIterator iter = result.listIterator(); iter.hasNext();) {
-				Category next = (Category) iter.next();
-				
-				if (isRecursivelyEmpty(next)) {
-					iter.remove();
-				} else {
-					iter.set(
-							new CategoryTreeNode(
-									getTree(),
-									next,
-									this,
-									getFilter()));
+			for (Category next : topLevel) {
+				if (!isRecursivelyEmpty(next)) {
+					result.add(new CategoryTreeNode(getTree(), next, this, getFilter()));
 				}
 			}
 			
@@ -116,13 +108,14 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 		
 		// redefines the inherited method
-		public String getDescription() {
+		@Override
+        public String getDescription() {
 			return ""; //$NON-NLS-1$
 		}
 		
 		// redefines the inherited method
-		public List getConstraints() {
-			return Collections.EMPTY_LIST;
+		public List<IConstraintNode> getConstraints() {
+			return Collections.emptyList();
 		}
 	}
 	
@@ -153,13 +146,15 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 		
 		// redefines the inherited method
-		protected List createChildren() {
+		@Override
+        protected List<ICategoryTreeNode> createChildren() {
 			// delegates are leaf nodes, by definition
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		
 		// extends the inherited method
-		public String toString() {
+		@Override
+        public String toString() {
 			String result = super.toString();
 			
 			StringBuffer buf = new StringBuffer(result.length() + 2);
@@ -232,26 +227,25 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// implements the inherited method
-	protected List createChildren() {
+	@Override
+    protected List<ICategoryTreeNode> createChildren() {
 		final Category category = getCategory();
-		Collection categoryChildren = category.getChildren();
+		Collection<Category> categoryChildren = category.getChildren();
 		
-		List result;
+		List<ICategoryTreeNode> result;
 		
 		if (!categoryChildren.isEmpty() && !getConstraints(category, getFilter()).isEmpty()) {
 			// add one for the delegate child that contains my own constraints
-			result = new java.util.ArrayList(categoryChildren.size() + 1);
+			result = new java.util.ArrayList<ICategoryTreeNode>(categoryChildren.size() + 1);
 			
 			// add my delegate
 			delegate = new DelegateNode(getTree(), category, this, getFilter());
 			result.add(delegate);
 		} else {
-			result = new java.util.ArrayList(categoryChildren.size());
+			result = new java.util.ArrayList<ICategoryTreeNode>(categoryChildren.size());
 		}
 		
-		for (Iterator iter = categoryChildren.iterator(); iter.hasNext();) {
-			Category next = (Category) iter.next();
-			
+		for (Category next : categoryChildren) {
 			if (!isRecursivelyEmpty(next)) {
 				result.add(new CategoryTreeNode(
 						getTree(),
@@ -311,9 +305,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 */
 	private void propagateToConstraints(boolean newChecked) {
 		if (!hasDelegate()) {
-			for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-				IConstraintNode next = (IConstraintNode) iter.next();
-				
+			for (IConstraintNode next : getConstraints()) {
 				// my constraints update my check state as necessary
 				next.setChecked(newChecked);
 			}
@@ -388,9 +380,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		boolean newChecked = newValue;
 		boolean newGrayed = false;
 		
-		for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-			IConstraintNode next = (IConstraintNode) iter.next();
-			
+		for (IConstraintNode next : getConstraints()) {
 			if (next != constraint) {
 				if (next.isChecked() != newValue) {
 					newGrayed = true;
@@ -424,11 +414,10 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// extends the inherited method
-	public void applyToPreferences() {
+	@Override
+    public void applyToPreferences() {
 		if (!hasDelegate()) {
-			for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-				IConstraintNode next = (IConstraintNode) iter.next();
-				
+			for (IConstraintNode next : getConstraints()) {
 				next.applyToPreferences();
 			}
 		}
@@ -437,12 +426,15 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// extends the inherited method
-	public void revertFromPreferences() {
+	@Override
+    public void revertFromPreferences() {
 		if (!hasDelegate()) {
 			IConstraintNode node = null;
 			
-			for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-				node = (IConstraintNode) iter.next();
+			for (Iterator<IConstraintNode> iter = getConstraints().iterator();
+			        iter.hasNext();) {
+			    
+				node = iter.next();
 				
 				node.revertFromPreferences();
 			}
@@ -457,12 +449,15 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// extends the inherited method
-	public void restoreDefaults() {
+	@Override
+    public void restoreDefaults() {
 		if (!hasDelegate()) {
 			IConstraintNode node = null;
 			
-			for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-				node = (IConstraintNode) iter.next();
+			for (Iterator<IConstraintNode> iter = getConstraints().iterator();
+			        iter.hasNext();) {
+			    
+				node = iter.next();
 				
 				node.restoreDefaults();
 			}
@@ -483,7 +478,8 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * @return <code>null</code> if I have a delegate node; the superclass
 	 *     result, otherwise
 	 */
-	public Category getCategory() {
+	@Override
+    public Category getCategory() {
 		if (hasDelegate()) {
 			return null;
 		} else {
@@ -492,21 +488,20 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// implements the inherited method
-	public List getConstraints() {
+	public List<IConstraintNode> getConstraints() {
 		if (hasDelegate()) {
-			constraints = Collections.EMPTY_LIST;
+			constraints = Collections.emptyList();
 		} else if (constraints == null) {
-			constraints = new java.util.ArrayList(
-                getConstraints(getCategory(), getFilter()));
-			
-			for (ListIterator iter = constraints.listIterator();
-					iter.hasNext();) {
-				
-				IConstraintNode node = ConstraintNode.getInstance(
-					(IConstraintDescriptor)iter.next());
+		    Collection<IConstraintDescriptor> descriptors = getConstraints(
+		        getCategory(), getFilter());
+			constraints = new java.util.ArrayList<IConstraintNode>(
+		            descriptors.size());
+		    
+			for (IConstraintDescriptor next : descriptors) {
+				IConstraintNode node = ConstraintNode.getInstance(next);
 				
 				node.addCategory(this);
-				iter.set(node);
+				constraints.add(node);
 			}
 		}
 		
@@ -514,18 +509,18 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 	
 	// implements the inherited method
-	public IConstraintNode[] getSelectedConstraints() {
-		List result = new java.util.ArrayList(getConstraints().size());
+	@Override
+    public IConstraintNode[] getSelectedConstraints() {
+		List<IConstraintNode> result = new java.util.ArrayList<IConstraintNode>(
+		        getConstraints().size());
 		
-		for (Iterator iter = getConstraints().iterator(); iter.hasNext();) {
-			IConstraintNode next = (IConstraintNode) iter.next();
-			
+		for (IConstraintNode next : getConstraints()) {
 			if (next.isChecked()) {
 				result.add(next);
 			}
 		}
 		
-		return (IConstraintNode[]) result.toArray(
+		return result.toArray(
 			new IConstraintNode[result.size()]);
 	}
 	
@@ -544,7 +539,8 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * category (because my delegate has it), I return my delegate's category's
 	 * name.
 	 */
-	public String toString() {
+	@Override
+    public String toString() {
 		if ((getCategory() == null) && hasDelegate()) {
 			return delegate.getCategory().getName();
 		} else {

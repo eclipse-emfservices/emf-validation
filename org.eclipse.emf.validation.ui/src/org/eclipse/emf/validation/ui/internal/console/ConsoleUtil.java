@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,10 +51,12 @@ import org.eclipse.ui.console.MessageConsoleStream;
 public class ConsoleUtil {
 	
 	/** cache for console name to actual console object mapping*/
-	private static Map nameToConsole = new HashMap();
+	private static Map<String, MessageConsole> nameToConsole =
+		new HashMap<String, MessageConsole>();
 	
 	/** cache for 'console name' to 'default streams for error, warining and info for that console' mapping */
-	private static Map nameToDefaultStream = new HashMap();
+	private static Map<String, MessageConsoleStream> nameToDefaultStream =
+		new HashMap<String, MessageConsoleStream>();
 	
 	
 	// Strings for error, info, warning and default message types
@@ -92,7 +94,7 @@ public class ConsoleUtil {
 			nameToConsole.put(name, console );
 		}
 		
-		return (MessageConsole) nameToConsole.get( name);
+		return nameToConsole.get( name);
 	}
 	
 	
@@ -114,7 +116,8 @@ public class ConsoleUtil {
 	 */
 	public static void unregisterConsole(String name){		
 		if(nameToConsole.containsKey( name)){		
-			ConsolePlugin.getDefault().getConsoleManager().removeConsoles( new IConsole[]{(IConsole)nameToConsole.get(name)});
+			ConsolePlugin.getDefault().getConsoleManager().removeConsoles(
+				new IConsole[]{nameToConsole.get(name)});
 			nameToConsole.remove( name);
 			nameToDefaultStream.remove(name+ERROR );
 			nameToDefaultStream.remove(name+INFO );
@@ -142,7 +145,7 @@ public class ConsoleUtil {
 			
 		}
 		
-		return (MessageConsoleStream) nameToDefaultStream.get(name+type);
+		return nameToDefaultStream.get(name+type);
 		
 	}
 	

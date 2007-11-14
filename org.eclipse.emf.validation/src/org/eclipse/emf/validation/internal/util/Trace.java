@@ -124,7 +124,7 @@ public class Trace {
 	 * @param methodName The name of method that is being entered.
 	 */
 	public static void entering(
-		Class clazz,
+		Class<?> clazz,
 		String methodName) {
 	
 			EMFModelValidationPlugin.Tracing.entering(
@@ -142,7 +142,7 @@ public class Trace {
 	 * @param parameter The parameter to the method being entered.
 	 */
 	public static void entering(
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object parameter) {
 	
@@ -162,7 +162,7 @@ public class Trace {
 	 * @param parameters The parameters to the method being entered.
 	 */
 	public static void entering(
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object[] parameters) {
 	
@@ -183,7 +183,7 @@ public class Trace {
 	 */
 	public static void entering(
 		String option,
-		Class clazz,
+		Class<?> clazz,
 		String methodName) {
 	
 		if (shouldTraceEntering()) {
@@ -206,7 +206,7 @@ public class Trace {
 	 */
 	public static void entering(
 		String option,
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object parameter) {
 	
@@ -231,7 +231,7 @@ public class Trace {
 	 */
 	public static void entering(
 		String option,
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object[] parameters) {
 	
@@ -251,7 +251,7 @@ public class Trace {
 	 * @param methodName The name of method that is being exited.
 	 */
 	public static void exiting(
-		Class clazz,
+		Class<?> clazz,
 		String methodName) {
 	
 			EMFModelValidationPlugin.Tracing.exiting(
@@ -269,7 +269,7 @@ public class Trace {
 	 * @param returnValue The return value of the method being exited.
 	 */
 	public static void exiting(
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object returnValue) {
 	
@@ -290,7 +290,7 @@ public class Trace {
 	 */
 	public static void exiting(
 		String option,
-		Class clazz,
+		Class<?> clazz,
 		String methodName) {
 	
 		if (shouldTraceExiting()) {
@@ -313,7 +313,7 @@ public class Trace {
 	 */
 	public static void exiting(
 		String option,
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Object returnValue) {
 	
@@ -336,7 +336,7 @@ public class Trace {
 	 * @param throwable The throwable that is being caught.
 	 */
 	public static void catching(
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Throwable throwable) {
 	
@@ -357,7 +357,7 @@ public class Trace {
 	 * @param throwable The throwable that is being thrown.
 	 */
 	public static void throwing(
-		Class clazz,
+		Class<?> clazz,
 		String methodName,
 		Throwable throwable) {
 	

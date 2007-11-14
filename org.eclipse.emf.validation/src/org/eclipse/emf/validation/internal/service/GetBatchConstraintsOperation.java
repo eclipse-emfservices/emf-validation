@@ -48,29 +48,29 @@ public class GetBatchConstraintsOperation
 	}
 
 	// implements the inherited method
+	@Override
 	protected void executeImpl(
 			IModelConstraintProvider provider,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		assert provider != null;
 
 		provider.getBatchConstraints(getEObject(), constraints);
 	}
 	
 	// implements the inherited method
+	@Override
 	protected AbstractValidationContext createContext() {
-		class BatchOnlyFilter implements FilteredCollection.Filter {
-			private final FilteredCollection.Filter delegate;
+		class BatchOnlyFilter implements FilteredCollection.Filter<IModelConstraint> {
+			private final FilteredCollection.Filter<IModelConstraint> delegate;
 			
-			BatchOnlyFilter(FilteredCollection.Filter delegate) {
+			BatchOnlyFilter(FilteredCollection.Filter<IModelConstraint> delegate) {
 				this.delegate = delegate;
 			}
 			
 			// additionally exclude any live mode constraints
-			public boolean accept(Object element) {
-				IModelConstraint constraint = (IModelConstraint)element;
-							
-				return constraint.getDescriptor().getEvaluationMode().isBatchOnly()
-					&& delegate.accept(constraint);
+			public boolean accept(IModelConstraint element) {
+				return element.getDescriptor().getEvaluationMode().isBatchOnly()
+					&& delegate.accept(element);
 			}
 		}
 		
@@ -78,7 +78,8 @@ public class GetBatchConstraintsOperation
 			// overrides the inherited method to provide a filter that
 			//    additionally excludes "live" mode constraints if we are
 			//    only looking for batch mode
-			public FilteredCollection.Filter getConstraintFilter() {
+			@Override
+			public FilteredCollection.Filter<IModelConstraint> getConstraintFilter() {
 				if (!batchOnly) {
 					return super.getConstraintFilter();
 				} else {

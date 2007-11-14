@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -66,6 +66,7 @@ public class SpecialAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -82,21 +83,26 @@ public class SpecialAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SpecialSwitch modelSwitch =
-		new SpecialSwitch() {
-			public Object casePreferredCustomer(PreferredCustomer object) {
+	protected SpecialSwitch<Adapter> modelSwitch =
+		new SpecialSwitch<Adapter>() {
+			@Override
+			public Adapter casePreferredCustomer(PreferredCustomer object) {
 				return createPreferredCustomerAdapter();
 			}
-			public Object caseLimitedEditionProduct(LimitedEditionProduct object) {
+			@Override
+			public Adapter caseLimitedEditionProduct(LimitedEditionProduct object) {
 				return createLimitedEditionProductAdapter();
 			}
-			public Object caseCustomer(Customer object) {
+			@Override
+			public Adapter caseCustomer(Customer object) {
 				return createCustomerAdapter();
 			}
-			public Object caseProduct(Product object) {
+			@Override
+			public Adapter caseProduct(Product object) {
 				return createProductAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -109,8 +115,9 @@ public class SpecialAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

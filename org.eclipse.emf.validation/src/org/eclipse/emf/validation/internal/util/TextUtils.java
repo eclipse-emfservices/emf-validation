@@ -106,12 +106,14 @@ public class TextUtils {
 				ResourceSet resourceSet = resource.getResourceSet();
 				
 				if (resourceSet != null) {
-					List factories = resourceSet.getAdapterFactories();
+					List<AdapterFactory> factories = resourceSet.getAdapterFactories();
 					
 					// iterate only as long as we don't find an adapter factory
 					//    that successfully adapted the eObject
-					for (Iterator iter = factories.iterator(); iter.hasNext() && (result == null);) {
-						AdapterFactory next = (AdapterFactory) iter.next();
+					for (Iterator<AdapterFactory> iter = factories.iterator();
+							iter.hasNext() && (result == null);) {
+						
+						AdapterFactory next = iter.next();
 						
 						if (next.isFactoryForType(type)) {
 							result = next.adapt(eObject, type);
@@ -128,26 +130,26 @@ public class TextUtils {
 	 * Applies the specified arguments to my message pattern.
 	 * 
 	 * @param messagePattern the message pattern
-	 * @param inputArgs the pattern arguments
+	 * @param inputArg the pattern arguments
 	 * @return the formatted message string
 	 * 
 	 * @since 1.1
 	 */
-	public static String formatMessage(String messagePattern, Object[] inputArgs) {
-		Object[] args = new Object[inputArgs.length];
+	public static String formatMessage(String messagePattern, Object... inputArg) {
+		Object[] args = new Object[inputArg.length];
 
 		for (int i = 0; i < args.length; i++) {
-			Object inputArg = inputArgs[i];
+			Object next = inputArg[i];
 
-			if (inputArg instanceof Collection) {
-				inputArg = formatMultiValue((Collection)inputArg);
-			} else if (inputArg instanceof Object[]) {
-				inputArg = formatMultiValue(Arrays.asList((Object[])inputArg));
+			if (next instanceof Collection) {
+				next = formatMultiValue((Collection<?>) next);
+			} else if (next instanceof Object[]) {
+				next = formatMultiValue(Arrays.asList((Object[]) next));
 			} else {
-				inputArg = formatScalarValue(inputArg);
+				next = formatScalarValue(next);
 			}
 
-			args[i] = inputArg;
+			args[i] = next;
 		}
 
 		return NLS.bind(messagePattern, args);
@@ -160,10 +162,10 @@ public class TextUtils {
 	 * @param multiValuedArg the multiple objects
 	 * @return the string representation of the list
 	 */
-	private static String formatMultiValue(Collection multiValuedArg) {
-		List args = new java.util.ArrayList(multiValuedArg);
+	private static String formatMultiValue(Collection<?> multiValuedArg) {
+		List<Object> args = new java.util.ArrayList<Object>(multiValuedArg);
 
-		for (ListIterator iter = args.listIterator(); iter.hasNext(); ) {
+		for (ListIterator<Object> iter = args.listIterator(); iter.hasNext(); ) {
 			iter.set(formatScalarValue(iter.next()));
 		}
 
@@ -180,7 +182,7 @@ public class TextUtils {
 	 */
 	private static String formatScalarValue(Object value) {
 		if (value instanceof EObject) {
-			return TextUtils.getText((EObject)value);
+			return TextUtils.getText((EObject) value);
 		} else {
 			return String.valueOf(value);
 		}

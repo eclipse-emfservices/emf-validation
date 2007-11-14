@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.service.ConstraintCache;
 import org.eclipse.emf.validation.internal.service.IProviderDescriptor;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.tests.TestNotification;
 
@@ -54,6 +55,7 @@ public class ConstraintCacheTest extends TestCase {
 	/* (non-Javadoc)
 	 * Extends the inherited method.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -77,14 +79,14 @@ public class ConstraintCacheTest extends TestCase {
 	}
 
 	public void test_getProviders() {
-		Collection c = getFixture().getProviders();
+		Collection<IProviderDescriptor> c = getFixture().getProviders();
 		
 		assertNotNull("Collection is null", c); //$NON-NLS-1$
 		assertFalse("Collection is empty", c.isEmpty()); //$NON-NLS-1$
 	}
 
 	public void test_addProvider() {
-		Collection c = getFixture().getProviders();
+		Collection<IProviderDescriptor> c = getFixture().getProviders();
 		
 		assertNotNull("Collection is null", c); //$NON-NLS-1$
 		assertTrue("Provider not found", c.contains(provider)); //$NON-NLS-1$
@@ -93,7 +95,7 @@ public class ConstraintCacheTest extends TestCase {
 	public void test_getBatchConstraints() {
 		assertTrue("Hit count should be zero", batchHits == 0); //$NON-NLS-1$
 		
-		Collection c = getFixture().getBatchConstraints(
+		Collection<IModelConstraint> c = getFixture().getBatchConstraints(
 				OrderSystemFactory.eINSTANCE.createProduct(),
 				null);
 		
@@ -114,7 +116,7 @@ public class ConstraintCacheTest extends TestCase {
 	public void test_getLiveConstraints() {
 		assertTrue("Hit count should be zero", liveHits == 0); //$NON-NLS-1$
 		
-		Collection c = getFixture().getLiveConstraints(
+		Collection<IModelConstraint> c = getFixture().getLiveConstraints(
 				new TestNotification(
 						OrderSystemFactory.eINSTANCE.createProduct(),
 						Notification.SET),
@@ -139,7 +141,8 @@ public class ConstraintCacheTest extends TestCase {
 	static class TestDescriptor implements IProviderDescriptor {
 		private final IModelConstraintProvider testProvider = new TestProvider();
 		
-		public boolean provides(IProviderOperation operation) {
+		public boolean provides(
+				IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 			return true;
 		}
 
@@ -163,17 +166,19 @@ public class ConstraintCacheTest extends TestCase {
 	static class TestProvider
 			extends AbstractGetConstraintsOperationTest.TestProvider {
 		
-		public Collection getBatchConstraints(
+		@Override
+		public Collection<IModelConstraint> getBatchConstraints(
 			EObject eObject,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 			
 			batchHits++;
 			return super.getBatchConstraints(eObject, constraints);
 		}
 		
-		public Collection getLiveConstraints(
+		@Override
+		public Collection<IModelConstraint> getLiveConstraints(
 			Notification notification,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 			
 			liveHits++;
 			return super.getLiveConstraints(notification, constraints);

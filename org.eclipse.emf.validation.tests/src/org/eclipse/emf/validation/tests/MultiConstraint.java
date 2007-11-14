@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2006 IBM Corporation and others.
+ * Copyright (c) 2006, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: MultiConstraint.java,v 1.1 2006/11/30 22:52:13 cdamus Exp $
+ * $Id: MultiConstraint.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
  */
 package org.eclipse.emf.validation.tests;
 
@@ -34,17 +34,18 @@ public class MultiConstraint extends AbstractModelConstraint {
 	public static boolean enabled = false;
 	
 	// Documentation copied from the inherited specification
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		if (!enabled) {
 			return ctx.createSuccessStatus();
 		}
 		
-		Collection statuses = new java.util.ArrayList();
+		Collection<IStatus> statuses = new java.util.ArrayList<IStatus>();
 		
 		statuses.add(ctx.createFailureStatus(new Object[] {"Nothing to say."})); //$NON-NLS-1$
 		
 		// try a nested multi-status, just for fun
-		Collection nested = new java.util.ArrayList();
+		Collection<IStatus> nested = new java.util.ArrayList<IStatus>();
 		nested.add(ConstraintStatus.createStatus(
 				ctx,
 				ctx.getTarget().eContents(),

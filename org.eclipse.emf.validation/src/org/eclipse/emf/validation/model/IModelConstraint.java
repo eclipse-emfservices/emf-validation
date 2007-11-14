@@ -42,7 +42,7 @@ public interface IModelConstraint {
 	 * <p>
 	 * <b>Note</b> that it is best to use the
 	 * {@link IValidationContext#createSuccessStatus()} and
-	 * {@link IValidationContext#createFailureStatus(Object[])} methods of the context
+	 * {@link IValidationContext#createFailureStatus(Object...)} methods of the context
 	 * object to create the status object returned from this method, to ensure
 	 * that the status object returned is correctly handled by the validation
 	 * system.
@@ -51,7 +51,7 @@ public interface IModelConstraint {
 	 * cases, it can return a
 	 * {@link ConstraintStatus#createMultiStatus(IValidationContext, Collection) multi-status} of
 	 * multiple results created by the overloaded variants of the
-	 * {@link ConstraintStatus#createStatus(IValidationContext, org.eclipse.emf.ecore.EObject, Collection, String, Object[])}
+	 * {@link ConstraintStatus#createStatus(IValidationContext, org.eclipse.emf.ecore.EObject, Collection, String, Object...)}
 	 * method.  In these cases, also, each resulting status can store a distinct
 	 * result locus.  For example:
 	 * </p>
@@ -98,7 +98,7 @@ public interface IModelConstraint {
 	 *         Must not return <code>null</code>
 	 *         
 	 * @see IValidationContext#createSuccessStatus()
-	 * @see IValidationContext#createFailureStatus(Object[])
+	 * @see IValidationContext#createFailureStatus(Object...)
 	 * @see ConstraintStatus#createStatus(IValidationContext, org.eclipse.emf.ecore.EObject, Collection, String, Object[])
 	 */
 	IStatus validate(IValidationContext ctx);

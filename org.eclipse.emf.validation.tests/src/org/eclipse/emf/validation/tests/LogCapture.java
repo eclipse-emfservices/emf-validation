@@ -12,13 +12,13 @@
  *
  * </copyright>
  *
- * $Id: LogCapture.java,v 1.1 2007/10/31 19:59:48 cdamus Exp $
+ * $Id: LogCapture.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
  */
 package org.eclipse.emf.validation.tests;
 
-import java.util.Iterator;
 import java.util.List;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.ILogListener;
@@ -41,7 +41,7 @@ public class LogCapture {
 			}
 		}};
 	
-	private final List logs = new java.util.ArrayList();
+	private final List<IStatus> logs = new java.util.ArrayList<IStatus>();
 	private IStatus lastLog;
     
     /**
@@ -83,7 +83,7 @@ public class LogCapture {
 	 * 
 	 * @return a list (possibly empty) of {@link IStatus}es
 	 */
-	public List getLogs() {
+	public List<IStatus> getLogs() {
 		return logs;
 	}
 	
@@ -95,12 +95,10 @@ public class LogCapture {
 	 * 
 	 * @return the matching log entries
 	 */
-	public List getLogs(int statusCode) {
-	    List result = new java.util.ArrayList();
+	public List<IStatus> getLogs(int statusCode) {
+	    List<IStatus> result = new java.util.ArrayList<IStatus>();
 	    
-	    for (Iterator iter = logs.iterator(); iter.hasNext();) {
-	        IStatus next = (IStatus) iter.next();
-	        
+	    for (IStatus next : logs) {
 	        if (next.getCode() == statusCode) {
 	            result.add(next);
 	        }
@@ -116,9 +114,9 @@ public class LogCapture {
 	 */
 	public void assertLogged(Throwable throwable) {
         IStatus log = getLastLog();
-        TestCase.assertNotNull(log);
+        Assert.assertNotNull(log);
         log = findStatus(log, throwable);
-        TestCase.assertNotNull(log);
+        Assert.assertNotNull(log);
 	}
 	
 	private void record(IStatus log) {

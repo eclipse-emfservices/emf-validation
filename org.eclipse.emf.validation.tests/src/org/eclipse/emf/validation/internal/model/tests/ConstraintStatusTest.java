@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ public class ConstraintStatusTest extends TestCase {
 	private static final EObject TEST_TARGET =
 		OrderSystemFactory.eINSTANCE.createWarehouse();
 	
-	private static final Set TEST_RESULTLOCUS =
+	private static final Set<EObject> TEST_RESULTLOCUS =
 		Collections.singleton(TEST_TARGET);
 	
 	private static FixtureConstraint fixtureConstraint;
@@ -59,11 +59,11 @@ public class ConstraintStatusTest extends TestCase {
 	private static ConstraintStatus failedFixture;
 	
 	private static class FixtureConstraint implements IModelConstraint {
-		private String name;
-		private String id;
-		private String pluginId;
-		private ConstraintSeverity severity;
-		private int code;
+		private final String name;
+		private final String id;
+		private final String pluginId;
+		private final ConstraintSeverity severity;
+		private final int code;
 
 		FixtureConstraint(String name, String id, String pluginId,
 				ConstraintSeverity severity, int code) {
@@ -121,7 +121,7 @@ public class ConstraintStatusTest extends TestCase {
 					return null;
 				}
 
-				public EvaluationMode getEvaluationMode() {
+				public EvaluationMode<?> getEvaluationMode() {
 					return null;
 				}
 
@@ -145,8 +145,8 @@ public class ConstraintStatusTest extends TestCase {
 					// do nothing
 				}
 
-				public Set getCategories() {
-					return Collections.EMPTY_SET;
+				public Set<Category> getCategories() {
+					return Collections.emptySet();
 				}
 
 				public void addCategory(Category category) {

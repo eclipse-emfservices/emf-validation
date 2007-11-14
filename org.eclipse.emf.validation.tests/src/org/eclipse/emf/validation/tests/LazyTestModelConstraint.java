@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@
 package org.eclipse.emf.validation.tests;
 
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 
@@ -55,7 +54,8 @@ public class LazyTestModelConstraint extends AbstractModelConstraint {
 	}
 
 	// implements the inherited method
-	public IStatus validate(IValidationContext ctx) {
+	@Override
+    public IStatus validate(IValidationContext ctx) {
 		return ctx.createSuccessStatus();
 	}
 }

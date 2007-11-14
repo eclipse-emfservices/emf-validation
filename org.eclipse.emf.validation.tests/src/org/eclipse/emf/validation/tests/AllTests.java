@@ -44,7 +44,7 @@ public class AllTests extends TestCase implements IPlatformRunnable {
 	static {
 		// register the .ordersystem extension for loading the example XMI file
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map m = reg.getExtensionToFactoryMap();
+		Map<String, Object> m = reg.getExtensionToFactoryMap();
 		m.put("ordersystem", new XMIResourceFactoryImpl()); //$NON-NLS-1$
 	}
 	
@@ -80,6 +80,7 @@ public class AllTests extends TestCase implements IPlatformRunnable {
 		// this method is called if and only if unit tests are being executed
 		TestSuite suite = new TestSuite(
 				"Test for org.eclipse.emf.validation plug-in") { //$NON-NLS-1$
+			@Override
 			public void run(TestResult result) {
 				// ensure that the tests know that they are running
 				executingUnitTests = true;

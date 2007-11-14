@@ -27,6 +27,7 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
  *     instead.  Note that the default implementation of this interface also
  *     implements <code>IParameterizedConstraintDescriptor</code>.
  */
+@Deprecated
 public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	/**
 	 * Obtains the Eclipse configuration element from which I was initialized.

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2007 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -96,8 +96,9 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class Stack {
-		private final List contents = new java.util.ArrayList();
-		private final List bodies = new java.util.ArrayList();
+		private final List<XmlConfigurationElement> contents =
+			new java.util.ArrayList<XmlConfigurationElement>();
+		private final List<StringBuffer> bodies = new java.util.ArrayList<StringBuffer>();
 		private int lastIndex = -1;
 		
 		/**
@@ -142,8 +143,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 				throw se;
 			}
 
-			XmlConfigurationElement result =
-				(XmlConfigurationElement)contents.get(lastIndex);
+			XmlConfigurationElement result = contents.get(lastIndex);
 			
 			result.setValue(localize(getBody().toString().trim()));
 
@@ -172,7 +172,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 				throw se;
 			}
 
-			return (XmlConfigurationElement)contents.get(lastIndex);
+			return contents.get(lastIndex);
 		}
 
 		/**
@@ -193,7 +193,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 				throw se;
 			}
 
-			return (StringBuffer)bodies.get(lastIndex);
+			return bodies.get(lastIndex);
 		}
 	}
 	
@@ -204,7 +204,8 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static final class ResourceBundleCache {
-		private final Map map = new java.util.HashMap();
+		private final Map<Bundle, Map<String, ResourceBundle>> map =
+			new java.util.HashMap<Bundle, Map<String, ResourceBundle>>();
 		
 		/**
 		 * Obtains the resource bundle named <code>baseName</code> in the
@@ -218,10 +219,10 @@ public class ConstraintsContentHandler extends DefaultHandler {
 		 */
 		ResourceBundle get(Bundle osgiBundle, String baseName) {
 			ResourceBundle result = null;
-			Map secondLevel = (Map) map.get(osgiBundle);
+			Map<String, ResourceBundle> secondLevel = map.get(osgiBundle);
 			
 			if (secondLevel != null) {
-				result = (ResourceBundle) secondLevel.get(baseName);
+				result = secondLevel.get(baseName);
 			}
 			
 			return result;
@@ -237,10 +238,10 @@ public class ConstraintsContentHandler extends DefaultHandler {
 		 * @param rb the resource bundle to cache
 		 */
 		void put(Bundle osgiBundle, String baseName, ResourceBundle rb) {
-			Map secondLevel = (Map) map.get(osgiBundle);
+			Map<String, ResourceBundle> secondLevel = map.get(osgiBundle);
 			
 			if (secondLevel == null) {
-				secondLevel = new java.util.HashMap();
+				secondLevel = new java.util.HashMap<String, ResourceBundle>();
 				map.put(osgiBundle, secondLevel);
 			}
 			
@@ -284,13 +285,14 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	/**
 	 * Pushes a new element onto the top of the stack.
 	 */
+	@Override
 	public void startElement(
 			String namespaceURI,
 			String localName,
 			String qName,
 			Attributes atts) {
 		int attCount = atts.getLength();
-		Map attMap = new java.util.HashMap();
+		Map<String, String> attMap = new java.util.HashMap<String, String>();
 		
 		for (int i = 0; i < attCount; i++) {
 			attMap.put(atts.getQName(i), localize(atts.getValue(i)));
@@ -307,6 +309,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 * 
 	 * @see #getResult
 	 */
+	@Override
 	public void endElement(
 			String namespaceURI,
 			String localName,
@@ -324,6 +327,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	/**
 	 * Appends text to the body of the top element on the stack.
 	 */
+	@Override
 	public void characters(char[] ch, int start, int length)
 			throws SAXException {
 		
@@ -337,6 +341,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	 * @throws SAXException if a version is indicated in the processing
 	 *     instruction that is not a supported version 
 	 */
+	@Override
 	public void processingInstruction(String target, String data)
 			throws SAXException {
 		if (target.equals(EMF_VALIDATION_INSTRUCTION)) {
@@ -558,6 +563,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	//
 	
 	// extends the inherited method
+	@Override
 	public void fatalError(SAXParseException e) throws SAXException {
 		Log.errorMessage(
 				EMFModelValidationStatusCodes.ERROR_PARSING_XML_FILE,
@@ -569,6 +575,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	}
 	
 	// extends the inherited method
+	@Override
 	public void error(SAXParseException e) throws SAXException {
 		Log.errorMessage(
 				EMFModelValidationStatusCodes.ERROR_PARSING_XML_FILE,
@@ -580,6 +587,7 @@ public class ConstraintsContentHandler extends DefaultHandler {
 	}
 	
 	// extends the inherited method
+	@Override
 	public void warning(SAXParseException e) throws SAXException {
 		Log.warningMessage(
 				EMFModelValidationStatusCodes.ERROR_PARSING_XML_FILE,

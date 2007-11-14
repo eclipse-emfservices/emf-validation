@@ -71,7 +71,8 @@ import org.eclipse.emf.validation.util.XmlConfig;
 public class ModelValidationService {
 	private static final ModelValidationService instance = new ModelValidationService();
 	
-	private final Collection constraintProviders = new java.util.HashSet();
+	private final Collection<IProviderDescriptor> constraintProviders =
+		new java.util.HashSet<IProviderDescriptor>();
 	
 	// latch to control multiple invocations of loadXmlConstraintDefinitions()
 	private boolean xmlConstraintDeclarationsLoaded = false;
@@ -107,24 +108,32 @@ public class ModelValidationService {
 	 * The resulting validator may be retained as long as it is needed, and
 	 * reused any number of times.  Each validator has its own separate state.
 	 * </p>
+	 * 
+	 * @param <T> the kind of validator to return
+	 * 
 	 * @param mode the evaluation mode for which to create a new validator.
 	 *       Must not be <code>null</code> or {@link EvaluationMode#NULL}
+	 * 
 	 * @return a new validator
+	 * 
 	 * @throws IllegalArgumentException if the <code>mode</code> is not a
 	 *       valid evaluation mode
 	 */
-	public IValidator newValidator(EvaluationMode mode) {
+	@SuppressWarnings("unchecked")
+	public <T, V extends IValidator<T>> V newValidator(EvaluationMode<T> mode) {
 		assert mode != null && !mode.isNull();
 		
-		IProviderOperationExecutor executor = new IProviderOperationExecutor() {
-			public void execute(IProviderOperation op) {
-				ModelValidationService.this.execute(op);
-			}};
+		IProviderOperationExecutor executor =
+			new IProviderOperationExecutor() {
+				public <S> S execute(
+				        IProviderOperation<? extends S> op) {
+					return ModelValidationService.this.execute(op);
+				}};
 		
 		if (mode == EvaluationMode.BATCH) {
-			return new BatchValidator(executor);
+			return (V) new BatchValidator(executor);
 		} else if (mode == EvaluationMode.LIVE) {
-			return new LiveValidator(executor);
+			return (V) new LiveValidator(executor);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -213,21 +222,22 @@ public class ModelValidationService {
 	 */
 	public void broadcastValidationEvent(ValidationEvent event) {
 		// Check if listeners exist
-		if (listeners == null)
+		if (listeners == null) {
 			return;
+		}
 		
 		IValidationListener[] array = listeners; // copy the reference
 		
-		for (int i = 0; i < array.length; i++) {
+		for (IValidationListener element : array) {
 			try {
-				array[i].validationOccurred(event);
+				element.validationOccurred(event);
 			} catch (Exception e) {
 				Trace.catching(getClass(), "broadcastValidationEvent", e); //$NON-NLS-1$
 				
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.LISTENERS)) {
 					Trace.trace(
 							EMFModelValidationDebugOptions.LISTENERS,
-							"Uncaught exception in listener: " + array[i].getClass().getName()); //$NON-NLS-1$
+							"Uncaught exception in listener: " + element.getClass().getName()); //$NON-NLS-1$
 				}
 				
 				Log.l7dWarning(
@@ -253,10 +263,10 @@ public class ModelValidationService {
 	public void configureListeners(IConfigurationElement[] elements) {
 		assert elements != null;
 
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i].getName().equals("listener")) { //$NON-NLS-1$
+		for (IConfigurationElement element : elements) {
+			if (element.getName().equals("listener")) { //$NON-NLS-1$
 				try {
-					addValidationListener(new LazyListener(elements[i]));
+					addValidationListener(new LazyListener(element));
 				} catch (CoreException e) {
 					Trace.catching(getClass(), "configureListeners()", e); //$NON-NLS-1$
 					
@@ -283,16 +293,16 @@ public class ModelValidationService {
 
 		constraintCache = new ConstraintCache();
 		
-		Collection providers = getProviders();
+		Collection<IProviderDescriptor> providers = getProviders();
 
 		// include the cache in my collection of providers
 		providers.add(constraintCache.getDescriptor());
 		
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i].getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
+		for (IConfigurationElement element : elements) {
+			if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
 				try {
 					IProviderDescriptor descriptor =
-						new ProviderDescriptor(elements[i]);
+						new ProviderDescriptor(element);
 					
 					if (descriptor.isCacheEnabled()) {
 						constraintCache.addProvider(descriptor);
@@ -338,7 +348,7 @@ public class ModelValidationService {
 	 * 
 	 * @return a collection of {@link ProviderDescriptor}s
 	 */
-	private Collection getProviders() {
+	private Collection<IProviderDescriptor> getProviders() {
 		return constraintProviders;
 	}
 
@@ -347,9 +357,9 @@ public class ModelValidationService {
 	 * 
 	 * @param operation the operation to execute
 	 */
-	private void execute(IProviderOperation operation) {
-		for (Iterator iter = getProviders().iterator(); iter.hasNext(); ) {
-			IProviderDescriptor next = (IProviderDescriptor)iter.next();
+	private <S> S execute(IProviderOperation<? extends S> operation) {
+		for (Iterator<IProviderDescriptor> iter = getProviders().iterator(); iter.hasNext(); ) {
+			IProviderDescriptor next = iter.next();
 
 			if (next.provides(operation)) {
 				try {
@@ -365,6 +375,8 @@ public class ModelValidationService {
 				}
 			}
 		}
+		
+		return operation.getConstraints();
 	}
 
 	/**
@@ -397,10 +409,8 @@ public class ModelValidationService {
 	 * 
 	 * @param providers the available providers
 	 */
-	private void loadXmlConstraintDeclarations(Collection providers) {
-		for (Iterator iter = providers.iterator(); iter.hasNext();) {
-			IProviderDescriptor next = (IProviderDescriptor)iter.next();
-			
+	private void loadXmlConstraintDeclarations(Collection<IProviderDescriptor> providers) {
+		for (IProviderDescriptor next : providers) {
 			if (next.isXmlProvider()) {
 				// the initialization of this provider is not very expensive
 				//    and is guaranteed not to load any other plug-ins
@@ -437,7 +447,7 @@ public class ModelValidationService {
 		if (epackage != null) {
 			EClassifier classifier = null;
 			
-			List packageNames = parsePackageNames(className);
+			List<String> packageNames = parsePackageNames(className);
 			if (packageNames == null) {
 				classifier = epackage.getEClassifier(className);
 			} else if (packageHasName(epackage, packageNames)) {
@@ -466,7 +476,7 @@ public class ModelValidationService {
 	 * @see #findClass(String, String)
 	 */
 	private static EPackage findPackage(String namespaceUri) {
-		Map registry = org.eclipse.emf.ecore.EPackage.Registry.INSTANCE;
+		Map<String, Object> registry = org.eclipse.emf.ecore.EPackage.Registry.INSTANCE;
 		
 		Object result = registry.get(namespaceUri);
 		
@@ -487,12 +497,12 @@ public class ModelValidationService {
 	 * @return the package names in right-to-left order, as a list of
 	 *    strings, or <code>null</code> if the class name is not qualified
 	 */
-	private static List parsePackageNames(String qualifiedClassName) {
-		List result = null;
+	private static List<String> parsePackageNames(String qualifiedClassName) {
+		List<String> result = null;
 		int end = qualifiedClassName.lastIndexOf('.'); // known BMP code point
 		
 		if (end >= 0) {
-			result = new java.util.ArrayList();
+			result = new java.util.ArrayList<String>();
 			
 			// skip the class name part and collect other parts in
 			//  reverse order
@@ -520,10 +530,10 @@ public class ModelValidationService {
 	 *    the package from bottom to top of the containment hierarchy;
 	 *    <code>false</code>, otherwise
 	 */
-	private static boolean packageHasName(EPackage epackage, List name) {
+	private static boolean packageHasName(EPackage epackage, List<String> name) {
 		boolean result = true;
 		EPackage pkg = epackage;
-		Iterator iter = name.iterator();
+		Iterator<String> iter = name.iterator();
 		
 		while (result && iter.hasNext() && (pkg != null)) {
 			result = iter.next().equals(pkg.getName());
@@ -548,7 +558,7 @@ public class ModelValidationService {
 	 */
 	private final class LazyListener implements IValidationListener {
 		private final IConfigurationElement config;
-		private List registeredClientContexts = null;
+		private List<String> registeredClientContexts = null;
 		private IValidationListener validationListener = null;
 		
 		private static final String E_CLIENT_CONTEXT = "clientContext"; //$NON-NLS-1$
@@ -582,10 +592,10 @@ public class ModelValidationService {
 				IConfigurationElement[] children = config.getChildren(E_CLIENT_CONTEXT);
 				
 				// Probably a small number of registered client contexts.
-				registeredClientContexts = new ArrayList(3);
+				registeredClientContexts = new ArrayList<String>(4);
 				
-				for (int i=0; i<children.length; i++) {
-					registeredClientContexts.add(children[i].getAttribute(A_CLIENT_CONTEXT_ID));
+				for (IConfigurationElement element : children) {
+					registeredClientContexts.add(element.getAttribute(A_CLIENT_CONTEXT_ID));
 				}
 			}
 			
@@ -610,9 +620,7 @@ public class ModelValidationService {
 			
 			// Otherwise, we will delay the loading of this listener until
 			//  we are certain that they are interested in listening.
-			for (Iterator i = registeredClientContexts.iterator(); i.hasNext();) {
-				String clientContextId = (String)i.next();
-				
+			for (String clientContextId : registeredClientContexts) {
 				if (event.getClientContextIds().contains(clientContextId)) {
 					try {
 						if (validationListener == null) {

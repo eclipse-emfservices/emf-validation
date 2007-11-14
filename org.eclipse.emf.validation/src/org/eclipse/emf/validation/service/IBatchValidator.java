@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public interface IBatchValidator extends IValidator {
+public interface IBatchValidator extends IValidator<EObject> {
 	/**
 	 * <p>
 	 * Queries whether I also evaluate applicable live constraints on each
@@ -117,17 +117,15 @@ public interface IBatchValidator extends IValidator {
 	 * @return the validation status
 	 * @see IValidator#validate(Object)
 	 */
-	IStatus validate(Collection eObjects, IProgressMonitor monitor);
+	IStatus validate(Collection<? extends EObject> eObjects, IProgressMonitor monitor);
 	
 	/**
 	 * Validates a single {@link EObject EMF element} without using any
 	 * progress monitor.
 	 * 
-	 * @param object must be an {@link org.eclipse.emf.ecore.EObject}
-	 * @throws ClassCastException if <code>object</code> is not an
-	 *     {@link org.eclipse.emf.ecore.EObject}
+	 * @param object the object to validate
 	 */
-	IStatus validate(Object object);
+	IStatus validate(EObject eobject);
 	
 	/**
 	 * Validates multiple {@link EObject EMF elements} without using any
@@ -137,5 +135,5 @@ public interface IBatchValidator extends IValidator {
 	 * @throws ClassCastException if any of the <code>objects</code> is
 	 *     not an {@link org.eclipse.emf.ecore.EObject}
 	 */
-	IStatus validate(Collection objects);
+	IStatus validate(Collection<? extends EObject> objects);
 }

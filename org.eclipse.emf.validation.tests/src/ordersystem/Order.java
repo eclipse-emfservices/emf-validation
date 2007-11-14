@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getOrder()
- *
+ * @model
  * @generated
  */
 public interface Order extends EObject{
@@ -108,7 +108,7 @@ public interface Order extends EObject{
 	 * @return the value of the '<em>Completed</em>' attribute.
 	 * @see #setCompleted(boolean)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Completed()
-	 *
+	 * @model
 	 * @generated
 	 */
     boolean isCompleted();
@@ -134,7 +134,7 @@ public interface Order extends EObject{
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Id()
-	 *
+	 * @model
 	 * @generated
 	 */
     String getId();
@@ -190,9 +190,9 @@ public interface Order extends EObject{
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrder_Item()
 	 * @see ordersystem.LineItem#getOwner
-	 * @model type="ordersystem.LineItem" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getItem();
+    EList<LineItem> getItem();
 
 } // Order

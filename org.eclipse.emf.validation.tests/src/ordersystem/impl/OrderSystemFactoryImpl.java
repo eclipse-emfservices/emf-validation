@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,13 +19,24 @@ package ordersystem.impl;
 
 import java.util.Date;
 
-import ordersystem.*;
+import ordersystem.Account;
+import ordersystem.Address;
+import ordersystem.Customer;
+import ordersystem.InventoryItem;
+import ordersystem.LineItem;
+import ordersystem.Order;
+import ordersystem.OrderSystem;
+import ordersystem.OrderSystemFactory;
+import ordersystem.OrderSystemPackage;
+import ordersystem.Product;
+import ordersystem.Warehouse;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
-
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +46,26 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
  */
 public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemFactory {
 	/**
-	 * Creates and instance of the factory.
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static OrderSystemFactory init() {
+		try {
+			OrderSystemFactory theOrderSystemFactory = (OrderSystemFactory)EPackage.Registry.INSTANCE.getEFactory("http:///ordersystem.ecore"); //$NON-NLS-1$ 
+			if (theOrderSystemFactory != null) {
+				return theOrderSystemFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new OrderSystemFactoryImpl();
+	}
+
+	/**
+	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 	 * @generated
@@ -49,7 +79,8 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EObject create(EClass eClass) {
+    @Override
+				public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case OrderSystemPackage.ORDER: return createOrder();
 			case OrderSystemPackage.PRODUCT: return createProduct();
@@ -70,7 +101,8 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public Object createFromString(EDataType eDataType, String initialValue) {
+    @Override
+				public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case OrderSystemPackage.JAVA_DATE:
 				return createJavaDateFromString(eDataType, initialValue);
@@ -84,7 +116,8 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public String convertToString(EDataType eDataType, Object instanceValue) {
+    @Override
+				public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case OrderSystemPackage.JAVA_DATE:
 				return convertJavaDateToString(eDataType, instanceValue);
@@ -222,7 +255,8 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 	 * @deprecated
 	 * @generated
 	 */
-    public static OrderSystemPackage getPackage() {
+    @Deprecated
+				public static OrderSystemPackage getPackage() {
 		return OrderSystemPackage.eINSTANCE;
 	}
 } //OrderSystemFactoryImpl

@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: SpecialOrderNotificationGenerator.java,v 1.1 2007/03/21 21:06:23 cdamus Exp $
+ * $Id: SpecialOrderNotificationGenerator.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
  */
  
  
@@ -20,8 +20,6 @@ package org.eclipse.emf.validation.internal.model.tests;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
 import ordersystem.LineItem;
 import ordersystem.Order;
 import ordersystem.special.LimitedEditionProduct;
@@ -39,17 +37,15 @@ public class SpecialOrderNotificationGenerator implements
 	 * Create special notifications for those orders who contain limited
 	 * edition products
 	 */ 
-	public Collection generateNotifications(Collection notifications) {
-		Collection newNotifications = new ArrayList();
+	public Collection<Notification> generateNotifications(Collection<? extends Notification> notifications) {
+		Collection<Notification> newNotifications = new ArrayList<Notification>();
 		
-		for (Iterator iter=notifications.iterator(); iter.hasNext(); ) {
-			Notification notification = (Notification)iter.next();
+		for (Notification notification : notifications) {
 			if (notification.getNotifier() instanceof Order) {
-				Order order = (Order)notification.getNotifier();
+				Order order = (Order) notification.getNotifier();
 				LimitedEditionProduct lep = null;
 				
-				for (Iterator itemIter=order.getItem().iterator(); itemIter.hasNext();) {
-					LineItem obj = (LineItem)itemIter.next();
+				for (LineItem obj : order.getItem()) {
 					if (obj.getProduct() instanceof LimitedEditionProduct)  {
 						lep = (LimitedEditionProduct)obj.getProduct();
 					}

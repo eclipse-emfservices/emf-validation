@@ -34,6 +34,7 @@ import org.eclipse.emf.validation.internal.util.Log;
 import org.eclipse.emf.validation.internal.util.StringMatcher;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.service.ModelValidationService;
@@ -52,14 +53,15 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	private final IConfigurationElement myConfig;
 	private IConfigurationElement[] targets;
 	private String[] nsUris;
-	private StringMatcher[] nsUriMatchers;
+	private final StringMatcher[] nsUriMatchers;
 	private IModelConstraintProvider provider = null;
 	private final boolean shouldCacheConstraints;
 
-	private final EvaluationMode mode;
+	private final EvaluationMode<?> mode;
     
     // map of (String => Boolean) caching whether a namespace is provided
-    private final Map providedNamespaces = new java.util.WeakHashMap();
+    private final Map<String, Boolean> providedNamespaces =
+    	new java.util.HashMap<String, Boolean>();
 
 	/**
 	 * The "null" provider never provides any constraints.  It is used as a
@@ -71,17 +73,21 @@ public class ProviderDescriptor implements IProviderDescriptor {
 			super();
 		}
 		
-		public Collection getBatchConstraints(EObject eObject, Collection constraints) {
+		@Override
+		public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
+			Collection<IModelConstraint> constraints) {
 			return noOp(constraints);			
 		}
 		
-		public Collection getLiveConstraints(Notification notification, Collection constraints) {
+		@Override
+		public Collection<IModelConstraint> getLiveConstraints(Notification notification,
+			Collection<IModelConstraint> constraints) {
 			return noOp(constraints);
 		}
 		
-		private Collection noOp(Collection constraints) {
+		private Collection<IModelConstraint> noOp(Collection<IModelConstraint> constraints) {
 			return (constraints == null)
-				? new java.util.ArrayList()
+				? new java.util.ArrayList<IModelConstraint>()
 				: constraints;
 		}		
 	}
@@ -98,8 +104,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 
 		this.mode = getMode(config);
 
-		Set uriSet = new java.util.HashSet();
-		Map uriMatcherMap = new java.util.HashMap();
+		Set<String> uriSet = new java.util.HashSet<String>();
+		Map<String, StringMatcher> uriMatcherMap = new java.util.HashMap<String, StringMatcher>();
 		
 		// backward compatibility for the namespaceUri attribute
 		String uri = config.getAttribute(XmlConfig.A_NAMESPACE_URI);
@@ -118,8 +124,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		}
 		
 		IConfigurationElement[] pkgs = config.getChildren(XmlConfig.E_PACKAGE);
-		for (int i = 0; i < pkgs.length; i++) {
-			uri = pkgs[i].getAttribute(XmlConfig.A_NAMESPACE_URI);
+		for (IConfigurationElement element : pkgs) {
+			uri = element.getAttribute(XmlConfig.A_NAMESPACE_URI);
 			if (uri != null) {
 				uri = uri.trim();
 				
@@ -151,9 +157,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 			throw e;
 		}
 		
-		nsUris = (String[]) uriSet.toArray(new String[uriSet.size()]);
-		nsUriMatchers = (StringMatcher[]) uriMatcherMap.values().toArray(
-			new StringMatcher[uriMatcherMap.size()]);
+		nsUris = uriSet.toArray(new String[uriSet.size()]);
+		nsUriMatchers = uriMatcherMap.values().toArray(new StringMatcher[uriMatcherMap.size()]);
 		
 		String shouldCache = config.getAttribute(XmlConfig.A_CACHE);
 		shouldCacheConstraints = (shouldCache == null)
@@ -180,7 +185,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * @return the evaluation mode, or {@link EvaluationMode#NULL} if the
 	 *     provider provides constraints in mixed modes
 	 */
-	private EvaluationMode getMode() {
+	private EvaluationMode<?> getMode() {
 		return mode;
 	}
 
@@ -192,7 +197,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * @return whether the provider has any chance of providing constraints
 	 *     for this context
 	 */
-	public boolean provides(IProviderOperation operation) {
+	public boolean provides(
+			IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 		if (operation instanceof GetLiveConstraintsOperation) {
 			return providesLiveConstraints(operation);
 		} else if (operation instanceof GetBatchConstraintsOperation) {
@@ -294,7 +300,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 *    <CODE>true</CODE>, otherwise 
 	 */
 	private boolean providesLiveConstraints(
-			IProviderOperation operation) {
+			IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 		
 		Trace.entering(
 				EMFModelValidationDebugOptions.PROVIDERS,
@@ -315,9 +321,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 			} else {
 				EObject eObject = op.getEObject();
 	
-				for (int i = 0; i < targets.length; i++) {
-					IConfigurationElement next = targets[i];
-	
+				for (IConfigurationElement next : targets) {
 					if (isLive()
 							&& providerHandlesEObject(eObject, next)
 							&& providerHandlesEvent(op.getEventType(), next)) {
@@ -344,7 +348,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 *    <CODE>true</CODE>, otherwise 
 	 */
 	private boolean providesBatchConstraints(
-			IProviderOperation operation) {
+			IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 		
 		Trace.entering(
 				EMFModelValidationDebugOptions.PROVIDERS,
@@ -365,9 +369,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 			} else {
 				EObject eObject = op.getEObject();
 	
-				for (int i = 0; i < targets.length; i++) {
-					IConfigurationElement next = targets[i];
-	
+				for (IConfigurationElement next : targets) {
 					if (providerHandlesEObject(eObject, next)) {
 						result = true;
 						break;
@@ -443,19 +445,19 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		EPackage epkg = eObject.eClass().getEPackage();
 		String targetNsUri = epkg.getNsURI();
 		
-        Boolean result = (Boolean) providedNamespaces.get(targetNsUri);
+        Boolean result = providedNamespaces.get(targetNsUri);
         if (result == null) {
             result = providerHandlesNamespace(targetNsUri, targetNsUri);
 
             if (result == null) {
                 // look for EPackages that this package extends
-                Set extended = getExtendedEPackages(epkg);
+                Set<EPackage> extended = getExtendedEPackages(epkg);
 
                 if (!extended.isEmpty()) {
-                    for (Iterator iter = extended.iterator(); iter.hasNext()
+                    for (Iterator<EPackage> iter = extended.iterator(); iter.hasNext()
                         && (result == null);) {
                         
-                        EPackage next = (EPackage) iter.next();
+                        EPackage next = iter.next();
                         result = providerHandlesNamespace(targetNsUri, next
                             .getNsURI());
                     }
@@ -540,8 +542,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
      * @return all of the packages containing classifiers extended by this
      *         package's classifiers, not including the original package
      */
-    private Set getExtendedEPackages(EPackage epackage) {
-        Set result = new java.util.HashSet();
+    private Set<EPackage> getExtendedEPackages(EPackage epackage) {
+        Set<EPackage> result = new java.util.HashSet<EPackage>();
 
         getExtendedEPackages(epackage, result);
         result.remove(epackage);
@@ -553,15 +555,11 @@ public class ProviderDescriptor implements IProviderDescriptor {
      * Recursive helper implementation of
      * {@link #getExtendedEPackages(EPackage)}.
      */
-    private void getExtendedEPackages(EPackage epackage, Set result) {
-        for (Iterator iter = epackage.getEClassifiers().iterator(); iter
-            .hasNext();) {
-            Object next = iter.next();
-
+    private void getExtendedEPackages(EPackage epackage, Set<EPackage> result) {
+        for (Object next : epackage.getEClassifiers()) {
             if (next instanceof EClass) {
-                for (Iterator jter = ((EClass) next).getESuperTypes()
-                    .iterator(); jter.hasNext();) {
-                    EPackage nextPackage = ((EClass) jter.next()).getEPackage();
+                for (EClass zuper : ((EClass) next).getESuperTypes()) {
+                    EPackage nextPackage = zuper.getEPackage();
 
                     if ((nextPackage != epackage)
                         && !result.contains(nextPackage)) {
@@ -601,8 +599,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 			// it is implied that all events are supported
 			result = true;
 		} else {
-			for (int i = 0; i < events.length; i++) {
-				final String eventName = events[i].getAttribute(
+			for (IConfigurationElement element : events) {
+				final String eventName = element.getAttribute(
 						XmlConfig.A_NAME);
 				
 				if (eventType.getName().equalsIgnoreCase(eventName)) {
@@ -646,7 +644,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * @return the evaluation mode of the constraint provider, or
 	 *    {@link EvaluationMode#NULL} if it has none
 	 */
-	private EvaluationMode getMode(IConfigurationElement config) {
+	private EvaluationMode<?> getMode(IConfigurationElement config) {
 		String result = config.getAttribute(XmlConfig.A_MODE);
 
 		if (result == null) {
@@ -657,6 +655,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	}
 	
 	// redefines the inherited method
+	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer(64);
 		

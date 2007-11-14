@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2001 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.util.XmlConfig;
 
@@ -46,16 +47,18 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * @author Christian W. Damus (cdamus)
  */
 public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
-	private static final java.util.Map instanceMap = new java.util.HashMap();
+	private static final java.util.Map<String, TestBadXmlConfigProvider> instanceMap =
+		new java.util.HashMap<String, TestBadXmlConfigProvider>();
 	
 	/**
 	 * Always throws.
 	 * 
 	 * @throws RuntimeException always
 	 */
-	public Collection getLiveConstraints(
+	@Override
+	public Collection<IModelConstraint> getLiveConstraints(
 			Notification notification,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		if (AllTests.isExecutingUnitTests()) {
 			// only throw if we are actually executing the unit tests
 			throw new RuntimeException("I am supposed to abend."); //$NON-NLS-1$
@@ -70,9 +73,10 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 	 * 
 	 * @throws RuntimeException always
 	 */
-	public Collection getBatchConstraints(
+	@Override
+	public Collection<IModelConstraint> getBatchConstraints(
 			EObject eObject,
-			Collection constraints) {
+			Collection<IModelConstraint> constraints) {
 		if (AllTests.isExecutingUnitTests()) {
 			// only throw if we are actually executing the unit tests
 			throw new RuntimeException("I am supposed to abend."); //$NON-NLS-1$
@@ -87,6 +91,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 	 * 
 	 * @throws CoreException if no <tt>&lt;constraints&gt;</tt> element is found
 	 */
+	@Override
 	public void setInitializationData(
 			IConfigurationElement config,
 			String propertyName,
@@ -111,8 +116,8 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 		// put this instance into the map
 		String[] uris = getNamespaceUris();
 		
-		for (int i = 0; i < uris.length; i++) {
-			registerInstance(uris[i], this);
+		for (String element : uris) {
+			registerInstance(element, this);
 		}
 	}
 	
@@ -123,7 +128,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 	 * @return the corresponding instance
 	 */
 	public static TestBadXmlConfigProvider getInstance(String uriNsPrefix) {
-		return (TestBadXmlConfigProvider)instanceMap.get(uriNsPrefix);
+		return instanceMap.get(uriNsPrefix);
 	}
 	
 	private static synchronized void registerInstance(

@@ -39,6 +39,7 @@ public class SetTargetConstraint extends AbstractModelConstraint {
 	public static boolean enabled = false;
 	
 	// Documentation copied from the inherited specification
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		if (!enabled) {
 			return ctx.createSuccessStatus();
@@ -63,7 +64,7 @@ public class SetTargetConstraint extends AbstractModelConstraint {
 					null);
 		}
 		
-		Collection statuses = new java.util.ArrayList();
+		Collection<IStatus> statuses = new java.util.ArrayList<IStatus>();
 		
 		statuses.add(ConstraintStatus.createStatus(
 				ctx,

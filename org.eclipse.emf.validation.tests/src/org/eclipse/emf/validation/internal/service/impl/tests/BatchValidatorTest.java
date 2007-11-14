@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2006 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,17 +20,15 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
-
+import junit.framework.TestCase;
 import ordersystem.OrderSystemFactory;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.service.BatchValidator;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.internal.service.IProviderOperationExecutor;
 import org.eclipse.emf.validation.model.EvaluationMode;
-
-import junit.framework.TestCase;
 
 /**
  * Tests for {@link BatchValidator}.
@@ -51,6 +49,7 @@ public class BatchValidatorTest extends TestCase {
 	/* (non-Javadoc)
 	 * Extends the inherited method.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -84,19 +83,12 @@ public class BatchValidatorTest extends TestCase {
 	 * Class to test for IStatus validate(Object)
 	 */
 	public void test_validate_object() {
-		Object target = OrderSystemFactory.eINSTANCE.createProduct();
+		EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 		
 		try {
 			getValidator().validate(target);
 		} catch (Exception e) {
 			fail("Should not throw."); //$NON-NLS-1$
-		}
-		
-		try {
-			getValidator().validate("foo"); //$NON-NLS-1$
-			fail("Should throw."); //$NON-NLS-1$
-		} catch (Exception e) {
-			// good
 		}
 	}
 
@@ -104,20 +96,13 @@ public class BatchValidatorTest extends TestCase {
 	 * Class to test for IStatus validate(Collection)
 	 */
 	public void test_validateCollection() {
-		Object target = OrderSystemFactory.eINSTANCE.createProduct();
+		EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 		
 		try {
 			getValidator().validate(Collections.singleton(target));
-			getValidator().validate(Collections.EMPTY_SET);
+			getValidator().validate(Collections.<EObject>emptySet());
 		} catch (Exception e) {
 			fail("Should not throw."); //$NON-NLS-1$
-		}
-		
-		try {
-			getValidator().validate(Collections.singleton("foo")); //$NON-NLS-1$
-			fail("Should throw."); //$NON-NLS-1$
-		} catch (Exception e) {
-			// good
 		}
 	}
 	
@@ -163,7 +148,7 @@ public class BatchValidatorTest extends TestCase {
 	public void test_validate_Collection_IProgressMonitor() {
 		TestMonitor monitor = new TestMonitor();
 		
-		Collection targets = new java.util.LinkedList();
+		Collection<EObject> targets = new java.util.ArrayList<EObject>();
 		targets.add(OrderSystemFactory.eINSTANCE.createProduct());
 		targets.add(OrderSystemFactory.eINSTANCE.createProduct());
 		
@@ -233,12 +218,14 @@ public class BatchValidatorTest extends TestCase {
 		}
 	}
 	
-	static class TestExecutor implements IProviderOperationExecutor {
+	static class TestExecutor
+			implements IProviderOperationExecutor {
 		/* (non-Javadoc)
 		 * Implements the inherited method.
 		 */
-		public void execute(IProviderOperation op) {
-			// don't need to do anything
+		public <T> T execute(IProviderOperation<? extends T> op) {
+		    // don't need to do anything
+			return op.getConstraints();
 		}
 	}
 }

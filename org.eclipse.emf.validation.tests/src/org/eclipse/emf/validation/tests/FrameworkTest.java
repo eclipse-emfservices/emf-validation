@@ -18,11 +18,8 @@
 package org.eclipse.emf.validation.tests;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-
 import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
 import ordersystem.special.SpecialFactory;
@@ -68,6 +65,7 @@ public class FrameworkTest extends TestBase {
 	 * Load the static example Order System model (<tt>test.ordersystem</tt>)
 	 * on the first invocation of this method.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		if (orderSystem == null) {
 			ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
@@ -138,8 +136,8 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		for (int i=0; i<status.length; i++) {
-			IModelConstraint constraint = ((IConstraintStatus)status[i]).getConstraint();
+		for (IStatus element : status) {
+			IModelConstraint constraint = ((IConstraintStatus)element).getConstraint();
 			
 			if (constraint.getDescriptor().getId().equals(ID_PREFIX + "ordersystem.marker")) { //$NON-NLS-1$
 				return;
@@ -163,10 +161,8 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-						ID_PREFIX + "order.notFilledBeforePlacement", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasContents", //$NON-NLS-1$
+				ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
 	}
 	
 	/**
@@ -185,10 +181,8 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "order.hasName", //$NON-NLS-1$
-						ID_PREFIX + "order.hasOwner", //$NON-NLS-1$
-				}));
+				ID_PREFIX + "order.hasName", //$NON-NLS-1$
+				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
 	}
 
 	/**
@@ -204,10 +198,11 @@ public class FrameworkTest extends TestBase {
 		IStatus[] status = getStatuses(liveValidator.validate(
 					Collections.nCopies(5, event)));
 
-		Collection evaluatedConstraints = new java.util.HashSet();
+		Collection<IModelConstraint> evaluatedConstraints =
+			new java.util.HashSet<IModelConstraint>();
 		
-		for (int i = 0; i < status.length; i++) {
-			IConstraintStatus next = (IConstraintStatus)status[i];
+		for (IStatus element : status) {
+			IConstraintStatus next = (IConstraintStatus)element;
 			
 			evaluatedConstraints.add(next.getConstraint());
 		}
@@ -292,9 +287,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsNotPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "bad.constraint.xml", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "bad.constraint.xml"); //$NON-NLS-1$
 	}
 
 	/**
@@ -308,16 +301,14 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 		
-		Collection ids = Arrays.asList(new String[] {
+		String[] ids = new String[] {
 				ID_PREFIX + "bad.constraint.disabled.java", //$NON-NLS-1$
 				ID_PREFIX + "bad.constraint.disabled.ocl", //$NON-NLS-1$
 				ID_PREFIX + "bad.constraint.disabled.bsh", //$NON-NLS-1$
 				ID_PREFIX + "bad.constraint.disabled.runtime", //$NON-NLS-1$
-			});
+			};
 		
-		for (Iterator iter = ids.iterator(); iter.hasNext();) {
-			String id = (String)iter.next();
-			
+		for (String id : ids) {
 			IStatus nextStatus = getStatus(status, id);
 			if (nextStatus != null) {
 				assertTrue(nextStatus.matches(IStatus.INFO));
@@ -359,8 +350,8 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		for (int i=0; i<status.length; i++) {
-			IModelConstraint constraint = ((IConstraintStatus)status[i]).getConstraint();
+		for (IStatus element : status) {
+			IModelConstraint constraint = ((IConstraintStatus)element).getConstraint();
 			assertFalse("Got constraints from ordersystem namespace prefix provider.", constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		
@@ -387,16 +378,12 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "providertarget.batch1", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.batch1"); //$NON-NLS-1$
 
 		assertAllConstraintsNotPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						 ID_PREFIX + "providertarget.batch2", //$NON-NLS-1$
-							}));
+				ID_PREFIX + "providertarget.batch2"); //$NON-NLS-1$
 		
 		// also check that the provider filter correctly excludes the
 		//   Order type (the constraint otherwise would apply to all types,
@@ -409,9 +396,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsNotPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "providertarget.batch1", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.batch1"); //$NON-NLS-1$
 	}
 	
 	/**
@@ -434,16 +419,12 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "providertarget.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
 
 		assertAllConstraintsNotPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "providertarget.live1", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.live1"); //$NON-NLS-1$
 		
 		// also check that the provider filter correctly excludes the
 		//   Order type (the constraint otherwise would apply to all types,
@@ -457,9 +438,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsNotPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						 ID_PREFIX + "providertarget.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
 		
 		// finally, check that the provider filter correctly excludes an
 		//   event type that is not "Set"
@@ -472,9 +451,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsNotPresent(
 				"live", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "providertarget.live2", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
 	}
 	
 	/**
@@ -490,9 +467,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "multipackage.test", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "multipackage.test"); //$NON-NLS-1$
 	}
 	
 	/**
@@ -509,9 +484,7 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "inheritance.test", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "inheritance.test"); //$NON-NLS-1$
 	}
 	
 	/**
@@ -528,8 +501,6 @@ public class FrameworkTest extends TestBase {
 		assertAllConstraintsPresent(
 				"batch", //$NON-NLS-1$
 				status,
-				Arrays.asList(new String[] {
-						ID_PREFIX + "qualifiedName.test", //$NON-NLS-1$
-					}));
+				ID_PREFIX + "qualifiedName.test"); //$NON-NLS-1$
 	}
 }

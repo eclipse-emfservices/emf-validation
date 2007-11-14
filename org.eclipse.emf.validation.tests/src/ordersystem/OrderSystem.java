@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2007 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see ordersystem.OrderSystemPackage#getOrderSystem()
- *
+ * @model
  * @generated
  */
 public interface OrderSystem extends EObject{
@@ -52,7 +52,7 @@ public interface OrderSystem extends EObject{
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(int)
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Version()
-	 *
+	 * @model
 	 * @generated
 	 */
     int getVersion();
@@ -80,10 +80,10 @@ public interface OrderSystem extends EObject{
 	 * @return the value of the '<em>Customer</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Customer()
 	 * @see ordersystem.Customer#getOwner
-	 * @model type="ordersystem.Customer" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getCustomer();
+    EList<Customer> getCustomer();
 
 	/**
 	 * Returns the value of the '<em><b>Product</b></em>' containment reference list.
@@ -98,10 +98,10 @@ public interface OrderSystem extends EObject{
 	 * @return the value of the '<em>Product</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Product()
 	 * @see ordersystem.Product#getOwner
-	 * @model type="ordersystem.Product" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getProduct();
+    EList<Product> getProduct();
 
 	/**
 	 * Returns the value of the '<em><b>Warehouse</b></em>' containment reference list.
@@ -116,9 +116,9 @@ public interface OrderSystem extends EObject{
 	 * @return the value of the '<em>Warehouse</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Warehouse()
 	 * @see ordersystem.Warehouse#getOwner
-	 * @model type="ordersystem.Warehouse" opposite="owner" containment="true"
+	 * @model opposite="owner" containment="true"
 	 * @generated
 	 */
-    EList getWarehouse();
+    EList<Warehouse> getWarehouse();
 
 } // OrderSystem

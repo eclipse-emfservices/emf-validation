@@ -30,8 +30,8 @@ import org.eclipse.emf.validation.model.CategoryManager;
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractConstraintDescriptor implements IConstraintDescriptor {
-	private final Set categories = new java.util.HashSet();
-	private final Set unmodCategories =
+	private final Set<Category> categories = new java.util.HashSet<Category>();
+	private final Set<Category> unmodCategories =
 		java.util.Collections.unmodifiableSet(categories);
 	
 	private Throwable exception;
@@ -109,17 +109,17 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	private boolean isMandatory() {
 		boolean result = false;
 		
-		for (Iterator iter = getCategories().iterator();
+		for (Iterator<Category> iter = getCategories().iterator();
 				!result && iter.hasNext();) {
 			
-			result = ((Category) iter.next()).isMandatory();
+			result = iter.next().isMandatory();
 		}
 		
 		return result;
 	}
 	
 	// implements the interface method
-	public Set getCategories() {
+	public Set<Category> getCategories() {
 		return unmodCategories;
 	}
 	
@@ -199,6 +199,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	}
 	
 	// redefines the inherited method
+	@Override
 	public int hashCode() {
 		return (getId() == null) ? 0 : getId().hashCode();
 	}
@@ -208,12 +209,14 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	 * 
 	 * @see #getId()
 	 */
+	@Override
 	public boolean equals(Object other) {
 		return (other instanceof IConstraintDescriptor)
 			&& ((IConstraintDescriptor)other).getId().equals(getId());
 	}
 	
 	// redefines the inherited method
+	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer(64);
 		

@@ -42,7 +42,8 @@ public class TestPlugin
 	    return log;
 	}
 	
-	public void start(BundleContext context)
+	@Override
+    public void start(BundleContext context)
 	    throws Exception {
 	    
 	    super.start(context);
@@ -50,7 +51,8 @@ public class TestPlugin
 	    log = new LogCapture();
 	}
 	
-	public void stop(BundleContext context)
+	@Override
+    public void stop(BundleContext context)
 	    throws Exception {
 	    
 	    log.stop();

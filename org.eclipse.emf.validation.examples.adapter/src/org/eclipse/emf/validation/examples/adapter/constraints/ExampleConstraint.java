@@ -41,7 +41,8 @@ public class ExampleConstraint
 	/**
 	 * I fail on every object that I see.
 	 */
+	@Override
 	public IStatus validate(IValidationContext ctx) {
-		return ctx.createFailureStatus(new Object[] {ctx.getTarget()});
+		return ctx.createFailureStatus(ctx.getTarget());
 	}
 }
