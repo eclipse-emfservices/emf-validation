@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -232,8 +231,9 @@ public abstract class AbstractExampleWizard extends Wizard
 							byte[] buffer = new byte[102400];
 							while (true) {
 								int len = zipFileStream.read(buffer);
-								if (zipFileStream.available() == 0)
-									break;
+								if (zipFileStream.available() == 0) {
+                                    break;
+                                }
 								os.write(buffer, 0, len);
 							}
 						} finally {
