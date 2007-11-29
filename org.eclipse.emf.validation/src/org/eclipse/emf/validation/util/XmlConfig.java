@@ -35,7 +35,6 @@ import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
-import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
 import com.ibm.icu.util.StringTokenizer;
@@ -236,9 +235,6 @@ public class XmlConfig {
 			IConfigurationElement constraints) {
 
 		final CategoryManager mgr = CategoryManager.getInstance();
-		final String contributorId = constraints
-			.getDeclaringExtension()
-			.getNamespaceIdentifier();
 		
 		IConfigurationElement[] children = constraints.getChildren(
 				XmlConfig.E_CONSTRAINT);
@@ -248,38 +244,37 @@ public class XmlConfig {
 			categories = ""; //$NON-NLS-1$
 		}
 		
+        List<Category> categoryList = new java.util.ArrayList<Category>(4);
 		StringTokenizer tokens = new StringTokenizer(categories, ","); //$NON-NLS-1$
 		while (tokens.hasMoreTokens()) {
 			String path = tokens.nextToken().trim();
 			
 			if (path.length() > 0) {
-				for (IConfigurationElement element : children) {
-					final String id = element.getAttribute(A_ID);
-					
-					IConstraintDescriptor constraint =
-						ConstraintRegistry.getInstance().getDescriptor(
-							contributorId,
-							id);
-					
-					if (constraint == null) {
-						try {
-							constraint = new XmlConstraintDescriptor(element);
-						} catch (ConstraintExistsException e) {
-							// shouldn't happen because I checked for existence
-							continue;
-						}
-					} else {
-					    // duplicate constraint case.  Log it
-                        Log.warningMessage(
-                            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT,
-                            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT_MSG,
-                            new Object[] {constraint.getId()});
-					}
-					
-					Category category = mgr.findCategory(path);
-					if (category != null) {
-						constraint.addCategory(category);
-					}
+                Category category = mgr.findCategory(path);
+                if (category != null) {
+                    categoryList.add(category);
+                }
+			}
+		}
+		
+		if (!categoryList.isEmpty()) {
+	        Category[] categoryArray = categoryList.toArray(
+	            new Category[categoryList.size()]);
+	        
+			for (IConfigurationElement element : children) {
+				try {
+				    IConstraintDescriptor constraint = new XmlConstraintDescriptor(
+				        element);
+	                
+	                for (Category next : categoryArray) {
+	                    next.addConstraint(constraint);
+	                }
+				} catch (ConstraintExistsException e) {
+                    // duplicate constraint case.  Log it
+                    Log.warningMessage(
+                        EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT,
+                        EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT_MSG,
+                        new Object[] {e.getMessage()});  // the constraint ID
 				}
 			}
 		}
