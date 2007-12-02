@@ -249,7 +249,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * 
 	 * @return my provider
 	 */
-	public IModelConstraintProvider getProvider() {
+	public synchronized IModelConstraintProvider getProvider() {
 		if (provider == null) {
 			try {
 				Trace.trace(
