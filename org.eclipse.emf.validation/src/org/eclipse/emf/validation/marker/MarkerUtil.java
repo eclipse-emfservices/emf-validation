@@ -67,6 +67,23 @@ public final class MarkerUtil {
 	public static void createMarkers(IStatus validationStatus) throws CoreException {
 		createMarkers(validationStatus, VALIDATION_MARKER_TYPE, null);
 	}
+
+	/**
+	 * Creates markers with default validation marker type for all resources that had
+	 * validation failures or warnings.
+	 * The status provided is the status returned by one of the {@link IValidator#validate(Object)}
+	 * methods.
+	 *  
+	 * @param validationStatus A status object returned by a validator's validate method.
+	 * @param severityMask mask selecting which severities to create markers for
+	 * @throws CoreException A core exception is thrown if there were any problems interacting
+	 *  with the workspace to attach/delete markers on resources.
+	 * 
+	 * @since 1.2
+	 */
+	public static void createMarkers(IStatus validationStatus, int severityMask) throws CoreException {
+		createMarkers(validationStatus, severityMask, VALIDATION_MARKER_TYPE, null);
+	}
 	
 	/**
 	 * Creates markers with the provided marker type for all resources that had validation
@@ -82,7 +99,32 @@ public final class MarkerUtil {
 	 * @see IValidator#validate(java.util.Collection)
 	 * @see IMarkerConfigurator
 	 */
-	public static void createMarkers(final IStatus validationStatus, final String markerType, final IMarkerConfigurator configurator) throws CoreException {
+	public static void createMarkers(IStatus validationStatus, String markerType,
+			IMarkerConfigurator configurator) throws CoreException {
+		createMarkers(validationStatus, 0xFFFF, markerType, configurator);
+	}
+	
+	/**
+	 * Creates markers with the provided marker type for all resources that had validation
+	 * failures or warnings. An options marker configurator is provided in order to populate the
+	 * marker with additional information.
+	 * 
+	 * @param validationStatus A status object returned by a validator's validate method.
+	 * @param severityMask mask selecting which severities to create markers for
+	 * @param markerType A marker type that is a subtype of the validationProblem marker type.
+	 * @param configurator An optional configurator to populate marker subtype specific attributes.
+	 * @throws CoreException A core exception is thrown if there were any problems interacting
+	 *  with the workspace to attach/delete markers on resources.
+	 * @see IValidator#validate(Object)
+	 * @see IValidator#validate(java.util.Collection)
+	 * @see IMarkerConfigurator
+	 * 
+	 * @since 1.2
+	 */
+	public static void createMarkers(final IStatus validationStatus,
+			final int severityMask, final String markerType,
+			final IMarkerConfigurator configurator) throws CoreException {
+		
 		if (validationStatus.isOK()) {
 			return;
 		}
@@ -96,11 +138,15 @@ public final class MarkerUtil {
 				if (validationStatus.isMultiStatus()) {
 					IStatus[] children = validationStatus.getChildren();
 					for (IStatus element : children) {
-						if (element instanceof IConstraintStatus) {
+						if (element.matches(severityMask)
+								&& (element instanceof IConstraintStatus)) {
+							
 							createMarker((IConstraintStatus)element, markerType, configurator, visitedResources);
 						}
 					}
-				} else if (validationStatus instanceof IConstraintStatus) {
+				} else if (validationStatus.matches(severityMask)
+						&& (validationStatus instanceof IConstraintStatus)) {
+					
 					createMarker((IConstraintStatus)validationStatus, markerType, configurator, visitedResources);
 				}
 			}
