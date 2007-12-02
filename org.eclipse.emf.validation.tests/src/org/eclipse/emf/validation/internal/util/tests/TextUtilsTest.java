@@ -21,6 +21,8 @@ import junit.framework.TestCase;
 import ordersystem.OrderSystemFactory;
 import ordersystem.Product;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.validation.internal.util.TextUtils;
 
 /**
@@ -41,5 +43,15 @@ public class TextUtilsTest extends TestCase {
 		assertEquals(
 				product.eClass().getName() + ' ' + TEST_NAME,
 				TextUtils.getText(product));
+	}
+	
+	/**
+	 * Tests the access to extension-point-registered providers.
+	 */
+	public void test_getText_registered_202191() {
+		EClass eclass = EcoreFactory.eINSTANCE.createEClass();
+		eclass.setName("Food"); //$NON-NLS-1$
+		
+		assertEquals("Food", TextUtils.getText(eclass)); //$NON-NLS-1$
 	}
 }

@@ -20,11 +20,12 @@ import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.osgi.util.NLS;
 
@@ -41,9 +42,13 @@ import org.eclipse.osgi.util.NLS;
  * @author Christian W. Damus (cdamus)
  */
 public class TextUtils {
-	private static AdapterFactory defaultFactory =
-		new EcoreItemProviderAdapterFactory();
+	// back-up for unregistered packages
+    private static AdapterFactory defaultFactory =
+        new ReflectiveItemProviderAdapterFactory();
 	
+    private static AdapterFactory factory = new ComposedAdapterFactory(
+    	ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+    
 	/**
 	 * Not instantiable by clients.
 	 */
@@ -61,10 +66,17 @@ public class TextUtils {
 	 */
 	public static String getText(EObject eObject) {
 		IItemLabelProvider provider =
-			(IItemLabelProvider)getRegisteredAdapter(
+			(IItemLabelProvider)factory.adapt(
 				eObject,
 				IItemLabelProvider.class);
 
+		if (provider == null) {
+			// for backward compatibility, try looking in the resource set
+			provider = (IItemLabelProvider)getRegisteredAdapter(
+					eObject,
+					IItemLabelProvider.class);
+		}
+		
 		if (provider == null) {
 			provider = (IItemLabelProvider)defaultFactory.adapt(
 					eObject,
