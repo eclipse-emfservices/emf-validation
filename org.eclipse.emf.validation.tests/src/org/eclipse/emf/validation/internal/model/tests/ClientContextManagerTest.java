@@ -17,6 +17,7 @@
 
 package org.eclipse.emf.validation.internal.model.tests;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +30,6 @@ import ordersystem.Product;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.service.ClientContextManager;
 import org.eclipse.emf.validation.internal.service.IClientContext;
@@ -127,7 +127,7 @@ public class ClientContextManagerTest
 					{"context", TEST_CLIENT + '2'}, //$NON-NLS-1$
 					{"constraint", TEST_CONSTRAINT + '2'}}); //$NON-NLS-1$
 		
-		mgr.configureConstraintBindings(new IConfigurationElement[] {
+		configureConstraintBindings(mgr, new IConfigurationElement[] {
 			clientElement, binding, clientElement2, binding2});
 		
 		ctx = mgr.getClientContext(TEST_CLIENT);
@@ -136,6 +136,7 @@ public class ClientContextManagerTest
 		product = OrderSystemFactory.eINSTANCE.createProduct();
 		order = OrderSystemFactory.eINSTANCE.createOrder();
 	}
+
 	
 	public void test_getClientContexts() {
 		assertTrue("Test client not found", mgr.getClientContexts().contains(ctx)); //$NON-NLS-1$
@@ -262,6 +263,44 @@ public class ClientContextManagerTest
 			fail("Should not throw exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
+	
+	
+	//
+	// Test fixtures
+	//
+	
+	/**
+	 * Reflective hack to insert additional client contexts and constraint
+	 * bindings for dynamically-created extension configurations.
+	 */
+    private static void configureConstraintBindings(ClientContextManager mgr,
+            IConfigurationElement[] configs) {
+        
+        // hack reflective access to the private configuration methods
+        Class<?>[] parameterTypes = new Class<?>[] {configs.getClass()};
+        
+        try {
+            Method configureMethod = mgr.getClass().getDeclaredMethod(
+                "configureClientContexts", parameterTypes); //$NON-NLS-1$
+            try {
+                configureMethod.setAccessible(true);
+                configureMethod.invoke(mgr, (Object) configs);
+            } finally {
+                configureMethod.setAccessible(false);
+            }
+            
+            configureMethod = mgr.getClass().getDeclaredMethod(
+                "configureBindings", parameterTypes); //$NON-NLS-1$
+            try {
+                configureMethod.setAccessible(true);
+                configureMethod.invoke(mgr, (Object) configs);
+            } finally {
+                configureMethod.setAccessible(false);
+            }
+        } catch (Exception e) {
+            fail("Could not configure client contexts: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        }
+    }
 	
 	
 	

@@ -21,6 +21,7 @@ import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -60,8 +61,26 @@ public class ClientContextManager {
 	 */
 	private ClientContextManager() {
 		super();
+		
+		configureConstraintBindings();
 	}
 	
+    /**
+     * Configures constraint bindings based on the
+     * <tt>constraintBindings</tt> extension configurations.
+     */
+    private void configureConstraintBindings() {
+        IConfigurationElement[] configs =
+            Platform.getExtensionRegistry().getConfigurationElementsFor(
+                EMFModelValidationPlugin.getPluginId(),
+                EMFModelValidationPlugin.CONSTRAINT_BINDINGS_EXT_P_NAME);
+        
+        // must create all of the contexts before we process the bindings.
+        //   Hence, this will loop over the elements twice
+        configureClientContexts(configs);
+        configureBindings(configs);
+    }
+
 	/**
 	 * Obtains the singleton instance of this class.
 	 * 
@@ -299,12 +318,12 @@ public class ClientContextManager {
 	 * 
 	 * @param elements the configuration elements representing constraint
 	 *     binding extensions
+	 * 
+	 * @deprecated 1.2 This method is no longer implemented
 	 */
-	public void configureConstraintBindings(IConfigurationElement[] elements) {
-		// must create all of the contexts before we process the bindings.
-		//   Hence, this will loop over the elements twice
-		configureClientContexts(elements);
-		configureBindings(elements);
+	@Deprecated
+    public void configureConstraintBindings(IConfigurationElement[] elements) {
+	    // no longer implemented
 	}
 	
 	/**

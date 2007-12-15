@@ -17,18 +17,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
-import org.eclipse.emf.validation.internal.service.ClientContextManager;
-import org.eclipse.emf.validation.service.EventTypeService;
-import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.osgi.util.NLS;
-import org.osgi.framework.BundleContext;
 
 /**
  * <p>
@@ -219,71 +213,6 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 			// Remember the static instance.
 			//
 			EMFModelValidationPlugin.plugin = this;
-		}
-
-		// extends the inherited method
-		@Override
-		public void start(BundleContext context) throws Exception {
-			super.start(context);
-
-			configureEventTypes();
-			configureConstraints();
-			configureConstraintBindings();
-			configureValidationListeners();
-		}
-
-		/**
-		 * Configures validation constraint providers based on the
-		 * <tt>constraintProviders</tt> extension configurations.
-		 */
-		protected void configureConstraints() {
-			IConfigurationElement[] configs =
-				Platform.getExtensionRegistry().getConfigurationElementsFor(
-					getPluginId(),
-					CONSTRAINT_PROVIDERS_EXT_P_NAME);
-			
-			ModelValidationService.getInstance().configureProviders(configs);
-		}
-
-		/**
-		 * Configures constraint bindings based on the
-		 * <tt>constraintBindings</tt> extension configurations.
-		 */
-		protected void configureConstraintBindings() {
-			IConfigurationElement[] configs =
-				Platform.getExtensionRegistry().getConfigurationElementsFor(
-					getPluginId(),
-					CONSTRAINT_BINDINGS_EXT_P_NAME);
-			
-			ClientContextManager.getInstance().configureConstraintBindings(configs);
-		}
-
-		/**
-		 * Configures validation listeners based on the
-		 * <tt>validationListeners</tt> extension configurations.
-		 */
-		protected void configureValidationListeners() {
-			IConfigurationElement[] configs =
-				Platform.getExtensionRegistry().getConfigurationElementsFor(
-					getPluginId(),
-					VALIDATION_LISTENERS_EXT_P_NAME);
-			
-			ModelValidationService.getInstance().configureListeners(configs);
-		}
-		
-		/**
-		 * Configures custom event types based on the 
-		 * <tt>eventTypes</tt> extension configuration
-         *
-         * @since 1.1
-		 */
-		protected void configureEventTypes() {
-			IConfigurationElement[] configs =
-				Platform.getExtensionRegistry().getConfigurationElementsFor(
-					getPluginId(),
-					EVENT_TYPES_EXT_P_NAME);
-			
-			EventTypeService.getInstance().configureEventTypes(configs);
 		}
 	}
 	

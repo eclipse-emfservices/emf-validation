@@ -21,6 +21,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -87,7 +88,82 @@ public class ModelValidationService {
 	 */
 	private ModelValidationService() {
 		super();
+		
+		configureConstraints();
+		configureListeners();
 	}
+
+    /**
+     * Configures validation constraint providers based on the
+     * <tt>constraintProviders</tt> extension configurations.
+     */
+    private void configureConstraints() {
+        IConfigurationElement[] configs =
+            Platform.getExtensionRegistry().getConfigurationElementsFor(
+                EMFModelValidationPlugin.getPluginId(),
+                EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
+        
+        constraintCache = new ConstraintCache();
+        
+        Collection<IProviderDescriptor> providers = getProviders();
+
+        // include the cache in my collection of providers
+        providers.add(constraintCache.getDescriptor());
+        
+        for (IConfigurationElement element : configs) {
+            if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
+                try {
+                    IProviderDescriptor descriptor =
+                        new ProviderDescriptor(element);
+                    
+                    if (descriptor.isCacheEnabled()) {
+                        constraintCache.addProvider(descriptor);
+        
+                        if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
+                            Trace.trace(
+                                    EMFModelValidationDebugOptions.PROVIDERS,
+                                    "Added provider to cache: " + descriptor); //$NON-NLS-1$
+                        }
+                    } else {
+                        providers.add(descriptor);
+        
+                        if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
+                            Trace.trace(
+                                    EMFModelValidationDebugOptions.PROVIDERS,
+                                    "Loaded uncacheable provider: " + descriptor); //$NON-NLS-1$
+                        }
+                    }
+                } catch (CoreException e) {
+                    Trace.catching(getClass(), "configureProviders()", e); //$NON-NLS-1$
+                    
+                    Log.log(e.getStatus());
+                }
+            }
+        }
+    }
+
+    /**
+     * Configures validation listeners based on the
+     * <tt>validationListeners</tt> extension configurations.
+     */
+    private void configureListeners() {
+        IConfigurationElement[] configs =
+            Platform.getExtensionRegistry().getConfigurationElementsFor(
+                EMFModelValidationPlugin.getPluginId(),
+                EMFModelValidationPlugin.VALIDATION_LISTENERS_EXT_P_NAME);
+        
+        for (IConfigurationElement element : configs) {
+            if (element.getName().equals("listener")) { //$NON-NLS-1$
+                try {
+                    addValidationListener(new LazyListener(element));
+                } catch (CoreException e) {
+                    Trace.catching(getClass(), "configureListeners()", e); //$NON-NLS-1$
+                    
+                    Log.log(e.getStatus());
+                }
+            }
+        }
+    }
 
 	/**
 	 * Obtains the instance of this class.
@@ -259,21 +335,12 @@ public class ModelValidationService {
 	 * </p>
 	 * 
 	 * @param elements 
+	 * 
+	 * @deprecated 1.2 This method is no longer implemented.
 	 */
-	public void configureListeners(IConfigurationElement[] elements) {
-		assert elements != null;
-
-		for (IConfigurationElement element : elements) {
-			if (element.getName().equals("listener")) { //$NON-NLS-1$
-				try {
-					addValidationListener(new LazyListener(element));
-				} catch (CoreException e) {
-					Trace.catching(getClass(), "configureListeners()", e); //$NON-NLS-1$
-					
-					Log.log(e.getStatus());
-				}
-			}
-		}
+	@Deprecated
+    public void configureListeners(IConfigurationElement[] elements) {
+		// no longer implemented
 	}
 
 	/**
@@ -287,47 +354,12 @@ public class ModelValidationService {
 	 * </p>
 	 * 
 	 * @param elements 
+	 * 
+	 * @deprecated 1.2 This method is no longer implemented.
 	 */
-	public void configureProviders(IConfigurationElement[] elements) {
-		assert elements != null;
-
-		constraintCache = new ConstraintCache();
-		
-		Collection<IProviderDescriptor> providers = getProviders();
-
-		// include the cache in my collection of providers
-		providers.add(constraintCache.getDescriptor());
-		
-		for (IConfigurationElement element : elements) {
-			if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
-				try {
-					IProviderDescriptor descriptor =
-						new ProviderDescriptor(element);
-					
-					if (descriptor.isCacheEnabled()) {
-						constraintCache.addProvider(descriptor);
-		
-						if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
-							Trace.trace(
-									EMFModelValidationDebugOptions.PROVIDERS,
-									"Added provider to cache: " + descriptor); //$NON-NLS-1$
-						}
-					} else {
-						providers.add(descriptor);
-		
-						if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
-							Trace.trace(
-									EMFModelValidationDebugOptions.PROVIDERS,
-									"Loaded uncacheable provider: " + descriptor); //$NON-NLS-1$
-						}
-					}
-				} catch (CoreException e) {
-					Trace.catching(getClass(), "configureProviders()", e); //$NON-NLS-1$
-					
-					Log.log(e.getStatus());
-				}
-			}
-		}
+	@Deprecated
+    public void configureProviders(IConfigurationElement[] elements) {
+		// no longer implemented
 	}
 	
 	/**

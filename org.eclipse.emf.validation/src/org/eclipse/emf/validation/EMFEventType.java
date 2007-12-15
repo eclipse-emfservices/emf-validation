@@ -23,6 +23,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.internal.util.Trace;
+import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.osgi.util.NLS;
 
 
@@ -159,6 +160,10 @@ public final class EMFEventType implements Serializable {
 
 	private static final List<EMFEventType> instances = new ArrayList<EMFEventType>(
 			predefinedInstances);
+	
+	static {
+	    EventTypeService.getInstance(); // initialize custom event types
+	}
 	
 	private final String name;
 	private final boolean featureSpecific;
