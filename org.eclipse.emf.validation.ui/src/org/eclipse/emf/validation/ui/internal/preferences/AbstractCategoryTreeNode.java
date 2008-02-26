@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2008 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
  */
 package org.eclipse.emf.validation.ui.internal.preferences;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -94,8 +95,9 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 		if (result) {
 			// check children, too
 			
-			for (Category child : cat.getChildren()) {
-				result = isRecursivelyEmpty(child);
+			for (Iterator<Category> iter = cat.getChildren().iterator();
+			        result && iter.hasNext();) {
+				result = isRecursivelyEmpty(iter.next());
 			}
 		}
 		
