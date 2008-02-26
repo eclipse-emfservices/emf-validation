@@ -16,16 +16,16 @@ feature@org.eclipse.emf.validation.doc=v200711071738,:pserver:anonymous@dev.ecli
 feature@org.eclipse.emf.validation.examples=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples-feature
 feature@org.eclipse.emf.validation.tests=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/tests/org.eclipse.emf.validation.tests-feature
 
-plugin@org.eclipse.emf.validation=v200712152056,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation
-plugin@org.eclipse.emf.validation.ui=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ui
-plugin@org.eclipse.emf.validation.ui.ide=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ui.ide
+plugin@org.eclipse.emf.validation=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation
+plugin@org.eclipse.emf.validation.ui=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ui
+plugin@org.eclipse.emf.validation.ui.ide=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ui.ide
 plugin@org.eclipse.emf.validation.ocl=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ocl
-plugin@org.eclipse.emf.validation.doc=v200711071738,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/doc/org.eclipse.emf.validation.doc
-plugin@org.eclipse.emf.validation.examples=v200711141952,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples
-plugin@org.eclipse.emf.validation.examples.general=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.general
-plugin@org.eclipse.emf.validation.examples.adapter=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.adapter
-plugin@org.eclipse.emf.validation.examples.ocl=v200711141915,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.ocl
-plugin@org.eclipse.emf.validation.tests=v200712152056,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/tests/org.eclipse.emf.validation.tests
+plugin@org.eclipse.emf.validation.doc=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/doc/org.eclipse.emf.validation.doc
+plugin@org.eclipse.emf.validation.examples=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples
+plugin@org.eclipse.emf.validation.examples.general=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.general
+plugin@org.eclipse.emf.validation.examples.adapter=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.adapter
+plugin@org.eclipse.emf.validation.examples.ocl=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples.ocl
+plugin@org.eclipse.emf.validation.tests=v200802262152,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/tests/org.eclipse.emf.validation.tests
 
 !*** EMF Examples plugins
 plugin@org.eclipse.emf.examples.library=R2_3_1RC,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf/examples/org.eclipse.emf.examples.library
