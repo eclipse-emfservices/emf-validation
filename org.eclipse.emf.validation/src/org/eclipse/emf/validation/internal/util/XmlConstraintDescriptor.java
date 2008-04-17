@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -675,10 +675,8 @@ public final class XmlConstraintDescriptor
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class TargetDescriptor {
-		private final Collection<EMFEventType> nonFeatureSpecificEvents =
-			new java.util.HashSet<EMFEventType>();
-		private final Map<EMFEventType, Collection<String>> featureSpecificEvents =
-			new java.util.HashMap<EMFEventType, Collection<String>>();
+		private Collection<EMFEventType> nonFeatureSpecificEvents;
+		private Map<EMFEventType, Collection<String>> featureSpecificEvents;
 
 		/**
 		 * Indicates whether I explicitly support my target EClass, or whether
@@ -691,6 +689,32 @@ public final class XmlConstraintDescriptor
 		 */
 		TargetDescriptor() {
 			super();
+		}
+		
+		/**
+		 * Does lazy initialization of the <code>nonFeatureSpecificEvents</code>
+		 * map.
+		 * 
+		 * @return the <code>nonFeatureSpecificEvents</code> map; never null
+		 */
+		private Collection<EMFEventType> getNonFeatureSpecificEvents() {
+			if (nonFeatureSpecificEvents == null) {
+				nonFeatureSpecificEvents = new java.util.HashSet<EMFEventType>();
+			}
+			return nonFeatureSpecificEvents;
+		}
+
+		/**
+		 * Does lazy initialization of the <code>featureSpecificEvents</code>
+		 * map.
+		 * 
+		 * @return the <code>featureSpecificEvents</code> map; never null
+		 */
+		private Map<EMFEventType, Collection<String>> getFeatureSpecificEvents() {
+			if (featureSpecificEvents == null) {
+				featureSpecificEvents = new java.util.HashMap<EMFEventType, Collection<String>>();
+			}
+			return featureSpecificEvents;
 		}
 		
 		/**
@@ -722,7 +746,7 @@ public final class XmlConstraintDescriptor
 		 * @param eventType the event type
 		 */
 		void addEvent(EMFEventType eventType) {
-			nonFeatureSpecificEvents.add(eventType);
+			getNonFeatureSpecificEvents().add(eventType);
 		}
 		
 		/**
@@ -735,12 +759,12 @@ public final class XmlConstraintDescriptor
 		 */
 		void addEvent(EMFEventType eventType, String featureName) {
 			if (featureName != null) {
-				Collection<String> currentFeatures = featureSpecificEvents.get(
+				Collection<String> currentFeatures = getFeatureSpecificEvents().get(
 						eventType);
 				
 				if (currentFeatures == null) {
 					currentFeatures = new java.util.HashSet<String>();
-					featureSpecificEvents.put(eventType, currentFeatures);
+					getFeatureSpecificEvents().put(eventType, currentFeatures);
 				}
 				
 				currentFeatures.add(featureName);
@@ -767,15 +791,15 @@ public final class XmlConstraintDescriptor
 			
 			// if no events are registered, and I explicitly support the EClass,
 			// then it is implied that I support all predefined events
-			boolean result = nonFeatureSpecificEvents.isEmpty()
-					&& featureSpecificEvents.isEmpty()
+			boolean result = ((nonFeatureSpecificEvents == null) || nonFeatureSpecificEvents.isEmpty())
+					&& ((featureSpecificEvents == null) || featureSpecificEvents.isEmpty())
 					&& isExplicit() 
 					&& EMFEventType.getPredefinedInstances().contains(eventType);
 			
 			if (!result) {
 				// do I support this event for all features?  If so, the
 				//   answer is easy
-				if (nonFeatureSpecificEvents.contains(eventType)) {
+				if ((nonFeatureSpecificEvents != null) && nonFeatureSpecificEvents.contains(eventType)) {
 					result = true;
 				} else {
 					// null feature name can't be included in the feature list
@@ -783,7 +807,7 @@ public final class XmlConstraintDescriptor
 					if (featureName != null) {
 						// see whether the collection of supported event
 						//   types includes this feature
-						if (featureSpecificEvents.containsKey(eventType)) {
+						if ((featureSpecificEvents != null) && featureSpecificEvents.containsKey(eventType)) {
 							Collection<String> eventFeatures =
 								featureSpecificEvents.get(eventType);
 							
@@ -817,22 +841,26 @@ public final class XmlConstraintDescriptor
 				setExplicit();
 			}
 			
-			this.nonFeatureSpecificEvents.addAll(parent.nonFeatureSpecificEvents);
+			if (parent.nonFeatureSpecificEvents != null) {
+				getNonFeatureSpecificEvents().addAll(parent.nonFeatureSpecificEvents);
+			}
 			
-			for (Map.Entry<EMFEventType, Collection<String>> next : parent.featureSpecificEvents.entrySet()) {
-				EMFEventType eventType = next.getKey();
-				Collection<String> features = next.getValue();
-				
-				Collection<String> myFeatures = this.featureSpecificEvents.get(eventType);
-				if (myFeatures == null) {
-					// add all of my parent's features.  Need to create a copy
-					// because I might inherit other features from a different
-					// parent
-					this.featureSpecificEvents.put(
-						eventType,
-						new java.util.HashSet<String>(features));
-				} else {
-					myFeatures.addAll(features);
+			if (parent.featureSpecificEvents != null) {
+				for (Map.Entry<EMFEventType, Collection<String>> next : parent.featureSpecificEvents.entrySet()) {
+					EMFEventType eventType = next.getKey();
+					Collection<String> features = next.getValue();
+					
+					Collection<String> myFeatures = this.getFeatureSpecificEvents().get(eventType);
+					if (myFeatures == null) {
+						// add all of my parent's features.  Need to create a copy
+						// because I might inherit other features from a different
+						// parent
+						getFeatureSpecificEvents().put(
+							eventType,
+							new java.util.HashSet<String>(features));
+					} else {
+						myFeatures.addAll(features);
+					}
 				}
 			}
 		}
