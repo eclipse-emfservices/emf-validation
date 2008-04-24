@@ -38,8 +38,6 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * This class is not intended to be used by clients.
  * </p>
  * 
- * @canBeSeenBy org.eclipse.emf.validation.internal.*
- * 
  * @author Christian W. Damus
  */
 public class ClientContext
