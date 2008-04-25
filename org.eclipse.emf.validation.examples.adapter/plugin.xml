@@ -26,28 +26,28 @@
    
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-         id="com.ibm.xtools.emf.validation.example.pde.adapter.EObjectPropertyTester"
+         id="org.eclipse.emf.validation.examples.adapter.expressions.EObjectPropertyTester"
          type="org.eclipse.emf.ecore.EObject"
-         namespace="com.ibm.xtools.emf.validation.example.pde.adapter"
+         namespace="org.eclipse.emf.validation.examples.adapter"
          properties="ePackage"
          class="org.eclipse.emf.validation.examples.adapter.expressions.EObjectPropertyTester">
       </propertyTester>
    </extension>
    
    <extension point="org.eclipse.emf.validation.constraintBindings">
-      <clientContext id="com.ibm.xtools.emf.validation.example.pde.adapter">
+      <clientContext id="org.eclipse.emf.validation.examples.adapter">
          <enablement>
             <and>
                <instanceof value="org.eclipse.emf.ecore.EObject"/>
                <test
-                  property="com.ibm.xtools.emf.validation.example.pde.adapter.ePackage"
+                  property="org.eclipse.emf.validation.examples.adapter.ePackage"
                   value="http:///org/eclipse/emf/examples/library/extlibrary.ecore/1.0.0"/>
             </and>
          </enablement>
       </clientContext>
       
       <binding
-         context="com.ibm.xtools.emf.validation.example.pde.adapter"
+         context="org.eclipse.emf.validation.examples.adapter"
          category="emf-validation-example"/>
    </extension>
    
