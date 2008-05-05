@@ -1,11 +1,16 @@
 <project default="run">
+	
 	<target name="init">
 
-		<!-- new 060413 due to changes in basebuilder (3.2M6) -->
+	    <!-- common releng helper scripts -->
+	    <property name="helper" value="${buildDirectory}/../org.eclipse.modeling.common.releng/scripts/buildAllHelper.xml" />
+
 		<echo message="Set compilerArgs = '-enableJavadoc -encoding ISO-8859-1 -warn:-serial,nls,unchecked,warningToken'"/>
 		<property name="compilerArg" value="-enableJavadoc -encoding ISO-8859-1 -warn:-serial,nls,unchecked,warningToken" />
+
+	    <property name="commonScriptsDir" value="${basedir}/../org.eclipse.modeling.common.releng/scripts" />
 		
-		<!-- new 040216 to resolve jar dependencies in using IBM JDK (core.jar + *.jar) instead of Sun JDK (rt.jar) -->
+	    <!-- TODO: set correct source and target levels here -->
 		<path id="bc">
 			<fileset dir="${java.home}/lib">
 				<include name="*.jar" />
@@ -24,7 +29,7 @@
 		<property file="${basedir}/repoInfo.properties" />
 		<property name="testBase" location="${buildDirectory}/../testing" />
 		<available file="${buildDirectory}/label.properties" property="label.properties.exists" />
-		<antcall target="create.label.properties" />
+    <ant target="create.label.properties" antfile="${helper}" />
 		<property file="${buildDirectory}/label.properties" />
 		
 		<echo message="buildAll.xml properties:"/>
@@ -57,45 +62,102 @@ propertyName=propertyValue
 			<equals arg1="${baseos}.${basews}" arg2="linux.motif" />
 		</condition>
 
+	    <!-- required for signing & repackaging master zip into smaller zips -->
+	    <property name="masterZip" value="${projectName}-${subprojectName}-Master-${buildAlias}.zip" />
+	    <property name="java15-home" value="/opt/sun-java2-5.0" />
+	    <property name="stagingHome" value="/home/data/httpd/download-staging.priv" />
+	    <property name="projectPath" value="modeling/emf" />
+	    <!-- user with write perms in staging dir & permission to run /usr/bin/sign -->
+	    <property name="buildServerUser" value="nickb@build.eclipse.org" />
+	    <property name="sign" value="true" />
 	</target>
 
-	<target name="create.label.properties" unless="label.properties.exists">
-		<mkdir dir="${buildDirectory}" />
-		<tstamp />
-		<property name="date" value="${DSTAMP}" />
-		<property name="time" value="${TSTAMP}" />
-		<property name="timestamp" value="${date}${time}" />
-		<property name="buildType" value="I" />
+	  <target name="buildAll">
+	    <macrodef name="echo-timestamp">
+	      <sequential>
+	        <ant target="-timestamp" inheritAll="false" antfile="${helper}" />
+	      </sequential>
+	    </macrodef>
 
-		<!--this naming convention used by php scripts on download server-->
-		<property name="buildLabel" value="${buildType}${timestamp}" />
+	    <echo-timestamp />
+	    <ant antfile="build.xml" target="main">
+	      <property name="component" value="builder/all" />
+	    </ant>
 
-		<property name="buildAlias" value="${buildLabel}" />
-		<property name="buildId" value="${buildAlias}" />
+	    <!-- SDK -->
+	    <property name="SDKZip" value="${projectName}-${subprojectName}-SDK-${buildAlias}.zip" />
+	    <zip destfile="${buildDirectory}/${buildLabel}/${SDKZip}" update="true">
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${masterZip}" dirmode="775" filemode="664" id="SDKZipFiles" excludes="**/org.eclipse.*.example*, **/org.eclipse.*.example*/**, **/org.eclipse.*.master_*, **/org.eclipse.*.master_*/**, **/*.pack.gz, **/pack.properties, **/features/*.jar, **/plugins/*.source_*.jar" />
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${masterZip}" dirmode="775" filemode="664" id="SDKZipFiles2" includes="**/plugins/org.eclipse.emf.validation.examples_*.jar" />
+	    </zip>
 
-		<!--store the build label information in a file-->
-		<echo file="${buildDirectory}/label.properties" append="true">
-		buildType=${buildType}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true">
-		buildId=${buildId}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true">
-		timestamp=${timestamp}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true">
-		buildLabel=${buildLabel}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true">
-		buildAlias=${buildAlias}
-		</echo>
-	</target>
+	    <!-- examples -->
+	    <property name="examplesZip" value="${projectName}-${subprojectName}-examples-${buildAlias}.zip" />
+	    <zip destfile="${buildDirectory}/${buildLabel}/${examplesZip}" update="true">
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${masterZip}" dirmode="775" filemode="664" id="examplesZipFiles" includes="**/org.eclipse.*.example*, **/org.eclipse.*.example*/**" excludes="**/org.eclipse.*.master_*, **/org.eclipse.*.master_*/**, **/*.pack.gz, **/pack.properties, **/features/*.jar, **/plugins/*.source_*.jar" />
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${SDKZip}" dirmode="775" filemode="664" id="rootfiles" includes="**/eclipse/epl-v10.html, **/eclipse/notice.html" />
+	    </zip>
 
+	  	<!-- tests -->
+	    <ant antfile="build.xml" target="main">
+	      <property name="component" value="builder/tests" />
+	    </ant>
+
+	    <echo-timestamp />
+	    <parallel failonany="true">
+	      <sequential>
+	        <ant target="addFeatureAndPluginJarsToMasterZip" antfile="${helper}" />
+			<ant target="signMasterZip" antfile="${helper}">
+				<property name="mailStatus" value="nomail" />
+			</ant>
+	        <ant target="packMasterZip" antfile="${helper}" />
+	      </sequential>
+	    </parallel>
+
+	    <!-- update w/ signed jars -->
+	    <zip destfile="${buildDirectory}/${buildLabel}/${SDKZip}" update="true">
+	      <zipfileset refid="SDKZipFiles" />
+	      <zipfileset refid="SDKZipFiles2" />
+	    </zip>
+	    <zip destfile="${buildDirectory}/${buildLabel}/${examplesZip}" update="true">
+	      <zipfileset refid="examplesZipFiles" />
+	    </zip>
+
+	    <ant target="removeFeatureAndPluginFoldersFromMasterZip" antfile="${helper}" />
+
+	    <!-- remove .master features -->
+	    <zip destfile="${buildDirectory}/${buildLabel}/${masterZip}.tmp" update="true">
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${masterZip}" dirmode="775" filemode="664" excludes="**/*emf.validation.master_*, **/*emf.validation.master_*/**" />
+	    </zip>
+	    <move file="${buildDirectory}/${buildLabel}/${masterZip}.tmp" tofile="${buildDirectory}/${buildLabel}/${masterZip}" overwrite="true" />
+
+	    <!-- runtime -->
+	    <zip destfile="${buildDirectory}/${buildLabel}/${projectName}-${subprojectName}-runtime-${buildAlias}.zip" update="true">
+	      <zipfileset src="${buildDirectory}/${buildLabel}/${SDKZip}" dirmode="775" filemode="664" id="runtimeFiles" excludes="**/org.eclipse.*.example*, **/org.eclipse.*.example*/**, **/org.eclipse.*.sdk*, **/org.eclipse.*.sdk*/**, **/org.eclipse.*.doc*, **/org.eclipse.*.doc*/*, **/org.eclipse.*.source*, **/org.eclipse.*.source*/**, **/*src.zip">
+	        <include name="**/org.eclipse.emf.validation_*" />
+	        <include name="**/org.eclipse.emf.validation_*/**" />
+	        <include name="**/org.eclipse.emf.validation.ui_*" />
+	        <include name="**/org.eclipse.emf.validation.ui_*/**" />
+	        <include name="**/org.eclipse.emf.validation.ui.ide_*" />
+	        <include name="**/org.eclipse.emf.validation.ui.ide_*/**" />
+	        <include name="**/org.eclipse.emf.validation.ocl_*" />
+	        <include name="**/org.eclipse.emf.validation.ocl_*/**" />
+	      </zipfileset>
+	      <zipfileset refid="rootfiles" />
+	    </zip>
+
+	    <echo-timestamp />
+	    <ant target="generateDigests" antfile="${helper}" />
+
+	  </target>
+
+	<!-- main entry points are run, runtestsOnly, runWithoutTest, and buildOnly -->
+	
 	<target name="run" depends="init">
 		<antcall target="buildAll" />
-		<antcall target="test" />
-		<antcall target="publish" />
-		<antcall target="cleanUp" />
+	    <ant target="test" antfile="${helper}" />
+	    <ant target="publish" antfile="${helper}" />
+	    <ant target="cleanUp" antfile="${helper}" />
 	</target>
 
 	<target name="runTestsOnly" depends="init">
@@ -106,103 +168,20 @@ propertyName=propertyValue
 				<include name="**/*.zip" />
 			</fileset>
 		</copy>
-		<antcall target="test" />
-		<antcall target="publish" />
-		<antcall target="cleanUp" />
+	    <ant target="test" antfile="${helper}" />
+	    <ant target="publish" antfile="${helper}" />
+	    <ant target="cleanUp" antfile="${helper}" />
 	</target>
 
 	<target name="runWithoutTest" depends="init">
 		<antcall target="buildAll" />
-		<antcall target="publish" />
-		<antcall target="cleanUp" />
+	    <ant target="publish" antfile="${helper}" />
+	    <ant target="cleanUp" antfile="${helper}" />
 	</target>
 
 	<target name="buildOnly" depends="init">
 		<antcall target="buildAll" />
-		<antcall target="cleanUp" />
-	</target>
-
-	<target name="buildAll">
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="builder/sdk" />
-		</ant>
-
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="builder/runtime" />
-		</ant>
-
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="builder/examples" />
-		</ant>
-
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="builder/tests" />
-		</ant>
-
-		<!-- doc must be the last execution -->
-
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="builder/doc" />
-		</ant>
-
-		<!-- add .ocl feature + plugin from SDK to runtime -->
-	    <zip destfile="${buildDirectory}/${buildLabel}/emf-${subprojectName}-runtime-${buildAlias}.zip" update="true">
-			<zipfileset src="${buildDirectory}/${buildLabel}/emf-${subprojectName}-SDK-${buildAlias}.zip">
-				<include name="**/org.eclipse.emf.${subprojectName}.ocl*"/>
-				<include name="**/org.eclipse.emf.${subprojectName}.ocl*/*"/>
-				<exclude name="**/org.eclipse.*.source*"/>
-				<exclude name="**/org.eclipse.*.source*/**"/>
-				<exclude name="**/*src.zip"/>
-			</zipfileset>
-	    </zip>
-		
-		<!-- md5 files generation -->
-
-		<exec executable="bash" dir="${buildDirectory}/${buildLabel}">
-			<arg line="${basedir}/../org.eclipse.modeling.common.releng/scripts/createZipCheckSum.sh" />
-		</exec>
-	</target>
-
-	<target name="cleanUp">
-		<echo message="** Copying generated zips to drop folder... **" />
-		<copy todir="${buildDirectory}/.." failonerror="false" overwrite="true">
-			<fileset dir="${buildDirectory}/${buildLabel}" />
-		</copy>
-	</target>
-
-	<target name="test">
-		<property name="test.xml" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/test.xml" />
-		<antcall target="test-win32-local" />
-		<antcall target="test-linux-gtk-local" />
-		<antcall target="test-linux-motif-local" />
-	</target>
-
-	<target name="test-win32-local" if="isWindows">
-		<ant antfile="${test.xml}">
-			<property name="shell" value="relengbuildwin2.bat" />
-			<property name="tester" value="${basedir}/builder/tests/configs/local" />
-		</ant>
-	</target>
-
-	<target name="test-linux-gtk-local" if="isLinuxGTK">
-		<ant antfile="${test.xml}">
-			<property name="shell" value="relengbuildgtk.sh" />
-			<property name="tester" value="${basedir}/builder/tests/configs/local" />
-		</ant>
-	</target>
-
-	<target name="test-linux-motif-local" if="isLinuxMotif">
-		<ant antfile="${test.xml}">
-			<property name="shell" value="relengbuildmotif.sh" />
-			<property name="tester" value="${basedir}/builder/tests/configs/local" />
-		</ant>
-	</target>
-
-	<target name="publish">
-		<copy todir="${buildDirectory}/${buildLabel}" overwrite="true">
-			<fileset
-				dir="${buildDirectory}/../org.eclipse.modeling.common.releng/staticDropFiles" />
-		</copy>
+	    <ant target="cleanUp" antfile="${helper}" />
 	</target>
 
 </project>
