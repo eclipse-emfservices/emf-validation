@@ -1,5 +1,6 @@
 <project default="main">
-	<property name="pde.build.scripts" value="../org.eclipse.releng.basebuilder/plugins/org.eclipse.pde.build/scripts" />
+	<!-- [229916] as of 3.4M7, use new variable -->
+	<property name="pde.build.scripts" value="${eclipse.pdebuild.scripts}"/>
 
 	<target name="init">
 		<tstamp/>
