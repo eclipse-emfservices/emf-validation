@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc. and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@
 
 package org.eclipse.emf.validation.internal.service.tests;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,10 +46,16 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.service.AbstractValidationContext;
+import org.eclipse.emf.validation.internal.service.GetBatchConstraintsOperation;
+import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
+import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.model.ModelConstraint;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IConstraintFilter;
@@ -60,6 +67,7 @@ import org.eclipse.emf.validation.tests.MultiConstraint;
 import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
+import org.eclipse.emf.validation.util.XmlConfig;
 
 /**
  * Basic tests of the {@link ModelValidationService} API.  More advanced tests
@@ -603,6 +611,54 @@ public class ModelValidationServiceTest extends TestBase {
         assertTrue(TestTraversalStrategy.wasUsed());
         assertEquals(2, TestTraversalStrategy.getInstanceCount());
     }
+    
+    /**
+     * Tests that a constraint can put data into the context and get it out
+     * again later.
+     */
+    public void test_currentConstraintData_232572() {
+		class MyContext
+				extends AbstractValidationContext {
+
+			MyContext() {
+				super(new GetBatchConstraintsOperation(false));
+			}
+		};
+
+		MyContext ctx = new MyContext();
+		Method method = null;
+
+		// set the current constraint
+		try {
+			method = AbstractValidationContext.class
+				.getDeclaredMethod("setConstraint", IModelConstraint.class); //$NON-NLS-1$
+			method.setAccessible(true);
+
+			ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.newFixtureConfig();
+			config.putAttribute(XmlConfig.A_ID, "foo.232572"); //$NON-NLS-1$
+			
+			method.invoke(ctx, new ModelConstraint(
+				new XmlConstraintDescriptor(config)) {
+
+				public IStatus validate(
+						IValidationContext ctx) {
+					return Status.OK_STATUS;
+				}
+			});
+		} catch (Exception e) {
+			fail("Failed to access setCurrentConstraint() method: " + e.getLocalizedMessage()); //$NON-NLS-1$
+		} finally {
+			if (method != null) {
+				method.setAccessible(false);
+			}
+		}
+
+		// put some data
+		ctx.putCurrentConstraintData(method);
+
+		// get it back
+		assertSame(method, ctx.getCurrentConstraintData());
+	}
         
     //
     // Framework methods

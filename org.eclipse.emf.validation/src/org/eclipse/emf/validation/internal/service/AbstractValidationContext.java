@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,8 +52,8 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	
 	private ConstraintFilter filter;  // lazily initialized
 	
-	private final Map<IConstraintDescriptor, Object> constraintData =
-		new java.util.HashMap<IConstraintDescriptor, Object>();
+	private final Map<IModelConstraint, Object> constraintData =
+		new java.util.HashMap<IModelConstraint, Object>();
 
 	private IModelConstraint currentConstraint = null;
 	private IConstraintDescriptor currentDescriptor = null;
@@ -267,7 +267,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	
 	// implements the interface method
 	public final Object putCurrentConstraintData(Object newData) {
-		return constraintData.put(getConstraint().getDescriptor(), newData);
+		return constraintData.put(getConstraint(), newData);
 	}
 	
 	/**
