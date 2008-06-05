@@ -84,6 +84,26 @@ propertyName=propertyValue
 	      <property name="component" value="builder/all" />
 	    </ant>
 
+	    <echo-timestamp />
+	    <parallel failonany="true">
+	      <sequential>
+	        <ant target="addFeatureAndPluginJarsToMasterZip" antfile="${helper}" />
+			<ant target="signMasterZip" antfile="${helper}">
+				<property name="mailStatus" value="nomail" />
+			</ant>
+	        <ant target="packMasterZip" antfile="${helper}" />
+	      </sequential>
+	    </parallel>
+
+		<!-- Unpack jars to produce SDK zip with mix of folders & jars -->
+		<ant target="unpackUpdateJarsAndRepack" antfile="${helper}">
+			<property name="sourceZip" value="${buildDirectory}/${buildLabel}/${masterZip}" />
+			<property name="targetZip" value="${buildDirectory}/${buildLabel}/${masterZip}.tmp" />
+		</ant>
+	    <move file="${buildDirectory}/${buildLabel}/${masterZip}.tmp"
+	    	tofile="${buildDirectory}/${buildLabel}/${masterZip}"
+	    	overwrite="true" />
+
 	    <!-- SDK -->
 	    <property name="SDKZip" value="${projectName}-${subprojectName}-SDK-${buildAlias}.zip" />
 	    <zip destfile="${buildDirectory}/${buildLabel}/${SDKZip}" update="true">
@@ -102,26 +122,6 @@ propertyName=propertyValue
 	    <ant antfile="build.xml" target="main">
 	      <property name="component" value="builder/tests" />
 	    </ant>
-
-	    <echo-timestamp />
-	    <parallel failonany="true">
-	      <sequential>
-	        <ant target="addFeatureAndPluginJarsToMasterZip" antfile="${helper}" />
-			<ant target="signMasterZip" antfile="${helper}">
-				<property name="mailStatus" value="nomail" />
-			</ant>
-	        <ant target="packMasterZip" antfile="${helper}" />
-	      </sequential>
-	    </parallel>
-
-	    <!-- update w/ signed jars -->
-	    <zip destfile="${buildDirectory}/${buildLabel}/${SDKZip}" update="true">
-	      <zipfileset refid="SDKZipFiles" />
-	      <zipfileset refid="SDKZipFiles2" />
-	    </zip>
-	    <zip destfile="${buildDirectory}/${buildLabel}/${examplesZip}" update="true">
-	      <zipfileset refid="examplesZipFiles" />
-	    </zip>
 
 	    <ant target="removeFeatureAndPluginFoldersFromMasterZip" antfile="${helper}" />
 
