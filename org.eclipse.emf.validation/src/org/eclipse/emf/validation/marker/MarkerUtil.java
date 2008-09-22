@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.internal.service.ResourceStatus;
 import org.eclipse.emf.validation.model.IConstraintStatus;
+import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IValidator;
 
 /**
@@ -268,6 +269,7 @@ public final class MarkerUtil {
 	}
 
 	/**
+	 * <p>
 	 * Creates or updates markers with default validation marker type for all
 	 * resources that had validation failures or warnings. If there is no failed
 	 * validation on a given resource, its previously attached markers are
@@ -275,6 +277,12 @@ public final class MarkerUtil {
 	 * previously attached markers are deleted and new ones are created. The
 	 * status provided is the status returned by one of the
 	 * {@link IValidator#validate(Object)} methods.
+	 * </p><p>
+	 * <b>Note</b> that, in order to correctly update the markers for resources
+	 * that reported no problems, the validation operation must have been
+	 * performed with the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option
+	 * enabled.
+	 * </p>
 	 * 
 	 * @param validationStatus
 	 *            A status object returned by a validator's validate method.
@@ -291,6 +299,7 @@ public final class MarkerUtil {
 	}
 
 	/**
+	 * <p>
 	 * Creates markers with default validation marker type for all resources
 	 * that had validation failures or warnings. If there is no failed
 	 * validation on a given resource, its previously attached markers are
@@ -298,6 +307,12 @@ public final class MarkerUtil {
 	 * previously attached markers are deleted and new ones are created. The
 	 * status provided is the status returned by one of the
 	 * {@link IValidator#validate(Object)} methods.
+	 * </p><p>
+	 * <b>Note</b> that, in order to correctly update the markers for resources
+	 * that reported no problems, the validation operation must have been
+	 * performed with the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option
+	 * enabled.
+	 * </p>
 	 * 
 	 * @param validationStatus
 	 *            A status object returned by a validator's validate method.
@@ -317,6 +332,7 @@ public final class MarkerUtil {
 	}
 
 	/**
+	 * <p>
 	 * Creates markers with the provided marker type for all resources that had
 	 * validation failures or warnings. If there is no failed validation on a
 	 * given resource, its previously attached markers are deleted. If a
@@ -324,6 +340,11 @@ public final class MarkerUtil {
 	 * markers are deleted and new ones are created. An optional marker
 	 * configurator is provided in order to populate the marker with additional
 	 * information.
+	 * </p><p>
+	 * that reported no problems, the validation operation must have been
+	 * performed with the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option
+	 * enabled.
+	 * </p>
 	 * 
 	 * @param validationStatus
 	 *            A status object returned by a validator's validate method.
@@ -350,12 +371,19 @@ public final class MarkerUtil {
 	}
 
 	/**
+	 * <p>
 	 * Creates markers with the provided marker type for all resources that had
 	 * validation failures or warnings. If there is no failed validation on a
 	 * given resource, its previously attached markers are deleted. If a
 	 * resource has validation failures or warnings, its previously attached
 	 * markers are deleted and new ones are created. An optional marker
 	 * configurator is provided in order to populate the marker with additional
+	 * </p><p>
+	 * <b>Note</b> that, in order to correctly update the markers for resources
+	 * that reported no problems, the validation operation must have been
+	 * performed with the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option
+	 * enabled.
+	 * </p>
 	 * information.
 	 * 
 	 * @param validationStatus
