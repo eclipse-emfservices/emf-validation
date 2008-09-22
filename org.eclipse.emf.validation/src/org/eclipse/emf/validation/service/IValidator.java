@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,12 +7,17 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 218765
+ *    
+ * $Id$
+ * 
  ****************************************************************************/
 
 
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 
@@ -52,6 +57,13 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  * look for validation problem markers, especially for batch validation.
  * </p>
  * <p>
+ * As of the 1.3 release, some of the customizations of the validator behaviour
+ * are also implemented as {@linkplain IValidator#setOptions(java.util.Map)
+ * validation options}. This provides a unified approach to this extensible
+ * mechanism, simplifying the configuration of a validator by enabling
+ * separation of the configuration step from the construction of the validator.
+ * </p>
+ * <p>
  * In the future, the validator may provide additional services, such as
  * statistics, diagnostics, and other meta-data about the validation operation.
  * </p>
@@ -67,6 +79,17 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  */
 public interface IValidator<T> {
 	/**
+	 * A boolean-valued option indicating whether to report the success
+	 * evaluation of constraints on target elements. The default value is
+	 * <code>false</code>.
+	 * 
+	 * @since 1.3
+	 * 
+	 * @see #setOptions(Map)
+	 */
+	Option<Boolean> OPTION_REPORT_SUCCESSES = Option.make(false);
+	
+	/**
 	 * Indicates the evaluation mode that I support.  This indicates the kind
 	 * of objects expected by the <code>validate()</code> methods to process.
 	 * 
@@ -75,23 +98,42 @@ public interface IValidator<T> {
 	EvaluationMode<T> getEvaluationMode();
 	
 	/**
+	 * <p>
 	 * Queries whether successful constraint evaluations are reported, in
 	 * addition to validation problems.
+	 * </p>
+	 * <p>
+	 * Since the 1.3 release, this method is equivalent to checking whether
+	 * the {@link #OPTION_REPORT_SUCCESSES} validation option is applied.
+	 * </p>
 	 * 
 	 * @return whether successful constraint evaluations are reported
+	 * 
 	 * @see #setReportSuccesses
+	 * @see #getOptions()
+	 * @see #OPTION_REPORT_SUCCESSES
 	 */
 	boolean isReportSuccesses();
 	
 	/**
+	 * <p>
 	 * Indicates whether successful constraint evaluations are to be reported,
 	 * in addition to validation problems.  If <code>false</code>, then the
 	 * status reported by the <code>validate()</code> methods will not
 	 * contain sub-statuses representing the constraints that passed, but will
 	 * only have sub-statuses for the constraints (if any) that failed.
+	 * </p>
+	 * <p>
+	 * Since the 1.3 release, this method is equivalent to applying the
+	 * {@link #OPTION_REPORT_SUCCESSES} validation option.
+	 * </p>
 	 * 
 	 * @param reportSuccesses <code>true</code> to report successes;
 	 *        <code>false</code> to ignore them
+	 * 
+	 * @see #isReportSuccesses()
+	 * @see #setOptions(Map)
+	 * @see #OPTION_REPORT_SUCCESSES
 	 */
 	void setReportSuccesses(boolean reportSuccesses);
 	
@@ -186,4 +228,113 @@ public interface IValidator<T> {
      * @since 1.1
      */
 	Collection<IConstraintFilter> getConstraintFilters();
+	
+	/**
+	 * Obtains the options applied to me that customize my operation. The
+	 * resulting map is not modifiable by clients.
+	 * 
+	 * @return an unmodifiable view of my options
+	 * 
+	 * @since 1.3
+	 * 
+	 * @see #setOptions(Map)
+	 * @see #getOption(Object, Object)
+	 */
+	Map<Option<?>, ?> getOptions();
+
+	/**
+	 * Sets options to apply to me, that customize my operation.
+	 * 
+	 * @param options
+	 *            my options, or <code>null</code> to set the defaults
+	 * 
+	 * @since 1.3
+	 * 
+	 * @see #getOptions()
+	 * @see #setOption(Object, Object, Object)
+	 */
+	void setOptions(Map<Option<?>, ?> options);
+	
+	/**
+	 * Convenience for querying an option.
+	 * 
+	 * @param <V>
+	 *            the value type of the option
+	 * @param option
+	 *            the option key
+	 * @return the option's current value
+	 * 
+	 * @since 1.3
+	 * 
+	 * @see #getOptions()
+	 */
+	<V> V getOption(Option<V> option);
+	
+	/**
+	 * Convenience for setting an option.
+	 * 
+	 * @param <V>
+	 *            the value type of the option
+	 * @param option
+	 *            the option key
+	 * @param value
+	 *            the new value to set
+	 * 
+	 * @since 1.3
+	 * 
+	 * @see #setOptions(Map)
+	 */
+	<V> void setOption(Option<? super V> option, V value);
+	
+	/**
+	 * The definition of a validator option.
+	 *
+	 * @param <V> the option's value type
+	 * 
+	 * @author Christian W. Damus (cdamus)
+	 * 
+	 * @since 1.3
+	 */
+	class Option<V> {
+
+		private final V default_;
+
+		/**
+		 * Constructs a new option with the specified default value.
+		 * 
+		 * @param <V>
+		 *            the option's value type
+		 * @param defaultValue
+		 *            the option's default value
+		 * 
+		 * @return the new option
+		 */
+		static <V> Option<V> make(V defaultValue) {
+			return new Option<V>(defaultValue);
+		}
+
+		/**
+		 * Initializes me with a static default value.
+		 * 
+		 * @param defaultValue
+		 *            my default value
+		 */
+		protected Option(V defaultValue) {
+			default_ = defaultValue;
+		}
+
+		/**
+		 * Queries my default value for the specified validator. This allows the
+		 * actual default value to be computed, based on the validator.
+		 * 
+		 * @param validator
+		 *            the validator for which to query the default option vale.
+		 *            Must not be <code>null</code>
+		 * 
+		 * @return the default value for the given validator
+		 */
+		public V defaultValue(IValidator<?> validator) {
+			return default_;
+		}
+	}
 }

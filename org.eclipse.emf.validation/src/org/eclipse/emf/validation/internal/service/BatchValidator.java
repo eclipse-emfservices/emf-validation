@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,10 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 218765
+ *    
+ * $Id$
+ * 
  ****************************************************************************/
 
 
@@ -21,12 +25,17 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.util.Trace;
+import org.eclipse.emf.validation.marker.MarkerUtil;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
@@ -40,10 +49,9 @@ import org.eclipse.emf.validation.service.ITraversalStrategy;
  * @author Christian W. Damus (cdamus)
  */
 public class BatchValidator extends AbstractValidator<EObject> implements IBatchValidator {
-	private boolean includeLiveConstraints = false;
 	private IProgressMonitor progressMonitor = null;
 	
-	private ITraversalStrategy traversalStrategy =
+	private ITraversalStrategy defaultTraversalStrategy =
 		new DefaultRecursiveTraversalStrategy();
 	
 	/**
@@ -61,28 +69,30 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	 * Implements the inherited method.
 	 */
 	public boolean isIncludeLiveConstraints() {
-		return includeLiveConstraints;
+		return getOption(OPTION_INCLUDE_LIVE_CONSTRAINTS);
 	}
 
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
 	public void setIncludeLiveConstraints(boolean includeLiveConstraints) {
-		this.includeLiveConstraints = includeLiveConstraints;
+		if (includeLiveConstraints != isIncludeLiveConstraints()) {
+			setOption(OPTION_INCLUDE_LIVE_CONSTRAINTS, includeLiveConstraints);
+		}
 	}
 	
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
 	public ITraversalStrategy getDefaultTraversalStrategy() {
-		return new DefaultRecursiveTraversalStrategy();
+		return defaultTraversalStrategy;
 	}
 	
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
 	public ITraversalStrategy getTraversalStrategy() {
-		return traversalStrategy;
+		return getOption(OPTION_TRAVERSAL_STRATEGY);
 	}
 	
 	/* (non-Javadoc)
@@ -93,7 +103,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			throw new IllegalArgumentException("strategy is null"); //$NON-NLS-1$
 		}
 
-		this.traversalStrategy = strategy;
+		setOption(OPTION_TRAVERSAL_STRATEGY, strategy);
 	}
 	
 	/* (non-Javadoc)
@@ -163,6 +173,13 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			GetBatchConstraintsOperation operation, 
 			Set<IClientContext> clientContexts) {
 		
+		Set<Resource> resources = null;
+		boolean trackResources = getOption(OPTION_TRACK_RESOURCES);
+		
+		if (trackResources) {
+			resources = new java.util.HashSet<Resource>();
+		}
+		
 		IProgressMonitor monitor = progressMonitor;
 		if (monitor == null) {
 			monitor = new NullProgressMonitor();
@@ -197,6 +214,10 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 						operation,
 						evaluationResults));
 				
+				if (trackResources) {
+					resources.add(next.eResource());
+				}
+				
 				firstElement = false;
 			}
 		} catch (OperationCanceledException e) {
@@ -208,8 +229,11 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			if (!monitor.isCanceled()) {
 				monitor.done();
 			}
-
 			progressMonitor = null;
+			
+			if (trackResources) {
+				evaluationResults.add(createDummyResourceStatus(resources));
+			}
 		}
 	}
 
@@ -247,6 +271,36 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * Creates OK statuses (in a multi-status if necessary) for each resource
+	 * visited when the {@link IBatchValidator#OPTION_TRACK_RESOURCES}
+	 * option is set.  These will cue the {@link MarkerUtil} to clear markers
+	 * from resources that had no problems.
+	 * 
+	 * @param resources the resources covered by validation
+	 * 
+	 * @return the status
+	 */
+	private IStatus createDummyResourceStatus(Collection<Resource> resources) {
+		List<IStatus> result = new java.util.ArrayList<IStatus>(resources.size());
+		
+		for (Resource next : resources) {
+			if (next != null) {
+				// there must be at least one contained object, otherwise we
+				// couldn't have found this resource via EObject::eResource()
+				result.add(new ResourceStatus(next.getContents().get(0)));
+			}
+		}
+		
+		return result.isEmpty()
+			? Status.OK_STATUS
+			: (result.size() == 1)
+				? result.get(0)
+				: new MultiStatus(EMFModelValidationPlugin.getPluginId(), 0,
+					result.toArray(new IStatus[result.size()]), result.get(0)
+						.getMessage(), null);
 	}
 	
 	private static class DefaultRecursiveTraversalStrategy implements ITraversalStrategy {

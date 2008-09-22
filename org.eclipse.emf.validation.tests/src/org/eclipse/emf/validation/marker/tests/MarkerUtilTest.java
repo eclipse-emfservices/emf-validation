@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +9,11 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Zeligsoft - Bug 218765
  *
  * </copyright>
  *
- * $Id: MarkerUtilTest.java,v 1.2 2007/11/14 18:03:43 cdamus Exp $
+ * $Id: MarkerUtilTest.java,v 1.3 2008/09/22 06:11:23 cdamus Exp $
  */
 
 package org.eclipse.emf.validation.marker.tests;
@@ -33,10 +34,13 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.validation.marker.MarkerUtil;
+import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.tests.TestBase;
 
 
@@ -79,6 +83,47 @@ public class MarkerUtilTest
                 true, 0);
             
             assertFalse("No markers created", markers.length == 0); //$NON-NLS-1$
+        } catch (CoreException e) {
+            fail("Failed to find markers: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        }
+    }
+    
+    public void test_clearMarkersFromCleanResource_218765() {
+    	// track resources that were validated
+    	batchValidator.setOption(IBatchValidator.OPTION_TRACK_RESOURCES, Boolean.TRUE);
+    	
+        IStatus status = batchValidator.validate(testResource.getContents());
+
+        // assert that there will be markers to create
+        assertTrue(status.getSeverity() >= IStatus.WARNING);
+        
+        try {
+            MarkerUtil.updateMarkers(status);
+        } catch (CoreException e) {
+            fail("Failed to create markers: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        }
+        
+        // add a clean object
+        EAnnotation annot = EcoreFactory.eINSTANCE.createEAnnotation();
+        annot.setSource("clean"); //$NON-NLS-1$
+        testResource.getContents().add(annot);
+        
+        // validate the clean object
+        status = batchValidator.validate(annot);
+        
+        assertEquals(IStatus.OK, status.getSeverity());
+        
+        try {
+            MarkerUtil.updateMarkers(status);
+        } catch (CoreException e) {
+            fail("Failed to update markers: " + e.getLocalizedMessage()); //$NON-NLS-1$
+        }
+        
+        try {
+            IMarker[] markers = testFile.findMarkers(MarkerUtil.VALIDATION_MARKER_TYPE,
+                true, 0);
+            
+            assertEquals("Markers not cleared", 0, markers.length); //$NON-NLS-1$
         } catch (CoreException e) {
             fail("Failed to find markers: " + e.getLocalizedMessage()); //$NON-NLS-1$
         }

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,10 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 218765
+ *    
+ * $Id$
+ * 
  ****************************************************************************/
 
 
@@ -50,9 +54,9 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	private final Map<String, Object> clientData = new java.util.HashMap<String, Object>();
 	private final IProviderOperationExecutor executor;
 	
-	private boolean reportSuccesses = false;
-	
 	private Collection<IConstraintFilter> filters = null;
+	
+	private Map<Option<?>, ?> options = Collections.emptyMap();
 	
 	/**
 	 * Initializes me with the evaluation <code>mode</code> that I support and
@@ -67,6 +71,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	protected AbstractValidator(
 			EvaluationMode<T> mode,
 			IProviderOperationExecutor executor) {
+		
 		assert mode != null && !mode.isNull();
 		assert executor != null;
 		
@@ -85,14 +90,16 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	 * Implements the inherited method.
 	 */
 	public boolean isReportSuccesses() {
-		return reportSuccesses;
+		return getOption(OPTION_REPORT_SUCCESSES);
 	}
 
 	/* (non-Javadoc)
 	 * Implements the inherited method.
 	 */
 	public void setReportSuccesses(boolean reportSuccesses) {
-		this.reportSuccesses = reportSuccesses;
+		if (reportSuccesses != isReportSuccesses()) {
+			setOption(OPTION_REPORT_SUCCESSES, reportSuccesses);
+		}
 	}
 	
 	public void putClientData(String key, Object data) {
@@ -353,6 +360,40 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		}
         
 		return Collections.unmodifiableCollection(filters);
+	}
+	
+	public Map<Option<?>, ?> getOptions() {
+		return options;
+	}
+	
+	public void setOptions(Map<Option<?>, ?> options) {
+		if ((options == null) || options.isEmpty()) {
+			this.options = Collections.emptyMap();
+		} else {
+			Map<Option<?>, ?> clone = new java.util.HashMap<Option<?>, Object>(options);
+			this.options = Collections.unmodifiableMap(clone);
+		}
+	}
+	
+	public <V> V getOption(Option<V> option) {
+		@SuppressWarnings("unchecked")
+		V result = (V) getOptions().get(option);
+		return (result == null)? option.defaultValue(this) : result;
+	}
+	
+	public <V> void setOption(Option<? super V> option, V value) {
+		Map<Option<?>, Object> options = new java.util.HashMap<Option<?>, Object>(
+			getOptions());
+
+		if (option.defaultValue(this) == null
+			? value == null
+			: option.defaultValue(this).equals(value)) {
+			options.remove(option);
+		} else {
+			options.put(option, value);
+		}
+
+		setOptions(options);
 	}
 	
 	/**
