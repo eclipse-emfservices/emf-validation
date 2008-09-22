@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Damien Thivolle - Bug 218764
+ *   Zeligsoft - Bug 218764 (completion)
  *
  * </copyright>
  *
@@ -91,19 +93,7 @@ public class BatchValidationDelegate
 		try {
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				
-				Collection<?> selectedHunh = structuredSelection.toList();
-				for (Object next : selectedHunh) {
-					if (!(next instanceof EObject)) {
-						action.setEnabled(false);
-					}
-				}
-				
-				if (action.isEnabled()) {
-					this.selectedEObjects = (Collection<EObject>) selectedHunh;
-				} else {
-					this.selectedEObjects = null;
-				}
+				this.selectedEObjects = structuredSelection.toList();
 			}
 		} catch (Exception e) {
 			// Exceptions are not expected
@@ -113,6 +103,11 @@ public class BatchValidationDelegate
 			action.setEnabled((null != selectedEObjects));
 		}
 		
+		for (Object next : selectedEObjects) {
+			if (!(next instanceof EObject)) {
+				action.setEnabled(false);
+			}
+		}
 	}
 
 	/*
@@ -156,14 +151,16 @@ public class BatchValidationDelegate
 		
 		IBatchValidator validator = ModelValidationService.getInstance()
 			.newValidator(EvaluationMode.BATCH);
-		validator.setIncludeLiveConstraints(true);
+		// include live constraints, also, in batch validation
+		validator.setOption(IBatchValidator.OPTION_INCLUDE_LIVE_CONSTRAINTS, true);
+		// track the validated resources for accurate problem-marker updates
+		validator.setOption(IBatchValidator.OPTION_TRACK_RESOURCES, true);
 		
 		final IStatus status = validator.validate(selectedEObjects);
 		
 		if (status.isOK()) {
 			MessageDialog.openInformation(shell, title,
 				ValidationMessages.BatchValidationDelegate_successMessage);
-			return;
 		} else {
 			ListDialog dialog = new ListDialog(shell);
 			dialog.setInput(status);
@@ -218,7 +215,7 @@ public class BatchValidationDelegate
 		
 		// Create problem markers on the resources with validation failures/warnings.
 		try {
-			MarkerUtil.createMarkers(status);
+			MarkerUtil.updateMarkers(status);
 		} catch (CoreException e) {
 			ValidationPlugin.getDefault().getLog().log(e.getStatus());
 		}
