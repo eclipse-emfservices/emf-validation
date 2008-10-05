@@ -7,7 +7,8 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
- *    Zeligsoft - Bug 249690
+ *    Zeligsoft - Bugs 249690, 137213
+ *    Borland Software - Bug 137213
  *  
  * $Id$
  * 
@@ -24,8 +25,13 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -76,7 +82,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
 public class ModelValidationService {
 	private static final ModelValidationService instance = new ModelValidationService();
 	
-	private final Collection<IProviderDescriptor> constraintProviders =
+	private volatile Collection<IProviderDescriptor> constraintProviders =
 		new java.util.HashSet<IProviderDescriptor>();
 	
 	// latch to control multiple invocations of loadXmlConstraintDefinitions()
@@ -86,8 +92,40 @@ public class ModelValidationService {
 	
 	/** The one and only constraint provider that implements the cache. */
 	private ConstraintCache constraintCache;
-	
-	/**
+
+	private final Object providersLock = new Object();
+
+	private final IExtensionChangeHandler providersHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			Collection<IProviderDescriptor> added = registerProviders(extension
+				.getConfigurationElements());
+			for (IProviderDescriptor pd : added) {
+				tracker
+					.registerObject(extension, pd, IExtensionTracker.REF_SOFT);
+			}
+			if (xmlConstraintDeclarationsLoaded) {
+				loadXmlConstraintDeclarations(added);
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// constraints cannot be removed from the system
+		}
+	};
+
+	private final IExtensionChangeHandler listenersHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			registerListeners(extension.getConfigurationElements());
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// listeners cannot be undefined
+		}
+	};
+
+    /**
 	 * Cannot be instantiated by clients.
 	 */
 	private ModelValidationService() {
@@ -102,9 +140,8 @@ public class ModelValidationService {
      * <tt>constraintProviders</tt> extension configurations.
      */
     private void configureConstraints() {
-        IConfigurationElement[] configs =
-            Platform.getExtensionRegistry().getConfigurationElementsFor(
-                EMFModelValidationPlugin.getPluginId(),
+    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+    			EMFModelValidationPlugin.getPluginId(),
                 EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
         
         constraintCache = new ConstraintCache();
@@ -113,55 +150,98 @@ public class ModelValidationService {
 
         // include the cache in my collection of providers
         providers.add(constraintCache.getDescriptor());
-        
-        for (IConfigurationElement element : configs) {
-            if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
-                try {
-                    IProviderDescriptor descriptor =
-                        new ProviderDescriptor(element);
-                    
-                    if (descriptor.isCacheEnabled()) {
-                        constraintCache.addProvider(descriptor);
-        
-                        if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
-                            Trace.trace(
-                                    EMFModelValidationDebugOptions.PROVIDERS,
-                                    "Added provider to cache: " + descriptor); //$NON-NLS-1$
-                        }
-                    } else {
-                        providers.add(descriptor);
-        
-                        if (Trace.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
-                            Trace.trace(
-                                    EMFModelValidationDebugOptions.PROVIDERS,
-                                    "Loaded uncacheable provider: " + descriptor); //$NON-NLS-1$
-                        }
-                    }
-                } catch (CoreException e) {
-                    Trace.catching(getClass(), "configureProviders()", e); //$NON-NLS-1$
-                    
-                    Log.log(e.getStatus());
-                }
-            }
-        }
+
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		if (extTracker != null) {
+			extTracker.registerHandler(providersHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+
+			// chain known extensions through the same mechanism as dynamic
+			for (IExtension extension : extPoint.getExtensions()) {
+				providersHandler.addExtension(extTracker, extension);
+			}
+		}
     }
+
+	private Collection<IProviderDescriptor> registerProviders(
+			IConfigurationElement[] configs) {
+		List<IProviderDescriptor> result = new java.util.ArrayList<IProviderDescriptor>();
+
+		synchronized (providersLock) {
+			// copy on write
+			constraintProviders = new java.util.HashSet<IProviderDescriptor>(
+				getProviders());
+			
+			for (IConfigurationElement element : configs) {
+				if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
+					try {
+						IProviderDescriptor descriptor = new ProviderDescriptor(
+							element);
+
+						if (descriptor.isCacheEnabled()) {
+							constraintCache.addProvider(descriptor);
+
+							if (Trace
+								.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
+								Trace.trace(
+									EMFModelValidationDebugOptions.PROVIDERS,
+									"Added provider to cache: " + descriptor); //$NON-NLS-1$
+							}
+						} else {
+							constraintProviders.add(descriptor);
+
+							if (Trace
+								.shouldTrace(EMFModelValidationDebugOptions.PROVIDERS)) {
+								Trace
+									.trace(
+										EMFModelValidationDebugOptions.PROVIDERS,
+										"Loaded uncacheable provider: " + descriptor); //$NON-NLS-1$
+							}
+						}
+
+						result.add(descriptor);
+					} catch (CoreException e) {
+						Trace.catching(getClass(), "registerProviders()", e); //$NON-NLS-1$
+
+						Log.log(e.getStatus());
+					}
+				}
+			}
+		}
+
+		return result;
+	}
 
     /**
      * Configures validation listeners based on the
      * <tt>validationListeners</tt> extension configurations.
      */
     private void configureListeners() {
-        IConfigurationElement[] configs =
-            Platform.getExtensionRegistry().getConfigurationElementsFor(
+    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
                 EMFModelValidationPlugin.getPluginId(),
                 EMFModelValidationPlugin.VALIDATION_LISTENERS_EXT_P_NAME);
-        
+    	
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(listenersHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+			
+			for (IExtension extension : extPoint.getExtensions()) {
+				listenersHandler.addExtension(extTracker, extension);
+			}
+		}
+    }
+    
+    private void registerListeners(IConfigurationElement[] configs) {
         for (IConfigurationElement element : configs) {
             if (element.getName().equals("listener")) { //$NON-NLS-1$
                 try {
                     addValidationListener(new LazyListener(element));
                 } catch (CoreException e) {
-                    Trace.catching(getClass(), "configureListeners()", e); //$NON-NLS-1$
+                    Trace.catching(getClass(), "registerListeners()", e); //$NON-NLS-1$
                     
                     Log.log(e.getStatus());
                 }
@@ -394,7 +474,13 @@ public class ModelValidationService {
 	 * @param operation the operation to execute
 	 */
 	private <S> S execute(IProviderOperation<? extends S> operation) {
-		for (Iterator<IProviderDescriptor> iter = getProviders().iterator(); iter.hasNext(); ) {
+		Collection<IProviderDescriptor> providersCopy;
+		synchronized (providersLock) {
+			providersCopy = getProviders();
+		}
+		for (Iterator<IProviderDescriptor> iter = providersCopy.iterator(); iter
+			.hasNext();) {
+			
 			IProviderDescriptor next = iter.next();
 
 			if (next.provides(operation)) {
@@ -435,12 +521,16 @@ public class ModelValidationService {
 		if (!xmlConstraintDeclarationsLoaded) {
 			xmlConstraintDeclarationsLoaded = true;
 			
-			loadXmlConstraintDeclarations(getProviders());
+			Collection<IProviderDescriptor> providersCopy;
+			synchronized (providersLock) {
+				providersCopy = getProviders();
+			}
+			loadXmlConstraintDeclarations(providersCopy);
 		}
 	}
 	
 	/**
-	 * Helper method to load the constraint declarations frm the specified
+	 * Helper method to load the constraint declarations from the specified
 	 * <code>providers</code>.  Note that only the
 	 * {@link IProviderDescriptor#isXmlProvider XML-based} providers are
 	 * consulted.

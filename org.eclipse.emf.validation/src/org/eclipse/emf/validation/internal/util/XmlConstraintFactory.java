@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,13 +7,19 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 137213
  ****************************************************************************/
 
 
 package org.eclipse.emf.validation.internal.util;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
@@ -49,6 +55,21 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	/** Mapping of language names to parser implementations. */
 	private final java.util.Map<String, IConstraintParser> parserMap =
 		new java.util.HashMap<String, IConstraintParser>();
+
+	private final Object parsersLock = new Object();
+
+	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			synchronized (parsersLock) {
+				registerParsers(extension.getConfigurationElements());
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// constraint parsers cannot be undefined
+		}
+	};
 
 	/**
 	 * Initializes me.  I load my parsers from the <tt>constraintParsers</tt>
@@ -210,11 +231,24 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * extension point.
 	 */
 	private void initializeParsers() {
-		IConfigurationElement[] configs = 
-			Platform.getExtensionRegistry().getConfigurationElementsFor(
-				EMFModelValidationPlugin.getPluginId(),
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
 				CONSTRAINT_PARSERS_EXT_P_NAME);
-
+		
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+			
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
+			}
+		}
+	}
+	
+	private void registerParsers(IConfigurationElement[] configs) {
 		for (IConfigurationElement config : configs) {
 			registerParser(config);
 		}

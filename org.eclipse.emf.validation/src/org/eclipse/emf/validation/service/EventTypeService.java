@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
- *    Zeligsoft - Bug 249690
+ *    Zeligsoft - Bugs 249690, 137213
  ****************************************************************************/
 
 
@@ -20,7 +20,12 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.util.Log;
@@ -46,7 +51,20 @@ public class EventTypeService {
 	private static final String A_FEATURE_SPECIFIC = "featureSpecific"; //$NON-NLS-1$
 	private static final String A_NOTIFICATION_GENERATOR = "notificationGenerator"; //$NON-NLS-1$
 	
-	private final Map<String, INotificationGenerator> notificationGenerators;
+	private volatile Map<String, INotificationGenerator> notificationGenerators;
+
+	private final Object eventTypesLock = new Object();
+
+	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			registerEventTypes(extension.getConfigurationElements());
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// event-types cannot be undefined
+		}
+	};
 	
 	/**
 	 * Cannot be instantiated by clients.
@@ -62,34 +80,57 @@ public class EventTypeService {
      * <tt>eventTypes</tt> extension configuration
      */
     private void configureEventTypes() {
-        IConfigurationElement[] configs =
-            Platform.getExtensionRegistry().getConfigurationElementsFor(
-                EMFModelValidationPlugin.getPluginId(),
-                EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
-        
-        for (IConfigurationElement element : configs) {
-            if (element.getName().equals("eventType")) { //$NON-NLS-1$
-                try {
-                    String name = element.getAttribute(A_NAME);
-                    if ((name != null) && (name.length() > 0)) {
-                        EMFEventType.addEventType(name,
-                                Boolean.valueOf(element.getAttribute(A_FEATURE_SPECIFIC)).booleanValue()
-                                );
-                        
-                        String notificationGenerator = element.getAttribute(A_NOTIFICATION_GENERATOR);
-                        if ((notificationGenerator != null) && (notificationGenerator.length() > 0)) {
-                            notificationGenerators.put(
-                                name,
-                                (INotificationGenerator) element.createExecutableExtension(A_NOTIFICATION_GENERATOR));
-                        }
-                    }
-                } catch (CoreException e) {
-                    Trace.catching(getClass(), "configureEventTypes()", e); //$NON-NLS-1$
-                    
-                    Log.log(e.getStatus());
-                }
-            }
-        }
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+				EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
+	
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+			
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
+			}
+		}
+    }
+    
+    private void registerEventTypes(IConfigurationElement[] configs) {
+		synchronized (eventTypesLock) {
+			// copy on write
+			notificationGenerators = new java.util.HashMap<String, INotificationGenerator>(
+				notificationGenerators);
+
+			for (IConfigurationElement element : configs) {
+				if (element.getName().equals("eventType")) { //$NON-NLS-1$
+					try {
+						String name = element.getAttribute(A_NAME);
+						if ((name != null) && (name.length() > 0)) {
+							EMFEventType.addEventType(name, Boolean.valueOf(
+								element.getAttribute(A_FEATURE_SPECIFIC))
+								.booleanValue());
+
+							String notificationGenerator = element
+								.getAttribute(A_NOTIFICATION_GENERATOR);
+							if ((notificationGenerator != null)
+								&& (notificationGenerator.length() > 0)) {
+								notificationGenerators
+									.put(
+										name,
+										(INotificationGenerator) element
+											.createExecutableExtension(A_NOTIFICATION_GENERATOR));
+							}
+						}
+					} catch (CoreException e) {
+						Trace.catching(getClass(), "registerEventTypes()", e); //$NON-NLS-1$
+
+						Log.log(e.getStatus());
+					}
+				}
+			}
+		}
     }
 
 	/**
@@ -128,7 +169,9 @@ public class EventTypeService {
 	 * @return collection of notification generators
 	 */
 	public Collection<INotificationGenerator> getNotificationGenerators() {
-		return Collections.unmodifiableCollection(notificationGenerators.values());
+		synchronized (eventTypesLock) {
+			return Collections.unmodifiableCollection(notificationGenerators.values());
+		}
 	}
 	
 	/**
@@ -140,6 +183,8 @@ public class EventTypeService {
 	 *         null otherwise
 	 */
 	public INotificationGenerator getNotificationGenerator(String eventName) {
-		return notificationGenerators.get(eventName);
+		synchronized (eventTypesLock) {
+			return notificationGenerators.get(eventName);
+		}
 	}
 }

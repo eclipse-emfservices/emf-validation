@@ -15,7 +15,6 @@ package org.eclipse.emf.validation.ui.internal;
 import java.lang.ref.SoftReference;
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +25,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IValidationListener;
@@ -63,7 +65,27 @@ public class LiveValidationListener
 	private static final String EP_UI_REGISTERED_CLIENT_CONTEXTS = "org.eclipse.emf.validation.ui.UIRegisteredClientContext"; //$NON-NLS-1$
 	private static final String A_ID = "id"; //$NON-NLS-1$
 	
-	private static SoftReference<Set<String>> registeredClientContextIds = null;
+	private static volatile SoftReference<Set<String>> registeredClientContextIds = null;
+
+	private static final Object clientContextsLock = new Object();
+
+	private static final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			synchronized (clientContextsLock) {
+				if ((registeredClientContextIds != null)
+					&& (registeredClientContextIds.get() != null)) {
+					
+					registerClientContextIDs(extension
+						.getConfigurationElements());
+				}
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// client-context IDs cannot be undefined
+		}
+	};
 	
     /**
      * Helper object for creating message to output view.
@@ -100,25 +122,18 @@ public class LiveValidationListener
 	 */
     private synchronized static boolean isSupportedClientContexts(
     		Collection<String> clientContextIds) {
-		Set<String> registeredIds = registeredClientContextIds != null
-			? registeredClientContextIds.get() : null;
-			
-    	if (registeredIds == null) {
-    		registeredIds = new HashSet<String>();
-			registeredClientContextIds = new SoftReference<Set<String>>(registeredIds);
-			
-			IExtensionPoint point = Platform.getExtensionRegistry().getExtensionPoint(EP_UI_REGISTERED_CLIENT_CONTEXTS);
-			IExtension[] extensions = point.getExtensions();
-			
-			for (IExtension element : extensions) {
-				IConfigurationElement[] elements = element.getConfigurationElements();
+		Set<String> registeredIds;
+		
+		synchronized (clientContextsLock) {
+			registeredIds = registeredClientContextIds != null
+				? registeredClientContextIds.get() : null;
 				
-				for (IConfigurationElement element2 : elements) {
-					registeredIds.add(element2.getAttribute(A_ID));
-				}
+	    	if (registeredIds == null) {
+	    		initializeClientContextIDs();
+	    		registeredIds = registeredClientContextIds.get();
 			}
 		}
-    	
+		
     	for (String next : clientContextIds) {
     		if (registeredIds.contains(next)) {
     			return true;
@@ -127,9 +142,45 @@ public class LiveValidationListener
     	
     	return false;
 	}
+    
+    private static void initializeClientContextIDs() {
+		IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+			EP_UI_REGISTERED_CLIENT_CONTEXTS);
+		
+		IExtensionTracker extTracker = ValidationUIPlugin.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+			
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
+			}
+		}
+    }
+    
+    private static void registerClientContextIDs(IConfigurationElement[] configs) {
+    	synchronized (clientContextsLock) {
+			Set<String> registeredIds = (registeredClientContextIds == null)
+				? null
+				: registeredClientContextIds.get();
+			
+			// copy on write
+			if (registeredIds == null) {
+				registeredIds = new java.util.HashSet<String>();
+			} else {
+				registeredIds = new java.util.HashSet<String>(registeredIds);
+			}
+			registeredClientContextIds = new SoftReference<Set<String>>(registeredIds);
+			
+			for (IConfigurationElement next : configs) {
+				registeredIds.add(next.getAttribute(A_ID));
+			}
+    	}
+    }
 
 	/**
-     * Dispays any problem messages from live validation on the output view.
+     * Displays any problem messages from live validation on the output view.
      * If there are any messages, the view is brought forth (if it is open).
      * 
      * @param event the live validation occurred event

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,8 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Borland Software - Bug 137213
+ *    Zeligsoft - Bug 137213
  ****************************************************************************/
 
 
@@ -19,10 +21,13 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.osgi.util.NLS;
+import org.osgi.framework.BundleContext;
 
 /**
  * <p>
@@ -35,8 +40,6 @@ import org.eclipse.osgi.util.NLS;
  * @author Christian W. Damus (cdamus)
  */
 public final class EMFModelValidationPlugin extends EMFPlugin {
-	//TODO This plugin class contains many of the tracing options in common with other plugins. Perhaps these should be conglomerated so that they share alot of this code?
-
 	///
 	// TRACING STRINGS
 	//
@@ -199,11 +202,23 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	}
 
 	/**
+	 * @return utility to track extensions managed by this bundle
+	 */
+	public static IExtensionTracker getExtensionTracker() {
+		return (plugin == null)? null : plugin.extensionTracker;
+	}
+
+	/**
 	 * The definition of the Eclipse plug-in flavour of this EMF plug-in.
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
 	public static class Implementation extends EMFPlugin.EclipsePlugin {
+		/**
+		 * Track extensions for extension points defined in this bundle.
+		 */
+		private ExtensionTracker extensionTracker = new ExtensionTracker();
+
 		/**
 		 * Initializes me with my Eclipse plug-in descriptor.
 		 */
@@ -213,6 +228,23 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 			// Remember the static instance.
 			//
 			EMFModelValidationPlugin.plugin = this;
+		}
+
+		@Override
+		public void start(BundleContext context)
+				throws Exception {
+			
+			super.start(context);
+			
+			extensionTracker = new ExtensionTracker();
+		}
+		
+		@Override
+		public void stop(BundleContext context) throws Exception {
+			extensionTracker.close();
+			extensionTracker = null;
+			
+			super.stop(context);
 		}
 	}
 	

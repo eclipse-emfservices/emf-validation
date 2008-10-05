@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 137213
  ****************************************************************************/
 
 
@@ -17,7 +18,12 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -52,8 +58,21 @@ class TraversalStrategyManager {
 	private static final TraversalStrategyManager INSTANCE =
 		new TraversalStrategyManager();
 	
-	private final Map<String, Descriptor> packageDescriptors =
+	private volatile Map<String, Descriptor> packageDescriptors =
 	    new java.util.HashMap<String, Descriptor>();
+
+	private final Object traversalsLock = new Object();
+
+	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			registerTraversals(extension.getConfigurationElements());
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// traversal strategies cannot be undefined
+		}
+	};
 	
 	/**
 	 * Not instantiated by clients.
@@ -95,16 +114,35 @@ class TraversalStrategyManager {
 	 * required by a validation operation.
 	 */
 	private void initStrategies() {
-		IConfigurationElement[] strats =
-			Platform.getExtensionRegistry().getConfigurationElementsFor(
-				EMFModelValidationPlugin.getPluginId(),
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
 				TRAVERSAL_EXT_P_NAME);
 		
-		for (int i = 0; i < strats.length; i++) {
-			IConfigurationElement config = strats[i];
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
 			
-			if (config.getName().equals(E_TRAVERSAL_STRATEGY)) {
-				addStrategy(config);
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
+			}
+		}
+	}
+	
+	private void registerTraversals(IConfigurationElement[] configs) {
+		synchronized (traversalsLock) {
+			// copy on write
+			packageDescriptors = new java.util.HashMap<String, Descriptor>(
+				packageDescriptors);
+			
+			for (int i = 0; i < configs.length; i++) {
+				IConfigurationElement config = configs[i];
+				
+				if (config.getName().equals(E_TRAVERSAL_STRATEGY)) {
+					addStrategy(config);
+				}
 			}
 		}
 	}

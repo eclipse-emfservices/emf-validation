@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,9 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
- ****************************************************************************/
+ *    Borland Software - Bug 137213
+ *    Zeligsoft - Bug 137213
+  ****************************************************************************/
 
 
 package org.eclipse.emf.validation.model;
@@ -16,7 +18,12 @@ import java.util.Collection;
 import java.util.SortedSet;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
@@ -44,7 +51,24 @@ public class CategoryManager {
 	private static final CategoryManager INSTANCE = new CategoryManager();
 	
 	private final Category globalCategory = Category.GLOBAL_NAMESPACE;
-	
+
+	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			for (IConfigurationElement next : extension
+				.getConfigurationElements()) {
+				
+				if (next.getName().equals(XmlConfig.E_CATEGORY)) {
+					loadCategories(globalCategory, next);
+				}
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// category definitions cannot be removed
+		}
+	};
+
 	static {
 		// these methods (transitively) need to access the INSTANCE through
 		//   the getInstance() method, so it must already be assigned before
@@ -230,14 +254,18 @@ public class CategoryManager {
 	 * point.
 	 */
 	private void loadCategories() {
-		IConfigurationElement[] elements = Platform.getExtensionRegistry().getExtensionPoint(
-				EMFModelValidationPlugin.getPluginId(),
-				EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME)
-					.getConfigurationElements();
-		
-		for (IConfigurationElement next : elements) {
-			if (next.getName().equals(XmlConfig.E_CATEGORY)) {
-				loadCategories(globalCategory, next);
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+				EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
+
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+	
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
 			}
 		}
 	}

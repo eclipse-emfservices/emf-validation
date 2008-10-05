@@ -1,12 +1,14 @@
 /******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
+ *    Zeligsoft - Bug 137213
+ *    Borland Software - Bug 137213
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.service;
@@ -20,8 +22,13 @@ import java.util.Set;
 import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -51,11 +58,32 @@ public class ClientContextManager {
 	
 	private static final ClientContextManager INSTANCE = new ClientContextManager();
 	
-	private final Set<IClientContext> clientContexts = new java.util.HashSet<IClientContext>();
-	private final Map<String, IClientContext> clientContextMap = new java.util.HashMap<String, IClientContext>();
+	private volatile Set<IClientContext> clientContexts = new java.util.HashSet<IClientContext>();
+	private volatile Map<String, IClientContext> clientContextMap = new java.util.HashMap<String, IClientContext>();
 	
-	private final Set<ClientContext> defaultContexts = new java.util.HashSet<ClientContext>();
-	
+	private volatile Set<ClientContext> defaultContexts = new java.util.HashSet<ClientContext>();
+
+	private final Object clientContextLock = new Object();
+
+	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			// must create all of the contexts before we process the bindings.
+			// Hence, this will loop over the elements twice
+			IConfigurationElement[] configs = extension
+				.getConfigurationElements();
+			
+			synchronized (clientContextLock) {
+				configureClientContexts(configs);
+				configureBindings(configs);
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// client-contexts cannot be undefined
+		}
+	};
+
 	/**
 	 * Not instantiable by clients.
 	 */
@@ -70,15 +98,21 @@ public class ClientContextManager {
      * <tt>constraintBindings</tt> extension configurations.
      */
     private void configureConstraintBindings() {
-        IConfigurationElement[] configs =
-            Platform.getExtensionRegistry().getConfigurationElementsFor(
-                EMFModelValidationPlugin.getPluginId(),
-                EMFModelValidationPlugin.CONSTRAINT_BINDINGS_EXT_P_NAME);
-        
-        // must create all of the contexts before we process the bindings.
-        //   Hence, this will loop over the elements twice
-        configureClientContexts(configs);
-        configureBindings(configs);
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+				EMFModelValidationPlugin.CONSTRAINT_BINDINGS_EXT_P_NAME);
+
+		IExtensionTracker extTracker = EMFModelValidationPlugin
+			.getExtensionTracker();
+		
+		if (extTracker != null) {
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+			
+			for (IExtension extension : extPoint.getExtensions()) {
+				extensionHandler.addExtension(extTracker, extension);
+			}
+		}
     }
 
 	/**
@@ -122,8 +156,14 @@ public class ClientContextManager {
 		Collection<IClientContext> result = new java.util.ArrayList<IClientContext>();
 		
 		EvaluationContext ctx = new EvaluationContext(null, eObject);
-		
-		for (Iterator<IClientContext> iter = getClientContexts().iterator(); iter.hasNext();) {
+
+		Collection<IClientContext> contextsCopy;
+		synchronized (clientContextLock) {
+			contextsCopy = getClientContexts();
+		}
+		for (Iterator<IClientContext> iter = contextsCopy.iterator(); iter
+			.hasNext();) {
+			
 			IClientContext next = iter.next();
 			IClientSelector selector = next.getSelector();
 			
@@ -139,9 +179,11 @@ public class ClientContextManager {
 				// client context selectors must not throw exceptions.  This one
 				//   will not be trusted in future validation operations.  This
 				//   is effected by removing it from the context manager
-				iter.remove();
-				clientContextMap.remove(next.getId());
-				defaultContexts.remove(next); // in case it is a default context
+				synchronized (clientContextLock) {
+					clientContexts.remove(next);
+					clientContextMap.remove(next.getId());
+					defaultContexts.remove(next); // in case it is a default context
+				}
 				
 				Trace.catching(getClass(), "getClientContextsFor", e); //$NON-NLS-1$
 				Log.log(
@@ -334,6 +376,11 @@ public class ClientContextManager {
 	 *     <code>constraintBindings</code> extension point
 	 */
 	private void configureClientContexts(IConfigurationElement[] elements) {
+		// copy on write
+		clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
+		clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
+		defaultContexts = new java.util.HashSet<ClientContext>(defaultContexts);
+		
 		for (IConfigurationElement config : elements) {
 			if (E_CLIENT_CONTEXT.equals(config.getName())) {
 				try {

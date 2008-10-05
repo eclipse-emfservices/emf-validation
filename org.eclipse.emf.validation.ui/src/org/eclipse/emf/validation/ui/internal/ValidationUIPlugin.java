@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Zeligsoft - Bug 137213
  *
  * </copyright>
  *
@@ -23,12 +24,15 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
+import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.osgi.framework.BundleContext;
 
 /**
  * Plug-in class for the EMF Model Validation UI plug-in.
@@ -37,8 +41,6 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  */
 public class ValidationUIPlugin
 	extends EMFPlugin {
-
-	//TODO This plugin class contains many of the tracing options in common with other plugins. Perhaps these should be conglomerated so that they share alot of this code?
 
 	///
 	// TRACING STRINGS
@@ -150,10 +152,22 @@ public class ValidationUIPlugin
         return plugin;
     }
 
+	/**
+	 * @return utility to track extensions managed by this bundle
+	 */
+	public static IExtensionTracker getExtensionTracker() {
+		return (plugin == null)? null : plugin.extensionTracker;
+	}
+
     /**
      * The Eclipse plug-in implementation that represents the EMF plug-in.
      */
     public static class Implementation extends EclipsePlugin {
+		/**
+		 * Track extensions for extension points defined in this bundle.
+		 */
+		private ExtensionTracker extensionTracker = new ExtensionTracker();
+
     	private IPreferenceStore preferenceStore;
     	
     	/** Initializes me. */
@@ -164,6 +178,23 @@ public class ValidationUIPlugin
             //
             plugin = this;
         }
+
+		@Override
+		public void start(BundleContext context)
+				throws Exception {
+			
+			super.start(context);
+			
+			extensionTracker = new ExtensionTracker();
+		}
+		
+		@Override
+		public void stop(BundleContext context) throws Exception {
+			extensionTracker.close();
+			extensionTracker = null;
+			
+			super.stop(context);
+		}
         
         public IPreferenceStore getPreferenceStore() {
             // Create the preference store lazily.
