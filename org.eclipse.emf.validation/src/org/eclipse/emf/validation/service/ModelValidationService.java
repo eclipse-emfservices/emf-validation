@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,10 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 249690
+ *  
+ * $Id$
+ * 
  ****************************************************************************/
 
 
@@ -424,6 +428,8 @@ public class ModelValidationService {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
+	 * 
+	 * @noreference This method is not intended to be called by clients.
 	 */
 	public void loadXmlConstraintDeclarations() {
 		if (!xmlConstraintDeclarationsLoaded) {

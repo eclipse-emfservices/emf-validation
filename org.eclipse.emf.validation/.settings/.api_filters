@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component id="org.eclipse.emf.validation" version="2">
+<resource path="src/org/eclipse/emf/validation/service/ConstraintFactory.java" type="org.eclipse.emf.validation.service.ConstraintFactory">
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.service.ConstraintFactory"/>
+<message_argument value="getInstance()"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.service.ConstraintFactory"/>
+<message_argument value="newConstraint(IConstraintDescriptor)"/>
+</message_arguments>
+</filter>
+</resource>
+<resource path="src/org/eclipse/emf/validation/service/ModelValidationService.java" type="org.eclipse.emf.validation.service.ModelValidationService">
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.service.ModelValidationService"/>
+<message_argument value="loadXmlConstraintDeclarations()"/>
+</message_arguments>
+</filter>
+</resource>
+<resource path="src/org/eclipse/emf/validation/service/EventTypeService.java" type="org.eclipse.emf.validation.service.EventTypeService">
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.service.EventTypeService"/>
+<message_argument value="configureEventTypes(IConfigurationElement[])"/>
+</message_arguments>
+</filter>
+</resource>
+<resource path="src/org/eclipse/emf/validation/util/XmlConfig.java" type="org.eclipse.emf.validation.util.XmlConfig">
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="parseConstraintsWithIncludes(IConfigurationElement)"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="getParameterValues(IConfigurationElement, String)"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="flushResourceBundles()"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="getEvents(IConfigurationElement)"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="getParameter(IConfigurationElement, String)"/>
+</message_arguments>
+</filter>
+<filter id="338944126">
+<message_arguments>
+<message_argument value="org.eclipse.emf.validation.util.XmlConfig"/>
+<message_argument value="load(IConfigurationElement, URL)"/>
+</message_arguments>
+</filter>
+</resource>
+</component>

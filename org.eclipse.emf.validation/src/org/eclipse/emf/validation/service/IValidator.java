@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
- *    Zeligsoft - Bug 218765
+ *    Zeligsoft - Bugs 218765, 249690
  *    
  * $Id$
  * 
@@ -76,6 +76,8 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  * @see ModelValidationService#newValidator(EvaluationMode)
  * 
  * @author Christian W. Damus (cdamus)
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
  */
 public interface IValidator<T> {
 	/**

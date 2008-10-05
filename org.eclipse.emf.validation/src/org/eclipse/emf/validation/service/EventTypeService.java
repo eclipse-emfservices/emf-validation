@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
 
@@ -113,6 +114,8 @@ public class EventTypeService {
 	 * @param elements 
 	 * 
 	 * @deprecated 1.2 This method is no longer implemented
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	@Deprecated
     public void configureEventTypes(IConfigurationElement[] elements) {

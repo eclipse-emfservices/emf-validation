@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
 
@@ -49,6 +50,9 @@ import com.ibm.icu.util.StringTokenizer;
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
+ * 
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
 public class XmlConfig {
 	//
@@ -114,6 +118,8 @@ public class XmlConfig {
 	 *   configurations
 	 * @throws CoreException if there is any problem either in accessing an
 	 *   existing configuration element or in parsing the XML to create new ones
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static IConfigurationElement parseConstraintsWithIncludes(
 			IConfigurationElement constraints) throws CoreException {
@@ -161,6 +167,8 @@ public class XmlConfig {
 	 *     is defined
 	 * 
 	 * @see #getParameterValues
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static String getParameter(
 		IConfigurationElement constraint,
@@ -198,6 +206,8 @@ public class XmlConfig {
 	 *    <code>null</code>) if no occurrences of the parameter are found
 	 * 
 	 * @see #getParameter
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static String[] getParameterValues(
 		IConfigurationElement constraint,
@@ -363,6 +373,8 @@ public class XmlConfig {
 	 * @return the configuration element representing the XML document
 	 * @throws CoreException on any problem accessing a configuration element
 	 *    or parsing an XML file
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static IConfigurationElement load(IConfigurationElement parent, URL url)
 			throws CoreException {
@@ -413,6 +425,8 @@ public class XmlConfig {
 	/**
 	 * Flushes the resource bundles that were loaded for localization of strings
 	 * in an XML constraint provider's XML constraint declarations.
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static void flushResourceBundles() {
 		ConstraintsContentHandler.flushResourceBundleCache();
@@ -426,6 +440,7 @@ public class XmlConfig {
      * @return its event children
      * 
      * @since 1.1
+     * @noreference This method is not intended to be referenced by clients.
      */
     public static IConfigurationElement[] getEvents(IConfigurationElement config) {
         IConfigurationElement[] events = config.getChildren(E_EVENT);

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
 
@@ -28,6 +29,8 @@ import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
+ * 
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public abstract class ConstraintFactory {
 	private static ConstraintFactory instance = new XmlConstraintFactory();
@@ -43,6 +46,8 @@ public abstract class ConstraintFactory {
 	 * Obtains the currently registered factory instance.
 	 * 
 	 * @return the constraint factory instance
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static ConstraintFactory getInstance() {
 		return instance;
@@ -95,12 +100,14 @@ public abstract class ConstraintFactory {
 	 * constraint if the <code>descriptor</code> is invalid).  This method
 	 * delegates to the superclass implementation of the
 	 * {@link #createConstraint} method.
-	 *  
+	 * 
 	 * @param descriptor the constraint descriptor
 	 * @return the corresponding constraint implementation
 	 * @see #createConstraint
 	 * 
 	 * @since 1.1
+	 * 
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final IModelConstraint newConstraint(
 			IConstraintDescriptor descriptor) {
