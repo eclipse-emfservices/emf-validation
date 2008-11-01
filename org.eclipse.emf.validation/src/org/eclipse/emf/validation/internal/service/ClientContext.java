@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation
- *    Zeligsoft - Bug 249496
+ *    Zeligsoft - Bugs 249496, 252302
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.service;
@@ -30,6 +30,7 @@ import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.util.XmlConfig;
+import org.eclipse.osgi.util.NLS;
 
 
 /**
@@ -48,9 +49,9 @@ public class ClientContext
 	private static final String E_ENABLEMENT = "enablement"; //$NON-NLS-1$
 	private static final String E_SELECTOR = "selector"; //$NON-NLS-1$
 	
-	private final String id;
-	private final IClientSelector selector;
-	private final boolean isDefault;
+	private String id;
+	private IClientSelector selector;
+	private boolean isDefault;
 	
 	// map of String constraint IDs that are bound to me, the boolean value
 	// indicating absolute inclusion or exclusion.  Absence of a value means
@@ -71,6 +72,48 @@ public class ClientContext
 	 *    <code>config</code>uration or if anything is missing or incorrect
 	 */
 	public ClientContext(IConfigurationElement config) throws CoreException {
+		initialize(config);
+	}
+	
+	/**
+	 * Initializes me as an implicit client context, required by some binding in
+	 * the specified <tt>bindingContributorID</tt> plug-in. Later processing of
+	 * an extension that defines my details will complete my definition.
+	 * 
+	 * @param id
+	 *            my ID
+	 * @param bindingContributorID
+	 *            the ID of a plug-in that is binding some constraints to me
+	 * 
+	 * @since 1.3
+	 */
+	public ClientContext(String id, final String bindingContributorID) {
+		this.id = id;
+		this.isDefault = false;
+		this.selector = new IClientSelector() {
+
+			public boolean selects(Object object) {
+				// if my selector definition isn't eventually specified, then
+				// I basically don't exist
+				throw new IllegalStateException(NLS.bind(
+					ValidationMessages.binding_noSuchContext_ERROR_,
+					bindingContributorID));
+			}
+		};
+	}
+	
+	/**
+	 * Initializes me with my XML configuration.
+	 * 
+	 * @param config
+	 *            my XML configuration element
+	 * @throws CoreException
+	 *             on any problem in accessing the <code>config</code>uration or
+	 *             if anything is missing or incorrect
+	 * 
+	 * @since 1.3
+	 */
+	void initialize(IConfigurationElement config) throws CoreException {
 		id = initializeId(config);
 		selector = initializeSelector(config);
 		isDefault = initializeDefault(config);

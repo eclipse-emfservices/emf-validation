@@ -12,7 +12,7 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
- *   Zeligsoft - Bug 249496
+ *   Zeligsoft - Bugs 249496, 252302
  *
  * </copyright>
  *
@@ -544,25 +544,8 @@ success = target.foo()
          </constraints>
       </constraintProvider>
    </extension>
-   <!-- A client-context only used for inclusion/exclusion testing -->
+   <!-- Constraint bindings used for inclusion/exclusion testing -->
    <extension point="org.eclipse.emf.validation.constraintBindings">
-      <clientContext
-            id="org.eclipse.emf.validation.tests.testContextToExtend">
-          <enablement>
-            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
-         </enablement>
-      </clientContext>
-      <binding context="org.eclipse.emf.validation.tests.testContextToExtend">
-         <category ref="clientContextTest/one/two/three"/>
-      </binding>
-   </extension>
-   <extension point="org.eclipse.emf.validation.constraintBindings">
-      <clientContext
-            id="org.eclipse.emf.validation.tests.testcontext">
-          <enablement>
-            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
-         </enablement>
-      </clientContext>
       <binding context="org.eclipse.emf.validation.tests.testcontext">
          <category ref="clientContextTest/one"/>
          <excludeCategory ref="clientContextTest/one/two"/>
@@ -572,5 +555,23 @@ success = target.foo()
          <constraint ref="org.eclipse.emf.validation.tests.clientContext.2.2"/>
          <constraint ref="org.eclipse.emf.validation.tests.clientContext.3a.2"/>
       </binding>
+      <binding context="org.eclipse.emf.validation.tests.testContextToExtend">
+         <category ref="clientContextTest/one/two/three"/>
+      </binding>
+   </extension>
+   <!-- Client contexts only used for inclusion/exclusion testing -->
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            id="org.eclipse.emf.validation.tests.testContextToExtend">
+          <enablement>
+            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
+         </enablement>
+      </clientContext>
+      <clientContext
+            id="org.eclipse.emf.validation.tests.testcontext">
+          <enablement>
+            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
+         </enablement>
+      </clientContext>
    </extension>
 </plugin>

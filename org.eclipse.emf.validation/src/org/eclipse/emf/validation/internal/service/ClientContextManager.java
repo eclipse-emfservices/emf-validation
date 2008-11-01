@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation
- *    Zeligsoft - Bugs 137213, 249496
+ *    Zeligsoft - Bugs 137213, 249496, 252302
  *    Borland Software - Bug 137213
  ****************************************************************************/
 
@@ -38,6 +38,7 @@ import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.internal.util.XmlExpressionSelector;
 import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.util.XmlConfig;
 
 
 /**
@@ -391,14 +392,26 @@ public class ClientContextManager {
 		for (IConfigurationElement config : elements) {
 			if (E_CLIENT_CONTEXT.equals(config.getName())) {
 				try {
-					ClientContext context = new ClientContext(config);
+					ClientContext context = (ClientContext) getClientContext(config
+						.getAttribute(XmlConfig.A_ID));
 					
-					// prevent duplicates
-					if (clientContexts.add(context)) {
-						clientContextMap.put(context.getId(), context);
+					if (context != null) {
+						// it was a forward declaration
+						context.initialize(config);
 						
 						if (context.isDefault()) {
 							defaultContexts.add(context);
+						}
+					} else {
+						context = new ClientContext(config);
+						
+						// prevent duplicates
+						if (clientContexts.add(context)) {
+							clientContextMap.put(context.getId(), context);
+							
+							if (context.isDefault()) {
+								defaultContexts.add(context);
+							}
 						}
 					}
 				} catch (CoreException e) {
@@ -407,6 +420,23 @@ public class ClientContextManager {
 					Log.log(e.getStatus());
 				}
 			}
+		}
+	}
+
+	/**
+	 * Adds the specified implicit client context binding (forward reference).
+	 * The client-context lock must be held when calling this method.
+	 * 
+	 * @param context
+	 *            the implicit context to add
+	 */
+	private void addClientContext(ClientContext context) {
+		// copy on write
+		clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
+		clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
+		
+		if (clientContexts.add(context)) {
+			clientContextMap.put(context.getId(), context);
 		}
 	}
 	
@@ -432,15 +462,12 @@ public class ClientContextManager {
 					ClientContext context = (ClientContext) getClientContext(contextId);
 					
 					if (context == null) {
-						Log.errorMessage(
-							EMFModelValidationStatusCodes.BINDING_NO_SUCH_CLIENT,
-							ValidationMessages.binding_noSuchContext_ERROR_,
-							new Object[] {
-								contextId,
-								config.getDeclaringExtension().getNamespaceIdentifier()});
-					} else {
-						configureBindings(context, config);
+						context = new ClientContext(contextId, config
+							.getDeclaringExtension().getNamespaceIdentifier());
+						addClientContext(context);
 					}
+					
+					configureBindings(context, config);
 				}
 			}
 		}
