@@ -1,12 +1,13 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
+ *    Zeligsoft - Bug 249496
  ****************************************************************************/
 
 
@@ -75,6 +76,7 @@ public final class EMFModelValidationStatusCodes {
 	public static final int BINDING_NO_SUCH_CLIENT = 121;
 	public static final int BINDING_NO_CONSTRAINT = 122;
 	public static final int BINDING_NO_CATEGORY = 123;
+	public static final int BINDING_NO_CLIENT_CONTEXT = 124;
 	
 	public static final int LISTENER_UNCAUGHT_EXCEPTION = 130;
 	

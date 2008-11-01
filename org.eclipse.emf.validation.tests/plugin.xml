@@ -4,7 +4,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2008 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@
  *
  * Contributors:
  *   IBM - Initial API and implementation
+ *   Zeligsoft - Bug 249496
  *
  * </copyright>
  *
@@ -469,5 +470,107 @@ success = target.foo()
                name="PreferredCustomer">
          </eclass>
       </traversalStrategy>
+   </extension>
+   
+   <!-- Constraints only used for client-context inclusion/exclusion testing -->
+   <extension name="Contraints for client-context testing" point="org.eclipse.emf.validation.constraintProviders">
+     <category id="clientContextTest" name="JUnit Client Context Testing Context"/>
+     <category id="clientContextTest/one" name="First level of nesting"/>
+     <category id="clientContextTest/one/two" name="Second level of nesting"/>
+     <category id="clientContextTest/one/twoA" name="Second level of nesting (A)"/>
+     <category id="clientContextTest/one/two/three" name="Third level of nesting"/>
+     <category id="clientContextTest/one/two/threeA" name="Third level of nesting (A)"/>
+     <constraintProvider>
+         <package namespaceUri="http://www.eclipse.org/emf/2002/Ecore" />
+         <constraints categories="clientContextTest/one">
+            <constraint name="Dummy1.1" statusCode="1" lang="OCL" id="clientContext.1.1">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+            <constraint name="Dummy1.2" statusCode="1" lang="OCL" id="clientContext.1.2">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+         </constraints>
+         <constraints categories="clientContextTest/one/two">
+            <constraint name="Dummy2.1" statusCode="1" lang="OCL" id="clientContext.2.1">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+            <constraint name="Dummy2.2" statusCode="1" lang="OCL" id="clientContext.2.2">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+         </constraints>
+         <constraints categories="clientContextTest/one/twoA">
+            <constraint name="Dummy2a.1" statusCode="1" lang="OCL" id="clientContext.2a.1">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+            <constraint name="Dummy2a.2" statusCode="1" lang="OCL" id="clientContext.2a.2">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+         </constraints>
+         <constraints categories="clientContextTest/one/two/three">
+            <constraint name="Dummy3.1" statusCode="1" lang="OCL" id="clientContext.3.1">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+            <constraint name="Dummy3.2" statusCode="1" lang="OCL" id="clientContext.3.2">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+         </constraints>
+         <constraints categories="clientContextTest/one/two/threeA">
+            <constraint name="Dummy3a.1" statusCode="1" lang="OCL" id="clientContext.3a.1">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+            <constraint name="Dummy3a.2" statusCode="1" lang="OCL" id="clientContext.3a.2">
+               <message>Nothing to say.</message>
+               <target class="EAnnotation"/>
+               true
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+   <!-- A client-context only used for inclusion/exclusion testing -->
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            id="org.eclipse.emf.validation.tests.testContextToExtend">
+          <enablement>
+            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
+         </enablement>
+      </clientContext>
+      <binding context="org.eclipse.emf.validation.tests.testContextToExtend">
+         <category ref="clientContextTest/one/two/three"/>
+      </binding>
+   </extension>
+   <extension point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            id="org.eclipse.emf.validation.tests.testcontext">
+          <enablement>
+            <systemTest property="BOGUS_SYSTEM_PROPERTY" value="1"/>
+         </enablement>
+      </clientContext>
+      <binding context="org.eclipse.emf.validation.tests.testcontext">
+         <category ref="clientContextTest/one"/>
+         <excludeCategory ref="clientContextTest/one/two"/>
+         <extendClientContext ref="org.eclipse.emf.validation.tests.testContextToExtend"/>
+         <excludeConstraint ref="org.eclipse.emf.validation.tests.clientContext.1.1"/>
+         <excludeConstraint ref="org.eclipse.emf.validation.tests.clientContext.2a.1"/>
+         <constraint ref="org.eclipse.emf.validation.tests.clientContext.2.2"/>
+         <constraint ref="org.eclipse.emf.validation.tests.clientContext.3a.2"/>
+      </binding>
    </extension>
 </plugin>

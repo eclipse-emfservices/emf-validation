@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation
- *    Zeligsoft - Bug 137213
+ *    Zeligsoft - Bugs 137213, 249496
  *    Borland Software - Bug 137213
  ****************************************************************************/
 
@@ -52,8 +52,11 @@ public class ClientContextManager {
 	private static final String E_BINDING = "binding"; //$NON-NLS-1$
 	private static final String A_CONTEXT = "context"; //$NON-NLS-1$
 	
-	private static final String A_CONSTRAINT = "constraint"; //$NON-NLS-1$
-	private static final String A_CATEGORY = "category"; //$NON-NLS-1$
+	private static final String E_CONSTRAINT = "constraint"; //$NON-NLS-1$
+	private static final String E_CATEGORY = "category"; //$NON-NLS-1$
+	private static final String E_EXTEND_CLIENT_CONTEXT = "extendClientContext"; //$NON-NLS-1$
+	private static final String E_EXCLUDE_CONSTRAINT = "excludeConstraint"; //$NON-NLS-1$
+	private static final String E_EXCLUDE_CATEGORY = "excludeCategory"; //$NON-NLS-1$
 	private static final String A_REF = "ref"; //$NON-NLS-1$
 	
 	private static final ClientContextManager INSTANCE = new ClientContextManager();
@@ -153,7 +156,7 @@ public class ClientContextManager {
 	 *    selector matches this element
 	 */
 	public Collection<IClientContext> getClientContextsFor(EObject eObject) {
-		Collection<IClientContext> result = new java.util.ArrayList<IClientContext>();
+		Set<IClientContext> result = new java.util.HashSet<IClientContext>();
 		
 		EvaluationContext ctx = new EvaluationContext(null, eObject);
 
@@ -195,6 +198,10 @@ public class ClientContextManager {
 							next.getId()}),
 					e);
 			}
+		}
+		
+		if (result.size() > 1) {
+			ClientContext.pruneExtensions(result);
 		}
 		
 		return result;
@@ -341,7 +348,7 @@ public class ClientContextManager {
 			// add the constraint to all default contexts so that we don't do
 			//   this computation again
 			for (ClientContext next : defaultContexts) {
-				next.bindConstraint(id);
+				next.includeConstraint(id);
 			}
 		}
 		
@@ -447,47 +454,56 @@ public class ClientContextManager {
 	 * @param config a particular <code>&lt;binding&gt;</config> element
 	 */
 	private void configureBindings(ClientContext context, IConfigurationElement config) {
-		String id = config.getAttribute(A_CONSTRAINT);
+		String id = config.getAttribute(E_CONSTRAINT);
 		
 		if (id != null) {
-			context.bindConstraint(id);
+			context.includeConstraint(id);
 		}
 		
-		id = config.getAttribute(A_CATEGORY);
+		id = config.getAttribute(E_CATEGORY);
 		
 		if (id != null) {
-			context.bindCategory(id);
+			context.includeCategory(id);
 		}
 		
-		IConfigurationElement[] children = config.getChildren(A_CONSTRAINT);
+		IConfigurationElement[] children = config.getChildren();
 		for (IConfigurationElement element : children) {
+			final String name = element.getName();
 			final String ref = element.getAttribute(A_REF);
 			
 			if (ref == null) {
-				Log.warningMessage(
-					EMFModelValidationStatusCodes.BINDING_NO_CONSTRAINT,
-					ValidationMessages.binding_noConstraintRef_WARN_,
-					new Object[] {
-						context.getId(),
-						config.getDeclaringExtension().getNamespaceIdentifier()});
-			} else {
-				context.bindConstraint(ref);
-			}
-		}
-		
-		children = config.getChildren(A_CATEGORY);
-		for (IConfigurationElement element : children) {
-			final String ref = element.getAttribute(A_REF);
-			
-			if (ref == null) {
-				Log.errorMessage(
-					EMFModelValidationStatusCodes.BINDING_NO_CATEGORY,
-					ValidationMessages.binding_noCategoryRef_WARN_,
-					new Object[] {
-						context.getId(),
-						config.getDeclaringExtension().getNamespaceIdentifier()});
-			} else {
-				context.bindCategory(ref);
+				if (E_CONSTRAINT.equals(name) || E_EXCLUDE_CONSTRAINT.equals(name)) {
+					Log.warningMessage(
+						EMFModelValidationStatusCodes.BINDING_NO_CONSTRAINT,
+						ValidationMessages.binding_noConstraintRef_WARN_,
+						new Object[] {
+							context.getId(),
+							config.getDeclaringExtension().getNamespaceIdentifier()});
+				} else if (E_EXTEND_CLIENT_CONTEXT.equals(name)) {
+					Log.warningMessage(
+						EMFModelValidationStatusCodes.BINDING_NO_CLIENT_CONTEXT,
+						ValidationMessages.binding_noClientContextRef_WARN_,
+						new Object[] {
+							context.getId(),
+							config.getDeclaringExtension().getNamespaceIdentifier()});
+				} else {
+					Log.errorMessage(
+						EMFModelValidationStatusCodes.BINDING_NO_CATEGORY,
+						ValidationMessages.binding_noCategoryRef_WARN_,
+						new Object[] {
+							context.getId(),
+							config.getDeclaringExtension().getNamespaceIdentifier()});
+				}
+			} else if (E_CONSTRAINT.equals(name)) {
+				context.includeConstraint(ref);
+			} else if (E_CATEGORY.equals(name)) {
+				context.includeCategory(ref);
+			} else if (E_EXTEND_CLIENT_CONTEXT.equals(name)) {
+				context.extendClientContext(ref);
+			} else if (E_EXCLUDE_CONSTRAINT.equals(name)) {
+				context.excludeConstraint(ref);
+			} else if (E_EXCLUDE_CATEGORY.equals(name)) {
+				context.excludeCategory(ref);
 			}
 		}
 	}

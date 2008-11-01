@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.emf.validation">
+<schema targetNamespace="org.eclipse.emf.validation" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appInfo>
+      <appinfo>
          <meta.schema plugin="org.eclipse.emf.validation" id="constraintBindings" name="EMF Validation Constraint Bindings"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          This extension point allows clients of the EMF Validation
 framework to define &quot;client contexts&quot; that describe the
@@ -17,6 +17,11 @@ these objects.
    <include schemaLocation="schema://org.eclipse.core.expressions/schema/expressionLanguage.exsd"/>
 
    <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="clientContext" minOccurs="0" maxOccurs="unbounded"/>
@@ -41,9 +46,9 @@ these objects.
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -51,9 +56,9 @@ these objects.
 
    <element name="clientContext">
       <annotation>
-         <appInfo>
+         <appinfo>
             <meta.element labelAttribute="id"/>
-         </appInfo>
+         </appinfo>
          <documentation>
             &lt;p&gt;
 Definition of a client context, representing a class of
@@ -110,9 +115,9 @@ somehow not sufficient to implement the test.
                   Identifies a class implementing the &lt;code&gt;org.eclipse.emf.validation.internal.model.IClientSelector&lt;/code&gt;
 internal API interface.
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.internal.model.IClientSelector"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -120,9 +125,9 @@ internal API interface.
 
    <element name="binding">
       <annotation>
-         <appInfo>
+         <appinfo>
             <meta.element labelAttribute="context"/>
-         </appInfo>
+         </appinfo>
          <documentation>
             &lt;p&gt;
 Declares a binding between a client context and one or more
@@ -131,6 +136,7 @@ same plug-in or by a different plug-in.
 &lt;/p&gt;
 &lt;p&gt;
 The constraints to be bound may be specified by either:
+&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;the &lt;code&gt;constraint&lt;/code&gt; attribute, to reference
       a single constraint&lt;/li&gt;
@@ -141,13 +147,20 @@ The constraints to be bound may be specified by either:
       and/or &lt;code&gt;&amp;lt;category&amp;gt;&lt;/code&gt; elements to
       reference multiple constraints and/or categories&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;
+Since the 1.3 release, selective exclusion of constraints and sub-categories that are contained by included categories is supported.  Within a &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt; element, ordering of inclusion and exclusion elements is significant:  they are processed in the order in which they are declared in the extension.  However, the order of inclusions and exclusions in separate bindings for the same context is undefined.
 &lt;/p&gt;
          </documentation>
       </annotation>
       <complexType>
          <sequence>
-            <element ref="constraint" minOccurs="0" maxOccurs="unbounded"/>
-            <element ref="category" minOccurs="0" maxOccurs="unbounded"/>
+            <choice minOccurs="0" maxOccurs="unbounded">
+               <element ref="category"/>
+               <element ref="constraint"/>
+               <element ref="extendClientContext"/>
+               <element ref="excludeCategory"/>
+               <element ref="excludeConstraint"/>
+            </choice>
          </sequence>
          <attribute name="context" type="string" use="required">
             <annotation>
@@ -185,9 +198,9 @@ the &lt;code&gt;constraint&lt;/code&gt; attribute.
 
    <element name="constraint">
       <annotation>
-         <appInfo>
+         <appinfo>
             <meta.element labelAttribute="ref"/>
-         </appInfo>
+         </appinfo>
          <documentation>
             Includes a constraint in a client context
 &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.
@@ -209,9 +222,9 @@ definition of the constraint.
 
    <element name="category">
       <annotation>
-         <appInfo>
+         <appinfo>
             <meta.element labelAttribute="ref"/>
-         </appInfo>
+         </appinfo>
          <documentation>
             Includes a constraint category in a client context
 &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.  All of the referenced
@@ -233,19 +246,82 @@ path reflecting the hierarchical structure of categories.
       </complexType>
    </element>
 
+   <element name="extendClientContext">
+      <annotation>
+         <documentation>
+            Since 1.3.  References a client-context that the bound context extends.  Conceptually, this declares that objects matching the referenced context also match my bound context.  In practice, this means that my bound context inherits all of the constraint bindings from the referenced context.
+&lt;br/&gt;&lt;br/&gt;
+Of course, subsequent exclusions can filter out unwanted constraints, too.  &lt;b&gt;Note&lt;/b&gt;, also, that this effects a dependency on the referenced client context and also imposes a partial ordering on the bindings.  All of the bindings contributed to the referenced context are applied before any inclusions or exclusions that follow the &lt;code&gt;&amp;lt;extendClientContext&amp;gt;&lt;/code&gt; element in the current &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="ref" type="string" use="required">
+            <annotation>
+               <documentation>
+                  References the ID of a client-context to extend.  All constraint bindings of the client context are inherited by this binding.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="excludeCategory">
+      <annotation>
+         <documentation>
+            Since 1.3.  Excludes a constraint category from a client context
+&lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.  All of the referenced
+category&apos;s constraints and those of any sub-categories
+(recursively) are excluded.  This is useful when including some parent category, to filter out selective sub-categories.  Not only is it simpler than explicitly including all of the desired sub-categories, but it ensures that sub-categories that are added later will be included implicitly.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="ref" type="string" use="required">
+            <annotation>
+               <documentation>
+                  References the fully-qualified ID of a constraint category to
+exclude from the client context. The category ID does not
+necessarily include its contributing plug-in ID, but is a
+path reflecting the hierarchical structure of categories.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="excludeConstraint">
+      <annotation>
+         <documentation>
+            Since 1.3.  Excludes a constraint from a client context
+&lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;. This is useful when including some parent category, to filter out selective constraints cointained within it.  Not only is it simpler than explicitly including all of the desired constraints and sub-categories, but it ensures that constraints and sub-categories that are added later will be included implicitly.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="ref" type="string" use="required">
+            <annotation>
+               <documentation>
+                  References the fully-qualified ID of a constraint to exclude
+from the client context.  The ID includes the constraint&apos;s
+contributing plug-in ID, if it is not explicit in the XML
+definition of the constraint.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="since"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          1.0
       </documentation>
    </annotation>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="examples"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          &lt;p&gt;
 Example of a context which includes &lt;code&gt;EObjects&lt;/code&gt; in *.library resources only, not
@@ -291,30 +367,14 @@ Example of binding multiple constraints and constraint categories to the MyClien
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="apiInfo"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
+
 
    <annotation>
-      <appInfo>
-         <meta.section type="implementation"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
-
-   <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="copyright"/>
-      </appInfo>
+      </appinfo>
       <documentation>
-         Copyright (c) 2005  IBM Corporation and others.&lt;br&gt;
+         Copyright (c) 2005, 2008  IBM Corporation, Zeligsoft Inc., and others.&lt;br&gt;
  All rights reserved. This program and the accompanying materials 
  are made available under the terms of the Eclipse Public License v1.0 
  which accompanies this distribution, and is available at 
