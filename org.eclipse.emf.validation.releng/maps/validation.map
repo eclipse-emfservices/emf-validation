@@ -12,10 +12,10 @@ fragment@org.eclipse.ant.optional.junit=v20050226,:pserver:anonymous@dev.eclipse
 feature@org.eclipse.emf.validation.master=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.master-feature
 
 feature@org.eclipse.emf.validation.sdk=v200809221827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.sdk-feature
-feature@org.eclipse.emf.validation=v200809221827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation-feature
-feature@org.eclipse.emf.validation.ocl=v200805130238,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ocl-feature
+feature@org.eclipse.emf.validation=v200811192338,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation-feature
+feature@org.eclipse.emf.validation.ocl=v200811192338,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ocl-feature
 feature@org.eclipse.emf.validation.doc=v200809221827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/doc/org.eclipse.emf.validation.doc-feature
-feature@org.eclipse.emf.validation.examples=v200809221827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples-feature
+feature@org.eclipse.emf.validation.examples=v200811192338,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples-feature
 feature@org.eclipse.emf.validation.tests=v200809221827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/tests/org.eclipse.emf.validation.tests-feature
 
 plugin@org.eclipse.emf.validation=v200811021854,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation
