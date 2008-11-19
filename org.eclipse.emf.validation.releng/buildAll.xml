@@ -176,6 +176,10 @@ propertyName=propertyValue
 				              **/plugins/*.source_*.jar"
                     includes="**/org.eclipse.*.example*,
                               **/org.eclipse.*.example*/**" />
+            <zipfileset src="${buildDirectory}/${buildLabel}/${allZip}"
+                    dirmode="775" filemode="664"
+                    id="examplesZipFiles2"
+                    includes="**/org.eclipse.emf.validation.example*.source_*.jar" />
 			<zipfileset refid="rootfiles" />
 		</zip>
 
