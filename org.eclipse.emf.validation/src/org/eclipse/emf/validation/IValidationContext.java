@@ -53,7 +53,9 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
+ * 
  * @noimplement This interface is not intended to be implemented by clients.
+ * @noextend This interface is not intended to be extended by clients.
  */
 public interface IValidationContext {
 	/**
