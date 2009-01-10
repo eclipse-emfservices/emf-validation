@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2009 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,12 +7,13 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    Zeligsoft - Bugs 137213, 260587
+ *    
  ****************************************************************************/
 
 
 package org.eclipse.emf.validation.ui.internal;
 
-import java.lang.ref.SoftReference;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
@@ -51,7 +52,7 @@ import org.eclipse.ui.PlatformUI;
 
 
 /**
- * The VAlidation UI's live validation listener is responsible for showing the
+ * The Validation UI's live validation listener is responsible for showing the
  * error/warning dialog or console output, according to the user's preference
  * settings.
  *
@@ -65,27 +66,13 @@ public class LiveValidationListener
 	private static final String EP_UI_REGISTERED_CLIENT_CONTEXTS = "org.eclipse.emf.validation.ui.UIRegisteredClientContext"; //$NON-NLS-1$
 	private static final String A_ID = "id"; //$NON-NLS-1$
 	
-	private static volatile SoftReference<Set<String>> registeredClientContextIds = null;
+	private static volatile Set<String> registeredClientContextIds;
 
 	private static final Object clientContextsLock = new Object();
 
-	private static final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
-
-		public void addExtension(IExtensionTracker tracker, IExtension extension) {
-			synchronized (clientContextsLock) {
-				if ((registeredClientContextIds != null)
-					&& (registeredClientContextIds.get() != null)) {
-					
-					registerClientContextIDs(extension
-						.getConfigurationElements());
-				}
-			}
-		}
-
-		public void removeExtension(IExtension extension, Object[] objects) {
-			// client-context IDs cannot be undefined
-		}
-	};
+	static {
+		initializeClientContextIDs();
+	}
 	
     /**
      * Helper object for creating message to output view.
@@ -122,19 +109,11 @@ public class LiveValidationListener
 	 */
     private synchronized static boolean isSupportedClientContexts(
     		Collection<String> clientContextIds) {
-		Set<String> registeredIds;
+    	
+		// take a copy that is safe against concurrent writes
+		final Set<String> registeredIds = registeredClientContextIds;
 		
-		synchronized (clientContextsLock) {
-			registeredIds = registeredClientContextIds != null
-				? registeredClientContextIds.get() : null;
-				
-	    	if (registeredIds == null) {
-	    		initializeClientContextIDs();
-	    		registeredIds = registeredClientContextIds.get();
-			}
-		}
-		
-    	for (String next : clientContextIds) {
+		for (String next : clientContextIds) {
     		if (registeredIds.contains(next)) {
     			return true;
     		}
@@ -144,38 +123,52 @@ public class LiveValidationListener
 	}
     
     private static void initializeClientContextIDs() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
-			EP_UI_REGISTERED_CLIENT_CONTEXTS);
-		
-		IExtensionTracker extTracker = ValidationUIPlugin.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
-			
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
+		registeredClientContextIds = new java.util.HashSet<String>();
+
+		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+			.getExtensionPoint(EP_UI_REGISTERED_CLIENT_CONTEXTS);
+
+		for (IExtension extension : extPoint.getExtensions()) {
+			for (IConfigurationElement next : extension
+				.getConfigurationElements()) {
+				
+				registeredClientContextIds.add(next.getAttribute(A_ID));
 			}
 		}
-    }
+
+		IExtensionTracker extTracker = ValidationUIPlugin.getExtensionTracker();
+
+		if (extTracker != null) {
+			IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
+				public void addExtension(IExtensionTracker tracker,
+						IExtension extension) {
+					
+					addClientContextIDs(extension.getConfigurationElements());
+				}
+
+				public void removeExtension(IExtension extension,
+						Object[] objects) {
+					// client-context IDs cannot be undefined
+				}
+			};
+
+			extTracker.registerHandler(extensionHandler, ExtensionTracker
+				.createExtensionPointFilter(extPoint));
+		}
+	}
     
-    private static void registerClientContextIDs(IConfigurationElement[] configs) {
+    private static void addClientContextIDs(IConfigurationElement[] configs) {
     	synchronized (clientContextsLock) {
-			Set<String> registeredIds = (registeredClientContextIds == null)
-				? null
-				: registeredClientContextIds.get();
-			
 			// copy on write
-			if (registeredIds == null) {
-				registeredIds = new java.util.HashSet<String>();
-			} else {
-				registeredIds = new java.util.HashSet<String>(registeredIds);
-			}
-			registeredClientContextIds = new SoftReference<Set<String>>(registeredIds);
+			Set<String> registeredIds = new java.util.HashSet<String>(
+					registeredClientContextIds);
 			
 			for (IConfigurationElement next : configs) {
 				registeredIds.add(next.getAttribute(A_ID));
 			}
+			
+			registeredClientContextIds = registeredIds;
     	}
     }
 
