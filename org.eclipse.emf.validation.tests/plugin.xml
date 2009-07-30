@@ -328,6 +328,73 @@ success = target.foo()
             </constraint>
          </constraints>
       </constraintProvider>
+      <constraintProvider cache="false">
+         <package namespaceUri="http:///ordersystem.ecore" />
+         <constraints categories="junit/validation/framework">
+            <constraint
+                  id="defaultTestNotActiveConstraint"
+                  isEnabledByDefault="false"
+                  lang="OCL"
+                  mode="Batch"
+                  name="Constraint which is inactive per default"
+                  statusCode="1">
+               <target
+                     class="Order">
+                  <event
+                        name="Set">
+                     <feature
+                           name="id">
+                     </feature>
+                  </event>
+               </target>
+               <message>
+                  This is a message.
+               </message>
+               self.id &lt;&gt; &apos;id_inactivetest&apos;
+            </constraint>
+            <constraint
+                  id="defaultTestActiveConstraint"
+                  isEnabledByDefault="true"
+                  lang="OCL"
+                  mode="Batch"
+                  name="Constraint which is active per default"
+                  statusCode="1">
+               <target
+                     class="Order">
+                  <event
+                        name="Set">
+                     <feature
+                           name="id">
+                     </feature>
+                  </event>
+               </target>
+               <message>
+                  This is a message.
+               </message>
+               self.id &lt;&gt; &apos;id_inactivetest&apos;
+            </constraint>
+            <constraint
+                  id="defaultTestConstraintWithoutDefaultEnablementInformation"
+                  lang="OCL"
+                  mode="Batch"
+                  name="Constraint which has no default activation information"
+                  statusCode="1">
+               <target
+                     class="Order">
+                  <event
+                        name="Set">
+                     <feature
+                           name="id">
+                     </feature>
+                  </event>
+               </target>
+               <message>
+                  This is a message.
+               </message>
+               self.id &lt;&gt; &apos;id_inactivetest&apos;
+            </constraint>
+         </constraints>
+      </constraintProvider>
       <constraintProvider mode="Live" cache="false">
          <package namespaceUri="http:///ordersystem.ecore" />
          <target class="InventoryItem">

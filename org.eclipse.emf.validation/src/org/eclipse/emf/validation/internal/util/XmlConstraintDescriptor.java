@@ -88,6 +88,7 @@ public final class XmlConstraintDescriptor
 	private String body;
 	
 	private boolean resolved = false;
+	private boolean isEnabledByDefault = true;
 
 	/**
 	 * Initializes me from the specified Eclipse configuration element.
@@ -107,9 +108,6 @@ public final class XmlConstraintDescriptor
 		// constraint ID is required to start with contributing plugin ID
 		id = normalizedId(pluginId, config.getAttribute(XmlConfig.A_ID));
 		
-		// ensure that I get my default enablement state
-		setEnabled(!EMFModelValidationPreferences.isConstraintDisabled(id));
-
 		int newStatusCode;
 
 		try {
@@ -128,11 +126,15 @@ public final class XmlConstraintDescriptor
 	
 			parseSeverity(config);
 			parseTargets(config);
+			parseIsEnabledByDefault(config);
 			parseMessagePattern(config);
 	
 			setBody(config.getValue());
 			
 			ConstraintRegistry.getInstance().register(this);
+			
+			// ensure that I get my default enablement state
+			setEnabled(!EMFModelValidationPreferences.isConstraintDisabled(id));
 			
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 				Trace.trace("Initialized constraint " + id); //$NON-NLS-1$
@@ -482,6 +484,10 @@ public final class XmlConstraintDescriptor
 		
 		return result;
 	}
+	
+	public boolean isEnabledByDefault() {
+		return isEnabledByDefault;
+	}
 
 	/**
 	 * Parses the <tt>&lt;description&gt;</tt> element from the XML.
@@ -620,6 +626,30 @@ public final class XmlConstraintDescriptor
 						+ " target: " + target.getAttribute(XmlConfig.A_CLASS) //$NON-NLS-1$
 						+ ": " + targetType); //$NON-NLS-1$
 			}
+		}
+	}
+
+	/**
+	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>isEnabledByDefault</tt>
+	 * attribute from the XML.
+	 * 
+	 * @param extConfig the Eclipse configuration element representing the XML
+	 *    extension data
+	 */
+	private void parseIsEnabledByDefault(IConfigurationElement extConfig) {
+		String attr = extConfig.getAttribute( XmlConfig.A_IS_ENABLED_BY_DEFAULT);
+		
+		this.isEnabledByDefault = true;
+		
+		if ( attr != null ) {
+			isEnabledByDefault = Boolean.parseBoolean(attr);
+		}
+		
+		EMFModelValidationPreferences.setConstraintDisabledDefault(id, !isEnabledByDefault);
+		
+		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
+			Trace.trace("Parsed constraint " + id //$NON-NLS-1$
+					+ " isEnabledByDefault: " + attr ); //$NON-NLS-1$
 		}
 	}
 

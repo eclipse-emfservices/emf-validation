@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.emf.validation">
+<schema targetNamespace="org.eclipse.emf.validation" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.eclipse.emf.validation" id="constraintProviders" name="EMF Model Validation Constraint Providers"/>
@@ -13,6 +13,11 @@ This extension point allows plug-ins to contribute constraints into the model va
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="category" minOccurs="0" maxOccurs="unbounded"/>
@@ -431,6 +436,17 @@ The default is batch if not specified.
                </restriction>
             </simpleType>
          </attribute>
+         <attribute name="isEnabledByDefault" type="boolean" use="default" value="true">
+            <annotation>
+               <documentation>
+                  Indicates if this constraint should be enabled by default.
+
+&lt;p&gt;
+User can change this setting in preferences. The default value is true.
+&lt;/p&gt;
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
@@ -669,14 +685,6 @@ performed internally in the system as the model is changed.
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="implementation"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
    <annotation>
       <appInfo>

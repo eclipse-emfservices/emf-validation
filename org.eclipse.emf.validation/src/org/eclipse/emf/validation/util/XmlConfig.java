@@ -77,6 +77,7 @@ public class XmlConfig {
 	public static final String A_SEVERITY = "severity"; //$NON-NLS-1$
 	public static final String A_STATUS_CODE = "statusCode"; //$NON-NLS-1$
 	public static final String A_CLASS = "class"; //$NON-NLS-1$
+	public static final String A_IS_ENABLED_BY_DEFAULT = "isEnabledByDefault"; //$NON-NLS-1$
 	
 	public static final String E_INCLUDE = "include"; //$NON-NLS-1$
 	public static final String A_PATH = "path"; //$NON-NLS-1$

@@ -13,7 +13,6 @@
 package org.eclipse.emf.validation.preferences;
 
 import org.eclipse.core.runtime.Preferences;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
@@ -84,5 +83,11 @@ public class EMFModelValidationPreferences {
 			// remove this preference to declutter the prefs.ini file
 			prefs.setToDefault(prefName);
 		}
+	}
+	
+	public static void setConstraintDisabledDefault(String id, boolean disabled) {
+		final String prefName = CONSTRAINT_DISABLED_PREFIX + id;
+		
+		prefs.setDefault(prefName, disabled);
 	}
 }

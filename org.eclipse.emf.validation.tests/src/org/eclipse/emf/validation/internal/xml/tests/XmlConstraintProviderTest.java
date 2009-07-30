@@ -31,7 +31,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
@@ -174,5 +176,26 @@ public class XmlConstraintProviderTest extends TestBase {
         List<IStatus> statuses = TestPlugin.getLogCapture().getLogs(
             EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
         assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
+    }
+    
+    public void test_getConstraintDisabledByDefault() {
+    	final String TEST_INACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestNotActiveConstraint"; //$NON-NLS-1$
+    	final String TEST_ACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestActiveConstraint"; //$NON-NLS-1$
+    	final String TEST_NOINFO_CONSTRAINT_ID = ID_PREFIX + "defaultTestConstraintWithoutDefaultEnablementInformation"; //$NON-NLS-1$
+    	
+    	// Test the inactive constraint
+    	IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(TEST_INACTIVE_CONSTRAINT_ID);
+    	assertNotNull(desc);
+    	assertFalse(desc.isEnabled());
+    	
+    	// Test the active constraint
+    	desc = ConstraintRegistry.getInstance().getDescriptor(TEST_ACTIVE_CONSTRAINT_ID);
+    	assertNotNull(desc);
+    	assertTrue(desc.isEnabled());
+    	
+    	// Test the constraint without the default information, so we don't break anything
+    	desc = ConstraintRegistry.getInstance().getDescriptor(TEST_NOINFO_CONSTRAINT_ID);
+    	assertNotNull(desc);
+    	assertTrue(desc.isEnabled());
     }
 }
