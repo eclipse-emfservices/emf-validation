@@ -85,6 +85,9 @@ public class EMFModelValidationPreferences {
 		}
 	}
 	
+	/**
+	 * @since 1.4
+	 */
 	public static void setConstraintDisabledDefault(String id, boolean disabled) {
 		final String prefName = CONSTRAINT_DISABLED_PREFIX + id;
 		
