@@ -151,6 +151,9 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	 */
 	public static final String CONSTRAINT_PROVIDERS_EXT_P_NAME =
 		"constraintProviders"; //$NON-NLS-1$
+	
+	public static final String MODELED_CONSTRAINT_PROVIDERS_EXT_P_NAME =
+		"modeledConstraintProviders"; //$NON-NLS-1$
 
 	/**
 	 * Extension point name for the constraint bindings extension point.
@@ -204,7 +207,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	 * @return my plug-in unique ID
 	 */
 	public static String getPluginId() {
-		return getPlugin().getBundle().getSymbolicName();
+		if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
+			return "org.eclipse.emf.validation"; //$NON-NLS-1$
+		}
+		else {
+			return getPlugin().getBundle().getSymbolicName();
+		}
 	}
 
 	/**
