@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.util.Log;
@@ -80,21 +81,23 @@ public class EventTypeService {
      * <tt>eventTypes</tt> extension configuration
      */
     private void configureEventTypes() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-				EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
-	
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
-			
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
-			}
-		}
+    	if ( EMFPlugin.IS_ECLIPSE_RUNNING ) {
+    		IExtensionPoint extPoint = Platform.getExtensionRegistry()
+    		.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+    				EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
+    		
+    		IExtensionTracker extTracker = EMFModelValidationPlugin
+    		.getExtensionTracker();
+    		
+    		if (extTracker != null) {
+    			extTracker.registerHandler(extensionHandler, ExtensionTracker
+    					.createExtensionPointFilter(extPoint));
+    			
+    			for (IExtension extension : extPoint.getExtensions()) {
+    				extensionHandler.addExtension(extTracker, extension);
+    			}
+    		}
+    	}
     }
     
     private void registerEventTypes(IConfigurationElement[] configs) {

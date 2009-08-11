@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -140,28 +141,30 @@ public class ModelValidationService {
      * <tt>constraintProviders</tt> extension configurations.
      */
     private void configureConstraints() {
-    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
-    			EMFModelValidationPlugin.getPluginId(),
-                EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
-        
-        constraintCache = new ConstraintCache();
-        
-        Collection<IProviderDescriptor> providers = getProviders();
-
-        // include the cache in my collection of providers
-        providers.add(constraintCache.getDescriptor());
-
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		if (extTracker != null) {
-			extTracker.registerHandler(providersHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
-
-			// chain known extensions through the same mechanism as dynamic
-			for (IExtension extension : extPoint.getExtensions()) {
-				providersHandler.addExtension(extTracker, extension);
+    	if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+	    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+	    			EMFModelValidationPlugin.getPluginId(),
+	                EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
+	        
+	        constraintCache = new ConstraintCache();
+	        
+	        Collection<IProviderDescriptor> providers = getProviders();
+	
+	        // include the cache in my collection of providers
+	        providers.add(constraintCache.getDescriptor());
+	
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
+			if (extTracker != null) {
+				extTracker.registerHandler(providersHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+	
+				// chain known extensions through the same mechanism as dynamic
+				for (IExtension extension : extPoint.getExtensions()) {
+					providersHandler.addExtension(extTracker, extension);
+				}
 			}
-		}
+    	}
     }
 
 	private Collection<IProviderDescriptor> registerProviders(
@@ -212,27 +215,35 @@ public class ModelValidationService {
 
 		return result;
 	}
+	
+	void registerProvider(IProviderDescriptor descriptor) {
+		synchronized (providersLock) {
+			constraintProviders.add(descriptor);
+		}
+	}
 
     /**
      * Configures validation listeners based on the
      * <tt>validationListeners</tt> extension configurations.
      */
     private void configureListeners() {
-    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
-                EMFModelValidationPlugin.getPluginId(),
-                EMFModelValidationPlugin.VALIDATION_LISTENERS_EXT_P_NAME);
-    	
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(listenersHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
+    	if ( EMFPlugin.IS_ECLIPSE_RUNNING ) {
+	    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+	                EMFModelValidationPlugin.getPluginId(),
+	                EMFModelValidationPlugin.VALIDATION_LISTENERS_EXT_P_NAME);
+	    	
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
 			
-			for (IExtension extension : extPoint.getExtensions()) {
-				listenersHandler.addExtension(extTracker, extension);
+			if (extTracker != null) {
+				extTracker.registerHandler(listenersHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+				
+				for (IExtension extension : extPoint.getExtensions()) {
+					listenersHandler.addExtension(extTracker, extension);
+				}
 			}
-		}
+    	}
     }
     
     private void registerListeners(IConfigurationElement[] configs) {
