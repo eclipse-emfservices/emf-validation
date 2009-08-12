@@ -9,13 +9,17 @@
  *    IBM Corporation - initial API and implementation 
  *    Borland Software - Bug 137213
  *    Zeligsoft - Bug 137213
+ *    Mario Winterer - Bug 284348
+ *    SAP AG - Bug 284348
  ****************************************************************************/
 
 
 package org.eclipse.emf.validation.internal;
 
 import java.util.Collection;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,6 +30,8 @@ import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
+import org.eclipse.osgi.service.debug.DebugOptions;
+import org.eclipse.osgi.service.debug.DebugOptionsListener;
 import org.eclipse.osgi.util.NLS;
 import org.osgi.framework.BundleContext;
 
@@ -145,7 +151,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	 */
 	public static final String CONSTRAINT_PROVIDERS_EXT_P_NAME =
 		"constraintProviders"; //$NON-NLS-1$
-
+	
 	/**
 	 * Extension point name for the constraint bindings extension point.
 	 */
@@ -237,6 +243,11 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 			super.start(context);
 			
 			extensionTracker = new ExtensionTracker();
+			
+			// register listener that is notified whenever debug options change
+			Dictionary<String, Object> props = new Hashtable<String, Object>(4);
+			props.put(DebugOptions.LISTENER_SYMBOLICNAME, getPluginId());
+			context.registerService(DebugOptionsListener.class.getName(), new _DebugOptionsListener(), props);
 		}
 		
 		@Override
@@ -245,6 +256,20 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 			extensionTracker = null;
 			
 			super.stop(context);
+		}
+		
+		/**
+		 * This listener triggers the debug options cache invalidation upon debug options cache change. 
+		 * 
+		 * @author Boris Gruschko
+		 *
+		 */
+		private static class _DebugOptionsListener implements DebugOptionsListener {
+
+			public void optionsChanged(DebugOptions options) {
+				Tracing.invalidateCache();
+			}
+			
 		}
 	}
 	
@@ -255,13 +280,34 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
     	private static final Map<String, Boolean> cachedOptions = new HashMap<String, Boolean>();
 
     	/**
+    	 * The cached Boolean value indicating whether tracing is enabled. 
+    	 */
+    	private static Boolean debugging = null;
+    	
+    	/**
+    	 * Invalidates the cached debug options and the cached Boolean value
+    	 * indicating whether tracing is enabled.
+    	 */
+    	protected static void invalidateCache() {
+    		synchronized (cachedOptions) {
+	    		cachedOptions.clear();
+	    		debugging = null;
+    		}
+    	}
+    	
+    	/**
     	 * Retrieves a Boolean value indicating whether tracing is enabled.
     	 * 
     	 * @return Whether tracing is enabled for the plug-in.
     	 * 
     	 */
     	protected static boolean shouldTrace() {
-    		return plugin.isDebugging();
+    		synchronized (cachedOptions) {
+    			if (debugging == null) {    			
+    				debugging = plugin.isDebugging();
+    			}
+			}
+    		return debugging.booleanValue();
     	}
 
     	/**
