@@ -10,7 +10,7 @@
  *    Borland Software - Bug 137213
  *    Zeligsoft - Bug 137213
  *    Mario Winterer - Bug 284348
- *    SAP AG - Bug 284348
+ *    SAP AG - Bug 284348, Bug 167972
  ****************************************************************************/
 
 
@@ -44,6 +44,7 @@ import org.osgi.framework.BundleContext;
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
+ * @author Boris Gruschko
  */
 public final class EMFModelValidationPlugin extends EMFPlugin {
 	///
@@ -310,6 +311,10 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
     	 * 
     	 */
     	protected static boolean shouldTrace() {
+    		if ( plugin == null ) {
+    			return false;
+    		}
+    		
     		synchronized (cachedOptions) {
     			if (debugging == null) {    			
     				debugging = plugin.isDebugging();
