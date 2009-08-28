@@ -8,6 +8,7 @@
  * Contributors:
  *    IBM Corporation - initial API and implementation 
  *    Zeligsoft - Bug 137213
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 
@@ -24,6 +25,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -114,19 +116,21 @@ class TraversalStrategyManager {
 	 * required by a validation operation.
 	 */
 	private void initStrategies() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-				TRAVERSAL_EXT_P_NAME);
-		
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
+		if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+			IExtensionPoint extPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+					TRAVERSAL_EXT_P_NAME);
 			
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
+			
+			if (extTracker != null) {
+				extTracker.registerHandler(extensionHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+				
+				for (IExtension extension : extPoint.getExtensions()) {
+					extensionHandler.addExtension(extTracker, extension);
+				}
 			}
 		}
 	}

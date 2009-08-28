@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 
@@ -16,6 +17,7 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 
 /**
@@ -142,8 +144,11 @@ public class Log {
 		Status s = new Status(severity, EMFModelValidationPlugin.getPluginId(),
 			code, message, throwable);
 
+		checkLoggerInstance();
+		
 		EMFModelValidationPlugin.getPlugin().log(s);
 	}
+
 
 	/**
 	 * Responds to a log request for this plug-in based on the
@@ -154,7 +159,21 @@ public class Log {
 	 * @param status The status object on which to base the log.
 	 */
 	public static void log(IStatus status) {
+		checkLoggerInstance();
+		
 		EMFModelValidationPlugin.getPlugin().log(status);
+	}
+	
+	/**
+	 * Checks if the logger has been instanciated. If there is no instance, it will be created 
+	 */
+	private static void checkLoggerInstance() {
+		if ( !EMFPlugin.IS_ECLIPSE_RUNNING ) {
+			// check logger
+			if ( EMFModelValidationPlugin.getPlugin() == null ) {
+				new EMFModelValidationPlugin.Implementation();
+			}
+		}
 	}
 
 	/**

@@ -9,6 +9,7 @@
  *    IBM Corporation - initial API and implementation 
  *    Borland Software - Bug 137213
  *    Zeligsoft - Bug 137213
+ *    SAP AG - Bug 240352
   ****************************************************************************/
 
 
@@ -24,11 +25,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
+import org.eclipse.emf.validation.internal.modeled.ModeledConstraintsConfig;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.emf.validation.service.ModeledConstraintsLoader;
 import org.eclipse.emf.validation.util.XmlConfig;
 
 /**
@@ -254,18 +259,35 @@ public class CategoryManager {
 	 * point.
 	 */
 	private void loadCategories() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-				EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
-
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
+		if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+			IExtensionPoint extPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+					EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
 	
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
+			if (extTracker != null) {
+				extTracker.registerHandler(extensionHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+		
+				for (IExtension extension : extPoint.getExtensions()) {
+					extensionHandler.addExtension(extTracker, extension);
+				}
+			}
+			
+			IExtensionPoint modeledConstraintsExtensionPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+					EMFModelValidationPlugin.MODELED_CONSTRAINT_PROVIDERS_EXT_P_NAME);
+			
+			for ( IExtension ext : modeledConstraintsExtensionPoint.getExtensions()) {
+				for ( IConfigurationElement cfg : ext.getConfigurationElements()) {
+					if ( ModeledConstraintsConfig.E_PROVIDER.equals(cfg.getName())) {
+						String uri = cfg.getAttribute( ModeledConstraintsConfig.A_CONSTRAINT_RESOURCE_URI);
+						if ( uri != null ) {
+							ModeledConstraintsLoader.getInstance().loadCategories(null, URI.createURI(uri), Platform.getBundle(ext.getContributor().getName()));
+						}
+					}
+				}
 			}
 		}
 	}

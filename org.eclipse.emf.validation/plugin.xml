@@ -21,12 +21,13 @@
 
 <plugin>
 
-     <extension-point id="constraintProviders" name="%extPoint.constraintProviders" schema="schema/constraintProviders.exsd"/>
+   <extension-point id="constraintProviders" name="%extPoint.constraintProviders" schema="schema/constraintProviders.exsd"/>
    <extension-point id="constraintParsers" name="%extPoint.constraintParsers" schema="schema/constraintParsers.exsd"/>
    <extension-point id="traversal" name="%extPoint.traversal" schema="schema/traversal.exsd"/>
    <extension-point id="constraintBindings" name="%extPoint.constraintBindings" schema="schema/constraintBindings.exsd"/>
    <extension-point id="validationListeners" name="%extPoint.validationListeners" schema="schema/validationListeners.exsd"/>
    <extension-point id="eventTypes" name="%extPoint.eventTypes" schema="schema/eventTypes.exsd"/>
+   <extension-point id="modeledConstraintProviders" name="%extPoint.modeledConstraintProviders" schema="schema/modeledConstraintProviders.exsd"/>
 
    <extension
          point="org.eclipse.emf.validation.constraintParsers">
@@ -46,6 +47,13 @@
         <super type="org.eclipse.emf.ecore.diagnostic"/>
         <persistent value="false"/>
         <attribute name="rule"/>
-     </extension> 
+    </extension>
+     
+    <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/emf/2009/Validation"
+            class="org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage"
+            genModel="model/validation.genmodel"/>
+	</extension> 
 
 </plugin>

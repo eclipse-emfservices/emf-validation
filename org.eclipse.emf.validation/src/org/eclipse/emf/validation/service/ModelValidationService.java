@@ -9,6 +9,7 @@
  *    IBM Corporation - initial API and implementation 
  *    Zeligsoft - Bugs 249690, 137213
  *    Borland Software - Bug 137213
+ *    SAP AG - Bug 240352
  *  
  * $Id$
  * 
@@ -33,12 +34,14 @@ import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.modeled.ModeledConstraintsConfig;
 import org.eclipse.emf.validation.internal.service.BatchValidator;
 import org.eclipse.emf.validation.internal.service.ConstraintCache;
 import org.eclipse.emf.validation.internal.service.IProviderDescriptor;
@@ -114,7 +117,35 @@ public class ModelValidationService {
 			// constraints cannot be removed from the system
 		}
 	};
+	
+	private final IExtensionChangeHandler modeledProvidersHandler = new IExtensionChangeHandler() {
 
+		public void addExtension(IExtensionTracker tracker, IExtension extension) {
+			for ( IConfigurationElement elem : extension.getConfigurationElements() ) {
+				if ( ModeledConstraintsConfig.E_PROVIDER.equals( elem.getName())) {
+					String extensionUri = elem.getAttribute( ModeledConstraintsConfig.A_CONSTRAINT_RESOURCE_URI);
+					
+					if ( extensionUri != null ) {
+						try {
+							
+							ModeledConstraintsLoader.getInstance().loadConstraintBundles(null, 
+									URI.createURI(extensionUri), ModelValidationService.this, Platform.getBundle( elem.getContributor().getName()));
+						} catch ( Exception e ) {
+							// failure of a provider should not disturb others
+							Trace.catching(this.getClass(), "addEXtension", e); //$NON-NLS-1$
+						}
+					}
+					
+				}
+			}
+		}
+
+		public void removeExtension(IExtension extension, Object[] objects) {
+			// remove not supported at the moment
+		}
+		
+	};
+	
 	private final IExtensionChangeHandler listenersHandler = new IExtensionChangeHandler() {
 
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
@@ -145,6 +176,10 @@ public class ModelValidationService {
 	    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
 	    			EMFModelValidationPlugin.getPluginId(),
 	                EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
+	    	
+	    	IExtensionPoint modeledProvidersExtensionPoint = Platform.getExtensionRegistry().getExtensionPoint(
+					EMFModelValidationPlugin.getPluginId(),
+					EMFModelValidationPlugin.MODELED_CONSTRAINT_PROVIDERS_EXT_P_NAME);
 	        
 	        constraintCache = new ConstraintCache();
 	        
@@ -162,6 +197,15 @@ public class ModelValidationService {
 				// chain known extensions through the same mechanism as dynamic
 				for (IExtension extension : extPoint.getExtensions()) {
 					providersHandler.addExtension(extTracker, extension);
+				}
+				
+				
+				extTracker.registerHandler(modeledProvidersHandler, 
+						ExtensionTracker.createExtensionPointFilter( 
+								modeledProvidersExtensionPoint ));
+				
+				for ( IExtension extension : modeledProvidersExtensionPoint.getExtensions()) {
+					modeledProvidersHandler.addExtension(extTracker, extension);
 				}
 			}
     	}

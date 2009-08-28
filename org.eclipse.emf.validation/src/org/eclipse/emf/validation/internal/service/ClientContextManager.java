@@ -9,6 +9,7 @@
  *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bugs 137213, 249496, 252302
  *    Borland Software - Bug 137213
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.service;
@@ -29,6 +30,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -102,21 +104,23 @@ public class ClientContextManager {
      * <tt>constraintBindings</tt> extension configurations.
      */
     private void configureConstraintBindings() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-				EMFModelValidationPlugin.CONSTRAINT_BINDINGS_EXT_P_NAME);
-
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
+    	if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+			IExtensionPoint extPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+					EMFModelValidationPlugin.CONSTRAINT_BINDINGS_EXT_P_NAME);
+	
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
 			
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
+			if (extTracker != null) {
+				extTracker.registerHandler(extensionHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+				
+				for (IExtension extension : extPoint.getExtensions()) {
+					extensionHandler.addExtension(extTracker, extension);
+				}
 			}
-		}
+    	}
     }
 
 	/**
@@ -430,13 +434,15 @@ public class ClientContextManager {
 	 * @param context
 	 *            the implicit context to add
 	 */
-	private void addClientContext(ClientContext context) {
-		// copy on write
-		clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
-		clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
-		
-		if (clientContexts.add(context)) {
-			clientContextMap.put(context.getId(), context);
+	public void addClientContext(ClientContext context) {
+		synchronized (clientContextLock) {
+			// copy on write
+			clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
+			clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
+			
+			if (clientContexts.add(context)) {
+				clientContextMap.put(context.getId(), context);
+			}
 		}
 	}
 	

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="******************************************************************************&#xD;&#xA; * Copyright (c) 2009 SAP AG and others.&#xD;&#xA; * All rights reserved. This program and the accompanying materials&#xD;&#xA; * are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; * which accompanies this distribution, and is available at&#xD;&#xA; * http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA; *&#xD;&#xA; * Contributors:&#xD;&#xA; *    SAP AG - initial API and implementation &#xD;&#xA; ****************************************************************************"
+    modelDirectory="/org.eclipse.emf.validation/src" modelPluginID="org.eclipse.emf.validation"
+    modelName="Validation" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+  <foreignModel>validation.ecore</foreignModel>
+  <genPackages prefix="Validation" basePackage="org.eclipse.emf.validation.internal.modeled.model"
+      disposableProviderFactory="true" ecorePackage="validation.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="validation.ecore#//EventTypesEnum">
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Add"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Add_Many"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Create"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Move"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Remove"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Remove_Many"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Removing_Adapter"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Resolve"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Set"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//EventTypesEnum/Unset"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="validation.ecore#//ModeEnum">
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//ModeEnum/Batch"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//ModeEnum/Live"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="validation.ecore#//SeverityEnum">
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//SeverityEnum/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//SeverityEnum/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//SeverityEnum/ERROR"/>
+      <genEnumLiterals ecoreEnumLiteral="validation.ecore#//SeverityEnum/CANCEL"/>
+    </genEnums>
+    <genClasses ecoreClass="validation.ecore#//Category">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//Category/subCategories"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Category/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Category/mandatory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Category/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference validation.ecore#//Category/parentCategory"/>
+      <genOperations ecoreOperation="validation.ecore#//Category/getPath"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//ConstraintProvider">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ConstraintProvider/cache"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ConstraintProvider/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintProvider/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ConstraintProvider/mode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ConstraintProvider/className"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintProvider/constraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintProvider/package"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ConstraintProvider/pluginId"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="validation.ecore#//Target">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Target/feature"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Target/eClass"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Event/name"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//CustomEvent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//CustomEvent/name"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Feature"/>
+    <genClasses image="false" ecoreClass="validation.ecore#//Constraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/severity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/statusCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/mode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/isEnabledByDefault"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/message"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//Constraint/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Constraint/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraint/lang"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Parameter/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Parameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Constraints">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//Constraints/constraints"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Constraints/include"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Constraints/categories"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//ConstraintsBundle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintsBundle/providers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintsBundle/categories"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintsBundle/constraintBindingsBundles"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintsBundle/parsers"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//UnparsedConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//UnparsedConstraint/body"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//OclConstraint"/>
+    <genClasses ecoreClass="validation.ecore#//Parser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Parser/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Parser/className"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//TraversalStrategy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//TraversalStrategy/class"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//TraversalStrategy/package"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//ConstraintBindingsBundle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintBindingsBundle/clientContexts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference validation.ecore#//ConstraintBindingsBundle/bindings"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//ClientContext">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ClientContext/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//ClientContext/default"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Binding">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Binding/clientContexts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Binding/constraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Binding/excludedConstraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Binding/categories"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference validation.ecore#//Binding/excludedCategories"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Enablement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Enablement/domExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="validation.ecore#//Selector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute validation.ecore#//Selector/className"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

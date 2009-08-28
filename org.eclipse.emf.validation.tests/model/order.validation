@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validation:ConstraintsBundle xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:validation="http://www.eclipse.org/emf/2009/Validation" messageBundlePath="model/order_validation">
+  <providers description="" pluginId="org.eclipse.emf.validation.tests">
+    <constraints categories="//@categories.0 //@categories.0/@subCategories.0">
+      <constraints xsi:type="validation:UnparsedConstraint" id="modeled1" name="c1" message="Constraint failed." lang="OCL" body="self.accountNumber='12345C'"/>
+      <constraints xsi:type="validation:UnparsedConstraint" id="modeled2" name="c2" lang="OCL" body="true"/>
+      <constraints xsi:type="validation:UnparsedConstraint" id="modeled3" name="c3" message="Constraint failed." lang="Java">
+        <parameters key="class" value="org.eclipse.emf.validation.internal.model.tests.ModeledConstraintsTest$AccountNumberTestConstraint"/>
+        <parameters key="bundle" value="org.eclipse.emf.validation.tests"/>
+      </constraints>
+      <constraints xsi:type="validation:UnparsedConstraint" id="modeled4" name="%modeled4_n" description="%modeled4_d" message="%modeled4_m" lang="OCL" body="true"/>
+      <constraints xsi:type="validation:UnparsedConstraint" id="modeled5" name="Default enablement test" lang="OCL" body="true" isEnabledByDefault="false"/>
+    </constraints>
+    <package href="http:///ordersystem.ecore#/"/>
+  </providers>
+  <categories id="modeled.test" name="modeled.test">
+    <subCategories id="modeled.test.sub" name="modeled.test.sub"/>
+  </categories>
+  <constraintBindingsBundles>
+    <clientContexts xsi:type="validation:Selector" id="modeled.selector" default="true" className="org.eclipse.emf.validation.internal.model.tests.ModeledConstraintsTest$AccountClientSelector"/>
+    <bindings clientContexts="modeled.selector" constraints="modeled1 modeled2 modeled3" categories="//@categories.0 //@categories.0/@subCategories.0"/>
+  </constraintBindingsBundles>
+  <parsers language="OCL" className="org.eclipse.emf.validation.internal.ocl.OCLConstraintParser"/>
+  <parsers language="Java" className="org.eclipse.emf.validation.internal.util.JavaConstraintParser"/>
+</validation:ConstraintsBundle>

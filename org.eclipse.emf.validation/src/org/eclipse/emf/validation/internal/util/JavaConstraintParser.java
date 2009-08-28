@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    IBM Corporation - initial API and implementation 
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 
@@ -16,10 +17,13 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
+import org.eclipse.emf.validation.internal.modeled.ClassProvider;
+import org.eclipse.emf.validation.internal.modeled.ModeledConstraintDescriptor;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
@@ -28,7 +32,6 @@ import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
-import org.osgi.framework.Bundle;
 
 /**
  * <p>
@@ -154,10 +157,18 @@ public class JavaConstraintParser
 		Throwable pendingException = null;
 		String pendingMessage = null;
 
-		Bundle bundle = Platform.getBundle(bundleName);
+		ClassProvider classProvider = null;
+		
+		if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+			classProvider = new ClassProvider.BundleProvider(Platform.getBundle(bundleName));
+		} else if ( descriptor instanceof ModeledConstraintDescriptor) {
+			classProvider = ((ModeledConstraintDescriptor)descriptor).getClassProvider();
+		} else {
+			throw new IllegalArgumentException();
+		}
 		
 		try {
-			Class<?> resultType = bundle.loadClass(className);
+			Class<?> resultType = classProvider.loadClass(className);
 
 			if (AbstractModelConstraint.class.isAssignableFrom(resultType)) {
 				// instantiate the class extending AbstractModelConstraint

@@ -8,6 +8,7 @@
  * Contributors:
  *    IBM Corporation - initial API and implementation 
  *    Zeligsoft - Bug 137213
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 
@@ -20,7 +21,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
-
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -178,7 +179,6 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * 
 	 * @param config the Eclipse extension configuration data for the parser
 	 */
-	@SuppressWarnings("deprecation")
 	void registerParser(IConfigurationElement config) {
 		assert config != null;
 
@@ -188,6 +188,37 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		try {
 			Object parser = config.createExecutableExtension(
 					XmlConfig.A_CLASS);
+
+			if ( parser instanceof IConstraintParser) {
+				registerParser(language, (IConstraintParser) parser);
+			} else {
+				Trace.trace(
+						EMFModelValidationDebugOptions.PARSERS,
+						"Parser could not be initialized for constraint language: " + language); //$NON-NLS-1$
+				Log.warningMessage(
+					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
+					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG,
+					new Object[] {className, language});
+			}
+		} catch (Exception e) {
+			Trace.catching(getClass(), "registerParser", e); //$NON-NLS-1$
+			Log.warningMessage(
+				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED,
+				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED_MSG,
+				new Object[] {className, language},
+				e);
+		}
+	}
+	
+	
+	@SuppressWarnings("deprecation")
+	public void registerParser( String language, IConstraintParser parser ) {
+		assert language != null;
+		assert parser != null;
+
+		String className = parser.getClass().getName();
+		
+		try {
 
 			if (parser instanceof IXmlConstraintParser
 					|| parser instanceof IParameterizedConstraintParser) {
@@ -214,6 +245,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 				new Object[] {className, language},
 				e);
 		}
+
 	}
 
 	/**
@@ -231,19 +263,21 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * extension point.
 	 */
 	private void initializeParsers() {
-		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-			.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-				CONSTRAINT_PARSERS_EXT_P_NAME);
-		
-		IExtensionTracker extTracker = EMFModelValidationPlugin
-			.getExtensionTracker();
-		
-		if (extTracker != null) {
-			extTracker.registerHandler(extensionHandler, ExtensionTracker
-				.createExtensionPointFilter(extPoint));
+		if ( EMFPlugin.IS_ECLIPSE_RUNNING ) {
+			IExtensionPoint extPoint = Platform.getExtensionRegistry()
+				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
+					CONSTRAINT_PARSERS_EXT_P_NAME);
 			
-			for (IExtension extension : extPoint.getExtensions()) {
-				extensionHandler.addExtension(extTracker, extension);
+			IExtensionTracker extTracker = EMFModelValidationPlugin
+				.getExtensionTracker();
+			
+			if (extTracker != null) {
+				extTracker.registerHandler(extensionHandler, ExtensionTracker
+					.createExtensionPointFilter(extPoint));
+				
+				for (IExtension extension : extPoint.getExtensions()) {
+					extensionHandler.addExtension(extTracker, extension);
+				}
 			}
 		}
 	}

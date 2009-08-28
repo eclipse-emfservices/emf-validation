@@ -8,6 +8,7 @@
  * Contributors:
  *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bugs 249496, 252302
+ *    SAP AG - Bug 240352
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.service;
@@ -277,6 +278,10 @@ public class ClientContext
 	public final IClientSelector getSelector() {
 		return selector;
 	}
+	
+	public void setSelector(IClientSelector selector) {
+		this.selector = selector;
+	}
 
 	public final boolean isDefault() {
 		return isDefault;
@@ -305,7 +310,7 @@ public class ClientContext
 	 * 
 	 * @param constraintId the ID of a constraint that is to be included in me
 	 */
-	void includeConstraint(String constraintId) {
+	public void includeConstraint(String constraintId) {
 		filter = filter.includeConstraint(constraintId);
 	}
 
@@ -314,7 +319,7 @@ public class ClientContext
 	 * 
 	 * @param constraintId the ID of a constraint that is to be excluded from me
 	 */
-	void excludeConstraint(String constraintId) {
+	public void excludeConstraint(String constraintId) {
 		filter = filter.excludeConstraint(constraintId);
 	}
 
@@ -324,7 +329,7 @@ public class ClientContext
 	 * @param categoryId the qualified ID (path) of a constraint category that
 	 *     is to be included in me
 	 */
-	void includeCategory(String categoryId) {
+	public void includeCategory(String categoryId) {
 		filter = filter.includeCategory(categoryId);
 	}
 
@@ -335,7 +340,7 @@ public class ClientContext
 	 *            the qualified ID (path) of a constraint category that is to be
 	 *            excluded from me
 	 */
-	void excludeCategory(String categoryId) {
+	public void excludeCategory(String categoryId) {
 		filter = filter.excludeCategory(categoryId);
 	}
 
@@ -345,7 +350,7 @@ public class ClientContext
 	 * @param clientContextID
 	 *            a client-context to extend
 	 */
-	void extendClientContext(String clientContextID) {
+	public void extendClientContext(String clientContextID) {
 		filter = filter.extendClientContext(clientContextID);
 		
 		if (!extendedClientContexts.contains(clientContextID)) {
