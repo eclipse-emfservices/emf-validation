@@ -641,10 +641,10 @@ success = target.foo()
          </enablement>
       </clientContext>
    </extension>
-   <extension
+   <!--extension
          point="org.eclipse.emf.validation.modeledConstraintProviders">
       <provider
             constraintResourceUri="platform:/plugin/org.eclipse.emf.validation.tests/model/order.validation">
       </provider>
-   </extension>
+   </extension-->
 </plugin>
