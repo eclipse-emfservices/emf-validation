@@ -29,6 +29,7 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin.Tracing;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.emf.validation.internal.modeled.ModeledConstraintsConfig;
 import org.eclipse.emf.validation.internal.util.Trace;
@@ -284,7 +285,11 @@ public class CategoryManager {
 					if ( ModeledConstraintsConfig.E_PROVIDER.equals(cfg.getName())) {
 						String uri = cfg.getAttribute( ModeledConstraintsConfig.A_CONSTRAINT_RESOURCE_URI);
 						if ( uri != null ) {
-							ModeledConstraintsLoader.getInstance().loadCategories(null, URI.createURI(uri), Platform.getBundle(ext.getContributor().getName()));
+							try {
+								ModeledConstraintsLoader.getInstance().loadCategories(null, URI.createURI(uri), Platform.getBundle(ext.getContributor().getName()));
+							} catch (Exception e) {
+								Tracing.catching(EMFModelValidationDebugOptions.EXCEPTIONS_CATCHING, CategoryManager.class, "loadCategories", e); //$NON-NLS-1$
+							}
 						}
 					}
 				}

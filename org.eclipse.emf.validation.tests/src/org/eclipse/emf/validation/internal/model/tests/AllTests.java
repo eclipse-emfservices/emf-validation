@@ -40,6 +40,6 @@ public final class AllTests extends TestSuite {
 		addTestSuite(EvaluationModeTest.class);
 		addTestSuite(ClientContextTest.class);
 		addTestSuite(ClientContextManagerTest.class);
-//		addTestSuite(ModeledConstraintsTest.class);
+		addTestSuite(ModeledConstraintsTest.class);
 	}
 }
