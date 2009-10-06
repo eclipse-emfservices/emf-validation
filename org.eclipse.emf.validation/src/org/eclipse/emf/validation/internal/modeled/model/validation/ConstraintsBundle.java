@@ -2,12 +2,11 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ConstraintsBundle.java,v 1.1 2009/08/28 11:39:50 bgruschko Exp $
+ * $Id: ConstraintsBundle.java,v 1.2 2009/10/06 11:42:25 bgruschko Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -147,13 +146,5 @@ public interface ConstraintsBundle extends EObject {
 	 * @generated
 	 */
 	boolean isSetMessageBundlePath();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model classProviderRequired="true"
-	 * @generated
-	 */
-	Object getMessageBundle(Object classProvider);
 
 } // ConstraintsBundle

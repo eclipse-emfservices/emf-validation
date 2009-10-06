@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ValidationPackageImpl.java,v 1.1 2009/08/28 11:39:50 bgruschko Exp $
+ * $Id: ValidationPackageImpl.java,v 1.2 2009/10/06 11:42:25 bgruschko Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -1182,9 +1182,6 @@ public class ValidationPackageImpl extends EPackageImpl implements ValidationPac
 		initEReference(getConstraintsBundle_ConstraintBindingsBundles(), this.getConstraintBindingsBundle(), null, "constraintBindingsBundles", null, 0, -1, ConstraintsBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConstraintsBundle_Parsers(), this.getParser(), null, "parsers", null, 0, -1, ConstraintsBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConstraintsBundle_MessageBundlePath(), ecorePackage.getEString(), "messageBundlePath", null, 0, 1, ConstraintsBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		EOperation op = addEOperation(constraintsBundleEClass, ecorePackage.getEJavaObject(), "getMessageBundle", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEJavaObject(), "classProvider", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(unparsedConstraintEClass, UnparsedConstraint.class, "UnparsedConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUnparsedConstraint_Body(), ecorePackage.getEString(), "body", null, 0, 1, UnparsedConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

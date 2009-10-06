@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ConstraintsBundleImpl.java,v 1.1 2009/08/28 11:39:50 bgruschko Exp $
+ * $Id: ConstraintsBundleImpl.java,v 1.2 2009/10/06 11:42:25 bgruschko Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -231,18 +231,6 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	 */
 	public boolean isSetMessageBundlePath() {
 		return messageBundlePathESet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * @generated NOT
-	 * @noreference This method is not intended to be referenced by clients.
-	 * 
-	 * @return Bundle of the translated messages.
-	 * <!-- end-user-doc -->
-	 */
-	public final Object getMessageBundle(Object classProvider) {
-		throw new UnsupportedOperationException();
 	}
 
 	/**
