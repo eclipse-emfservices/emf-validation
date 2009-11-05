@@ -172,6 +172,11 @@ public class ModelValidationService {
      * <tt>constraintProviders</tt> extension configurations.
      */
     private void configureConstraints() {
+    	constraintCache = new ConstraintCache();
+        Collection<IProviderDescriptor> providers = getProviders();
+        // include the cache in my collection of providers
+        providers.add(constraintCache.getDescriptor());
+    	
     	if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
 	    	IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
 	    			EMFModelValidationPlugin.getPluginId(),
@@ -181,13 +186,6 @@ public class ModelValidationService {
 					EMFModelValidationPlugin.getPluginId(),
 					EMFModelValidationPlugin.MODELED_CONSTRAINT_PROVIDERS_EXT_P_NAME);
 	        
-	        constraintCache = new ConstraintCache();
-	        
-	        Collection<IProviderDescriptor> providers = getProviders();
-	
-	        // include the cache in my collection of providers
-	        providers.add(constraintCache.getDescriptor());
-	
 			IExtensionTracker extTracker = EMFModelValidationPlugin
 				.getExtensionTracker();
 			if (extTracker != null) {
