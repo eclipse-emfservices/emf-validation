@@ -167,14 +167,7 @@ public final class MarkerUtil {
 				final Map<URI, IFile> visitedResources = new HashMap<URI, IFile>();
 				
 				if (validationStatus.isMultiStatus()) {
-					IStatus[] children = validationStatus.getChildren();
-					for (IStatus element : children) {
-						if (element.matches(severityMask)
-								&& (element instanceof IConstraintStatus)) {
-							
-							createMarker((IConstraintStatus)element, markerType, configurator, visitedResources);
-						}
-					}
+					createMarkers(validationStatus, severityMask, markerType, configurator, visitedResources);
 				} else if (validationStatus.matches(severityMask)
 						&& (validationStatus instanceof IConstraintStatus)) {
 					
@@ -185,6 +178,24 @@ public final class MarkerUtil {
 		
 		ResourcesPlugin.getWorkspace().run(runnable, null);
 	}
+	
+	private static void createMarkers(IStatus validationStatus,
+            int severityMask, String markerType,
+            IMarkerConfigurator configurator, Map<URI, IFile> visitedResources)
+            throws CoreException {
+
+        IStatus[] children = validationStatus.getChildren();
+        for (IStatus element : children) {
+            // recursively unwrap all children of multi-statuses
+            if (element.isMultiStatus()) {
+                createMarkers(element, severityMask, markerType, configurator, visitedResources);
+            } else if (element.matches(severityMask)
+                    && (element instanceof IConstraintStatus)) {
+
+                createMarker((IConstraintStatus)element, markerType, configurator, visitedResources);
+            }
+        }
+    }
 
 	private static void createMarker(IConstraintStatus status,
 			String markerType, IMarkerConfigurator configurator,
@@ -420,9 +431,10 @@ public final class MarkerUtil {
 
 				// First we need to inspect the status and if it is a
 				// multistatus then
-				// we group all status related to the same file together. Each
+				// we group all status related to the same file together. This needs 
+				// to be done recursively for all occurring multi-statuses. Each
 				// file
-				// is associated with a status list. This way we can a file by
+				// is associated with a status list. This way we can achieve a file by
 				// file
 				// approach, allowing us to first delete the previous markers of
 				// a
@@ -430,13 +442,7 @@ public final class MarkerUtil {
 				// its
 				// status list.
 				if (validationStatus.isMultiStatus()) {
-					IStatus[] children = validationStatus.getChildren();
-					for (IStatus next : children) {
-						if (shouldAddStatus(next, severityMask)) {
-							addStatus((IConstraintStatus) next,
-								resourcesToVisit);
-						}
-					}
+					updateMarkers(validationStatus, severityMask, resourcesToVisit);
 				} else if (shouldAddStatus(validationStatus, severityMask)) {
 					addStatus((IConstraintStatus) validationStatus,
 						resourcesToVisit);
@@ -456,6 +462,27 @@ public final class MarkerUtil {
 
 		ResourcesPlugin.getWorkspace().run(runnable, null);
 	}
+	
+	private static void updateMarkers(IStatus validationStatus,
+            int severityMask, Map<URI, FileStatusListPair> resourcesToVisit) {
+
+        if (validationStatus.isMultiStatus()) {
+            IStatus[] children = validationStatus.getChildren();
+            for (IStatus next : children) {
+                // recursively unwrap all children of multi-statuses
+                if (next.isMultiStatus()) {
+                    updateMarkers(next, severityMask, resourcesToVisit);
+                } else if (shouldAddStatus(next, severityMask)) {
+                    addStatus((IConstraintStatus) next,
+                        resourcesToVisit);
+                }
+            }
+        } else if (shouldAddStatus(validationStatus, severityMask)) {
+            addStatus((IConstraintStatus) validationStatus,
+                resourcesToVisit);
+        }
+
+    }
 	
 	private static boolean shouldAddStatus(IStatus status, int severityMask) {
 		return (status.matches(severityMask) && (status instanceof IConstraintStatus))

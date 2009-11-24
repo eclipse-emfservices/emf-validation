@@ -13,7 +13,7 @@
  *
  * </copyright>
  *
- * $Id: MarkerUtilTest.java,v 1.3 2008/09/22 06:11:23 cdamus Exp $
+ * $Id: MarkerUtilTest.java,v 1.4 2009/11/24 16:47:18 bgruschko Exp $
  */
 
 package org.eclipse.emf.validation.marker.tests;
@@ -22,7 +22,6 @@ import java.util.Collections;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 
@@ -32,16 +31,29 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.validation.IValidationContext;
+import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
+import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
 import org.eclipse.emf.validation.marker.MarkerUtil;
+import org.eclipse.emf.validation.model.ConstraintStatus;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.model.ModelConstraint;
+import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
+import org.eclipse.emf.validation.util.XmlConfig;
 
 
 /**
@@ -127,6 +139,49 @@ public class MarkerUtilTest
         } catch (CoreException e) {
             fail("Failed to find markers: " + e.getLocalizedMessage()); //$NON-NLS-1$
         }
+    }
+    
+    public void testMarkerCreationOnNestedStatus_295841() {
+    	ConstraintDescriptorTest.FixtureElement config =
+			ConstraintDescriptorTest.newFixtureConfig();
+		
+		config.putAttribute(
+				XmlConfig.A_ID,
+				"aGetConOpTest@" + System.identityHashCode(config)) //$NON-NLS-1$
+			.putAttribute(XmlConfig.A_MODE, EvaluationMode.BATCH.getName());
+    	
+    	IModelConstraint constraint;
+		try {
+			constraint = new ModelConstraint(new XmlConstraintDescriptor(config)) {
+				
+				public IStatus validate(IValidationContext ctx) {
+					return Status.CANCEL_STATUS;
+				}
+			};
+		} catch (ConstraintExistsException e) {
+			throw new RuntimeException(e);
+		}
+ 
+    	
+    	EObject target = testResource.getContents().get(0);
+    	
+    	ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH).validate(target);
+    	
+    	ConstraintStatus status = new ConstraintStatus(constraint, target, "fail", null); //$NON-NLS-1$
+    	MultiStatus	ms1	=	new MultiStatus("org.eclipse.validation",0, new IStatus[] { //$NON-NLS-1$
+    			new MultiStatus("org.eclipse.validation",0, new IStatus[] {status},"m2",null) //$NON-NLS-1$ //$NON-NLS-2$
+    	},"m1",null); //$NON-NLS-1$
+    	
+    	try {
+			MarkerUtil.createMarkers(ms1);
+			IMarker[] markers = testFile.findMarkers(MarkerUtil.VALIDATION_MARKER_TYPE,	true, 0);
+
+			assertNotNull( markers );
+			assertEquals(1, markers.length);
+		} catch (CoreException e) {
+			throw new RuntimeException(e);
+		}
+		
     }
     
     //
