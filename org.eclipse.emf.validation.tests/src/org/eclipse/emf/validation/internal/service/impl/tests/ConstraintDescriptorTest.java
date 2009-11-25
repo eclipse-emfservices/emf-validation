@@ -207,7 +207,7 @@ public class ConstraintDescriptorTest extends TestCase {
 				}
 
 				public String getLabel() throws InvalidRegistryObjectException {
-					return null;
+					return TEST_PLUGIN;
 				}
 
 				public String getSimpleIdentifier() throws InvalidRegistryObjectException {
@@ -228,6 +228,11 @@ public class ConstraintDescriptorTest extends TestCase {
 
 				public org.eclipse.core.runtime.IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
 					return null;
+				}
+
+				public String getLabel(String locale)
+						throws InvalidRegistryObjectException {
+					return TEST_PLUGIN;
 				}				
 			};
 		}
@@ -281,6 +286,16 @@ public class ConstraintDescriptorTest extends TestCase {
 		}
 
 		public IContributor getContributor() throws InvalidRegistryObjectException {
+			return null;
+		}
+
+		public String getAttribute(String attrName, String locale)
+				throws InvalidRegistryObjectException {
+			return null;
+		}
+
+		public String getValue(String locale)
+				throws InvalidRegistryObjectException {
 			return null;
 		}
 	}

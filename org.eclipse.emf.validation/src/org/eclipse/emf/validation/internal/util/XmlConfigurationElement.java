@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -383,6 +383,15 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	}
 
 	public IContributor getContributor() throws InvalidRegistryObjectException {
+		return null;
+	}
+
+	public String getAttribute(String attrName, String locale)
+			throws InvalidRegistryObjectException {
+		return null;
+	}
+
+	public String getValue(String locale) throws InvalidRegistryObjectException {
 		return null;
 	}
 }
