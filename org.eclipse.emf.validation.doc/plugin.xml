@@ -8,7 +8,7 @@
             file="toc.xml"
             primary="true"
             category="org.eclipse.emf.qtv"/>
-      <index path="index"/>
+      <!-- index path="index"/-->
    </extension>
    
  <!-- ============================= -->
