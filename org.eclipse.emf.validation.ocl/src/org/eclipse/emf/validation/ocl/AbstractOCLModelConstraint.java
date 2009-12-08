@@ -13,7 +13,7 @@
  *
  * </copyright>
  *
- * $Id: AbstractOCLModelConstraint.java,v 1.5 2007/11/14 18:03:54 cdamus Exp $
+ * $Id: AbstractOCLModelConstraint.java,v 1.6 2009/12/08 14:46:40 mstrenge Exp $
  */
 
 package org.eclipse.emf.validation.ocl;
@@ -105,17 +105,6 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
         return null;
     }
 	
-	/**
-     * Creates an environment factory for compatibility with the OCL 1.0 API.
-     * 
-	 * @deprecated Override the {@link #createOCLEnvironmentFactory()} method,
-     * instead.
-	 */
-	@Deprecated
-	protected org.eclipse.emf.ocl.parser.EnvironmentFactory createEnvironmentFactory() {
-        return org.eclipse.emf.ocl.parser.EnvironmentFactory.ECORE_INSTANCE;
-    }
-
 
     /**
      * Obtains the cached OCL query/constraint that implements me for the
@@ -157,48 +146,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
         return result;
     }
     
-	/**
-	 * Obtains the cached OCL query/constraint that implements me for the
-	 * specified EMF type.
-	 * 
-	 * @param eClass an EMF model object type
-	 * @return the corresponding OCL query
-     * 
-     * @deprecated Use the {@link #getConstraintCondition(EObject)} method, instead.
-	 */
-	@Deprecated
-	public org.eclipse.emf.ocl.query.Query getCondition(EClass eClass) {
-		org.eclipse.emf.ocl.query.Query result = null;
-		
-        @SuppressWarnings("unchecked")
-		Reference<org.eclipse.emf.ocl.query.Query> reference =
-            (Reference<org.eclipse.emf.ocl.query.Query>) queries.get(eClass);
-		if (reference != null) {
-			result = reference.get();
-		}
 
-		if (result == null) {
-			// lazily initialize the condition.  If a RuntimeException is thrown
-			//   by the QueryFactory because of a bad OCL expression, then the
-			//   constraints framework will catch it and disable me
-			org.eclipse.emf.ocl.helper.IOCLHelper oclHelper =
-                org.eclipse.emf.ocl.helper.HelperUtil.createOCLHelper(
-                    createEnvironmentFactory());
-			oclHelper.setContext(eClass);
-			try {
-				result = org.eclipse.emf.ocl.query.QueryFactory.eINSTANCE.createQuery(
-                    oclHelper.createQuery(getDescriptor().getBody()));
-			} catch(org.eclipse.emf.ocl.helper.OCLParsingException e) {	
-				// TODO - a better error handling ?
-				throw new RuntimeException(e);
-			}
-
-			queries.put(eClass,
-                new WeakReference<org.eclipse.emf.ocl.query.Query>(result));
-		}
-
-		return result;
-	}
 
 	// implements the inherited method
 	public IStatus validate(IValidationContext ctx) {
@@ -239,10 +187,8 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
      * @author Christian W. Damus (cdamus)
      */
     private final class QueryManager {
-        private final boolean isOldStyle;
-        
+       
         QueryManager() {
-            isOldStyle = createOCLEnvironmentFactory() == null;
         }
         
         /**
@@ -254,11 +200,6 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
          */
         @SuppressWarnings("deprecation")
         boolean check(EObject target) {
-            if (isOldStyle) {
-                org.eclipse.emf.ocl.query.Query query = getCondition(target.eClass());
-                return query.check(target);
-            }
-            
             Query<C, CLS, E> query = getConstraintCondition(target);
             return query.check(target);
         }
