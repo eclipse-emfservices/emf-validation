@@ -10,7 +10,7 @@
  *  *    SAP AG - initial API and implementation 
  *  ****************************************************************************
  *
- * $Id: Selector.java,v 1.1 2009/08/28 11:39:49 bgruschko Exp $
+ * $Id: Selector.java,v 1.2 2009/12/11 19:54:50 ahunter Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -30,6 +30,7 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getSelector()
  * @model
  * @generated
+ * @since 1.4
  */
 public interface Selector extends ClientContext {
 	/**

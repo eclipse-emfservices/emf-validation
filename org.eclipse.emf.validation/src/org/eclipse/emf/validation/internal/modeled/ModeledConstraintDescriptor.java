@@ -32,6 +32,7 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 
 /**
  * @author Boris Gruschko
+ * @since 1.4
  * 
  */
 public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor

@@ -14,6 +14,7 @@ package org.eclipse.emf.validation.internal.modeled;
  * Constants for the modeledConstraintProviders extension point.
  * 
  * @author Boris Gruschko
+ * @since 1.4
  *
  */
 public final class ModeledConstraintsConfig {

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: ConstraintsBundle.java,v 1.2 2009/10/06 11:42:25 bgruschko Exp $
+ * $Id: ConstraintsBundle.java,v 1.3 2009/12/11 19:54:50 ahunter Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintsBundle()
  * @model
  * @generated
+ * @since 1.4
  */
 public interface ConstraintsBundle extends EObject {
 	/**

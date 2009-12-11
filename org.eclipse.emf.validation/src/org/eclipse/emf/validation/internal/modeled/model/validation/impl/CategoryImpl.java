@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: CategoryImpl.java,v 1.1 2009/08/28 11:39:50 bgruschko Exp $
+ * $Id: CategoryImpl.java,v 1.2 2009/12/11 19:54:51 ahunter Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -43,6 +43,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  * </p>
  *
  * @generated
+ * @since 1.4
  */
 public class CategoryImpl extends EObjectImpl implements Category {
 	/**

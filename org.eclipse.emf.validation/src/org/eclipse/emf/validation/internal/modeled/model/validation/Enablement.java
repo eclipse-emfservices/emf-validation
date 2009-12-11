@@ -10,7 +10,7 @@
  *  *    SAP AG - initial API and implementation 
  *  ****************************************************************************
  *
- * $Id: Enablement.java,v 1.1 2009/08/28 11:39:50 bgruschko Exp $
+ * $Id: Enablement.java,v 1.2 2009/12/11 19:54:50 ahunter Exp $
  */
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -30,6 +30,7 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getEnablement()
  * @model
  * @generated
+ * @since 1.4
  */
 public interface Enablement extends ClientContext {
 	/**

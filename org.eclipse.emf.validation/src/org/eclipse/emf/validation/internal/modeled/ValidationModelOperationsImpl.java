@@ -20,6 +20,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
  * Operation implementations for the validation meta-model.
  * 
  * @author Boris Gruschko
+ * @since 1.4
  *
  */
 public class ValidationModelOperationsImpl {

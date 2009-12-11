@@ -33,6 +33,7 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * </p>
  * 
  * @author Boris Gruschko
+ * @since 1.4
  * 
  */
 public class ModeledConstraintProvider implements IModelConstraintProvider {

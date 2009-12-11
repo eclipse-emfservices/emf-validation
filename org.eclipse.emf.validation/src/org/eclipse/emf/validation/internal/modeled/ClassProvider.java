@@ -22,6 +22,7 @@ import org.osgi.framework.Bundle;
  * Provides classes in standalone scenario.
  * 
  * @author Boris Gruschko
+ * @since 1.4
  *
  */
 public interface ClassProvider {
