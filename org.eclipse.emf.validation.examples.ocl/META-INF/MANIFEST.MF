@@ -2,15 +2,16 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Plugin.name
 Bundle-SymbolicName: org.eclipse.emf.validation.examples.ocl; singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.4.0.qualifier
 Bundle-Activator: org.eclipse.emf.validation.examples.ocl.OCLValidationExamplePlugin
 Bundle-Vendor: %Plugin.providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.emf.validation.examples.ocl
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.validation;bundle-version="[1.2.0,2.0.0)",
- org.eclipse.emf.validation.ocl;bundle-version="[1.1.0,2.0.0)",
- org.eclipse.ocl.ecore;bundle-version="[1.1.0,2.0.0)"
+ org.eclipse.emf.validation.ocl;bundle-version="[2.0.0,3.0.0)",
+ org.eclipse.ocl;bundle-version="[3.0.0,4.0.0)",
+ org.eclipse.ocl.ecore;bundle-version="[3.0.0,4.0.0)"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
