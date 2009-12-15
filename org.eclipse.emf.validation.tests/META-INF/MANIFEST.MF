@@ -23,7 +23,7 @@ Export-Package: ordersystem,
  org.eclipse.emf.validation.tests.l10n
 Require-Bundle: org.eclipse.core.expressions;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.3.0,3.0.0)",
- org.junit;bundle-version="[3.8.1,4.0.0)",
+ org.junit;bundle-version="[3.8.1,5.0.0)",
  org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.emf.validation;bundle-version="1.4.0",
  org.eclipse.emf.validation.ui;bundle-version="1.2.0",
