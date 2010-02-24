@@ -49,9 +49,6 @@ public class ValidationListener
 	    /** Whether the last status that I processed had errors. */
 	    private boolean hasErrors = false;
 	
-	    /** Whether the last status that I processed had problems. */
-	    private boolean hasProblems = false;
-	
 	    /**
 	     * Appends the problems contained within the specified
 	     * <code>status</code> collection to the specified <code>output</code>
@@ -63,7 +60,6 @@ public class ValidationListener
 	    void appendProblems(
 	        ValidationEvent event,
 	        StringBuffer output) {
-	        hasProblems = false;
 	        hasErrors = false;
 	
 	        appendProblemsRecursive(
@@ -96,12 +92,10 @@ public class ValidationListener
 	
 	                switch (next.getSeverity()) {
 	                    case IStatus.ERROR :
-	                        hasProblems = true;
 	                        hasErrors = true;
 	                        messagePattern = VALIDATION_ERROR;
 	                        break;
 	                    case IStatus.WARNING :
-	                        hasProblems = true;
 	                        messagePattern = VALIDATION_WARNING;
 	                        break;
 	                    default :
