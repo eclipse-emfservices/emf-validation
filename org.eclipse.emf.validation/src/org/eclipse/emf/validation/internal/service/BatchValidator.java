@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
+ * Copyright (c) 2003, 2010 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -314,6 +314,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		 */
 		public void startTraversal(Collection<? extends EObject> traversalRoots,
 				IProgressMonitor monitor) {
+			current = null;
 			delegates = initDelegates(traversalRoots);
 			monitors = new java.util.HashMap<ITraversalStrategy, IProgressMonitor>();
 			
