@@ -13,7 +13,7 @@ feature@org.eclipse.emf.validation.master=v20100224-1657,:pserver:anonymous@dev.
 
 feature@org.eclipse.emf.validation.sdk=v20100224-1657,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.sdk-feature
 feature@org.eclipse.emf.validation=v20100224-1657,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation-feature
-feature@org.eclipse.emf.validation.ocl=v20100224-1657,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ocl-feature
+feature@org.eclipse.emf.validation.ocl=v20100312-1538,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/plugins/org.eclipse.emf.validation.ocl-feature
 feature@org.eclipse.emf.validation.doc=v200901271722,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/doc/org.eclipse.emf.validation.doc-feature
 feature@org.eclipse.emf.validation.examples=v20100111-1135,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/examples/org.eclipse.emf.validation.examples-feature
 feature@org.eclipse.emf.validation.tests=v200901271722,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.emf/org.eclipse.emf.validation/tests/org.eclipse.emf.validation.tests-feature
