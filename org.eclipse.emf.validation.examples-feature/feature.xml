@@ -57,7 +57,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.emf.examples.library.editor" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.ui.console" version="3.1.100" match="compatible"/>
       <import plugin="org.eclipse.emf.validation.ui" version="1.2.0" match="compatible"/>
-      <import plugin="org.eclipse.emf.validation.ocl" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.validation.ocl" version="1.4.0" match="compatible"/>
       <import plugin="org.eclipse.ocl.ecore" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.core.expressions" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.emf.validation" version="1.4.0" match="compatible"/>
