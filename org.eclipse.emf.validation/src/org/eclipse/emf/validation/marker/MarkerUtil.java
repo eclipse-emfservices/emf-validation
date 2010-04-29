@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2008 IBM Corporation, Zeligsoft Inc., and others.
+ * Copyright (c) 2005, 2010 IBM Corporation, Zeligsoft Inc., and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -221,12 +221,7 @@ public final class MarkerUtil {
 				file = ResourcesPlugin.getWorkspace().getRoot().getFile(
 					new Path(platformResourcePath.toString()));
 			} else if (FILE_SCHEME.equals(uri.scheme())) {
-				StringBuffer fileResourcePath = new StringBuffer();
-				for (int j=1, size = uri.segmentCount(); j < size; ++j) {
-					fileResourcePath.append('/');
-					fileResourcePath.append(URI.decode(uri.segment(j)));
-				}
-				
+				Path fileResourcePath = new Path(uri.toFileString());
 				file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(
 					new Path(fileResourcePath.toString()));
 			}
@@ -523,14 +518,9 @@ public final class MarkerUtil {
 				fileStatusList.setFile(ResourcesPlugin.getWorkspace().getRoot()
 					.getFile(new Path(platformResourcePath.toString())));
 			} else if (FILE_SCHEME.equals(uri.scheme())) {
-				StringBuffer fileResourcePath = new StringBuffer();
-				for (int j = 1, size = uri.segmentCount(); j < size; ++j) {
-					fileResourcePath.append('/');
-					fileResourcePath.append(URI.decode(uri.segment(j)));
-				}
-
+			    Path fileResourcePath = new Path(uri.toFileString());
 				fileStatusList.setFile(ResourcesPlugin.getWorkspace().getRoot()
-					.getFileForLocation(new Path(fileResourcePath.toString())));
+					.getFileForLocation(fileResourcePath));
 			}
 
 			if (fileStatusList.getFile() != null) {
