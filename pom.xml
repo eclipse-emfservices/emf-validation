@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.eclipse.emf.validation</groupId>
+  <artifactId>org.eclipse.emf.validation</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>org.eclipse.emf.validation</module>
+    <module>org.eclipse.emf.validation-feature</module>
+    <module>org.eclipse.emf.validation.doc</module>
+    <module>org.eclipse.emf.validation.doc-feature</module>
+    <module>org.eclipse.emf.validation.examples</module>
+    <module>org.eclipse.emf.validation.examples-feature</module>
+    <module>org.eclipse.emf.validation.examples.adapter</module>
+    <module>org.eclipse.emf.validation.examples.general</module>
+    <module>org.eclipse.emf.validation.examples.ocl</module>
+    <module>org.eclipse.emf.validation.master-feature</module>
+    <module>org.eclipse.emf.validation.ocl</module>
+    <module>org.eclipse.emf.validation.ocl-feature</module>
+    <module>org.eclipse.emf.validation.sdk-feature</module>
+    <module>org.eclipse.emf.validation.tests</module>
+    <module>org.eclipse.emf.validation.tests-feature</module>
+    <module>org.eclipse.emf.validation.ui</module>
+    <module>org.eclipse.emf.validation.ui.ide</module>
+  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>0.16.0</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
