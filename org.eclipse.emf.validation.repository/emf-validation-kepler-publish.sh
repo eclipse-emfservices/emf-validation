@@ -189,61 +189,68 @@ if [ "$dropFiles" = y ];
 			echo "version is now $version"
                 fi
                 
-                # emf query SDK
-                zip -r $dropDir/emf-query-SDK-$version.zip \
+                # emf validation SDK
+                zip -r $dropDir/emf-validation-SDK-$version.zip \
 			eclipse/epl-v10.html eclipse/notice.html \
-			eclipse/features/org.eclipse.emf.query_* \
-			eclipse/features/org.eclipse.emf.query.doc_* \
-			eclipse/features/org.eclipse.emf.query.ocl_* \
-			eclipse/features/org.eclipse.emf.query.ocl.source_* \
-			eclipse/features/org.eclipse.emf.query.sdk_* \
-			eclipse/features/org.eclipse.emf.query.source_* \
-			eclipse/plugins/org.eclipse.emf.query_* \
-			eclipse/plugins/org.eclipse.emf.query.doc_* \
-			eclipse/plugins/org.eclipse.emf.query.ocl_* \
-			eclipse/plugins/org.eclipse.emf.query.ocl.source_* \
-			eclipse/plugins/org.eclipse.emf.query.source_*
-                md5sum $dropDir/emf-query-SDK-$version.zip > $dropDir/emf-query-SDK-$version.zip.md5
-                echo "Created emf-query-SDK-$version.zip"
+			eclipse/features/org.eclipse.emf.validation.doc_* \
+			eclipse/features/org.eclipse.emf.validation.ocl.source_* \
+			eclipse/features/org.eclipse.emf.validation.sdk_* \
+			eclipse/features/org.eclipse.emf.validation.source_* \
+			eclipse/features/org.eclipse.emf.validation_* \
+			eclipse/features/org.eclipse.emf.validation.ocl_* \
+			eclipse/plugins/org.eclipse.emf.validation.doc_* \
+			eclipse/plugins/org.eclipse.emf.validation_* \
+			eclipse/plugins/org.eclipse.emf.validation.ocl_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui.ide_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui_*
+			eclipse/plugins/org.eclipse.emf.validation.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.ocl.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui.ide.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui.source_*
+                md5sum $dropDir/emf-validation-SDK-$version.zip > $dropDir/emf-validation-SDK-$version.zip.md5
+                echo "Created emf-validation-SDK-$version.zip"
                 
-                # emf-query runtime
-                zip -r $dropDir/emf-query-runtime-$version.zip \
+                # emf-validation runtime
+                zip -r $dropDir/emf-validation-runtime-$version.zip \
 			eclipse/epl-v10.html eclipse/notice.html \
-			eclipse/features/org.eclipse.emf.query_* \
-			eclipse/features/org.eclipse.emf.query.ocl_* \
-			eclipse/plugins/org.eclipse.emf.query_* \
-			eclipse/plugins/org.eclipse.emf.query.ocl_*
-                md5sum $dropDir/emf-query-runtime-$version.zip > $dropDir/emf-query-runtime-$version.zip.md5
-                echo "Created emf-query-runtime-$version.zip"
+			eclipse/features/org.eclipse.emf.validation_* \
+			eclipse/features/org.eclipse.emf.validation.ocl_* \
+			eclipse/plugins/org.eclipse.emf.validation_* \
+			eclipse/plugins/org.eclipse.emf.validation.ocl_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui.ide_* \
+			eclipse/plugins/org.eclipse.emf.validation.ui_*
+                md5sum $dropDir/emf-validation-runtime-$version.zip > $dropDir/emf-validation-runtime-$version.zip.md5
+                echo "Created emf-validation-runtime-$version.zip"
                 
-                # emf-query examples
-                zip -r $dropDir/emf-query-examples-$version.zip \
+                # emf-validation examples
+                zip -r $dropDir/emf-validation-examples-$version.zip \
 			eclipse/epl-v10.html eclipse/notice.html \
-			eclipse/features/org.eclipse.emf.query.examples_* \
-			eclipse/features/org.eclipse.emf.query.examples.source_* \
-			eclipse/plugins/org.eclipse.emf.query.examples_* \
-			eclipse/plugins/org.eclipse.emf.query.examples.ocl_* \
-			eclipse/plugins/org.eclipse.emf.query.examples.ocl.source_* \
-			eclipse/plugins/org.eclipse.emf.query.examples.source_* \
-			eclipse/plugins/org.eclipse.emf.query.examples.statements_* \
-			eclipse/plugins/org.eclipse.emf.query.examples.statements.source_*
-                md5sum $dropDir/emf-query-examples-$version.zip > $dropDir/emf-query-examples-$version.zip.md5
-                echo "Created emf-query-examples-$version.zip"
+			eclipse/features/org.eclipse.emf.validation.examples_* \
+			eclipse/features/org.eclipse.emf.validation.examples.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.adapter_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.general_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.ocl_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.adapter.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.general.source_* \
+			eclipse/plugins/org.eclipse.emf.validation.examples.ocl.source_*
+                md5sum $dropDir/emf-validation-examples-$version.zip > $dropDir/emf-validation-examples-$version.zip.md5
+                echo "Created emf-validation-examples-$version.zip"
                 
-                # emf-query automated-tests
-                zip -r $dropDir/emf-query-automated-tests-$version.zip \
+                # emf-validation automated-tests
+                zip -r $dropDir/emf-validation-automated-tests-$version.zip \
 			eclipse/epl-v10.html eclipse/notice.html \
-			eclipse/features/org.eclipse.emf.query.tests_* \
-			eclipse/plugins/org.eclipse.emf.query.tests_* \
-			eclipse/plugins/org.eclipse.emf.query.ocl.tests_*
-                md5sum $dropDir/emf-query-automated-tests-$version.zip > $dropDir/emf-query-automated-tests-$version.zip.md5
-                echo "Created emf-query-automated-tests-$version.zip"
+			eclipse/features/org.eclipse.emf.validation.tests_* \
+			eclipse/plugins/org.eclipse.emf.validation.tests_*
+                md5sum $dropDir/emf-validation-automated-tests-$version.zip > $dropDir/emf-validation-automated-tests-$version.zip.md5
+                echo "Created emf-validation-automated-tests-$version.zip"
                 
                 cd ../update-site
 
-                zip -r ../$localDropDir/emf-query-Update-$version.zip features plugins artifacts.jar content.jar
-                md5sum ../$localDropDir/emf-query-Update-$version.zip > ../$localDropDir/emf-query-Update-$version.zip.md5
-                echo "Created emf-query-Update-Site-$version.zip"
+                zip -r ../$localDropDir/emf-validation-Update-$version.zip features plugins artifacts.jar content.jar
+                md5sum ../$localDropDir/emf-validation-Update-$version.zip > ../$localDropDir/emf-validation-Update-$version.zip.md5
+                echo "Created emf-validation-Update-Site-$version.zip"
                 cd ..
 
                 #generating build.cfg file to be referenced from downloads web page
@@ -251,7 +258,7 @@ if [ "$dropFiles" = y ];
                 echo "hudson.job.id=$buildId (${jobDir##*/})" >> $localDropDir/build.cfg
                 echo "hudson.job.url=https://hudson.eclipse.org/hudson/job/$jobName/$buildId" >> $localDropDir/build.cfg
 
-                remoteDropDir=/home/data/httpd/download.eclipse.org/modeling/emf/query/downloads/drops/$dropDir
+                remoteDropDir=/home/data/httpd/download.eclipse.org/modeling/emf/validation/downloads/drops/$dropDir
                 mkdir -p $remoteDropDir
                 cp -R $localDropDir/* $remoteDropDir/
 fi
