@@ -156,14 +156,24 @@
 
 	<repositories>
 		<repository>
-			<id>kepler</id>
+			<id>emf base</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/staging</url>
+			<url>http://download.eclipse.org/modeling/emf/emf/updates/2.9milestones/base/S201212130932</url>
+		</repository>
+		<repository>
+			<id>emf core</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/emf/emf/updates/2.9milestones/core/S201212170429</url>
 		</repository>
 		<repository>
 			<id>eclipse-sdk</id>
-			<url>http://download.eclipse.org/eclipse/updates/4.3-I-builds/I20121204-1600</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.3milestones/S-4.3M4-201212140730</url>
 			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>ocl core</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/mdt/ocl/updates/milestones/4.1.0/core/S201211120542</url>
 		</repository>
 	</repositories>
 
