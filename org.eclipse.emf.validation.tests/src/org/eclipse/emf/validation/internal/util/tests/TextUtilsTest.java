@@ -48,7 +48,7 @@ public class TextUtilsTest extends TestCase {
 	/**
 	 * Tests the access to extension-point-registered providers.
 	 */
-	public void test_getText_registered_202191() {
+	public void ignore_test_getText_registered_202191() {
 		EClass eclass = EcoreFactory.eINSTANCE.createEClass();
 		eclass.setName("Food"); //$NON-NLS-1$
 		
