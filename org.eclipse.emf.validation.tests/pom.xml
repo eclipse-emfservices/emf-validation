@@ -12,4 +12,39 @@
   <artifactId>org.eclipse.emf.validation.tests</artifactId>
   <version>1.7.0-SNAPSHOT</version>
   <packaging>eclipse-test-plugin</packaging>
+    <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-surefire-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <useUIHarness>true</useUIHarness>
+          <useUIThread>true</useUIThread>
+          <product>org.eclipse.sdk.ide</product>
+          <testSuite>org.eclipse.emf.validation.tests</testSuite>
+		  <testClass>org.eclipse.emf.validation.tests.AllTests</testClass>
+		  <dependencies>
+			<dependency>
+	        	<type>p2-installable-unit</type>
+	        	<artifactId>org.eclipse.emf.edit.feature.group</artifactId>
+	        </dependency>
+			<dependency>
+	        	<type>p2-installable-unit</type>
+	        	<artifactId>org.eclipse.emf.ecore.feature.group</artifactId>
+	        </dependency>
+	        <dependency>
+	        	<type>p2-installable-unit</type>
+	        	<artifactId>org.eclipse.pde.feature.group</artifactId>
+	        </dependency>
+	        <dependency>
+	        	<type>p2-installable-unit</type>
+	        	<artifactId>org.eclipse.emf.validation.ocl</artifactId>
+	        </dependency>
+		  </dependencies>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
