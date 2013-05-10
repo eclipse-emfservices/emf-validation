@@ -143,7 +143,7 @@ echo "Copied $localUpdateSite to local directory update-site."
 if [ "$dropFiles" = y ]; then
 	echo "Converting update site to runnable form"
 	./eclipse/eclipse -nosplash -consoleLog -application org.eclipse.equinox.p2.repository.repo2runnable -source file:update-site -destination file:drops/eclipse
-	qualifiedVersion=$(find drops/eclipse/features/ -maxdepth 1 | grep "org.eclipse.gmf_")
+	qualifiedVersion=$(find drops/eclipse/features/ -maxdepth 1 | grep "org.eclipse.emf.validation_")
 	echo "qualifiedVersion is $qualifiedVersion"
 	qualifiedVersion=${qualifiedVersion#*_}
 	echo "qualifiedVersion is $qualifiedVersion"
@@ -229,7 +229,7 @@ if [ "$dropFiles" = y ]; then
 				
 	cd ../update-site
 
-	zip -r ../$localDropDir/emf-validation-Update-$version.zip features plugins artifacts.jar content.jar
+	zip -r ../$localDropDir/emf-validation-Update-$version.zip features plugins binary artifacts.jar content.jar
 	md5sum ../$localDropDir/emf-validation-Update-$version.zip > ../$localDropDir/emf-validation-Update-$version.zip.md5
 	echo "Created emf-validation-Update-Site-$version.zip"
 	cd ..
