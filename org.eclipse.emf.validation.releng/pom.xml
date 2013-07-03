@@ -161,22 +161,22 @@
 		<repository>
 			<id>emf-nightly</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/emf/emf/updates/nightly</url>
+			<url>http://download.eclipse.org/modeling/emf/emf/updates/releases</url>
 		</repository>
 		<repository>
 			<id>eclipse-sdk</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.3-I-builds</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.3</url>
 		</repository>
 		<repository>
 			<id>ocl</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/mdt/ocl/updates/milestones</url>
+			<url>http://download.eclipse.org/modeling/mdt/ocl/updates/releases</url>
 		</repository>
 		<repository>
 			<id>uml2</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/modeling/mdt/uml2/updates/milestones</url>
+			<url>http://download.eclipse.org/modeling/mdt/uml2/updates/releases</url>
 		</repository>
 	</repositories>
 
