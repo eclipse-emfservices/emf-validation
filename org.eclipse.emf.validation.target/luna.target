@@ -2,7 +2,6 @@
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sdk.ide" version="4.4.0.I20131212-1600"/>
-<unit id="org.eclipse.equinox.core.sdk.feature.group" version="3.10.0.v20131210-2136"/>
 <unit id="org.eclipse.test.feature.group" version="3.6.0.v20131025-1404"/>
 <unit id="org.eclipse.sdk.tests.feature.group" version="4.4.0.v20131212-2208"/>
 <unit id="org.eclipse.platform.ide" version="4.4.0.I20131212-1600"/>
