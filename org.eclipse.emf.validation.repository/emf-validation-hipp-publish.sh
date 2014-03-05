@@ -9,21 +9,21 @@
 #   IBM - Initial API and implementation
 
 # Script may take 5-6 command line parameters:
-# $1: Hudson job name: <name>
-# $2: Hudson build id: <id>
-# $3: Build type: n(ightly), m(aintenance), s(table), r(elease)
-# $4: Whether to merge the site with an existing one: (y)es, (n)o
-# $5: Whether to generate udpate-site and SDK drop files: (y)es, (n)o
-# $6: An optional label to append to the version string when creating drop files, e.g. M5 or RC1
+# Hudson job name: ${JOB_NAME}
+# Hudson build id: ${BUILD_ID}
+# $1: Build type: n(ightly), m(aintenance), s(table), r(elease)
+# $2: Whether to merge the site with an existing one: (y)es, (n)o
+# $3: Whether to generate udpate-site and SDK drop files: (y)es, (n)o
+# $4: An optional label to append to the version string when creating drop files, e.g. M5 or RC1
 # 
-if [ $# -eq 5 -o $# -eq 6 ]; then
-	jobName=$1
-	buildId=$2
-	buildType=$3
-	merge=$4
-	dropFiles=$5
-	if [ -n "$6" ]; then
-		dropFilesLabel=$6
+jobName=${JOB_NAME}
+buildId=${BUILD_ID}
+if [ $# -eq 3 -o $# -eq 4 ]; then
+	buildType=$1
+	merge=$2
+	dropFiles=$3
+	if [ -n "$4" ]; then
+		dropFilesLabel=$4
 	fi
 else
 	if [ $# -ne 0 ]; then
@@ -32,38 +32,18 @@ else
 fi
 
 if [ -z "$jobName" ]; then
-	echo -n "Please enter the name of the Hudson job you want to promote:"
-	read jobName
+	echo "Error there is no jobName"; 
+	exit 0
 fi
 
 if [ -z "$buildId" ]; then
-	for i in $( find /shared/jobs/$jobName/builds -type l | sed 's!.*/!!' | sort); do
-		echo -n "$i, "
-	done
-	echo "lastStable, lastSuccessful"
-	echo -n "Please enter the id/label of the Hudson build you want to promote:"
-	read buildId
-fi
-if [ -z "$buildId" ]; then
+	echo "Error there is no buildId"; 
 	exit 0
 fi
 
 # Determine the local update site we want to publish to
-if [ "$buildId" = "lastStable" -o "$buildId" = "lastSuccessful" ]; then
-	jobDir=$(readlink -f /shared/jobs/$jobName/$buildId)
-else
-	jobDir=$(readlink -f /shared/jobs/$jobName/builds/$buildId)
-fi
-localUpdateSite=$jobDir/archive/update-site
+localUpdateSite=${WORKSPACE}/update-site
 echo "Using local update-site: $localUpdateSite"
-
-# Reverse lookup the build id (in case lastSuccessful or lastStable was used)
-for i in $(find /shared/jobs/$jobName/builds/ -type l); do
-	if [ "$(readlink -f $i)" =  "$jobDir" ]; then
-		buildId=${i##*/}
-	fi
-done
-echo "Reverse lookup of build id yielded: $buildId"
 
 # Select the build type
 if [ -z "$buildType" ]; then
@@ -237,9 +217,9 @@ if [ "$dropFiles" = y ]; then
 	cd ..
 
 	#generating build.cfg file to be referenced from downloads web page
-	echo "hudson.job.name=$jobName" > $localDropDir/build.cfg
-	echo "hudson.job.id=$buildId (${jobDir##*/})" >> $localDropDir/build.cfg
-	echo "hudson.job.url=https://hudson.eclipse.org/hudson/job/$jobName/$buildId" >> $localDropDir/build.cfg
+	echo "hudson.job.name=${JOB_NAME}" > $localDropDir/build.cfg
+	echo "hudson.job.id=${BUILD_NUMBER} (${jobDir##*/})" >> $localDropDir/build.cfg
+	echo "hudson.job.url=${BUILD_URL}" >> $localDropDir/build.cfg
 
 	remoteDropDir=/home/data/httpd/download.eclipse.org/modeling/emf/validation/downloads/drops/$dropDir
 	mkdir -p $remoteDropDir
