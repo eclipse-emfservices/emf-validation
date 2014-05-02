@@ -1,7 +1,5 @@
 /**
- * <copyright>
- *
- * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc., and others.
+ * Copyright (c) 2003, 2014 IBM Corporation, Zeligsoft Inc., CEA, and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,10 +8,8 @@
  * Contributors:
  *   IBM - Initial API and implementation
  *   Zeligsoft - Bug 249496
+ *   Christian W. Damus (CEA) - bug 433050
  *
- * </copyright>
- *
- * $Id$
  */
 
 package org.eclipse.emf.validation.internal.service.impl.tests;
@@ -46,5 +42,7 @@ public final class AllTests extends TestSuite {
 		addTestSuite(LiveValidatorTest.class);
 		
 		addTest(ClientContextTest.suite());
+		
+		addTestSuite(TraversalStrategyManagerTest.class);
 	}
 }

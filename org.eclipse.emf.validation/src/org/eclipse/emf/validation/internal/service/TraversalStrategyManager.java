@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation, Zeligsoft Inc., and others.
+ * Copyright (c) 2004, 2014 IBM Corporation, Zeligsoft Inc., CEA, and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *    IBM Corporation - initial API and implementation 
  *    Zeligsoft - Bug 137213
  *    SAP AG - Bug 240352
+ *    Christian W. Damus (CEA) - bug 433050
+ *    
  ****************************************************************************/
 
 
@@ -26,10 +28,14 @@ import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
@@ -104,9 +110,9 @@ class TraversalStrategyManager {
 	 */
 	public ITraversalStrategy getTraversalStrategy(EObject eObject) {
 		EObject root = EcoreUtil.getRootContainer(eObject);
-		String nsUri = root.eClass().getEPackage().getNsURI();
+		EPackage ePackage = root.eClass().getEPackage();
 		
-		return getDescriptor(nsUri).getStrategy(root);
+		return getDescriptor(ePackage).getStrategy(root);
 	}
 
 	/**
@@ -182,6 +188,8 @@ class TraversalStrategyManager {
 	 * Obtains the EPackage descriptor for the specified namespace URI.
 	 * The descriptor has all of the plug-in extension configuration data
 	 * required to create traversal strategies for the indicated package.
+	 * <p>
+	 * This method must only be called under synchronization on the {@code traversalsLock}.
 	 * 
 	 * @param nsUri the namespace URI of an EPackage
 	 * @return the corresponding descriptor
@@ -192,6 +200,34 @@ class TraversalStrategyManager {
 		if (result == null) {
 			result = new Descriptor(nsUri);
 			packageDescriptors.put(nsUri, result);
+		}
+		
+		return result;
+	}
+	
+	private Descriptor getDescriptor(EPackage ePackage) {
+		Descriptor result;
+		
+		synchronized(traversalsLock) {
+			final String nsURI = ePackage.getNsURI();
+			result = packageDescriptors.get(nsURI);
+			
+			if (result == null) {
+				result = new Descriptor(nsURI);
+				packageDescriptors.put(nsURI, result);
+			
+				// we just created the descriptor for this package. Is
+				// this package locally defined in some resource set? If
+				// so, we must remove the descriptor and its EClass
+				// cache when it is unloaded
+				Resource resource = ePackage.eResource();
+				if (resource != null) {
+					ResourceSet rset = resource.getResourceSet();
+					if ((rset != null) && (rset.getPackageRegistry().getEPackage(nsURI) == ePackage)) {
+						ePackage.eAdapters().add(new DescriptorRemover(nsURI));
+					}
+				}
+			}
 		}
 		
 		return result;
@@ -447,6 +483,43 @@ class TraversalStrategyManager {
 		            set(strategy);
 		        }
 		    }
+		}
+	}
+	
+	/**
+	 * An adapter that removes the descriptor for a dynamic EPackage when that EPackage is unloaded.
+	 */
+	private class DescriptorRemover extends AdapterImpl {
+		private final String nsURI;
+		
+		DescriptorRemover(String nsURI) {
+			this.nsURI = nsURI;
+		}
+		
+		@Override
+		public void unsetTarget(Notifier oldTarget) {
+			super.unsetTarget(oldTarget);
+
+			Descriptor descriptor;
+			
+			// my EPackage was unloaded.  Purge its descriptor
+			synchronized(traversalsLock) {
+				descriptor = packageDescriptors.remove(nsURI);
+			}
+			
+			// Remove the thread-locals as well as we can
+			if (descriptor != null) {
+				if (descriptor.eclassMap != null) {
+					for (ThreadLocal<?> next : descriptor.eclassMap.values()) {
+						next.remove();
+					}
+					descriptor.eclassMap.clear();
+				}
+				
+				if (descriptor.packageDefaultStrategy != null) {
+					descriptor.packageDefaultStrategy.remove();
+				}
+			}
 		}
 	}
 }
