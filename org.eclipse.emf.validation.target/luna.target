@@ -21,7 +21,7 @@
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/S20140428023358/repository/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.ocl.feature.group" version="3.4.0.v20140122-1853"/>
+<unit id="org.eclipse.ocl.feature.group" version="3.4.0.v20140429-0922"/>
 <repository location="http://download.eclipse.org/modeling/mdt/ocl/updates/milestones/5.0.0"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -30,7 +30,7 @@
 <repository location="http://download.eclipse.org/modeling/mdt/uml2/updates/5.0milestones"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.8.0.201312171634"/>
+<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.8.0.201405051541"/>
 <repository location="http://download.eclipse.org/modeling/emf/validation/updates/milestones"/>
 </location>
 </locations>
