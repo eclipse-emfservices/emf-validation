@@ -3,7 +3,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2013 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,9 @@
       label="%featureName"
       version="1.8.0.qualifier"
       provider-name="%providerName"
-      image="modeling32.png">
+      image="modeling32.png"
+      license-feature="org.eclipse.license"
+      license-feature-version="1.0.1">
 
    <description url="http://www.eclipse.org/modeling/emf/?project=validation">
       %description
@@ -40,8 +42,7 @@ http://www.eclipse.org/legal/epl-v10.html
    </license>
 
    <url>
-      <update label="%updateSiteName" url="http://download.eclipse.org/modeling/emf/updates/"/>
-      <discovery label="%updateSiteName" url="http://download.eclipse.org/modeling/emf/updates/"/>
+      <update label="%updateSiteName" url="http://download.eclipse.org/modeling/emf/validation/updates/releases/"/>
    </url>
 
    <requires>
