@@ -147,7 +147,7 @@ zip -r ../$localDropDir/emf-validation-SDK-$version.zip \
 	eclipse/plugins/org.eclipse.emf.validation_* \
 	eclipse/plugins/org.eclipse.emf.validation.ocl_* \
 	eclipse/plugins/org.eclipse.emf.validation.ui.ide_* \
-	eclipse/plugins/org.eclipse.emf.validation.ui_*
+	eclipse/plugins/org.eclipse.emf.validation.ui_* \
 	eclipse/plugins/org.eclipse.emf.validation.source_* \
 	eclipse/plugins/org.eclipse.emf.validation.ocl.source_* \
 	eclipse/plugins/org.eclipse.emf.validation.ui.ide.source_* \
