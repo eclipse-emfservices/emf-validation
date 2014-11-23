@@ -30,7 +30,7 @@
 <repository location="http://download.eclipse.org/modeling/mdt/uml2/updates/5.1milestones"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.9.0.201409241438"/>
+<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.9.0.201411230228"/>
 <repository location="http://download.eclipse.org/modeling/emf/validation/updates/milestones"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
