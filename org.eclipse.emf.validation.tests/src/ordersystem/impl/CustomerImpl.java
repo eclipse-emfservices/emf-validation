@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -181,8 +181,8 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 * @generated
 	 */
     public OrderSystem getOwner() {
-		if (eContainerFeatureID != OrderSystemPackage.CUSTOMER__OWNER) return null;
-		return (OrderSystem)eContainer();
+		if (eContainerFeatureID() != OrderSystemPackage.CUSTOMER__OWNER) return null;
+		return (OrderSystem)eInternalContainer();
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 * @generated
 	 */
     public void setOwner(OrderSystem newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.CUSTOMER__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.CUSTOMER__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
@@ -286,7 +286,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case OrderSystemPackage.CUSTOMER__OWNER:
 				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystem.class, msgs);
 		}

@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -254,8 +254,8 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 * @generated
 	 */
     public Customer getOwner() {
-		if (eContainerFeatureID != OrderSystemPackage.ORDER__OWNER) return null;
-		return (Customer)eContainer();
+		if (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER) return null;
+		return (Customer)eInternalContainer();
 	}
 
 	/**
@@ -274,7 +274,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 * @generated
 	 */
     public void setOwner(Customer newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
@@ -343,7 +343,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case OrderSystemPackage.ORDER__OWNER:
 				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
 		}
@@ -363,7 +363,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 			case OrderSystemPackage.ORDER__FILLED_ON:
 				return getFilledOn();
 			case OrderSystemPackage.ORDER__COMPLETED:
-				return isCompleted() ? Boolean.TRUE : Boolean.FALSE;
+				return isCompleted();
 			case OrderSystemPackage.ORDER__ID:
 				return getId();
 			case OrderSystemPackage.ORDER__OWNER:
@@ -390,7 +390,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 				setFilledOn((Date)newValue);
 				return;
 			case OrderSystemPackage.ORDER__COMPLETED:
-				setCompleted(((Boolean)newValue).booleanValue());
+				setCompleted((Boolean)newValue);
 				return;
 			case OrderSystemPackage.ORDER__ID:
 				setId((String)newValue);

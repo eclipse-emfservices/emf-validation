@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -194,8 +194,8 @@ public class ProductImpl extends EObjectImpl implements Product {
 	 * @generated
 	 */
     public OrderSystem getOwner() {
-		if (eContainerFeatureID != OrderSystemPackage.PRODUCT__OWNER) return null;
-		return (OrderSystem)eContainer();
+		if (eContainerFeatureID() != OrderSystemPackage.PRODUCT__OWNER) return null;
+		return (OrderSystem)eInternalContainer();
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	 * @generated
 	 */
     public void setOwner(OrderSystem newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.PRODUCT__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.PRODUCT__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
@@ -266,7 +266,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case OrderSystemPackage.PRODUCT__OWNER:
 				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystem.class, msgs);
 		}
@@ -286,7 +286,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 			case OrderSystemPackage.PRODUCT__SKU:
 				return getSku();
 			case OrderSystemPackage.PRODUCT__PRICE:
-				return new Double(getPrice());
+				return getPrice();
 			case OrderSystemPackage.PRODUCT__OWNER:
 				return getOwner();
 		}
@@ -308,7 +308,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 				setSku((String)newValue);
 				return;
 			case OrderSystemPackage.PRODUCT__PRICE:
-				setPrice(((Double)newValue).doubleValue());
+				setPrice((Double)newValue);
 				return;
 			case OrderSystemPackage.PRODUCT__OWNER:
 				setOwner((OrderSystem)newValue);

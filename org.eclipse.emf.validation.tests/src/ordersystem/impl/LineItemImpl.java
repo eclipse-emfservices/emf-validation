@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -164,8 +164,8 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	 * @generated
 	 */
     public Order getOwner() {
-		if (eContainerFeatureID != OrderSystemPackage.LINE_ITEM__OWNER) return null;
-		return (Order)eContainer();
+		if (eContainerFeatureID() != OrderSystemPackage.LINE_ITEM__OWNER) return null;
+		return (Order)eInternalContainer();
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	 * @generated
 	 */
     public void setOwner(Order newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.LINE_ITEM__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.LINE_ITEM__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
@@ -286,7 +286,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case OrderSystemPackage.LINE_ITEM__OWNER:
 				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER__ITEM, Order.class, msgs);
 		}
@@ -302,9 +302,9 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OrderSystemPackage.LINE_ITEM__QUANTITY:
-				return new Integer(getQuantity());
+				return getQuantity();
 			case OrderSystemPackage.LINE_ITEM__DISCOUNT:
-				return new Double(getDiscount());
+				return getDiscount();
 			case OrderSystemPackage.LINE_ITEM__OWNER:
 				return getOwner();
 			case OrderSystemPackage.LINE_ITEM__PRODUCT:
@@ -323,10 +323,10 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OrderSystemPackage.LINE_ITEM__QUANTITY:
-				setQuantity(((Integer)newValue).intValue());
+				setQuantity((Integer)newValue);
 				return;
 			case OrderSystemPackage.LINE_ITEM__DISCOUNT:
-				setDiscount(((Double)newValue).doubleValue());
+				setDiscount((Double)newValue);
 				return;
 			case OrderSystemPackage.LINE_ITEM__OWNER:
 				setOwner((Order)newValue);

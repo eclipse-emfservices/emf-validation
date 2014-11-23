@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -208,8 +208,8 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 * @generated
 	 */
     public Warehouse getWarehouse() {
-		if (eContainerFeatureID != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE) return null;
-		return (Warehouse)eContainer();
+		if (eContainerFeatureID() != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE) return null;
+		return (Warehouse)eInternalContainer();
 	}
 
 	/**
@@ -228,7 +228,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 * @generated
 	 */
     public void setWarehouse(Warehouse newWarehouse) {
-		if (newWarehouse != eInternalContainer() || (eContainerFeatureID != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE && newWarehouse != null)) {
+		if (newWarehouse != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE && newWarehouse != null)) {
 			if (EcoreUtil.isAncestor(this, newWarehouse))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
@@ -318,7 +318,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
 				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.WAREHOUSE__ITEM, Warehouse.class, msgs);
 		}
@@ -334,9 +334,9 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
-				return new Integer(getInStock());
+				return getInStock();
 			case OrderSystemPackage.INVENTORY_ITEM__RESTOCK_THRESHOLD:
-				return new Integer(getRestockThreshold());
+				return getRestockThreshold();
 			case OrderSystemPackage.INVENTORY_ITEM__NEXT_STOCK_DATE:
 				return getNextStockDate();
 			case OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE:
@@ -357,10 +357,10 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OrderSystemPackage.INVENTORY_ITEM__IN_STOCK:
-				setInStock(((Integer)newValue).intValue());
+				setInStock((Integer)newValue);
 				return;
 			case OrderSystemPackage.INVENTORY_ITEM__RESTOCK_THRESHOLD:
-				setRestockThreshold(((Integer)newValue).intValue());
+				setRestockThreshold((Integer)newValue);
 				return;
 			case OrderSystemPackage.INVENTORY_ITEM__NEXT_STOCK_DATE:
 				setNextStockDate((Date)newValue);

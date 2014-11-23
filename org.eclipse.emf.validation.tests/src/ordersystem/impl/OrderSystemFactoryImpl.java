@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 	 */
 	public static OrderSystemFactory init() {
 		try {
-			OrderSystemFactory theOrderSystemFactory = (OrderSystemFactory)EPackage.Registry.INSTANCE.getEFactory("http:///ordersystem.ecore"); //$NON-NLS-1$ 
+			OrderSystemFactory theOrderSystemFactory = (OrderSystemFactory)EPackage.Registry.INSTANCE.getEFactory(OrderSystemPackage.eNS_URI);
 			if (theOrderSystemFactory != null) {
 				return theOrderSystemFactory;
 			}

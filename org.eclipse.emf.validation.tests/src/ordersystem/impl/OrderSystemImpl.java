@@ -1,7 +1,7 @@
 /**
  * <copyright>
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -224,7 +224,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				return new Integer(getVersion());
+				return getVersion();
 			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
 				return getCustomer();
 			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
@@ -245,7 +245,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				setVersion(((Integer)newValue).intValue());
+				setVersion((Integer)newValue);
 				return;
 			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
 				getCustomer().clear();
