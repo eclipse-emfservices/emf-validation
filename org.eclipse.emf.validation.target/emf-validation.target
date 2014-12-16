@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><?pde version="3.8"?><target name="emf-validation" sequenceNumber="45">
+<?xml version="1.0" encoding="UTF-8"?><?pde version="3.8"?><target name="emf-validation" sequenceNumber="47">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sdk.ide" version="4.5.0.I20141210-2000"/>
@@ -30,7 +30,7 @@
 <repository location="http://download.eclipse.org/modeling/mdt/uml2/updates/5.1milestones"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.9.0.201411230228"/>
+<unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.9.0.201412161741"/>
 <repository location="http://download.eclipse.org/modeling/emf/validation/updates/milestones"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
