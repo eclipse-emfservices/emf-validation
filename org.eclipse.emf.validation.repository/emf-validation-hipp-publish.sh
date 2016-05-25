@@ -130,13 +130,10 @@ else
 	echo "`date +%Y-%m-%d-%H:%M:%S` version is now $version"
 fi
 				
-cp eclipse/epl-v10.html drops/eclipse
-cp eclipse/notice.html drops/eclipse
 cd drops
 
 # emf validation SDK
 zip -r ../$localDropDir/emf-validation-SDK-$version.zip \
-	eclipse/epl-v10.html eclipse/notice.html \
 	eclipse/features/org.eclipse.emf.validation.doc_* \
 	eclipse/features/org.eclipse.emf.validation.ocl.source_* \
 	eclipse/features/org.eclipse.emf.validation.sdk_* \
@@ -157,7 +154,6 @@ echo "`date +%Y-%m-%d-%H:%M:%S` Created emf-validation-SDK-$version.zip"
 			
 # emf-validation runtime
 zip -r ../$localDropDir/emf-validation-runtime-$version.zip \
-	eclipse/epl-v10.html eclipse/notice.html \
 	eclipse/features/org.eclipse.emf.validation_* \
 	eclipse/features/org.eclipse.emf.validation.ocl_* \
 	eclipse/plugins/org.eclipse.emf.validation_* \
@@ -169,7 +165,6 @@ echo "`date +%Y-%m-%d-%H:%M:%S` Created emf-validation-runtime-$version.zip"
 			
 # emf-validation examples
 zip -r ../$localDropDir/emf-validation-examples-$version.zip \
-	eclipse/epl-v10.html eclipse/notice.html \
 	eclipse/features/org.eclipse.emf.validation.examples_* \
 	eclipse/features/org.eclipse.emf.validation.examples.source_* \
 	eclipse/plugins/org.eclipse.emf.validation.examples_* \
@@ -185,7 +180,6 @@ echo "`date +%Y-%m-%d-%H:%M:%S` Created emf-validation-examples-$version.zip"
 			
 # emf-validation automated-tests
 zip -r ../$localDropDir/emf-validation-automated-tests-$version.zip \
-	eclipse/epl-v10.html eclipse/notice.html \
 	eclipse/features/org.eclipse.emf.validation.tests_* \
 	eclipse/plugins/org.eclipse.emf.validation.tests_*
 md5sum ../$localDropDir/emf-validation-automated-tests-$version.zip > ../$localDropDir/emf-validation-automated-tests-$version.zip.md5
