@@ -201,7 +201,7 @@ public class ModelValidationService {
 				extTracker.registerHandler(modeledProvidersHandler, 
 						ExtensionTracker.createExtensionPointFilter( 
 								modeledProvidersExtensionPoint ));
-				
+
 				for ( IExtension extension : modeledProvidersExtensionPoint.getExtensions()) {
 					modeledProvidersHandler.addExtension(extTracker, extension);
 				}
@@ -209,7 +209,14 @@ public class ModelValidationService {
     	}
     }
 
-	private Collection<IProviderDescriptor> registerProviders(
+    /**
+     * Configures validation constraint providers based on the
+     * <tt>constraintProviders</tt> extension configurations.
+     * 
+     * @param configs the configuration elements
+     * @return the provider descriptors
+     */
+	public Collection<IProviderDescriptor> registerProviders(
 			IConfigurationElement[] configs) {
 		List<IProviderDescriptor> result = new java.util.ArrayList<IProviderDescriptor>();
 
@@ -217,7 +224,7 @@ public class ModelValidationService {
 			// copy on write
 			constraintProviders = new java.util.HashSet<IProviderDescriptor>(
 				getProviders());
-			
+
 			for (IConfigurationElement element : configs) {
 				if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
 					try {

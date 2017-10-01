@@ -256,6 +256,19 @@ public class CategoryManager {
 	}
 	
 	/**
+	 * For stand-alone applications loads the categories from the configuration elements.
+	 * 
+	 * @param configurationElements the configuration elements
+	 */
+	public void loadCategories(IConfigurationElement[] configurationElements) {
+		for (IConfigurationElement next : configurationElements) {
+			if (next.getName().equals(XmlConfig.E_CATEGORY)) {
+				loadCategories(globalCategory, next);
+			}
+		}
+	}
+
+	/**
 	 * Loads the category definitions from my constraintCategories extension
 	 * point.
 	 */
@@ -264,7 +277,7 @@ public class CategoryManager {
 			IExtensionPoint extPoint = Platform.getExtensionRegistry()
 				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
 					EMFModelValidationPlugin.CONSTRAINT_PROVIDERS_EXT_P_NAME);
-	
+
 			IExtensionTracker extTracker = EMFModelValidationPlugin
 				.getExtensionTracker();
 			if (extTracker != null) {

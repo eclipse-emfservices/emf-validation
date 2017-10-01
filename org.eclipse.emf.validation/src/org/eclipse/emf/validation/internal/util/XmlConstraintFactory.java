@@ -50,7 +50,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	/**
 	 * Extension point name for the model providers extension point.
 	 */
-	private static final String CONSTRAINT_PARSERS_EXT_P_NAME =
+	public static final String CONSTRAINT_PARSERS_EXT_P_NAME =
 			"constraintParsers"; //$NON-NLS-1$
 
 	/** Mapping of language names to parser implementations. */
@@ -274,7 +274,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			if (extTracker != null) {
 				extTracker.registerHandler(extensionHandler, ExtensionTracker
 					.createExtensionPointFilter(extPoint));
-				
+
 				for (IExtension extension : extPoint.getExtensions()) {
 					extensionHandler.addExtension(extTracker, extension);
 				}
@@ -282,7 +282,13 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		}
 	}
 	
-	private void registerParsers(IConfigurationElement[] configs) {
+	/**
+	 * Loads the constraint language parsers.
+	 * 
+	 * @param configs the configuration elements from the <tt>constraintParsers</tt>
+	 *                extension point.
+	 */
+	public void registerParsers(IConfigurationElement[] configs) {
 		for (IConfigurationElement config : configs) {
 			registerParser(config);
 		}

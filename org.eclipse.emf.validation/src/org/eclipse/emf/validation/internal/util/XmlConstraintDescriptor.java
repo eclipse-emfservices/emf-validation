@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -128,20 +129,22 @@ public final class XmlConstraintDescriptor
 			parseTargets(config);
 			parseIsEnabledByDefault(config);
 			parseMessagePattern(config);
-	
+
 			setBody(config.getValue());
-			
+
 			ConstraintRegistry.getInstance().register(this);
-			
+
 			// ensure that I get my default enablement state
-			setEnabled(!EMFModelValidationPreferences.isConstraintDisabled(id));
-			
+			if (EMFPlugin.IS_ECLIPSE_RUNNING) {
+				setEnabled(!EMFModelValidationPreferences.isConstraintDisabled(id));
+			}
+
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 				Trace.trace("Initialized constraint " + id); //$NON-NLS-1$
 			}
 		} catch (CoreException e) {
 			Trace.catching(XmlConstraintDescriptor.class, "<init>", e); //$NON-NLS-1$
-			
+
 			if (this.id == null) {
 				this.id = "$error." + System.identityHashCode(this); //$NON-NLS-1$
 			}
@@ -638,15 +641,17 @@ public final class XmlConstraintDescriptor
 	 */
 	private void parseIsEnabledByDefault(IConfigurationElement extConfig) {
 		String attr = extConfig.getAttribute( XmlConfig.A_IS_ENABLED_BY_DEFAULT);
-		
+
 		this.isEnabledByDefault = true;
 		
 		if ( attr != null ) {
 			isEnabledByDefault = Boolean.parseBoolean(attr);
 		}
-		
-		EMFModelValidationPreferences.setConstraintDisabledDefault(id, !isEnabledByDefault);
-		
+
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
+			EMFModelValidationPreferences.setConstraintDisabledDefault(id, !isEnabledByDefault);
+		}
+
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id //$NON-NLS-1$
 					+ " isEnabledByDefault: " + attr ); //$NON-NLS-1$
@@ -655,7 +660,7 @@ public final class XmlConstraintDescriptor
 
 	/**
 	 * Asserts that a <code>value</code> be not <code>null</code>.
-	 * 
+	 *
 	 * @param value the value which must not be <code>null</code>
 	 * @param missingItem I18N key of the item which  has the specified
 	 *    <code>value</code>

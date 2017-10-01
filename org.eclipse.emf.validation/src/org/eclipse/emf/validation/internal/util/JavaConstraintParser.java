@@ -158,15 +158,15 @@ public class JavaConstraintParser
 		String pendingMessage = null;
 
 		ClassProvider classProvider = null;
-		
+
 		if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
 			classProvider = new ClassProvider.BundleProvider(Platform.getBundle(bundleName));
 		} else if ( descriptor instanceof ModeledConstraintDescriptor) {
 			classProvider = ((ModeledConstraintDescriptor)descriptor).getClassProvider();
 		} else {
-			throw new IllegalArgumentException();
+			classProvider = new ClassProvider.ClassLoaderProvider(EMFModelValidationPlugin.INSTANCE);
 		}
-		
+
 		try {
 			Class<?> resultType = classProvider.loadClass(className);
 

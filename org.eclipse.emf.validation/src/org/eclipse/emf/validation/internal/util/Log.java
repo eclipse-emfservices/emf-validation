@@ -140,12 +140,14 @@ public class Log {
 		int code,
 		String message,
 		Throwable throwable) {
+
+		if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
+			return;
+		}
 		
 		Status s = new Status(severity, EMFModelValidationPlugin.getPluginId(),
 			code, message, throwable);
 
-		checkLoggerInstance();
-		
 		EMFModelValidationPlugin.getPlugin().log(s);
 	}
 
@@ -159,23 +161,11 @@ public class Log {
 	 * @param status The status object on which to base the log.
 	 */
 	public static void log(IStatus status) {
-		checkLoggerInstance();
-		
-		EMFModelValidationPlugin.getPlugin().log(status);
-	}
-	
-	/**
-	 * Checks if the logger has been instanciated. If there is no instance, it will be created 
-	 */
-	private static void checkLoggerInstance() {
-		if ( !EMFPlugin.IS_ECLIPSE_RUNNING ) {
-			// check logger
-			if ( EMFModelValidationPlugin.getPlugin() == null ) {
-				new EMFModelValidationPlugin.Implementation();
-			}
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {		
+			EMFModelValidationPlugin.getPlugin().log(status);
 		}
 	}
-
+	
 	/**
 	 * Logs a localized error message for this plug-in.
 	 * 

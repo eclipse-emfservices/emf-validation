@@ -379,7 +379,7 @@ public class ClientContextManager {
     public void configureConstraintBindings(IConfigurationElement[] elements) {
 	    // no longer implemented
 	}
-	
+
 	/**
 	 * Helper method to configure the <code>&lt;clientContext&gt;</code>
 	 * occurrences amongst the <code>elements</code>.
@@ -387,12 +387,12 @@ public class ClientContextManager {
 	 * @param elements the top-level configuration elements on the
 	 *     <code>constraintBindings</code> extension point
 	 */
-	private void configureClientContexts(IConfigurationElement[] elements) {
+	public void configureClientContexts(IConfigurationElement[] elements) {
 		// copy on write
 		clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
 		clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
 		defaultContexts = new java.util.HashSet<ClientContext>(defaultContexts);
-		
+
 		for (IConfigurationElement config : elements) {
 			if (E_CLIENT_CONTEXT.equals(config.getName())) {
 				try {
@@ -445,7 +445,7 @@ public class ClientContextManager {
 			}
 		}
 	}
-	
+
 	/**
 	 * Helper method to configure the <code>&lt;binding&gt;</code>
 	 * occurrences amongst the <code>elements</code>.
@@ -453,11 +453,11 @@ public class ClientContextManager {
 	 * @param elements the top-level configuration elements on the
 	 *     <code>constraintBindings</code> extension point
 	 */
-	private void configureBindings(IConfigurationElement[] elements) {
+	public void configureBindings(IConfigurationElement[] elements) {
 		for (IConfigurationElement config : elements) {
 			if (E_BINDING.equals(config.getName())) {
 				String contextId = config.getAttribute(A_CONTEXT);
-				
+
 				if (contextId == null) {
 					Log.errorMessage(
 						EMFModelValidationStatusCodes.BINDING_NO_CLIENT,
