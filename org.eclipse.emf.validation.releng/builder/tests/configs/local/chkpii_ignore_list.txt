@@ -1,6 +1,0 @@
-references/javadoc/*.html
-**/epl-v10.html
-**/org.eclipse.xsd*/**
-**/org.eclipse.emf.example*/**
-**/org.eclipse.emf.cheatsheet*/**
-**/org.eclipse.emf.source*/**
