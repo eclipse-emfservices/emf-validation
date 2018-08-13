@@ -215,6 +215,8 @@ public class ModelValidationService {
      * 
      * @param configs the configuration elements
      * @return the provider descriptors
+     * 
+     * @since 1.12.1
      */
 	public Collection<IProviderDescriptor> registerProviders(
 			IConfigurationElement[] configs) {

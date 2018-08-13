@@ -259,6 +259,8 @@ public class CategoryManager {
 	 * For stand-alone applications loads the categories from the configuration elements.
 	 * 
 	 * @param configurationElements the configuration elements
+	 * 
+	 * @since 1.12.1
 	 */
 	public void loadCategories(IConfigurationElement[] configurationElements) {
 		for (IConfigurationElement next : configurationElements) {
