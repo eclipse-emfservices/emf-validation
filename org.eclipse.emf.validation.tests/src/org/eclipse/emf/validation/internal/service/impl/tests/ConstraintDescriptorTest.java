@@ -231,7 +231,7 @@ public class ConstraintDescriptorTest extends TestCase {
 				throws CoreException {
 			try {
 				Object result =
-					Class.forName(getAttribute(propertyName)).newInstance();
+					Class.forName(getAttribute(propertyName)).getDeclaredConstructor().newInstance();
 				
 				if (result instanceof IExecutableExtension) {
 					((IExecutableExtension)result).setInitializationData(
