@@ -220,10 +220,6 @@ public class ConstraintDescriptorTest extends TestCase {
 					return null;
 				}
 
-				public org.eclipse.core.runtime.IPluginDescriptor getDeclaringPluginDescriptor() throws InvalidRegistryObjectException {
-					return null;
-				}
-
 				public String getLabel(String locale)
 						throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
@@ -291,6 +287,10 @@ public class ConstraintDescriptorTest extends TestCase {
 		public String getValue(String locale)
 				throws InvalidRegistryObjectException {
 			return null;
+		}
+
+		public int getHandleId() {
+			return 0;
 		}
 	}
 	
