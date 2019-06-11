@@ -623,10 +623,6 @@ public final class MarkerUtil {
 			return this.statuses;
 		}
 
-		Boolean includes(IConstraintStatus status) {
-			return this.statuses.contains(status);
-		}
-
 		IFile getFile() {
 			return this.file;
 		}

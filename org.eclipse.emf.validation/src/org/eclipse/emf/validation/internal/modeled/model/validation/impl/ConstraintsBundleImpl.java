@@ -12,7 +12,6 @@
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
 import java.util.Collection;
-import java.util.Properties;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -118,14 +117,6 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	 */
 	protected boolean messageBundlePathESet;
 	
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 * @ordered
-	 */
-	private Properties messageBundle = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -181,10 +181,6 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
      * @author Christian W. Damus (cdamus)
      */
     private final class QueryManager {
-       
-        QueryManager() {
-        }
-        
         /**
          * Obtains and checks the appropriate parsed constraint for the specified
          * target element.
@@ -192,7 +188,6 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
          * @param target an element to be validated
          * @return whether it passed the constraint
          */
-        @SuppressWarnings("deprecation")
         boolean check(EObject target) {
             Query<C, CLS, E> query = getConstraintCondition(target);
             return query.check(target);

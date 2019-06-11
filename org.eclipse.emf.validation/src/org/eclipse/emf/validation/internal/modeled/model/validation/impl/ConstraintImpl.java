@@ -609,7 +609,6 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
