@@ -2,9 +2,9 @@
 <!-- Schema file written by PDE -->
 <schema targetNamespace="org.eclipse.emf.validation" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appinfo>
+      <appInfo>
          <meta.schema plugin="org.eclipse.emf.validation" id="constraintBindings" name="EMF Validation Constraint Bindings"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          This extension point allows clients of the EMF Validation
 framework to define &quot;client contexts&quot; that describe the
@@ -18,9 +18,9 @@ these objects.
 
    <element name="extension">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element />
-         </appinfo>
+         </appInfo>
       </annotation>
       <complexType>
          <sequence>
@@ -46,9 +46,9 @@ these objects.
                <documentation>
                   
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute translatable="true"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -56,9 +56,9 @@ these objects.
 
    <element name="clientContext">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element labelAttribute="id"/>
-         </appinfo>
+         </appInfo>
          <documentation>
             &lt;p&gt;
 Definition of a client context, representing a class of
@@ -115,9 +115,9 @@ somehow not sufficient to implement the test.
                   Identifies a class implementing the &lt;code&gt;org.eclipse.emf.validation.internal.model.IClientSelector&lt;/code&gt;
 internal API interface.
                </documentation>
-               <appinfo>
+               <appInfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.emf.validation.internal.model.IClientSelector"/>
-               </appinfo>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -125,9 +125,9 @@ internal API interface.
 
    <element name="binding">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element labelAttribute="context"/>
-         </appinfo>
+         </appInfo>
          <documentation>
             &lt;p&gt;
 Declares a binding between a client context and one or more
@@ -198,9 +198,9 @@ the &lt;code&gt;constraint&lt;/code&gt; attribute.
 
    <element name="constraint">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element labelAttribute="ref"/>
-         </appinfo>
+         </appInfo>
          <documentation>
             Includes a constraint in a client context
 &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.
@@ -222,9 +222,9 @@ definition of the constraint.
 
    <element name="category">
       <annotation>
-         <appinfo>
+         <appInfo>
             <meta.element labelAttribute="ref"/>
-         </appinfo>
+         </appInfo>
          <documentation>
             Includes a constraint category in a client context
 &lt;code&gt;&amp;lt;binding&amp;gt;&lt;/code&gt;.  All of the referenced
@@ -310,18 +310,18 @@ definition of the constraint.
    </element>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="since"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          1.0
       </documentation>
    </annotation>
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="examples"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          &lt;p&gt;
 Example of a context which includes &lt;code&gt;EObjects&lt;/code&gt; in *.library resources only, not
@@ -370,15 +370,17 @@ Example of binding multiple constraints and constraint categories to the MyClien
 
 
    <annotation>
-      <appinfo>
+      <appInfo>
          <meta.section type="copyright"/>
-      </appinfo>
+      </appInfo>
       <documentation>
          Copyright (c) 2005, 2008  IBM Corporation, Zeligsoft Inc., and others.&lt;br&gt;
- All rights reserved. This program and the accompanying materials 
- are made available under the terms of the Eclipse Public License v1.0 
- which accompanies this distribution, and is available at 
- &lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at &lt;a href=&quot;https://www.eclipse.org/legal/epl-2.0/&quot;&gt;https://www.eclipse.org/legal/epl-2.0/&lt;/a&gt;
+
+SPDX-License-Identifier: EPL-2.0
+
       </documentation>
    </annotation>
 

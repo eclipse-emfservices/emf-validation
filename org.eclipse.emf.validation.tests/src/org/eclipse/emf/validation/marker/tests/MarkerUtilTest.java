@@ -1,21 +1,15 @@
 /**
- * <copyright>
- *
  * Copyright (c) 2007, 2008 IBM Corporation, Zeligsoft Inc., and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
  *   IBM - Initial API and implementation
  *   Zeligsoft - Bug 218765
- *
- * </copyright>
- *
- * $Id: MarkerUtilTest.java,v 1.4 2009/11/24 16:47:18 bgruschko Exp $
  */
-
 package org.eclipse.emf.validation.marker.tests;
 
 import java.util.Collections;

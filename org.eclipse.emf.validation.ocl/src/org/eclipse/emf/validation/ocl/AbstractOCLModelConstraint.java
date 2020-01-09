@@ -1,21 +1,15 @@
 /**
- * <copyright>
- *
  * Copyright (c) 2003, 2007 IBM Corporation and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
  *   IBM - Initial API and implementation
  *   Radek Dvorak (Borland) - Bugzilla 165458
- *
- * </copyright>
- *
- * $Id: AbstractOCLModelConstraint.java,v 1.6 2009/12/08 14:46:40 mstrenge Exp $
  */
-
 package org.eclipse.emf.validation.ocl;
 
 import java.lang.ref.Reference;

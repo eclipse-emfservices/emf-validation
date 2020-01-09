@@ -1,9 +1,14 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2009 SAP AG and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
  *
- * $Id: ValidationFactory.java,v 1.2 2009/12/11 19:54:50 ahunter Exp $
- */
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    SAP AG - initial API and implementation 
+ ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
 import org.eclipse.emf.ecore.EFactory;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="******************************************************************************&#xD;&#xA; * Copyright (c) 2009 SAP AG and others.&#xD;&#xA; * All rights reserved. This program and the accompanying materials&#xD;&#xA; * are made available under the terms of the Eclipse Public License v1.0&#xD;&#xA; * which accompanies this distribution, and is available at&#xD;&#xA; * http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA; *&#xD;&#xA; * Contributors:&#xD;&#xA; *    SAP AG - initial API and implementation &#xD;&#xA; ****************************************************************************"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="******************************************************************************&#xA; * Copyright (c) 2009 SAP AG and others.&#xA; * This program and the accompanying materials are made&#xA; * available under the terms of the Eclipse Public License 2.0&#xA; * which is available at https://www.eclipse.org/legal/epl-2.0/&#xA; *&#xA; * SPDX-License-Identifier: EPL-2.0&#xA; *&#xA; * Contributors:&#xA; *    SAP AG - initial API and implementation &#xA; ****************************************************************************"
     modelDirectory="/org.eclipse.emf.validation/src" modelPluginID="org.eclipse.emf.validation"
     modelName="Validation" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
     copyrightFields="false" language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">

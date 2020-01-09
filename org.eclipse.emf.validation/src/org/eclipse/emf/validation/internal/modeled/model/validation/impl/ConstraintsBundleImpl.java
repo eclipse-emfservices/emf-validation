@@ -1,9 +1,14 @@
-/**
- * <copyright>
- * </copyright>
+/******************************************************************************
+ * Copyright (c) 2009 SAP AG and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
  *
- * $Id: ConstraintsBundleImpl.java,v 1.3 2009/12/11 19:54:51 ahunter Exp $
- */
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    SAP AG - initial API and implementation 
+ ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
 import java.util.Collection;
