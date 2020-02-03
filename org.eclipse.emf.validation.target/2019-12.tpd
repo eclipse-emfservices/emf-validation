@@ -27,12 +27,3 @@ location Orbit-2019-12 "https://download.eclipse.org/tools/orbit/downloads/drops
 location OCL-6.5 "http://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.5.0" {
     org.eclipse.ocl.feature.group [3.10.0.v20180916-1223,3.10.0.v20180916-1223]
 }
-
-location UML2-5.4 "http://download.eclipse.org/modeling/mdt/uml2/updates/5.4" {
-    org.eclipse.uml2.sdk.feature.group [5.4.1.v20180903-1400,5.4.1.v20180903-1400]
-    org.eclipse.uml2.common.feature.group [2.4.0.v20180903-1400,2.4.0.v20180903-1400]
-}
-
-location EMF-Validation-1.12.1 "https://download.eclipse.org/modeling/emf/validation/updates/releases/R201812070911/" {
-    org.eclipse.emf.validation.sdk.feature.group [1.12.1.201812070911,1.12.1.201812070911]
-}

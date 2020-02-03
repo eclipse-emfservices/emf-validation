@@ -27,12 +27,3 @@ location Orbit-Oxygen.1a "http://download.eclipse.org/tools/orbit/downloads/drop
 location OCL-6.3 "http://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.3.0" {
     org.eclipse.ocl.feature.group [3.7.0.v20170522-1736,3.7.0.v20170522-1736]
 }
-
-location UML2-5.3 "http://download.eclipse.org/modeling/mdt/uml2/updates/5.3" {
-    org.eclipse.uml2.sdk.feature.group [5.3.0,5.4.0)
-    org.eclipse.uml2.common.feature.group [2.1.0,3.0.0)
-}
-
-location EMF-Validation-1.11 "https://download.eclipse.org/modeling/emf/validation/updates/releases/R201706061352/" {
-    org.eclipse.emf.validation.sdk.feature.group [1.11.0.201706061352,1.11.0.201706061352]
-}

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="emf-validation-2020-03" sequenceNumber="1580667618">
+<target name="emf-validation-2020-03" sequenceNumber="1580758637">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
       <repository id="Eclipse-Shared-License" location="http://download.eclipse.org/cbi/updates/license"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.sdk.ide" version="4.15.0.I20200201-1800"/>
+      <unit id="org.eclipse.sdk.ide" version="4.15.0.I20200202-1800"/>
       <unit id="org.eclipse.test.feature.group" version="3.7.1000.v20200128-1312"/>
-      <unit id="org.eclipse.sdk.tests.feature.group" version="4.15.0.v20200201-1800"/>
-      <unit id="org.eclipse.platform.ide" version="4.15.0.I20200201-1800"/>
+      <unit id="org.eclipse.sdk.tests.feature.group" version="4.15.0.v20200202-1800"/>
+      <unit id="org.eclipse.platform.ide" version="4.15.0.I20200202-1800"/>
       <repository id="Eclipse-4.15I" location="https://download.eclipse.org/eclipse/updates/I-builds/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
@@ -28,17 +28,8 @@
       <repository id="Orbit-I" location="http://download.eclipse.org/tools/orbit/downloads/latest-I"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.ocl.feature.group" version="3.14.2.v20200113-1543"/>
+      <unit id="org.eclipse.ocl.feature.group" version="3.14.2.v20200203-0830"/>
       <repository id="OCL-6.11" location="https://download.eclipse.org/modeling/mdt/ocl/updates/milestones/6.11.0/"/>
-    </location>
-    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.uml2.sdk.feature.group" version="5.5.0.v20181203-1331"/>
-      <unit id="org.eclipse.uml2.common.feature.group" version="2.5.0.v20181203-1331"/>
-      <repository id="UML2-5.5" location="http://download.eclipse.org/modeling/mdt/uml2/updates/5.5/"/>
-    </location>
-    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.emf.validation.sdk.feature.group" version="1.12.1.201812070911"/>
-      <repository id="EMF-Validation-1.12.1" location="https://download.eclipse.org/modeling/emf/validation/updates/releases/R201812070911/"/>
     </location>
   </locations>
 </target>
