@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.eclipse.emf.validation</groupId>
     <artifactId>org.eclipse.emf.validation.releng</artifactId>
-    <version>1.12.1-SNAPSHOT</version>
+    <version>1.12.2-SNAPSHOT</version>
     <relativePath>../org.eclipse.emf.validation.releng/pom.xml</relativePath>
   </parent>
   <groupId>org.eclipse.emf.validation.features</groupId>
   <artifactId>org.eclipse.emf.validation.ocl</artifactId>
-  <version>1.12.1-SNAPSHOT</version>
+  <version>1.12.2-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
 </project>
