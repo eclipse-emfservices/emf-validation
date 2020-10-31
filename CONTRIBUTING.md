@@ -4,8 +4,8 @@ Thanks for your interest in this project.
 
 ## Project description
 
-EMF Services provides libraries that extend the core EMF framework with
-additional services or more powerful versions of services provided by EMF
+EMF Services provides libraries that extend the core [EMF](https://www.eclipse.org/emf)
+framework with additional services or more powerful versions of services provided by EMF
 itself.
 
 * https://projects.eclipse.org/projects/modeling.emfservices
