@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;

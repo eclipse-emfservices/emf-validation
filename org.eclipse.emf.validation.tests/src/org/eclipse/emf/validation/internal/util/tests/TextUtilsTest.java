@@ -11,13 +11,13 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-import ordersystem.Product;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.validation.internal.util.TextUtils;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
+import ordersystem.Product;
 
 /**
  * JUnit tests for {@link TextUtils} class.

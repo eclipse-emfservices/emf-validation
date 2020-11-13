@@ -13,12 +13,6 @@ package ordersystem.impl;
 
 import java.util.Collection;
 
-import ordersystem.Address;
-import ordersystem.InventoryItem;
-import ordersystem.OrderSystem;
-import ordersystem.OrderSystemPackage;
-import ordersystem.Warehouse;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -29,6 +23,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import ordersystem.Address;
+import ordersystem.InventoryItem;
+import ordersystem.OrderSystem;
+import ordersystem.OrderSystemPackage;
+import ordersystem.Warehouse;
 
 /**
  * <!-- begin-user-doc -->

@@ -14,11 +14,6 @@ package ordersystem.impl;
 import java.util.Collection;
 import java.util.Date;
 
-import ordersystem.Customer;
-import ordersystem.LineItem;
-import ordersystem.Order;
-import ordersystem.OrderSystemPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -29,6 +24,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import ordersystem.Customer;
+import ordersystem.LineItem;
+import ordersystem.Order;
+import ordersystem.OrderSystemPackage;
 
 /**
  * <!-- begin-user-doc -->

@@ -12,7 +12,6 @@
 package org.eclipse.emf.validation.internal.model.tests;
 
 import org.eclipse.core.runtime.CoreException;
-
 import org.eclipse.emf.validation.internal.service.ClientContext;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.model.IClientSelector;

@@ -13,10 +13,10 @@ package org.eclipse.emf.validation.internal.service.tests;
 
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
 import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.emf.validation.service.INotificationGenerator;
+
+import junit.framework.TestCase;
 
 
 /**

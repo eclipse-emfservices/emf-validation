@@ -13,10 +13,9 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 
 import java.util.List;
 
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
-
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.service.IConstraintFilter;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
 /**
  * Interface representing a node in the category preferences

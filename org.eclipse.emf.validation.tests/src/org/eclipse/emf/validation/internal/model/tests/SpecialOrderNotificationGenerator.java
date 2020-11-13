@@ -13,15 +13,16 @@ package org.eclipse.emf.validation.internal.model.tests;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import ordersystem.LineItem;
-import ordersystem.Order;
-import ordersystem.special.LimitedEditionProduct;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.service.INotificationGenerator;
+
+import ordersystem.LineItem;
+import ordersystem.Order;
+import ordersystem.special.LimitedEditionProduct;
 
 public class SpecialOrderNotificationGenerator implements
 		INotificationGenerator {

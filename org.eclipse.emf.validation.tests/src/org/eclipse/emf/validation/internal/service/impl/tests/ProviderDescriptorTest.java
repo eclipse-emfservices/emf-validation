@@ -14,8 +14,6 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
@@ -31,6 +29,8 @@ import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
+
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for the {@link ProviderDescriptor} class.

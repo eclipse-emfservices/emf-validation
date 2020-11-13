@@ -14,9 +14,6 @@ package org.eclipse.emf.validation.internal.xml.tests;
 import java.util.Collection;
 import java.util.List;
 
-import ordersystem.OrderSystemFactory;
-import ordersystem.OrderSystemPackage;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
@@ -34,6 +31,9 @@ import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.tests.TestPlugin;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
+
+import ordersystem.OrderSystemFactory;
+import ordersystem.OrderSystemPackage;
 
 /**
  * Tests the XML Constraint Provider class.

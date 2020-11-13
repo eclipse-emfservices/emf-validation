@@ -11,9 +11,9 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
+import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.DisabledConstraint;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
-import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintFactory;

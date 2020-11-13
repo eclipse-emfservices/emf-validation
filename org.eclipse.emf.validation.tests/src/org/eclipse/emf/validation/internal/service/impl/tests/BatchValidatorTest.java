@@ -14,15 +14,15 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 import java.util.Collection;
 import java.util.Collections;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.service.BatchValidator;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.internal.service.IProviderOperationExecutor;
 import org.eclipse.emf.validation.model.EvaluationMode;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for {@link BatchValidator}.

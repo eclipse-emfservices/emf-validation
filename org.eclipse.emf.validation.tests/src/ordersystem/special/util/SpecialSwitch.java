@@ -11,15 +11,15 @@
  */
 package ordersystem.special.util;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
+
 import ordersystem.Customer;
 import ordersystem.Product;
 import ordersystem.special.LimitedEditionProduct;
 import ordersystem.special.PreferredCustomer;
 import ordersystem.special.SpecialPackage;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->

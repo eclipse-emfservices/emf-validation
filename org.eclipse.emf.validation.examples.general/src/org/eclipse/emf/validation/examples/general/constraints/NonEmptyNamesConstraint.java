@@ -13,7 +13,6 @@ package org.eclipse.emf.validation.examples.general.constraints;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.Library;
 import org.eclipse.emf.validation.AbstractModelConstraint;

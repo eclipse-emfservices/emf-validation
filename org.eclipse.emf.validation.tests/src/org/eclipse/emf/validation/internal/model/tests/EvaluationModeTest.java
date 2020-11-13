@@ -19,10 +19,10 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.emf.validation.model.EvaluationMode;
+
+import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link EvaluationMode} class.

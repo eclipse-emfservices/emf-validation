@@ -11,11 +11,11 @@
  */
 package ordersystem.special;
 
-import ordersystem.OrderSystemPackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+
+import ordersystem.OrderSystemPackage;
 
 /**
  * <!-- begin-user-doc -->

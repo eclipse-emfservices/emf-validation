@@ -14,7 +14,6 @@ package org.eclipse.emf.validation.internal.util;
 import java.net.URL;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-
 import org.eclipse.emf.validation.util.XmlConfig;
 
 /**

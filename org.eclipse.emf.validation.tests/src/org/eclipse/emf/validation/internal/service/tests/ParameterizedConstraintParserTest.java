@@ -13,9 +13,6 @@ package org.eclipse.emf.validation.internal.service.tests;
 
 import java.util.Collections;
 
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
@@ -32,6 +29,9 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
+
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests the {@link IParameterizedConstraintDescriptor} and

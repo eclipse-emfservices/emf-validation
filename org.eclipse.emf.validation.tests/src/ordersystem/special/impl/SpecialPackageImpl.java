@@ -11,17 +11,17 @@
  */
 package ordersystem.special.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import ordersystem.OrderSystemPackage;
 import ordersystem.impl.OrderSystemPackageImpl;
 import ordersystem.special.LimitedEditionProduct;
 import ordersystem.special.PreferredCustomer;
 import ordersystem.special.SpecialFactory;
 import ordersystem.special.SpecialPackage;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
  * <!-- begin-user-doc -->

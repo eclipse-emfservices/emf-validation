@@ -14,7 +14,6 @@
 package org.eclipse.emf.validation.internal.util;
 
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.model.IModelConstraint;

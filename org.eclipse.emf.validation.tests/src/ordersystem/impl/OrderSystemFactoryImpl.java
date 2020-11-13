@@ -13,6 +13,13 @@ package ordersystem.impl;
 
 import java.util.Date;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
 import ordersystem.Account;
 import ordersystem.Address;
 import ordersystem.Customer;
@@ -24,13 +31,6 @@ import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
 import ordersystem.Product;
 import ordersystem.Warehouse;
-
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->

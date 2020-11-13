@@ -11,16 +11,16 @@
  */
 package ordersystem.special.impl;
 
-import ordersystem.special.LimitedEditionProduct;
-import ordersystem.special.PreferredCustomer;
-import ordersystem.special.SpecialFactory;
-import ordersystem.special.SpecialPackage;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import ordersystem.special.LimitedEditionProduct;
+import ordersystem.special.PreferredCustomer;
+import ordersystem.special.SpecialFactory;
+import ordersystem.special.SpecialPackage;
 
 /**
  * <!-- begin-user-doc -->

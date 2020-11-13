@@ -12,7 +12,6 @@
 package org.eclipse.emf.validation.examples.adapter.constraints;
 
 import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 

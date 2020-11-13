@@ -14,11 +14,10 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
-
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.preferences.EMFModelValidationPreferences;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
 
 /**

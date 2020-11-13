@@ -14,6 +14,7 @@ package org.eclipse.emf.validation.internal.util.tests;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
 import org.eclipse.emf.validation.util.FilteredCollection;
 
 import junit.framework.Test;

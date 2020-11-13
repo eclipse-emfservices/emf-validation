@@ -11,11 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
+import java.util.Collection;
+
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 
-import java.util.Collection;
 import junit.framework.TestCase;
 
 /**

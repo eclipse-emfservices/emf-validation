@@ -11,9 +11,6 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
@@ -23,6 +20,9 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.emf.validation.tests.AllTests;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.ui.PlatformUI;
+
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
 
 public class ValidationListenersTest extends TestBase {
 	public ValidationListenersTest(String name) {

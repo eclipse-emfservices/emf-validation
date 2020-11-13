@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IContributor;
@@ -38,6 +35,9 @@ import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link XmlConstraintDescriptor} class.

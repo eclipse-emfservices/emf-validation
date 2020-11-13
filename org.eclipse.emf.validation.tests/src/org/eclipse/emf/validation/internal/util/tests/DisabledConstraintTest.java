@@ -16,15 +16,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
@@ -34,6 +30,9 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.util.XmlConfig;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link DisabledConstraint} class.

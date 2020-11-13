@@ -12,7 +12,6 @@
 package org.eclipse.emf.validation.xml;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 

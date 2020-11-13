@@ -11,15 +11,15 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import junit.framework.TestCase;
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.XmlExpressionSelector;
 import org.eclipse.emf.validation.util.XmlConfig;
+
+import junit.framework.TestCase;
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.

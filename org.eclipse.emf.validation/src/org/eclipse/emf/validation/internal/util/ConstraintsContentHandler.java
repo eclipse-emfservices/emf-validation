@@ -24,14 +24,13 @@ import java.util.ResourceBundle;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
+import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.osgi.framework.Bundle;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
-import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 
 /**
  * A SAX content handler for parsing the <tt>&lt;constraints&gt;</tt> XML.

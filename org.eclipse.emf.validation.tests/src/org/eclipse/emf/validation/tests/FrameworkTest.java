@@ -14,9 +14,6 @@ package org.eclipse.emf.validation.tests;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
-import ordersystem.OrderSystem;
-import ordersystem.OrderSystemFactory;
-import ordersystem.special.SpecialFactory;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
@@ -29,11 +26,14 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
+
+import ordersystem.OrderSystem;
+import ordersystem.OrderSystemFactory;
+import ordersystem.special.SpecialFactory;
 
 /**
  * A suite of JUnit test cases covering the capabilities of the core

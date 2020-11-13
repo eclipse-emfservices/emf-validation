@@ -11,13 +11,12 @@
  */
 package org.eclipse.emf.validation.tests;
 
-import org.eclipse.emf.validation.model.IModelConstraint;
-import org.eclipse.emf.validation.service.AbstractConstraintProvider;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
-import java.util.Collection;
+import org.eclipse.emf.validation.model.IModelConstraint;
+import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 
 /**
  * A simple provider which is instrumented to count the number of hits that the

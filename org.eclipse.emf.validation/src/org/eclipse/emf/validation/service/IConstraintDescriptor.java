@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.ConstraintSeverity;
 import org.eclipse.emf.validation.model.EvaluationMode;

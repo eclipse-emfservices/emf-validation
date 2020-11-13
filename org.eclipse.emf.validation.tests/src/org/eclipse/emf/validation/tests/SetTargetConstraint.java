@@ -14,15 +14,15 @@ package org.eclipse.emf.validation.tests;
 import java.util.Collection;
 import java.util.Collections;
 
-import ordersystem.LineItem;
-import ordersystem.Order;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.ConstraintStatus;
+
+import ordersystem.LineItem;
+import ordersystem.Order;
 
 /**
  * Test of the static methods that allow setting of target in

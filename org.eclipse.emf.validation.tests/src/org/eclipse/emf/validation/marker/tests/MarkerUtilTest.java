@@ -14,11 +14,6 @@ package org.eclipse.emf.validation.marker.tests;
 
 import java.util.Collections;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -48,6 +43,11 @@ import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.util.XmlConfig;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
 
 
 /**

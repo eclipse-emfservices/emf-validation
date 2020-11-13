@@ -11,6 +11,10 @@
  */
 package ordersystem.util;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
+
 import ordersystem.Account;
 import ordersystem.Address;
 import ordersystem.Customer;
@@ -21,10 +25,6 @@ import ordersystem.OrderSystem;
 import ordersystem.OrderSystemPackage;
 import ordersystem.Product;
 import ordersystem.Warehouse;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->

@@ -15,11 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
@@ -28,6 +25,8 @@ import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.emf.validation.service.ModelValidationService;
+
+import junit.framework.TestCase;
 
 /**
  * Common services for test cases in this test plug-in.

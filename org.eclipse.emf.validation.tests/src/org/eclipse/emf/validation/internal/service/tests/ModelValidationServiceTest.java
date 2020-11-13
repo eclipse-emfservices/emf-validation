@@ -19,15 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import ordersystem.Address;
-import ordersystem.LineItem;
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-import ordersystem.OrderSystemPackage;
-import ordersystem.impl.OrderImpl;
-import ordersystem.special.PreferredCustomer;
-import ordersystem.special.SpecialFactory;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -62,6 +53,15 @@ import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
+
+import ordersystem.Address;
+import ordersystem.LineItem;
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
+import ordersystem.OrderSystemPackage;
+import ordersystem.impl.OrderImpl;
+import ordersystem.special.PreferredCustomer;
+import ordersystem.special.SpecialFactory;
 
 /**
  * Basic tests of the {@link ModelValidationService} API.  More advanced tests

@@ -12,16 +12,14 @@
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.validation.internal.modeled.model.validation.Binding;
 import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
 import org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext;
@@ -39,7 +37,6 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum;
 import org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint;
 import org.eclipse.emf.validation.internal.modeled.model.validation.Parser;
 import org.eclipse.emf.validation.internal.modeled.model.validation.Selector;
-import org.eclipse.emf.validation.internal.modeled.model.validation.Parameter;
 import org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum;
 import org.eclipse.emf.validation.internal.modeled.model.validation.Target;
 import org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy;

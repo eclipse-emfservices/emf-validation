@@ -13,6 +13,8 @@
 
 package org.eclipse.emf.validation;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.validation.model.ConstraintStatus;
 

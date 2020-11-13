@@ -14,9 +14,6 @@ package org.eclipse.emf.validation.internal.model.tests;
 import java.util.Collections;
 import java.util.Set;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
@@ -28,6 +25,9 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link ConstraintStatus} class.

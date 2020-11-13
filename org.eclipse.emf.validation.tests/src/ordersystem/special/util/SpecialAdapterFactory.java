@@ -11,17 +11,16 @@
  */
 package ordersystem.special.util;
 
-import ordersystem.Customer;
-import ordersystem.Product;
-
-import ordersystem.special.*;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
+
+import ordersystem.Customer;
+import ordersystem.Product;
+import ordersystem.special.LimitedEditionProduct;
+import ordersystem.special.PreferredCustomer;
+import ordersystem.special.SpecialPackage;
 
 /**
  * <!-- begin-user-doc -->

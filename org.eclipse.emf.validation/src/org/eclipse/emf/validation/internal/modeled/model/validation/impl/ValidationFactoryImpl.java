@@ -12,16 +12,34 @@
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.eclipse.emf.validation.internal.modeled.model.validation.*;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Binding;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Constraints;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle;
+import org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Enablement;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Event;
+import org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Feature;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum;
+import org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Parser;
+import org.eclipse.emf.validation.internal.modeled.model.validation.Selector;
+import org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum;
+import org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy;
+import org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationFactory;
+import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
  * <!-- begin-user-doc -->

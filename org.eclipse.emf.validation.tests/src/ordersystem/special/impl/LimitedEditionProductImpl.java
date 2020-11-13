@@ -13,13 +13,13 @@ package ordersystem.special.impl;
 
 import java.util.Date;
 
-import ordersystem.impl.ProductImpl;
-import ordersystem.special.LimitedEditionProduct;
-import ordersystem.special.SpecialPackage;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import ordersystem.impl.ProductImpl;
+import ordersystem.special.LimitedEditionProduct;
+import ordersystem.special.SpecialPackage;
 
 /**
  * <!-- begin-user-doc -->

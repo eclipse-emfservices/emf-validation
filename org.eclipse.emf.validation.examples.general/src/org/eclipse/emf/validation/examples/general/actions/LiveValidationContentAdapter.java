@@ -14,12 +14,11 @@ package org.eclipse.emf.validation.examples.general.actions;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.emf.validation.examples.general.constraints.ValidationDelegateClientSelector;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.jface.dialogs.MessageDialog;
 
 /**
  * A content adapter that performs live validation in response to changes in

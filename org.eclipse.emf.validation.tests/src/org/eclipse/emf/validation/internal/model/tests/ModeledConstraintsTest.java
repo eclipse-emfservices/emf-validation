@@ -13,12 +13,6 @@ package org.eclipse.emf.validation.internal.model.tests;
 
 import java.util.Set;
 
-import junit.framework.TestCase;
-import ordersystem.Account;
-import ordersystem.Address;
-import ordersystem.OrderSystemFactory;
-import ordersystem.OrderSystemPackage;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.EMFPlugin;
@@ -40,6 +34,12 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ModeledConstraintsLoader;
+
+import junit.framework.TestCase;
+import ordersystem.Account;
+import ordersystem.Address;
+import ordersystem.OrderSystemFactory;
+import ordersystem.OrderSystemPackage;
 
 /**
  * <p>

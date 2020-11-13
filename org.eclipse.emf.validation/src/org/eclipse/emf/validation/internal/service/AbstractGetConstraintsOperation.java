@@ -14,7 +14,6 @@ package org.eclipse.emf.validation.internal.service;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.IModelConstraint;

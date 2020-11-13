@@ -13,15 +13,14 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 
 import java.util.Collection;
 
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.service.GetLiveConstraintsOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.tests.TestNotification;
+
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for {@link GetLiveConstraintsOperation}.

@@ -15,11 +15,13 @@
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.marker.MarkerUtil;
+import org.eclipse.emf.validation.model.EvaluationMode;
 
 /**
  * <p>

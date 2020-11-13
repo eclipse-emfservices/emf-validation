@@ -11,15 +11,14 @@
  */
 package org.eclipse.emf.validation.examples.general.actions;
 
+import org.eclipse.emf.validation.examples.general.console.ConsoleUtil;
+import org.eclipse.emf.validation.examples.general.listeners.ValidationListener;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IActionDelegate2;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
-
-import org.eclipse.emf.validation.examples.general.console.ConsoleUtil;
-import org.eclipse.emf.validation.examples.general.listeners.ValidationListener;
 
 /**
  * An action delegate that allows the user to toggle whether or not the

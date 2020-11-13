@@ -13,13 +13,12 @@ package org.eclipse.emf.validation.tests;
 
 import java.util.List;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+
+import junit.framework.Assert;
 
 /**
  * A log listener that captures the last entry (if any) logged by a specified

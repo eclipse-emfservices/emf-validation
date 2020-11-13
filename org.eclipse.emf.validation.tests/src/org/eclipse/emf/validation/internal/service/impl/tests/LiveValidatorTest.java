@@ -14,14 +14,6 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 import java.util.Collections;
 import java.util.List;
 
-import ordersystem.Customer;
-import ordersystem.LineItem;
-import ordersystem.Order;
-import ordersystem.OrderSystem;
-import ordersystem.OrderSystemFactory;
-import ordersystem.OrderSystemPackage;
-import ordersystem.Product;
-import ordersystem.special.SpecialFactory;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -39,6 +31,15 @@ import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.FilteredCollection;
+
+import ordersystem.Customer;
+import ordersystem.LineItem;
+import ordersystem.Order;
+import ordersystem.OrderSystem;
+import ordersystem.OrderSystemFactory;
+import ordersystem.OrderSystemPackage;
+import ordersystem.Product;
+import ordersystem.special.SpecialFactory;
 
 /**
  * Tests for {@link LiveValidator}.

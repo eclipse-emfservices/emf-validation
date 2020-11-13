@@ -16,11 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import junit.framework.TestCase;
-import ordersystem.Order;
-import ordersystem.OrderSystemFactory;
-import ordersystem.Product;
-
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -33,6 +28,11 @@ import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+
+import junit.framework.TestCase;
+import ordersystem.Order;
+import ordersystem.OrderSystemFactory;
+import ordersystem.Product;
 
 
 /**

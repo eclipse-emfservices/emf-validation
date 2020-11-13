@@ -11,10 +11,6 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
-import org.eclipse.emf.validation.EMFEventType;
-
-import org.eclipse.emf.common.notify.Notification;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInput;
@@ -22,6 +18,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.List;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.validation.EMFEventType;
 
 import junit.framework.TestCase;
 

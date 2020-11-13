@@ -13,18 +13,17 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 
 import java.util.Collection;
 
-import junit.framework.TestCase;
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.service.ConstraintCache;
 import org.eclipse.emf.validation.internal.service.IProviderDescriptor;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.tests.TestNotification;
+
+import junit.framework.TestCase;
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for {@link ConstraintCache}.

@@ -11,8 +11,6 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.validation.AbstractModelConstraint;
@@ -27,6 +25,8 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
+
+import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link JavaConstraintParser} class.

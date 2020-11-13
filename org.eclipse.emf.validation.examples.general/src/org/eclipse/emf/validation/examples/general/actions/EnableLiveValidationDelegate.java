@@ -13,6 +13,7 @@
 package org.eclipse.emf.validation.examples.general.actions;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EContentAdapter;

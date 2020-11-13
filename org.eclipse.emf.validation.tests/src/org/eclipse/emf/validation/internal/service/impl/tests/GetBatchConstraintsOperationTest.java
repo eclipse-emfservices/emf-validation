@@ -13,12 +13,11 @@ package org.eclipse.emf.validation.internal.service.impl.tests;
 
 import java.util.Collection;
 
-import ordersystem.OrderSystemFactory;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.validation.internal.service.GetBatchConstraintsOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
+
+import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for {@link GetBatchConstraintsOperation}.

@@ -11,12 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import org.eclipse.emf.validation.util.XmlConfig;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.validation.util.XmlConfig;
 
 import junit.framework.TestCase;
 
