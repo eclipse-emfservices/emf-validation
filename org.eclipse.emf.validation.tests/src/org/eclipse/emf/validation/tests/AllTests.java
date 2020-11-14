@@ -11,10 +11,8 @@
  */
 package org.eclipse.emf.validation.tests;
 
-import java.util.Arrays;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IPlatformRunnable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
@@ -25,14 +23,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Test suite encapsulating all of the JUnit tests in this test plug-in.
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class AllTests extends TestCase implements IPlatformRunnable {
+public class AllTests extends TestCase {
 	public static boolean executingUnitTests = false;
 	
 	static {
@@ -95,15 +92,5 @@ public class AllTests extends TestCase implements IPlatformRunnable {
 		suite.addTestSuite(FrameworkTest.class);
 
 		return suite;
-	}
-
-	/**
-	 * Implements the interface method to execute the suite.
-	 */
-	public Object run(Object args) throws Exception {
-		TestRunner.run(suite());
-
-		return Arrays.asList(new String[]{
-			"Please see raw test suite output for details."}); //$NON-NLS-1$
 	}
 }

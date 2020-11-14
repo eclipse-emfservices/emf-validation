@@ -645,10 +645,6 @@ public class LiveValidatorTest extends TestBase {
 		List<Notification> getNotifications() {
 			return notifications;
 		}
-		
-		void clear() {
-			notifications.clear();
-		}
 	}
 	
 	public static class NotificationMergingTestConstraint extends AbstractModelConstraint {

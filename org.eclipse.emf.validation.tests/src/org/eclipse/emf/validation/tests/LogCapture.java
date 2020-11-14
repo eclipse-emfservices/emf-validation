@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * A log listener that captures the last entry (if any) logged by a specified

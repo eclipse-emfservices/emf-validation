@@ -281,10 +281,6 @@ public class ConstraintRegistryTest extends TestBase {
 		public boolean targetsEvent(Notification notification) {
 			return false;
 		}
-
-		public boolean targetsFeature(EObject eObject, String feature) {
-			return false;
-		}
 	}
 	
 	private static class FixtureConstraint implements IModelConstraint {

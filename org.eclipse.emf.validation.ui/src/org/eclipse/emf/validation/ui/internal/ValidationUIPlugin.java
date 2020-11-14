@@ -200,7 +200,7 @@ public class ValidationUIPlugin
         public IPreferenceStore getPreferenceStore() {
             // Create the preference store lazily.
             if (preferenceStore == null) {
-                preferenceStore = new ScopedPreferenceStore(new InstanceScope(),getBundle().getSymbolicName());
+                preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, getBundle().getSymbolicName());
 
             }
             return preferenceStore;
