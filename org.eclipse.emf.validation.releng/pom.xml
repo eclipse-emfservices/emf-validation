@@ -18,7 +18,20 @@
 		<platform>oxygen</platform>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
+	
+	<distributionManagement>
+		<repository>
+			<id>repo.eclipse.org</id>
+			<name>EMF Services Repository - Releases</name>
+			<url>https://repo.eclipse.org/content/repositories/emfservices-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>repo.eclipse.org</id>
+			<name>EMF Services Repository - Snapshots</name>
+			<url>https://repo.eclipse.org/content/repositories/emfservices-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 	<build>
 		<plugins>
 			<plugin>
