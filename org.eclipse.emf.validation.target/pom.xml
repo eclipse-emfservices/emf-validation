@@ -40,7 +40,7 @@
 								<configuration>
 									<artifacts>
 										<artifact>
-											<file>emf-validation.target</file>
+											<file>${platform}.target</file>
 											<type>target</type>
 											<classifier>emf-validation</classifier>
 										</artifact>
