@@ -17,8 +17,9 @@
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<platform>oxygen</platform>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho.scmUrl>scm:git:http://git.eclipse.org/gitroot/emf-validation/org.eclipse.emf.validation.git</tycho.scmUrl>
 	</properties>
-	
+
 	<distributionManagement>
 		<repository>
 			<id>repo.eclipse.org</id>
@@ -31,7 +32,7 @@
 			<url>https://repo.eclipse.org/content/repositories/emfservices-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -52,6 +53,23 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<sourceReferences>
+						<generate>true</generate>
+					</sourceReferences>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-sourceref-jgit</artifactId>
+						<version>${tycho-version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
