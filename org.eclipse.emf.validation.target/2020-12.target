@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde?>
+<!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
+<target name="emf-validation-2020-12" sequenceNumber="1609155451">
+  <locations>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
+      <repository id="Eclipse-Shared-License" location="http://download.eclipse.org/cbi/updates/license"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
+      <unit id="org.eclipse.test.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.sdk.tests.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.platform.ide" version="0.0.0"/>
+      <repository id="Eclipse-4.18" location="https://download.eclipse.org/eclipse/updates/4.18/R-4.18-202012021800/"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.emf.edit.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.emf.examples.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.emf.ecore.edit.feature.group" version="0.0.0"/>
+      <repository id="EMF-2.24" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.24"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
+      <unit id="org.hamcrest.text.source" version="1.1.0.v20090501071000"/>
+      <unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
+      <repository id="Orbit-2020-12" location="https://download.eclipse.org/tools/orbit/downloads/drops/R20201130205003/repository"/>
+    </location>
+    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.ocl.feature.group" version="3.14.400.v20201208-2229"/>
+      <repository id="OCL-6.13" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.13.0/"/>
+    </location>
+  </locations>
+</target>
