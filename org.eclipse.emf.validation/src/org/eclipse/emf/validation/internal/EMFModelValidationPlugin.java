@@ -209,7 +209,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	 * @return my plug-in unique ID
 	 */
 	public static String getPluginId() {
-		if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
+		if (!EMFPlugin.IS_ECLIPSE_RUNNING || getPlugin() == null) {
 			return "org.eclipse.emf.validation"; //$NON-NLS-1$
 		}
 		else {
