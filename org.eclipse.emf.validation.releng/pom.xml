@@ -17,7 +17,7 @@
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<platform>oxygen</platform>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<tycho.scmUrl>scm:git:http://git.eclipse.org/gitroot/emf-validation/org.eclipse.emf.validation.git</tycho.scmUrl>
+		<tycho.scmUrl>scm:git:https://github.com/eclipse/emf-validation.git</tycho.scmUrl>
 	</properties>
 
 	<distributionManagement>
