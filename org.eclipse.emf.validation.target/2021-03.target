@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="emf-validation-2021-03" sequenceNumber="1620989656">
+<target name="emf-validation-2021-03" sequenceNumber="1630756936">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
@@ -22,14 +22,8 @@
       <repository id="EMF-2.25" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.25"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
-      <unit id="org.hamcrest.text.source" version="1.1.0.v20090501071000"/>
-      <unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
-      <repository id="Orbit-2021-03" location="https://download.eclipse.org/tools/orbit/downloads/drops/R20210223232630/repository"/>
-    </location>
-    <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ocl.feature.group" version="3.14.500.v20210310-0557"/>
-      <repository id="OCL-6.13" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.14.0/"/>
+      <repository id="OCL-6.14" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.14.0/"/>
     </location>
   </locations>
 </target>

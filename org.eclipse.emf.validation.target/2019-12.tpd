@@ -18,12 +18,6 @@ location EMF-2.20 "http://download.eclipse.org/modeling/emf/emf/builds/release/2
     org.eclipse.emf.ecore.edit.feature.group [2.14.0.v20190822-1451,2.14.0.v20190822-1451]
 }
 
-location Orbit-2019-12 "https://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository" {
-    org.hamcrest [1.1.0.v20090501071000,1.1.0.v20090501071000]
-    org.hamcrest.text.source [1.1.0.v20090501071000,1.1.0.v20090501071000]
-    org.hamcrest.text [1.1.0.v20090501071000,1.1.0.v20090501071000]
-}
-
 location OCL-6.5 "http://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.5.0" {
     org.eclipse.ocl.feature.group [3.10.0.v20180916-1223,3.10.0.v20180916-1223]
 }
