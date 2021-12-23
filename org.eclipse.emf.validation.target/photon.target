@@ -5,25 +5,25 @@
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
-      <repository id="Eclipse-Shared-License" location="http://download.eclipse.org/cbi/updates/license"/>
+      <repository id="Eclipse-Shared-License" location="https://download.eclipse.org/cbi/updates/license"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sdk.ide" version="4.8.0.I20180611-0500"/>
       <unit id="org.eclipse.test.feature.group" version="3.7.300.v20180524-2246"/>
       <unit id="org.eclipse.sdk.tests.feature.group" version="4.8.0.v20180611-0500"/>
       <unit id="org.eclipse.platform.ide" version="4.8.0.I20180611-0500"/>
-      <repository id="Eclipse-Photon" location="http://download.eclipse.org/eclipse/updates/4.8/R-4.8-201806110500/"/>
+      <repository id="Eclipse-Photon" location="https://download.eclipse.org/eclipse/updates/4.8/R-4.8-201806110500/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.edit.feature.group" version="2.13.0.v20180421-1151"/>
       <unit id="org.eclipse.emf.examples.feature.group" version="2.13.0.v20180529-1157"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="2.14.0.v20180529-1157"/>
       <unit id="org.eclipse.emf.ecore.edit.feature.group" version="2.10.0.v20180421-0731"/>
-      <repository id="EMF-2.14" location="http://download.eclipse.org/modeling/emf/emf/builds/release/2.14"/>
+      <repository id="EMF-2.14" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.14"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ocl.feature.group" version="3.8.0.v20180611-1119"/>
-      <repository id="OCL-6.4" location="http://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.4.0"/>
+      <repository id="OCL-6.4" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.4.0"/>
     </location>
   </locations>
 </target>

@@ -1,23 +1,23 @@
 target "emf-validation-2018-09" with source, requirements
 
-location Eclipse-Shared-License "http://download.eclipse.org/cbi/updates/license" {
+location Eclipse-Shared-License "https://download.eclipse.org/cbi/updates/license" {
     org.eclipse.license.feature.group [2.0.0,3.0.0)
 }
 
-location Eclipse-4.9 "http://download.eclipse.org/eclipse/updates/4.9/R-4.9-201809060745/" {
+location Eclipse-4.9 "https://download.eclipse.org/eclipse/updates/4.9/R-4.9-201809060745/" {
     org.eclipse.sdk.ide [4.9.0.I20180906-0745,4.9.0.I20180906-0745]
     org.eclipse.test.feature.group [3.7.400.v20180822-0818,3.7.400.v20180822-0818]
     org.eclipse.sdk.tests.feature.group [4.9.0.v20180906-0745,4.9.0.v20180906-0745]
     org.eclipse.platform.ide [4.9.0.I20180906-0745,4.9.0.I20180906-0745]
 }
 
-location EMF-2.15 "http://download.eclipse.org/modeling/emf/emf/builds/release/2.15" {
+location EMF-2.15 "https://download.eclipse.org/modeling/emf/emf/builds/release/2.15" {
     org.eclipse.emf.edit.feature.group [2.14.0.v20180823-0456,2.14.0.v20180823-0456]
     org.eclipse.emf.examples.feature.group [2.14.0.v20180706-1146,2.14.0.v20180706-1146]
     org.eclipse.emf.sdk.feature.group [2.15.0.v20180905-1732,2.15.0.v20180905-1732]
     org.eclipse.emf.ecore.edit.feature.group [2.11.0.v20180823-0905,2.11.0.v20180823-0905]
 }
 
-location OCL-6.5 "http://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.5.0" {
+location OCL-6.5 "https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.5.0" {
     org.eclipse.ocl.feature.group [3.10.0.v20180916-1223,3.10.0.v20180916-1223]
 }

@@ -1,6 +1,6 @@
 target "emf-validation-next" with source, requirements
 
-location Eclipse-Shared-License "http://download.eclipse.org/cbi/updates/license" {
+location Eclipse-Shared-License "https://download.eclipse.org/cbi/updates/license" {
     org.eclipse.license.feature.group [2.0.0,3.0.0)
 }
 
@@ -11,7 +11,7 @@ location Eclipse-I "https://download.eclipse.org/eclipse/updates/I-builds/" {
     org.eclipse.platform.ide lazy
 }
 
-location EMF-M "http://download.eclipse.org/modeling/emf/emf/builds/milestone/latest" {
+location EMF-M "https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest" {
     org.eclipse.emf.edit.feature.group lazy
     org.eclipse.emf.examples.feature.group lazy
     org.eclipse.emf.sdk.feature.group lazy
