@@ -39,7 +39,7 @@
 
 		<h2><a name="refs">References</a></h2>
 		<p>
-			This tutorial assumes that the reader has a knowledge of EMF, and the eclipse PDE development
+			This tutorial assumes that the reader has a knowledge of EMF, and the Eclipse PDE development
 			environment. It is essential that the reader understands the basic reflective mechanisms of EMF 
 			as well as its adapter/notifier system for broadcasting events.
 		</p>
@@ -56,12 +56,12 @@
 		<p>
 			For those readers who are not familiar with this metamodel, it models a library with books and writers.
 			The most important aspect of the library metamodel for this tutorial is the fact that books are modeled
-			as EObjects whose EClass is <code>Book</code> and they contain a EStructuralFeature called <code>pages</code>
+			as EObjects whose EClass is <code>Book</code> and they contain an EStructuralFeature called <code>pages</code>
 			that stores an integer number of pages contained in the book.
 		</p>
 		<p>
 			The goal of this tutorial is to create a batch/live EMF validation constraint that will 
-			catch cases where there is no unique identifier for the book,library or writer. Also, this tutorial
+			catch cases where there is no unique identifier for the book, library or writer. Also, this tutorial
 			will demonstrate how to create a client context allowing a client to run the batch/live constraints
 			on a group of EObjects or Notifications.
 		</p>
@@ -80,8 +80,7 @@
 		<p>
 			Our batch constraint takes the following form:
 <pre class="codeblock">
-public class NonEmptyNamesConstraint
-	extends AbstractModelConstraint {
+public class NonEmptyNamesConstraint extends AbstractModelConstraint {
 
 	public IStatus validate(IValidationContext ctx) {
 		EObject eObj = ctx.getTarget();
@@ -190,7 +189,7 @@ public class NonEmptyNamesConstraint
 		</p>
 		<p>
 			Finally, there are the target nodes. If no target nodes are specified then any EObject of any EClass
-			will given to our validator. In our constraint, we are only interested in Writers, Books and Libraries from
+			will be given to our validator. In our constraint, we are only interested in Writers, Books and Libraries from
 			the library metamodel. These EClasses are qualified by the EPackage URI we provided in the package
 			node mentioned above.
 		</p>
@@ -242,8 +241,7 @@ public class NonEmptyNamesConstraint
 //            some private collection
 //           -Check the EClass of the EObject but only if the metamodel is private
 //            to this application and will not be used by other contexts
-public class ValidationDelegateClientSelector
-	implements IClientSelector {
+public class ValidationDelegateClientSelector implements IClientSelector {
 
 	public static boolean running = false;
 	
