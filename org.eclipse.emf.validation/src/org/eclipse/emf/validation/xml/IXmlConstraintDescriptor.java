@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2007, 2022 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -13,19 +13,13 @@ package org.eclipse.emf.validation.xml;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
-import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 
 /**
  * Interface provided by constraint descriptors that are parsed from XML
  * configuration data (such as is implemented in plug-in manifests).
  *
  * @author Christian W. Damus (cdamus)
- * 
- * @deprecated Use the {@link IParameterizedConstraintDescriptor} interface,
- *     instead.  Note that the default implementation of this interface also
- *     implements <code>IParameterizedConstraintDescriptor</code>.
  */
-@Deprecated
 public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	/**
 	 * Obtains the Eclipse configuration element from which I was initialized.
