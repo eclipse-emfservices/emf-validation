@@ -495,7 +495,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
         boolean result = false;
 
         for (int i = 0; !result && (i < nsUris.length); i++) {
-            result = namespace.equalsIgnoreCase(nsUris[i]);
+            result = namespace.equals(nsUris[i]);
 
             if (result && !namespace.equals(originalTargetNamespace)) {
                 // we found a package that extends the declared target. Cache it
