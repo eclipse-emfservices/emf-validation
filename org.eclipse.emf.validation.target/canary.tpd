@@ -1,0 +1,23 @@
+target "emf-transaction-canary" with source, requirements
+
+location Eclipse-Shared-License "https://download.eclipse.org/cbi/updates/license" {
+    org.eclipse.license.feature.group [2.0.0,3.0.0)
+}
+
+location Eclipse-I "https://download.eclipse.org/eclipse/updates/I-builds/" {
+    org.eclipse.sdk.ide lazy
+    org.eclipse.test.feature.group lazy
+    org.eclipse.sdk.tests.feature.group lazy
+    org.eclipse.platform.ide lazy
+}
+
+location EMF-I "https://download.eclipse.org/modeling/emf/emf/builds/nightly/latest" {
+    org.eclipse.emf.edit.feature.group lazy
+    org.eclipse.emf.examples.feature.group lazy
+    org.eclipse.emf.sdk.feature.group lazy
+    org.eclipse.emf.ecore.edit.feature.group lazy
+}
+
+location OCL-I "https://download.eclipse.org/modeling/mdt/ocl/updates/nightly/latest/" {
+	org.eclipse.ocl.feature.group lazy
+}

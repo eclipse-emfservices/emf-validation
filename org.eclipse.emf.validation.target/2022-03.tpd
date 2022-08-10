@@ -1,23 +1,23 @@
-target "emf-validation-next" with source, requirements
+target "emf-transaction-2022-03" with source, requirements
 
 location Eclipse-Shared-License "https://download.eclipse.org/cbi/updates/license" {
     org.eclipse.license.feature.group [2.0.0,3.0.0)
 }
 
-location Eclipse-I "https://download.eclipse.org/eclipse/updates/I-builds/" {
+location Eclipse-4.23 "https://download.eclipse.org/eclipse/updates/4.23/R-4.23-202203080310/" {
     org.eclipse.sdk.ide lazy
     org.eclipse.test.feature.group lazy
     org.eclipse.sdk.tests.feature.group lazy
     org.eclipse.platform.ide lazy
 }
 
-location EMF-M "https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest" {
+location EMF-2.29 "https://download.eclipse.org/modeling/emf/emf/builds/release/2.29" {
     org.eclipse.emf.edit.feature.group lazy
     org.eclipse.emf.examples.feature.group lazy
     org.eclipse.emf.sdk.feature.group lazy
     org.eclipse.emf.ecore.edit.feature.group lazy
 }
 
-location OCL-M "https://download.eclipse.org/modeling/mdt/ocl/updates/milestones/latest/" {
-	org.eclipse.ocl.feature.group lazy
+location OCL-6.17 "https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.17.1/" {
+    org.eclipse.ocl.feature.group lazy
 }

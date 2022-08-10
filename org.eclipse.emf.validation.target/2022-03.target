@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="emf-validation-next" sequenceNumber="1630756970">
+<target name="emf-transaction-2022-03" sequenceNumber="1660142135">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
@@ -12,18 +12,18 @@
       <unit id="org.eclipse.test.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.sdk.tests.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.platform.ide" version="0.0.0"/>
-      <repository id="Eclipse-I" location="https://download.eclipse.org/eclipse/updates/I-builds/"/>
+      <repository id="Eclipse-4.23" location="https://download.eclipse.org/eclipse/updates/4.23/R-4.23-202203080310/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.edit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.examples.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.ecore.edit.feature.group" version="0.0.0"/>
-      <repository id="EMF-M" location="https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest"/>
+      <repository id="EMF-2.29" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.29"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ocl.feature.group" version="0.0.0"/>
-      <repository id="OCL-M" location="https://download.eclipse.org/modeling/mdt/ocl/updates/milestones/latest/"/>
+      <repository id="OCL-6.17" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.17.1/"/>
     </location>
   </locations>
 </target>
