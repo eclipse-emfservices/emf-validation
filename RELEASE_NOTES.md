@@ -2,7 +2,7 @@
 
 This page describes the noteworthy improvements provided by each release of Eclipse EMF Services.
 
-## EMF Validation 1.13.0
+## EMF Validation 1.13.0 (unreleased)
 
 * Releng improvements
   * Move to recent(ish) version of Tychos, CBI plug-ins, etc.
@@ -23,3 +23,4 @@ This page describes the noteworthy improvements provided by each release of Ecli
   * [397327] IXmlConstraintDescriptor should not be deprecated
   * [397332] Use exact case matching for nsURI comparison
   * Remove version constraints for com.ibm.icu package imports
+
