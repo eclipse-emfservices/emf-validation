@@ -170,7 +170,7 @@ EOF
 entries=""
 if ssh "$SSH_ACCOUNT" test -d "$remoteUpdateSite" ; then
     message "Add existing update sites to the composite update site repository file."
-    if [ "$buildType" != "$R" ]; then
+    if [ "$buildType" != "R" ]; then
         for e in $(ssh "$SSH_ACCOUNT" find ${remoteUpdateSite}/ -mindepth 1 -maxdepth 1 -type d | sort | tail -n 5); do
             entries="$entries $(basename $e)"
         done
@@ -186,3 +186,4 @@ create_composite "EMF Validation" . $entries
 ssh "$SSH_ACCOUNT" rm -f ${remoteUpdateSite}/compositeArtifacts.jar ${remoteUpdateSite}/compositeContent.jar
 ssh "$SSH_ACCOUNT" rm -f ${remoteUpdateSite}/compositeArtifacts.xml ${remoteUpdateSite}/compositeContent.xml
 scp composite*xml "$SSH_ACCOUNT:${remoteUpdateSite}"
+
