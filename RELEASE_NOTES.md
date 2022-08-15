@@ -1,8 +1,18 @@
 # Eclipse EMF Validation: Release Notes
 
-This page describes the noteworthy improvements provided by each release of Eclipse EMF Services.
+This page describes the noteworthy improvements provided by each release of Eclipse EMF Validation.
+
+## 1.13.1
+
+Released on 2022-08-15.
+
+* #2: Remove the dependency on the deprecated ICU4J/com.ibm.icu
+* #5: Drop support for Eclipse versions older than 2020-09
+* #6: Move BREE to JavaSE-11
 
 ## 1.13.0
+
+Released on 2022-08-10.
 
 * Releng improvements
   * Move to recent(ish) version of Tychos, CBI plug-ins, etc.
@@ -23,4 +33,3 @@ This page describes the noteworthy improvements provided by each release of Ecli
   * [397327] IXmlConstraintDescriptor should not be deprecated
   * [397332] Use exact case matching for nsURI comparison
   * Remove version constraints for com.ibm.icu package imports
-
