@@ -35,8 +35,6 @@ import org.eclipse.emf.validation.xml.ConstraintParserException;
 import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
 import org.eclipse.emf.validation.xml.IXmlConstraintParser;
 
-import com.ibm.icu.lang.UCharacter;
-
 /**
  * <p>
  * Constraint factory implementation which parses constraints from the
@@ -221,7 +219,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 			if (parser instanceof IXmlConstraintParser
 					|| parser instanceof IParameterizedConstraintParser) {
-				parserMap.put(UCharacter.toLowerCase(language),
+				parserMap.put(language.toLowerCase(),
 					(IConstraintParser) parser);
 				
 				Trace.trace(
@@ -254,7 +252,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * @return the parser, or <code>null</code> if it cannot be found
 	 */
 	private IConstraintParser getParser(String language) {
-		return parserMap.get(UCharacter.toLowerCase(language));
+		return parserMap.get(language.toLowerCase());
 	}
 
 	/**

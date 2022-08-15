@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.text.StringMatcher;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -30,7 +31,6 @@ import org.eclipse.emf.validation.internal.EMFModelValidationDebugOptions;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
 import org.eclipse.emf.validation.internal.util.Log;
-import org.eclipse.emf.validation.internal.util.StringMatcher;
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
@@ -39,8 +39,6 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
-
-import com.ibm.icu.lang.UCharacter;
 
 
 /**
@@ -115,7 +113,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 				// this is a URI matcher with wildcards.  Key on the lowercase
 				//    to avoid case-insensitive duplicates
 				uriMatcherMap.put(
-					UCharacter.toLowerCase(uri),
+					uri.toLowerCase(),
 					new StringMatcher(uri, true, false));
 			} else {
 				uriSet.add(uri);
@@ -132,7 +130,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 					// this is a URI matcher with wildcards.  Key on the
 					//   lowercase to avoid case-insensitive duplicates
 					uriMatcherMap.put(
-						UCharacter.toLowerCase(uri),
+					        uri.toLowerCase(),
 						new StringMatcher(uri, true, false));
 				} else {
 					uriSet.add(uri);

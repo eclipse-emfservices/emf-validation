@@ -11,7 +11,7 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import org.eclipse.emf.validation.internal.util.StringMatcher;
+import org.eclipse.core.text.StringMatcher;
 
 import junit.framework.TestCase;
 

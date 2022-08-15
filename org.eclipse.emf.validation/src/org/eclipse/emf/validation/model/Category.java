@@ -18,11 +18,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.text.Collator; 
 
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
-
-import com.ibm.icu.text.Collator;
-
 
 /**
  * <p>

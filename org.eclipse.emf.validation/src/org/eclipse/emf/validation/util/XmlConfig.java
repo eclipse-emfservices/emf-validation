@@ -14,6 +14,7 @@ package org.eclipse.emf.validation.util;
 
 import java.net.URL;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,8 +37,6 @@ import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
-
-import com.ibm.icu.util.StringTokenizer;
 
 /**
  * <p>
