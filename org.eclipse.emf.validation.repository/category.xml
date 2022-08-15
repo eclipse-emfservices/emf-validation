@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.emf.validation_1.13.0.qualifier.jar" id="org.eclipse.emf.validation" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation_1.13.1.qualifier.jar" id="org.eclipse.emf.validation" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.doc_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.doc" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.doc_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.doc" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.examples_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.examples" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.examples_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.examples" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.examples.source_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.examples.source" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.examples.source_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.examples.source" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.master_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.master" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.master_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.master" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.ocl_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.ocl" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.ocl_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.ocl" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.ocl.source_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.ocl.source" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.ocl.source_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.ocl.source" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.sdk_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.sdk" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.sdk_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.sdk" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.source_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.source" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.source_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.source" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
-   <feature url="features/org.eclipse.emf.validation.tests_1.13.0.qualifier.jar" id="org.eclipse.emf.validation.tests" version="1.13.0.qualifier">
+   <feature url="features/org.eclipse.emf.validation.tests_1.13.1.qualifier.jar" id="org.eclipse.emf.validation.tests" version="1.13.1.qualifier">
       <category name="emf-validation"/>
    </feature>
    <category-def name="emf-validation" label="EMF Validation">
