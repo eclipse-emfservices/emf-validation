@@ -29,5 +29,5 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="[2.3.0,3.0.0)";visibility:
  org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)";visibility:=reexport
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.emf.validation
