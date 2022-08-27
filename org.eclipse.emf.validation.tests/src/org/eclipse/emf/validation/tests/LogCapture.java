@@ -11,6 +11,7 @@
  */
 package org.eclipse.emf.validation.tests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.ILogListener;
@@ -19,7 +20,6 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
 import org.junit.Assert;
-
 /**
  * A log listener that captures the last entry (if any) logged by a specified
  * bundle during an interval.
@@ -35,7 +35,7 @@ public class LogCapture {
 			}
 		}};
 	
-	private final List<IStatus> logs = new java.util.ArrayList<IStatus>();
+	private final List<IStatus> logs = new ArrayList<IStatus>();
 	private IStatus lastLog;
     
     /**
@@ -52,7 +52,6 @@ public class LogCapture {
 	 */
 	public LogCapture(Bundle targetBundle) {
 		this.targetBundle = targetBundle;
-		
 		Platform.addLogListener(listener);
 	}
 	
@@ -90,7 +89,7 @@ public class LogCapture {
 	 * @return the matching log entries
 	 */
 	public List<IStatus> getLogs(int statusCode) {
-	    List<IStatus> result = new java.util.ArrayList<IStatus>();
+	    List<IStatus> result = new ArrayList<IStatus>();
 	    
 	    for (IStatus next : logs) {
 	        if (next.getCode() == statusCode) {
