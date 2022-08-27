@@ -2,6 +2,12 @@
 
 This page describes the noteworthy improvements provided by each release of Eclipse EMF Validation.
 
+## 1.13.2
+
+Released on 2022-08-27.
+
+This version is identical to 1.13.1, but rebuilt using Tycho 2.7.2 (instead of 2.7.4) to avoid a regression in the content of the p2 repo produced.
+
 ## 1.13.1
 
 Released on 2022-08-15.
