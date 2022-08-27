@@ -37,18 +37,18 @@ public class FilteredCollectionTest extends TestCase {
 	private final Filter filter = new Filter();
 	private final Collection<Integer> original = Arrays.asList(
 		new Integer[] {
-			new Integer(0),
-			new Integer(1),
-			new Integer(2),
-			new Integer(3),
-			new Integer(4),
-			new Integer(5),
+			Integer.valueOf(0),
+			Integer.valueOf(1),
+			Integer.valueOf(2),
+			Integer.valueOf(3),
+			Integer.valueOf(4),
+			Integer.valueOf(5),
 			});
 	private final Collection<Integer> expectedFilteredResult = Arrays.asList(
 		new Integer[] {
-			new Integer(0),
-			new Integer(2),
-			new Integer(4),
+			Integer.valueOf(0),
+			Integer.valueOf(2),
+			Integer.valueOf(4),
 			});
 	private final FilteredCollection<Integer> filteredCollection = new FilteredCollection<Integer>(
 			original,

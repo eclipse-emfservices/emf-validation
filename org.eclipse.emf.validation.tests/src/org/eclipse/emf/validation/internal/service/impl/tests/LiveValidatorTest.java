@@ -515,7 +515,7 @@ public class LiveValidatorTest extends TestBase {
 		
 		// check that the merged notification has the correct new value
 		assertEquals(
-			new Integer(3),
+			Integer.valueOf(3),
 			NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 	
@@ -552,7 +552,7 @@ public class LiveValidatorTest extends TestBase {
 		
 		// check that the merged notification has the correct new value
 		assertEquals(
-			new Integer(3),
+			Integer.valueOf(3),
 			NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 	
