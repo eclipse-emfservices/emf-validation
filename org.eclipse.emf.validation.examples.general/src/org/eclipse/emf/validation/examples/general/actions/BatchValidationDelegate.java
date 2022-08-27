@@ -81,7 +81,6 @@ public class BatchValidationDelegate
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
-	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedEObjects = null;
 		try {

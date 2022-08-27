@@ -117,7 +117,6 @@ public class JavaConstraintParser
 				descriptor);
 	}
     
-	@SuppressWarnings("deprecation")
     public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
         throws ConstraintParserException {
         

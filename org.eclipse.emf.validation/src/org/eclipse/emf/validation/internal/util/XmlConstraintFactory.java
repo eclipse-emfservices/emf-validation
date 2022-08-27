@@ -121,7 +121,6 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IConstraintDescriptor descriptor) {
 		if (descriptor instanceof IXmlConstraintDescriptor) {
 			return createConstraint((IXmlConstraintDescriptor) descriptor);
@@ -134,7 +133,6 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IParameterizedConstraintDescriptor descriptor) {
 		final String lang = descriptor.getLanguage();
 		

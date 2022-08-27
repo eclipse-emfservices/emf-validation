@@ -115,7 +115,6 @@ public class XmlConstraintProvider extends AbstractConstraintProvider
 	 * 
 	 * @param config the <TT>&lt;constraint&gt;</TT> element
 	 */
-	@SuppressWarnings("deprecation")
 	private void addConstraint(IConfigurationElement config) {
 		final String contributorId = config
 			.getDeclaringExtension()

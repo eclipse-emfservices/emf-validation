@@ -32,7 +32,6 @@ import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
  * 
  * @author Chris McGee (cmcgee)
  */
-@SuppressWarnings("deprecation")
 public abstract class AbstractXmlConstraintDescriptor
 	extends AbstractConstraintDescriptor
 	implements IXmlConstraintDescriptor {
