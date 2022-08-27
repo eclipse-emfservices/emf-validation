@@ -344,7 +344,10 @@ public class ConstraintsSelectionBlock {
 				description = NO_CATEGORY_DESCRIPTION;
 			}
 		
-			Category actualCategory = category.getCategory();
+			Category actualCategory = null;
+			if (category != null) {
+			    actualCategory = category.getCategory();
+			}
 			// If we are a mandatory category then we must provide some cue to this fact.
 			if (actualCategory != null && actualCategory.isMandatory()) {
 				getDetailsArea().setText(
