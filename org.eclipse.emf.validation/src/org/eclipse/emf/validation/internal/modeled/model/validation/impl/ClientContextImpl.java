@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -38,7 +38,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -47,7 +47,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 	/**
 	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -56,7 +56,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 	/**
 	 * The default value of the '{@link #isDefault() <em>Default</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isDefault()
 	 * @generated
 	 * @ordered
@@ -65,7 +65,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 	/**
 	 * The cached value of the '{@link #isDefault() <em>Default</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isDefault()
 	 * @generated
 	 * @ordered
@@ -74,7 +74,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ClientContextImpl() {
@@ -83,7 +83,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -93,18 +93,20 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -114,18 +116,20 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isDefault() {
 		return default_;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setDefault(boolean newDefault) {
 		boolean oldDefault = default_;
 		default_ = newDefault;
@@ -136,7 +140,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -152,7 +156,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -170,7 +174,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -188,7 +192,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -204,7 +208,7 @@ public class ClientContextImpl extends EObjectImpl implements ClientContext {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

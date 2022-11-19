@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -59,6 +59,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * them all. The progress monitor is initialized with a work unit per element
 	 * (scaled to a reasonable maximum to avoid too many GUI updates).
 	 */
+	@Override
 	public void startTraversal(Collection<? extends EObject> traversalRoots, IProgressMonitor progressMonitor) {
 
 		int taskSize = countElements(traversalRoots);
@@ -88,7 +89,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	/**
 	 * Can be redefined by subclasses to provide the task label for the progress
 	 * monitor.
-	 * 
+	 *
 	 * @return the task label
 	 */
 	protected String getTaskLabel() {
@@ -98,7 +99,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	/**
 	 * Implemented by subclasses to compute the number of elements that will be
 	 * validated within the scope of the specified root elements.
-	 * 
+	 *
 	 * @param traversalRoots the roots of the traversal sub-trees
 	 * @return the total number of elements to be validated within these sub-trees
 	 */
@@ -107,7 +108,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	/**
 	 * Implemented by subclasses to return an iterator that provides all of the
 	 * elements to be validated, within the scope of the specified root elements.
-	 * 
+	 *
 	 * @param traversalRoots the roots of the traversal sub-trees
 	 * @return an iterator that covers all of the elements to be validated
 	 */
@@ -116,7 +117,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	/**
 	 * Provides subclasses with access to the progress monitor, if they want it (for
 	 * example, to set sub-task labels)
-	 * 
+	 *
 	 * @return the progress monitor
 	 */
 	protected IProgressMonitor getProgressMonitor() {
@@ -125,18 +126,20 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 
 	/**
 	 * Just determines whether the subclass-provided iterator has a next element.
-	 * 
+	 *
 	 * @see #createIterator
 	 */
+	@Override
 	public boolean hasNext() {
 		return iterator.hasNext();
 	}
 
 	/**
 	 * Returns the subclass-provided iterator's next element.
-	 * 
+	 *
 	 * @see #createIterator
 	 */
+	@Override
 	public EObject next() {
 		return iterator.next();
 	}
@@ -146,6 +149,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * indicate that the client context should be recomputed for each object
 	 * traversed.
 	 */
+	@Override
 	public boolean isClientContextChanged() {
 		return true;
 	}
@@ -154,6 +158,7 @@ public abstract class AbstractTraversalStrategy implements ITraversalStrategy {
 	 * Implements the interface method by advancing the progress monitor by a single
 	 * work unit.
 	 */
+	@Override
 	public void elementValidated(EObject element, IStatus status) {
 		getProgressMonitor().worked(1);
 	}

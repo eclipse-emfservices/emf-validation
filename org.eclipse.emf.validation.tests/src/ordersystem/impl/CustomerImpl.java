@@ -51,7 +51,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The default value of the '{@link #getLastName() <em>Last Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getLastName()
 	 * @generated
 	 * @ordered
@@ -61,7 +61,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The cached value of the '{@link #getLastName() <em>Last Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getLastName()
 	 * @generated
 	 * @ordered
@@ -71,7 +71,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The default value of the '{@link #getFirstName() <em>First Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getFirstName()
 	 * @generated
 	 * @ordered
@@ -81,7 +81,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The cached value of the '{@link #getFirstName() <em>First Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getFirstName()
 	 * @generated
 	 * @ordered
@@ -91,7 +91,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The cached value of the '{@link #getAccount() <em>Account</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getAccount()
 	 * @generated
 	 * @ordered
@@ -101,7 +101,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 	/**
 	 * The cached value of the '{@link #getOrder() <em>Order</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getOrder()
 	 * @generated
 	 * @ordered
@@ -110,7 +110,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected CustomerImpl() {
@@ -119,7 +119,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -129,18 +129,20 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setLastName(String newLastName) {
 		String oldLastName = lastName;
 		lastName = newLastName;
@@ -151,18 +153,20 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setFirstName(String newFirstName) {
 		String oldFirstName = firstName;
 		firstName = newFirstName;
@@ -173,9 +177,10 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OrderSystem getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.CUSTOMER__OWNER)
 			return null;
@@ -184,7 +189,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(OrderSystem newOwner, NotificationChain msgs) {
@@ -194,9 +199,10 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(OrderSystem newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.CUSTOMER__OWNER && newOwner != null)) {
@@ -218,12 +224,13 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Account> getAccount() {
 		if (account == null) {
-			account = new EObjectContainmentWithInverseEList<Account>(Account.class, this,
+			account = new EObjectContainmentWithInverseEList<>(Account.class, this,
 					OrderSystemPackage.CUSTOMER__ACCOUNT, OrderSystemPackage.ACCOUNT__OWNER);
 		}
 		return account;
@@ -231,12 +238,13 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Order> getOrder() {
 		if (order == null) {
-			order = new EObjectContainmentWithInverseEList<Order>(Order.class, this, OrderSystemPackage.CUSTOMER__ORDER,
+			order = new EObjectContainmentWithInverseEList<>(Order.class, this, OrderSystemPackage.CUSTOMER__ORDER,
 					OrderSystemPackage.ORDER__OWNER);
 		}
 		return order;
@@ -244,7 +252,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -265,7 +273,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -283,7 +291,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -298,7 +306,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -320,7 +328,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -350,7 +358,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -377,7 +385,7 @@ public class CustomerImpl extends EObjectImpl implements Customer {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

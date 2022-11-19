@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * Implementation of the EMF {@link Notification} interface to "fake out" EMF
  * model change events.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class TestNotification extends NotificationImpl {
@@ -27,7 +27,7 @@ public class TestNotification extends NotificationImpl {
 
 	/**
 	 * Initializes me with the source and <code>type</code> of the event.
-	 * 
+	 *
 	 * @param notifier my source
 	 * @param type     the type of notification that I am
 	 */
@@ -39,7 +39,7 @@ public class TestNotification extends NotificationImpl {
 	/**
 	 * Initializes me with the source and <code>type</code> of the event, plus
 	 * information about the changed feature.
-	 * 
+	 *
 	 * @param notifier  my source
 	 * @param type      the type of notification that I am
 	 * @param featureId the ID of the feature that is changed

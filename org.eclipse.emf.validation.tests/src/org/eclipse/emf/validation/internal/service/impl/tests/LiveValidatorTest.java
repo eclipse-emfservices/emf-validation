@@ -51,7 +51,7 @@ public class LiveValidatorTest extends TestBase {
 
 	/**
 	 * Constructor for BatchValidatorTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public LiveValidatorTest(String name) {
@@ -181,7 +181,7 @@ public class LiveValidatorTest extends TestBase {
 		}
 
 		// add a few customers, individually, to record separate notifications
-		List<Customer> customers = new java.util.ArrayList<Customer>();
+		List<Customer> customers = new java.util.ArrayList<>();
 		Customer c = OrderSystemFactory.eINSTANCE.createCustomer();
 		os.getCustomer().add(c); // one
 		customers.add(c);
@@ -213,7 +213,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
-		List<Customer> customers = new java.util.ArrayList<Customer>();
+		List<Customer> customers = new java.util.ArrayList<>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -252,7 +252,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
-		List<Customer> customers = new java.util.ArrayList<Customer>();
+		List<Customer> customers = new java.util.ArrayList<>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -292,7 +292,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
-		List<Customer> customers = new java.util.ArrayList<Customer>();
+		List<Customer> customers = new java.util.ArrayList<>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -330,7 +330,7 @@ public class LiveValidatorTest extends TestBase {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
-		List<Customer> customers = new java.util.ArrayList<Customer>();
+		List<Customer> customers = new java.util.ArrayList<>();
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
 		customers.add(OrderSystemFactory.eINSTANCE.createCustomer());
@@ -518,6 +518,7 @@ public class LiveValidatorTest extends TestBase {
 		// Set notification filter which accepts eObjects that are not attached
 		// to a resource
 		localValidator.setNotificationFilter(new FilteredCollection.Filter<Notification>() {
+			@Override
 			public boolean accept(Notification element) {
 				return (element.getNotifier() instanceof EObject);
 			}
@@ -562,7 +563,7 @@ public class LiveValidatorTest extends TestBase {
 	}
 
 	private static class NotificationGatherer extends AdapterImpl {
-		private final List<Notification> notifications = new java.util.ArrayList<Notification>();
+		private final List<Notification> notifications = new java.util.ArrayList<>();
 
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.

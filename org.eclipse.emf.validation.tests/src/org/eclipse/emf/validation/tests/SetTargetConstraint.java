@@ -29,7 +29,7 @@ import ordersystem.Order;
  * {@link ConstraintStatus}.
  *
  * @author David Cummings (dcummin)
- * 
+ *
  * @since 1.1
  */
 public class SetTargetConstraint extends AbstractModelConstraint {
@@ -58,7 +58,7 @@ public class SetTargetConstraint extends AbstractModelConstraint {
 					EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED_MSG, null);
 		}
 
-		Collection<IStatus> statuses = new java.util.ArrayList<IStatus>();
+		Collection<IStatus> statuses = new java.util.ArrayList<>();
 
 		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, Collections.singletonList(lineItem), IStatus.INFO, 13,
 				"This is {0}.", //$NON-NLS-1$

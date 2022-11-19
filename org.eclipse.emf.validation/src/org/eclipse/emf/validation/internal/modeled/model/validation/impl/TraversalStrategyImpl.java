@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -43,7 +43,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	/**
 	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClass_()
 	 * @generated
 	 * @ordered
@@ -53,7 +53,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	/**
 	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClass_()
 	 * @generated
 	 * @ordered
@@ -63,7 +63,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	/**
 	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPackage()
 	 * @generated
 	 * @ordered
@@ -72,7 +72,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected TraversalStrategyImpl() {
@@ -81,7 +81,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -91,18 +91,20 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getClass_() {
 		return class_;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setClass(String newClass) {
 		String oldClass = class_;
 		class_ = newClass;
@@ -113,12 +115,13 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<EPackage> getPackage() {
 		if (package_ == null) {
-			package_ = new EObjectResolvingEList<EPackage>(EPackage.class, this,
+			package_ = new EObjectResolvingEList<>(EPackage.class, this,
 					ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE);
 		}
 		return package_;
@@ -126,7 +129,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,7 +145,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -162,7 +165,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -180,7 +183,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -196,7 +199,7 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

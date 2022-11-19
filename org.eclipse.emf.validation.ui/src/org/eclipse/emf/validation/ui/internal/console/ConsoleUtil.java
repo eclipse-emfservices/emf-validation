@@ -23,35 +23,35 @@ import org.eclipse.ui.console.MessageConsoleStream;
 
 /**
  * A Util Class: provides convinient api to write to the Eclipse Console View
- * 
+ *
  * The client of printXXXX(String name, String msg) methods does not need to do
  * any housekeeping work to use this method. All pre-work for example
  * registering the console with the Eclipse console manager if neccessary,
  * creating the message stream, setting the default color are handled ny the
  * method if neccesary.
- * 
+ *
  * However once they are done printing all there messages and have no more
  * requirement for the console and know that the console is not shared by others
  * they can call unregisterConsole(String name) to dispose of the console
- * 
+ *
  * Also if the client wants to have more control over the console and streams or
  * want to display addititional message types in different colors (other than
  * error:red, info:blue and warning:yellow) they can call registerConsole(String
  * name, ImageDescriptor image) to create/register/get the console and then use
  * standard eclipse api to do what they want.
- * 
+ *
  * @author Saurabh Bagrodia (bagrodia)
  */
 public class ConsoleUtil {
 
 	/** cache for console name to actual console object mapping */
-	private static Map<String, MessageConsole> nameToConsole = new HashMap<String, MessageConsole>();
+	private static Map<String, MessageConsole> nameToConsole = new HashMap<>();
 
 	/**
 	 * cache for 'console name' to 'default streams for error, warining and info for
 	 * that console' mapping
 	 */
-	private static Map<String, MessageConsoleStream> nameToDefaultStream = new HashMap<String, MessageConsoleStream>();
+	private static Map<String, MessageConsoleStream> nameToDefaultStream = new HashMap<>();
 
 	// Strings for error, info, warning and default message types
 	private final static String ERROR = "ERROR"; //$NON-NLS-1$
@@ -73,7 +73,7 @@ public class ConsoleUtil {
 
 	/**
 	 * Registers the console with the Eclipse Console Manager.
-	 * 
+	 *
 	 * @param name  - the name for the console
 	 * @param image - the image associated with the console
 	 * @return the message console
@@ -93,7 +93,7 @@ public class ConsoleUtil {
 
 	/**
 	 * Registers the console with the Eclipse Console Manager
-	 * 
+	 *
 	 * @param name - the name name for the console
 	 * @return message console
 	 */
@@ -103,7 +103,7 @@ public class ConsoleUtil {
 
 	/**
 	 * Unregisters the console with the Eclipse Console Manager
-	 * 
+	 *
 	 * @param name - the name name for the console
 	 */
 	public static void unregisterConsole(String name) {
@@ -120,7 +120,7 @@ public class ConsoleUtil {
 	/**
 	 * returns the default (cached) MessageConsoleStream for the specified console
 	 * name of the specified type (error, info or warning)
-	 * 
+	 *
 	 * @param name - the specified console name
 	 * @param type - the specified type (error, info or warning)
 	 * @return the default MessageConsoleStream
@@ -141,12 +141,12 @@ public class ConsoleUtil {
 	/**
 	 * Convinient static method to print an error string on the specified console.
 	 * The color of the error message printed is by red.
-	 * 
+	 *
 	 * The client of this method does not need to do any housekeeping work to use
 	 * this method. All pre-work for example registering the console with the
 	 * Eclipse console manager if neccessary, creating the message stream, setting
 	 * the color are handled by the method if neccesary.
-	 * 
+	 *
 	 * @param name   - specifies the console
 	 * @param errMsg - the error message
 	 */
@@ -159,12 +159,12 @@ public class ConsoleUtil {
 	/**
 	 * Convinient static method to print an info string on the specified console.
 	 * The color of the info message printed is by blue.
-	 * 
+	 *
 	 * The client of this method does not need to do any housekeeping work to use
 	 * this method. All pre-work for example registering the console with the
 	 * Eclipse console manager if neccessary, creating the message stream, setting
 	 * the color are handled by the method if neccesary.
-	 * 
+	 *
 	 * @param name    - specifies the console
 	 * @param infoMsg - the info message
 	 */
@@ -177,12 +177,12 @@ public class ConsoleUtil {
 	/**
 	 * Convinient static method to print an warning string on the specified console.
 	 * The color of the warning message printed is by yellow.
-	 * 
+	 *
 	 * The client of this method does not need to do any housekeeping work to use
 	 * this method. All pre-work for example registering the console with the
 	 * Eclipse console manager if neccessary, creating the message stream, setting
 	 * the color are handled by the method if neccesary.
-	 * 
+	 *
 	 * @param name    - specifies the console
 	 * @param warnMsg - the warning message
 	 */
@@ -195,12 +195,12 @@ public class ConsoleUtil {
 	/**
 	 * Convinient static method to print an string on the specified console. The
 	 * color of the message printed is by black.
-	 * 
+	 *
 	 * The client of this method does not need to do any housekeeping work to use
 	 * this method. All pre-work for example registering the console with the
 	 * Eclipse console manager if neccessary, creating the message stream, setting
 	 * the color are handled by the method if neccesary.
-	 * 
+	 *
 	 * @param name - specifies the console
 	 * @param msg  - the warning message
 	 */
@@ -211,10 +211,10 @@ public class ConsoleUtil {
 
 	/**
 	 * Shows the Eclipse console view and brings on top the specified console.
-	 * 
+	 *
 	 * Also creates and registers the console with the Eclipse console manager if
 	 * necessary.
-	 * 
+	 *
 	 * @param name - specifies the console
 	 */
 	public static void showConsole(String name) {

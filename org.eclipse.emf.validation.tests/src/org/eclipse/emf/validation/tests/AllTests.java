@@ -26,7 +26,7 @@ import junit.framework.TestSuite;
 
 /**
  * Test suite encapsulating all of the JUnit tests in this test plug-in.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class AllTests extends TestCase {
@@ -44,7 +44,7 @@ public class AllTests extends TestCase {
 	 * important for those extension points that should only be active during unit
 	 * test execution, to not interfere with the normal operation of the application
 	 * when this plug-in happens to be in the workbench run-time configuration.
-	 * 
+	 *
 	 * @return whether this plug-in is executing unit tests
 	 */
 	public static boolean isExecutingUnitTests() {
@@ -53,7 +53,7 @@ public class AllTests extends TestCase {
 
 	/**
 	 * Creates the test suite.
-	 * 
+	 *
 	 * @return the test suite
 	 */
 	public static Test suite() {

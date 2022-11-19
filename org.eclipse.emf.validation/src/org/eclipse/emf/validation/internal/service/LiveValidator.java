@@ -7,13 +7,12 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,7 +42,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 	/**
 	 * Initializes me with the operation <code>executor</code> that I use to execute
 	 * provider operations.
-	 * 
+	 *
 	 * @param executor used by me to execute operations (must not be
 	 *                 <code>null</code>)
 	 */
@@ -63,18 +62,14 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 		// Merge similar notifications together to avoid repeated constraint
 		// evaluations on the same kind of change to the same feature
 		List<Notification> events = mergeNotifications(notifications);
-		Iterator<Notification> iter = events.iterator();
-
-		List<IStatus> result = new java.util.ArrayList<IStatus>(32); // anticipate moderate number
+		List<IStatus> result = new java.util.ArrayList<>(32); // anticipate moderate number
 
 		GetLiveConstraintsOperation operation = new GetLiveConstraintsOperation();
 		operation.setAllEvents(new java.util.ArrayList<Notification>(objects));
 		AbstractValidationContext ctx = operation.getContext();
 		ctx.setReportSuccesses(isReportSuccesses());
 
-		while (iter.hasNext()) {
-			final Notification event = iter.next();
-
+		for (Notification event : events) {
 			Object notifier = event.getNotifier();
 
 			// only attempt to validate notifications from EObjects
@@ -105,7 +100,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 
 	/**
 	 * Helper method for validation of a single <code>event</code>.
-	 * 
+	 *
 	 * @param ctx     the context within which to validate the <code>eObject</code>
 	 * @param event   the EMF notification to validate
 	 * @param the     operation to reuse for getting constraints
@@ -133,13 +128,13 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 	 * Merges any <code>notifications</code> in the specified list that are repeated
 	 * changes to the same features into single changes, to ensure that constraints
 	 * receive complete deltas without repeated invocation.
-	 * 
+	 *
 	 * @param notifications the input notifications
 	 * @return the merged (possibly fewer) notifications
 	 */
 	private List<Notification> mergeNotifications(Collection<Notification> notifications) {
 		// use a linked map to preserve list ordering
-		Map<Notification, Notification> result = new java.util.LinkedHashMap<Notification, Notification>(
+		Map<Notification, Notification> result = new java.util.LinkedHashMap<>(
 				notifications.size());
 
 		for (Notification next : notifications) {
@@ -160,13 +155,13 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 			}
 		}
 
-		return new java.util.ArrayList<Notification>(result.keySet());
+		return new java.util.ArrayList<>(result.keySet());
 	}
 
 	private Collection<Notification> generateNotifications(Collection<? extends Notification> notifications) {
 
 		Collection<INotificationGenerator> generators = EventTypeService.getInstance().getNotificationGenerators();
-		Collection<Notification> newNotifications = new ArrayList<Notification>();
+		Collection<Notification> newNotifications = new ArrayList<>();
 
 		// Add generated notifications for each generator
 		for (INotificationGenerator next : generators) {
@@ -182,7 +177,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 	/**
 	 * Determines whether the specified notification is eligible for triggering
 	 * constraints.
-	 * 
+	 *
 	 * @param notification a notification
 	 * @return whether the notification is eligible based on the notification filter
 	 */
@@ -190,6 +185,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 		return getNotificationFilter().accept(notification);
 	}
 
+	@Override
 	public void setNotificationFilter(FilteredCollection.Filter<Notification> filter) {
 		notificationFilter = filter;
 	}
@@ -201,6 +197,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 	 * <code>AttachedToResourceNotificationFilter</code>.
 	 * </p>
 	 */
+	@Override
 	public FilteredCollection.Filter<Notification> getNotificationFilter() {
 		if (notificationFilter == null) {
 			notificationFilter = new AttachedToResourceNotificationFilter();
@@ -224,7 +221,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 
 		/**
 		 * Initializes me with the <code>notification</code> that I wrap.
-		 * 
+		 *
 		 * @param notification the wrapped notification
 		 */
 		public MergeableNotification(Notification notification) {
@@ -355,7 +352,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 					if (newValue instanceof Collection) {
 						newCollection = (Collection<Object>) newValue;
 					} else {
-						newCollection = new java.util.ArrayList<Object>();
+						newCollection = new java.util.ArrayList<>();
 						newCollection.add(newValue);
 					}
 
@@ -377,7 +374,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 					if (newValue instanceof Collection) {
 						newCollection = (Collection<Object>) newValue;
 					} else {
-						newCollection = new java.util.ArrayList<Object>();
+						newCollection = new java.util.ArrayList<>();
 						newCollection.add(newValue);
 					}
 
@@ -400,7 +397,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 					if (oldValue instanceof Collection) {
 						newCollection = (Collection<Object>) oldValue;
 					} else {
-						newCollection = new java.util.ArrayList<Object>();
+						newCollection = new java.util.ArrayList<>();
 						newCollection.add(oldValue);
 					}
 
@@ -422,7 +419,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 					if (oldValue instanceof Collection) {
 						newCollection = (Collection<Object>) oldValue;
 					} else {
-						newCollection = new java.util.ArrayList<Object>();
+						newCollection = new java.util.ArrayList<>();
 						newCollection.add(oldValue);
 					}
 
@@ -464,6 +461,7 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 	 */
 	private class AttachedToResourceNotificationFilter implements FilteredCollection.Filter<Notification> {
 
+		@Override
 		public boolean accept(Notification element) {
 			return (element.getNotifier() instanceof EObject)
 					&& (((EObject) element.getNotifier()).eResource() != null);

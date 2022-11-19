@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -35,7 +35,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 	/**
 	 * The default value of the '{@link #getBody() <em>Body</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getBody()
 	 * @generated
 	 * @ordered
@@ -45,7 +45,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getBody()
 	 * @generated
 	 * @ordered
@@ -54,7 +54,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected UnparsedConstraintImpl() {
@@ -63,7 +63,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -73,18 +73,20 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getBody() {
 		return body;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setBody(String newBody) {
 		String oldBody = body;
 		body = newBody;
@@ -95,7 +97,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -109,7 +111,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -124,7 +126,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -139,7 +141,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -153,7 +155,7 @@ public class UnparsedConstraintImpl extends ConstraintImpl implements UnparsedCo
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

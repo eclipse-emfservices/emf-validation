@@ -51,7 +51,7 @@ import ordersystem.OrderSystemFactory;
 
 /**
  * Tests for the {@link MarkerUtil} API.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class MarkerUtilTest extends TestBase {
@@ -140,6 +140,7 @@ public class MarkerUtilTest extends TestBase {
 		try {
 			constraint = new ModelConstraint(new XmlConstraintDescriptor(config)) {
 
+				@Override
 				public IStatus validate(IValidationContext ctx) {
 					return Status.CANCEL_STATUS;
 				}

@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link EvaluationMode} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class EvaluationModeTest extends TestCase {

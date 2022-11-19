@@ -38,16 +38,16 @@ public class TraversalStrategyManagerTest extends TestCase {
 	/**
 	 * Test that the TraversalStrategyManager does not leak EPackages loaded locally
 	 * in a ResourceSet.
-	 * 
+	 *
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=433050
 	 */
 	public void testTraversalStrategyManagerDoesNotLeakDynamicEPackages() {
 		ResourceSet rset = new ResourceSetImpl();
 
 		// Track a phantom reference to the package that should not leak
-		ReferenceQueue<EPackage> queue = new ReferenceQueue<EPackage>();
+		ReferenceQueue<EPackage> queue = new ReferenceQueue<>();
 		EObject thing = loadThing(rset);
-		final Reference<?> ref = new PhantomReference<EPackage>(thing.eClass().getEPackage(), queue);
+		final Reference<?> ref = new PhantomReference<>(thing.eClass().getEPackage(), queue);
 
 		// Validate (which triggers the TraversalStrategyManager)
 		ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH).validate(thing);

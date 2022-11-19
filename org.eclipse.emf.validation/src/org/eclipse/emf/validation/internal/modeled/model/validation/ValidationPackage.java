@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationFactory
  * @model kind="package"
  * @generated
@@ -36,21 +36,21 @@ import org.eclipse.emf.ecore.EReference;
 public interface ValidationPackage extends EPackage {
 	/**
 	 * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNAME = "validation";
 
 	/**
 	 * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_URI = "http://www.eclipse.org/emf/2009/Validation";
 
 	/**
 	 * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_PREFIX = "validation";
@@ -58,7 +58,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	ValidationPackage eINSTANCE = org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl
@@ -68,7 +68,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.CategoryImpl
 	 * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.CategoryImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getCategory()
 	 * @generated
@@ -78,7 +78,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Sub Categories</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -87,7 +87,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -96,7 +96,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Mandatory</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -105,7 +105,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -114,7 +114,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Parent Category</b></em>' container reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -123,7 +123,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Category</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -134,7 +134,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintProviderImpl
 	 * <em>Constraint Provider</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintProviderImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintProvider()
 	 * @generated
@@ -144,7 +144,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Cache</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -153,7 +153,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -162,7 +162,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -171,7 +171,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -180,7 +180,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -189,7 +189,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Constraints</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -198,7 +198,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Package</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -207,7 +207,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Plugin Id</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -216,7 +216,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Constraint Provider</em>'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -226,7 +226,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl
 	 * <em>Target</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getTarget()
 	 * @generated
@@ -236,7 +236,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -245,7 +245,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>EClass</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -254,7 +254,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Target</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -264,7 +264,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl
 	 * <em>Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEvent()
 	 * @generated
@@ -274,7 +274,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -283,7 +283,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>EClass</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -292,7 +292,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -301,7 +301,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Event</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -311,7 +311,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.CustomEventImpl
 	 * <em>Custom Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.CustomEventImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getCustomEvent()
 	 * @generated
@@ -321,7 +321,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -330,7 +330,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>EClass</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -339,7 +339,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -348,7 +348,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Custom Event</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -358,7 +358,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.FeatureImpl
 	 * <em>Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.FeatureImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getFeature()
 	 * @generated
@@ -368,7 +368,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Feature</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -378,7 +378,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintImpl
 	 * <em>Constraint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraint()
 	 * @generated
@@ -388,7 +388,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -397,7 +397,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -406,7 +406,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -415,7 +415,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Status Code</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -424,7 +424,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -433,7 +433,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -442,7 +442,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Is Enabled By Default</b></em>' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -451,7 +451,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -460,7 +460,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -469,7 +469,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' map. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -478,7 +478,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -487,7 +487,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Lang</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -496,7 +496,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Constraint</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -506,7 +506,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParameterImpl
 	 * <em>Parameter</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParameterImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getParameter()
 	 * @generated
@@ -516,7 +516,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -525,7 +525,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -534,7 +534,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Parameter</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -544,7 +544,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsImpl
 	 * <em>Constraints</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraints()
 	 * @generated
@@ -554,7 +554,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Constraints</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -563,7 +563,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Include</b></em>' attribute list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -572,7 +572,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Categories</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -581,7 +581,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Constraints</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -592,7 +592,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsBundleImpl
 	 * <em>Constraints Bundle</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsBundleImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintsBundle()
 	 * @generated
@@ -602,7 +602,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Providers</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -611,7 +611,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Categories</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -620,7 +620,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Constraint Bindings Bundles</b></em>'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -629,7 +629,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Parsers</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -638,7 +638,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Message Bundle Path</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -647,7 +647,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Constraints Bundle</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -658,7 +658,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.UnparsedConstraintImpl
 	 * <em>Unparsed Constraint</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.UnparsedConstraintImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getUnparsedConstraint()
 	 * @generated
@@ -668,7 +668,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -677,7 +677,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -686,7 +686,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -695,7 +695,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Status Code</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -704,7 +704,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -713,7 +713,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Mode</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -722,7 +722,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Is Enabled By Default</b></em>' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -731,7 +731,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -740,7 +740,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -749,7 +749,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' map. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -758,7 +758,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -767,7 +767,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Lang</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -776,7 +776,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -785,7 +785,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Unparsed Constraint</em>'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -796,7 +796,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.OclConstraintImpl
 	 * <em>Ocl Constraint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.OclConstraintImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getOclConstraint()
 	 * @generated
@@ -806,7 +806,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Ocl Constraint</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -816,7 +816,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParserImpl
 	 * <em>Parser</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParserImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getParser()
 	 * @generated
@@ -826,7 +826,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Language</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -835,7 +835,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -844,7 +844,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Parser</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -855,7 +855,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl
 	 * <em>Traversal Strategy</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getTraversalStrategy()
 	 * @generated
@@ -865,7 +865,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -874,7 +874,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Package</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -883,7 +883,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Traversal Strategy</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -894,7 +894,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintBindingsBundleImpl
 	 * <em>Constraint Bindings Bundle</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintBindingsBundleImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintBindingsBundle()
 	 * @generated
@@ -904,7 +904,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Client Contexts</b></em>' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -913,7 +913,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -922,7 +922,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Constraint Bindings
 	 * Bundle</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -933,7 +933,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ClientContextImpl
 	 * <em>Client Context</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ClientContextImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getClientContext()
 	 * @generated
@@ -943,7 +943,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -952,7 +952,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -961,7 +961,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Client Context</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -971,7 +971,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.BindingImpl
 	 * <em>Binding</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.BindingImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getBinding()
 	 * @generated
@@ -981,7 +981,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Client Contexts</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -990,7 +990,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Constraints</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -999,7 +999,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Excluded Constraints</b></em>' reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1008,7 +1008,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Categories</b></em>' reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1017,7 +1017,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Excluded Categories</b></em>' reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1026,7 +1026,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Binding</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1036,7 +1036,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl
 	 * <em>Enablement</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEnablement()
 	 * @generated
@@ -1046,7 +1046,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1055,7 +1055,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1064,7 +1064,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Dom Expression</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1073,7 +1073,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Enablement</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1083,7 +1083,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.SelectorImpl
 	 * <em>Selector</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.SelectorImpl
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getSelector()
 	 * @generated
@@ -1093,7 +1093,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1102,7 +1102,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1111,7 +1111,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1120,7 +1120,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Selector</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -1131,7 +1131,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * <em>Event Types Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEventTypesEnum()
 	 * @generated
@@ -1142,7 +1142,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * <em>Mode Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getModeEnum()
 	 * @generated
@@ -1153,7 +1153,7 @@ public interface ValidationPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * <em>Severity Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getSeverityEnum()
 	 * @generated
@@ -1164,7 +1164,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category
 	 * <em>Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Category</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category
 	 * @generated
@@ -1175,7 +1175,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category#getSubCategories
 	 * <em>Sub Categories</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Sub
 	 *         Categories</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category#getSubCategories()
@@ -1188,7 +1188,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category#getId
 	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category#getId()
 	 * @see #getCategory()
@@ -1200,7 +1200,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category#isMandatory
 	 * <em>Mandatory</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Mandatory</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category#isMandatory()
 	 * @see #getCategory()
@@ -1212,7 +1212,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category#getName()
 	 * @see #getCategory()
@@ -1224,7 +1224,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category#getParentCategory
 	 * <em>Parent Category</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Parent
 	 *         Category</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category#getParentCategory()
@@ -1237,7 +1237,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider
 	 * <em>Constraint Provider</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Constraint Provider</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider
 	 * @generated
@@ -1248,7 +1248,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#isCache
 	 * <em>Cache</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Cache</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#isCache()
 	 * @see #getConstraintProvider()
@@ -1260,7 +1260,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getDescription
 	 * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Description</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getDescription()
 	 * @see #getConstraintProvider()
@@ -1272,7 +1272,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getTarget
 	 * <em>Target</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Target</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getTarget()
 	 * @see #getConstraintProvider()
@@ -1284,7 +1284,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getMode
 	 * <em>Mode</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Mode</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getMode()
 	 * @see #getConstraintProvider()
@@ -1296,7 +1296,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getClassName
 	 * <em>Class Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Class Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getClassName()
 	 * @see #getConstraintProvider()
@@ -1308,7 +1308,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getConstraints
 	 * <em>Constraints</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Constraints</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getConstraints()
@@ -1321,7 +1321,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getPackage
 	 * <em>Package</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Package</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getPackage()
 	 * @see #getConstraintProvider()
@@ -1333,7 +1333,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getPluginId
 	 * <em>Plugin Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Plugin Id</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getPluginId()
 	 * @see #getConstraintProvider()
@@ -1345,7 +1345,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target
 	 * <em>Target</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Target</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Target
 	 * @generated
@@ -1356,7 +1356,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target#getFeature
 	 * <em>Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Feature</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Target#getFeature()
 	 * @see #getTarget()
@@ -1368,7 +1368,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target#getEClass
 	 * <em>EClass</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference '<em>EClass</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Target#getEClass()
 	 * @see #getTarget()
@@ -1380,7 +1380,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Event
 	 * <em>Event</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Event</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Event
 	 * @generated
@@ -1391,7 +1391,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Event#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Event#getName()
 	 * @see #getEvent()
@@ -1403,7 +1403,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent
 	 * <em>Custom Event</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Custom Event</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent
 	 * @generated
@@ -1414,7 +1414,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent#getName()
 	 * @see #getCustomEvent()
@@ -1426,7 +1426,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Feature
 	 * <em>Feature</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Feature</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Feature
 	 * @generated
@@ -1437,7 +1437,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint
 	 * <em>Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Constraint</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint
 	 * @generated
@@ -1448,7 +1448,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getId
 	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getId()
 	 * @see #getConstraint()
@@ -1460,7 +1460,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getName()
 	 * @see #getConstraint()
@@ -1472,7 +1472,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getSeverity
 	 * <em>Severity</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Severity</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getSeverity()
 	 * @see #getConstraint()
@@ -1484,7 +1484,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getStatusCode
 	 * <em>Status Code</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Status Code</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getStatusCode()
 	 * @see #getConstraint()
@@ -1496,7 +1496,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getClassName
 	 * <em>Class Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Class Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getClassName()
 	 * @see #getConstraint()
@@ -1508,7 +1508,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMode
 	 * <em>Mode</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Mode</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMode()
 	 * @see #getConstraint()
@@ -1521,7 +1521,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#isIsEnabledByDefault
 	 * <em>Is Enabled By Default</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Is Enabled By Default</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#isIsEnabledByDefault()
 	 * @see #getConstraint()
@@ -1533,7 +1533,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getDescription
 	 * <em>Description</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Description</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getDescription()
 	 * @see #getConstraint()
@@ -1545,7 +1545,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMessage
 	 * <em>Message</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Message</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMessage()
 	 * @see #getConstraint()
@@ -1557,7 +1557,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the map
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getParameters
 	 * <em>Parameters</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the map '<em>Parameters</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getParameters()
 	 * @see #getConstraint()
@@ -1569,7 +1569,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getTarget
 	 * <em>Target</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getTarget()
 	 * @see #getConstraint()
@@ -1581,7 +1581,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getLang
 	 * <em>Lang</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Lang</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getLang()
 	 * @see #getConstraint()
@@ -1592,7 +1592,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link java.util.Map.Entry
 	 * <em>Parameter</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Parameter</em>'.
 	 * @see java.util.Map.Entry
 	 * @model keyDataType="org.eclipse.emf.ecore.EString" keyRequired="true"
@@ -1604,7 +1604,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link java.util.Map.Entry
 	 * <em>Key</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Key</em>'.
 	 * @see java.util.Map.Entry
 	 * @see #getParameter()
@@ -1615,7 +1615,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link java.util.Map.Entry
 	 * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Value</em>'.
 	 * @see java.util.Map.Entry
 	 * @see #getParameter()
@@ -1627,7 +1627,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints
 	 * <em>Constraints</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Constraints</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraints
 	 * @generated
@@ -1638,7 +1638,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getConstraints
 	 * <em>Constraints</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Constraints</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getConstraints()
@@ -1651,7 +1651,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getInclude
 	 * <em>Include</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute list '<em>Include</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getInclude()
 	 * @see #getConstraints()
@@ -1663,7 +1663,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getCategories
 	 * <em>Categories</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Categories</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraints#getCategories()
 	 * @see #getConstraints()
@@ -1675,7 +1675,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle
 	 * <em>Constraints Bundle</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Constraints Bundle</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle
 	 * @generated
@@ -1686,7 +1686,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getProviders
 	 * <em>Providers</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Providers</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getProviders()
@@ -1699,7 +1699,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getCategories
 	 * <em>Categories</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Categories</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getCategories()
@@ -1713,7 +1713,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getConstraintBindingsBundles
 	 * <em>Constraint Bindings Bundles</em>}'. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Constraint
 	 *         Bindings Bundles</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getConstraintBindingsBundles()
@@ -1726,7 +1726,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getParsers
 	 * <em>Parsers</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Parsers</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getParsers()
@@ -1739,7 +1739,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getMessageBundlePath
 	 * <em>Message Bundle Path</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Message Bundle Path</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getMessageBundlePath()
 	 * @see #getConstraintsBundle()
@@ -1751,7 +1751,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint
 	 * <em>Unparsed Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Unparsed Constraint</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint
 	 * @generated
@@ -1762,7 +1762,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody
 	 * <em>Body</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Body</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody()
 	 * @see #getUnparsedConstraint()
@@ -1774,7 +1774,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint
 	 * <em>Ocl Constraint</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Ocl Constraint</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint
 	 * @generated
@@ -1785,7 +1785,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser
 	 * <em>Parser</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Parser</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Parser
 	 * @generated
@@ -1796,7 +1796,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage
 	 * <em>Language</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Language</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage()
 	 * @see #getParser()
@@ -1808,7 +1808,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName
 	 * <em>Class Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Class Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName()
 	 * @see #getParser()
@@ -1820,7 +1820,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy
 	 * <em>Traversal Strategy</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Traversal Strategy</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy
 	 * @generated
@@ -1831,7 +1831,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy#getClass_
 	 * <em>Class</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Class</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy#getClass_()
 	 * @see #getTraversalStrategy()
@@ -1843,7 +1843,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy#getPackage
 	 * <em>Package</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Package</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy#getPackage()
 	 * @see #getTraversalStrategy()
@@ -1856,7 +1856,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle
 	 * <em>Constraint Bindings Bundle</em>}'. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Constraint Bindings Bundle</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle
 	 * @generated
@@ -1867,7 +1867,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getClientContexts
 	 * <em>Client Contexts</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Client
 	 *         Contexts</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getClientContexts()
@@ -1880,7 +1880,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getBindings
 	 * <em>Bindings</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Bindings</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getBindings()
@@ -1893,7 +1893,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext
 	 * <em>Client Context</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Client Context</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext
 	 * @generated
@@ -1904,7 +1904,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId
 	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId()
 	 * @see #getClientContext()
@@ -1916,7 +1916,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault
 	 * <em>Default</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Default</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault()
 	 * @see #getClientContext()
@@ -1928,7 +1928,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding
 	 * <em>Binding</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Binding</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding
 	 * @generated
@@ -1939,7 +1939,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getClientContexts
 	 * <em>Client Contexts</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Client Contexts</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getClientContexts()
 	 * @see #getBinding()
@@ -1951,7 +1951,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getConstraints
 	 * <em>Constraints</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Constraints</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getConstraints()
 	 * @see #getBinding()
@@ -1964,7 +1964,7 @@ public interface ValidationPackage extends EPackage {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getExcludedConstraints
 	 * <em>Excluded Constraints</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Excluded
 	 *         Constraints</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getExcludedConstraints()
@@ -1977,7 +1977,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getCategories
 	 * <em>Categories</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Categories</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getCategories()
 	 * @see #getBinding()
@@ -1989,7 +1989,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the reference list
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getExcludedCategories
 	 * <em>Excluded Categories</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference list '<em>Excluded
 	 *         Categories</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding#getExcludedCategories()
@@ -2002,7 +2002,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Enablement
 	 * <em>Enablement</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Enablement</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Enablement
 	 * @generated
@@ -2013,7 +2013,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Enablement#getDomExpression
 	 * <em>Dom Expression</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Dom Expression</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Enablement#getDomExpression()
 	 * @see #getEnablement()
@@ -2025,7 +2025,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Selector
 	 * <em>Selector</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Selector</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Selector
 	 * @generated
@@ -2036,7 +2036,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Selector#getClassName
 	 * <em>Class Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Class Name</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Selector#getClassName()
 	 * @see #getSelector()
@@ -2048,7 +2048,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for enum
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * <em>Event Types Enum</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for enum '<em>Event Types Enum</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * @generated
@@ -2059,7 +2059,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for enum
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * <em>Mode Enum</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for enum '<em>Mode Enum</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @generated
@@ -2070,7 +2070,7 @@ public interface ValidationPackage extends EPackage {
 	 * Returns the meta object for enum
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * <em>Severity Enum</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for enum '<em>Severity Enum</em>'.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * @generated
@@ -2080,7 +2080,7 @@ public interface ValidationPackage extends EPackage {
 	/**
 	 * Returns the factory that creates the instances of the model. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
@@ -2095,7 +2095,7 @@ public interface ValidationPackage extends EPackage {
 	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	interface Literals {
@@ -2103,7 +2103,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.CategoryImpl
 		 * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.CategoryImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getCategory()
 		 * @generated
@@ -2113,7 +2113,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Sub Categories</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CATEGORY__SUB_CATEGORIES = eINSTANCE.getCategory_SubCategories();
@@ -2121,7 +2121,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CATEGORY__ID = eINSTANCE.getCategory_Id();
@@ -2129,7 +2129,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Mandatory</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CATEGORY__MANDATORY = eINSTANCE.getCategory_Mandatory();
@@ -2137,7 +2137,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CATEGORY__NAME = eINSTANCE.getCategory_Name();
@@ -2145,7 +2145,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Parent Category</b></em>' container
 		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CATEGORY__PARENT_CATEGORY = eINSTANCE.getCategory_ParentCategory();
@@ -2155,7 +2155,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintProviderImpl
 		 * <em>Constraint Provider</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintProviderImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintProvider()
 		 * @generated
@@ -2165,7 +2165,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Cache</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT_PROVIDER__CACHE = eINSTANCE.getConstraintProvider_Cache();
@@ -2173,7 +2173,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT_PROVIDER__DESCRIPTION = eINSTANCE.getConstraintProvider_Description();
@@ -2181,7 +2181,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT_PROVIDER__TARGET = eINSTANCE.getConstraintProvider_Target();
@@ -2189,7 +2189,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT_PROVIDER__MODE = eINSTANCE.getConstraintProvider_Mode();
@@ -2197,7 +2197,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT_PROVIDER__CLASS_NAME = eINSTANCE.getConstraintProvider_ClassName();
@@ -2205,7 +2205,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Constraints</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT_PROVIDER__CONSTRAINTS = eINSTANCE.getConstraintProvider_Constraints();
@@ -2213,7 +2213,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Package</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT_PROVIDER__PACKAGE = eINSTANCE.getConstraintProvider_Package();
@@ -2221,7 +2221,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Plugin Id</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT_PROVIDER__PLUGIN_ID = eINSTANCE.getConstraintProvider_PluginId();
@@ -2230,7 +2230,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl
 		 * <em>Target</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getTarget()
 		 * @generated
@@ -2240,7 +2240,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Feature</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference TARGET__FEATURE = eINSTANCE.getTarget_Feature();
@@ -2248,7 +2248,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>EClass</b></em>' reference feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference TARGET__ECLASS = eINSTANCE.getTarget_EClass();
@@ -2257,7 +2257,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl
 		 * <em>Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEvent()
 		 * @generated
@@ -2267,7 +2267,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute EVENT__NAME = eINSTANCE.getEvent_Name();
@@ -2276,7 +2276,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.CustomEventImpl
 		 * <em>Custom Event</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.CustomEventImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getCustomEvent()
 		 * @generated
@@ -2286,7 +2286,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CUSTOM_EVENT__NAME = eINSTANCE.getCustomEvent_Name();
@@ -2295,7 +2295,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.FeatureImpl
 		 * <em>Feature</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.FeatureImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getFeature()
 		 * @generated
@@ -2306,7 +2306,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintImpl
 		 * <em>Constraint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraint()
 		 * @generated
@@ -2316,7 +2316,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__ID = eINSTANCE.getConstraint_Id();
@@ -2324,7 +2324,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__NAME = eINSTANCE.getConstraint_Name();
@@ -2332,7 +2332,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Severity</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__SEVERITY = eINSTANCE.getConstraint_Severity();
@@ -2340,7 +2340,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Status Code</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__STATUS_CODE = eINSTANCE.getConstraint_StatusCode();
@@ -2348,7 +2348,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__CLASS_NAME = eINSTANCE.getConstraint_ClassName();
@@ -2356,7 +2356,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Mode</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__MODE = eINSTANCE.getConstraint_Mode();
@@ -2364,7 +2364,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Is Enabled By Default</b></em>'
 		 * attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__IS_ENABLED_BY_DEFAULT = eINSTANCE.getConstraint_IsEnabledByDefault();
@@ -2372,7 +2372,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Description</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__DESCRIPTION = eINSTANCE.getConstraint_Description();
@@ -2380,7 +2380,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Message</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__MESSAGE = eINSTANCE.getConstraint_Message();
@@ -2388,7 +2388,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Parameters</b></em>' map feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT__PARAMETERS = eINSTANCE.getConstraint_Parameters();
@@ -2396,7 +2396,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT__TARGET = eINSTANCE.getConstraint_Target();
@@ -2404,7 +2404,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Lang</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINT__LANG = eINSTANCE.getConstraint_Lang();
@@ -2413,7 +2413,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParameterImpl
 		 * <em>Parameter</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParameterImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getParameter()
 		 * @generated
@@ -2423,7 +2423,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PARAMETER__KEY = eINSTANCE.getParameter_Key();
@@ -2431,7 +2431,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PARAMETER__VALUE = eINSTANCE.getParameter_Value();
@@ -2440,7 +2440,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsImpl
 		 * <em>Constraints</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraints()
 		 * @generated
@@ -2450,7 +2450,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Constraints</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS__CONSTRAINTS = eINSTANCE.getConstraints_Constraints();
@@ -2458,7 +2458,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Include</b></em>' attribute list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINTS__INCLUDE = eINSTANCE.getConstraints_Include();
@@ -2466,7 +2466,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Categories</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS__CATEGORIES = eINSTANCE.getConstraints_Categories();
@@ -2476,7 +2476,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsBundleImpl
 		 * <em>Constraints Bundle</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintsBundleImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintsBundle()
 		 * @generated
@@ -2486,7 +2486,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Providers</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS_BUNDLE__PROVIDERS = eINSTANCE.getConstraintsBundle_Providers();
@@ -2494,7 +2494,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Categories</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS_BUNDLE__CATEGORIES = eINSTANCE.getConstraintsBundle_Categories();
@@ -2503,7 +2503,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the '<em><b>Constraint Bindings Bundles</b></em>'
 		 * containment reference list feature. <!-- begin-user-doc --> <!-- end-user-doc
 		 * -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS_BUNDLE__CONSTRAINT_BINDINGS_BUNDLES = eINSTANCE
@@ -2512,7 +2512,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Parsers</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINTS_BUNDLE__PARSERS = eINSTANCE.getConstraintsBundle_Parsers();
@@ -2520,7 +2520,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Message Bundle Path</b></em>'
 		 * attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CONSTRAINTS_BUNDLE__MESSAGE_BUNDLE_PATH = eINSTANCE.getConstraintsBundle_MessageBundlePath();
@@ -2530,7 +2530,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.UnparsedConstraintImpl
 		 * <em>Unparsed Constraint</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.UnparsedConstraintImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getUnparsedConstraint()
 		 * @generated
@@ -2540,7 +2540,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Body</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute UNPARSED_CONSTRAINT__BODY = eINSTANCE.getUnparsedConstraint_Body();
@@ -2550,7 +2550,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.OclConstraintImpl
 		 * <em>Ocl Constraint</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 		 * -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.OclConstraintImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getOclConstraint()
 		 * @generated
@@ -2561,7 +2561,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParserImpl
 		 * <em>Parser</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ParserImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getParser()
 		 * @generated
@@ -2571,7 +2571,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PARSER__LANGUAGE = eINSTANCE.getParser_Language();
@@ -2579,7 +2579,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PARSER__CLASS_NAME = eINSTANCE.getParser_ClassName();
@@ -2589,7 +2589,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl
 		 * <em>Traversal Strategy</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getTraversalStrategy()
 		 * @generated
@@ -2599,7 +2599,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Class</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute TRAVERSAL_STRATEGY__CLASS = eINSTANCE.getTraversalStrategy_Class();
@@ -2607,7 +2607,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Package</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference TRAVERSAL_STRATEGY__PACKAGE = eINSTANCE.getTraversalStrategy_Package();
@@ -2617,7 +2617,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintBindingsBundleImpl
 		 * <em>Constraint Bindings Bundle</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ConstraintBindingsBundleImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getConstraintBindingsBundle()
 		 * @generated
@@ -2627,7 +2627,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Client Contexts</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT_BINDINGS_BUNDLE__CLIENT_CONTEXTS = eINSTANCE.getConstraintBindingsBundle_ClientContexts();
@@ -2635,7 +2635,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Bindings</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CONSTRAINT_BINDINGS_BUNDLE__BINDINGS = eINSTANCE.getConstraintBindingsBundle_Bindings();
@@ -2645,7 +2645,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.ClientContextImpl
 		 * <em>Client Context</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 		 * -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ClientContextImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getClientContext()
 		 * @generated
@@ -2655,7 +2655,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CLIENT_CONTEXT__ID = eINSTANCE.getClientContext_Id();
@@ -2663,7 +2663,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Default</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CLIENT_CONTEXT__DEFAULT = eINSTANCE.getClientContext_Default();
@@ -2672,7 +2672,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.BindingImpl
 		 * <em>Binding</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.BindingImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getBinding()
 		 * @generated
@@ -2682,7 +2682,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Client Contexts</b></em>' reference
 		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference BINDING__CLIENT_CONTEXTS = eINSTANCE.getBinding_ClientContexts();
@@ -2690,7 +2690,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Constraints</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference BINDING__CONSTRAINTS = eINSTANCE.getBinding_Constraints();
@@ -2698,7 +2698,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Excluded Constraints</b></em>'
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference BINDING__EXCLUDED_CONSTRAINTS = eINSTANCE.getBinding_ExcludedConstraints();
@@ -2706,7 +2706,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Categories</b></em>' reference list
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference BINDING__CATEGORIES = eINSTANCE.getBinding_Categories();
@@ -2714,7 +2714,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Excluded Categories</b></em>'
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference BINDING__EXCLUDED_CATEGORIES = eINSTANCE.getBinding_ExcludedCategories();
@@ -2723,7 +2723,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl
 		 * <em>Enablement</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEnablement()
 		 * @generated
@@ -2733,7 +2733,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Dom Expression</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ENABLEMENT__DOM_EXPRESSION = eINSTANCE.getEnablement_DomExpression();
@@ -2742,7 +2742,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.SelectorImpl
 		 * <em>Selector</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.SelectorImpl
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getSelector()
 		 * @generated
@@ -2752,7 +2752,7 @@ public interface ValidationPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute SELECTOR__CLASS_NAME = eINSTANCE.getSelector_ClassName();
@@ -2762,7 +2762,7 @@ public interface ValidationPackage extends EPackage {
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 		 * <em>Event Types Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc
 		 * -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getEventTypesEnum()
 		 * @generated
@@ -2773,7 +2773,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 		 * <em>Mode Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getModeEnum()
 		 * @generated
@@ -2784,7 +2784,7 @@ public interface ValidationPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 		 * <em>Severity Enum</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 		 * @see org.eclipse.emf.validation.internal.modeled.model.validation.impl.ValidationPackageImpl#getSeverityEnum()
 		 * @generated

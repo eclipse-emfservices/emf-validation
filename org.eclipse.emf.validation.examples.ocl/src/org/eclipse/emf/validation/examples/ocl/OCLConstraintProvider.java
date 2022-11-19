@@ -37,7 +37,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Provider of constraints parsed from OCL documents.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class OCLConstraintProvider extends AbstractConstraintProvider {
@@ -64,8 +64,8 @@ public class OCLConstraintProvider extends AbstractConstraintProvider {
 		Bundle contributor = Platform.getBundle(config.getDeclaringExtension().getNamespaceIdentifier());
 
 		IConfigurationElement[] ocls = config.getChildren(E_OCL);
-		for (int i = 0; i < ocls.length; i++) {
-			String path = ocls[i].getAttribute(A_PATH);
+		for (IConfigurationElement ocl : ocls) {
+			String path = ocl.getAttribute(A_PATH);
 
 			if ((path != null) && (path.length() > 0)) {
 				// categorize by OCL document name

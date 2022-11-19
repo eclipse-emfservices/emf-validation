@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -28,7 +28,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * <p>
  * This class is not intended to be used outside of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class DisabledConstraint implements IModelConstraint {
@@ -38,7 +38,7 @@ public class DisabledConstraint implements IModelConstraint {
 
 	/**
 	 * Initializes me with my descriptor.
-	 * 
+	 *
 	 * @param descriptor my descriptor
 	 * @param exception  the exception which caused me to be disabled
 	 */
@@ -51,10 +51,11 @@ public class DisabledConstraint implements IModelConstraint {
 	/**
 	 * Implements the inherited method by simply logging a message the first time
 	 * that I am executed.
-	 * 
+	 *
 	 * @return an informational status, in order to be as innocuous as possible but
 	 *         still let the user know that the constraint is disabled
 	 */
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		// obviously this hasn't already been done because I have been invoked
 		ctx.disableCurrentConstraint(exception);
@@ -74,6 +75,7 @@ public class DisabledConstraint implements IModelConstraint {
 	/*
 	 * (non-Javadoc) Implements the interface method.
 	 */
+	@Override
 	public final IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}

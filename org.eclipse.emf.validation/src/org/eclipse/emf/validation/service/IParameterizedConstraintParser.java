@@ -23,14 +23,14 @@ import org.eclipse.emf.validation.xml.ConstraintParserException;
  * configure the constraint.
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @since 1.1
  */
 public interface IParameterizedConstraintParser extends IConstraintParser {
 	/**
 	 * Parses the content of a constraint <code>descriptor</code> (including
 	 * parameters) to create an implementation of the model constraint interface.
-	 * 
+	 *
 	 * @param descriptor the constraint descriptor containing the definition of a
 	 *                   constraint, including any
 	 * @return a constraint, if one can be created

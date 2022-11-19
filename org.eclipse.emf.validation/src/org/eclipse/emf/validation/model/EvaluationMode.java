@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.model;
@@ -31,9 +31,9 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * This serves applications that do not work in a transactional context, but
  * still want critical constraints to be evaluated on batch invocations.
  * </p>
- * 
+ *
  * @param <T> the kind of object that is validated in an evaluation mode
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public final class EvaluationMode<T> implements Serializable {
@@ -52,7 +52,7 @@ public final class EvaluationMode<T> implements Serializable {
 	 * <b>Note</b> that "live" mode constraints are also evaluated in batch
 	 * contexts. </b>
 	 */
-	public static final EvaluationMode<Notification> LIVE = new EvaluationMode<Notification>("Live", //$NON-NLS-1$
+	public static final EvaluationMode<Notification> LIVE = new EvaluationMode<>("Live", //$NON-NLS-1$
 			ValidationMessages.mode_live);
 
 	/**
@@ -61,14 +61,14 @@ public final class EvaluationMode<T> implements Serializable {
 	 * do not, therefore, usually define conditions for data integrity, but rather
 	 * semantic rules that guide a user to creating a better model.
 	 */
-	public static final EvaluationMode<EObject> BATCH = new EvaluationMode<EObject>("Batch", //$NON-NLS-1$
+	public static final EvaluationMode<EObject> BATCH = new EvaluationMode<>("Batch", //$NON-NLS-1$
 			ValidationMessages.mode_batch);
 
 	/**
 	 * This special value is a pointer-safe null value according to the <i>Null
 	 * Object</i> pattern. It is not a valid evaluation mode for a constraint.
 	 */
-	public static final EvaluationMode<Void> NULL = new EvaluationMode<Void>("none", //$NON-NLS-1$
+	public static final EvaluationMode<Void> NULL = new EvaluationMode<>("none", //$NON-NLS-1$
 			ValidationMessages.mode_unknown);
 
 	/** All valid instances. */
@@ -81,7 +81,7 @@ public final class EvaluationMode<T> implements Serializable {
 	/**
 	 * Initializes me with my <code>name</code>. I get the next ordinal in the
 	 * sequence.
-	 * 
+	 *
 	 * @param name
 	 * @param localizedNamey my localized name
 	 */
@@ -94,7 +94,7 @@ public final class EvaluationMode<T> implements Serializable {
 	 * Obtains the <code>name</code>d instance. If the specified <code>name</code>
 	 * is not recognized as the name of a valid instance or is <code>null</code>,
 	 * then the result is the special {@link #NULL} instance.
-	 * 
+	 *
 	 * @param name the name of the instance to retrieve (not case-sensitive)
 	 * @return the named instance, or {@link #NULL} if no such instance exists
 	 */
@@ -114,7 +114,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Obtains all of the enumeration values.
-	 * 
+	 *
 	 * @return all values
 	 */
 	public static final List<EvaluationMode<?>> getAllInstances() {
@@ -123,7 +123,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Obtains my symbolic name.
-	 * 
+	 *
 	 * @return my name
 	 * @see #getInstance
 	 */
@@ -133,7 +133,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Obtains my localized name, for display to the user.
-	 * 
+	 *
 	 * @return my localized name
 	 */
 	public final String getLocalizedName() {
@@ -143,7 +143,7 @@ public final class EvaluationMode<T> implements Serializable {
 	/**
 	 * Queries whether I am the <i>Null Object</i> of this enumeration. In general,
 	 * <code>null</code> pointers are never used with this type.
-	 * 
+	 *
 	 * @return whether I am the {@link #NULL} instance
 	 */
 	public boolean isNull() {
@@ -152,7 +152,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Queries whether I am evaluated in live mode.
-	 * 
+	 *
 	 * @return whether I support live evaluation
 	 */
 	public boolean isLive() {
@@ -161,7 +161,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Queries whether I am evaluated in batch mode.
-	 * 
+	 *
 	 * @return whether I support batch evaluation
 	 */
 	public boolean isBatch() {
@@ -170,7 +170,7 @@ public final class EvaluationMode<T> implements Serializable {
 
 	/**
 	 * Queries whether I am evaluated in batch mode only (not also in live mode).
-	 * 
+	 *
 	 * @return whether I support only batch evaluation
 	 */
 	public boolean isBatchOnly() {

@@ -43,7 +43,7 @@ public interface Account extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Payment Method</em>' attribute.
 	 * @see #setPaymentMethod(String)
 	 * @see ordersystem.OrderSystemPackage#getAccount_PaymentMethod()
@@ -56,7 +56,7 @@ public interface Account extends EObject {
 	 * Sets the value of the '{@link ordersystem.Account#getPaymentMethod
 	 * <em>Payment Method</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Payment Method</em>' attribute.
 	 * @see #getPaymentMethod()
 	 * @generated
@@ -71,7 +71,7 @@ public interface Account extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Account Number</em>' attribute.
 	 * @see #setAccountNumber(String)
 	 * @see ordersystem.OrderSystemPackage#getAccount_AccountNumber()
@@ -84,7 +84,7 @@ public interface Account extends EObject {
 	 * Sets the value of the '{@link ordersystem.Account#getAccountNumber
 	 * <em>Account Number</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Account Number</em>' attribute.
 	 * @see #getAccountNumber()
 	 * @generated
@@ -100,7 +100,7 @@ public interface Account extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(Customer)
 	 * @see ordersystem.OrderSystemPackage#getAccount_Owner()
@@ -113,7 +113,7 @@ public interface Account extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Account#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated
@@ -128,7 +128,7 @@ public interface Account extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Billing Address</em>' containment reference.
 	 * @see #setBillingAddress(Address)
 	 * @see ordersystem.OrderSystemPackage#getAccount_BillingAddress()
@@ -141,7 +141,7 @@ public interface Account extends EObject {
 	 * Sets the value of the '{@link ordersystem.Account#getBillingAddress
 	 * <em>Billing Address</em>}' containment reference. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Billing Address</em>' containment
 	 *              reference.
 	 * @see #getBillingAddress()
@@ -157,7 +157,7 @@ public interface Account extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Shipping Address</em>' containment reference.
 	 * @see #setShippingAddress(Address)
 	 * @see ordersystem.OrderSystemPackage#getAccount_ShippingAddress()
@@ -170,7 +170,7 @@ public interface Account extends EObject {
 	 * Sets the value of the '{@link ordersystem.Account#getShippingAddress
 	 * <em>Shipping Address</em>}' containment reference. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Shipping Address</em>' containment
 	 *              reference.
 	 * @see #getShippingAddress()

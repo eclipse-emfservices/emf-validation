@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link JavaConstraintParser} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class JavaConstraintParserTest extends TestCase {

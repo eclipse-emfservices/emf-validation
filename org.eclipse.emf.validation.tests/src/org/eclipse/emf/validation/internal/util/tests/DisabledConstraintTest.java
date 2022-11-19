@@ -36,7 +36,7 @@ import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link DisabledConstraint} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class DisabledConstraintTest extends TestCase {
@@ -76,7 +76,7 @@ public class DisabledConstraintTest extends TestCase {
 
 	public static class ValidationContext implements IValidationContext {
 		private final EObject target;
-		private final Set<EObject> resultLocus = new java.util.HashSet<EObject>();
+		private final Set<EObject> resultLocus = new java.util.HashSet<>();
 
 		public ValidationContext(EObject target) {
 			this.target = target;
@@ -84,71 +84,85 @@ public class DisabledConstraintTest extends TestCase {
 		}
 
 		// implements the inherited method
+		@Override
 		public String getCurrentConstraintId() {
 			return "test.disabled.id"; //$NON-NLS-1$
 		}
 
 		// implements the inherited method
+		@Override
 		public EObject getTarget() {
 			return target;
 		}
 
 		// implements the inherited method
+		@Override
 		public EMFEventType getEventType() {
 			return EMFEventType.NULL;
 		}
 
 		// implements the inherited method
+		@Override
 		public List<Notification> getAllEvents() {
 			return Collections.emptyList();
 		}
 
 		// implements the inherited method
+		@Override
 		public EStructuralFeature getFeature() {
 			return null;
 		}
 
 		// implements the inherited method
+		@Override
 		public Object getFeatureNewValue() {
 			return null;
 		}
 
 		// implements the inherited method
+		@Override
 		public void skipCurrentConstraintFor(EObject eObject) {
 			// no need to do anything in this test fixture
 		}
 
 		// implements the inherited method
+		@Override
 		public void skipCurrentConstraintForAll(Collection<?> eObjects) {
 			// no need to do anything in this test fixture
 		}
 
 		// implements the inherited method
+		@Override
 		public void disableCurrentConstraint(Throwable exception) {
 			// no need to do anything in this test fixture
 		}
 
 		// implements the inherited method
+		@Override
 		public Object getCurrentConstraintData() {
 			return null;
 		}
 
 		// implements the inherited method
+		@Override
 		public Object putCurrentConstraintData(Object newData) {
 			return null;
 		}
 
 		// implements the inherited method
+		@Override
 		public Set<EObject> getResultLocus() {
 			return resultLocus;
 		}
 
 		// implements the inherited method
+		@Override
 		public void addResult(EObject eObject) {
 			resultLocus.add(eObject);
 		}
 
 		// implements the inherited method
+		@Override
 		public void addResults(Collection<? extends EObject> eObjects) {
 			resultLocus.addAll(eObjects);
 		}
@@ -156,6 +170,7 @@ public class DisabledConstraintTest extends TestCase {
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public IStatus createSuccessStatus() {
 			return Status.OK_STATUS;
 		}
@@ -163,6 +178,7 @@ public class DisabledConstraintTest extends TestCase {
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public IStatus createFailureStatus(Object... messageArguments) {
 			return new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
 					1, "", //$NON-NLS-1$

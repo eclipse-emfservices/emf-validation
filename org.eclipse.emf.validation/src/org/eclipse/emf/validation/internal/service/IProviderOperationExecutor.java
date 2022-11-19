@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -24,7 +24,7 @@ package org.eclipse.emf.validation.internal.service;
 public interface IProviderOperationExecutor {
 	/**
 	 * Executes the specified <code>op</code>eration.
-	 * 
+	 *
 	 * @param op the operation to execute. The execution result must be obtained
 	 *           from it
 	 */

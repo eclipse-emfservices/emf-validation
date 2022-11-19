@@ -23,27 +23,27 @@ import org.eclipse.jface.viewers.CheckStateChangedEvent;
  * they are mandatory or errored.
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @see ICategoryTreeNode
  */
 public interface IConstraintNode {
 	/**
 	 * Obtains the ID of the constraint, to show in the GUI.
-	 * 
+	 *
 	 * @return the ID of the constraint that I represent
 	 */
 	String getId();
 
 	/**
 	 * Obtains the name of the constraint, to show in the GUI.
-	 * 
+	 *
 	 * @return the name of the constraint that I represent
 	 */
 	String getName();
 
 	/**
 	 * Obtains the description of the constraint, to show in the GUI.
-	 * 
+	 *
 	 * @return the description of the constraint that I represent
 	 */
 	String getDescription();
@@ -51,21 +51,21 @@ public interface IConstraintNode {
 	/**
 	 * Obtains the categories of which the constraint is a member, to show in the
 	 * GUI.
-	 * 
+	 *
 	 * @return the categories of the constraint that I represent
 	 */
 	Collection<Category> getCategories();
 
 	/**
 	 * Obtains the evaluation mode of the constraint, to show in the GUI.
-	 * 
+	 *
 	 * @return the localized evaluation mode of the constraint that I represent
 	 */
 	String getEvaluationMode();
 
 	/**
 	 * Obtains the severity of the constraint, to show in the GUI.
-	 * 
+	 *
 	 * @return the localized severity of the constraint that I represent
 	 */
 	String getSeverity();
@@ -73,7 +73,7 @@ public interface IConstraintNode {
 	/**
 	 * Queries whether I am checked. When I am checked, my constraint is enabled in
 	 * the validation system.
-	 * 
+	 *
 	 * @return whether I show a check mark in the GUI
 	 */
 	boolean isChecked();
@@ -81,7 +81,7 @@ public interface IConstraintNode {
 	/**
 	 * Sets whether I am checked. Note this method will have no effect if I am
 	 * either {@link #isMandatory() mandatory} or {@link #isErrored() errored}.
-	 * 
+	 *
 	 * @param checked whether I show a check mark in the GUI
 	 */
 	void setChecked(boolean checked);
@@ -89,7 +89,7 @@ public interface IConstraintNode {
 	/**
 	 * Queries whether I am a mandatory constraint. If I am mandatory, then I cannot
 	 * be de-selected.
-	 * 
+	 *
 	 * @return <code>true</code> if I am mandatory, <code>false</code>, otherwise
 	 */
 	boolean isMandatory();
@@ -97,7 +97,7 @@ public interface IConstraintNode {
 	/**
 	 * Queries whether I am an "errored" constraint. If I am errored, then I cannot
 	 * be selected because I am broken.
-	 * 
+	 *
 	 * @return <code>true</code> if I am errored, <code>false</code>, otherwise
 	 */
 	boolean isErrored();
@@ -105,7 +105,7 @@ public interface IConstraintNode {
 	/**
 	 * Causes me to transition to a new check and/or gray state, according to the
 	 * given <code>event</code>.
-	 * 
+	 *
 	 * @param event a check-state event in the GUI
 	 */
 	void checkStateChanged(CheckStateChangedEvent event);
@@ -113,7 +113,7 @@ public interface IConstraintNode {
 	/**
 	 * Adds a category tree node as one of the categories affected by my checked
 	 * state.
-	 * 
+	 *
 	 * @param category a category that includes me
 	 */
 	void addCategory(ICategoryTreeNode category);

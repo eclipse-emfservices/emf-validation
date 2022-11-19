@@ -41,7 +41,7 @@ public interface OrderSystem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(int)
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Version()
@@ -53,7 +53,7 @@ public interface OrderSystem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.OrderSystem#getVersion
 	 * <em>Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Version</em>' attribute.
 	 * @see #getVersion()
 	 * @generated
@@ -70,7 +70,7 @@ public interface OrderSystem extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Customer</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Customer()
 	 * @see ordersystem.Customer#getOwner
@@ -89,7 +89,7 @@ public interface OrderSystem extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Product</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Product()
 	 * @see ordersystem.Product#getOwner
@@ -108,7 +108,7 @@ public interface OrderSystem extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Warehouse</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrderSystem_Warehouse()
 	 * @see ordersystem.Warehouse#getOwner

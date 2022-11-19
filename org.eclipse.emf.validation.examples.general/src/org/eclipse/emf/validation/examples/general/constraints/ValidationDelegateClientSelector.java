@@ -18,7 +18,7 @@ import org.eclipse.emf.validation.model.IClientSelector;
  * {@link org.eclipse.emf.validation.examples.general.actions.BatchValidationDelegate}
  * or the {@link LiveValidationContentAdapter} was the entry point into
  * validation.
- * 
+ *
  * @author Chris McGee
  */
 public class ValidationDelegateClientSelector
@@ -40,10 +40,11 @@ public class ValidationDelegateClientSelector
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.eclipse.emf.validation.model.IClientSelector#selects(java.lang.Object)
 	 */
+	@Override
 	public boolean selects(Object object) {
 		return running;
 	}

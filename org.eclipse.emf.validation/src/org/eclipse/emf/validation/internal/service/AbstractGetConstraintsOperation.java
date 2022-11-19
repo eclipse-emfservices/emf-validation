@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -23,10 +23,10 @@ import org.eclipse.emf.validation.util.FilteredCollection;
 /**
  * Defines the common structure of all operations supplied by
  * {@link org.eclipse.emf.validation.service.IModelConstraintProvider}s.
- * 
+ *
  * @see org.eclipse.emf.validation.service.ModelValidationService
  * @see org.eclipse.emf.validation.service.IModelConstraintProvider
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractGetConstraintsOperation implements IProviderOperation<Collection<IModelConstraint>> {
@@ -35,7 +35,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	private EObject eObject;
 
 	/** The constraints which I have gathered from providers. */
-	private final Collection<IModelConstraint> myConstraints = new java.util.ArrayList<IModelConstraint>();
+	private final Collection<IModelConstraint> myConstraints = new java.util.ArrayList<>();
 
 	private Collection<IModelConstraint> filteredConstraints;
 
@@ -50,7 +50,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 
 	/**
 	 * Sets the EMF object that is to be validated.
-	 * 
+	 *
 	 * @param eObject the EMF object (must not be <code>null</code>)
 	 */
 	protected final void setTarget(EObject eObject) {
@@ -62,6 +62,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	}
 
 	// implements the interface method
+	@Override
 	public final EObject getEObject() {
 		return eObject;
 	}
@@ -69,10 +70,10 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	/**
 	 * Obtains the context object that the caller must pass to each constraint that
 	 * is validated.
-	 * 
+	 *
 	 * @return the constraint evaluation context, or <code>null</code> if I have not
 	 *         yet been executed
-	 * 
+	 *
 	 * @see #execute
 	 */
 	final AbstractValidationContext getContext() {
@@ -85,12 +86,13 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 		// initialize the context now, if necessary
 		if (context == null) {
 			context = createContext();
-			filteredConstraints = new FilteredCollection<IModelConstraint>(getUnfilteredConstraints(),
+			filteredConstraints = new FilteredCollection<>(getUnfilteredConstraints(),
 					context.getConstraintFilter());
 		}
 	}
 
 	// implements the interface method
+	@Override
 	public final Collection<IModelConstraint> getConstraints() {
 		return filteredConstraints;
 	}
@@ -99,7 +101,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	 * Obtains my constraints, not filtered by the current validation context. This
 	 * should only be invoked by clients such as the constraint cache, that need the
 	 * constraints outside of any validation context.
-	 * 
+	 *
 	 * @return my full collection of constraints
 	 */
 	protected Collection<IModelConstraint> getUnfilteredConstraints() {
@@ -108,13 +110,14 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * This is a <i>Template Method</i> encapsulating an invocation of the
 	 * {@link #executeImpl} method implemented by subclasses.
-	 * 
+	 *
 	 * @param provider a constraint provider
 	 * @return my unmodifiable constraints collection
 	 */
+	@Override
 	public Collection<IModelConstraint> execute(IModelConstraintProvider provider) {
 		Trace.entering(EMFModelValidationDebugOptions.PROVIDERS, getClass(), "execute", //$NON-NLS-1$
 				provider);
@@ -131,7 +134,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	/**
 	 * Creates a validation context that iterates my collection of constraints,
 	 * always providing the "current constraint" context.
-	 * 
+	 *
 	 * @return the subclass's concrete implementation of the context
 	 */
 	protected abstract AbstractValidationContext createContext();
@@ -139,7 +142,7 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	/**
 	 * Implemented by subclasses to invoke the appropriate <code>provider</code>
 	 * method.
-	 * 
+	 *
 	 * @param provider    the provider to be invoked
 	 * @param constraints the collection to which constraints are to be added
 	 */

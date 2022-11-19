@@ -33,6 +33,7 @@ public class EObjectPropertyTester extends PropertyTester {
 		super();
 	}
 
+	@Override
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
 		boolean result = false;
 

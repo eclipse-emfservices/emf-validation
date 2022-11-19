@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -23,7 +23,7 @@ import org.eclipse.emf.validation.model.IClientSelector;
 /**
  * Implementation of a client context selector that is defined by the context
  * extension in the XML, using the Expressions language.
- * 
+ *
  * @author Christian W. Damus
  */
 public class XmlExpressionSelector implements IClientSelector {
@@ -33,9 +33,9 @@ public class XmlExpressionSelector implements IClientSelector {
 	/**
 	 * Initializes me with the <code>&lt;enablement&gt;</code> element from the
 	 * extension.
-	 * 
+	 *
 	 * @param enablement the enablement element containing an expression
-	 * 
+	 *
 	 * @throws CoreException if the selector expression is invalid and I cannot,
 	 *                       therefore, be initialized
 	 */
@@ -46,10 +46,11 @@ public class XmlExpressionSelector implements IClientSelector {
 	/**
 	 * The argument to the XML Expression Selector is an {@link EvaluationContext}
 	 * that has an {@link org.eclipse.emf.ecore.EObject} as the default variable.
-	 * 
+	 *
 	 * @param object an {@link EvaluationContext} on an
 	 *               {@link org.eclipse.emf.ecore.EObject}
 	 */
+	@Override
 	public boolean selects(Object object) {
 		boolean result = false;
 

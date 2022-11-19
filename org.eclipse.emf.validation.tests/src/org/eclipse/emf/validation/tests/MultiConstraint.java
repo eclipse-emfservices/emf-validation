@@ -22,7 +22,7 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
  * Test of the multiple results capability
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @since 1.1
  */
 public class MultiConstraint extends AbstractModelConstraint {
@@ -35,12 +35,12 @@ public class MultiConstraint extends AbstractModelConstraint {
 			return ctx.createSuccessStatus();
 		}
 
-		Collection<IStatus> statuses = new java.util.ArrayList<IStatus>();
+		Collection<IStatus> statuses = new java.util.ArrayList<>();
 
 		statuses.add(ctx.createFailureStatus(new Object[] { "Nothing to say." })); //$NON-NLS-1$
 
 		// try a nested multi-status, just for fun
-		Collection<IStatus> nested = new java.util.ArrayList<IStatus>();
+		Collection<IStatus> nested = new java.util.ArrayList<>();
 		nested.add(ConstraintStatus.createStatus(ctx, ctx.getTarget().eContents(), IStatus.INFO, 13, "This is {0}.", //$NON-NLS-1$
 				new Object[] { "fun" })); //$NON-NLS-1$
 		nested.add(ConstraintStatus.createStatus(ctx, null, IStatus.WARNING, 7, "This is {0}.", //$NON-NLS-1$

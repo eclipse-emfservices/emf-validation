@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -37,7 +37,7 @@ import org.osgi.framework.Bundle;
  * parsed from XML. This unifies the representation of constraint data obtained
  * from "included" XML files with constraint data parsed by Eclipse from the
  * <tt>plugin.xml</tt>.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConfigurationElement implements IConfigurationElement {
@@ -47,12 +47,12 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	private String value;
 	private final Map<String, String> attributes;
-	private final List<IConfigurationElement> children = new java.util.ArrayList<IConfigurationElement>();
+	private final List<IConfigurationElement> children = new java.util.ArrayList<>();
 	private Object parent;
 
 	/**
 	 * Initializes me with my XML tag name and source extension.
-	 * 
+	 *
 	 * @param name      my tag name
 	 * @param extension the extension which defines me
 	 * @param baseUrl   the base of any relative URL of files that I load
@@ -63,7 +63,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	/**
 	 * Initializes me with my XML tag name, attributes, and source extension.
-	 * 
+	 *
 	 * @param name       my tag name
 	 * @param attributes my attribute values, which I am free to retain as is and
 	 *                   modify (no defensive copy required)
@@ -81,9 +81,10 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 * The custom configuration element implementation cannot create executable
 	 * extensions. However, this doesn't matter because it should never be asked to
 	 * do so.
-	 * 
+	 *
 	 * @throws CoreException always
 	 */
+	@Override
 	public Object createExecutableExtension(String propertyName) throws CoreException {
 
 		String message = EMFModelValidationPlugin.getMessage(EMFModelValidationStatusCodes.XML_CREATE_EXTENSION_MSG,
@@ -97,23 +98,26 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	}
 
 	// implements the interface method
+	@Override
 	public String getAttribute(String name) {
 		return attributes.get(name);
 	}
 
 	// implements the interface method
+	@Override
 	public String getAttributeAsIs(String name) {
 		return getAttribute(name);
 	}
 
 	// implements the interface method
+	@Override
 	public String[] getAttributeNames() {
 		return attributes.keySet().toArray(new String[attributes.size()]);
 	}
 
 	/**
 	 * Sets an attribute value.
-	 * 
+	 *
 	 * @param name     the attribute name
 	 * @param newValue its new value
 	 */
@@ -122,13 +126,15 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	}
 
 	// implements the interface method
+	@Override
 	public IConfigurationElement[] getChildren() {
 		return children.toArray(new IConfigurationElement[children.size()]);
 	}
 
 	// implements the interface method
+	@Override
 	public IConfigurationElement[] getChildren(String name) {
-		java.util.List<IConfigurationElement> result = new java.util.ArrayList<IConfigurationElement>(children.size());
+		java.util.List<IConfigurationElement> result = new java.util.ArrayList<>(children.size());
 
 		for (IConfigurationElement next : children) {
 			if (next.getName().equals(name)) {
@@ -141,7 +147,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	/**
 	 * Adds a child element to me.
-	 * 
+	 *
 	 * @param child the new child element
 	 */
 	protected final void addChild(IConfigurationElement child) {
@@ -154,7 +160,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	/**
 	 * Removes a child element from me.
-	 * 
+	 *
 	 * @param child the new child element
 	 */
 	protected final void removeChild(IConfigurationElement child) {
@@ -162,23 +168,26 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	}
 
 	// implements the interface method
+	@Override
 	public IExtension getDeclaringExtension() {
 		return extension;
 	}
 
 	// implements the interface method
+	@Override
 	public String getName() {
 		return myName;
 	}
 
 	// implements the interface method
+	@Override
 	public String getValue() {
 		return value;
 	}
 
 	/**
 	 * Sets my value (body text).
-	 * 
+	 *
 	 * @param value my new body text
 	 */
 	protected final void setValue(String value) {
@@ -186,6 +195,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	}
 
 	// implements the interface method
+	@Override
 	public String getValueAsIs() {
 		return getValue();
 	}
@@ -193,7 +203,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Absorbs the constraints defined in the nested <tt>&lt;constraints&gt;</tt>
 	 * elements into me.
-	 * 
+	 *
 	 * @param constraintses some <tt>&lt;constraints&gt;</tt> elements
 	 * @throws CoreException if there is any problem in parsing the nested
 	 *                       constraintses
@@ -208,7 +218,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Absorbs the constraints defined in the nested <tt>&lt;constraints&gt;</tt>
 	 * element into me.
-	 * 
+	 *
 	 * @param constraints a <tt>&lt;constraints&gt;</tt> elements
 	 * @throws CoreException if there is any problem in parsing the nested element
 	 */
@@ -221,7 +231,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Absorbs the constraints defined in the files specified by some
 	 * <tt>&lt;include&gt;</tt> elements into me.
-	 * 
+	 *
 	 * @param includes some <tt>&lt;include&gt;</tt> elements
 	 * @throws CoreException if there is any problem in parsing the included files
 	 */
@@ -234,7 +244,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Absorbs the constraints defined in the file specified by an
 	 * <tt>&lt;include&gt;</tt> element into me.
-	 * 
+	 *
 	 * @param include an <tt>&lt;include&gt;</tt> elements
 	 * @throws CoreException if there is any problem in parsing the included file
 	 */
@@ -287,7 +297,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Absorbs the children of the specified <tt>&lt;includedConstraints&gt;</tt>
 	 * element into me.
-	 * 
+	 *
 	 * @param includedConstraints the element to absorb
 	 */
 	private void absorb(IConfigurationElement includedConstraints) {
@@ -314,7 +324,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	/**
 	 * Obtains the URL on which any additional relative URLs are based that I may
 	 * load.
-	 * 
+	 *
 	 * @return my base URL
 	 */
 	public URL getBaseUrl() {
@@ -323,7 +333,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	/**
 	 * Obtains the name of the XML file from which I was loaded.
-	 * 
+	 *
 	 * @return my originating file name
 	 */
 	public String getFileName() {
@@ -332,46 +342,54 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.core.runtime.IConfigurationElement#getParent()
 	 */
+	@Override
 	public Object getParent() {
 		return parent;
 	}
 
 	/**
 	 * Sets my parent configuration element (or whatever).
-	 * 
+	 *
 	 * @param parent
 	 */
 	void setParent(Object parent) {
 		this.parent = parent;
 	}
 
+	@Override
 	public String getNamespace() throws InvalidRegistryObjectException {
 		return null;
 	}
 
+	@Override
 	public boolean isValid() {
 		return false;
 	}
 
+	@Override
 	public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 		return null;
 	}
 
+	@Override
 	public IContributor getContributor() throws InvalidRegistryObjectException {
 		return null;
 	}
 
+	@Override
 	public String getAttribute(String attrName, String locale) throws InvalidRegistryObjectException {
 		return null;
 	}
 
+	@Override
 	public String getValue(String locale) throws InvalidRegistryObjectException {
 		return null;
 	}
 
+	@Override
 	public int getHandleId() {
 		return 0;
 	}

@@ -32,7 +32,7 @@ import org.eclipse.ui.IEditorPart;
 /**
  * This action delegate calls upon the validation service to provide a batch
  * validation of the selected EObjects and their children.
- * 
+ *
  */
 public class EnableLiveValidationDelegate implements IEditorActionDelegate, IActionDelegate2 {
 
@@ -63,6 +63,7 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
 	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedResources = null;
@@ -104,6 +105,7 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
+	@Override
 	public void dispose() {
 		// No-op
 	}
@@ -113,6 +115,7 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
 	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.editor = (EXTLibraryEditor) targetEditor;
 		if (targetEditor != null) {
@@ -123,6 +126,7 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void init(IAction action) {
 		// No-op
 	}
@@ -131,15 +135,17 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
 	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
+	@Override
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		for (Resource r : selectedResources) {
 			if (!resourceHasAdapter(r)) {

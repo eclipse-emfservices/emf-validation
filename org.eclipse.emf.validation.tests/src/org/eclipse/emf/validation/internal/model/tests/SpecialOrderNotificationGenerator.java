@@ -30,8 +30,9 @@ public class SpecialOrderNotificationGenerator implements INotificationGenerator
 	 * Create special notifications for those orders who contain limited edition
 	 * products
 	 */
+	@Override
 	public Collection<Notification> generateNotifications(Collection<? extends Notification> notifications) {
-		Collection<Notification> newNotifications = new ArrayList<Notification>();
+		Collection<Notification> newNotifications = new ArrayList<>();
 
 		for (Notification notification : notifications) {
 			if (notification.getNotifier() instanceof Order) {

@@ -43,7 +43,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * The default value of the '{@link #getQuantity() <em>Quantity</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getQuantity()
 	 * @generated
 	 * @ordered
@@ -53,7 +53,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * The cached value of the '{@link #getQuantity() <em>Quantity</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getQuantity()
 	 * @generated
 	 * @ordered
@@ -63,7 +63,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * The default value of the '{@link #getDiscount() <em>Discount</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDiscount()
 	 * @generated
 	 * @ordered
@@ -73,7 +73,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * The cached value of the '{@link #getDiscount() <em>Discount</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDiscount()
 	 * @generated
 	 * @ordered
@@ -83,7 +83,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * The cached value of the '{@link #getProduct() <em>Product</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProduct()
 	 * @generated
 	 * @ordered
@@ -92,7 +92,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected LineItemImpl() {
@@ -101,7 +101,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -111,18 +111,20 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getQuantity() {
 		return quantity;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setQuantity(int newQuantity) {
 		int oldQuantity = quantity;
 		quantity = newQuantity;
@@ -133,18 +135,20 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public double getDiscount() {
 		return discount;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setDiscount(double newDiscount) {
 		double oldDiscount = discount;
 		discount = newDiscount;
@@ -155,9 +159,10 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Order getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.LINE_ITEM__OWNER)
 			return null;
@@ -166,7 +171,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(Order newOwner, NotificationChain msgs) {
@@ -176,9 +181,10 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Order newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.LINE_ITEM__OWNER && newOwner != null)) {
@@ -200,9 +206,10 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Product getProduct() {
 		if (product != null && product.eIsProxy()) {
 			InternalEObject oldProduct = (InternalEObject) product;
@@ -218,7 +225,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public Product basicGetProduct() {
@@ -227,9 +234,10 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setProduct(Product newProduct) {
 		Product oldProduct = product;
 		product = newProduct;
@@ -241,6 +249,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public double getCost() {
 		if ((getProduct() != null) && (getQuantity() > 0)) {
 			return getProduct().getPrice() * getQuantity() * (1.0 - getDiscount());
@@ -251,7 +260,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -267,7 +276,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -281,7 +290,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -295,7 +304,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -317,7 +326,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -341,7 +350,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -365,7 +374,7 @@ public class LineItemImpl extends EObjectImpl implements LineItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

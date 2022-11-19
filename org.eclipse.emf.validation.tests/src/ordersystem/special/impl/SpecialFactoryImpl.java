@@ -25,14 +25,14 @@ import ordersystem.special.SpecialPackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  */
 public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	/**
 	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static SpecialFactory init() {
@@ -51,7 +51,7 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	/**
 	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public SpecialFactoryImpl() {
@@ -60,7 +60,7 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -77,9 +77,10 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public PreferredCustomer createPreferredCustomer() {
 		PreferredCustomerImpl preferredCustomer = new PreferredCustomerImpl();
 		return preferredCustomer;
@@ -87,9 +88,10 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public LimitedEditionProduct createLimitedEditionProduct() {
 		LimitedEditionProductImpl limitedEditionProduct = new LimitedEditionProductImpl();
 		return limitedEditionProduct;
@@ -97,16 +99,17 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public SpecialPackage getSpecialPackage() {
 		return (SpecialPackage) getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @deprecated
 	 * @generated
 	 */

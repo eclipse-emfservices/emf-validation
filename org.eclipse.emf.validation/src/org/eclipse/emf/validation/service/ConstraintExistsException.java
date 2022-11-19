@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
@@ -22,7 +22,7 @@ package org.eclipse.emf.validation.service;
  * </p>
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
  */
@@ -31,7 +31,7 @@ public class ConstraintExistsException extends Exception {
 
 	/**
 	 * Initializes me with a message.
-	 * 
+	 *
 	 * @param s my message
 	 */
 	public ConstraintExistsException(String s) {

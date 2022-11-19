@@ -43,7 +43,7 @@ import org.eclipse.emf.validation.service.IValidator;
  * registered as a resolution that simply disables the constraint unless they
  * are using a marker subtype. In that case they will have to explicitly
  * register the ValidationMarkerResolution against their marker type.
- * 
+ *
  * @author cmcgee
  */
 public final class MarkerUtil {
@@ -64,13 +64,13 @@ public final class MarkerUtil {
 	 * To update the markers on a resource that already has markers, use the
 	 * {@link #updateMarkers(IStatus)} method.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @throws CoreException A core exception is thrown if there were any problems
 	 *                       interacting with the workspace to attach/delete markers
 	 *                       on resources.
-	 * 
+	 *
 	 * @see #updateMarkers(IStatus)
 	 */
 	public static void createMarkers(IStatus validationStatus) throws CoreException {
@@ -87,16 +87,16 @@ public final class MarkerUtil {
 	 * To update the markers on a resource that already has markers, use the
 	 * {@link #updateMarkers(IStatus, int)} method.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param severityMask     mask selecting which severities to create markers for
 	 * @throws CoreException A core exception is thrown if there were any problems
 	 *                       interacting with the workspace to attach/delete markers
 	 *                       on resources.
-	 * 
+	 *
 	 * @since 1.2
-	 * 
+	 *
 	 * @see #updateMarkers(IStatus, int)
 	 */
 	public static void createMarkers(IStatus validationStatus, int severityMask) throws CoreException {
@@ -113,7 +113,7 @@ public final class MarkerUtil {
 	 * To update the markers on a resource that already has markers, use the
 	 * {@link #updateMarkers(IStatus, String, IMarkerConfigurator)} method.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param markerType       A marker type that is a subtype of the
@@ -143,7 +143,7 @@ public final class MarkerUtil {
 	 * To update the markers on a resource that already has markers, use the
 	 * {@link #updateMarkers(IStatus, int, String, IMarkerConfigurator)} method.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param severityMask     mask selecting which severities to create markers for
@@ -158,7 +158,7 @@ public final class MarkerUtil {
 	 * @see IValidator#validate(java.util.Collection)
 	 * @see IMarkerConfigurator
 	 * @see #updateMarkers(IStatus, int, String, IMarkerConfigurator)
-	 * 
+	 *
 	 * @since 1.2
 	 */
 	public static void createMarkers(final IStatus validationStatus, final int severityMask, final String markerType,
@@ -169,9 +169,10 @@ public final class MarkerUtil {
 		}
 
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+			@Override
 			public void run(IProgressMonitor m) throws CoreException {
 
-				final Map<URI, IFile> visitedResources = new HashMap<URI, IFile>();
+				final Map<URI, IFile> visitedResources = new HashMap<>();
 
 				if (validationStatus.isMultiStatus()) {
 					createMarkers(validationStatus, severityMask, markerType, configurator, visitedResources);
@@ -281,13 +282,13 @@ public final class MarkerUtil {
 	 * reported no problems, the validation operation must have been performed with
 	 * the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option enabled.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @throws CoreException A core exception is thrown if there were any problems
 	 *                       interacting with the workspace to attach/delete markers
 	 *                       on resources.
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	public static void updateMarkers(IStatus validationStatus) throws CoreException {
@@ -308,14 +309,14 @@ public final class MarkerUtil {
 	 * reported no problems, the validation operation must have been performed with
 	 * the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option enabled.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param severityMask     mask selecting which severities to create markers for
 	 * @throws CoreException A core exception is thrown if there were any problems
 	 *                       interacting with the workspace to attach/delete markers
 	 *                       on resources.
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	public static void updateMarkers(IStatus validationStatus, int severityMask) throws CoreException {
@@ -335,7 +336,7 @@ public final class MarkerUtil {
 	 * that reported no problems, the validation operation must have been performed
 	 * with the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option enabled.
 	 * </p>
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param markerType       A marker type that is a subtype of the
@@ -348,7 +349,7 @@ public final class MarkerUtil {
 	 * @see IValidator#validate(Object)
 	 * @see IValidator#validate(java.util.Collection)
 	 * @see IMarkerConfigurator
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	public static void updateMarkers(IStatus validationStatus, String markerType, IMarkerConfigurator configurator)
@@ -371,7 +372,7 @@ public final class MarkerUtil {
 	 * the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option enabled.
 	 * </p>
 	 * information.
-	 * 
+	 *
 	 * @param validationStatus A status object returned by a validator's validate
 	 *                         method.
 	 * @param severityMask     mask selecting which severities to create markers for
@@ -385,7 +386,7 @@ public final class MarkerUtil {
 	 * @see IValidator#validate(Object)
 	 * @see IValidator#validate(java.util.Collection)
 	 * @see IMarkerConfigurator
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	public static void updateMarkers(final IStatus validationStatus, final int severityMask, final String markerType,
@@ -393,9 +394,10 @@ public final class MarkerUtil {
 
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
 
+			@Override
 			public void run(IProgressMonitor m) throws CoreException {
 
-				final Map<URI, FileStatusListPair> resourcesToVisit = new HashMap<URI, FileStatusListPair>();
+				final Map<URI, FileStatusListPair> resourcesToVisit = new HashMap<>();
 
 				// First we need to inspect the status and if it is a
 				// multistatus then
@@ -455,7 +457,7 @@ public final class MarkerUtil {
 	/**
 	 * Adds a status to the status list of its corresponding file in the
 	 * resourceToVisit variable.
-	 * 
+	 *
 	 * @param status           the status to add to resourceToVisit.
 	 * @param resourcesToVisit A map of files and status lists.
 	 */
@@ -499,7 +501,7 @@ public final class MarkerUtil {
 	/**
 	 * Creates a marker for each status in the status list and attaches it to the
 	 * file argument.
-	 * 
+	 *
 	 * @param file         The file to mark.
 	 * @param statuses     The list of statuses.
 	 * @param markerType   Defines the type of the markers.
@@ -550,9 +552,9 @@ public final class MarkerUtil {
 	/**
 	 * A helper class for pairing an {@link IFile} and a {@link List} of
 	 * {@link IConstraintStatus}.
-	 * 
+	 *
 	 * @author Damien Thivolle
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	private static class FileStatusListPair {
@@ -563,7 +565,7 @@ public final class MarkerUtil {
 
 		FileStatusListPair() {
 			this.file = null;
-			this.statuses = new java.util.ArrayList<IConstraintStatus>();
+			this.statuses = new java.util.ArrayList<>();
 		}
 
 		void setFile(IFile file) {

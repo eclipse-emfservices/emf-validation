@@ -34,7 +34,7 @@ import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
  * <p>
  * This class is not intended to be used by clients of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 @SuppressWarnings("deprecation")
@@ -48,10 +48,12 @@ public class OCLConstraintParser implements IParameterizedConstraintParser, IXml
 	}
 
 	// implements the inherited method
+	@Override
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor desc) {
 		return new EcoreOCLConstraint(desc);
 	}
 
+	@Override
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
 		return new EcoreOCLConstraint(descriptor);
 	}

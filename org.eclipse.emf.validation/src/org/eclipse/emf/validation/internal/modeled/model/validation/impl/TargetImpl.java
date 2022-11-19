@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -45,7 +45,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	/**
 	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getFeature()
 	 * @generated
 	 * @ordered
@@ -55,7 +55,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	/**
 	 * The cached value of the '{@link #getEClass() <em>EClass</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getEClass()
 	 * @generated
 	 * @ordered
@@ -64,7 +64,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected TargetImpl() {
@@ -73,7 +73,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -83,12 +83,13 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<EStructuralFeature> getFeature() {
 		if (feature == null) {
-			feature = new EObjectResolvingEList<EStructuralFeature>(EStructuralFeature.class, this,
+			feature = new EObjectResolvingEList<>(EStructuralFeature.class, this,
 					ValidationPackage.TARGET__FEATURE);
 		}
 		return feature;
@@ -96,9 +97,10 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EClassifier getEClass() {
 		if (eClass != null && eClass.eIsProxy()) {
 			InternalEObject oldEClass = (InternalEObject) eClass;
@@ -114,7 +116,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public EClassifier basicGetEClass() {
@@ -123,9 +125,10 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setEClass(EClassifier newEClass) {
 		EClassifier oldEClass = eClass;
 		eClass = newEClass;
@@ -135,7 +138,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -153,7 +156,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -173,7 +176,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -191,7 +194,7 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

@@ -23,12 +23,13 @@ import junit.framework.TestSuite;
 
 /**
  * JUnit tests for the {@link FilteredCollection} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class FilteredCollectionTest extends TestCase {
 	private class Filter implements FilteredCollection.Filter<Integer> {
 		// filters out odd integers
+		@Override
 		public boolean accept(Integer element) {
 			return (element % 2) == 0;
 		}
@@ -39,7 +40,7 @@ public class FilteredCollectionTest extends TestCase {
 			Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5), });
 	private final Collection<Integer> expectedFilteredResult = Arrays
 			.asList(new Integer[] { Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(4), });
-	private final FilteredCollection<Integer> filteredCollection = new FilteredCollection<Integer>(original, filter);
+	private final FilteredCollection<Integer> filteredCollection = new FilteredCollection<>(original, filter);
 
 	public static Test suite() {
 		return new TestSuite(FilteredCollectionTest.class);
@@ -58,7 +59,7 @@ public class FilteredCollectionTest extends TestCase {
 	/** Tests for correct iteration. */
 	public void test_iterator() {
 		// test for contents. Note that lists can only be compared to lists
-		assertEquals(expectedFilteredResult, new ArrayList<Integer>(filteredCollection));
+		assertEquals(expectedFilteredResult, new ArrayList<>(filteredCollection));
 
 		// test for ordering
 		int i = 0;

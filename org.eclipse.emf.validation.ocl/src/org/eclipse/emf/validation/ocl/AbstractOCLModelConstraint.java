@@ -48,7 +48,7 @@ import org.eclipse.ocl.helper.OCLHelper;
  * The generic type parameters declared by this class correspond to the
  * like-named parameters of the {@link EnvironmentFactory} interface.
  * </p>
- * 
+ *
  * @param <C>   The metaclass corresponding to the UML Classifier in the
  *              environment provided by subclasses.
  * @param <CT>  The metaclass corresponding to the UML Constraint in the
@@ -57,7 +57,7 @@ import org.eclipse.ocl.helper.OCLHelper;
  *              provided by subclasses.
  * @param <E>   The metaclass of run-time instances in the environment provided
  *              by subclasses.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IModelConstraint {
@@ -68,13 +68,13 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	 * constraint handles. Maintain the values in weak references also, because the
 	 * queries reference the EClasses that are the keys!
 	 */
-	private final java.util.Map<EClass, Reference<?>> queries = new java.util.WeakHashMap<EClass, Reference<?>>();
+	private final java.util.Map<EClass, Reference<?>> queries = new java.util.WeakHashMap<>();
 
 	private QueryManager queryManager;
 
 	/**
 	 * Initializes me with the <code>descriptor</code> which contains my OCL body.
-	 * 
+	 *
 	 * @param descriptor the descriptor, which must contain an OCL expression in its
 	 *                   body
 	 */
@@ -87,7 +87,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	 * constraints. This default implementation returns <code>null</code>,
 	 * signalling that compatibility with the OCL 1.0 API is required. In such case,
 	 * the result of the {@link #createEnvironmentFactory()} method is used.
-	 * 
+	 *
 	 * @return an environment factory for parsing OCL constraints, or
 	 *         <code>null</code> to use the result of the
 	 *         {@link #createEnvironmentFactory()} method
@@ -101,7 +101,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	/**
 	 * Obtains the cached OCL query/constraint that implements me for the specified
 	 * element's metaclass.
-	 * 
+	 *
 	 * @param target a model element
 	 * @return the corresponding OCL query
 	 */
@@ -130,13 +130,14 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 				throw new RuntimeException(e);
 			}
 
-			queries.put(eClass, new WeakReference<Query<C, CLS, E>>(result));
+			queries.put(eClass, new WeakReference<>(result));
 		}
 
 		return result;
 	}
 
 	// implements the inherited method
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		EObject target = ctx.getTarget();
 
@@ -162,6 +163,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	/*
 	 * (non-Javadoc) Implements the interface method.
 	 */
+	@Override
 	public IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}
@@ -177,7 +179,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 		/**
 		 * Obtains and checks the appropriate parsed constraint for the specified target
 		 * element.
-		 * 
+		 *
 		 * @param target an element to be validated
 		 * @return whether it passed the constraint
 		 */

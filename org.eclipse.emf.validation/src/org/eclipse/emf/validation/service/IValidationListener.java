@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -25,7 +25,7 @@ public interface IValidationListener extends EventListener {
 	 * Notifies me that a validation operation has been completed. The event
 	 * provides information about whether the validation was a batch or live mode
 	 * operation, and what the results were.
-	 * 
+	 *
 	 * @param event provides the validation operation results
 	 */
 	void validationOccurred(ValidationEvent event);

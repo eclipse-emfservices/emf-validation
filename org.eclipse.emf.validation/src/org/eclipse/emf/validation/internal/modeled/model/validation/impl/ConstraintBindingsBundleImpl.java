@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -46,7 +46,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 	 * The cached value of the '{@link #getClientContexts() <em>Client
 	 * Contexts</em>}' containment reference list. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #getClientContexts()
 	 * @generated
 	 * @ordered
@@ -56,7 +56,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 	/**
 	 * The cached value of the '{@link #getBindings() <em>Bindings</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getBindings()
 	 * @generated
 	 * @ordered
@@ -65,7 +65,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ConstraintBindingsBundleImpl() {
@@ -74,7 +74,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -84,12 +84,13 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<ClientContext> getClientContexts() {
 		if (clientContexts == null) {
-			clientContexts = new EObjectContainmentEList<ClientContext>(ClientContext.class, this,
+			clientContexts = new EObjectContainmentEList<>(ClientContext.class, this,
 					ValidationPackage.CONSTRAINT_BINDINGS_BUNDLE__CLIENT_CONTEXTS);
 		}
 		return clientContexts;
@@ -97,12 +98,13 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Binding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<Binding>(Binding.class, this,
+			bindings = new EObjectContainmentEList<>(Binding.class, this,
 					ValidationPackage.CONSTRAINT_BINDINGS_BUNDLE__BINDINGS);
 		}
 		return bindings;
@@ -110,7 +112,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -126,7 +128,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,7 +144,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -163,7 +165,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -181,7 +183,7 @@ public class ConstraintBindingsBundleImpl extends EObjectImpl implements Constra
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

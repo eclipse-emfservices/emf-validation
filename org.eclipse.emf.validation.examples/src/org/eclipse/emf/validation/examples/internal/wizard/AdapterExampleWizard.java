@@ -27,7 +27,7 @@ public class AdapterExampleWizard extends AbstractExampleWizard {
 	protected Collection<ProjectDescriptor> getProjectDescriptors() {
 		// We need the adapter example to be unzipped along with the
 		// EMF library example model, edit and editor examples
-		List<ProjectDescriptor> projects = new ArrayList<ProjectDescriptor>(4);
+		List<ProjectDescriptor> projects = new ArrayList<>(4);
 		projects.add(new ProjectDescriptor("org.eclipse.emf.validation.examples", "zips/library.zip", //$NON-NLS-1$//$NON-NLS-2$
 				"org.eclipse.emf.examples.library")); //$NON-NLS-1$
 		projects.add(new ProjectDescriptor("org.eclipse.emf.validation.examples", "zips/libraryEdit.zip", //$NON-NLS-1$ //$NON-NLS-2$

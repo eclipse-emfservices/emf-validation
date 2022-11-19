@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.model;
@@ -18,14 +18,14 @@ package org.eclipse.emf.validation.model;
  * <p>
  * This interface is intended to be implemented by clients.
  * </p>
- * 
+ *
  * @author Christian W. Damus
  */
 public interface IClientSelector {
 	/**
 	 * Queries whether I select the specified object, which indicates that it
 	 * belongs to my client context.
-	 * 
+	 *
 	 * @param object a model element of some kind
 	 * @return <code>true</code> if the <code>object</code> matches my client
 	 *         context; <code>false</code>, otherwise

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Borland Software - Bug 137213
  *    Zeligsoft - Bug 137213
  *    SAP AG - Bug 240352
@@ -47,7 +47,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * <p>
  * This class is intended to be used by clients of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class CategoryManager {
@@ -60,6 +60,7 @@ public class CategoryManager {
 
 	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			for (IConfigurationElement next : extension.getConfigurationElements()) {
 
@@ -69,6 +70,7 @@ public class CategoryManager {
 			}
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// category definitions cannot be removed
 		}
@@ -91,7 +93,7 @@ public class CategoryManager {
 
 	/**
 	 * Obtains the singleton instance of this class.
-	 * 
+	 *
 	 * @return the category manager instance
 	 */
 	public static CategoryManager getInstance() {
@@ -100,7 +102,7 @@ public class CategoryManager {
 
 	/**
 	 * The top-level categories.
-	 * 
+	 *
 	 * @return an unmodifiable set of {@link Category}s, sorted by their names
 	 */
 	public SortedSet<Category> getTopLevelCategories() {
@@ -110,7 +112,7 @@ public class CategoryManager {
 	/**
 	 * Retrieves the default category which contains all constraints that are not
 	 * explicitly categorized.
-	 * 
+	 *
 	 * @return the default category
 	 */
 	public Category getDefaultCategory() {
@@ -120,7 +122,7 @@ public class CategoryManager {
 	/**
 	 * Obtains the category that has the specified absolute <code>path</code>. If
 	 * this category does not yet exist, it is implicitly created.
-	 * 
+	 *
 	 * @param path the absolute path of the category
 	 * @return the specified category (never <code>null</code>)
 	 */
@@ -132,7 +134,7 @@ public class CategoryManager {
 	 * Obtains the category that has the specified <code>path</code> relative to the
 	 * specified <code>parent</code> category. If this category does not yet exist,
 	 * it is implicitly created.
-	 * 
+	 *
 	 * @param parent the parent category, or <code>null</code> to indicate that the
 	 *               path is absolute
 	 * @param path   the path relative to the <code>parent</code>, or the absolute
@@ -151,7 +153,7 @@ public class CategoryManager {
 	 * Finds the category that has the specified absolute <code>path</code>. Unlike
 	 * the {@link #getCategory(String)} method, this method will not implictly
 	 * create the sought-after category.
-	 * 
+	 *
 	 * @param path the absolute path of the category
 	 * @return the specified category or <code>null</code> if it is not found
 	 */
@@ -164,7 +166,7 @@ public class CategoryManager {
 	 * specified <code>parent</code> category. Unlike the
 	 * {@link #getCategory(Category, String)} method, this method will not implictly
 	 * create the sought-after category.
-	 * 
+	 *
 	 * @param parent the parent category, or <code>null</code> to indicate that the
 	 *               path is absolute
 	 * @param path   the path relative to the <code>parent</code>, or the absolute
@@ -189,9 +191,9 @@ public class CategoryManager {
 	 * general, you should only remove categories that you have added and whose
 	 * constraints you control.
 	 * </p>
-	 * 
+	 *
 	 * @param category the category to remove
-	 * 
+	 *
 	 * @see #removeCategory(String)
 	 */
 	public void removeCategory(Category category) {
@@ -229,9 +231,9 @@ public class CategoryManager {
 	 * general, you should only remove categories that you have added and whose
 	 * constraints you control.
 	 * </p>
-	 * 
+	 *
 	 * @param path the ID {@link Category#getPath() path} of the category to remove
-	 * 
+	 *
 	 * @see #removeCategory(Category)
 	 */
 	public void removeCategory(String path) {
@@ -254,9 +256,9 @@ public class CategoryManager {
 	/**
 	 * For stand-alone applications loads the categories from the configuration
 	 * elements.
-	 * 
+	 *
 	 * @param configurationElements the configuration elements
-	 * 
+	 *
 	 * @since 1.12.1
 	 */
 	public void loadCategories(IConfigurationElement[] configurationElements) {
@@ -309,7 +311,7 @@ public class CategoryManager {
 
 	/**
 	 * Loads subcategories of the specified <code>parent</code> category.
-	 * 
+	 *
 	 * @param parent
 	 * @param element
 	 */
@@ -347,11 +349,11 @@ public class CategoryManager {
 
 	/**
 	 * Obtains all of the mandatory categories.
-	 * 
+	 *
 	 * @return the mandatory categories
 	 */
 	public Collection<Category> getMandatoryCategories() {
-		Collection<Category> result = new java.util.ArrayList<Category>();
+		Collection<Category> result = new java.util.ArrayList<>();
 
 		globalCategory.getMandatoryCategories(result);
 

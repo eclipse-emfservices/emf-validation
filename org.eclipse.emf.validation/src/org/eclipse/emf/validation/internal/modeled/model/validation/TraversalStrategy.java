@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -43,7 +43,7 @@ public interface TraversalStrategy extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Class</em>' attribute.
 	 * @see #setClass(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getTraversalStrategy_Class()
@@ -56,7 +56,7 @@ public interface TraversalStrategy extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy#getClass_
 	 * <em>Class</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Class</em>' attribute.
 	 * @see #getClass_()
 	 * @generated
@@ -72,7 +72,7 @@ public interface TraversalStrategy extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Package</em>' reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getTraversalStrategy_Package()
 	 * @model

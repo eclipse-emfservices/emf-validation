@@ -31,6 +31,7 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
 	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, final ISelection selection) {
 		action.setEnabled(true);
 
@@ -39,6 +40,7 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
+	@Override
 	public void dispose() {
 		// No-op
 	}
@@ -48,6 +50,7 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
 	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		// No-op
 	}
@@ -55,6 +58,7 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void init(IAction action) {
 		action.setChecked(ValidationListener.displayEvents);
 	}
@@ -63,15 +67,17 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
 	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
+	@Override
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		ValidationListener.displayEvents = action.isChecked();
 

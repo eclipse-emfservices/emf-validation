@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bugs 137213, 260587
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal;
@@ -85,6 +85,7 @@ public class LiveValidationListener implements IValidationListener {
 	/*
 	 * (non-Javadoc) Implements the interface method.
 	 */
+	@Override
 	public void validationOccurred(ValidationEvent event) {
 		if ((event.getEvaluationMode() == EvaluationMode.LIVE) && (event.getSeverity() >= IStatus.WARNING)
 				&& isSupportedClientContexts(event.getClientContextIds())) {
@@ -96,10 +97,10 @@ public class LiveValidationListener implements IValidationListener {
 	/**
 	 * Checks to ensure that one of the client context IDs matches one that has been
 	 * registered against the extension point.
-	 * 
+	 *
 	 * @param clientContextIds A list of client context ID strings encountered
 	 *                         during live validation.
-	 * 
+	 *
 	 * @return true if there is a supported client context in the collection, false
 	 *         otherwise
 	 */
@@ -118,7 +119,7 @@ public class LiveValidationListener implements IValidationListener {
 	}
 
 	private static void initializeClientContextIDs() {
-		registeredClientContextIds = new java.util.HashSet<String>();
+		registeredClientContextIds = new java.util.HashSet<>();
 
 		IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_UI_REGISTERED_CLIENT_CONTEXTS);
 
@@ -134,11 +135,13 @@ public class LiveValidationListener implements IValidationListener {
 		if (extTracker != null) {
 			IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+				@Override
 				public void addExtension(IExtensionTracker tracker, IExtension extension) {
 
 					addClientContextIDs(extension.getConfigurationElements());
 				}
 
+				@Override
 				public void removeExtension(IExtension extension, Object[] objects) {
 					// client-context IDs cannot be undefined
 				}
@@ -151,7 +154,7 @@ public class LiveValidationListener implements IValidationListener {
 	private static void addClientContextIDs(IConfigurationElement[] configs) {
 		synchronized (clientContextsLock) {
 			// copy on write
-			Set<String> registeredIds = new java.util.HashSet<String>(registeredClientContextIds);
+			Set<String> registeredIds = new java.util.HashSet<>(registeredClientContextIds);
 
 			for (IConfigurationElement next : configs) {
 				registeredIds.add(next.getAttribute(A_ID));
@@ -164,7 +167,7 @@ public class LiveValidationListener implements IValidationListener {
 	/**
 	 * Displays any problem messages from live validation on the output view. If
 	 * there are any messages, the view is brought forth (if it is open).
-	 * 
+	 *
 	 * @param event the live validation occurred event
 	 */
 	private void showProblemMessages(ValidationEvent event) {
@@ -211,7 +214,7 @@ public class LiveValidationListener implements IValidationListener {
 	/**
 	 * Shows the specified <code>status</code>'s children in the "Details" area of
 	 * an information dialog.
-	 * 
+	 *
 	 * @param event the live validation occurred event
 	 */
 	private void showLiveValidationDialog(final ValidationEvent event) {
@@ -267,7 +270,7 @@ public class LiveValidationListener implements IValidationListener {
 	/**
 	 * Composes the string message to display based on the count of the various
 	 * types of problems in the <code>status</code>.
-	 * 
+	 *
 	 * @param event the live validation occurred event
 	 * @return A formulated message string.
 	 */
@@ -282,7 +285,7 @@ public class LiveValidationListener implements IValidationListener {
 	/**
 	 * Obtains the first in an array of <code>statuses</code> that has the specified
 	 * <code>severity</code>.
-	 * 
+	 *
 	 * @param statuses an array of statuses. Must not be <code>null</code> or a
 	 *                 zero-length array
 	 * @param severity the severity to look for
@@ -301,7 +304,7 @@ public class LiveValidationListener implements IValidationListener {
 
 	/**
 	 * Converts a validation event to an array of statuses.
-	 * 
+	 *
 	 * @param event the validation event
 	 * @return its validation results, as a status array
 	 */
@@ -313,7 +316,7 @@ public class LiveValidationListener implements IValidationListener {
 
 	/**
 	 * Accessor for my helpful output utility.
-	 * 
+	 *
 	 * @return my output utility
 	 */
 	private OutputUtility getOutputUtility() {
@@ -336,7 +339,7 @@ public class LiveValidationListener implements IValidationListener {
 		/**
 		 * Appends the problems contained within the specified <code>status</code>
 		 * collection to the specified <code>output</code> buffer.
-		 * 
+		 *
 		 * @param event  the live validation occurred event
 		 * @param output the output
 		 */
@@ -355,7 +358,7 @@ public class LiveValidationListener implements IValidationListener {
 		/**
 		 * Queries whether any errors were found in the last processing of validation
 		 * status.
-		 * 
+		 *
 		 * @return whether any errors were found
 		 */
 		boolean hasErrors() {
@@ -365,7 +368,7 @@ public class LiveValidationListener implements IValidationListener {
 		/**
 		 * Queries whether any problems were found in the last processing of validation
 		 * status.
-		 * 
+		 *
 		 * @return whether any problems (errors or warnings) were found
 		 */
 		boolean hasProblems() {
@@ -416,7 +419,7 @@ public class LiveValidationListener implements IValidationListener {
 
 		/**
 		 * Initializes me.
-		 * 
+		 *
 		 * @param parentShell my parent window
 		 * @param dialogTitle my title
 		 * @param message     my error message
@@ -431,7 +434,7 @@ public class LiveValidationListener implements IValidationListener {
 		/**
 		 * Add a check-box below the message to allow the user to prevent recurrence of
 		 * this dialog, if it is being shown for warnings only.
-		 * 
+		 *
 		 * @param composite The composite to parent from.
 		 * @return <code>composite</code>
 		 */

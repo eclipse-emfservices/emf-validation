@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    SAP AG - Bug 240352
  ****************************************************************************/
 
@@ -41,7 +41,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * <p>
  * This class is not intended to be used outside of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class JavaConstraintParser implements IParameterizedConstraintParser, IXmlConstraintParser {
@@ -51,7 +51,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 	 * single-instance model of {@link AbstractModelConstraint} any class
 	 * implementing one or more ad hoc validation method signatures.
 	 */
-	private static final Map<Class<?>, Object> constraintImplementationMap = new java.util.HashMap<Class<?>, Object>();
+	private static final Map<Class<?>, Object> constraintImplementationMap = new java.util.HashMap<>();
 
 	/**
 	 * Adapts instances of {@link AbstractModelConstraint} to the internal
@@ -72,6 +72,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			return delegate.validate(ctx);
 		}
@@ -79,6 +80,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}
@@ -92,6 +94,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 	}
 
 	// implements the interface method
+	@Override
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
 			throws ConstraintParserException {
 
@@ -108,6 +111,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 				descriptor.getParameterValue(IParameterizedConstraintDescriptor.BUNDLE_PARAMETER), descriptor);
 	}
 
+	@Override
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
 
 		String className = descriptor.getConfig().getAttribute(XmlConfig.A_CLASS);
@@ -126,7 +130,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 	/**
 	 * Helper method which creates an {@link IModelConstraint} adapter for the
 	 * specified subclass of {@link AbstractModelConstraint}.
-	 * 
+	 *
 	 * @param className  the name of a class implementing the constraint
 	 * @param bundleName the symbolic name of the bundle containing the constraint
 	 *                   class
@@ -196,7 +200,7 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 	 * appropriate validation method signature. The instances are pooled to support
 	 * the sharing of instances as described in the documentation of the
 	 * <code>AbstractModelConstraint</code> class.
-	 * 
+	 *
 	 * @param constraintClass the constraint implementation type
 	 * @return the shared instance of the <code>constraintClass</code>
 	 * @throws InstantiationException if the instance needs to be created and an

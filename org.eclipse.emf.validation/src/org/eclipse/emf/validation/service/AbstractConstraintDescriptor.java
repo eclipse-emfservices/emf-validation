@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -30,7 +30,7 @@ import org.eclipse.emf.validation.model.CategoryManager;
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractConstraintDescriptor implements IConstraintDescriptor {
-	private final Set<Category> categories = new java.util.HashSet<Category>();
+	private final Set<Category> categories = new java.util.HashSet<>();
 	private final Set<Category> unmodCategories = java.util.Collections.unmodifiableSet(categories);
 
 	private Throwable exception;
@@ -49,6 +49,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public final boolean isError() {
 		return getException() != null;
 	}
@@ -56,6 +57,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public final Throwable getException() {
 		return exception;
 	}
@@ -63,6 +65,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	/*
 	 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 	 */
+	@Override
 	public final void setError(Throwable exception) {
 		assert exception != null;
 
@@ -72,6 +75,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public final boolean isEnabled() {
 		return !isError() && enabled;
 	}
@@ -79,6 +83,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public final void setEnabled(boolean enabled) {
 		if (!enabled) {
 			// if we are trying to disable a constraint, first check that
@@ -98,7 +103,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 
 	/**
 	 * Computes whether I am mandatory, meaning that the user may not disable me.
-	 * 
+	 *
 	 * @return <code>true</code> if I am a member of any mandatory categories;
 	 *         <code>false</code>, otherwise
 	 */
@@ -114,11 +119,13 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	}
 
 	// implements the interface method
+	@Override
 	public Set<Category> getCategories() {
 		return unmodCategories;
 	}
 
 	// implements the interface method
+	@Override
 	public void addCategory(Category category) {
 		Category defaultCategory = CategoryManager.getInstance().getDefaultCategory();
 
@@ -144,6 +151,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	}
 
 	// implements the interface method
+	@Override
 	public void removeCategory(Category category) {
 		if (categories.contains(category)) {
 			categories.remove(category);
@@ -165,11 +173,13 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isBatch() {
 		return getEvaluationMode().isBatch();
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isLive() {
 		return getEvaluationMode().isLive();
 	}
@@ -187,7 +197,7 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 
 	/**
 	 * Equality is defined by equality of {@link #getId() ID}s.
-	 * 
+	 *
 	 * @see #getId()
 	 */
 	@Override

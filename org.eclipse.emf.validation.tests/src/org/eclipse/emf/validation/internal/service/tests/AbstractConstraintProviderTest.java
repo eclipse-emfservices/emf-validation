@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 
 /**
  * AbstractConstraintProviderTest
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class AbstractConstraintProviderTest extends TestCase {

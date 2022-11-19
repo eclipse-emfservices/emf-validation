@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -25,7 +25,7 @@ public interface IConstraintListener {
 	 * Notifies me that a constraint change event has taken place. The event
 	 * provides information about the constraint that has changed and the operation
 	 * that took place (registration, enablement etc.)
-	 * 
+	 *
 	 * @param event provides information about the constraint change
 	 */
 	public void constraintChanged(ConstraintChangeEvent event);

@@ -42,7 +42,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getNumber()
 	 * @generated
 	 * @ordered
@@ -52,7 +52,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getNumber()
 	 * @generated
 	 * @ordered
@@ -62,7 +62,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getStreet() <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getStreet()
 	 * @generated
 	 * @ordered
@@ -72,7 +72,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getStreet() <em>Street</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getStreet()
 	 * @generated
 	 * @ordered
@@ -82,7 +82,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getApartment() <em>Apartment</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getApartment()
 	 * @generated
 	 * @ordered
@@ -92,7 +92,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getApartment() <em>Apartment</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getApartment()
 	 * @generated
 	 * @ordered
@@ -102,7 +102,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getCity() <em>City</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCity()
 	 * @generated
 	 * @ordered
@@ -112,7 +112,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getCity() <em>City</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCity()
 	 * @generated
 	 * @ordered
@@ -122,7 +122,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getProvince() <em>Province</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProvince()
 	 * @generated
 	 * @ordered
@@ -132,7 +132,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getProvince() <em>Province</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProvince()
 	 * @generated
 	 * @ordered
@@ -142,7 +142,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getPostalCode() <em>Postal Code</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPostalCode()
 	 * @generated
 	 * @ordered
@@ -152,7 +152,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getPostalCode() <em>Postal Code</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPostalCode()
 	 * @generated
 	 * @ordered
@@ -162,7 +162,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The default value of the '{@link #getCountry() <em>Country</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCountry()
 	 * @generated
 	 * @ordered
@@ -172,7 +172,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 	/**
 	 * The cached value of the '{@link #getCountry() <em>Country</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCountry()
 	 * @generated
 	 * @ordered
@@ -181,7 +181,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected AddressImpl() {
@@ -190,7 +190,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -200,18 +200,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getNumber() {
 		return number;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setNumber(String newNumber) {
 		String oldNumber = number;
 		number = newNumber;
@@ -222,18 +224,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getStreet() {
 		return street;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setStreet(String newStreet) {
 		String oldStreet = street;
 		street = newStreet;
@@ -244,18 +248,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getApartment() {
 		return apartment;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setApartment(String newApartment) {
 		String oldApartment = apartment;
 		apartment = newApartment;
@@ -266,18 +272,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getCity() {
 		return city;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setCity(String newCity) {
 		String oldCity = city;
 		city = newCity;
@@ -287,18 +295,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getProvince() {
 		return province;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setProvince(String newProvince) {
 		String oldProvince = province;
 		province = newProvince;
@@ -309,18 +319,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getPostalCode() {
 		return postalCode;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setPostalCode(String newPostalCode) {
 		String oldPostalCode = postalCode;
 		postalCode = newPostalCode;
@@ -331,18 +343,20 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getCountry() {
 		return country;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setCountry(String newCountry) {
 		String oldCountry = country;
 		country = newCountry;
@@ -353,7 +367,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -379,7 +393,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -412,7 +426,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -445,7 +459,7 @@ public class AddressImpl extends EObjectImpl implements Address {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

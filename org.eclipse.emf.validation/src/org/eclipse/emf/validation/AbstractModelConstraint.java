@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation;
@@ -35,7 +35,7 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
  * {@link IValidationContext#getCurrentConstraintId()} method of the validation
  * context.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractModelConstraint {
@@ -70,40 +70,40 @@ public abstract class AbstractModelConstraint {
 	 * method. In these cases, also, each resulting status can store a distinct
 	 * result locus. For example:
 	 * </p>
-	 * 
+	 *
 	 * <pre>
 	 *     public IStatus validate(IValidationContext ctx) {
 	 *         List problems = new java.util.ArrayList();
-	 *         
+	 *
 	 *         // check the first condition.  This method adds results to the
 	 *         //    ctx's result locus if it finds a problem
 	 *         IStatus problem = checkFirstCondition(ctx);
 	 *         if (problem != null) problems.add(problem);
-	 *         
+	 *
 	 *         // check another condition, involving different objects
 	 *         problem = checkSecondCondition(ctx);
 	 *         if (problem != null) problems.add(problem);
-	 *         
+	 *
 	 *         return problems.isEmpty()? ctx.createSuccessStatus() :
 	 *             ConstraintStatus.createMultiStatus(ctx, problems);
 	 *     }
-	 *     
+	 *
 	 *     private IStatus checkFirstCondition(IValidationContext ctx) {
 	 *         EObject target = ctx.getTarget();
-	 *         
+	 *
 	 *         Collection problemElements = ...; // collect problem elements
 	 *         boolean ok = ... ;  // check the target and some related objects
-	 *         
+	 *
 	 *         return ok? null : ConstraintStatus.createStatus(
 	 *                 ctx,
 	 *                 problemElements,
 	 *                 "Problem with {0}",
 	 *                 new Object[] {problemElements});
 	 *     }
-	 *     
+	 *
 	 *     private IStatus checkSecondCondition(IValidationContext ctx) ...
 	 * </pre>
-	 * 
+	 *
 	 * @param ctx the validation context that provides access to the current
 	 *            constraint evaluation environment. The framework will never pass a
 	 *            <code>null</code> value
@@ -111,7 +111,7 @@ public abstract class AbstractModelConstraint {
 	 *         {@link IStatus#getSeverity()} of the record is either
 	 *         {@link IStatus#OK} to indicate success, or some other value to
 	 *         indicate that validation failed. Must not return <code>null</code>
-	 * 
+	 *
 	 * @see IValidationContext#createSuccessStatus()
 	 * @see IValidationContext#createFailureStatus(Object...)
 	 * @see ConstraintStatus#createStatus(IValidationContext, java.util.Collection,

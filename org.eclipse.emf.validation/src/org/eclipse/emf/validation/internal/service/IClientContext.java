@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -22,20 +22,20 @@ import org.eclipse.emf.validation.model.IModelConstraint;
  * This interface is not intended to be implemented outside of the validation
  * framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus
  */
 public interface IClientContext {
 	/**
 	 * Obtains the context ID defined by the client.
-	 * 
+	 *
 	 * @return my context ID
 	 */
 	String getId();
 
 	/**
 	 * Obtains the selector that matches determines the elements belong to me.
-	 * 
+	 *
 	 * @return my selector
 	 */
 	IClientSelector getSelector();
@@ -44,14 +44,14 @@ public interface IClientContext {
 	 * Queries whether I am a default client context. A default client context is
 	 * implicitly bound to constraints that have no explicit bindings (even to other
 	 * default contexts).
-	 * 
+	 *
 	 * @return whether I am a default context
 	 */
 	boolean isDefault();
 
 	/**
 	 * Queries whether I am bound to the specified <code>constraint</code>.
-	 * 
+	 *
 	 * @param constraint a constraint
 	 * @return <code>true</code> if I am bound to the <code>constraint</code>;
 	 *         <code>false</code>, otherwise

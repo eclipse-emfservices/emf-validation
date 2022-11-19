@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration
  * '<em><b>Mode Enum</b></em>', and utility methods for working with them. <!--
  * end-user-doc -->
- * 
+ *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getModeEnum()
  * @model
  * @generated
@@ -31,7 +31,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * The '<em><b>Batch</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #BATCH_VALUE
 	 * @generated
 	 * @ordered
@@ -41,7 +41,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * The '<em><b>Live</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #LIVE_VALUE
 	 * @generated
 	 * @ordered
@@ -55,7 +55,7 @@ public enum ModeEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #BATCH
 	 * @model name="Batch"
 	 * @generated
@@ -70,7 +70,7 @@ public enum ModeEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #LIVE
 	 * @model name="Live"
 	 * @generated
@@ -81,7 +81,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * An array of all the '<em><b>Mode Enum</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static final ModeEnum[] VALUES_ARRAY = new ModeEnum[] { BATCH, LIVE, };
@@ -89,7 +89,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * A public read-only list of all the '<em><b>Mode Enum</b></em>' enumerators.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static final List<ModeEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -97,12 +97,11 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified literal
 	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static ModeEnum get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ModeEnum result = VALUES_ARRAY[i];
+		for (ModeEnum result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -113,12 +112,11 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified name. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static ModeEnum getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			ModeEnum result = VALUES_ARRAY[i];
+		for (ModeEnum result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -129,7 +127,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified integer
 	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static ModeEnum get(int value) {
@@ -144,21 +142,21 @@ public enum ModeEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -166,7 +164,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private ModeEnum(int value, String name, String literal) {
@@ -177,27 +175,30 @@ public enum ModeEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -205,7 +206,7 @@ public enum ModeEnum implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

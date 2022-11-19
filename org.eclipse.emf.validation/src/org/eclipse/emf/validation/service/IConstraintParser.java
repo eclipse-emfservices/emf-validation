@@ -18,9 +18,9 @@ package org.eclipse.emf.validation.service;
  * create the constraint implementations.
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @see IParameterizedConstraintParser
- * 
+ *
  * @since 1.1
  */
 public interface IConstraintParser {

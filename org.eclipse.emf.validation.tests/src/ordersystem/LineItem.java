@@ -40,7 +40,7 @@ public interface LineItem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Quantity</em>' attribute.
 	 * @see #setQuantity(int)
 	 * @see ordersystem.OrderSystemPackage#getLineItem_Quantity()
@@ -52,7 +52,7 @@ public interface LineItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.LineItem#getQuantity
 	 * <em>Quantity</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Quantity</em>' attribute.
 	 * @see #getQuantity()
 	 * @generated
@@ -67,7 +67,7 @@ public interface LineItem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Discount</em>' attribute.
 	 * @see #setDiscount(double)
 	 * @see ordersystem.OrderSystemPackage#getLineItem_Discount()
@@ -79,7 +79,7 @@ public interface LineItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.LineItem#getDiscount
 	 * <em>Discount</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Discount</em>' attribute.
 	 * @see #getDiscount()
 	 * @generated
@@ -95,7 +95,7 @@ public interface LineItem extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(Order)
 	 * @see ordersystem.OrderSystemPackage#getLineItem_Owner()
@@ -108,7 +108,7 @@ public interface LineItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.LineItem#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated
@@ -123,7 +123,7 @@ public interface LineItem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Product</em>' reference.
 	 * @see #setProduct(Product)
 	 * @see ordersystem.OrderSystemPackage#getLineItem_Product()
@@ -135,7 +135,7 @@ public interface LineItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.LineItem#getProduct
 	 * <em>Product</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Product</em>' reference.
 	 * @see #getProduct()
 	 * @generated
@@ -144,7 +144,7 @@ public interface LineItem extends EObject {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @model kind="operation"
 	 * @generated
 	 */

@@ -51,7 +51,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The default value of the '{@link #getPlacedOn() <em>Placed On</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPlacedOn()
 	 * @generated
 	 * @ordered
@@ -61,7 +61,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The cached value of the '{@link #getPlacedOn() <em>Placed On</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPlacedOn()
 	 * @generated
 	 * @ordered
@@ -71,7 +71,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The default value of the '{@link #getFilledOn() <em>Filled On</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getFilledOn()
 	 * @generated
 	 * @ordered
@@ -81,7 +81,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The cached value of the '{@link #getFilledOn() <em>Filled On</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getFilledOn()
 	 * @generated
 	 * @ordered
@@ -91,7 +91,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The default value of the '{@link #isCompleted() <em>Completed</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isCompleted()
 	 * @generated
 	 * @ordered
@@ -101,7 +101,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The cached value of the '{@link #isCompleted() <em>Completed</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isCompleted()
 	 * @generated
 	 * @ordered
@@ -111,7 +111,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -121,7 +121,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -131,7 +131,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 	/**
 	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getItem()
 	 * @generated
 	 * @ordered
@@ -140,7 +140,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected OrderImpl() {
@@ -149,7 +149,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -159,18 +159,20 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Date getPlacedOn() {
 		return placedOn;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setPlacedOn(Date newPlacedOn) {
 		Date oldPlacedOn = placedOn;
 		placedOn = newPlacedOn;
@@ -181,18 +183,20 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Date getFilledOn() {
 		return filledOn;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setFilledOn(Date newFilledOn) {
 		Date oldFilledOn = filledOn;
 		filledOn = newFilledOn;
@@ -203,18 +207,20 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isCompleted() {
 		return completed;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setCompleted(boolean newCompleted) {
 		boolean oldCompleted = completed;
 		completed = newCompleted;
@@ -225,18 +231,20 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -246,9 +254,10 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Customer getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER)
 			return null;
@@ -257,7 +266,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(Customer newOwner, NotificationChain msgs) {
@@ -267,9 +276,10 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Customer newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
@@ -290,12 +300,13 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<LineItem> getItem() {
 		if (item == null) {
-			item = new EObjectContainmentWithInverseEList<LineItem>(LineItem.class, this,
+			item = new EObjectContainmentWithInverseEList<>(LineItem.class, this,
 					OrderSystemPackage.ORDER__ITEM, OrderSystemPackage.LINE_ITEM__OWNER);
 		}
 		return item;
@@ -303,7 +314,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -322,7 +333,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -338,7 +349,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -352,7 +363,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -376,7 +387,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -408,7 +419,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -438,7 +449,7 @@ public class OrderImpl extends EObjectImpl implements Order {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

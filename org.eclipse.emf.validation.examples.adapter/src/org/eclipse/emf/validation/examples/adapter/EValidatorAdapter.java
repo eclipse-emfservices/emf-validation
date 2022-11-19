@@ -97,7 +97,7 @@ public class EValidatorAdapter extends EObjectValidator {
 	/**
 	 * If we have a context map, record this object's <code>status</code> in it so
 	 * that we will know later that we have processed it and its sub-tree.
-	 * 
+	 *
 	 * @param eObject an element that we have validated
 	 * @param context the context (may be <code>null</code>)
 	 * @param status  the element's validation status
@@ -112,7 +112,7 @@ public class EValidatorAdapter extends EObjectValidator {
 	 * Determines whether we have processed this <code>eObject</code> before, by
 	 * automatic recursion of the EMF Model Validation Service. This is only
 	 * possible if we do, indeed, have a context.
-	 * 
+	 *
 	 * @param eObject an element to be validated (we hope not)
 	 * @param context the context (may be <code>null</code>)
 	 * @return <code>true</code> if the context is not <code>null</code> and the
@@ -139,7 +139,7 @@ public class EValidatorAdapter extends EObjectValidator {
 
 	/**
 	 * Converts a status result from the EMF validation service to diagnostics.
-	 * 
+	 *
 	 * @param status      the EMF validation service's status result
 	 * @param diagnostics a diagnostic chain to accumulate results on
 	 */

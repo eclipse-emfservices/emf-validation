@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -42,7 +42,7 @@ public interface ClientContext extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getClientContext_Id()
@@ -55,7 +55,7 @@ public interface ClientContext extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId
 	 * <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
@@ -70,7 +70,7 @@ public interface ClientContext extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Default</em>' attribute.
 	 * @see #setDefault(boolean)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getClientContext_Default()
@@ -83,7 +83,7 @@ public interface ClientContext extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault
 	 * <em>Default</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Default</em>' attribute.
 	 * @see #isDefault()
 	 * @generated

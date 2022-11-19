@@ -51,7 +51,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The default value of the '{@link #getInStock() <em>In Stock</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getInStock()
 	 * @generated
 	 * @ordered
@@ -61,7 +61,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The cached value of the '{@link #getInStock() <em>In Stock</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getInStock()
 	 * @generated
 	 * @ordered
@@ -71,7 +71,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The default value of the '{@link #getRestockThreshold() <em>Restock
 	 * Threshold</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getRestockThreshold()
 	 * @generated
 	 * @ordered
@@ -81,7 +81,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The cached value of the '{@link #getRestockThreshold() <em>Restock
 	 * Threshold</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getRestockThreshold()
 	 * @generated
 	 * @ordered
@@ -91,7 +91,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The default value of the '{@link #getNextStockDate() <em>Next Stock
 	 * Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getNextStockDate()
 	 * @generated
 	 * @ordered
@@ -101,7 +101,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The cached value of the '{@link #getNextStockDate() <em>Next Stock
 	 * Date</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getNextStockDate()
 	 * @generated
 	 * @ordered
@@ -111,7 +111,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 	/**
 	 * The cached value of the '{@link #getProduct() <em>Product</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProduct()
 	 * @generated
 	 * @ordered
@@ -120,7 +120,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected InventoryItemImpl() {
@@ -129,7 +129,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -139,18 +139,20 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getInStock() {
 		return inStock;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setInStock(int newInStock) {
 		int oldInStock = inStock;
 		inStock = newInStock;
@@ -161,18 +163,20 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getRestockThreshold() {
 		return restockThreshold;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setRestockThreshold(int newRestockThreshold) {
 		int oldRestockThreshold = restockThreshold;
 		restockThreshold = newRestockThreshold;
@@ -183,18 +187,20 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Date getNextStockDate() {
 		return nextStockDate;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setNextStockDate(Date newNextStockDate) {
 		Date oldNextStockDate = nextStockDate;
 		nextStockDate = newNextStockDate;
@@ -205,9 +211,10 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Warehouse getWarehouse() {
 		if (eContainerFeatureID() != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE)
 			return null;
@@ -216,7 +223,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetWarehouse(Warehouse newWarehouse, NotificationChain msgs) {
@@ -226,9 +233,10 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setWarehouse(Warehouse newWarehouse) {
 		if (newWarehouse != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE && newWarehouse != null)) {
@@ -250,9 +258,10 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Product getProduct() {
 		if (product != null && product.eIsProxy()) {
 			InternalEObject oldProduct = (InternalEObject) product;
@@ -268,7 +277,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public Product basicGetProduct() {
@@ -277,9 +286,10 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setProduct(Product newProduct) {
 		Product oldProduct = product;
 		product = newProduct;
@@ -290,7 +300,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -306,7 +316,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -320,7 +330,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -334,7 +344,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -358,7 +368,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -385,7 +395,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -412,7 +422,7 @@ public class InventoryItemImpl extends EObjectImpl implements InventoryItem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

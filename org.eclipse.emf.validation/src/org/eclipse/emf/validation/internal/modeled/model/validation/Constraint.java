@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -62,7 +62,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Id()
@@ -75,7 +75,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getId
 	 * <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
@@ -90,7 +90,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Name()
@@ -103,7 +103,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getName
 	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
@@ -120,7 +120,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Severity</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * @see #setSeverity(SeverityEnum)
@@ -134,7 +134,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getSeverity
 	 * <em>Severity</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Severity</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.SeverityEnum
 	 * @see #getSeverity()
@@ -150,7 +150,7 @@ public interface Constraint extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Status Code</em>' attribute.
 	 * @see #setStatusCode(int)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_StatusCode()
@@ -164,7 +164,7 @@ public interface Constraint extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getStatusCode
 	 * <em>Status Code</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Status Code</em>' attribute.
 	 * @see #getStatusCode()
 	 * @generated
@@ -179,7 +179,7 @@ public interface Constraint extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Class Name</em>' attribute.
 	 * @see #setClassName(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_ClassName()
@@ -193,7 +193,7 @@ public interface Constraint extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getClassName
 	 * <em>Class Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Class Name</em>' attribute.
 	 * @see #getClassName()
 	 * @generated
@@ -210,7 +210,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Mode</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @see #setMode(ModeEnum)
@@ -224,7 +224,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMode
 	 * <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Mode</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @see #getMode()
@@ -240,7 +240,7 @@ public interface Constraint extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Is Enabled By Default</em>' attribute.
 	 * @see #setIsEnabledByDefault(boolean)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_IsEnabledByDefault()
@@ -254,7 +254,7 @@ public interface Constraint extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#isIsEnabledByDefault
 	 * <em>Is Enabled By Default</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Is Enabled By Default</em>' attribute.
 	 * @see #isIsEnabledByDefault()
 	 * @generated
@@ -269,7 +269,7 @@ public interface Constraint extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Description()
@@ -283,7 +283,7 @@ public interface Constraint extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getDescription
 	 * <em>Description</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Description</em>' attribute.
 	 * @see #getDescription()
 	 * @generated
@@ -298,7 +298,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Message</em>' attribute.
 	 * @see #setMessage(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Message()
@@ -311,7 +311,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getMessage
 	 * <em>Message</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Message</em>' attribute.
 	 * @see #getMessage()
 	 * @generated
@@ -327,7 +327,7 @@ public interface Constraint extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Parameters</em>' map.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Parameters()
 	 * @model mapType="org.eclipse.emf.validation.internal.modeled.model.validation.Parameter<org.eclipse.emf.ecore.EString,
@@ -344,7 +344,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(Target)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Target()
@@ -357,7 +357,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getTarget
 	 * <em>Target</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Target</em>' reference.
 	 * @see #getTarget()
 	 * @generated
@@ -372,7 +372,7 @@ public interface Constraint extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Lang</em>' attribute.
 	 * @see #setLang(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraint_Lang()
@@ -385,7 +385,7 @@ public interface Constraint extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint#getLang
 	 * <em>Lang</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Lang</em>' attribute.
 	 * @see #getLang()
 	 * @generated

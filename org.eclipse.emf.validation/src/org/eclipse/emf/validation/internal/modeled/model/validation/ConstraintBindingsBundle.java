@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -44,7 +44,7 @@ public interface ConstraintBindingsBundle extends EObject {
 	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Client Contexts</em>' containment reference
 	 *         list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintBindingsBundle_ClientContexts()
@@ -63,7 +63,7 @@ public interface ConstraintBindingsBundle extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Bindings</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintBindingsBundle_Bindings()
 	 * @model containment="true"

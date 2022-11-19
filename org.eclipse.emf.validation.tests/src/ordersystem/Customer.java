@@ -42,7 +42,7 @@ public interface Customer extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Last Name</em>' attribute.
 	 * @see #setLastName(String)
 	 * @see ordersystem.OrderSystemPackage#getCustomer_LastName()
@@ -54,7 +54,7 @@ public interface Customer extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Customer#getLastName <em>Last
 	 * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Last Name</em>' attribute.
 	 * @see #getLastName()
 	 * @generated
@@ -69,7 +69,7 @@ public interface Customer extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>First Name</em>' attribute.
 	 * @see #setFirstName(String)
 	 * @see ordersystem.OrderSystemPackage#getCustomer_FirstName()
@@ -81,7 +81,7 @@ public interface Customer extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Customer#getFirstName <em>First
 	 * Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>First Name</em>' attribute.
 	 * @see #getFirstName()
 	 * @generated
@@ -97,7 +97,7 @@ public interface Customer extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(OrderSystem)
 	 * @see ordersystem.OrderSystemPackage#getCustomer_Owner()
@@ -110,7 +110,7 @@ public interface Customer extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Customer#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated
@@ -127,7 +127,7 @@ public interface Customer extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Account</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getCustomer_Account()
 	 * @see ordersystem.Account#getOwner
@@ -146,7 +146,7 @@ public interface Customer extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Order</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getCustomer_Order()
 	 * @see ordersystem.Order#getOwner

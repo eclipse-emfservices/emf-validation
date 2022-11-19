@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -36,10 +36,10 @@ import org.eclipse.emf.validation.model.IModelConstraint;
  * {@link org.eclipse.emf.validation.xml.XmlConstraintProvider} provides all of
  * the required behaviour.
  * </p>
- * 
+ *
  * @see org.eclipse.emf.validation.xml.XmlConstraintProvider
  * @see org.eclipse.emf.validation.service.ModelValidationService
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public interface IModelConstraintProvider {
@@ -50,7 +50,7 @@ public interface IModelConstraintProvider {
 	 * <P>
 	 * Clients typically should invoke this method on the service with a
 	 * <CODE>null</CODE> value for the <CODE>constraints</CODE> collector parameter.
-	 * 
+	 *
 	 * @param eObject     the {@link EObject} for which constraints are to be
 	 *                    obtained that can be applied to it
 	 * @param constraints a <em>collector</em> parameter to which I will add any
@@ -71,7 +71,7 @@ public interface IModelConstraintProvider {
 	 * <P>
 	 * Clients typically should invoke this method on the service with a
 	 * <CODE>null</CODE> value for the <CODE>constraints</CODE> collector parameter.
-	 * 
+	 *
 	 * @param notification the EMF notification that is to be validated.
 	 *                     Encapsulates the object and the particular change
 	 * @param constraints  a <em>collector</em> parameter to which I will add any

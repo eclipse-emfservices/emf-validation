@@ -21,9 +21,9 @@ package org.eclipse.emf.validation.service;
  * information in the <tt>org.eclipse.emf.validation.constraintProviders</tt>
  * extension point schema <tt>&lt;constraint&gt;</tt> element.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @since 1.1
  */
 public interface IParameterizedConstraintDescriptor extends IConstraintDescriptor {
@@ -48,7 +48,7 @@ public interface IParameterizedConstraintDescriptor extends IConstraintDescripto
 	 * Queries the "constraint language" of the described constraint, which
 	 * indicates the constraint parser that can construct the constraint from this
 	 * descriptor.
-	 * 
+	 *
 	 * @return the constraint language (must not be <code>null</code>)
 	 */
 	String getLanguage();
@@ -57,7 +57,7 @@ public interface IParameterizedConstraintDescriptor extends IConstraintDescripto
 	 * Obtains the value of the specified named parameter, as a string. In the case
 	 * that a value is not available, the constraint parser must decide whether to
 	 * substitute an implicit (default) value or disable the constraint.
-	 * 
+	 *
 	 * @param name the parameter name
 	 * @return the corresponding value, or <code>null</code> if no value is
 	 *         specified for this parameter

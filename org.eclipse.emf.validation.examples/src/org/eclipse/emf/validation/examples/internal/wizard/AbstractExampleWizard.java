@@ -76,7 +76,7 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 		 * bundle at the given location within that bundle. Also provided is the project
 		 * name for which the zip is the contents. Note that this project name should be
 		 * the same as is in the contents not some alternative name.
-		 * 
+		 *
 		 * @param bundleName  The bundle in the runtime that contains the zipped up
 		 *                    project contents.
 		 * @param zipLocation The location within the bundle where the zip file is
@@ -110,6 +110,7 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 
 		try {
 			getContainer().run(true, false, new IRunnableWithProgress() {
+				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
 					WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
@@ -144,7 +145,7 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 	 * should be unzipped into the workspace. Note that any projects that already
 	 * exist in the workspace will not be overwritten as they may contain changes
 	 * made by the user.
-	 * 
+	 *
 	 * @return The collection of project descriptors that should be unzipped into
 	 *         the workspace.
 	 */
@@ -181,13 +182,13 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 				File file = new File(project.getLocation().toString(),
 						zipEntry.getName().replaceFirst("^" + regexedProjectName + "/", "")); //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 
-				if (false == zipEntry.isDirectory()) {
+				if (!zipEntry.isDirectory()) {
 
 					/*
 					 * Copy files (and make sure parent directory exist)
 					 */
 					File parentFile = file.getParentFile();
-					if (null != parentFile && false == parentFile.exists()) {
+					if (null != parentFile && !parentFile.exists()) {
 						parentFile.mkdirs();
 					}
 
@@ -197,7 +198,7 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 					 * Path path = new Path(file.getPath()); if
 					 * (path.getFileExtension().equals("java")) { //$NON-NLS-1$ InputStreamReader is
 					 * = null; OutputStreamWriter os = null;
-					 * 
+					 *
 					 * try { is = new InputStreamReader(zipFileStream, "ISO-8859-1"); //$NON-NLS-1$
 					 * os = new OutputStreamWriter(new FileOutputStream(file),
 					 * ResourcesPlugin.getEncoding()); char[] buffer = new char[102400]; while
@@ -244,6 +245,7 @@ public abstract class AbstractExampleWizard extends Wizard implements INewWizard
 		}
 	}
 
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		// No code is necessary.
 	}

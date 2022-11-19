@@ -5,7 +5,7 @@
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *   Zeligsoft - Initial API and implementation
  */
@@ -30,9 +30,9 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 /**
  * A marker status indicating a {@link Resource} covered by a validation
  * operation.
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @since 1.3
  */
 public final class ResourceStatus extends ConstraintStatus {
@@ -41,55 +41,68 @@ public final class ResourceStatus extends ConstraintStatus {
 
 		private final IConstraintDescriptor descriptor = new AbstractConstraintDescriptor() {
 
+			@Override
 			public boolean targetsTypeOf(EObject object) {
 				return false;
 			}
 
+			@Override
 			public boolean targetsEvent(Notification notification) {
 				return false;
 			}
 
+			@Override
 			public int getStatusCode() {
 				return 0;
 			}
 
+			@Override
 			public ConstraintSeverity getSeverity() {
 				return ConstraintSeverity.INFO;
 			}
 
+			@Override
 			public String getPluginId() {
 				return EMFModelValidationPlugin.getPluginId();
 			}
 
+			@Override
 			public String getName() {
 				return ""; //$NON-NLS-1$
 			}
 
+			@Override
 			public String getMessagePattern() {
 				return ""; //$NON-NLS-1$
 			}
 
+			@Override
 			public String getId() {
 				return getPluginId() + ".resourceMarker"; //$NON-NLS-1$
 			}
 
+			@Override
 			public EvaluationMode<?> getEvaluationMode() {
 				return EvaluationMode.BATCH;
 			}
 
+			@Override
 			public String getDescription() {
 				return null;
 			}
 
+			@Override
 			public String getBody() {
 				return null;
 			}
 		};
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			return ctx.createSuccessStatus();
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}
@@ -97,7 +110,7 @@ public final class ResourceStatus extends ConstraintStatus {
 
 	/**
 	 * Initializes me with my resource.
-	 * 
+	 *
 	 * @param resource a resource covered by the validation operation
 	 */
 	public ResourceStatus(EObject root) {

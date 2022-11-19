@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
@@ -20,7 +20,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * used by
  * {@linkplain org.eclipse.emf.validation.service.IModelConstraintProvider
  * constraint providers} in order to provide live/batch validation constraints.
- * 
+ *
  * @author Chris McGee (cmcgee)
  */
 public abstract class ModelConstraint implements IModelConstraint {
@@ -29,7 +29,7 @@ public abstract class ModelConstraint implements IModelConstraint {
 
 	/**
 	 * Constructs me with the provided non-null constraint descriptor.
-	 * 
+	 *
 	 * @param descriptor A non-null constraint descriptor that describes this model
 	 *                   constraint.
 	 */
@@ -39,6 +39,7 @@ public abstract class ModelConstraint implements IModelConstraint {
 		this.descriptor = descriptor;
 	}
 
+	@Override
 	public final IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}

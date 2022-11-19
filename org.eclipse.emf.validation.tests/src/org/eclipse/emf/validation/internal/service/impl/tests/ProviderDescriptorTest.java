@@ -43,7 +43,7 @@ public class ProviderDescriptorTest extends TestBase {
 
 	/**
 	 * Constructor for ProviderDescriptorTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public ProviderDescriptorTest(String name) {
@@ -155,6 +155,7 @@ public class ProviderDescriptorTest extends TestBase {
 			final CyclicBarrier barrier = new CyclicBarrier(2);
 
 			Runnable run = new Runnable() {
+				@Override
 				public void run() {
 					try {
 						barrier.await();

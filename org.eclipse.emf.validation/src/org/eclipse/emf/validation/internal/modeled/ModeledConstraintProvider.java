@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled;
 
@@ -32,10 +32,10 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * {@link org.eclipse.emf.validation.service.IModelConstraintProvider} interface
  * binding instances of the validation meta-model to the validation framework.
  * </p>
- * 
+ *
  * @author Boris Gruschko
  * @since 1.4
- * 
+ *
  */
 public class ModeledConstraintProvider implements IModelConstraintProvider {
 
@@ -50,13 +50,14 @@ public class ModeledConstraintProvider implements IModelConstraintProvider {
 		this.provider = provider;
 	}
 
+	@Override
 	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> ret) {
 		if (ret == null) {
-			ret = new ArrayList<IModelConstraint>();
+			ret = new ArrayList<>();
 		}
 
 		if (constraints == null) {
-			constraints = new ArrayList<IModelConstraint>(provider.getConstraints().size());
+			constraints = new ArrayList<>(provider.getConstraints().size());
 			ConstraintFactory factory = ConstraintFactory.getInstance();
 
 			for (Constraints cons : provider.getConstraints()) {
@@ -78,6 +79,7 @@ public class ModeledConstraintProvider implements IModelConstraintProvider {
 		return ret;
 	}
 
+	@Override
 	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 			Collection<IModelConstraint> constraints) {
 		// TODO implement live constraints

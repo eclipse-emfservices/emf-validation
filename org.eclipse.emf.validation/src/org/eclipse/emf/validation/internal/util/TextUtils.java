@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -59,7 +59,7 @@ public class TextUtils {
 	 * Obtains a textual representation of the specified model element, as for
 	 * display in error messages. If no suitable factory is registered, then the EMF
 	 * reflective item provider is used.
-	 * 
+	 *
 	 * @param eObject the model element for which to get text
 	 * @return the corresponding text
 	 */
@@ -93,7 +93,7 @@ public class TextUtils {
 	 * multiple disjoint metamodels may be registered, that adapt different kinds of
 	 * objects to the same types. This method will try them all until it either gets
 	 * a successful adaptation or runs out of factories.
-	 * 
+	 *
 	 * @param eObject the model element to adapt
 	 * @param type    indicates the type of adapter to obtain
 	 * @return the available registered adapter, or <code>null</code> if no suitable
@@ -130,11 +130,11 @@ public class TextUtils {
 
 	/**
 	 * Applies the specified arguments to my message pattern.
-	 * 
+	 *
 	 * @param messagePattern the message pattern
 	 * @param inputArg       the pattern arguments
 	 * @return the formatted message string
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	public static String formatMessage(String messagePattern, Object... inputArg) {
@@ -160,12 +160,12 @@ public class TextUtils {
 	/**
 	 * Helper method which converts multiple objects into a list as prescribed by
 	 * locale-specific conventions.
-	 * 
+	 *
 	 * @param multiValuedArg the multiple objects
 	 * @return the string representation of the list
 	 */
 	private static String formatMultiValue(Collection<?> multiValuedArg) {
-		List<Object> args = new java.util.ArrayList<Object>(multiValuedArg);
+		List<Object> args = new java.util.ArrayList<>(multiValuedArg);
 
 		for (ListIterator<Object> iter = args.listIterator(); iter.hasNext();) {
 			iter.set(formatScalarValue(iter.next()));
@@ -178,7 +178,7 @@ public class TextUtils {
 	 * Helper method which converts a single object to a string. Model objects are
 	 * represented by their names, other objects by their default string
 	 * representation.
-	 * 
+	 *
 	 * @param value the object to convert
 	 * @return the string conversion
 	 */

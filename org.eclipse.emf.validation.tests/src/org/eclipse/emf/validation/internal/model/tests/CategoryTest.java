@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 /**
  * Tests the basic functionality of the {@link CategoryManager} and
  * {@link Category} classes.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class CategoryTest extends TestCase {
@@ -136,7 +136,7 @@ public class CategoryTest extends TestCase {
 
 	/**
 	 * Dumps a category to stdout.
-	 * 
+	 *
 	 * @param category the category
 	 */
 	private void dumpCategory(Category category) {

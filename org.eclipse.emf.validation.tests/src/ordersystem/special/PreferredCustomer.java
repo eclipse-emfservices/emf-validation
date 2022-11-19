@@ -40,7 +40,7 @@ public interface PreferredCustomer extends Customer {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Since</em>' attribute.
 	 * @see #setSince(Date)
 	 * @see ordersystem.special.SpecialPackage#getPreferredCustomer_Since()
@@ -52,7 +52,7 @@ public interface PreferredCustomer extends Customer {
 	/**
 	 * Sets the value of the '{@link ordersystem.special.PreferredCustomer#getSince
 	 * <em>Since</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Since</em>' attribute.
 	 * @see #getSince()
 	 * @generated

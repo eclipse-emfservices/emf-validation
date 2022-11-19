@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for {@link StringMatcher} class, to test the adoption of ICU4J.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class StringMatcherTest extends TestCase {

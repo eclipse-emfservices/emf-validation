@@ -42,7 +42,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -52,7 +52,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -62,7 +62,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The default value of the '{@link #getSku() <em>Sku</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSku()
 	 * @generated
 	 * @ordered
@@ -72,7 +72,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The cached value of the '{@link #getSku() <em>Sku</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSku()
 	 * @generated
 	 * @ordered
@@ -82,7 +82,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The default value of the '{@link #getPrice() <em>Price</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPrice()
 	 * @generated
 	 * @ordered
@@ -92,7 +92,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 	/**
 	 * The cached value of the '{@link #getPrice() <em>Price</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPrice()
 	 * @generated
 	 * @ordered
@@ -101,7 +101,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ProductImpl() {
@@ -110,7 +110,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -120,18 +120,20 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -141,18 +143,20 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getSku() {
 		return sku;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setSku(String newSku) {
 		String oldSku = sku;
 		sku = newSku;
@@ -162,18 +166,20 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public double getPrice() {
 		return price;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setPrice(double newPrice) {
 		double oldPrice = price;
 		price = newPrice;
@@ -183,9 +189,10 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OrderSystem getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.PRODUCT__OWNER)
 			return null;
@@ -194,7 +201,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(OrderSystem newOwner, NotificationChain msgs) {
@@ -204,9 +211,10 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(OrderSystem newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.PRODUCT__OWNER && newOwner != null)) {
@@ -228,7 +236,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -244,7 +252,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -258,7 +266,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -273,7 +281,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -293,7 +301,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -317,7 +325,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -341,7 +349,7 @@ public class ProductImpl extends EObjectImpl implements Product {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

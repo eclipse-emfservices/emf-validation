@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -49,7 +49,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 	/**
 	 * The cached value of the '{@link #getClientContexts() <em>Client
 	 * Contexts</em>}' reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClientContexts()
 	 * @generated
 	 * @ordered
@@ -59,7 +59,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 	/**
 	 * The cached value of the '{@link #getConstraints() <em>Constraints</em>}'
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getConstraints()
 	 * @generated
 	 * @ordered
@@ -70,7 +70,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 	 * The cached value of the '{@link #getExcludedConstraints() <em>Excluded
 	 * Constraints</em>}' reference list. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see #getExcludedConstraints()
 	 * @generated
 	 * @ordered
@@ -80,7 +80,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 	/**
 	 * The cached value of the '{@link #getCategories() <em>Categories</em>}'
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCategories()
 	 * @generated
 	 * @ordered
@@ -91,7 +91,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 	 * The cached value of the '{@link #getExcludedCategories() <em>Excluded
 	 * Categories</em>}' reference list. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see #getExcludedCategories()
 	 * @generated
 	 * @ordered
@@ -100,7 +100,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected BindingImpl() {
@@ -109,7 +109,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -119,12 +119,13 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<ClientContext> getClientContexts() {
 		if (clientContexts == null) {
-			clientContexts = new EObjectResolvingEList<ClientContext>(ClientContext.class, this,
+			clientContexts = new EObjectResolvingEList<>(ClientContext.class, this,
 					ValidationPackage.BINDING__CLIENT_CONTEXTS);
 		}
 		return clientContexts;
@@ -132,12 +133,13 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Constraint> getConstraints() {
 		if (constraints == null) {
-			constraints = new EObjectResolvingEList<Constraint>(Constraint.class, this,
+			constraints = new EObjectResolvingEList<>(Constraint.class, this,
 					ValidationPackage.BINDING__CONSTRAINTS);
 		}
 		return constraints;
@@ -145,12 +147,13 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Constraint> getExcludedConstraints() {
 		if (excludedConstraints == null) {
-			excludedConstraints = new EObjectResolvingEList<Constraint>(Constraint.class, this,
+			excludedConstraints = new EObjectResolvingEList<>(Constraint.class, this,
 					ValidationPackage.BINDING__EXCLUDED_CONSTRAINTS);
 		}
 		return excludedConstraints;
@@ -158,12 +161,13 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Category> getCategories() {
 		if (categories == null) {
-			categories = new EObjectResolvingEList<Category>(Category.class, this,
+			categories = new EObjectResolvingEList<>(Category.class, this,
 					ValidationPackage.BINDING__CATEGORIES);
 		}
 		return categories;
@@ -171,12 +175,13 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Category> getExcludedCategories() {
 		if (excludedCategories == null) {
-			excludedCategories = new EObjectResolvingEList<Category>(Category.class, this,
+			excludedCategories = new EObjectResolvingEList<>(Category.class, this,
 					ValidationPackage.BINDING__EXCLUDED_CATEGORIES);
 		}
 		return excludedCategories;
@@ -184,7 +189,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -206,7 +211,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -239,7 +244,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -266,7 +271,7 @@ public class BindingImpl extends EObjectImpl implements Binding {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

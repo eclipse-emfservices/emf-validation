@@ -39,7 +39,7 @@ import ordersystem.OrderSystemFactory;
  * constraint providers.
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @since 1.1
  */
 public class ParameterizedConstraintParserTest extends TestBase {
@@ -146,6 +146,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 	public static final class Parser implements IParameterizedConstraintParser {
 
+		@Override
 		public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
 				throws ConstraintParserException {
 			return new Constraint(descriptor, descriptor.getParameterValue(TEST_PARAMETER));
@@ -164,10 +165,12 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			this.errorMessage = errorMessage;
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			assertTrue(ctx.getTarget() instanceof Order);
 
@@ -207,10 +210,12 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			addCategory(CategoryManager.getInstance().findCategory("junit/validation")); //$NON-NLS-1$
 		}
 
+		@Override
 		public String getLanguage() {
 			return lang;
 		}
 
+		@Override
 		public String getParameterValue(String name) {
 			if (TEST_PARAMETER.equals(name)) {
 				return TEST_VALUE;
@@ -223,46 +228,57 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			return null;
 		}
 
+		@Override
 		public String getBody() {
 			return null;
 		}
 
+		@Override
 		public String getDescription() {
 			return "Test constraint"; //$NON-NLS-1$
 		}
 
+		@Override
 		public EvaluationMode<?> getEvaluationMode() {
 			return EvaluationMode.BATCH;
 		}
 
+		@Override
 		public String getId() {
 			return id;
 		}
 
+		@Override
 		public String getMessagePattern() {
 			return "{0}"; //$NON-NLS-1$
 		}
 
+		@Override
 		public String getName() {
 			return "test constraint"; //$NON-NLS-1$
 		}
 
+		@Override
 		public String getPluginId() {
 			return "org.eclipse.emf.validation.tests"; //$NON-NLS-1$
 		}
 
+		@Override
 		public ConstraintSeverity getSeverity() {
 			return ConstraintSeverity.WARNING;
 		}
 
+		@Override
 		public int getStatusCode() {
 			return 1;
 		}
 
+		@Override
 		public boolean targetsEvent(Notification notification) {
 			return notification.getNotifier() instanceof Order;
 		}
 
+		@Override
 		public boolean targetsTypeOf(EObject eObject) {
 			return eObject instanceof Order;
 		}

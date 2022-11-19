@@ -34,13 +34,13 @@ import org.eclipse.jface.viewers.CheckStateChangedEvent;
  * have constraints assigned to them, the tree delegates the constraints to a
  * fabricated child node that is a leaf. This provides separate control of the
  * category hierarchy from the enablement of the constraints in the category.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public interface ICategoryTreeNode {
 	/**
 	 * Obtains the description of the category, to show in the GUI.
-	 * 
+	 *
 	 * @return the description of the category that I represent
 	 */
 	String getDescription();
@@ -53,7 +53,7 @@ public interface ICategoryTreeNode {
 	 * <li>if I am not a leaf node, then at least one of my descendents is checked
 	 * (recursively)</li>
 	 * </ul>
-	 * 
+	 *
 	 * @return whether I show a check mark in the GUI
 	 */
 	boolean isChecked();
@@ -61,21 +61,21 @@ public interface ICategoryTreeNode {
 	/**
 	 * Queries whether I am grayed. Gray state indicates that at least one of my
 	 * descendents or constraints is checked and at least one is not.
-	 * 
+	 *
 	 * @return whether I am shown as a gray check mark in the GUI
 	 */
 	boolean isGrayed();
 
 	/**
 	 * Obtains my parent, if any, in the tree.
-	 * 
+	 *
 	 * @return my parent, or <code>null</code> if I am the root node
 	 */
 	ICategoryTreeNode getParent();
 
 	/**
 	 * Queries whether I have children.
-	 * 
+	 *
 	 * @return <code>true</code> if I have children; <code>false</code> if I am a
 	 *         leaf
 	 */
@@ -83,28 +83,28 @@ public interface ICategoryTreeNode {
 
 	/**
 	 * Obtains my children.
-	 * 
+	 *
 	 * @return my children, or an empty array if I am a leaf
 	 */
 	ICategoryTreeNode[] getChildren();
 
 	/**
 	 * Obtains my constraints.
-	 * 
+	 *
 	 * @return my constraints, or an empty list if I am not a leaf node
 	 */
 	List<IConstraintNode> getConstraints();
 
 	/**
 	 * Obtains the category that I represent if I am a leaf node.
-	 * 
+	 *
 	 * @return my category, or <code>null</code> if I am an internal node
 	 */
 	Category getCategory();
 
 	/**
 	 * Obtains the constraints that are selected in me, if I am a leaf node.
-	 * 
+	 *
 	 * @return my selected constraints, or <code>[]</code> if I am an internal node
 	 */
 	IConstraintNode[] getSelectedConstraints();
@@ -112,14 +112,14 @@ public interface ICategoryTreeNode {
 	/**
 	 * Causes me to transition to a new check and/or gray state, according to the
 	 * given <code>event</code>.
-	 * 
+	 *
 	 * @param event a check-state event in the GUI
 	 */
 	void checkStateChanged(CheckStateChangedEvent event);
 
 	/**
 	 * Updates my state to reflect a change in the specified <code>child</code>.
-	 * 
+	 *
 	 * @param child my changed child
 	 */
 	void updateCheckState(ICategoryTreeNode child);
@@ -127,7 +127,7 @@ public interface ICategoryTreeNode {
 	/**
 	 * Updates my state to reflect a change in the specified <code>constraint</code>
 	 * selection.
-	 * 
+	 *
 	 * @param constraint my changed constraint
 	 */
 	void updateCheckState(IConstraintNode constraint);
@@ -150,9 +150,9 @@ public interface ICategoryTreeNode {
 
 	/**
 	 * Gets the constraint filter associated with this category.
-	 * 
+	 *
 	 * @return my constraint filter
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	IConstraintFilter getFilter();

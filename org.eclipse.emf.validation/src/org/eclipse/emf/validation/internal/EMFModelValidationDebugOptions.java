@@ -7,14 +7,14 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal;
 
 /**
  * The debug options available for this plug-in.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class EMFModelValidationDebugOptions {

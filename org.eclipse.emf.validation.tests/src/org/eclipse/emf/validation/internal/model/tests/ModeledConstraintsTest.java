@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.model.tests;
 
@@ -45,11 +45,11 @@ import ordersystem.OrderSystemPackage;
  * <p>
  * Testcases for the modeled constraints.
  * </p>
- * 
+ *
  * <p>
  * This test case can be executed in the standalone mode.
  * </p>
- * 
+ *
  * @author Boris Gruschko
  *
  */
@@ -57,6 +57,7 @@ public class ModeledConstraintsTest extends TestCase {
 
 	private static boolean setup = false;
 
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
@@ -125,6 +126,7 @@ public class ModeledConstraintsTest extends TestCase {
 
 	public static class AccountClientSelector implements IClientSelector {
 
+		@Override
 		public boolean selects(Object object) {
 			return object instanceof Account;
 		}

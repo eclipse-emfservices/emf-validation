@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -22,10 +22,10 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * Encapsulates a request to get "batch" constraints for a particular validation
  * of an EMF object.
  * </p>
- * 
+ *
  * @see org.eclipse.emf.validation.service.IModelConstraintProvider
  * @see org.eclipse.emf.validation.service.ModelValidationService
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class GetBatchConstraintsOperation extends AbstractGetConstraintsOperation {
@@ -35,7 +35,7 @@ public class GetBatchConstraintsOperation extends AbstractGetConstraintsOperatio
 	/**
 	 * Initializes me with the <CODE>eObject</CODE> for which we are to get the
 	 * batch constraints.
-	 * 
+	 *
 	 * @param batchOnly whether to get only batch mode constraints
 	 *                  (<code>true</code>), or also live mode constraints
 	 *                  (<code>false</code>)
@@ -63,6 +63,7 @@ public class GetBatchConstraintsOperation extends AbstractGetConstraintsOperatio
 			}
 
 			// additionally exclude any live mode constraints
+			@Override
 			public boolean accept(IModelConstraint element) {
 				return element.getDescriptor().getEvaluationMode().isBatchOnly() && delegate.accept(element);
 			}

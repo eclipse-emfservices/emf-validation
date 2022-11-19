@@ -50,7 +50,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -60,7 +60,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -70,7 +70,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The cached value of the '{@link #getCustomer() <em>Customer</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCustomer()
 	 * @generated
 	 * @ordered
@@ -80,7 +80,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The cached value of the '{@link #getProduct() <em>Product</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProduct()
 	 * @generated
 	 * @ordered
@@ -90,7 +90,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The cached value of the '{@link #getWarehouse() <em>Warehouse</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getWarehouse()
 	 * @generated
 	 * @ordered
@@ -99,7 +99,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected OrderSystemImpl() {
@@ -108,7 +108,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -118,18 +118,20 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getVersion() {
 		return version;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setVersion(int newVersion) {
 		int oldVersion = version;
 		version = newVersion;
@@ -140,12 +142,13 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Customer> getCustomer() {
 		if (customer == null) {
-			customer = new EObjectContainmentWithInverseEList<Customer>(Customer.class, this,
+			customer = new EObjectContainmentWithInverseEList<>(Customer.class, this,
 					OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystemPackage.CUSTOMER__OWNER);
 		}
 		return customer;
@@ -153,12 +156,13 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Product> getProduct() {
 		if (product == null) {
-			product = new EObjectContainmentWithInverseEList<Product>(Product.class, this,
+			product = new EObjectContainmentWithInverseEList<>(Product.class, this,
 					OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystemPackage.PRODUCT__OWNER);
 		}
 		return product;
@@ -166,12 +170,13 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Warehouse> getWarehouse() {
 		if (warehouse == null) {
-			warehouse = new EObjectContainmentWithInverseEList<Warehouse>(Warehouse.class, this,
+			warehouse = new EObjectContainmentWithInverseEList<>(Warehouse.class, this,
 					OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystemPackage.WAREHOUSE__OWNER);
 		}
 		return warehouse;
@@ -179,7 +184,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -198,7 +203,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -216,7 +221,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -236,7 +241,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -264,7 +269,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -288,7 +293,7 @@ public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -67,7 +67,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -77,7 +77,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -87,7 +87,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -97,7 +97,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -107,7 +107,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getSeverity() <em>Severity</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSeverity()
 	 * @generated
 	 * @ordered
@@ -117,7 +117,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getSeverity() <em>Severity</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSeverity()
 	 * @generated
 	 * @ordered
@@ -127,7 +127,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getStatusCode() <em>Status Code</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getStatusCode()
 	 * @generated
 	 * @ordered
@@ -137,7 +137,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getStatusCode() <em>Status Code</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getStatusCode()
 	 * @generated
 	 * @ordered
@@ -147,7 +147,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -157,7 +157,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -167,7 +167,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMode()
 	 * @generated
 	 * @ordered
@@ -177,7 +177,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMode()
 	 * @generated
 	 * @ordered
@@ -187,7 +187,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #isIsEnabledByDefault() <em>Is Enabled By
 	 * Default</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isIsEnabledByDefault()
 	 * @generated
 	 * @ordered
@@ -197,7 +197,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #isIsEnabledByDefault() <em>Is Enabled By
 	 * Default</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isIsEnabledByDefault()
 	 * @generated
 	 * @ordered
@@ -207,7 +207,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -217,7 +217,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getDescription() <em>Description</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -227,7 +227,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -237,7 +237,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMessage()
 	 * @generated
 	 * @ordered
@@ -247,7 +247,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' map.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getParameters()
 	 * @generated
 	 * @ordered
@@ -257,7 +257,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -267,7 +267,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getLang() <em>Lang</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getLang()
 	 * @generated
 	 * @ordered
@@ -277,7 +277,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 	/**
 	 * The cached value of the '{@link #getLang() <em>Lang</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getLang()
 	 * @generated
 	 * @ordered
@@ -286,7 +286,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ConstraintImpl() {
@@ -295,7 +295,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -305,18 +305,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -326,18 +328,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -347,18 +351,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public SeverityEnum getSeverity() {
 		return severity;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setSeverity(SeverityEnum newSeverity) {
 		SeverityEnum oldSeverity = severity;
 		severity = newSeverity == null ? SEVERITY_EDEFAULT : newSeverity;
@@ -369,18 +375,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getStatusCode() {
 		return statusCode;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setStatusCode(int newStatusCode) {
 		int oldStatusCode = statusCode;
 		statusCode = newStatusCode;
@@ -391,18 +399,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -413,18 +423,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ModeEnum getMode() {
 		return mode;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setMode(ModeEnum newMode) {
 		ModeEnum oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
@@ -434,18 +446,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isIsEnabledByDefault() {
 		return isEnabledByDefault;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setIsEnabledByDefault(boolean newIsEnabledByDefault) {
 		boolean oldIsEnabledByDefault = isEnabledByDefault;
 		isEnabledByDefault = newIsEnabledByDefault;
@@ -456,18 +470,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -478,18 +494,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setMessage(String newMessage) {
 		String oldMessage = message;
 		message = newMessage;
@@ -500,12 +518,13 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EMap<String, String> getParameters() {
 		if (parameters == null) {
-			parameters = new EcoreEMap<String, String>(ValidationPackage.Literals.PARAMETER, ParameterImpl.class, this,
+			parameters = new EcoreEMap<>(ValidationPackage.Literals.PARAMETER, ParameterImpl.class, this,
 					ValidationPackage.CONSTRAINT__PARAMETERS);
 		}
 		return parameters;
@@ -513,9 +532,10 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Target getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject) target;
@@ -531,7 +551,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public Target basicGetTarget() {
@@ -540,9 +560,10 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Target newTarget) {
 		Target oldTarget = target;
 		target = newTarget;
@@ -553,18 +574,20 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getLang() {
 		return lang;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setLang(String newLang) {
 		String oldLang = lang;
 		lang = newLang;
@@ -574,7 +597,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -588,7 +611,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -629,7 +652,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -677,7 +700,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -725,7 +748,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -761,7 +784,7 @@ public abstract class ConstraintImpl extends EObjectImpl implements Constraint {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

@@ -38,7 +38,7 @@ import org.eclipse.osgi.util.NLS;
  * <p>
  * This class is not intended to be used by clients.
  * </p>
- * 
+ *
  * @author Christian W. Damus
  */
 public class ClientContext implements IClientContext {
@@ -55,16 +55,16 @@ public class ClientContext implements IClientContext {
 	// map of String constraint IDs that are bound to me, the boolean value
 	// indicating absolute inclusion or exclusion. Absence of a value means
 	// that we still need to compute
-	private final Map<String, Boolean> constraintBindings = new java.util.HashMap<String, Boolean>();
+	private final Map<String, Boolean> constraintBindings = new java.util.HashMap<>();
 
 	// set of String category IDs that are bound to me
 	private BindingFilter filter = BindingFilter.NULL;
 
-	private Collection<String> extendedClientContexts = new java.util.ArrayList<String>(2);
+	private Collection<String> extendedClientContexts = new java.util.ArrayList<>(2);
 
 	/**
 	 * Initializes me with my XML configuration.
-	 * 
+	 *
 	 * @param config my XML configuration element
 	 * @throws CoreException on any problem in accessing the
 	 *                       <code>config</code>uration or if anything is missing or
@@ -78,11 +78,11 @@ public class ClientContext implements IClientContext {
 	 * Initializes me as an implicit client context, required by some binding in the
 	 * specified <tt>bindingContributorID</tt> plug-in. Later processing of an
 	 * extension that defines my details will complete my definition.
-	 * 
+	 *
 	 * @param id                   my ID
 	 * @param bindingContributorID the ID of a plug-in that is binding some
 	 *                             constraints to me
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	public ClientContext(String id, final String bindingContributorID) {
@@ -90,6 +90,7 @@ public class ClientContext implements IClientContext {
 		this.isDefault = false;
 		this.selector = new IClientSelector() {
 
+			@Override
 			public boolean selects(Object object) {
 				// if my selector definition isn't eventually specified, then
 				// I basically don't exist
@@ -101,12 +102,12 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Initializes me with my XML configuration.
-	 * 
+	 *
 	 * @param config my XML configuration element
 	 * @throws CoreException on any problem in accessing the
 	 *                       <code>config</code>uration or if anything is missing or
 	 *                       incorrect
-	 * 
+	 *
 	 * @since 1.3
 	 */
 	void initialize(IConfigurationElement config) throws CoreException {
@@ -117,7 +118,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Gets my ID from the specified XML <code>config</code>.
-	 * 
+	 *
 	 * @param config my XML configuration
 	 * @return my ID (never <code>null</code>)
 	 * @throws CoreException if my ID is not specified
@@ -141,7 +142,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Gets my selector from the specified XML <code>config</code>.
-	 * 
+	 *
 	 * @param config my XML configuration
 	 * @return my selector (never <code>null</code>)
 	 * @throws CoreException if my selector is not specified or something went wrong
@@ -178,7 +179,7 @@ public class ClientContext implements IClientContext {
 	/**
 	 * Creates an expression-based selector from the specified XML
 	 * <code>enablement</code> expression.
-	 * 
+	 *
 	 * @param enablement my XML expression
 	 * @return the selector (never <code>null</code>)
 	 * @throws CoreException if something is malformed in the expression
@@ -204,7 +205,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Instantiates a custom selector class specified in the XML.
-	 * 
+	 *
 	 * @param config a selector configuration element
 	 * @return the selector (never <code>null</code>)
 	 * @throws CoreException if something is malformed in the expression
@@ -232,7 +233,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Gets my default-ness from my <code>config</code>uration element.
-	 * 
+	 *
 	 * @param config my configuration element
 	 * @return whether I am default
 	 */
@@ -247,10 +248,12 @@ public class ClientContext implements IClientContext {
 		return result;
 	}
 
+	@Override
 	public final String getId() {
 		return id;
 	}
 
+	@Override
 	public final IClientSelector getSelector() {
 		return selector;
 	}
@@ -259,10 +262,12 @@ public class ClientContext implements IClientContext {
 		this.selector = selector;
 	}
 
+	@Override
 	public final boolean isDefault() {
 		return isDefault;
 	}
 
+	@Override
 	public boolean includes(IModelConstraint constraint) {
 		IConstraintDescriptor desc = constraint.getDescriptor();
 
@@ -283,7 +288,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Adds a constraint inclusion binding to me.
-	 * 
+	 *
 	 * @param constraintId the ID of a constraint that is to be included in me
 	 */
 	public void includeConstraint(String constraintId) {
@@ -292,7 +297,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Adds a constraint exclusion binding to me.
-	 * 
+	 *
 	 * @param constraintId the ID of a constraint that is to be excluded from me
 	 */
 	public void excludeConstraint(String constraintId) {
@@ -301,7 +306,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Adds a constraint category inclusion to me.
-	 * 
+	 *
 	 * @param categoryId the qualified ID (path) of a constraint category that is to
 	 *                   be included in me
 	 */
@@ -311,7 +316,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Adds a constraint category exclusion to me.
-	 * 
+	 *
 	 * @param categoryId the qualified ID (path) of a constraint category that is to
 	 *                   be excluded from me
 	 */
@@ -321,7 +326,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Adds a client-context extension to me.
-	 * 
+	 *
 	 * @param clientContextID a client-context to extend
 	 */
 	public void extendClientContext(String clientContextID) {
@@ -337,11 +342,11 @@ public class ClientContext implements IClientContext {
 	 * recursive, the result includes contexts extended by contexts that I extend.
 	 * Note that it is an error for a client-context to, transitively or not, extend
 	 * itself.
-	 * 
+	 *
 	 * @return all of my extended client contexts
 	 */
 	Collection<? extends IClientContext> allExtendedContexts() {
-		Set<IClientContext> result = new java.util.HashSet<IClientContext>();
+		Set<IClientContext> result = new java.util.HashSet<>();
 
 		allExtendedContexts(this, result);
 
@@ -350,7 +355,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * Recursive helper for the client-context extension gathering.
-	 * 
+	 *
 	 * @param self     an extending client-context
 	 * @param contexts its extensions
 	 */
@@ -370,7 +375,7 @@ public class ClientContext implements IClientContext {
 	/**
 	 * Removes client-contexts from a set that are extended by other contexts
 	 * already in the set.
-	 * 
+	 *
 	 * @param contexts a set of client-contexts to optimize
 	 */
 	static void pruneExtensions(Set<? extends IClientContext> contexts) {
@@ -416,7 +421,7 @@ public class ClientContext implements IClientContext {
 	 * filter chain applies its filter and, if it doesn't find any match, delegates
 	 * down the chain. The chain is terminated by the {@link #NULL} filter, which
 	 * always excludes the constraint.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class BindingFilter {
@@ -426,6 +431,7 @@ public class ClientContext implements IClientContext {
 		/** A filter that excludes every constraint. */
 		static final BindingFilter NULL = new BindingFilter() {
 
+			@Override
 			boolean getBinding(IConstraintDescriptor constraint) {
 				return false;
 			}
@@ -436,7 +442,7 @@ public class ClientContext implements IClientContext {
 		 * <code>true</code>) or excluded (<code>false</code>) from the client context.
 		 * If I don't have definitive knowledge of this constraint, I delegate to the
 		 * next in the chain.
-		 * 
+		 *
 		 * @param constraint a constraint descriptor
 		 * @return whether the constraint is included
 		 */
@@ -446,7 +452,7 @@ public class ClientContext implements IClientContext {
 
 		/**
 		 * Queries whether I know that a constraint is included.
-		 * 
+		 *
 		 * @param constraint a constraint descriptor
 		 * @return <code>true</code> if the constraint is included, or
 		 *         <code>false</code> if I do not know
@@ -457,7 +463,7 @@ public class ClientContext implements IClientContext {
 
 		/**
 		 * Queries whether I know that a constraint is excluded.
-		 * 
+		 *
 		 * @param constraint a constraint descriptor
 		 * @return <code>true</code> if the constraint is excluded, or
 		 *         <code>false</code> if I do not know
@@ -468,7 +474,7 @@ public class ClientContext implements IClientContext {
 
 		/**
 		 * Obtains the next filter in my chain.
-		 * 
+		 *
 		 * @return my next, or <code>null</code> if I am the end of the chain
 		 */
 		BindingFilter next() {
@@ -477,7 +483,7 @@ public class ClientContext implements IClientContext {
 
 		/**
 		 * Assigns my next filter.
-		 * 
+		 *
 		 * @param next my new next
 		 */
 		void setNext(BindingFilter next) {
@@ -489,9 +495,9 @@ public class ClientContext implements IClientContext {
 		 * category and all of its constraints and sub-categories. The result may be
 		 * optimized to be myself augmented with this category, if I am a filter of the
 		 * appropriate kind. Or, the result may be a new filter chain.
-		 * 
+		 *
 		 * @param category a category to include
-		 * 
+		 *
 		 * @return a filter that includes the category
 		 */
 		BindingFilter includeCategory(String category) {
@@ -505,9 +511,9 @@ public class ClientContext implements IClientContext {
 		 * category and all of its constraints and sub-categories. The result may be
 		 * optimized to be myself augmented with this category, if I am a filter of the
 		 * appropriate kind. Or, the result may be a new filter chain.
-		 * 
+		 *
 		 * @param category a category to exclude
-		 * 
+		 *
 		 * @return a filter that excludes the category
 		 */
 		BindingFilter excludeCategory(String category) {
@@ -521,9 +527,9 @@ public class ClientContext implements IClientContext {
 		 * constraint. The result may be optimized to be myself augmented with this
 		 * constraint, if I am a filter of the appropriate kind. Or, the result may be a
 		 * new filter chain.
-		 * 
+		 *
 		 * @param constraint a constraint to include
-		 * 
+		 *
 		 * @return a filter that includes the constraint
 		 */
 		BindingFilter includeConstraint(String constraint) {
@@ -537,9 +543,9 @@ public class ClientContext implements IClientContext {
 		 * constraint. The result may be optimized to be myself augmented with this
 		 * constraint, if I am a filter of the appropriate kind. Or, the result may be a
 		 * new filter chain.
-		 * 
+		 *
 		 * @param constraint a constraint to exclude
-		 * 
+		 *
 		 * @return a filter that excludes the constraint
 		 */
 		BindingFilter excludeConstraint(String constraint) {
@@ -553,9 +559,9 @@ public class ClientContext implements IClientContext {
 		 * specified client-context. The result may be optimized to be myself myself
 		 * augmented with this client-context, if I am a filter of the appropriate kind.
 		 * Or, the result may be a new filter chain.
-		 * 
+		 *
 		 * @param clientContext a client-context to extend
-		 * 
+		 *
 		 * @return a filter that extends the client-context
 		 */
 		BindingFilter extendClientContext(String clientContext) {
@@ -567,12 +573,12 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * A binding filter that definitively includes one or more constraints.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class ConstraintInclusion extends BindingFilter {
 
-		private final Set<String> constraints = new java.util.HashSet<String>();
+		private final Set<String> constraints = new java.util.HashSet<>();
 
 		ConstraintInclusion(String constraint) {
 			constraints.add(constraint);
@@ -592,12 +598,12 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * A binding filter that definitively excludes one or more constraints.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class ConstraintExclusion extends BindingFilter {
 
-		private final Set<String> constraints = new java.util.HashSet<String>();
+		private final Set<String> constraints = new java.util.HashSet<>();
 
 		ConstraintExclusion(String constraint) {
 			constraints.add(constraint);
@@ -617,7 +623,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * A binding filter that definitively includes one or more categories.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class CategoryInclusion extends BindingFilter {
@@ -642,7 +648,7 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * A binding filter that definitively excludes one or more categories.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class CategoryExclusion extends BindingFilter {
@@ -667,7 +673,7 @@ public class ClientContext implements IClientContext {
 
 	private static final class CategorySet {
 
-		private final Set<String> categories = new java.util.HashSet<String>();
+		private final Set<String> categories = new java.util.HashSet<>();
 
 		CategorySet(String category) {
 			categories.add(category);
@@ -718,12 +724,12 @@ public class ClientContext implements IClientContext {
 
 	/**
 	 * A binding filter that inherits the bindings of another context.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class ContextExtension extends BindingFilter {
 
-		private final Set<String> extendedContextIDs = new java.util.HashSet<String>();
+		private final Set<String> extendedContextIDs = new java.util.HashSet<>();
 
 		private volatile Set<ClientContext> extendedContexts;
 
@@ -737,7 +743,7 @@ public class ClientContext implements IClientContext {
 				// do this lazily because we don't know the order in which
 				// client-contexts will be discovered in the extension registry
 				ClientContextManager mgr = ClientContextManager.getInstance();
-				Set<ClientContext> contexts = new java.util.HashSet<ClientContext>();
+				Set<ClientContext> contexts = new java.util.HashSet<>();
 
 				synchronized (extendedContextIDs) {
 					for (String next : extendedContextIDs) {

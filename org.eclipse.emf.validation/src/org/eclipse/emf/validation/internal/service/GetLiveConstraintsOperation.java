@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -27,10 +27,10 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * Encapsulates a request to get "live" constraints for a particular event on an
  * EMF object.
  * </p>
- * 
+ *
  * @see org.eclipse.emf.validation.service.IModelConstraintProvider
  * @see org.eclipse.emf.validation.service.ModelValidationService
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation {
@@ -49,7 +49,7 @@ public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation
 	/**
 	 * Sets the <CODE>notification</CODE> for which we are to get the live
 	 * constraints.
-	 * 
+	 *
 	 * @param notification the event to be validated (must not be <CODE>null</CODE>)
 	 */
 	protected void setNotification(Notification notification) {
@@ -65,7 +65,7 @@ public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation
 
 	/**
 	 * Sets the events being validated.
-	 * 
+	 *
 	 * @param events the {@link Notification}s
 	 */
 	protected void setAllEvents(List<? extends Notification> events) {
@@ -74,7 +74,7 @@ public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation
 
 	/**
 	 * Obtains the event type that triggered the validation.
-	 * 
+	 *
 	 * @return the event type (corresponds to an EMF notification type)
 	 */
 	public final EMFEventType getEventType() {
@@ -83,7 +83,7 @@ public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation
 
 	/**
 	 * Obtains the events being validated in this operation.
-	 * 
+	 *
 	 * @return the events
 	 */
 	public final List<Notification> getAllEvents() {
@@ -92,7 +92,7 @@ public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation
 
 	/**
 	 * Obtains the EMF notification that triggered the validation.
-	 * 
+	 *
 	 * @return the triggering notification
 	 */
 	public final Notification getNotification() {

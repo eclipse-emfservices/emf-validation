@@ -15,7 +15,7 @@ import org.eclipse.osgi.util.NLS;
 
 /**
  * An accessor class for externalized strings.
- * 
+ *
  * @author Christian Vogt (cvogt)
  */
 public class ValidationUIMessages extends NLS {

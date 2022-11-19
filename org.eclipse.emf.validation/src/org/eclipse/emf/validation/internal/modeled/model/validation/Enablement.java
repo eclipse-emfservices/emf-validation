@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -37,7 +37,7 @@ public interface Enablement extends ClientContext {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Dom Expression</em>' attribute.
 	 * @see #setDomExpression(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getEnablement_DomExpression()
@@ -51,7 +51,7 @@ public interface Enablement extends ClientContext {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Enablement#getDomExpression
 	 * <em>Dom Expression</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Dom Expression</em>' attribute.
 	 * @see #getDomExpression()
 	 * @generated

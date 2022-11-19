@@ -33,6 +33,7 @@ public class ConstraintListener implements IConstraintListener {
 		return instance;
 	}
 
+	@Override
 	public void constraintChanged(ConstraintChangeEvent event) {
 		if (isEnabled()) {
 			this.lastEvent = event;

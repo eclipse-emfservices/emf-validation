@@ -17,9 +17,8 @@ import java.util.List;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.osgi.framework.Bundle;
-
 import org.junit.Assert;
+import org.osgi.framework.Bundle;
 
 /**
  * A log listener that captures the last entry (if any) logged by a specified
@@ -30,6 +29,7 @@ import org.junit.Assert;
 public class LogCapture {
 	private final Bundle targetBundle;
 	private final ILogListener listener = new ILogListener() {
+		@Override
 		public void logging(IStatus status, String plugin) {
 			if (status.getPlugin().equals(targetBundle.getSymbolicName())) {
 				record(status);
@@ -37,7 +37,7 @@ public class LogCapture {
 		}
 	};
 
-	private final List<IStatus> logs = new ArrayList<IStatus>();
+	private final List<IStatus> logs = new ArrayList<>();
 	private IStatus lastLog;
 
 	/**
@@ -49,7 +49,7 @@ public class LogCapture {
 
 	/**
 	 * Initializes me to capture logs from the specified bundle.
-	 * 
+	 *
 	 * @param targetBundle the bundle to listen to
 	 */
 	public LogCapture(Bundle targetBundle) {
@@ -66,7 +66,7 @@ public class LogCapture {
 
 	/**
 	 * Gets the last log, if any, from my target bundle.
-	 * 
+	 *
 	 * @return the last log, or <code>null</code> if none
 	 */
 	public IStatus getLastLog() {
@@ -75,7 +75,7 @@ public class LogCapture {
 
 	/**
 	 * Obtains the list of logs from my target bundle.
-	 * 
+	 *
 	 * @return a list (possibly empty) of {@link IStatus}es
 	 */
 	public List<IStatus> getLogs() {
@@ -85,13 +85,13 @@ public class LogCapture {
 	/**
 	 * Obtains the list of log entries from my target bundle that bear the specified
 	 * status code.
-	 * 
+	 *
 	 * @param statusCode the status code to filter for
-	 * 
+	 *
 	 * @return the matching log entries
 	 */
 	public List<IStatus> getLogs(int statusCode) {
-		List<IStatus> result = new ArrayList<IStatus>();
+		List<IStatus> result = new ArrayList<>();
 
 		for (IStatus next : logs) {
 			if (next.getCode() == statusCode) {
@@ -104,7 +104,7 @@ public class LogCapture {
 
 	/**
 	 * Asserts that I captured a status that logged the specified throwable.
-	 * 
+	 *
 	 * @param throwable a throwable that should have been logged
 	 */
 	public void assertLogged(Throwable throwable) {
@@ -122,10 +122,10 @@ public class LogCapture {
 	/**
 	 * Finds the status in a (potentially multi-) status that carries the specified
 	 * exception.
-	 * 
+	 *
 	 * @param status    a status
 	 * @param exception a throwable to look for
-	 * 
+	 *
 	 * @return the matching status, or <code>null</code> if not found
 	 */
 	private IStatus findStatus(IStatus status, Throwable exception) {

@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 /**
  * Exception indicating that a validation operation was canceled. The exception
  * carries the constraint status of the cancel-severity constraint that failed.
- * 
+ *
  * @since 1.1
  *
  * @author Christian W. Damus (cdamus)
@@ -28,7 +28,7 @@ public class ValidationCanceledException extends RuntimeException {
 
 	/**
 	 * Initializes me with the cancel-severity status of the constraint that failed.
-	 * 
+	 *
 	 * @param status the cancel status
 	 */
 	public ValidationCanceledException(IStatus status) {
@@ -39,7 +39,7 @@ public class ValidationCanceledException extends RuntimeException {
 
 	/**
 	 * Obtains the status of the constraint that failed.
-	 * 
+	 *
 	 * @return my constraint status
 	 */
 	public final IStatus getStatus() {

@@ -49,7 +49,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -59,7 +59,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -69,7 +69,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	/**
 	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getItem()
 	 * @generated
 	 * @ordered
@@ -79,7 +79,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	/**
 	 * The cached value of the '{@link #getLocation() <em>Location</em>}'
 	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getLocation()
 	 * @generated
 	 * @ordered
@@ -88,7 +88,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected WarehouseImpl() {
@@ -97,7 +97,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -107,18 +107,20 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -128,9 +130,10 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OrderSystem getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER)
 			return null;
@@ -139,7 +142,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(OrderSystem newOwner, NotificationChain msgs) {
@@ -149,9 +152,10 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(OrderSystem newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER && newOwner != null)) {
@@ -173,12 +177,13 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<InventoryItem> getItem() {
 		if (item == null) {
-			item = new EObjectContainmentWithInverseEList<InventoryItem>(InventoryItem.class, this,
+			item = new EObjectContainmentWithInverseEList<>(InventoryItem.class, this,
 					OrderSystemPackage.WAREHOUSE__ITEM, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE);
 		}
 		return item;
@@ -186,16 +191,17 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Address getLocation() {
 		return location;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetLocation(Address newLocation, NotificationChain msgs) {
@@ -214,9 +220,10 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setLocation(Address newLocation) {
 		if (newLocation != location) {
 			NotificationChain msgs = null;
@@ -236,7 +243,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -255,7 +262,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -273,7 +280,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -288,7 +295,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -308,7 +315,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -334,7 +341,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -358,7 +365,7 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

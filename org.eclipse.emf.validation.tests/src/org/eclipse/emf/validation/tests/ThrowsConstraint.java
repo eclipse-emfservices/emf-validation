@@ -18,7 +18,7 @@ import org.eclipse.emf.validation.IValidationContext;
 /**
  * Constraint implementation which is used to test the trapping of run-time
  * exceptions in the execution of constraints.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ThrowsConstraint extends AbstractModelConstraint {
@@ -31,7 +31,7 @@ public class ThrowsConstraint extends AbstractModelConstraint {
 
 	/**
 	 * I always throw an exception.
-	 * 
+	 *
 	 * @throws RuntimeException always
 	 */
 	@Override

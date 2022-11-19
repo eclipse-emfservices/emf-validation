@@ -5,7 +5,7 @@
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *   Zeligsoft - Initial API and implementation
  */
@@ -16,7 +16,7 @@ import org.eclipse.osgi.util.NLS;
 
 /**
  * Localized messages for the examples plug-in.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class Messages extends NLS {

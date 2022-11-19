@@ -31,7 +31,7 @@ import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link ConstraintStatus} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintStatusTest extends TestCase {
@@ -65,95 +65,118 @@ public class ConstraintStatusTest extends TestCase {
 			this.code = code;
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return new IConstraintDescriptor() {
 
+				@Override
 				public String getName() {
 					return name;
 				}
 
+				@Override
 				public String getId() {
 					return id;
 				}
 
+				@Override
 				public String getPluginId() {
 					return pluginId;
 				}
 
+				@Override
 				public ConstraintSeverity getSeverity() {
 					return severity;
 				}
 
+				@Override
 				public int getStatusCode() {
 					return code;
 				}
 
+				@Override
 				public String getDescription() {
 					return null;
 				}
 
+				@Override
 				public String getBody() {
 					return null;
 				}
 
+				@Override
 				public boolean isError() {
 					return false;
 				}
 
+				@Override
 				public boolean isEnabled() {
 					return true;
 				}
 
+				@Override
 				public void setEnabled(boolean enabled) {
 					// do nothing
 				}
 
+				@Override
 				public Throwable getException() {
 					return null;
 				}
 
+				@Override
 				public EvaluationMode<?> getEvaluationMode() {
 					return null;
 				}
 
+				@Override
 				public boolean targetsTypeOf(EObject eObject) {
 					return false;
 				}
 
+				@Override
 				public boolean targetsEvent(Notification notification) {
 					return false;
 				}
 
+				@Override
 				public boolean isBatch() {
 					return false;
 				}
 
+				@Override
 				public boolean isLive() {
 					return false;
 				}
 
+				@Override
 				public void setError(Throwable exception) {
 					// do nothing
 				}
 
+				@Override
 				public Set<Category> getCategories() {
 					return Collections.emptySet();
 				}
 
+				@Override
 				public void addCategory(Category category) {
 					// do nothing
 				}
 
+				@Override
 				public void removeCategory(Category category) {
 					// do nothing
 				}
 
+				@Override
 				public String getMessagePattern() {
 					return TEST_MESSAGE;
 				}
 			};
 		}
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			return null;
 		}

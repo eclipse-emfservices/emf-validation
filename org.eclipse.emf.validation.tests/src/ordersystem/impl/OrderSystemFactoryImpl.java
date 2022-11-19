@@ -35,14 +35,14 @@ import ordersystem.Warehouse;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  */
 public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemFactory {
 	/**
 	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static OrderSystemFactory init() {
@@ -61,7 +61,7 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 	/**
 	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public OrderSystemFactoryImpl() {
@@ -70,7 +70,7 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -101,7 +101,7 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -116,7 +116,7 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -131,9 +131,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OrderSystem createOrderSystem() {
 		OrderSystemImpl orderSystem = new OrderSystemImpl();
 		return orderSystem;
@@ -141,9 +142,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Customer createCustomer() {
 		CustomerImpl customer = new CustomerImpl();
 		return customer;
@@ -151,9 +153,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Account createAccount() {
 		AccountImpl account = new AccountImpl();
 		return account;
@@ -161,9 +164,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Address createAddress() {
 		AddressImpl address = new AddressImpl();
 		return address;
@@ -171,9 +175,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Order createOrder() {
 		OrderImpl order = new OrderImpl();
 		return order;
@@ -181,9 +186,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public LineItem createLineItem() {
 		LineItemImpl lineItem = new LineItemImpl();
 		return lineItem;
@@ -191,9 +197,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Product createProduct() {
 		ProductImpl product = new ProductImpl();
 		return product;
@@ -201,9 +208,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Warehouse createWarehouse() {
 		WarehouseImpl warehouse = new WarehouseImpl();
 		return warehouse;
@@ -211,9 +219,10 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public InventoryItem createInventoryItem() {
 		InventoryItemImpl inventoryItem = new InventoryItemImpl();
 		return inventoryItem;
@@ -245,16 +254,17 @@ public class OrderSystemFactoryImpl extends EFactoryImpl implements OrderSystemF
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OrderSystemPackage getOrderSystemPackage() {
 		return (OrderSystemPackage) getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @deprecated
 	 * @generated
 	 */

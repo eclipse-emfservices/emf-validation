@@ -41,7 +41,7 @@ public interface Warehouse extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Name()
@@ -53,7 +53,7 @@ public interface Warehouse extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Warehouse#getName <em>Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
@@ -70,7 +70,7 @@ public interface Warehouse extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(OrderSystem)
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Owner()
@@ -83,7 +83,7 @@ public interface Warehouse extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Warehouse#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated
@@ -101,7 +101,7 @@ public interface Warehouse extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Item()
 	 * @see ordersystem.InventoryItem#getWarehouse
@@ -118,7 +118,7 @@ public interface Warehouse extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Location</em>' containment reference.
 	 * @see #setLocation(Address)
 	 * @see ordersystem.OrderSystemPackage#getWarehouse_Location()
@@ -131,7 +131,7 @@ public interface Warehouse extends EObject {
 	 * Sets the value of the '{@link ordersystem.Warehouse#getLocation
 	 * <em>Location</em>}' containment reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Location</em>' containment reference.
 	 * @see #getLocation()
 	 * @generated

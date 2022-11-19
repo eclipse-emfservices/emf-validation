@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    SAP AG - Bug 240352
  ****************************************************************************/
 
@@ -24,14 +24,14 @@ import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
  * Delegates logging duties to the
  * {@link org.eclipse.gmf.runtime.common.core.util.Log} class, with the EMF
  * Model Validation plug-in implicit in all logs.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class Log {
 	/**
 	 * Generates an error log for this plug-in, with the specified status code and
 	 * message.
-	 * 
+	 *
 	 * @param code    The status code for the log.
 	 * @param message The message for the log.
 	 */
@@ -42,7 +42,7 @@ public class Log {
 	/**
 	 * Generates an error log for this plug-in, with the specified status code,
 	 * message, and throwable.
-	 * 
+	 *
 	 * @param code      The status code for the log.
 	 * @param message   The message for the log.
 	 * @param throwable The throwable for the log.
@@ -55,10 +55,10 @@ public class Log {
 	/**
 	 * Generates a warning log for this plug-in, with the specified status code and
 	 * message.
-	 * 
+	 *
 	 * @param code    The status code for the log.
 	 * @param message The message for the log.
-	 * 
+	 *
 	 */
 	public static void warning(int code, String message) {
 		warning(code, message, null);
@@ -67,7 +67,7 @@ public class Log {
 	/**
 	 * Generates a warning log for this plug-in, with the specified status code,
 	 * message, and throwable.
-	 * 
+	 *
 	 * @param code      The status code for the log.
 	 * @param message   The message for the log.
 	 * @param throwable The throwable for the log.
@@ -80,7 +80,7 @@ public class Log {
 	/**
 	 * Generates an information log for this plug-in, with the specified status code
 	 * and message.
-	 * 
+	 *
 	 * @param code    The status code for the log.
 	 * @param message The message for the log.
 	 */
@@ -91,7 +91,7 @@ public class Log {
 	/**
 	 * Generates an information log for this plug-in, with the specified status
 	 * code, message, and throwable.
-	 * 
+	 *
 	 * @param code      The status code for the log.
 	 * @param message   The message for the log.
 	 * @param throwable The throwable for the log.
@@ -104,7 +104,7 @@ public class Log {
 	/**
 	 * Generates a log for this plug-in, with the specified severity, status code,
 	 * and message.
-	 * 
+	 *
 	 * @param severity The severity of the log.
 	 * @param code     The status code for the log.
 	 * @param message  The message for the log.
@@ -117,7 +117,7 @@ public class Log {
 	/**
 	 * Generates a log for this plug-in, with the specified severity, status code,
 	 * message, and throwable.
-	 * 
+	 *
 	 * @param severity  The severity of the log.
 	 * @param code      The status code for the log.
 	 * @param message   The message for the log.
@@ -139,7 +139,7 @@ public class Log {
 	 * object. Statuses with severity of error or warning result in the generation
 	 * of a platform log for the specified plug-in; all log requests are forward to
 	 * the default log listener.
-	 * 
+	 *
 	 * @param status The status object on which to base the log.
 	 */
 	public static void log(IStatus status) {
@@ -150,7 +150,7 @@ public class Log {
 
 	/**
 	 * Logs a localized error message for this plug-in.
-	 * 
+	 *
 	 * @param code    the
 	 *                {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                error code
@@ -163,7 +163,7 @@ public class Log {
 
 	/**
 	 * Logs a localized error message for this plug-in.
-	 * 
+	 *
 	 * @param code      the
 	 *                  {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                  error code
@@ -178,7 +178,7 @@ public class Log {
 
 	/**
 	 * Logs a localized warning message for this plug-in.
-	 * 
+	 *
 	 * @param code    the
 	 *                {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                error code
@@ -191,7 +191,7 @@ public class Log {
 
 	/**
 	 * Logs a localized warning message for this plug-in.
-	 * 
+	 *
 	 * @param code      the
 	 *                  {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                  error code
@@ -206,7 +206,7 @@ public class Log {
 
 	/**
 	 * Logs a localized informational message for this plug-in.
-	 * 
+	 *
 	 * @param code    the
 	 *                {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                error code
@@ -219,7 +219,7 @@ public class Log {
 
 	/**
 	 * Logs a localized informational message for this plug-in.
-	 * 
+	 *
 	 * @param code      the
 	 *                  {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                  error code
@@ -234,7 +234,7 @@ public class Log {
 
 	/**
 	 * Logs a localized message for this plug-in.
-	 * 
+	 *
 	 * @param severity  the {@link org.eclipse.core.runtime.IStatus} severity code
 	 * @param code      the
 	 *                  {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
@@ -259,7 +259,7 @@ public class Log {
 	 * the message pattern requires only one argument (<tt>{0}</tt>), or it may be a
 	 * collection or an array if multiple arguments are required.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -277,7 +277,7 @@ public class Log {
 	 * Logs a localized error message for this plug-in with substitution variables
 	 * an an exception.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -303,7 +303,7 @@ public class Log {
 	 * the message pattern requires only one argument (<tt>{0}</tt>), or it may be a
 	 * collection or an array if multiple arguments are required.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -321,7 +321,7 @@ public class Log {
 	 * Logs a localized warning message for this plug-in with substitution variables
 	 * an an exception.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -347,7 +347,7 @@ public class Log {
 	 * the message pattern requires only one argument (<tt>{0}</tt>), or it may be a
 	 * collection or an array if multiple arguments are required.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -365,7 +365,7 @@ public class Log {
 	 * Logs a localized informational message for this plug-in with substitution
 	 * variables an an exception.
 	 * </p>
-	 * 
+	 *
 	 * @param code           the
 	 *                       {@link org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes}
 	 *                       error code
@@ -391,7 +391,7 @@ public class Log {
 	 * the message pattern requires only one argument (<tt>{0}</tt>), or it may be a
 	 * collection or an array if multiple arguments are required.
 	 * </p>
-	 * 
+	 *
 	 * @param severity       the {@link org.eclipse.core.runtime.IStatus} severity
 	 *                       code
 	 * @param code           the
@@ -411,7 +411,7 @@ public class Log {
 	 * Logs a localized message for this plug-in with substitution variables and an
 	 * exception.
 	 * </p>
-	 * 
+	 *
 	 * @param severity       the {@link org.eclipse.core.runtime.IStatus} severity
 	 *                       code
 	 * @param code           the
@@ -451,7 +451,7 @@ public class Log {
 	 * keys in the resource bundle which indicate localizable text fragments to be
 	 * inserted into the message.
 	 * </p>
-	 * 
+	 *
 	 * @param severity       the {@link org.eclipse.core.runtime.IStatus} severity
 	 *                       code
 	 * @param code           the
@@ -471,7 +471,7 @@ public class Log {
 	 * Logs a localized message for this plug-in with substitution variables that
 	 * are also localized strings, and an exception.
 	 * </p>
-	 * 
+	 *
 	 * @param severity       the {@link org.eclipse.core.runtime.IStatus} severity
 	 *                       code
 	 * @param code           the

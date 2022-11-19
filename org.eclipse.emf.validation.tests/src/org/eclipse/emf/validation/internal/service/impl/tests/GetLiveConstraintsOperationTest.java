@@ -33,7 +33,7 @@ public class GetLiveConstraintsOperationTest extends AbstractGetConstraintsOpera
 
 	/**
 	 * Constructor for GetBatchConstraintsOperationTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public GetLiveConstraintsOperationTest(String name) {

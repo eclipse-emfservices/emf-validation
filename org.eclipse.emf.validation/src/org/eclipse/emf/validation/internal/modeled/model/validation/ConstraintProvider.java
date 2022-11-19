@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -55,7 +55,7 @@ public interface ConstraintProvider extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Cache</em>' attribute.
 	 * @see #setCache(boolean)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_Cache()
@@ -68,7 +68,7 @@ public interface ConstraintProvider extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#isCache
 	 * <em>Cache</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Cache</em>' attribute.
 	 * @see #isCache()
 	 * @generated
@@ -83,7 +83,7 @@ public interface ConstraintProvider extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Description</em>' attribute.
 	 * @see #setDescription(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_Description()
@@ -97,7 +97,7 @@ public interface ConstraintProvider extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getDescription
 	 * <em>Description</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Description</em>' attribute.
 	 * @see #getDescription()
 	 * @generated
@@ -114,7 +114,7 @@ public interface ConstraintProvider extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Target</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_Target()
 	 * @model containment="true"
@@ -132,7 +132,7 @@ public interface ConstraintProvider extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Mode</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @see #setMode(ModeEnum)
@@ -146,7 +146,7 @@ public interface ConstraintProvider extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getMode
 	 * <em>Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Mode</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ModeEnum
 	 * @see #getMode()
@@ -162,7 +162,7 @@ public interface ConstraintProvider extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Class Name</em>' attribute.
 	 * @see #setClassName(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_ClassName()
@@ -176,7 +176,7 @@ public interface ConstraintProvider extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getClassName
 	 * <em>Class Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Class Name</em>' attribute.
 	 * @see #getClassName()
 	 * @generated
@@ -193,7 +193,7 @@ public interface ConstraintProvider extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Constraints</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_Constraints()
 	 * @model containment="true"
@@ -210,7 +210,7 @@ public interface ConstraintProvider extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Package</em>' reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_Package()
 	 * @model required="true"
@@ -226,7 +226,7 @@ public interface ConstraintProvider extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Plugin Id</em>' attribute.
 	 * @see #setPluginId(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintProvider_PluginId()
@@ -239,7 +239,7 @@ public interface ConstraintProvider extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider#getPluginId
 	 * <em>Plugin Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Plugin Id</em>' attribute.
 	 * @see #getPluginId()
 	 * @generated

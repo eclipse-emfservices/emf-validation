@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConfigTest extends TestCase {
@@ -36,10 +36,10 @@ public class XmlConfigTest extends TestCase {
 		// and, therefore, throws NPEs
 		IExtension[] exts = Platform.getExtensionRegistry().getExtensions(PLUGIN_ID);
 
-		for (int i = 0; i < exts.length; i++) {
-			if ((exts[i].getSimpleIdentifier() != null) && exts[i].getSimpleIdentifier().equals(TEST_ID)) {
+		for (IExtension ext : exts) {
+			if ((ext.getSimpleIdentifier() != null) && ext.getSimpleIdentifier().equals(TEST_ID)) {
 
-				return exts[i].getConfigurationElements()[0];
+				return ext.getConfigurationElements()[0];
 			}
 		}
 

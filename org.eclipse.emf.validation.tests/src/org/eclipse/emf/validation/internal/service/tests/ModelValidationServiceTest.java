@@ -68,7 +68,7 @@ import ordersystem.special.SpecialFactory;
  * that check for performance optimizations and other internal workings are
  * implemented in the {@link org.eclipse.emf.validation.tests.FrameworkTest}
  * class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ModelValidationServiceTest extends TestBase {
@@ -100,7 +100,7 @@ public class ModelValidationServiceTest extends TestBase {
 	}
 
 	public void test_validateBatchCollection() {
-		Collection<EObject> objects = new java.util.ArrayList<EObject>();
+		Collection<EObject> objects = new java.util.ArrayList<>();
 		objects.add(OrderSystemFactory.eINSTANCE.createOrder());
 		objects.add(OrderSystemFactory.eINSTANCE.createAddress());
 
@@ -123,7 +123,7 @@ public class ModelValidationServiceTest extends TestBase {
 	}
 
 	public void test_validateSubtreeBatchCollection() {
-		Collection<EObject> orders = new java.util.ArrayList<EObject>();
+		Collection<EObject> orders = new java.util.ArrayList<>();
 
 		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item1 = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -156,7 +156,7 @@ public class ModelValidationServiceTest extends TestBase {
 	}
 
 	public void test_validateLiveList() {
-		List<Notification> events = new java.util.ArrayList<Notification>();
+		List<Notification> events = new java.util.ArrayList<>();
 		Resource res = new XMIResourceImpl();
 
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
@@ -169,7 +169,7 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(events));
 
-		List<EObject> targets = new java.util.ArrayList<EObject>(events.size());
+		List<EObject> targets = new java.util.ArrayList<>(events.size());
 
 		for (Notification next : events) {
 			targets.add((EObject) next.getNotifier());
@@ -204,12 +204,12 @@ public class ModelValidationServiceTest extends TestBase {
 		boolean foundSilly = false;
 
 		final Set<Order> justOrder = Collections.singleton(order);
-		final Set<EObject> orderAndItem = new java.util.HashSet<EObject>();
+		final Set<EObject> orderAndItem = new java.util.HashSet<>();
 		orderAndItem.add(order);
 		orderAndItem.addAll(order.getItem());
 
-		for (int i = 0; i < status.length; i++) {
-			IConstraintStatus cstat = (IConstraintStatus) status[i];
+		for (IStatus element : status) {
+			IConstraintStatus cstat = (IConstraintStatus) element;
 
 			switch (cstat.getCode()) {
 			case 1:
@@ -267,12 +267,12 @@ public class ModelValidationServiceTest extends TestBase {
 		boolean foundSuccess = false;
 
 		final Set<LineItem> justItem = Collections.singleton(item);
-		final Set<EObject> orderAndItem = new java.util.HashSet<EObject>();
+		final Set<EObject> orderAndItem = new java.util.HashSet<>();
 		orderAndItem.add(order);
 		orderAndItem.addAll(order.getItem());
 
-		for (int i = 0; i < status.length; i++) {
-			IConstraintStatus cstat = (IConstraintStatus) status[i];
+		for (IStatus element : status) {
+			IConstraintStatus cstat = (IConstraintStatus) element;
 
 			switch (cstat.getCode()) {
 			case IModelConstraint.STATUS_CODE_SUCCESS:
@@ -317,12 +317,13 @@ public class ModelValidationServiceTest extends TestBase {
 		contents.add(order1);
 		contents.add(order2);
 
-		Collection<Notification> events = new ArrayList<Notification>();
+		Collection<Notification> events = new ArrayList<>();
 		events.add(new TestNotification(order1, Notification.SET));
 		events.add(new TestNotification(order2, Notification.SET));
 
 		ILiveValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		IConstraintFilter filter = new IConstraintFilter() {
+			@Override
 			public boolean accept(IConstraintDescriptor constraint, EObject object) {
 				if (object instanceof Order) {
 					Order order = (Order) object;
@@ -360,13 +361,14 @@ public class ModelValidationServiceTest extends TestBase {
 		contents.add(order1);
 		contents.add(order2);
 
-		Collection<EObject> targets = new ArrayList<EObject>();
+		Collection<EObject> targets = new ArrayList<>();
 		targets.add(order1);
 		targets.add(order2);
 
 		IBatchValidator validator = (IBatchValidator) ModelValidationService.getInstance()
 				.newValidator(EvaluationMode.BATCH);
 		IConstraintFilter filter = new IConstraintFilter() {
+			@Override
 			public boolean accept(IConstraintDescriptor constraint, EObject object) {
 				if (object instanceof Order) {
 					Order order = (Order) object;
@@ -429,7 +431,7 @@ public class ModelValidationServiceTest extends TestBase {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		res.getContents().add(object); // must be in a resource
 
-		Collection<Notification> events = new ArrayList<Notification>();
+		Collection<Notification> events = new ArrayList<>();
 		events.add(new TestNotification(object, Notification.SET));
 		IStatus[] status = getStatuses(liveValidator.validate(events));
 
@@ -482,7 +484,7 @@ public class ModelValidationServiceTest extends TestBase {
 	 * repeatedly validate an element.
 	 */
 	public void test_recursiveTraversalStrategy_207990() {
-		Collection<EObject> objects = new java.util.ArrayList<EObject>();
+		Collection<EObject> objects = new java.util.ArrayList<>();
 
 		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item1 = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -492,7 +494,7 @@ public class ModelValidationServiceTest extends TestBase {
 		objects.add(item1); // child element precedes ancestor
 		objects.add(order1);
 
-		Set<EObject> visited = new java.util.HashSet<EObject>();
+		Set<EObject> visited = new java.util.HashSet<>();
 		ITraversalStrategy traversal = batchValidator.getDefaultTraversalStrategy();
 
 		traversal.startTraversal(objects, new NullProgressMonitor());
@@ -542,12 +544,14 @@ public class ModelValidationServiceTest extends TestBase {
 				.newValidator(EvaluationMode.BATCH);
 
 		Thread t1 = new Thread(new Runnable() {
+			@Override
 			public void run() {
 				batchValidator1.validate(customer);
 			}
 		});
 
 		Thread t2 = new Thread(new Runnable() {
+			@Override
 			public void run() {
 				batchValidator2.validate(customer);
 			}
@@ -578,7 +582,6 @@ public class ModelValidationServiceTest extends TestBase {
 				super(new GetBatchConstraintsOperation(false));
 			}
 		}
-		;
 
 		MyContext ctx = new MyContext();
 		Method method = null;
@@ -593,6 +596,7 @@ public class ModelValidationServiceTest extends TestBase {
 
 			method.invoke(ctx, new ModelConstraint(new XmlConstraintDescriptor(config)) {
 
+				@Override
 				public IStatus validate(IValidationContext ctx) {
 					return Status.OK_STATUS;
 				}
@@ -649,22 +653,27 @@ public class ModelValidationServiceTest extends TestBase {
 			return used;
 		}
 
+		@Override
 		public void elementValidated(EObject element, IStatus status) {
 			delegate.elementValidated(element, status);
 		}
 
+		@Override
 		public boolean hasNext() {
 			return delegate.hasNext();
 		}
 
+		@Override
 		public boolean isClientContextChanged() {
 			return delegate.isClientContextChanged();
 		}
 
+		@Override
 		public EObject next() {
 			return delegate.next();
 		}
 
+		@Override
 		public void startTraversal(Collection<? extends EObject> traversalRoots, IProgressMonitor monitor) {
 			synchronized (TestTraversalStrategy.class) {
 				used = true;

@@ -40,7 +40,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 
 	/**
 	 * Constructor for AbstractGetConstraintsOperationTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public AbstractGetConstraintsOperationTest(String name) {
@@ -74,6 +74,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
 				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, BATCH_TOKEN);
@@ -82,6 +83,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, LIVE_TOKEN);
@@ -90,7 +92,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		private Collection<IModelConstraint> appendTo(Collection<IModelConstraint> c, IModelConstraint constraint) {
 
 			if (c == null) {
-				c = new java.util.ArrayList<IModelConstraint>(1);
+				c = new java.util.ArrayList<>(1);
 			}
 
 			c.add(constraint);
@@ -106,10 +108,12 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 			this.descriptor = descriptor;
 		}
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			return null;
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}

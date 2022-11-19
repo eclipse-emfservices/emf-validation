@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bugs 249690, 137213
  *    Borland Software - Bug 137213
  *    SAP AG - Bug 240352
@@ -71,17 +71,17 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * This allows the service to delay instantiating providers (and, hence, loading
  * plug-ins) until it is absolutely necessary to do so.
  * </p>
- * 
+ *
  * @see #newValidator(EvaluationMode)
  * @see IValidator
  * @see org.eclipse.emf.validation.model.IModelConstraint
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ModelValidationService {
 	private static final ModelValidationService instance = new ModelValidationService();
 
-	private volatile Collection<IProviderDescriptor> constraintProviders = new java.util.HashSet<IProviderDescriptor>();
+	private volatile Collection<IProviderDescriptor> constraintProviders = new java.util.HashSet<>();
 
 	// latch to control multiple invocations of loadXmlConstraintDefinitions()
 	private boolean xmlConstraintDeclarationsLoaded = false;
@@ -95,6 +95,7 @@ public class ModelValidationService {
 
 	private final IExtensionChangeHandler providersHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			Collection<IProviderDescriptor> added = registerProviders(extension.getConfigurationElements());
 			for (IProviderDescriptor pd : added) {
@@ -105,6 +106,7 @@ public class ModelValidationService {
 			}
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// constraints cannot be removed from the system
 		}
@@ -112,6 +114,7 @@ public class ModelValidationService {
 
 	private final IExtensionChangeHandler modeledProvidersHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			for (IConfigurationElement elem : extension.getConfigurationElements()) {
 				if (ModeledConstraintsConfig.E_PROVIDER.equals(elem.getName())) {
@@ -133,6 +136,7 @@ public class ModelValidationService {
 			}
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// remove not supported at the moment
 		}
@@ -141,10 +145,12 @@ public class ModelValidationService {
 
 	private final IExtensionChangeHandler listenersHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			registerListeners(extension.getConfigurationElements());
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// listeners cannot be undefined
 		}
@@ -200,18 +206,18 @@ public class ModelValidationService {
 	/**
 	 * Configures validation constraint providers based on the
 	 * <tt>constraintProviders</tt> extension configurations.
-	 * 
+	 *
 	 * @param configs the configuration elements
 	 * @return the provider descriptors
-	 * 
+	 *
 	 * @since 1.12.1
 	 */
 	public Collection<IProviderDescriptor> registerProviders(IConfigurationElement[] configs) {
-		List<IProviderDescriptor> result = new java.util.ArrayList<IProviderDescriptor>();
+		List<IProviderDescriptor> result = new java.util.ArrayList<>();
 
 		synchronized (providersLock) {
 			// copy on write
-			constraintProviders = new java.util.HashSet<IProviderDescriptor>(getProviders());
+			constraintProviders = new java.util.HashSet<>(getProviders());
 
 			for (IConfigurationElement element : configs) {
 				if (element.getName().equals(XmlConfig.E_CONSTRAINT_PROVIDER)) {
@@ -290,7 +296,7 @@ public class ModelValidationService {
 
 	/**
 	 * Obtains the instance of this class.
-	 * 
+	 *
 	 * @return the <em>Singleton</em> instance
 	 */
 	public static ModelValidationService getInstance() {
@@ -307,14 +313,14 @@ public class ModelValidationService {
 	 * The resulting validator may be retained as long as it is needed, and reused
 	 * any number of times. Each validator has its own separate state.
 	 * </p>
-	 * 
+	 *
 	 * @param <T>  the kind of validator to return
-	 * 
+	 *
 	 * @param mode the evaluation mode for which to create a new validator. Must not
 	 *             be <code>null</code> or {@link EvaluationMode#NULL}
-	 * 
+	 *
 	 * @return a new validator
-	 * 
+	 *
 	 * @throws IllegalArgumentException if the <code>mode</code> is not a valid
 	 *                                  evaluation mode
 	 */
@@ -323,6 +329,7 @@ public class ModelValidationService {
 		assert mode != null && !mode.isNull();
 
 		IProviderOperationExecutor executor = new IProviderOperationExecutor() {
+			@Override
 			public <S> S execute(IProviderOperation<? extends S> op) {
 				return ModelValidationService.this.execute(op);
 			}
@@ -340,7 +347,7 @@ public class ModelValidationService {
 	/**
 	 * Adds a new <code>listener</code> to receive validation events. This method
 	 * has no effect if the <code>listener</code> is already registered.
-	 * 
+	 *
 	 * @param listener a new validation listener
 	 */
 	public synchronized void addValidationListener(IValidationListener listener) {
@@ -365,7 +372,7 @@ public class ModelValidationService {
 	/**
 	 * Removes a <code>listener</code> from the service. This method has no effect
 	 * if the <code>listener</code> is not currently registered.
-	 * 
+	 *
 	 * @param listener a validation listener
 	 */
 	public synchronized void removeValidationListener(IValidationListener listener) {
@@ -388,7 +395,7 @@ public class ModelValidationService {
 	/**
 	 * Computes the index of a specified <code>listener</code> in the array of
 	 * registered listeners.
-	 * 
+	 *
 	 * @param listener a listener
 	 * @return the <code>listener</code>'s index, or -1 if it is not in my list
 	 */
@@ -411,7 +418,7 @@ public class ModelValidationService {
 	 * used internally by validators to send notifications when they perform
 	 * validation, but may also be used by clients to simulate validation
 	 * occurrences.
-	 * 
+	 *
 	 * @param event a validation event to broadcast
 	 */
 	public void broadcastValidationEvent(ValidationEvent event) {
@@ -448,9 +455,9 @@ public class ModelValidationService {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
-	 * 
+	 *
 	 * @param elements
-	 * 
+	 *
 	 * @deprecated 1.2 This method is no longer implemented.
 	 */
 	@Deprecated
@@ -467,9 +474,9 @@ public class ModelValidationService {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
-	 * 
+	 *
 	 * @param elements
-	 * 
+	 *
 	 * @deprecated 1.2 This method is no longer implemented.
 	 */
 	@Deprecated
@@ -482,7 +489,7 @@ public class ModelValidationService {
 	 * must only be invoked by constraint providers, and then only when the provider
 	 * can ensure that the new constraint implementation's semantics are compatible
 	 * with the old.
-	 * 
+	 *
 	 * @param oldConstraint the constraint to be replaced in the cache
 	 * @param newConstraint the new constraint to replace it
 	 */
@@ -492,7 +499,7 @@ public class ModelValidationService {
 
 	/**
 	 * Obtains the providers that are registered on my extension point.
-	 * 
+	 *
 	 * @return a collection of {@link ProviderDescriptor}s
 	 */
 	private Collection<IProviderDescriptor> getProviders() {
@@ -501,7 +508,7 @@ public class ModelValidationService {
 
 	/**
 	 * Executes the specified <code>operation</code> on all of my providers.
-	 * 
+	 *
 	 * @param operation the operation to execute
 	 */
 	private <S> S execute(IProviderOperation<? extends S> operation) {
@@ -542,7 +549,7 @@ public class ModelValidationService {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
-	 * 
+	 *
 	 * @noreference This method is not intended to be called by clients.
 	 */
 	public void loadXmlConstraintDeclarations() {
@@ -561,7 +568,7 @@ public class ModelValidationService {
 	 * Helper method to load the constraint declarations from the specified
 	 * <code>providers</code>. Note that only the
 	 * {@link IProviderDescriptor#isXmlProvider XML-based} providers are consulted.
-	 * 
+	 *
 	 * @param providers the available providers
 	 */
 	private void loadXmlConstraintDeclarations(Collection<IProviderDescriptor> providers) {
@@ -585,7 +592,7 @@ public class ModelValidationService {
 	 * indicated by the URI. The class name may optionally be fully qualified
 	 * (prefixed by its full package name) to support constraint providers that need
 	 * to disambiguate like-named classes in different EPackages.
-	 * 
+	 *
 	 * @param namespaceUri the provider-specified namespace URI of the EPackage
 	 * @param className    the class name. May be a simple name within the package
 	 *                     namespace indicated by <code>namespaceUri</code> or a
@@ -623,10 +630,10 @@ public class ModelValidationService {
 
 	/**
 	 * Helper method to find an EMF package when looking up a class.
-	 * 
+	 *
 	 * @param namespaceUri the provider-specified namespace URI of the EPackage
 	 * @return the package, or <code>null</code> if it could not be found
-	 * 
+	 *
 	 * @see #findClass(String, String)
 	 */
 	private static EPackage findPackage(String namespaceUri) {
@@ -646,7 +653,7 @@ public class ModelValidationService {
 	 * Helper method that computes the package names in a qualified class name in
 	 * reverse (right-to-left) order, and returns them as a list. If the class name
 	 * is not qualified, then the result is <code>null</code>.
-	 * 
+	 *
 	 * @param qualifiedClassName a possibly package-qualified class name
 	 * @return the package names in right-to-left order, as a list of strings, or
 	 *         <code>null</code> if the class name is not qualified
@@ -656,7 +663,7 @@ public class ModelValidationService {
 		int end = qualifiedClassName.lastIndexOf('.'); // known BMP code point
 
 		if (end >= 0) {
-			result = new java.util.ArrayList<String>();
+			result = new java.util.ArrayList<>();
 
 			// skip the class name part and collect other parts in
 			// reverse order
@@ -676,7 +683,7 @@ public class ModelValidationService {
 	 * <code>name</code>. The name is a list of strings in right-to-left order
 	 * (bottom to top of package containment hierarchy) obtained from the
 	 * {@link #parsePackageNames(String)} method.
-	 * 
+	 *
 	 * @param epackage an EMF package
 	 * @param name     a qualified package name, as a list of strings, ordered from
 	 *                 right to left
@@ -725,7 +732,7 @@ public class ModelValidationService {
 
 		/**
 		 * Replaces me in the service's listener list with the real listener.
-		 * 
+		 *
 		 * @return the real listener
 		 */
 		private IValidationListener replaceMe() throws CoreException {
@@ -739,12 +746,13 @@ public class ModelValidationService {
 			return result;
 		}
 
+		@Override
 		public void validationOccurred(ValidationEvent event) {
 			if (registeredClientContexts == null) {
 				IConfigurationElement[] children = config.getChildren(E_CLIENT_CONTEXT);
 
 				// Probably a small number of registered client contexts.
-				registeredClientContexts = new ArrayList<String>(4);
+				registeredClientContexts = new ArrayList<>(4);
 
 				for (IConfigurationElement element : children) {
 					registeredClientContexts.add(element.getAttribute(A_CLIENT_CONTEXT_ID));

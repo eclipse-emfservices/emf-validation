@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -37,9 +37,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * processing these sub-trees (e.g., determining that some roots will be covered
  * by traversal of others).
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @see IBatchValidator#setTraversalStrategy
  */
 public interface ITraversalStrategy {
@@ -136,19 +136,21 @@ public interface ITraversalStrategy {
 		@Override
 		protected Iterator<? extends EObject> createIterator(Collection<? extends EObject> ignored) {
 
-			return new EcoreUtil.ContentTreeIterator<EObject>(getRoots()) {
+			return new EcoreUtil.ContentTreeIterator<>(getRoots()) {
 				private static final long serialVersionUID = -5653134989235663973L;
 
 				@Override
 				public Iterator<EObject> getChildren(Object obj) {
 					if (obj == getRoots()) {
-						return new Iterator<EObject>() {
+						return new Iterator<>() {
 							private final Iterator<EObject> delegate = getRoots().iterator();
 
+							@Override
 							public boolean hasNext() {
 								return delegate.hasNext();
 							}
 
+							@Override
 							public EObject next() {
 								// if I'm being asked for my next element, then
 								// we are stepping to another traversal root
@@ -157,6 +159,7 @@ public interface ITraversalStrategy {
 								return delegate.next();
 							}
 
+							@Override
 							public void remove() {
 								delegate.remove();
 							}
@@ -183,7 +186,7 @@ public interface ITraversalStrategy {
 		}
 
 		private Set<EObject> makeTargetsDisjoint(Collection<? extends EObject> objects) {
-			Set<EObject> result = new java.util.HashSet<EObject>();
+			Set<EObject> result = new java.util.HashSet<>();
 
 			// ensure that any contained (descendent) elements of other elements
 			// that we include are not included, because they will be
@@ -202,7 +205,7 @@ public interface ITraversalStrategy {
 
 			return result;
 		}
-	};
+	}
 
 	/**
 	 * Called at the start of validation to provide the sub-trees that are to be
@@ -214,7 +217,7 @@ public interface ITraversalStrategy {
 	 * attempt to update the progress, except that it will call
 	 * {@link IProgressMonitor#done()} when validation is complete (the traversal
 	 * strategy should not call <code>done()</code>).
-	 * 
+	 *
 	 * @param traversalRoots a collection of one or more {@link EObject}s. It is
 	 *                       never empty, but neither is it modifiable
 	 * @param monitor        the progress monitor used to track progress. The
@@ -225,7 +228,7 @@ public interface ITraversalStrategy {
 
 	/**
 	 * Queries whether there is another element to be validated.
-	 * 
+	 *
 	 * @return <code>true</code> if another element can be obtained from the
 	 *         {@link #next()} method; <code>false</code>, otherwise
 	 */
@@ -234,9 +237,9 @@ public interface ITraversalStrategy {
 	/**
 	 * Obtains the next element in the traversal. Should throw if {@link #hasNext()}
 	 * would return <code>false</code>.
-	 * 
+	 *
 	 * @return the next element in the traversal
-	 * 
+	 *
 	 * @throws java.util.NoSuchElementException if there are no more elements in the
 	 *                                          traversal
 	 */
@@ -279,7 +282,7 @@ public interface ITraversalStrategy {
 	 * rough guide, especially when they are contributed in tandem with client
 	 * contexts by the same client application.
 	 * </p>
-	 * 
+	 *
 	 * @return <code>true</code> if the next object to be returned by the
 	 *         {@link #next()} method is potentially in a different client context
 	 *         than the previous (thereby requiring the validation framework to
@@ -292,7 +295,7 @@ public interface ITraversalStrategy {
 	 * Called by the validation system to indicate that another element has been
 	 * validated. The receiver is encouraged to take this opportunity to update the
 	 * progress monitor (the number of work units may vary each time).
-	 * 
+	 *
 	 * @param element the element that was validated
 	 * @param status  the <code>element</code>'s validation status, indicating
 	 *                success or failure of its constraints. The receiver may with

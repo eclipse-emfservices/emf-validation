@@ -48,46 +48,57 @@ class OCLConstraintDescriptor extends AbstractConstraintDescriptor {
 		return constraint;
 	}
 
+	@Override
 	public String getBody() {
 		return constraint.getSpecification().getBodyExpression().toString();
 	}
 
+	@Override
 	public String getDescription() {
 		return getBody();
 	}
 
+	@Override
 	public EvaluationMode<?> getEvaluationMode() {
 		return EvaluationMode.BATCH;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
 
+	@Override
 	public String getMessagePattern() {
 		return String.format("Constraint %s violated on {0}", getName()); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getPluginId() {
 		return namespace;
 	}
 
+	@Override
 	public ConstraintSeverity getSeverity() {
 		return ConstraintSeverity.WARNING;
 	}
 
+	@Override
 	public int getStatusCode() {
 		return code;
 	}
 
+	@Override
 	public boolean targetsEvent(Notification notification) {
 		return false;
 	}
 
+	@Override
 	public boolean targetsTypeOf(EObject eObject) {
 		return constraint.getSpecification().getContextVariable().getType().isInstance(eObject);
 	}

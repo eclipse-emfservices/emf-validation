@@ -23,7 +23,7 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * <p>
  * This class is not intended to be used by clients.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public final class EMFModelValidationStatusCodes {

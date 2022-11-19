@@ -34,17 +34,17 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * Each separately registered instance of this provider can be retrieved by
  * looking up the URI namespace prefix associated with it in the XML.
  * </p>
- * 
+ *
  * @see #getInstance
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
-	private static final java.util.Map<String, TestBadXmlConfigProvider> instanceMap = new java.util.HashMap<String, TestBadXmlConfigProvider>();
+	private static final java.util.Map<String, TestBadXmlConfigProvider> instanceMap = new java.util.HashMap<>();
 
 	/**
 	 * Always throws.
-	 * 
+	 *
 	 * @throws RuntimeException always
 	 */
 	@Override
@@ -61,7 +61,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 
 	/**
 	 * Always throws.
-	 * 
+	 *
 	 * @throws RuntimeException always
 	 */
 	@Override
@@ -77,7 +77,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 
 	/**
 	 * Throws if the <tt>&lt;constraints&gt;</tt> element is absent.
-	 * 
+	 *
 	 * @throws CoreException if no <tt>&lt;constraints&gt;</tt> element is found
 	 */
 	@Override
@@ -106,7 +106,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 
 	/**
 	 * Obtains an instance for the specified URI namespace prefix.
-	 * 
+	 *
 	 * @param uriNsPrefix a URI namespace prefix
 	 * @return the corresponding instance
 	 */

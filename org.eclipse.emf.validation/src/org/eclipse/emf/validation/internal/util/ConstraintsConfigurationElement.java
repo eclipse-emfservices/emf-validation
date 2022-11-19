@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.util;
 
@@ -21,14 +21,14 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * parsed from the <tt>&lt;constraints&gt;</tt> XML element. This unifies the
  * representation of constraint data obtained from "included" XML files with
  * constraint data parsed by Eclipse from the <tt>plugin.xml</tt>.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintsConfigurationElement extends XmlConfigurationElement {
 	/**
 	 * Initializes me as a copy of <CODE>original</CODE>, without any
 	 * <TT>&lt;include&gt;</TT> children.
-	 * 
+	 *
 	 * @param original the original <TT>&lt;constraints&gt;</TT> element
 	 * @param url      the URL from which the element was loaded, originally
 	 */
@@ -39,17 +39,13 @@ public class ConstraintsConfigurationElement extends XmlConfigurationElement {
 
 		String[] names = original.getAttributeNames();
 
-		for (int i = 0; i < names.length; i++) {
-			String name = names[i];
-
+		for (String name : names) {
 			putAttribute(name, original.getAttribute(name));
 		}
 
 		IConfigurationElement[] originalChildren = original.getChildren();
 
-		for (int i = 0; i < originalChildren.length; i++) {
-			IConfigurationElement child = originalChildren[i];
-
+		for (IConfigurationElement child : originalChildren) {
 			if (!XmlConfig.E_INCLUDE.equals(child.getName())) {
 				// "<include>" elements will be resolved afterwards to
 				// insert the referenced constraints

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.service;
 
@@ -57,7 +57,7 @@ import org.osgi.framework.Bundle;
  * <p>
  * Provides services for loading modeled constraints into the validation system.
  * </p>
- * 
+ *
  * @author Boris Gruschko
  * @since 1.4
  *
@@ -73,7 +73,7 @@ public class ModeledConstraintsLoader {
 	}
 
 	private ModeledConstraintsLoader() {
-		loadedConstraintProviders = new HashSet<URI>();
+		loadedConstraintProviders = new HashSet<>();
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class ModeledConstraintsLoader {
 	 * {@link ModeledConstraintsLoader#loadConstraintBundles(ResourceSet, URI, ModelValidationService, Bundle)}
 	 * or use the modeledConstraintProviders extension point.
 	 * </p>
-	 * 
+	 *
 	 * @param rs                optional resource set to be used for resource
 	 *                          loading. if this argument is null, a resource set
 	 *                          will be created.
@@ -105,7 +105,7 @@ public class ModeledConstraintsLoader {
 	 * <p>
 	 * Loads constraint bundles into the validation system.
 	 * </p>
-	 * 
+	 *
 	 * @param rs                optional resource set to be used for resource
 	 *                          loading. if this argument is null, a resource set
 	 *                          will be created.
@@ -122,7 +122,7 @@ public class ModeledConstraintsLoader {
 
 	/**
 	 * Loads constraint categories into the validation system.
-	 * 
+	 *
 	 * @param rs     rs optional resource set to be used for resource loading.
 	 * @param uri    URI of the resource containing the modeled constraints.
 	 * @param bundle {@link Bundle} for locating internationalization messages.
@@ -352,22 +352,27 @@ public class ModeledConstraintsLoader {
 			this.provider = provider;
 		}
 
+		@Override
 		public IModelConstraintProvider getProvider() {
 			return provider;
 		}
 
+		@Override
 		public boolean isCache() {
 			return false;
 		}
 
+		@Override
 		public boolean isCacheEnabled() {
 			return false;
 		}
 
+		@Override
 		public boolean isXmlProvider() {
 			return false;
 		}
 
+		@Override
 		public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 			if (operation instanceof GetLiveConstraintsOperation) {
 				return providesLiveConstraints(operation);

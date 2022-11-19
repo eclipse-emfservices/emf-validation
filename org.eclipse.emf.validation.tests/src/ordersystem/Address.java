@@ -43,7 +43,7 @@ public interface Address extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Number</em>' attribute.
 	 * @see #setNumber(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Number()
@@ -55,7 +55,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getNumber <em>Number</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Number</em>' attribute.
 	 * @see #getNumber()
 	 * @generated
@@ -70,7 +70,7 @@ public interface Address extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Street</em>' attribute.
 	 * @see #setStreet(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Street()
@@ -82,7 +82,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getStreet <em>Street</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Street</em>' attribute.
 	 * @see #getStreet()
 	 * @generated
@@ -97,7 +97,7 @@ public interface Address extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Apartment</em>' attribute.
 	 * @see #setApartment(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Apartment()
@@ -109,7 +109,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getApartment
 	 * <em>Apartment</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Apartment</em>' attribute.
 	 * @see #getApartment()
 	 * @generated
@@ -124,7 +124,7 @@ public interface Address extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>City</em>' attribute.
 	 * @see #setCity(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_City()
@@ -136,7 +136,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getCity <em>City</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>City</em>' attribute.
 	 * @see #getCity()
 	 * @generated
@@ -151,7 +151,7 @@ public interface Address extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Province</em>' attribute.
 	 * @see #setProvince(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Province()
@@ -163,7 +163,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getProvince
 	 * <em>Province</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Province</em>' attribute.
 	 * @see #getProvince()
 	 * @generated
@@ -178,7 +178,7 @@ public interface Address extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Postal Code</em>' attribute.
 	 * @see #setPostalCode(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_PostalCode()
@@ -190,7 +190,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getPostalCode <em>Postal
 	 * Code</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Postal Code</em>' attribute.
 	 * @see #getPostalCode()
 	 * @generated
@@ -205,7 +205,7 @@ public interface Address extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Country</em>' attribute.
 	 * @see #setCountry(String)
 	 * @see ordersystem.OrderSystemPackage#getAddress_Country()
@@ -217,7 +217,7 @@ public interface Address extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Address#getCountry
 	 * <em>Country</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Country</em>' attribute.
 	 * @see #getCountry()
 	 * @generated

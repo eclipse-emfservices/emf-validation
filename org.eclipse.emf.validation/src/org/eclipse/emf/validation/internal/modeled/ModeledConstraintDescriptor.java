@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled;
 
@@ -34,7 +34,7 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 /**
  * @author Boris Gruschko
  * @since 1.4
- * 
+ *
  */
 public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 		implements IParameterizedConstraintDescriptor {
@@ -64,9 +64,9 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Sets the constraint. No reference to the constraint object will be held after
 	 * this method had been executed.
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
-	 * 
+	 *
 	 * @param constraint constraint model
 	 */
 	public final void setInitializationData(Constraint constraint) {
@@ -121,7 +121,7 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 			if (localParameters == null || localParameters.size() == 0) {
 				this.parameters = Collections.emptyMap();
 			} else {
-				this.parameters = new HashMap<String, String>(localParameters.size() * 2, 0.7f);
+				this.parameters = new HashMap<>(localParameters.size() * 2, 0.7f);
 				this.parameters.putAll(localParameters.map());
 			}
 		}
@@ -138,55 +138,68 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 		}
 	}
 
+	@Override
 	public String getBody() {
 		return body;
 	}
 
+	@Override
 	public EvaluationMode<?> getEvaluationMode() {
 		return evaluationMode;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
 
+	@Override
 	public String getMessagePattern() {
 		return messagePattern;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getPluginId() {
 		return pluginId;
 	}
 
+	@Override
 	public ConstraintSeverity getSeverity() {
 		return constraintSeverity;
 	}
 
+	@Override
 	public int getStatusCode() {
 		return statusCode;
 	}
 
+	@Override
 	public boolean targetsEvent(Notification notification) {
 		// TODO implement live constraints
 		return false;
 	}
 
+	@Override
 	public boolean targetsTypeOf(EObject eObject) {
 		return targetClassifier.isInstance(eObject);
 	}
 
+	@Override
 	public String getLanguage() {
 		return language;
 	}
 
+	@Override
 	public String getParameterValue(String name) {
 		return parameters.get(name);
 	}

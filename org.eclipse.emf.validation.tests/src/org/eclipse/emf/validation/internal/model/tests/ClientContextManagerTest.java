@@ -169,10 +169,12 @@ public class ClientContextManagerTest extends TestCase {
 
 			IModelConstraint constraint = new IModelConstraint() {
 
+				@Override
 				public IStatus validate(IValidationContext c) {
 					return Status.OK_STATUS;
 				}
 
+				@Override
 				public IConstraintDescriptor getDescriptor() {
 					return descr;
 				}
@@ -201,16 +203,18 @@ public class ClientContextManagerTest extends TestCase {
 
 			IModelConstraint constraint = new IModelConstraint() {
 
+				@Override
 				public IStatus validate(IValidationContext c) {
 					return Status.OK_STATUS;
 				}
 
+				@Override
 				public IConstraintDescriptor getDescriptor() {
 					return descr;
 				}
 			};
 
-			Collection<IClientContext> contexts = new java.util.ArrayList<IClientContext>();
+			Collection<IClientContext> contexts = new java.util.ArrayList<>();
 			contexts.add(ctx);
 			contexts.add(ctx2);
 
@@ -263,16 +267,19 @@ public class ClientContextManagerTest extends TestCase {
 	}
 
 	public static final class TestSelector implements IClientSelector {
+		@Override
 		public boolean selects(Object object) {
 			return object instanceof Product;
 		}
 	}
 
 	private static final class TestConstraint implements IModelConstraint {
+		@Override
 		public IStatus validate(IValidationContext c) {
 			return Status.OK_STATUS;
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return desc;
 		}

@@ -21,7 +21,7 @@ import ordersystem.Product;
 
 /**
  * JUnit tests for {@link TextUtils} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class TextUtilsTest extends TestCase {

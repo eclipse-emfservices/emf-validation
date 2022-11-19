@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.util;
 
@@ -52,7 +52,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
  * This class is intended to be used by clients of the validation framework for
  * constraint discovery purposes.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
@@ -78,7 +78,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	private ConstraintSeverity severity = ConstraintSeverity.ERROR;
 	private EvaluationMode<?> mode;
 
-	private Map<Object, TargetDescriptor> targetMap = new java.util.HashMap<Object, TargetDescriptor>();
+	private Map<Object, TargetDescriptor> targetMap = new java.util.HashMap<>();
 
 	private String messagePattern;
 
@@ -89,7 +89,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 	/**
 	 * Initializes me from the specified Eclipse configuration element.
-	 * 
+	 *
 	 * @param config the configuration element
 	 * @throws ConstraintExistsException if the <code>config</code>uration element
 	 *                                   specified a constraint ID that already
@@ -164,7 +164,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Returns the normalized constraint ID, which is prefixed by the contributing
 	 * plug-in's ID.
-	 * 
+	 *
 	 * @param pluginId the ID of the plug-in that contributes the constraint
 	 * @param id       the constraint's ID, as declared in the XML
 	 * @return the normalized ID, which either the original ID if it already starts
@@ -185,26 +185,31 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public IConfigurationElement getConfig() {
 		return config;
 	}
 
 	// implements the interface method
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	// implements the interface method
+	@Override
 	public String getId() {
 		return id;
 	}
 
 	// implements the interface method
+	@Override
 	public String getPluginId() {
 		return pluginId;
 	}
 
 	// implements the interface method
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -214,6 +219,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public ConstraintSeverity getSeverity() {
 		return severity;
 	}
@@ -225,6 +231,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public int getStatusCode() {
 		return statusCode;
 	}
@@ -233,7 +240,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	 * Obtains the target descriptor corresponding to the specified <code>key</code>
 	 * which indicates the EMF object type. The descriptor is lazily instantiated,
 	 * if it does not already exist.
-	 * 
+	 *
 	 * @param key the EMF object type, as a class name (string) or {@link EClass}
 	 * @return the descriptor
 	 */
@@ -263,6 +270,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public EvaluationMode<?> getEvaluationMode() {
 		return mode;
 	}
@@ -274,6 +282,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void resolveTargetTypes(String[] namespaceUris) {
 		if (resolved) {
 			// I already did this. Don't bother me about it again
@@ -283,7 +292,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		resolved = true;
 
 		Map<Object, TargetDescriptor> oldMap = targetMap;
-		targetMap = new java.util.HashMap<Object, TargetDescriptor>();
+		targetMap = new java.util.HashMap<>();
 
 		for (Map.Entry<Object, TargetDescriptor> next : oldMap.entrySet()) {
 			String typeName = (String) next.getKey();
@@ -336,7 +345,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Causes the specified <code>target</code>'s <code>descriptor</code> to inherit
 	 * trigger definitions from the descriptors of any registers ancestor EClasses.
-	 * 
+	 *
 	 * @param target     a target EClass
 	 * @param descriptor its descriptor
 	 */
@@ -353,7 +362,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Queries whether I am a universal constraint, supporting all target types,
 	 * events, and features.
-	 * 
+	 *
 	 * @return whether I was declared without any target definitions
 	 */
 	private boolean isUniversal() {
@@ -361,13 +370,14 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public boolean targetsTypeOf(EObject eObject) {
 		return (eObject == null) ? false : isUniversal() || targetsType(eObject.eClass());
 	}
 
 	/**
 	 * Determines whether I explicitly support this type.
-	 * 
+	 *
 	 * @param eClass the target type to test
 	 * @return whether I support it or not
 	 */
@@ -377,7 +387,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 	/**
 	 * Adds a supported target type name.
-	 * 
+	 *
 	 * @param typeName the EMF type for which batch evaluation is supported
 	 * @return the descriptor that I have added
 	 */
@@ -397,6 +407,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public boolean targetsEvent(Notification notification) {
 		if (notification.getNotifier() instanceof EObject) {
 			EObject eObject = (EObject) notification.getNotifier();
@@ -421,7 +432,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Queries whether the specified <CODE>eventType</CODE> is one that I explicitly
 	 * support.
-	 * 
+	 *
 	 * @param eClass    the EMF type
 	 * @param eventType the EMF event type
 	 * @param feature   the particular feature that is changed (may be
@@ -433,6 +444,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public String getMessagePattern() {
 		return messagePattern;
 	}
@@ -442,6 +454,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	}
 
 	// implements the interface method
+	@Override
 	public String getBody() {
 		return body;
 	}
@@ -450,10 +463,12 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		this.body = body;
 	}
 
+	@Override
 	public String getLanguage() {
 		return getConfig().getAttribute(XmlConfig.A_LANG);
 	}
 
+	@Override
 	public String getParameterValue(String name) {
 		String result = XmlConfig.getParameter(getConfig(), name);
 
@@ -475,7 +490,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 	/**
 	 * Parses the <tt>&lt;description&gt;</tt> element from the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 */
@@ -493,7 +508,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 	/**
 	 * Parses the <tt>&lt;message&gt;</tt> element from the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 * @throws CoreException on any failure to obtain the message pattern from the
@@ -520,7 +535,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>mode</tt> attribute from
 	 * the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 */
@@ -541,7 +556,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>severity</tt> attribute
 	 * from the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 */
@@ -561,7 +576,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 	/**
 	 * Parses the <tt>&lt;target&gt;</tt> elements from the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 */
@@ -607,7 +622,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	/**
 	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>isEnabledByDefault</tt>
 	 * attribute from the XML.
-	 * 
+	 *
 	 * @param extConfig the Eclipse configuration element representing the XML
 	 *                  extension data
 	 */
@@ -670,7 +685,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 	 * currently no means for excluding inherited characteristics, but only to add
 	 * to them.
 	 * </p>
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class TargetDescriptor {
@@ -692,24 +707,24 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 		/**
 		 * Does lazy initialization of the <code>nonFeatureSpecificEvents</code> map.
-		 * 
+		 *
 		 * @return the <code>nonFeatureSpecificEvents</code> map; never null
 		 */
 		private Collection<EMFEventType> getNonFeatureSpecificEvents() {
 			if (nonFeatureSpecificEvents == null) {
-				nonFeatureSpecificEvents = new java.util.HashSet<EMFEventType>();
+				nonFeatureSpecificEvents = new java.util.HashSet<>();
 			}
 			return nonFeatureSpecificEvents;
 		}
 
 		/**
 		 * Does lazy initialization of the <code>featureSpecificEvents</code> map.
-		 * 
+		 *
 		 * @return the <code>featureSpecificEvents</code> map; never null
 		 */
 		private Map<EMFEventType, Collection<String>> getFeatureSpecificEvents() {
 			if (featureSpecificEvents == null) {
-				featureSpecificEvents = new java.util.HashMap<EMFEventType, Collection<String>>();
+				featureSpecificEvents = new java.util.HashMap<>();
 			}
 			return featureSpecificEvents;
 		}
@@ -717,7 +732,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		/**
 		 * Queries whether I explicitly support my target EClass, or whether I was just
 		 * created lazily on a query for support.
-		 * 
+		 *
 		 * @return <code>true</code> if I explicitly declare support for my
 		 *         corresponding EClass type; <code>false</code>, otherwise
 		 */
@@ -738,7 +753,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		 * feature-specific} event type, then this event will be triggered by all
 		 * features. Otherwise, it will only be triggered by an event pertaining (such
 		 * as "create") to the object as a whole.
-		 * 
+		 *
 		 * @param eventType the event type
 		 */
 		void addEvent(EMFEventType eventType) {
@@ -748,7 +763,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		/**
 		 * Appends a supported event type, for live constraints, with an optional
 		 * feature designation.
-		 * 
+		 *
 		 * @param eventType   the event type
 		 * @param featureName the feature name for which to register support of the
 		 *                    specified <code>eventType</code>
@@ -758,7 +773,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 				Collection<String> currentFeatures = getFeatureSpecificEvents().get(eventType);
 
 				if (currentFeatures == null) {
-					currentFeatures = new java.util.HashSet<String>();
+					currentFeatures = new java.util.HashSet<>();
 					getFeatureSpecificEvents().put(eventType, currentFeatures);
 				}
 
@@ -768,7 +783,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 
 		/**
 		 * Queries whether I support the specified event type.
-		 * 
+		 *
 		 * @param eventType the event type
 		 * @param feature   the particular feature that I must support, or
 		 *                  <code>null</code> the event is not for any feature
@@ -822,7 +837,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		/**
 		 * Merge's a supertype's target descriptor into me. I will inherit its
 		 * applicability characteristics.
-		 * 
+		 *
 		 * @param parent a descriptor for a parent type
 		 */
 		void merge(TargetDescriptor parent) {
@@ -846,7 +861,7 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 						// add all of my parent's features. Need to create a copy
 						// because I might inherit other features from a different
 						// parent
-						getFeatureSpecificEvents().put(eventType, new java.util.HashSet<String>(features));
+						getFeatureSpecificEvents().put(eventType, new java.util.HashSet<>(features));
 					} else {
 						myFeatures.addAll(features);
 					}

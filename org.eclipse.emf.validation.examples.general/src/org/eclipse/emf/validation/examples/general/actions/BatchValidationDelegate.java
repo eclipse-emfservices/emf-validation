@@ -47,7 +47,7 @@ import org.eclipse.ui.dialogs.ListDialog;
 /**
  * This action delegate calls upon the validation service to provide a batch
  * validation of the selected EObjects and their children.
- * 
+ *
  */
 public class BatchValidationDelegate implements IEditorActionDelegate, IActionDelegate2 {
 
@@ -81,6 +81,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
 	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedEObjects = null;
 		try {
@@ -106,6 +107,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
+	@Override
 	public void dispose() {
 		// No-op
 	}
@@ -115,6 +117,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
 	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
+	@Override
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.editor = (EXTLibraryEditor) targetEditor;
 		if (targetEditor != null) {
@@ -125,6 +128,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void init(IAction action) {
 		// No-op
 	}
@@ -133,15 +137,17 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
 	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
+	@Override
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		ValidationDelegateClientSelector.running = true;
 
@@ -160,10 +166,12 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 			dialog.setInput(status);
 			dialog.setTitle(title);
 			dialog.setContentProvider(new IStructuredContentProvider() {
+				@Override
 				public void dispose() {
 					// nothing to dispose
 				}
 
+				@Override
 				public Object[] getElements(Object inputElement) {
 					if (status != null && status.isMultiStatus() && status == inputElement) {
 						return status.getChildren();
@@ -173,6 +181,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 					return new Object[0];
 				}
 
+				@Override
 				public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 					// Do nothing.
 				}
@@ -190,7 +199,7 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 			dialog.setMessage(ValidationMessages.BatchValidationDelegate_errorMessage);
 
 			if (Window.OK == dialog.open()) {
-				Set<EObject> errorSelections = new HashSet<EObject>();
+				Set<EObject> errorSelections = new HashSet<>();
 				if (!status.isMultiStatus()) {
 					IConstraintStatus cstatus = (IConstraintStatus) status;
 					errorSelections.add(cstatus.getTarget());

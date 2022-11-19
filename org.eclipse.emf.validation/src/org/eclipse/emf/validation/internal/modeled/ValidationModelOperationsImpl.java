@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
 
 /**
  * Operation implementations for the validation meta-model.
- * 
+ *
  * @author Boris Gruschko
  * @since 1.4
  *
@@ -28,15 +28,15 @@ public class ValidationModelOperationsImpl {
 
 	/**
 	 * Computes the path of the given category.
-	 * 
+	 *
 	 * @param category category for which the path is to be computed.
-	 * 
+	 *
 	 * @return path to the given category
 	 */
 	public static String categoryGetPath(Category category) {
 		StringBuilder builder = new StringBuilder(50);
 
-		LinkedList<Category> pathToTop = new LinkedList<Category>();
+		LinkedList<Category> pathToTop = new LinkedList<>();
 
 		for (Category cat = category; cat != null; cat = cat.getParentCategory())
 			pathToTop.addFirst(cat);

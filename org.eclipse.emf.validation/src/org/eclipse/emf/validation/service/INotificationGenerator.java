@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.service;
 
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.notify.Notification;
  * Notification generators are contributed through the <tt>eventTypes</tt>
  * Eclipse extension point.
  * </p>
- * 
+ *
  * @see EventTypeService#getNotificationGenerator(String)
  * @see EventTypeService#getNotificationGenerators()
  *
@@ -33,7 +33,7 @@ public interface INotificationGenerator {
 	/**
 	 * Generates and returns custom notifications from a list of notifications that
 	 * are eligible for validation.
-	 * 
+	 *
 	 * @param notifications that are eligible for validation
 	 * @return collection of newly generated notifications
 	 */

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -44,7 +44,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  * @since 1.4
  */
@@ -52,7 +52,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	/**
 	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static ValidationFactory init() {
@@ -71,7 +71,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	/**
 	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public ValidationFactoryImpl() {
@@ -80,7 +80,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -127,7 +127,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -146,7 +146,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -165,9 +165,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Category createCategory() {
 		CategoryImpl category = new CategoryImpl();
 		return category;
@@ -175,9 +176,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ConstraintProvider createConstraintProvider() {
 		ConstraintProviderImpl constraintProvider = new ConstraintProviderImpl();
 		return constraintProvider;
@@ -185,9 +187,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Event createEvent() {
 		EventImpl event = new EventImpl();
 		return event;
@@ -195,9 +198,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public CustomEvent createCustomEvent() {
 		CustomEventImpl customEvent = new CustomEventImpl();
 		return customEvent;
@@ -205,9 +209,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Feature createFeature() {
 		FeatureImpl feature = new FeatureImpl();
 		return feature;
@@ -215,7 +220,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public Map.Entry<String, String> createParameter() {
@@ -225,9 +230,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Constraints createConstraints() {
 		ConstraintsImpl constraints = new ConstraintsImpl();
 		return constraints;
@@ -235,9 +241,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ConstraintsBundle createConstraintsBundle() {
 		ConstraintsBundleImpl constraintsBundle = new ConstraintsBundleImpl();
 		return constraintsBundle;
@@ -245,9 +252,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public UnparsedConstraint createUnparsedConstraint() {
 		UnparsedConstraintImpl unparsedConstraint = new UnparsedConstraintImpl();
 		return unparsedConstraint;
@@ -255,9 +263,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public OclConstraint createOclConstraint() {
 		OclConstraintImpl oclConstraint = new OclConstraintImpl();
 		return oclConstraint;
@@ -265,9 +274,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Parser createParser() {
 		ParserImpl parser = new ParserImpl();
 		return parser;
@@ -275,9 +285,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public TraversalStrategy createTraversalStrategy() {
 		TraversalStrategyImpl traversalStrategy = new TraversalStrategyImpl();
 		return traversalStrategy;
@@ -285,9 +296,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ConstraintBindingsBundle createConstraintBindingsBundle() {
 		ConstraintBindingsBundleImpl constraintBindingsBundle = new ConstraintBindingsBundleImpl();
 		return constraintBindingsBundle;
@@ -295,9 +307,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ClientContext createClientContext() {
 		ClientContextImpl clientContext = new ClientContextImpl();
 		return clientContext;
@@ -305,9 +318,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Binding createBinding() {
 		BindingImpl binding = new BindingImpl();
 		return binding;
@@ -315,9 +329,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Enablement createEnablement() {
 		EnablementImpl enablement = new EnablementImpl();
 		return enablement;
@@ -325,9 +340,10 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Selector createSelector() {
 		SelectorImpl selector = new SelectorImpl();
 		return selector;
@@ -335,7 +351,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public EventTypesEnum createEventTypesEnumFromString(EDataType eDataType, String initialValue) {
@@ -348,7 +364,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public String convertEventTypesEnumToString(EDataType eDataType, Object instanceValue) {
@@ -357,7 +373,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public ModeEnum createModeEnumFromString(EDataType eDataType, String initialValue) {
@@ -370,7 +386,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public String convertModeEnumToString(EDataType eDataType, Object instanceValue) {
@@ -379,7 +395,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public SeverityEnum createSeverityEnumFromString(EDataType eDataType, String initialValue) {
@@ -392,7 +408,7 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public String convertSeverityEnumToString(EDataType eDataType, Object instanceValue) {
@@ -401,16 +417,17 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ValidationPackage getValidationPackage() {
 		return (ValidationPackage) getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @deprecated
 	 * @generated
 	 */

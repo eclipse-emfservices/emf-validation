@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -20,9 +20,9 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * Enumeration for a constraint change event type.
- * 
+ *
  * @since 1.1
- * 
+ *
  * @author David Cummings (dcummin)
  */
 public enum ConstraintChangeEventType implements Enumerator {
@@ -67,7 +67,7 @@ public enum ConstraintChangeEventType implements Enumerator {
 	/**
 	 * Constructs a new constraint change event type with the specified name and
 	 * ordinal.
-	 * 
+	 *
 	 * @param name The name of the constraint change event type
 	 */
 	private ConstraintChangeEventType(String name) {
@@ -76,21 +76,24 @@ public enum ConstraintChangeEventType implements Enumerator {
 
 	/**
 	 * Obtains the collection of predefined constraint change event types
-	 * 
+	 *
 	 * @return an unmodifiable collection of the event types
 	 */
 	protected List<ConstraintChangeEventType> getValues() {
 		return Collections.unmodifiableList(Arrays.asList(VALUES));
 	}
 
+	@Override
 	public int getValue() {
 		return ordinal();
 	}
 
+	@Override
 	public String getLiteral() {
 		return getName();
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

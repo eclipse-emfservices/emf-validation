@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -49,7 +49,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 	/**
 	 * The cached value of the '{@link #getConstraints() <em>Constraints</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getConstraints()
 	 * @generated
 	 * @ordered
@@ -59,7 +59,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 	/**
 	 * The cached value of the '{@link #getInclude() <em>Include</em>}' attribute
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getInclude()
 	 * @generated
 	 * @ordered
@@ -69,7 +69,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 	/**
 	 * The cached value of the '{@link #getCategories() <em>Categories</em>}'
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCategories()
 	 * @generated
 	 * @ordered
@@ -78,7 +78,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ConstraintsImpl() {
@@ -87,7 +87,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -97,12 +97,13 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Constraint> getConstraints() {
 		if (constraints == null) {
-			constraints = new EObjectContainmentEList<Constraint>(Constraint.class, this,
+			constraints = new EObjectContainmentEList<>(Constraint.class, this,
 					ValidationPackage.CONSTRAINTS__CONSTRAINTS);
 		}
 		return constraints;
@@ -110,24 +111,26 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<String> getInclude() {
 		if (include == null) {
-			include = new EDataTypeUniqueEList<String>(String.class, this, ValidationPackage.CONSTRAINTS__INCLUDE);
+			include = new EDataTypeUniqueEList<>(String.class, this, ValidationPackage.CONSTRAINTS__INCLUDE);
 		}
 		return include;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Category> getCategories() {
 		if (categories == null) {
-			categories = new EObjectResolvingEList<Category>(Category.class, this,
+			categories = new EObjectResolvingEList<>(Category.class, this,
 					ValidationPackage.CONSTRAINTS__CATEGORIES);
 		}
 		return categories;
@@ -135,7 +138,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -149,7 +152,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -167,7 +170,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -192,7 +195,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -213,7 +216,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -231,7 +234,7 @@ public class ConstraintsImpl extends EObjectImpl implements Constraints {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

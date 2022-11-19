@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration
  * '<em><b>Severity Enum</b></em>', and utility methods for working with them.
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getSeverityEnum()
  * @model
  * @generated
@@ -31,7 +31,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * The '<em><b>INFO</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #INFO_VALUE
 	 * @generated
 	 * @ordered
@@ -41,7 +41,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * The '<em><b>WARNING</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #WARNING_VALUE
 	 * @generated
 	 * @ordered
@@ -51,7 +51,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * The '<em><b>ERROR</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #ERROR_VALUE
 	 * @generated
 	 * @ordered
@@ -61,7 +61,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * The '<em><b>CANCEL</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #CANCEL_VALUE
 	 * @generated
 	 * @ordered
@@ -75,7 +75,7 @@ public enum SeverityEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #INFO
 	 * @model
 	 * @generated
@@ -90,7 +90,7 @@ public enum SeverityEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #WARNING
 	 * @model
 	 * @generated
@@ -105,7 +105,7 @@ public enum SeverityEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #ERROR
 	 * @model
 	 * @generated
@@ -120,7 +120,7 @@ public enum SeverityEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #CANCEL
 	 * @model
 	 * @generated
@@ -131,7 +131,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * An array of all the '<em><b>Severity Enum</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static final SeverityEnum[] VALUES_ARRAY = new SeverityEnum[] { INFO, WARNING, ERROR, CANCEL, };
@@ -139,7 +139,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * A public read-only list of all the '<em><b>Severity Enum</b></em>'
 	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static final List<SeverityEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -147,12 +147,11 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified
 	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static SeverityEnum get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			SeverityEnum result = VALUES_ARRAY[i];
+		for (SeverityEnum result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -163,12 +162,11 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static SeverityEnum getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			SeverityEnum result = VALUES_ARRAY[i];
+		for (SeverityEnum result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -179,7 +177,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified
 	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static SeverityEnum get(int value) {
@@ -198,21 +196,21 @@ public enum SeverityEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -220,7 +218,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private SeverityEnum(int value, String name, String literal) {
@@ -231,27 +229,30 @@ public enum SeverityEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -259,7 +260,7 @@ public enum SeverityEnum implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

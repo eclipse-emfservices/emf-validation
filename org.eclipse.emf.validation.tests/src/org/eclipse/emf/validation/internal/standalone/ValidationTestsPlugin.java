@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.standalone;
 
@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
  * Provides the resource locator for the standalone test.
- * 
+ *
  * @author Boris Gruschko
  *
  */

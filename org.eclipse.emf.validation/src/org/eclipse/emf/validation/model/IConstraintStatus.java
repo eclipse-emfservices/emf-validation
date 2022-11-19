@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
@@ -37,14 +37,14 @@ public interface IConstraintStatus extends IStatus {
 	/**
 	 * Obtains the constraint which either succeeded or failed, according to what I
 	 * have to say.
-	 * 
+	 *
 	 * @return my constraint
 	 */
 	IModelConstraint getConstraint();
 
 	/**
 	 * Obtains the target object, on which the constraint was evaluated.
-	 * 
+	 *
 	 * @return the target of the validation operation
 	 */
 	EObject getTarget();
@@ -53,7 +53,7 @@ public interface IConstraintStatus extends IStatus {
 	 * Obtains the objects which are involved in the failure of the constraint.
 	 * These are objects which caused the constraint to fail, and would be useful to
 	 * link to from some display of the error message.
-	 * 
+	 *
 	 * @return the objects which caused the constraint to fail. In cases of
 	 *         successful validation, the result is an empty collection. The result
 	 *         is never <code>null</code>

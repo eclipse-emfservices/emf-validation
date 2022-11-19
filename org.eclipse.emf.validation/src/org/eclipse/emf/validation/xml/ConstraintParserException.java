@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.xml;
 
@@ -19,7 +19,7 @@ package org.eclipse.emf.validation.xml;
  * This class is not intended to be used by implementors of the
  * {@link org.eclipse.emf.validation.xml.IXmlConstraintParser} interface.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintParserException extends Exception {
@@ -27,7 +27,7 @@ public class ConstraintParserException extends Exception {
 
 	/**
 	 * Initializes me with a user-friendly message but no cause.
-	 * 
+	 *
 	 * @param message the user-friendly message
 	 */
 	public ConstraintParserException(String message) {
@@ -36,7 +36,7 @@ public class ConstraintParserException extends Exception {
 
 	/**
 	 * Initializes me with a user-friendly message and a root cause.
-	 * 
+	 *
 	 * @param message the user-friendly message
 	 * @param cause   the original exception which caused parsing to fail
 	 */

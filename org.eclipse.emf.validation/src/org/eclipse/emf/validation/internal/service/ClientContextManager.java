@@ -45,7 +45,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
 /**
  * The context manager loads contexts from the <code>constraintBindings</code>
  * extension point and makes them available to the validation framework.
- * 
+ *
  * @author Christian W. Damus
  */
 public class ClientContextManager {
@@ -63,15 +63,16 @@ public class ClientContextManager {
 
 	private static final ClientContextManager INSTANCE = new ClientContextManager();
 
-	private volatile Set<IClientContext> clientContexts = new java.util.HashSet<IClientContext>();
-	private volatile Map<String, IClientContext> clientContextMap = new java.util.HashMap<String, IClientContext>();
+	private volatile Set<IClientContext> clientContexts = new java.util.HashSet<>();
+	private volatile Map<String, IClientContext> clientContextMap = new java.util.HashMap<>();
 
-	private volatile Set<ClientContext> defaultContexts = new java.util.HashSet<ClientContext>();
+	private volatile Set<ClientContext> defaultContexts = new java.util.HashSet<>();
 
 	private final Object clientContextLock = new Object();
 
 	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			// must create all of the contexts before we process the bindings.
 			// Hence, this will loop over the elements twice
@@ -83,6 +84,7 @@ public class ClientContextManager {
 			}
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// client-contexts cannot be undefined
 		}
@@ -120,7 +122,7 @@ public class ClientContextManager {
 
 	/**
 	 * Obtains the singleton instance of this class.
-	 * 
+	 *
 	 * @return the singleton context manager
 	 */
 	public static final ClientContextManager getInstance() {
@@ -129,7 +131,7 @@ public class ClientContextManager {
 
 	/**
 	 * Obtains a client context by its unique identifier.
-	 * 
+	 *
 	 * @param contextId the client context ID to look for
 	 * @return the matching context, or <code>null</code> if none is registered
 	 *         under this ID
@@ -140,7 +142,7 @@ public class ClientContextManager {
 
 	/**
 	 * Obtains all of the client contexts registered in the system.
-	 * 
+	 *
 	 * @return the available {@link IClientContext}s
 	 */
 	public Set<IClientContext> getClientContexts() {
@@ -149,14 +151,14 @@ public class ClientContextManager {
 
 	/**
 	 * Obtains the client contexts to which the specified object belongs.
-	 * 
+	 *
 	 * @param eObject a model element
 	 * @return the collection of client contexts to which the <code>eObject</code>
 	 *         belongs. This may be empty if no context selector matches this
 	 *         element
 	 */
 	public Collection<IClientContext> getClientContextsFor(EObject eObject) {
-		Set<IClientContext> result = new java.util.HashSet<IClientContext>();
+		Set<IClientContext> result = new java.util.HashSet<>();
 
 		EvaluationContext ctx = new EvaluationContext(null, eObject);
 
@@ -164,9 +166,8 @@ public class ClientContextManager {
 		synchronized (clientContextLock) {
 			contextsCopy = getClientContexts();
 		}
-		for (Iterator<IClientContext> iter = contextsCopy.iterator(); iter.hasNext();) {
+		for (IClientContext next : contextsCopy) {
 
-			IClientContext next = iter.next();
 			IClientSelector selector = next.getSelector();
 
 			final Object toTest = (selector instanceof XmlExpressionSelector) ? (Object) ctx : (Object) eObject;
@@ -202,7 +203,7 @@ public class ClientContextManager {
 	/**
 	 * Computes the constraints bound to contexts that include the specified
 	 * <code>eObject</code> from amongst the specified collection.
-	 * 
+	 *
 	 * @param eObject     a model element
 	 * @param constraints a collection of {@link IModelConstraint}s
 	 * @return the {@link IModelConstraint}s from amongst the specified
@@ -233,7 +234,7 @@ public class ClientContextManager {
 	/**
 	 * Computes the constraints bound to the specified <code>context</code> from
 	 * amongst the specified collection.
-	 * 
+	 *
 	 * @param context     a client context
 	 * @param constraints a collection of {@link IModelConstraint}s
 	 * @return the {@link IModelConstraint}s from amongst the specified
@@ -242,7 +243,7 @@ public class ClientContextManager {
 	public <T extends IModelConstraint> Collection<T> getBindings(IClientContext context,
 			Collection<? extends T> constraints) {
 
-		Collection<T> result = new java.util.ArrayList<T>(constraints.size());
+		Collection<T> result = new java.util.ArrayList<>(constraints.size());
 
 		for (T constraint : constraints) {
 			if (context.includes(constraint)) {
@@ -262,7 +263,7 @@ public class ClientContextManager {
 	/**
 	 * Computes the constraints bound any of the specified <code>contexts</code>
 	 * from amongst the specified collection.
-	 * 
+	 *
 	 * @param contexts    a collection of {@link IClientContext}s
 	 * @param constraints a collection of {@link IModelConstraint}s
 	 * @return the {@link IModelConstraint}s from amongst the specified
@@ -271,7 +272,7 @@ public class ClientContextManager {
 	public <T extends IModelConstraint> Collection<T> getBindings(Collection<? extends IClientContext> contexts,
 			Collection<? extends T> constraints) {
 
-		Collection<T> result = new java.util.ArrayList<T>(constraints.size());
+		Collection<T> result = new java.util.ArrayList<>(constraints.size());
 
 		// use an array for performance (to avoid creating so many iterators)
 		IClientContext[] ctxArray = contexts.toArray(new IClientContext[contexts.size()]);
@@ -318,10 +319,10 @@ public class ClientContextManager {
 	 * indeed a default constraint, to all default client contexts, so that the
 	 * computation can be averted in future.
 	 * </p>
-	 * 
+	 *
 	 * @param constraint a constraint
 	 * @return whether the constraint is bound implicitly to default client contexts
-	 * 
+	 *
 	 * @see IClientContext#isDefault()
 	 */
 	private boolean isDefaultBinding(IModelConstraint constraint) {
@@ -353,10 +354,10 @@ public class ClientContextManager {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
-	 * 
+	 *
 	 * @param elements the configuration elements representing constraint binding
 	 *                 extensions
-	 * 
+	 *
 	 * @deprecated 1.2 This method is no longer implemented
 	 */
 	@Deprecated
@@ -367,15 +368,15 @@ public class ClientContextManager {
 	/**
 	 * Helper method to configure the <code>&lt;clientContext&gt;</code> occurrences
 	 * amongst the <code>elements</code>.
-	 * 
+	 *
 	 * @param elements the top-level configuration elements on the
 	 *                 <code>constraintBindings</code> extension point
 	 */
 	public void configureClientContexts(IConfigurationElement[] elements) {
 		// copy on write
-		clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
-		clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
-		defaultContexts = new java.util.HashSet<ClientContext>(defaultContexts);
+		clientContexts = new java.util.HashSet<>(clientContexts);
+		clientContextMap = new java.util.HashMap<>(clientContextMap);
+		defaultContexts = new java.util.HashSet<>(defaultContexts);
 
 		for (IConfigurationElement config : elements) {
 			if (E_CLIENT_CONTEXT.equals(config.getName())) {
@@ -413,14 +414,14 @@ public class ClientContextManager {
 	/**
 	 * Adds the specified implicit client context binding (forward reference). The
 	 * client-context lock must be held when calling this method.
-	 * 
+	 *
 	 * @param context the implicit context to add
 	 */
 	public void addClientContext(ClientContext context) {
 		synchronized (clientContextLock) {
 			// copy on write
-			clientContexts = new java.util.HashSet<IClientContext>(clientContexts);
-			clientContextMap = new java.util.HashMap<String, IClientContext>(clientContextMap);
+			clientContexts = new java.util.HashSet<>(clientContexts);
+			clientContextMap = new java.util.HashMap<>(clientContextMap);
 
 			if (clientContexts.add(context)) {
 				clientContextMap.put(context.getId(), context);
@@ -431,7 +432,7 @@ public class ClientContextManager {
 	/**
 	 * Helper method to configure the <code>&lt;binding&gt;</code> occurrences
 	 * amongst the <code>elements</code>.
-	 * 
+	 *
 	 * @param elements the top-level configuration elements on the
 	 *                 <code>constraintBindings</code> extension point
 	 */
@@ -461,7 +462,7 @@ public class ClientContextManager {
 	/**
 	 * Helper method to process a particular binding element for its client
 	 * <code>context</code>.
-	 * 
+	 *
 	 * @param context a client context referenced by a binding
 	 * @param config  a particular <code>&lt;binding&gt;</config> element
 	 */

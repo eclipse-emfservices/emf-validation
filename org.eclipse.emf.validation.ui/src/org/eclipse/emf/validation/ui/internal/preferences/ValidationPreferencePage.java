@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal.preferences;
 
@@ -86,7 +86,7 @@ public class ValidationPreferencePage extends FieldEditorPreferencePage implemen
 
 	/**
 	 * Create the "Live validation problems" group of the preference page.
-	 * 
+	 *
 	 * @param parent the parent composite
 	 */
 	private void createLiveValidationProblemsGroup(Composite parent) {
@@ -158,7 +158,7 @@ public class ValidationPreferencePage extends FieldEditorPreferencePage implemen
 	/**
 	 * This method must be implemented to obtain the correct location of the
 	 * preference store, as it is called by getPreferenceStore().
-	 * 
+	 *
 	 * @return IPreferenceStore the returned preference store
 	 */
 	@Override
@@ -170,7 +170,7 @@ public class ValidationPreferencePage extends FieldEditorPreferencePage implemen
 	 * When the user clicks OK, save the values in the field editors by calling
 	 * storeValues() and also in the preference store. This is the same as what is
 	 * done in apply.
-	 * 
+	 *
 	 * @return true since the ok function completed successfully. If the saving does
 	 *         not complete successfully, for this preference page, it was because
 	 *         of something the user cannot fix, so return true anyway otherwise the
@@ -190,6 +190,7 @@ public class ValidationPreferencePage extends FieldEditorPreferencePage implemen
 	/*
 	 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 	 */
+	@Override
 	public void init(IWorkbench workbench) {
 		// Nothing to do in this implementation
 	}

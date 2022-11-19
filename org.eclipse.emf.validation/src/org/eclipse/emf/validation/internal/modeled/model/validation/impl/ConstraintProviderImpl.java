@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -62,7 +62,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The default value of the '{@link #isCache() <em>Cache</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isCache()
 	 * @generated
 	 * @ordered
@@ -72,7 +72,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #isCache() <em>Cache</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isCache()
 	 * @generated
 	 * @ordered
@@ -82,7 +82,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -92,7 +92,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getDescription() <em>Description</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getDescription()
 	 * @generated
 	 * @ordered
@@ -102,7 +102,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -112,7 +112,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The default value of the '{@link #getMode() <em>Mode</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMode()
 	 * @generated
 	 * @ordered
@@ -122,7 +122,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getMode() <em>Mode</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMode()
 	 * @generated
 	 * @ordered
@@ -132,7 +132,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -142,7 +142,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getClassName()
 	 * @generated
 	 * @ordered
@@ -152,7 +152,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getConstraints() <em>Constraints</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getConstraints()
 	 * @generated
 	 * @ordered
@@ -162,7 +162,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPackage()
 	 * @generated
 	 * @ordered
@@ -172,7 +172,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The default value of the '{@link #getPluginId() <em>Plugin Id</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPluginId()
 	 * @generated
 	 * @ordered
@@ -182,7 +182,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 	/**
 	 * The cached value of the '{@link #getPluginId() <em>Plugin Id</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPluginId()
 	 * @generated
 	 * @ordered
@@ -191,7 +191,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ConstraintProviderImpl() {
@@ -200,7 +200,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -210,18 +210,20 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isCache() {
 		return cache;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setCache(boolean newCache) {
 		boolean oldCache = cache;
 		cache = newCache;
@@ -232,18 +234,20 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -254,12 +258,13 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Target> getTarget() {
 		if (target == null) {
-			target = new EObjectContainmentEList<Target>(Target.class, this,
+			target = new EObjectContainmentEList<>(Target.class, this,
 					ValidationPackage.CONSTRAINT_PROVIDER__TARGET);
 		}
 		return target;
@@ -267,18 +272,20 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public ModeEnum getMode() {
 		return mode;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setMode(ModeEnum newMode) {
 		ModeEnum oldMode = mode;
 		mode = newMode == null ? MODE_EDEFAULT : newMode;
@@ -289,18 +296,20 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -311,12 +320,13 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Constraints> getConstraints() {
 		if (constraints == null) {
-			constraints = new EObjectContainmentEList<Constraints>(Constraints.class, this,
+			constraints = new EObjectContainmentEList<>(Constraints.class, this,
 					ValidationPackage.CONSTRAINT_PROVIDER__CONSTRAINTS);
 		}
 		return constraints;
@@ -324,12 +334,13 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<EPackage> getPackage() {
 		if (package_ == null) {
-			package_ = new EObjectResolvingEList<EPackage>(EPackage.class, this,
+			package_ = new EObjectResolvingEList<>(EPackage.class, this,
 					ValidationPackage.CONSTRAINT_PROVIDER__PACKAGE);
 		}
 		return package_;
@@ -337,18 +348,20 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getPluginId() {
 		return pluginId;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setPluginId(String newPluginId) {
 		String oldPluginId = pluginId;
 		pluginId = newPluginId;
@@ -359,7 +372,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -375,7 +388,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -403,7 +416,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -443,7 +456,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -479,7 +492,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -507,7 +520,7 @@ public class ConstraintProviderImpl extends EObjectImpl implements ConstraintPro
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

@@ -27,7 +27,7 @@ import ordersystem.OrderSystemPackage;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see ordersystem.special.SpecialFactory
  * @model kind="package"
  * @generated
@@ -35,21 +35,21 @@ import ordersystem.OrderSystemPackage;
 public interface SpecialPackage extends EPackage {
 	/**
 	 * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNAME = "special"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_URI = "http:///ordersystem/special.ecore"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_PREFIX = "ordersystem.special"; //$NON-NLS-1$
@@ -57,7 +57,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	SpecialPackage eINSTANCE = ordersystem.special.impl.SpecialPackageImpl.init();
@@ -66,7 +66,7 @@ public interface SpecialPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link ordersystem.special.impl.PreferredCustomerImpl <em>Preferred
 	 * Customer</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.special.impl.PreferredCustomerImpl
 	 * @see ordersystem.special.impl.SpecialPackageImpl#getPreferredCustomer()
 	 * @generated
@@ -76,7 +76,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Last Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -85,7 +85,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>First Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -94,7 +94,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -103,7 +103,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Account</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -112,7 +112,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -121,7 +121,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Since</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -130,7 +130,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Preferred Customer</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -140,7 +140,7 @@ public interface SpecialPackage extends EPackage {
 	 * The meta object id for the
 	 * '{@link ordersystem.special.impl.LimitedEditionProductImpl <em>Limited
 	 * Edition Product</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.special.impl.LimitedEditionProductImpl
 	 * @see ordersystem.special.impl.SpecialPackageImpl#getLimitedEditionProduct()
 	 * @generated
@@ -150,7 +150,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -159,7 +159,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Sku</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -168,7 +168,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Price</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -177,7 +177,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -186,7 +186,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Available Until</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -195,7 +195,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Limited Edition Product</em>'
 	 * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -205,7 +205,7 @@ public interface SpecialPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link ordersystem.special.PreferredCustomer <em>Preferred Customer</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Preferred Customer</em>'.
 	 * @see ordersystem.special.PreferredCustomer
 	 * @generated
@@ -216,7 +216,7 @@ public interface SpecialPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.special.PreferredCustomer#getSince <em>Since</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Since</em>'.
 	 * @see ordersystem.special.PreferredCustomer#getSince()
 	 * @see #getPreferredCustomer()
@@ -228,7 +228,7 @@ public interface SpecialPackage extends EPackage {
 	 * Returns the meta object for class
 	 * '{@link ordersystem.special.LimitedEditionProduct <em>Limited Edition
 	 * Product</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Limited Edition Product</em>'.
 	 * @see ordersystem.special.LimitedEditionProduct
 	 * @generated
@@ -239,7 +239,7 @@ public interface SpecialPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil
 	 * <em>Available Until</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Available Until</em>'.
 	 * @see ordersystem.special.LimitedEditionProduct#getAvailableUntil()
 	 * @see #getLimitedEditionProduct()
@@ -250,7 +250,7 @@ public interface SpecialPackage extends EPackage {
 	/**
 	 * Returns the factory that creates the instances of the model. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
@@ -265,7 +265,7 @@ public interface SpecialPackage extends EPackage {
 	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	interface Literals {
@@ -273,7 +273,7 @@ public interface SpecialPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link ordersystem.special.impl.PreferredCustomerImpl <em>Preferred
 		 * Customer</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.special.impl.PreferredCustomerImpl
 		 * @see ordersystem.special.impl.SpecialPackageImpl#getPreferredCustomer()
 		 * @generated
@@ -283,7 +283,7 @@ public interface SpecialPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Since</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PREFERRED_CUSTOMER__SINCE = eINSTANCE.getPreferredCustomer_Since();
@@ -292,7 +292,7 @@ public interface SpecialPackage extends EPackage {
 		 * The meta object literal for the
 		 * '{@link ordersystem.special.impl.LimitedEditionProductImpl <em>Limited
 		 * Edition Product</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.special.impl.LimitedEditionProductImpl
 		 * @see ordersystem.special.impl.SpecialPackageImpl#getLimitedEditionProduct()
 		 * @generated
@@ -302,7 +302,7 @@ public interface SpecialPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Available Until</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL = eINSTANCE.getLimitedEditionProduct_AvailableUntil();

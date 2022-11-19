@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EFactory;
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
  * create method for each non-abstract class of the model. <!-- end-user-doc -->
- * 
+ *
  * @see ordersystem.OrderSystemPackage
  * @generated
  */
@@ -24,7 +24,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	OrderSystemFactory eINSTANCE = ordersystem.impl.OrderSystemFactoryImpl.init();
@@ -32,7 +32,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Order System</em>'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Order System</em>'.
 	 * @generated
 	 */
@@ -41,7 +41,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Customer</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Customer</em>'.
 	 * @generated
 	 */
@@ -50,7 +50,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Account</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Account</em>'.
 	 * @generated
 	 */
@@ -59,7 +59,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Address</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Address</em>'.
 	 * @generated
 	 */
@@ -68,7 +68,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Order</em>'. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Order</em>'.
 	 * @generated
 	 */
@@ -77,7 +77,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Line Item</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Line Item</em>'.
 	 * @generated
 	 */
@@ -86,7 +86,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Product</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Product</em>'.
 	 * @generated
 	 */
@@ -95,7 +95,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Warehouse</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Warehouse</em>'.
 	 * @generated
 	 */
@@ -104,7 +104,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Inventory Item</em>'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return a new object of class '<em>Inventory Item</em>'.
 	 * @generated
 	 */
@@ -113,7 +113,7 @@ public interface OrderSystemFactory extends EFactory {
 	/**
 	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the package supported by this factory.
 	 * @generated
 	 */

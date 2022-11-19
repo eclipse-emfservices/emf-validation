@@ -48,7 +48,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	/**
 	 * The default value of the '{@link #getPaymentMethod() <em>Payment
 	 * Method</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPaymentMethod()
 	 * @generated
 	 * @ordered
@@ -58,7 +58,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	/**
 	 * The cached value of the '{@link #getPaymentMethod() <em>Payment Method</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getPaymentMethod()
 	 * @generated
 	 * @ordered
@@ -68,7 +68,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	/**
 	 * The default value of the '{@link #getAccountNumber() <em>Account
 	 * Number</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getAccountNumber()
 	 * @generated
 	 * @ordered
@@ -78,7 +78,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	/**
 	 * The cached value of the '{@link #getAccountNumber() <em>Account Number</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getAccountNumber()
 	 * @generated
 	 * @ordered
@@ -89,7 +89,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 * The cached value of the '{@link #getBillingAddress() <em>Billing
 	 * Address</em>}' containment reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #getBillingAddress()
 	 * @generated
 	 * @ordered
@@ -100,7 +100,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 	 * The cached value of the '{@link #getShippingAddress() <em>Shipping
 	 * Address</em>}' containment reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #getShippingAddress()
 	 * @generated
 	 * @ordered
@@ -109,7 +109,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected AccountImpl() {
@@ -118,7 +118,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -128,18 +128,20 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setPaymentMethod(String newPaymentMethod) {
 		String oldPaymentMethod = paymentMethod;
 		paymentMethod = newPaymentMethod;
@@ -150,18 +152,20 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setAccountNumber(String newAccountNumber) {
 		String oldAccountNumber = accountNumber;
 		accountNumber = newAccountNumber;
@@ -172,9 +176,10 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Customer getOwner() {
 		if (eContainerFeatureID() != OrderSystemPackage.ACCOUNT__OWNER)
 			return null;
@@ -183,7 +188,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(Customer newOwner, NotificationChain msgs) {
@@ -193,9 +198,10 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Customer newOwner) {
 		if (newOwner != eInternalContainer()
 				|| (eContainerFeatureID() != OrderSystemPackage.ACCOUNT__OWNER && newOwner != null)) {
@@ -217,16 +223,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Address getBillingAddress() {
 		return billingAddress;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetBillingAddress(Address newBillingAddress, NotificationChain msgs) {
@@ -245,9 +252,10 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setBillingAddress(Address newBillingAddress) {
 		if (newBillingAddress != billingAddress) {
 			NotificationChain msgs = null;
@@ -267,16 +275,17 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Address getShippingAddress() {
 		return shippingAddress;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetShippingAddress(Address newShippingAddress, NotificationChain msgs) {
@@ -295,9 +304,10 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setShippingAddress(Address newShippingAddress) {
 		if (newShippingAddress != shippingAddress) {
 			NotificationChain msgs = null;
@@ -317,7 +327,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -333,7 +343,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -351,7 +361,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -366,7 +376,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -388,7 +398,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -415,7 +425,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -442,7 +452,7 @@ public class AccountImpl extends EObjectImpl implements Account {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

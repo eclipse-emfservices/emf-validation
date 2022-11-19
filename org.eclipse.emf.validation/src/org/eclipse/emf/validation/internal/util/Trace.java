@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -19,13 +19,13 @@ import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
  * Delegates tracing duties to the {@link EMFModelValidationPlugin.Tracing}
  * class, with the EMF Model Validation plug-in implicit in all traces and the
  * option ID also implicit in many cases.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class Trace {
 	/**
 	 * Queries whether method entry tracing is enabled.
-	 * 
+	 *
 	 * @return whether method entry tracing is enabled
 	 */
 	public static boolean shouldTraceEntering() {
@@ -35,7 +35,7 @@ public class Trace {
 	/**
 	 * Queries whether method entry tracing is enabled for the specified debug
 	 * option.
-	 * 
+	 *
 	 * @param option the debug option to test
 	 * @return whether method entry tracing is enabled for the option
 	 */
@@ -45,7 +45,7 @@ public class Trace {
 
 	/**
 	 * Queries whether method exit tracing is enabled.
-	 * 
+	 *
 	 * @return whether method exit tracing is enabled
 	 */
 	public static boolean shouldTraceExiting() {
@@ -55,7 +55,7 @@ public class Trace {
 	/**
 	 * Queries whether method exit tracing is enabled for the specified debug
 	 * option.
-	 * 
+	 *
 	 * @param option the debug option to test
 	 * @return whether method exit tracing is enabled for the option
 	 */
@@ -65,7 +65,7 @@ public class Trace {
 
 	/**
 	 * Queries whether exception catch tracing is enabled.
-	 * 
+	 *
 	 * @return whether exception catch tracing is enabled
 	 */
 	public static boolean shouldTraceCatching() {
@@ -74,7 +74,7 @@ public class Trace {
 
 	/**
 	 * Queries whether exception throw tracing is enabled.
-	 * 
+	 *
 	 * @return whether exception throw tracing is enabled
 	 */
 	public static boolean shouldTraceThrowing() {
@@ -84,7 +84,7 @@ public class Trace {
 	/**
 	 * Queries whether tracing is enabled for the specified debug option of this
 	 * plug-in.
-	 * 
+	 *
 	 * @param option The debug option for which to determine trace enablement.
 	 * @return Whether tracing is enabled for the debug option of the plug-in.
 	 */
@@ -94,7 +94,7 @@ public class Trace {
 
 	/**
 	 * Traces the specified message from this plug-in.
-	 * 
+	 *
 	 * @param message The message to be traced.
 	 */
 	public static void trace(String message) {
@@ -104,7 +104,7 @@ public class Trace {
 	/**
 	 * Traces the specified message from this plug-in for the specified debug
 	 * option.
-	 * 
+	 *
 	 * @param option  The debug option for which to trace.
 	 * @param message The message to be traced.
 	 */
@@ -114,7 +114,7 @@ public class Trace {
 
 	/**
 	 * Traces an entry into the specified method of the specified class.
-	 * 
+	 *
 	 * @param clazz      The class whose method is being entered.
 	 * @param methodName The name of method that is being entered.
 	 */
@@ -126,7 +126,7 @@ public class Trace {
 	/**
 	 * Traces an entry into the specified method of the specified class, with the
 	 * specified parameter.
-	 * 
+	 *
 	 * @param clazz      The class whose method is being entered.
 	 * @param methodName The name of method that is being entered.
 	 * @param parameter  The parameter to the method being entered.
@@ -140,7 +140,7 @@ public class Trace {
 	/**
 	 * Traces an entry into the specified method of the specified class, with the
 	 * specified parameters.
-	 * 
+	 *
 	 * @param clazz      The class whose method is being entered.
 	 * @param methodName The name of method that is being entered.
 	 * @param parameters The parameters to the method being entered.
@@ -153,7 +153,7 @@ public class Trace {
 
 	/**
 	 * Traces an entry into the specified method of the specified class.
-	 * 
+	 *
 	 * @param option     only trace entering if this option is enabled (in addition
 	 *                   to the generic method-entry option)
 	 * @param clazz      The class whose method is being entered.
@@ -169,7 +169,7 @@ public class Trace {
 	/**
 	 * Traces an entry into the specified method of the specified class, with the
 	 * specified parameter.
-	 * 
+	 *
 	 * @param option     only trace entering if this option is enabled (in addition
 	 *                   to the generic method-entry option)
 	 * @param clazz      The class whose method is being entered.
@@ -186,7 +186,7 @@ public class Trace {
 	/**
 	 * Traces an entry into the specified method of the specified class, with the
 	 * specified parameters.
-	 * 
+	 *
 	 * @param option     only trace entering if this option is enabled (in addition
 	 *                   to the generic method-entry option)
 	 * @param clazz      The class whose method is being entered.
@@ -202,7 +202,7 @@ public class Trace {
 
 	/**
 	 * Traces an exit from the specified method of the specified class.
-	 * 
+	 *
 	 * @param clazz      The class whose method is being exited.
 	 * @param methodName The name of method that is being exited.
 	 */
@@ -214,7 +214,7 @@ public class Trace {
 	/**
 	 * Traces an exit from the specified method of the specified class, with the
 	 * specified return value.
-	 * 
+	 *
 	 * @param clazz       The class whose method is being exited.
 	 * @param methodName  The name of method that is being exited.
 	 * @param returnValue The return value of the method being exited.
@@ -227,7 +227,7 @@ public class Trace {
 
 	/**
 	 * Traces an exit from the specified method of the specified class.
-	 * 
+	 *
 	 * @param option     only trace entering if this option is enabled (in addition
 	 *                   to the generic method-exit option)
 	 * @param clazz      The class whose method is being exited.
@@ -243,7 +243,7 @@ public class Trace {
 	/**
 	 * Traces an exit from the specified method of the specified class, with the
 	 * specified return value.
-	 * 
+	 *
 	 * @param option      only trace entering if this option is enabled (in addition
 	 *                    to the generic method-exit option)
 	 * @param clazz       The class whose method is being exited.
@@ -260,7 +260,7 @@ public class Trace {
 	/**
 	 * Traces the catching of the specified throwable in the specified method of the
 	 * specified class.
-	 * 
+	 *
 	 * @param clazz      The class in which the throwable is being caught.
 	 * @param methodName The name of the method in which the throwable is being
 	 *                   caught.
@@ -275,7 +275,7 @@ public class Trace {
 	/**
 	 * Traces the throwing of the specified throwable from the specified method of
 	 * the specified class.
-	 * 
+	 *
 	 * @param clazz      The class from which the throwable is being thrown.
 	 * @param methodName The name of the method from which the throwable is being
 	 *                   thrown.
@@ -289,7 +289,7 @@ public class Trace {
 
 	/**
 	 * Converts an array of objects to a string for trace output.
-	 * 
+	 *
 	 * @param array the array to convert to a string
 	 * @return the string
 	 */

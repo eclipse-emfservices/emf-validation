@@ -34,7 +34,7 @@ public class BatchValidatorTest extends TestCase {
 
 	/**
 	 * Constructor for BatchValidatorTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public BatchValidatorTest(String name) {
@@ -134,7 +134,7 @@ public class BatchValidatorTest extends TestCase {
 	public void test_validate_Collection_IProgressMonitor() {
 		TestMonitor monitor = new TestMonitor();
 
-		Collection<EObject> targets = new java.util.ArrayList<EObject>();
+		Collection<EObject> targets = new java.util.ArrayList<>();
 		targets.add(OrderSystemFactory.eINSTANCE.createProduct());
 		targets.add(OrderSystemFactory.eINSTANCE.createProduct());
 
@@ -156,6 +156,7 @@ public class BatchValidatorTest extends TestCase {
 		private double worked;
 		private boolean done;
 
+		@Override
 		public void beginTask(String name, int totalTaskWork) {
 			this.totalWork = totalTaskWork;
 		}
@@ -164,6 +165,7 @@ public class BatchValidatorTest extends TestCase {
 			return totalWork;
 		}
 
+		@Override
 		public void done() {
 			done = true;
 		}
@@ -172,26 +174,32 @@ public class BatchValidatorTest extends TestCase {
 			return done;
 		}
 
+		@Override
 		public void internalWorked(double work) {
 			worked += work;
 		}
 
+		@Override
 		public boolean isCanceled() {
 			return false;
 		}
 
+		@Override
 		public void setCanceled(boolean value) {
 			// no need to do anything for this test fixture
 		}
 
+		@Override
 		public void setTaskName(String name) {
 			// no need to do anything for this test fixture
 		}
 
+		@Override
 		public void subTask(String name) {
 			// no need to do anything for this test fixture
 		}
 
+		@Override
 		public void worked(int work) {
 			internalWorked(work);
 		}
@@ -205,6 +213,7 @@ public class BatchValidatorTest extends TestCase {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public <T> T execute(IProviderOperation<? extends T> op) {
 			// don't need to do anything
 			return op.getConstraints();

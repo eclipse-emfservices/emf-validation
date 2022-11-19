@@ -49,7 +49,7 @@ public class ConstraintRegistryTest extends TestBase {
 
 	/**
 	 * Constructor for ConstraintRegistryTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public ConstraintRegistryTest(String name) {
@@ -170,7 +170,7 @@ public class ConstraintRegistryTest extends TestBase {
 	public void test_bulkRegister() {
 		ConstraintListener.getInstance().reset();
 
-		Collection<IModelConstraint> constraints = new java.util.ArrayList<IModelConstraint>();
+		Collection<IModelConstraint> constraints = new java.util.ArrayList<>();
 		constraints.add(new FixtureConstraint());
 		constraints.add(new FixtureConstraint());
 		constraints.add(new FixtureConstraint());
@@ -228,46 +228,57 @@ public class ConstraintRegistryTest extends TestBase {
 			this.id = id;
 		}
 
+		@Override
 		public String getId() {
 			return id;
 		}
 
+		@Override
 		public String getPluginId() {
 			return TestBase.PLUGIN_ID;
 		}
 
+		@Override
 		public String getMessagePattern() {
 			return null;
 		}
 
+		@Override
 		public String getBody() {
 			return null;
 		}
 
+		@Override
 		public String getName() {
 			return null;
 		}
 
+		@Override
 		public String getDescription() {
 			return null;
 		}
 
+		@Override
 		public ConstraintSeverity getSeverity() {
 			return null;
 		}
 
+		@Override
 		public int getStatusCode() {
 			return 0;
 		}
 
+		@Override
 		public EvaluationMode<?> getEvaluationMode() {
 			return null;
 		}
 
+		@Override
 		public boolean targetsTypeOf(EObject eObject) {
 			return false;
 		}
 
+		@Override
 		public boolean targetsEvent(Notification notification) {
 			return false;
 		}
@@ -277,10 +288,12 @@ public class ConstraintRegistryTest extends TestBase {
 		private static int counter = 0;
 		private final FixtureDescriptor desc = new FixtureDescriptor(descriptor.getId() + "$" + (counter++)); //$NON-NLS-1$
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return desc;
 		}
 
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			return Status.OK_STATUS;
 		}

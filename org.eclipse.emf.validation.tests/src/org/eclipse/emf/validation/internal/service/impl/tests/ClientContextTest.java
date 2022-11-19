@@ -5,7 +5,7 @@
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  *
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Contributors:
  *   Zeligsoft - Initial API and implementation
  */
@@ -32,7 +32,7 @@ import junit.framework.TestSuite;
 
 /**
  * Tests the {@link ClientContext} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 @SuppressWarnings("nls")
@@ -62,7 +62,7 @@ public class ClientContextTest extends TestCase {
 
 	/**
 	 * Initialize me with my name.
-	 * 
+	 *
 	 * @param name my name
 	 */
 	public ClientContextTest(String name) {
@@ -163,10 +163,12 @@ public class ClientContextTest extends TestCase {
 			this.desc = desc;
 		}
 
+		@Override
 		public IStatus validate(IValidationContext c) {
 			return Status.OK_STATUS;
 		}
 
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return desc;
 		}

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -52,7 +52,7 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * </li>
  * </ul>
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintCache implements IModelConstraintProvider {
@@ -67,20 +67,20 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * to avoid interfering with garbage-collection of EMF metamodels (and to clean
 	 * up the cache when metamodels disappear!).
 	 */
-	private final Map<EClass, EClassBucket> buckets = new java.util.WeakHashMap<EClass, EClassBucket>();
+	private final Map<EClass, EClassBucket> buckets = new java.util.WeakHashMap<>();
 
 	/** The cacheable providers. */
-	private final Collection<IProviderDescriptor> providers = new java.util.ArrayList<IProviderDescriptor>();
+	private final Collection<IProviderDescriptor> providers = new java.util.ArrayList<>();
 
 	/**
 	 * A container for the constraints provided by all cacheable providers for a
 	 * particular EMF type ({@link EClass}).
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class EClassBucket {
 		private Collection<IModelConstraint> batchConstraints;
-		private final Map<EMFEventType, Map<String, Collection<IModelConstraint>>> liveConstraints = new java.util.HashMap<EMFEventType, Map<String, Collection<IModelConstraint>>>();
+		private final Map<EMFEventType, Map<String, Collection<IModelConstraint>>> liveConstraints = new java.util.HashMap<>();
 
 		/**
 		 * Initializes me.
@@ -91,7 +91,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 		/**
 		 * Obtains the batch constraints for my EMF class.
-		 * 
+		 *
 		 * @return my batch constraints, or <code>null</code> if they have not yet been
 		 *         retrieved from my registered providers
 		 */
@@ -101,17 +101,17 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 		/**
 		 * Assigns the batch constraints for my EMF class.
-		 * 
+		 *
 		 * @param constraints the batch constraints
 		 */
 		void cacheBatchConstraints(Collection<IModelConstraint> constraints) {
-			batchConstraints = new java.util.ArrayList<IModelConstraint>(constraints);
+			batchConstraints = new java.util.ArrayList<>(constraints);
 		}
 
 		/**
 		 * Obtains the live constraints for my EMF class, for the specified
 		 * <code>eventType</code> and feature name.
-		 * 
+		 *
 		 * @param eventType   the EMF notification event type
 		 * @param featureName the name of the feature that produced the notification
 		 *                    (may be <code>null</code> if the notification was not a
@@ -136,7 +136,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 		/**
 		 * Assigns the live constraints for my EMF class, for the specified
 		 * <code>eventType</code> and feature name.
-		 * 
+		 *
 		 * @param eventType   the EMF notification event type
 		 * @param featureName the name of the feature that produced the notification
 		 *                    (may be <code>null</code> if the notification was not a
@@ -153,16 +153,16 @@ public class ConstraintCache implements IModelConstraintProvider {
 			Map<String, Collection<IModelConstraint>> constraintMap = liveConstraints.get(eventType);
 
 			if (constraintMap == null) {
-				constraintMap = new java.util.HashMap<String, Collection<IModelConstraint>>();
+				constraintMap = new java.util.HashMap<>();
 				liveConstraints.put(eventType, constraintMap);
 			}
 
-			constraintMap.put(featureName, new java.util.ArrayList<IModelConstraint>(constraints));
+			constraintMap.put(featureName, new java.util.ArrayList<>(constraints));
 		}
 
 		/**
 		 * Replaces a constraint in the bucket with an alternative implementation.
-		 * 
+		 *
 		 * @param oldConstraint the constraint to be replaced
 		 * @param newConstraint the new constraint to replace it
 		 */
@@ -192,32 +192,37 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Obtains a descriptor that can adequately represent me.
-	 * 
+	 *
 	 * @return my descriptor
 	 */
 	public IProviderDescriptor getDescriptor() {
 		return new IProviderDescriptor() {
 			// the cache is assumed to always have an answer
+			@Override
 			public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 				return true;
 			}
 
 			// the cache is not cache-enabled, because it is the cache!
+			@Override
 			public boolean isCacheEnabled() {
 				return false;
 			}
 
 			// yes, I am the cache
+			@Override
 			public boolean isCache() {
 				return true;
 			}
 
 			// I am definitely not an XML constraint provider
+			@Override
 			public boolean isXmlProvider() {
 				return false;
 			}
 
 			// the cache descriptor describes the cache
+			@Override
 			public IModelConstraintProvider getProvider() {
 				return ConstraintCache.this;
 			}
@@ -226,7 +231,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Obtains the collection of providers whose constraints I cache.
-	 * 
+	 *
 	 * @return the cached providers
 	 */
 	public Collection<IProviderDescriptor> getProviders() {
@@ -235,7 +240,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Adds a constraint provider to the cache.
-	 * 
+	 *
 	 * @param provider the provider (must be
 	 *                 {@linkplain IProviderDescriptor#isCacheEnabled cacheable})
 	 */
@@ -248,7 +253,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Obtains the cache bucket for the specified EMF type.
-	 * 
+	 *
 	 * @param clazz the EMF type
 	 * @return the corresponding bucket
 	 */
@@ -265,7 +270,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Executes the specified <code>operation</code> on all of my providers.
-	 * 
+	 *
 	 * @param operation the operation to execute
 	 * @return the constraints retrieved by the operation
 	 */
@@ -290,6 +295,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	}
 
 	// implements the interface method
+	@Override
 	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 			Collection<IModelConstraint> constraints) {
 
@@ -298,7 +304,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList<IModelConstraint>();
+			result = new java.util.ArrayList<>();
 		}
 
 		if (notification.getNotifier() instanceof EObject) {
@@ -334,12 +340,13 @@ public class ConstraintCache implements IModelConstraintProvider {
 	}
 
 	// implements the interface method
+	@Override
 	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 
 		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList<IModelConstraint>();
+			result = new java.util.ArrayList<>();
 		}
 
 		EClassBucket bucket = getBucket(eObject.eClass());
@@ -367,7 +374,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Obtains the fully-qualified name (with namespace URI) of an EClass.
-	 * 
+	 *
 	 * @param eClass the EClass
 	 * @return the fully-qualified name
 	 */
@@ -383,7 +390,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	/**
 	 * Appends an EMF package's fully-qualified name to a string
 	 * <code>buf</code>fer, including the namespace URI.
-	 * 
+	 *
 	 * @param ePackage the EMF package
 	 * @param buf      the String buffer to append its name to
 	 */
@@ -401,7 +408,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 
 	/**
 	 * Replaces a constraint in the cache with an alternative implementation.
-	 * 
+	 *
 	 * @param oldConstraint the constraint to be replaced
 	 * @param newConstraint the new constraint to replace it
 	 */

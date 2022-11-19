@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.util;
 
@@ -43,7 +43,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  * starting with the actual class of the object and proceeding up the
  * inheritance hierarchy until a non-null result is returned, which is the
  * result of the switch. <!-- end-user-doc -->
- * 
+ *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage
  * @generated
  * @since 1.4
@@ -51,7 +51,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
 public class ValidationSwitch<T> {
 	/**
 	 * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected static ValidationPackage modelPackage;
@@ -59,7 +59,7 @@ public class ValidationSwitch<T> {
 	/**
 	 * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public ValidationSwitch() {
@@ -72,7 +72,7 @@ public class ValidationSwitch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a
 	 * non null result; it yields that result. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -84,7 +84,7 @@ public class ValidationSwitch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a
 	 * non null result; it yields that result. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -101,7 +101,7 @@ public class ValidationSwitch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a
 	 * non null result; it yields that result. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -261,7 +261,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Category</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Category</em>'.
@@ -277,7 +277,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Constraint Provider</em>'. <!-- begin-user-doc --> This implementation
 	 * returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Constraint Provider</em>'.
@@ -292,7 +292,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Target</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Target</em>'.
@@ -307,7 +307,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Event</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Event</em>'.
@@ -322,7 +322,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Custom
 	 * Event</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Custom
 	 *         Event</em>'.
@@ -337,7 +337,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Feature</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Feature</em>'.
@@ -353,7 +353,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Constraint</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Constraint</em>'.
@@ -369,7 +369,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Parameter</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Parameter</em>'.
@@ -385,7 +385,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Constraints</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Constraints</em>'.
@@ -401,7 +401,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Constraints Bundle</em>'. <!-- begin-user-doc --> This implementation
 	 * returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Constraints Bundle</em>'.
@@ -416,7 +416,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Unparsed
 	 * Constraint</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Unparsed
 	 *         Constraint</em>'.
@@ -431,7 +431,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Ocl
 	 * Constraint</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Ocl
 	 *         Constraint</em>'.
@@ -446,7 +446,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Parser</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Parser</em>'.
@@ -462,7 +462,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Traversal Strategy</em>'. <!-- begin-user-doc --> This implementation
 	 * returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Traversal Strategy</em>'.
@@ -478,7 +478,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Constraint Bindings Bundle</em>'. <!-- begin-user-doc --> This
 	 * implementation returns null; returning a non-null result will terminate the
 	 * switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Constraint Bindings Bundle</em>'.
@@ -493,7 +493,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Client
 	 * Context</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Client
 	 *         Context</em>'.
@@ -508,7 +508,7 @@ public class ValidationSwitch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Binding</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Binding</em>'.
@@ -524,7 +524,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Enablement</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Enablement</em>'.
@@ -540,7 +540,7 @@ public class ValidationSwitch<T> {
 	 * '<em>Selector</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Selector</em>'.
@@ -556,7 +556,7 @@ public class ValidationSwitch<T> {
 	 * '<em>EObject</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last
 	 * case anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>EObject</em>'.

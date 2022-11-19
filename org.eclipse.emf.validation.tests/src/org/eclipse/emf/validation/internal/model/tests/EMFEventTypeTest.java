@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link EMFEventType} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class EMFEventTypeTest extends TestCase {

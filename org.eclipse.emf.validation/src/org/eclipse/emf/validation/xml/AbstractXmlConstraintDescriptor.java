@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.xml;
 
@@ -28,7 +28,7 @@ import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
  * <p>
  * <b>See also</b> the constraintProvider extension point.
  * </p>
- * 
+ *
  * @author Chris McGee (cmcgee)
  */
 public abstract class AbstractXmlConstraintDescriptor extends AbstractConstraintDescriptor

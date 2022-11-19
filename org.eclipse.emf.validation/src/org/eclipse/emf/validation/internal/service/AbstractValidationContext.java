@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -39,7 +39,7 @@ import org.eclipse.emf.validation.util.FilteredCollection;
 
 /**
  * A partial implementation of the {@link IValidationContext} interface.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractValidationContext implements IValidationContext {
@@ -50,12 +50,12 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	private ConstraintFilter filter; // lazily initialized
 
-	private final Map<IModelConstraint, Object> constraintData = new java.util.HashMap<IModelConstraint, Object>();
+	private final Map<IModelConstraint, Object> constraintData = new java.util.HashMap<>();
 
 	private IModelConstraint currentConstraint = null;
 	private IConstraintDescriptor currentDescriptor = null;
 
-	private final Set<EObject> resultLocus = new java.util.HashSet<EObject>();
+	private final Set<EObject> resultLocus = new java.util.HashSet<>();
 
 	private boolean reportSuccesses = false;
 
@@ -73,6 +73,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * I filter out any constraint that is disabled, ignored, or has already been
 		 * evaluated against the current target object.
 		 */
+		@Override
 		public boolean accept(IModelConstraint constraint) {
 			IConstraintDescriptor desc = constraint.getDescriptor();
 
@@ -82,7 +83,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/**
 		 * Queries whether the constraint indicated by the specified
 		 * <code>desc</code>riptor is ignored for the current target, in this context.
-		 * 
+		 *
 		 * @param desc the constraint descriptor
 		 * @return <CODE>true</CODE> if the current constraint is ignored for the
 		 *         current target, <CODE>false</CODE>, otherwise
@@ -96,13 +97,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	// whether they are triggered for specific features (in the live and
 	// feature validation cases) or just by the object type (batch mode)
 	private class ConstraintIgnorement {
-		private final Map<EObject, Collection<IConstraintDescriptor>> ignoreMap = new java.util.HashMap<EObject, Collection<IConstraintDescriptor>>();
+		private final Map<EObject, Collection<IConstraintDescriptor>> ignoreMap = new java.util.HashMap<>();
 
 		/**
 		 * Ignores the specified <code>constraint</code> for this <code>eObject</code>,
 		 * according to whether the constraint was triggered by a specific feature or
 		 * not.
-		 * 
+		 *
 		 * @param eObject    the validation target
 		 * @param constraint the constraint
 		 */
@@ -120,7 +121,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * Queries whether the specified <code>constraint</code> is ignored for this
 		 * <code>eObject</code>, according to whether the constraint was triggered by a
 		 * specific feature or not.
-		 * 
+		 *
 		 * @param eObject    the validation target
 		 * @param constraint the constraint
 		 * @return whether the <code>constraint</code> is ignored
@@ -135,7 +136,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		 * Obtains the type-triggered constraints that have already been evaluated for
 		 * the specified <code>target</code> object, or that are otherwise ignored for
 		 * it.
-		 * 
+		 *
 		 * @param target a validation target object
 		 * @return the constraints that are ignored for this <code>target</code> and
 		 *         that are not triggered by a feature, or <code>null</code> if no
@@ -148,12 +149,12 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/**
 		 * Initializes the type-triggered ignored constraints collection for the
 		 * specified <code>target</code> object.
-		 * 
+		 *
 		 * @param target a validation target object
 		 * @return the new ignored constraints collection
 		 */
 		private Collection<IConstraintDescriptor> initIgnoredConstraints(EObject target) {
-			Collection<IConstraintDescriptor> result = new java.util.HashSet<IConstraintDescriptor>();
+			Collection<IConstraintDescriptor> result = new java.util.HashSet<>();
 
 			ignoreMap.put(target, result);
 
@@ -163,7 +164,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Initializes me.
-	 * 
+	 *
 	 * @param operation the operation for which I provide a validation context
 	 */
 	protected AbstractValidationContext(IProviderOperation<Collection<IModelConstraint>> operation) {
@@ -172,7 +173,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Obtains the operation that I provide a validation context for.
-	 * 
+	 *
 	 * @return my operation
 	 */
 	protected final IProviderOperation<Collection<IModelConstraint>> getOperation() {
@@ -182,6 +183,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Default implementation simply returns {@link EMFEventType#NULL}.
 	 */
+	@Override
 	public EMFEventType getEventType() {
 		return EMFEventType.NULL;
 	}
@@ -189,6 +191,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Default implementation simply returns an empty list.
 	 */
+	@Override
 	public List<Notification> getAllEvents() {
 		return Collections.emptyList();
 	}
@@ -196,6 +199,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Default implementation simply returns <code>null</code>.
 	 */
+	@Override
 	public EStructuralFeature getFeature() {
 		return null;
 	}
@@ -203,11 +207,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Default implementation simply returns <code>null</code>.
 	 */
+	@Override
 	public Object getFeatureNewValue() {
 		return null;
 	}
 
 	// implements the interface method
+	@Override
 	public void disableCurrentConstraint(Throwable exception) {
 		assert exception != null;
 
@@ -215,11 +221,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public void skipCurrentConstraintFor(EObject eObject) {
 		ignoredConstraints.ignore(eObject, getDescriptor());
 	}
 
 	// implements the interface method
+	@Override
 	public void skipCurrentConstraintForAll(Collection<?> eObjects) {
 		for (Object next : eObjects) {
 			if (next instanceof EObject) {
@@ -233,7 +241,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * validation operation that do not need to be evaluated in this context (either
 	 * because they are disabled or have already been evaluated on the current
 	 * target object in this validation context).
-	 * 
+	 *
 	 * @return a constraint filter for this context
 	 */
 	public FilteredCollection.Filter<IModelConstraint> getConstraintFilter() {
@@ -246,7 +254,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Queries whether the current constraint in this context is disabled.
-	 * 
+	 *
 	 * @return <CODE>true</CODE> if the current constraint is disabled,
 	 *         <CODE>false</CODE>, otherwise
 	 */
@@ -255,11 +263,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public final Object getCurrentConstraintData() {
 		return constraintData.get(getConstraint());
 	}
 
 	// implements the interface method
+	@Override
 	public final Object putCurrentConstraintData(Object newData) {
 		return constraintData.put(getConstraint(), newData);
 	}
@@ -267,7 +277,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Provides a way to get the original notification that triggered the live
 	 * validation if this context is being used in a live validation context.
-	 * 
+	 *
 	 * @return A notification object that was generated and caused live validation
 	 *         to occur or null if this is batch validation.
 	 */
@@ -284,12 +294,14 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public void addResult(EObject eObject) {
 		assert eObject != null;
 
 		resultLocus.add(eObject);
 	}
 
+	@Override
 	public void addResults(Collection<? extends EObject> eObjects) {
 		assert eObjects != null;
 
@@ -301,18 +313,20 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public Set<EObject> getResultLocus() {
 		return java.util.Collections.unmodifiableSet(resultLocus);
 	}
 
 	// implements the interface method
+	@Override
 	public final String getCurrentConstraintId() {
 		return getConstraint().getDescriptor().getId();
 	}
 
 	/**
 	 * Obtains the constraint currently being evaluated.
-	 * 
+	 *
 	 * @return the current constraint
 	 */
 	final IModelConstraint getConstraint() {
@@ -321,7 +335,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Obtains the descriptor of the constraint currently being evaluated.
-	 * 
+	 *
 	 * @return the current constraint'sdescriptor
 	 */
 	final IConstraintDescriptor getDescriptor() {
@@ -330,7 +344,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Sets the constraint currently being evaluated.
-	 * 
+	 *
 	 * @param constraint the current constraint
 	 */
 	private void setConstraint(IModelConstraint constraint) {
@@ -339,6 +353,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public final EObject getTarget() {
 		return getOperation().getEObject();
 	}
@@ -348,7 +363,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	 * validations are not to be reported, then I return a shared "OK" status object
 	 * from the {@link #createSuccessStatus()} method that has no information about
 	 * the constraint that was evaluated.
-	 * 
+	 *
 	 * @return whether we report successes
 	 */
 	public boolean isReportSuccesses() {
@@ -357,9 +372,9 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Sets whether successful validations are reported.
-	 * 
+	 *
 	 * @param b whether successful validations are reported
-	 * 
+	 *
 	 * @see #isReportSuccesses()
 	 */
 	void setReportSuccesses(boolean b) {
@@ -367,6 +382,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public IStatus createSuccessStatus() {
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS_EVALUATION)) {
 			Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS_EVALUATION,
@@ -377,6 +393,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	}
 
 	// implements the interface method
+	@Override
 	public IStatus createFailureStatus(Object... messageArgs) {
 
 		String message = TextUtils.formatMessage(getDescriptor().getMessagePattern(),
@@ -392,7 +409,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 
 	/**
 	 * Obtains the constraints in my context.
-	 * 
+	 *
 	 * @return my constraints
 	 */
 	final Collection<IModelConstraint> getConstraints() {
@@ -410,6 +427,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 			}
 
 			// implements the interface method
+			@Override
 			public boolean hasNext() {
 				return delegateIterator.hasNext();
 			}
@@ -417,6 +435,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 			// implements the interface method, additionally setting attributes
 			// of the enclosing context object from the next constraint
 			// descriptor
+			@Override
 			public IModelConstraint next() {
 				IModelConstraint result = delegateIterator.next();
 
@@ -430,12 +449,13 @@ public abstract class AbstractValidationContext implements IValidationContext {
 			}
 
 			// this collection is not modifiable
+			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		}
 
-		return new AbstractCollection<IModelConstraint>() {
+		return new AbstractCollection<>() {
 			@Override
 			public Iterator<IModelConstraint> iterator() {
 				return new ConstraintsIterator(delegate);
@@ -451,7 +471,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Assigns my current client contexts. <b>Note</b> that this method does not
 	 * copy the collection.
-	 * 
+	 *
 	 * @param clientContexts a collection of
 	 *                       {@link org.eclipse.emf.validation.internal.service.IClientContext}s
 	 *                       or <code>null</code> to specify none
@@ -467,7 +487,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 	/**
 	 * Obtains my current client contexts. <b>Note</b> that the result should not be
 	 * modified (it may actually be modifiable, or it may not).
-	 * 
+	 *
 	 * @return a collection of
 	 *         {@link org.eclipse.emf.validation.internal.service.IClientContext}s
 	 */
@@ -490,6 +510,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public IModelConstraint getConstraint() {
 			return constraint;
 		}
@@ -497,6 +518,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public EObject getTarget() {
 			return target;
 		}
@@ -504,6 +526,7 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public Set<EObject> getResultLocus() {
 			return Collections.emptySet();
 		}

@@ -40,7 +40,7 @@ public interface Product extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Name()
@@ -52,7 +52,7 @@ public interface Product extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Product#getName <em>Name</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
@@ -67,7 +67,7 @@ public interface Product extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Sku</em>' attribute.
 	 * @see #setSku(String)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Sku()
@@ -79,7 +79,7 @@ public interface Product extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Product#getSku <em>Sku</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Sku</em>' attribute.
 	 * @see #getSku()
 	 * @generated
@@ -94,7 +94,7 @@ public interface Product extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Price</em>' attribute.
 	 * @see #setPrice(double)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Price()
@@ -106,7 +106,7 @@ public interface Product extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Product#getPrice <em>Price</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Price</em>' attribute.
 	 * @see #getPrice()
 	 * @generated
@@ -122,7 +122,7 @@ public interface Product extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(OrderSystem)
 	 * @see ordersystem.OrderSystemPackage#getProduct_Owner()
@@ -135,7 +135,7 @@ public interface Product extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Product#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated

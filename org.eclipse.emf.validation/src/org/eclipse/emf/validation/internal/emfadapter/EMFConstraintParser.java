@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.emfadapter;
 
@@ -57,6 +57,7 @@ public class EMFConstraintParser implements IParameterizedConstraintParser, IXml
 	}
 
 	// implements the interface method
+	@Override
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
 			throws ConstraintParserException {
 		// the EMF interface name and method must be specified in the XML
@@ -67,6 +68,7 @@ public class EMFConstraintParser implements IParameterizedConstraintParser, IXml
 	}
 
 	// implements the interface method
+	@Override
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
 		// the EMF interface name and method must be specified in the XML
 		String className = XmlConfig.getParameter(descriptor.getConfig(), PARAMETER_CLASS);

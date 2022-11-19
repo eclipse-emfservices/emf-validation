@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -23,14 +23,14 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * mode context to avoid loading providers which do not apply to a request (see
  * the {@link #provides} method). Also contains information relevant to caching
  * support.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public interface IProviderDescriptor {
 	/**
 	 * Queries whether the provider that I represent can potentially provide any
 	 * constraints for the specified operation.
-	 * 
+	 *
 	 * @param operation a "get constraints" request
 	 * @return whether the provider has any chance of providing constraints for this
 	 *         context
@@ -40,7 +40,7 @@ public interface IProviderDescriptor {
 	/**
 	 * Queries whether the system should cache constraints retrieved from this
 	 * provider.
-	 * 
+	 *
 	 * @return whether my constraints should be cached
 	 */
 	boolean isCacheEnabled();
@@ -48,14 +48,14 @@ public interface IProviderDescriptor {
 	/**
 	 * Queries whether I am the XML constraint provider, which declares constraints
 	 * in the plug-in manifest and/or additional XML files.
-	 * 
+	 *
 	 * @return whether I represent an instance of the XML constraint provider
 	 */
 	boolean isXmlProvider();
 
 	/**
 	 * Queries whether I am the special caching constraint provider.
-	 * 
+	 *
 	 * @return whether I am the constraint cache
 	 */
 	boolean isCache();
@@ -64,7 +64,7 @@ public interface IProviderDescriptor {
 	 * Obtains my provider. It is lazily instantiated to delay the loading of the
 	 * contributing plug-in. If, for some reason, the provider cannot be
 	 * initialized, then a "null provider" is returned which never does anything.
-	 * 
+	 *
 	 * @return my provider
 	 */
 	IModelConstraintProvider getProvider();

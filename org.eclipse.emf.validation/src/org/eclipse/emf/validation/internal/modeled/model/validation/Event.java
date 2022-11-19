@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -39,7 +39,7 @@ public interface Event extends Target {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * @see #setName(EventTypesEnum)
@@ -53,7 +53,7 @@ public interface Event extends Target {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Event#getName
 	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEnum
 	 * @see #getName()

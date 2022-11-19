@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -40,7 +40,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 	/**
 	 * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTypedKey()
 	 * @generated
 	 * @ordered
@@ -50,7 +50,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 	/**
 	 * The cached value of the '{@link #getTypedKey() <em>Key</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTypedKey()
 	 * @generated
 	 * @ordered
@@ -60,7 +60,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 	/**
 	 * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTypedValue()
 	 * @generated
 	 * @ordered
@@ -70,7 +70,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 	/**
 	 * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getTypedValue()
 	 * @generated
 	 * @ordered
@@ -79,7 +79,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ParameterImpl() {
@@ -88,7 +88,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public String getTypedKey() {
@@ -107,7 +107,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void setTypedKey(String newKey) {
@@ -119,7 +119,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public String getTypedValue() {
@@ -128,7 +128,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void setTypedValue(String newValue) {
@@ -140,18 +140,20 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return getTypedValue();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String setValue(String value) {
 		String oldValue = getValue();
 		setTypedValue(value);
@@ -160,7 +162,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -171,7 +173,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -187,7 +189,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -205,7 +207,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -223,7 +225,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -239,7 +241,7 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -258,16 +260,17 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected int hash = -1;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getHash() {
 		if (hash == -1) {
 			Object theKey = getKey();
@@ -278,27 +281,30 @@ public class ParameterImpl extends EObjectImpl implements BasicEMap.Entry<String
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setHash(int hash) {
 		this.hash = hash;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getKey() {
 		return getTypedKey();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setKey(String key) {
 		setTypedKey(key);
 	}

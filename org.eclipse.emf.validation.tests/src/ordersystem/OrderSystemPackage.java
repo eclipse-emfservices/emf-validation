@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see ordersystem.OrderSystemFactory
  * @model kind="package"
  * @generated
@@ -35,21 +35,21 @@ import org.eclipse.emf.ecore.EReference;
 public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNAME = "ordersystem"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_URI = "http:///ordersystem.ecore"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	String eNS_PREFIX = "ordersystem"; //$NON-NLS-1$
@@ -57,7 +57,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	OrderSystemPackage eINSTANCE = ordersystem.impl.OrderSystemPackageImpl.init();
@@ -65,7 +65,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.OrderSystemImpl <em>Order
 	 * System</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.OrderSystemImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getOrderSystem()
 	 * @generated
@@ -75,7 +75,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.CustomerImpl
 	 * <em>Customer</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.CustomerImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getCustomer()
 	 * @generated
@@ -85,7 +85,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.AccountImpl
 	 * <em>Account</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.AccountImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getAccount()
 	 * @generated
@@ -95,7 +95,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.AddressImpl
 	 * <em>Address</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.AddressImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getAddress()
 	 * @generated
@@ -105,7 +105,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.OrderImpl
 	 * <em>Order</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.OrderImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getOrder()
 	 * @generated
@@ -115,7 +115,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Placed On</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -124,7 +124,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Filled On</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -133,7 +133,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Completed</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -142,7 +142,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -151,7 +151,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -160,7 +160,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Item</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -169,7 +169,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Order</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -178,7 +178,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.LineItemImpl <em>Line
 	 * Item</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.LineItemImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getLineItem()
 	 * @generated
@@ -188,7 +188,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.ProductImpl
 	 * <em>Product</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.ProductImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getProduct()
 	 * @generated
@@ -198,7 +198,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -207,7 +207,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Sku</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -216,7 +216,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Price</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -225,7 +225,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -234,7 +234,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Product</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -243,7 +243,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '{@link ordersystem.impl.WarehouseImpl
 	 * <em>Warehouse</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see ordersystem.impl.WarehouseImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getWarehouse()
 	 * @generated
@@ -253,7 +253,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -262,7 +262,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -271,7 +271,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Item</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -280,7 +280,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -289,7 +289,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Warehouse</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -298,7 +298,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -307,7 +307,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Customer</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -316,7 +316,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Product</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -325,7 +325,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Warehouse</b></em>' containment reference
 	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -334,7 +334,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Order System</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -343,7 +343,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Quantity</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -352,7 +352,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Discount</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -361,7 +361,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -370,7 +370,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Product</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -379,7 +379,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Line Item</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -389,7 +389,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * The meta object id for the '{@link ordersystem.impl.InventoryItemImpl
 	 * <em>Inventory Item</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @see ordersystem.impl.InventoryItemImpl
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getInventoryItem()
 	 * @generated
@@ -399,7 +399,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>In Stock</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -408,7 +408,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Restock Threshold</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -417,7 +417,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Next Stock Date</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -426,7 +426,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Warehouse</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -435,7 +435,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Product</b></em>' reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -444,7 +444,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Inventory Item</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -453,7 +453,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Last Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -462,7 +462,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>First Name</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -471,7 +471,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -480,7 +480,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Account</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -489,7 +489,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -498,7 +498,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Customer</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -507,7 +507,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Number</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -516,7 +516,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Street</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -525,7 +525,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Apartment</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -534,7 +534,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>City</b></em>' attribute. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -543,7 +543,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Province</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -552,7 +552,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Postal Code</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -561,7 +561,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Country</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -570,7 +570,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Address</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -579,7 +579,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Payment Method</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -588,7 +588,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Account Number</b></em>' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -597,7 +597,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Owner</b></em>' container reference. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -606,7 +606,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Billing Address</b></em>' containment
 	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -615,7 +615,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Shipping Address</b></em>' containment
 	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -624,7 +624,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Account</em>' class. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -633,7 +633,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * The meta object id for the '<em>Java Date</em>' data type. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see java.util.Date
 	 * @see ordersystem.impl.OrderSystemPackageImpl#getJavaDate()
 	 * @generated
@@ -643,7 +643,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.OrderSystem <em>Order
 	 * System</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Order System</em>'.
 	 * @see ordersystem.OrderSystem
 	 * @generated
@@ -654,7 +654,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.OrderSystem#getVersion <em>Version</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Version</em>'.
 	 * @see ordersystem.OrderSystem#getVersion()
 	 * @see #getOrderSystem()
@@ -666,7 +666,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.OrderSystem#getCustomer <em>Customer</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Customer</em>'.
 	 * @see ordersystem.OrderSystem#getCustomer()
@@ -679,7 +679,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.OrderSystem#getProduct <em>Product</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Product</em>'.
 	 * @see ordersystem.OrderSystem#getProduct()
@@ -692,7 +692,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.OrderSystem#getWarehouse <em>Warehouse</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Warehouse</em>'.
 	 * @see ordersystem.OrderSystem#getWarehouse()
@@ -704,7 +704,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Customer
 	 * <em>Customer</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Customer</em>'.
 	 * @see ordersystem.Customer
 	 * @generated
@@ -715,7 +715,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Customer#getLastName <em>Last Name</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Last Name</em>'.
 	 * @see ordersystem.Customer#getLastName()
 	 * @see #getCustomer()
@@ -727,7 +727,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Customer#getFirstName <em>First Name</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>First Name</em>'.
 	 * @see ordersystem.Customer#getFirstName()
 	 * @see #getCustomer()
@@ -739,7 +739,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.Customer#getOwner <em>Owner</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.Customer#getOwner()
 	 * @see #getCustomer()
@@ -751,7 +751,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.Customer#getAccount <em>Account</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list
 	 *         '<em>Account</em>'.
 	 * @see ordersystem.Customer#getAccount()
@@ -764,7 +764,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.Customer#getOrder <em>Order</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Order</em>'.
 	 * @see ordersystem.Customer#getOrder()
 	 * @see #getCustomer()
@@ -775,7 +775,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Account
 	 * <em>Account</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Account</em>'.
 	 * @see ordersystem.Account
 	 * @generated
@@ -786,7 +786,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Account#getPaymentMethod <em>Payment Method</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Payment Method</em>'.
 	 * @see ordersystem.Account#getPaymentMethod()
 	 * @see #getAccount()
@@ -798,7 +798,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Account#getAccountNumber <em>Account Number</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Account Number</em>'.
 	 * @see ordersystem.Account#getAccountNumber()
 	 * @see #getAccount()
@@ -810,7 +810,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.Account#getOwner <em>Owner</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.Account#getOwner()
 	 * @see #getAccount()
@@ -822,7 +822,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference
 	 * '{@link ordersystem.Account#getBillingAddress <em>Billing Address</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference '<em>Billing
 	 *         Address</em>'.
 	 * @see ordersystem.Account#getBillingAddress()
@@ -835,7 +835,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference
 	 * '{@link ordersystem.Account#getShippingAddress <em>Shipping Address</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference '<em>Shipping
 	 *         Address</em>'.
 	 * @see ordersystem.Account#getShippingAddress()
@@ -847,7 +847,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Address
 	 * <em>Address</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Address</em>'.
 	 * @see ordersystem.Address
 	 * @generated
@@ -858,7 +858,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getNumber <em>Number</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Number</em>'.
 	 * @see ordersystem.Address#getNumber()
 	 * @see #getAddress()
@@ -870,7 +870,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getStreet <em>Street</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Street</em>'.
 	 * @see ordersystem.Address#getStreet()
 	 * @see #getAddress()
@@ -882,7 +882,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getApartment <em>Apartment</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Apartment</em>'.
 	 * @see ordersystem.Address#getApartment()
 	 * @see #getAddress()
@@ -893,7 +893,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link ordersystem.Address#getCity
 	 * <em>City</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>City</em>'.
 	 * @see ordersystem.Address#getCity()
 	 * @see #getAddress()
@@ -905,7 +905,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getProvince <em>Province</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Province</em>'.
 	 * @see ordersystem.Address#getProvince()
 	 * @see #getAddress()
@@ -917,7 +917,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getPostalCode <em>Postal Code</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Postal Code</em>'.
 	 * @see ordersystem.Address#getPostalCode()
 	 * @see #getAddress()
@@ -929,7 +929,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Address#getCountry <em>Country</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Country</em>'.
 	 * @see ordersystem.Address#getCountry()
 	 * @see #getAddress()
@@ -940,7 +940,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Order <em>Order</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Order</em>'.
 	 * @see ordersystem.Order
 	 * @generated
@@ -951,7 +951,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Order#getPlacedOn <em>Placed On</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Placed On</em>'.
 	 * @see ordersystem.Order#getPlacedOn()
 	 * @see #getOrder()
@@ -963,7 +963,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Order#getFilledOn <em>Filled On</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Filled On</em>'.
 	 * @see ordersystem.Order#getFilledOn()
 	 * @see #getOrder()
@@ -975,7 +975,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Order#isCompleted <em>Completed</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Completed</em>'.
 	 * @see ordersystem.Order#isCompleted()
 	 * @see #getOrder()
@@ -986,7 +986,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link ordersystem.Order#getId
 	 * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Id</em>'.
 	 * @see ordersystem.Order#getId()
 	 * @see #getOrder()
@@ -998,7 +998,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.Order#getOwner <em>Owner</em>}'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.Order#getOwner()
 	 * @see #getOrder()
@@ -1010,7 +1010,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.Order#getItem <em>Item</em>}'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Item</em>'.
 	 * @see ordersystem.Order#getItem()
 	 * @see #getOrder()
@@ -1021,7 +1021,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.LineItem <em>Line
 	 * Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Line Item</em>'.
 	 * @see ordersystem.LineItem
 	 * @generated
@@ -1032,7 +1032,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.LineItem#getQuantity <em>Quantity</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Quantity</em>'.
 	 * @see ordersystem.LineItem#getQuantity()
 	 * @see #getLineItem()
@@ -1044,7 +1044,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.LineItem#getDiscount <em>Discount</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Discount</em>'.
 	 * @see ordersystem.LineItem#getDiscount()
 	 * @see #getLineItem()
@@ -1056,7 +1056,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.LineItem#getOwner <em>Owner</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.LineItem#getOwner()
 	 * @see #getLineItem()
@@ -1068,7 +1068,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the reference
 	 * '{@link ordersystem.LineItem#getProduct <em>Product</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference '<em>Product</em>'.
 	 * @see ordersystem.LineItem#getProduct()
 	 * @see #getLineItem()
@@ -1079,7 +1079,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Product
 	 * <em>Product</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Product</em>'.
 	 * @see ordersystem.Product
 	 * @generated
@@ -1089,7 +1089,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link ordersystem.Product#getName
 	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see ordersystem.Product#getName()
 	 * @see #getProduct()
@@ -1100,7 +1100,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for the attribute '{@link ordersystem.Product#getSku
 	 * <em>Sku</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Sku</em>'.
 	 * @see ordersystem.Product#getSku()
 	 * @see #getProduct()
@@ -1112,7 +1112,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Product#getPrice <em>Price</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Price</em>'.
 	 * @see ordersystem.Product#getPrice()
 	 * @see #getProduct()
@@ -1124,7 +1124,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.Product#getOwner <em>Owner</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.Product#getOwner()
 	 * @see #getProduct()
@@ -1135,7 +1135,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.Warehouse
 	 * <em>Warehouse</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Warehouse</em>'.
 	 * @see ordersystem.Warehouse
 	 * @generated
@@ -1146,7 +1146,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.Warehouse#getName <em>Name</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see ordersystem.Warehouse#getName()
 	 * @see #getWarehouse()
@@ -1158,7 +1158,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.Warehouse#getOwner <em>Owner</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see ordersystem.Warehouse#getOwner()
 	 * @see #getWarehouse()
@@ -1170,7 +1170,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference list
 	 * '{@link ordersystem.Warehouse#getItem <em>Item</em>}'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference list '<em>Item</em>'.
 	 * @see ordersystem.Warehouse#getItem()
 	 * @see #getWarehouse()
@@ -1182,7 +1182,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the containment reference
 	 * '{@link ordersystem.Warehouse#getLocation <em>Location</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the containment reference '<em>Location</em>'.
 	 * @see ordersystem.Warehouse#getLocation()
 	 * @see #getWarehouse()
@@ -1193,7 +1193,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for class '{@link ordersystem.InventoryItem
 	 * <em>Inventory Item</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for class '<em>Inventory Item</em>'.
 	 * @see ordersystem.InventoryItem
 	 * @generated
@@ -1204,7 +1204,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.InventoryItem#getInStock <em>In Stock</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>In Stock</em>'.
 	 * @see ordersystem.InventoryItem#getInStock()
 	 * @see #getInventoryItem()
@@ -1216,7 +1216,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.InventoryItem#getRestockThreshold <em>Restock
 	 * Threshold</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Restock Threshold</em>'.
 	 * @see ordersystem.InventoryItem#getRestockThreshold()
 	 * @see #getInventoryItem()
@@ -1228,7 +1228,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the attribute
 	 * '{@link ordersystem.InventoryItem#getNextStockDate <em>Next Stock
 	 * Date</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the attribute '<em>Next Stock Date</em>'.
 	 * @see ordersystem.InventoryItem#getNextStockDate()
 	 * @see #getInventoryItem()
@@ -1240,7 +1240,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the container reference
 	 * '{@link ordersystem.InventoryItem#getWarehouse <em>Warehouse</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the container reference '<em>Warehouse</em>'.
 	 * @see ordersystem.InventoryItem#getWarehouse()
 	 * @see #getInventoryItem()
@@ -1252,7 +1252,7 @@ public interface OrderSystemPackage extends EPackage {
 	 * Returns the meta object for the reference
 	 * '{@link ordersystem.InventoryItem#getProduct <em>Product</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for the reference '<em>Product</em>'.
 	 * @see ordersystem.InventoryItem#getProduct()
 	 * @see #getInventoryItem()
@@ -1263,7 +1263,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the meta object for data type '{@link java.util.Date <em>Java
 	 * Date</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the meta object for data type '<em>Java Date</em>'.
 	 * @see java.util.Date
 	 * @model instanceClass="java.util.Date"
@@ -1274,7 +1274,7 @@ public interface OrderSystemPackage extends EPackage {
 	/**
 	 * Returns the factory that creates the instances of the model. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
@@ -1289,14 +1289,14 @@ public interface OrderSystemPackage extends EPackage {
 	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	interface Literals {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.OrderImpl
 		 * <em>Order</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.OrderImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getOrder()
 		 * @generated
@@ -1306,7 +1306,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Placed On</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ORDER__PLACED_ON = eINSTANCE.getOrder_PlacedOn();
@@ -1314,7 +1314,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Filled On</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ORDER__FILLED_ON = eINSTANCE.getOrder_FilledOn();
@@ -1322,7 +1322,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Completed</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ORDER__COMPLETED = eINSTANCE.getOrder_Completed();
@@ -1330,7 +1330,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ORDER__ID = eINSTANCE.getOrder_Id();
@@ -1338,7 +1338,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ORDER__OWNER = eINSTANCE.getOrder_Owner();
@@ -1346,7 +1346,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Item</b></em>' containment reference
 		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ORDER__ITEM = eINSTANCE.getOrder_Item();
@@ -1354,7 +1354,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.ProductImpl
 		 * <em>Product</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.ProductImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getProduct()
 		 * @generated
@@ -1364,7 +1364,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PRODUCT__NAME = eINSTANCE.getProduct_Name();
@@ -1372,7 +1372,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Sku</b></em>' attribute feature. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PRODUCT__SKU = eINSTANCE.getProduct_Sku();
@@ -1380,7 +1380,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Price</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute PRODUCT__PRICE = eINSTANCE.getProduct_Price();
@@ -1388,7 +1388,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference PRODUCT__OWNER = eINSTANCE.getProduct_Owner();
@@ -1396,7 +1396,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.WarehouseImpl
 		 * <em>Warehouse</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.WarehouseImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getWarehouse()
 		 * @generated
@@ -1406,7 +1406,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute WAREHOUSE__NAME = eINSTANCE.getWarehouse_Name();
@@ -1414,7 +1414,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference WAREHOUSE__OWNER = eINSTANCE.getWarehouse_Owner();
@@ -1422,7 +1422,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Item</b></em>' containment reference
 		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference WAREHOUSE__ITEM = eINSTANCE.getWarehouse_Item();
@@ -1430,7 +1430,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Location</b></em>' containment
 		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference WAREHOUSE__LOCATION = eINSTANCE.getWarehouse_Location();
@@ -1438,7 +1438,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.OrderSystemImpl
 		 * <em>Order System</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.OrderSystemImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getOrderSystem()
 		 * @generated
@@ -1448,7 +1448,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ORDER_SYSTEM__VERSION = eINSTANCE.getOrderSystem_Version();
@@ -1456,7 +1456,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Customer</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ORDER_SYSTEM__CUSTOMER = eINSTANCE.getOrderSystem_Customer();
@@ -1464,7 +1464,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Product</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ORDER_SYSTEM__PRODUCT = eINSTANCE.getOrderSystem_Product();
@@ -1472,7 +1472,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Warehouse</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ORDER_SYSTEM__WAREHOUSE = eINSTANCE.getOrderSystem_Warehouse();
@@ -1480,7 +1480,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.LineItemImpl
 		 * <em>Line Item</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.LineItemImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getLineItem()
 		 * @generated
@@ -1490,7 +1490,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Quantity</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute LINE_ITEM__QUANTITY = eINSTANCE.getLineItem_Quantity();
@@ -1498,7 +1498,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Discount</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute LINE_ITEM__DISCOUNT = eINSTANCE.getLineItem_Discount();
@@ -1506,7 +1506,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference LINE_ITEM__OWNER = eINSTANCE.getLineItem_Owner();
@@ -1514,7 +1514,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Product</b></em>' reference feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference LINE_ITEM__PRODUCT = eINSTANCE.getLineItem_Product();
@@ -1523,7 +1523,7 @@ public interface OrderSystemPackage extends EPackage {
 		 * The meta object literal for the '{@link ordersystem.impl.InventoryItemImpl
 		 * <em>Inventory Item</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
 		 * -->
-		 * 
+		 *
 		 * @see ordersystem.impl.InventoryItemImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getInventoryItem()
 		 * @generated
@@ -1533,7 +1533,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>In Stock</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute INVENTORY_ITEM__IN_STOCK = eINSTANCE.getInventoryItem_InStock();
@@ -1541,7 +1541,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Restock Threshold</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute INVENTORY_ITEM__RESTOCK_THRESHOLD = eINSTANCE.getInventoryItem_RestockThreshold();
@@ -1549,7 +1549,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Next Stock Date</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute INVENTORY_ITEM__NEXT_STOCK_DATE = eINSTANCE.getInventoryItem_NextStockDate();
@@ -1557,7 +1557,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Warehouse</b></em>' container
 		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference INVENTORY_ITEM__WAREHOUSE = eINSTANCE.getInventoryItem_Warehouse();
@@ -1565,7 +1565,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Product</b></em>' reference feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference INVENTORY_ITEM__PRODUCT = eINSTANCE.getInventoryItem_Product();
@@ -1573,7 +1573,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.CustomerImpl
 		 * <em>Customer</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.CustomerImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getCustomer()
 		 * @generated
@@ -1583,7 +1583,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Last Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CUSTOMER__LAST_NAME = eINSTANCE.getCustomer_LastName();
@@ -1591,7 +1591,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>First Name</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute CUSTOMER__FIRST_NAME = eINSTANCE.getCustomer_FirstName();
@@ -1599,7 +1599,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CUSTOMER__OWNER = eINSTANCE.getCustomer_Owner();
@@ -1607,7 +1607,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Account</b></em>' containment
 		 * reference list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CUSTOMER__ACCOUNT = eINSTANCE.getCustomer_Account();
@@ -1615,7 +1615,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Order</b></em>' containment reference
 		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference CUSTOMER__ORDER = eINSTANCE.getCustomer_Order();
@@ -1623,7 +1623,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.AddressImpl
 		 * <em>Address</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.AddressImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getAddress()
 		 * @generated
@@ -1633,7 +1633,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__NUMBER = eINSTANCE.getAddress_Number();
@@ -1641,7 +1641,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Street</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__STREET = eINSTANCE.getAddress_Street();
@@ -1649,7 +1649,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Apartment</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__APARTMENT = eINSTANCE.getAddress_Apartment();
@@ -1657,7 +1657,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>City</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__CITY = eINSTANCE.getAddress_City();
@@ -1665,7 +1665,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Province</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__PROVINCE = eINSTANCE.getAddress_Province();
@@ -1673,7 +1673,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Postal Code</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__POSTAL_CODE = eINSTANCE.getAddress_PostalCode();
@@ -1681,7 +1681,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Country</b></em>' attribute feature.
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ADDRESS__COUNTRY = eINSTANCE.getAddress_Country();
@@ -1689,7 +1689,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '{@link ordersystem.impl.AccountImpl
 		 * <em>Account</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see ordersystem.impl.AccountImpl
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getAccount()
 		 * @generated
@@ -1699,7 +1699,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Payment Method</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ACCOUNT__PAYMENT_METHOD = eINSTANCE.getAccount_PaymentMethod();
@@ -1707,7 +1707,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Account Number</b></em>' attribute
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EAttribute ACCOUNT__ACCOUNT_NUMBER = eINSTANCE.getAccount_AccountNumber();
@@ -1715,7 +1715,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Owner</b></em>' container reference
 		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ACCOUNT__OWNER = eINSTANCE.getAccount_Owner();
@@ -1723,7 +1723,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Billing Address</b></em>' containment
 		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ACCOUNT__BILLING_ADDRESS = eINSTANCE.getAccount_BillingAddress();
@@ -1731,7 +1731,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em><b>Shipping Address</b></em>'
 		 * containment reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @generated
 		 */
 		EReference ACCOUNT__SHIPPING_ADDRESS = eINSTANCE.getAccount_ShippingAddress();
@@ -1739,7 +1739,7 @@ public interface OrderSystemPackage extends EPackage {
 		/**
 		 * The meta object literal for the '<em>Java Date</em>' data type. <!--
 		 * begin-user-doc --> <!-- end-user-doc -->
-		 * 
+		 *
 		 * @see java.util.Date
 		 * @see ordersystem.impl.OrderSystemPackageImpl#getJavaDate()
 		 * @generated

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 137213
  *    SAP AG - Bug 240352
  ****************************************************************************/
@@ -40,7 +40,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * Constraint factory implementation which parses constraints from the XML
  * plug-in manifest.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConstraintFactory extends ConstraintFactory {
@@ -50,18 +50,20 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	public static final String CONSTRAINT_PARSERS_EXT_P_NAME = "constraintParsers"; //$NON-NLS-1$
 
 	/** Mapping of language names to parser implementations. */
-	private final java.util.Map<String, IConstraintParser> parserMap = new java.util.HashMap<String, IConstraintParser>();
+	private final java.util.Map<String, IConstraintParser> parserMap = new java.util.HashMap<>();
 
 	private final Object parsersLock = new Object();
 
 	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			synchronized (parsersLock) {
 				registerParsers(extension.getConfigurationElements());
 			}
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// constraint parsers cannot be undefined
 		}
@@ -157,7 +159,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 	/**
 	 * Registers a parser implementation against the language that it provides.
-	 * 
+	 *
 	 * @param config the Eclipse extension configuration data for the parser
 	 */
 	void registerParser(IConfigurationElement config) {
@@ -195,7 +197,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		try {
 
 			if (parser instanceof IXmlConstraintParser || parser instanceof IParameterizedConstraintParser) {
-				parserMap.put(language.toLowerCase(), (IConstraintParser) parser);
+				parserMap.put(language.toLowerCase(), parser);
 
 				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Initialized parser for constraint language: " + language); //$NON-NLS-1$
@@ -216,7 +218,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 	/**
 	 * Obtains the parser for the specified language.
-	 * 
+	 *
 	 * @param language a constraint language (not case-sensitive)
 	 * @return the parser, or <code>null</code> if it cannot be found
 	 */
@@ -247,7 +249,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 	/**
 	 * Loads the constraint language parsers.
-	 * 
+	 *
 	 * @param configs the configuration elements from the <tt>constraintParsers</tt>
 	 *                extension point.
 	 */

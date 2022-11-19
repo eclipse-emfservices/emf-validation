@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for {@link ConstraintFactory} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintFactoryTest extends TestCase {

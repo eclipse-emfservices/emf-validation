@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -50,7 +50,7 @@ public interface ConstraintsBundle extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Providers</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintsBundle_Providers()
 	 * @model containment="true"
@@ -68,7 +68,7 @@ public interface ConstraintsBundle extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Categories</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintsBundle_Categories()
 	 * @model containment="true"
@@ -87,7 +87,7 @@ public interface ConstraintsBundle extends EObject {
 	 * here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Constraint Bindings Bundles</em>' containment
 	 *         reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintsBundle_ConstraintBindingsBundles()
@@ -106,7 +106,7 @@ public interface ConstraintsBundle extends EObject {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Parsers</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintsBundle_Parsers()
 	 * @model containment="true"
@@ -122,7 +122,7 @@ public interface ConstraintsBundle extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Message Bundle Path</em>' attribute.
 	 * @see #isSetMessageBundlePath()
 	 * @see #unsetMessageBundlePath()
@@ -138,7 +138,7 @@ public interface ConstraintsBundle extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getMessageBundlePath
 	 * <em>Message Bundle Path</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Message Bundle Path</em>' attribute.
 	 * @see #isSetMessageBundlePath()
 	 * @see #unsetMessageBundlePath()
@@ -152,7 +152,7 @@ public interface ConstraintsBundle extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getMessageBundlePath
 	 * <em>Message Bundle Path</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #isSetMessageBundlePath()
 	 * @see #getMessageBundlePath()
 	 * @see #setMessageBundlePath(String)
@@ -165,7 +165,7 @@ public interface ConstraintsBundle extends EObject {
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle#getMessageBundlePath
 	 * <em>Message Bundle Path</em>}' attribute is set. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return whether the value of the '<em>Message Bundle Path</em>' attribute is
 	 *         set.
 	 * @see #unsetMessageBundlePath()

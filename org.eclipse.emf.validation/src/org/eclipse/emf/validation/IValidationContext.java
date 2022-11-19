@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
@@ -53,9 +53,9 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
  * <p>
  * This interface should not be implemented outside of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
@@ -64,16 +64,16 @@ public interface IValidationContext {
 	 * Obtains the ID of the constraint currently being evaluated. This is useful
 	 * for a class that implements multiple different constraints to determine for
 	 * which constraint it is being invoked.
-	 * 
+	 *
 	 * @return the ID of the constraint currently being evaluated
-	 * 
+	 *
 	 * @see AbstractModelConstraint
 	 */
 	String getCurrentConstraintId();
 
 	/**
 	 * Obtains the EMF object currently being validated.
-	 * 
+	 *
 	 * @return the current validation target
 	 */
 	EObject getTarget();
@@ -81,7 +81,7 @@ public interface IValidationContext {
 	/**
 	 * In the case of a live constraint evaluation, obtains the type of event which
 	 * is currently being validated.
-	 * 
+	 *
 	 * @return the live constraint's triggering event type, or
 	 *         {@link EMFEventType#NULL} if the constraint is being evaluated in
 	 *         batch mode
@@ -93,7 +93,7 @@ public interface IValidationContext {
 	 * currently being validated. This is useful for live constraints that need more
 	 * contextual information about the changes being validated than is available in
 	 * a single notification.
-	 * 
+	 *
 	 * @return the raw {@link org.eclipse.emf.common.notify.Notification}s being
 	 *         validated, or an empty list if this is a batch validation. This list
 	 *         is not modifiable
@@ -106,10 +106,10 @@ public interface IValidationContext {
 	 * constraints that are triggered by specific features; the result will be
 	 * <code>null</code> if the constraint does not specify any feature triggers in
 	 * the XML meta-data.
-	 * 
+	 *
 	 * @return the feature constraint's triggering feature, or <code>null</code> if
 	 *         the constraint is not triggered by a particular feature
-	 * 
+	 *
 	 * @see #getFeatureNewValue()
 	 */
 	EStructuralFeature getFeature();
@@ -137,11 +137,11 @@ public interface IValidationContext {
 	 * </ul>
 	 * .
 	 * </p>
-	 * 
+	 *
 	 * @return the feature constraint's triggering new value (as a single object or
 	 *         a {@link Collection}), or <code>null</code> if the constraint is not
 	 *         triggered by a particular feature
-	 * 
+	 *
 	 * @see #getFeature()
 	 */
 	Object getFeatureNewValue();
@@ -166,7 +166,7 @@ public interface IValidationContext {
 	 * {@link #getTarget() current target} object; the validation system guarantees
 	 * that it will not be revisited.
 	 * </p>
-	 * 
+	 *
 	 * @param eObject the model object to be skipped by the current constraint
 	 */
 	void skipCurrentConstraintFor(EObject eObject);
@@ -175,9 +175,9 @@ public interface IValidationContext {
 	 * Causes the current constraint to be skipped in any subsequent validation of
 	 * any of the specified <code>eObjects</code> in the current validation
 	 * operation.
-	 * 
+	 *
 	 * @param eObjects the model objects to be skipped by the current constraint
-	 * 
+	 *
 	 * @see #skipCurrentConstraintFor(EObject)
 	 */
 	void skipCurrentConstraintForAll(Collection<?> eObjects);
@@ -192,7 +192,7 @@ public interface IValidationContext {
 	 * {@link #skipCurrentConstraintFor(EObject)} method: the current constraint is
 	 * skipped for all model elements and even in subsequent validation operations.
 	 * </p>
-	 * 
+	 *
 	 * @param exception the exception that has caused the current constraint to be
 	 *                  non-viable. Must not be <code>null</code>
 	 */
@@ -211,9 +211,9 @@ public interface IValidationContext {
 	 * optimizing the processing of multiple objects, reporting information to the
 	 * user, etc.
 	 * </p>
-	 * 
+	 *
 	 * @return the current constraint's working data
-	 * 
+	 *
 	 * @see #putCurrentConstraintData(Object)
 	 */
 	Object getCurrentConstraintData();
@@ -223,7 +223,7 @@ public interface IValidationContext {
 	 * constraint. The data may be retrieved later by a call to the
 	 * {@link #getCurrentConstraintData} method during the same validation
 	 * operation.
-	 * 
+	 *
 	 * @param newData the new working data
 	 * @return the previous constraint data object that the <code>newData</code> is
 	 *         displacing
@@ -233,9 +233,9 @@ public interface IValidationContext {
 	/**
 	 * Obtains the result locus of this evaluation of the current constraint. The
 	 * returned set is not modifiable.
-	 * 
+	 *
 	 * @return an unmodifiable view of the result locus
-	 * 
+	 *
 	 * @see #addResult(EObject)
 	 */
 	Set<EObject> getResultLocus();
@@ -245,9 +245,9 @@ public interface IValidationContext {
 	 * is the set of model elements that contribute to the violation of a
 	 * constraint. The {@link #getTarget() current target} is implicitly added to
 	 * the result locus if the constraint evaluation fails.
-	 * 
+	 *
 	 * @param eObject the model element to add to the result locus
-	 * 
+	 *
 	 * @see #getResultLocus()
 	 */
 	void addResult(EObject eObject);
@@ -255,10 +255,10 @@ public interface IValidationContext {
 	/**
 	 * Adds all of the specified model elements to the result locus of the current
 	 * constraint.
-	 * 
+	 *
 	 * @param eObjects the model elements to add to the result locus. Must contain
 	 *                 elements of type {@link EObject}
-	 * 
+	 *
 	 * @see #addResult(EObject)
 	 */
 	void addResults(Collection<? extends EObject> eObjects);
@@ -266,7 +266,7 @@ public interface IValidationContext {
 	/**
 	 * Creates a status object indicating successful evaluation of the current
 	 * constraint on the current target element.
-	 * 
+	 *
 	 * @return the "success" status
 	 */
 	IStatus createSuccessStatus();
@@ -275,7 +275,7 @@ public interface IValidationContext {
 	 * Creates a status object indicating unsuccessful evaluation of the current
 	 * constraint on the current target element. The status will have the severity,
 	 * error code, and message defined in the constraint meta-data in the XML.
-	 * 
+	 *
 	 * @param messageArgument the positional {0}, {1}, etc. arguments to replace in
 	 *                        the message pattern (may by <code>null</code> if none
 	 *                        are needed)

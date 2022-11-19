@@ -64,7 +64,7 @@ import org.eclipse.ui.PlatformUI;
  * Clients can use this class to implement their own filtered constraints
  * preference page.
  * </p>
- * 
+ *
  * @since 1.1
  *
  * @author David Cummings (dcummin)
@@ -105,7 +105,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Initializes me with a constraint filter.
-	 * 
+	 *
 	 * @param filter used to filter the constraints which are presented in this
 	 *               composite (must not be <code>null</code>)
 	 */
@@ -119,37 +119,43 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Content provider for the category tree.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class CategoryTreeContents implements ITreeContentProvider {
 
 		// implements the inherited method
+		@Override
 		public Object[] getChildren(Object parentElement) {
 			return ((ICategoryTreeNode) parentElement).getChildren();
 		}
 
 		// implements the inherited method
+		@Override
 		public Object getParent(Object element) {
 			return ((ICategoryTreeNode) element).getParent();
 		}
 
 		// implements the inherited method
+		@Override
 		public boolean hasChildren(Object element) {
 			return ((ICategoryTreeNode) element).hasChildren();
 		}
 
 		// implements the inherited method
+		@Override
 		public Object[] getElements(Object inputElement) {
 			return getChildren(inputElement);
 		}
 
 		// implements the inherited method
+		@Override
 		public void dispose() {
 			// no cached resources to dispose
 		}
 
 		// implements the inherited method
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			// nothing to do
 		}
@@ -157,7 +163,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Content provider for the constraints list.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class ConstraintListContents implements IStructuredContentProvider, ICheckStateListener {
@@ -165,6 +171,7 @@ public class ConstraintsSelectionBlock {
 		private CheckboxTableViewer viewer;
 		private ICategoryTreeNode category;
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			if (inputElement == null) {
 				return new Object[0];
@@ -175,10 +182,12 @@ public class ConstraintsSelectionBlock {
 			}
 		}
 
+		@Override
 		public void dispose() {
 			// nothing to dispose
 		}
 
+		@Override
 		public void inputChanged(Viewer newViewer, Object oldInput, Object newInput) {
 			if (viewer != null) {
 				viewer.removeCheckStateListener(this);
@@ -195,6 +204,7 @@ public class ConstraintsSelectionBlock {
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			category.updateCheckState((IConstraintNode) event.getElement());
 		}
@@ -203,7 +213,7 @@ public class ConstraintsSelectionBlock {
 	/**
 	 * A <i>Mediator</i> to coordinate the category tree, constraints list, and
 	 * details pane in the GUI.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class Mediator implements ISelectionChangedListener, ICheckStateListener {
@@ -211,6 +221,7 @@ public class ConstraintsSelectionBlock {
 		private boolean respondingToUserSelection;
 
 		// implements the interface method
+		@Override
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			Object element = event.getElement();
 
@@ -251,6 +262,7 @@ public class ConstraintsSelectionBlock {
 		}
 
 		// implements the interface method
+		@Override
 		public void selectionChanged(SelectionChangedEvent event) {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 
@@ -263,7 +275,7 @@ public class ConstraintsSelectionBlock {
 
 		/**
 		 * Handles a selection change in the category tree.
-		 * 
+		 *
 		 * @param selection the new selection
 		 */
 		private void handleCategorySelection(IStructuredSelection selection) {
@@ -277,7 +289,7 @@ public class ConstraintsSelectionBlock {
 
 		/**
 		 * Selects the specified category in the constraints list.
-		 * 
+		 *
 		 * @param category the category to select
 		 */
 		private void selectCategory(ICategoryTreeNode category) {
@@ -288,7 +300,7 @@ public class ConstraintsSelectionBlock {
 
 		/**
 		 * Select, in the table viewer, the currently enabled constraints.
-		 * 
+		 *
 		 * @param categoryNode the currently selected category node
 		 */
 		private void selectConstraints(ICategoryTreeNode categoryNode) {
@@ -297,7 +309,7 @@ public class ConstraintsSelectionBlock {
 
 		/**
 		 * Handles a selection change in the constraints list.
-		 * 
+		 *
 		 * @param selection the new selection
 		 */
 		private void handleConstraintSelection(IStructuredSelection selection) {
@@ -318,7 +330,7 @@ public class ConstraintsSelectionBlock {
 		/**
 		 * Sets the details area to show the currently selected <code>category</code>'s
 		 * category details.
-		 * 
+		 *
 		 * @param category the category in the category tree
 		 */
 		private void setDetails(ICategoryTreeNode category) {
@@ -345,12 +357,12 @@ public class ConstraintsSelectionBlock {
 		/**
 		 * Sets the details area to show the currently selected
 		 * <code>constraint</code>'s details.
-		 * 
+		 *
 		 * @param constraint the constraint meta-data
 		 */
 		private void setDetails(IConstraintNode constraint) {
 			// lots of style info
-			List<StyleRange> styles = new java.util.ArrayList<StyleRange>(32);
+			List<StyleRange> styles = new java.util.ArrayList<>(32);
 			String text = ConstraintDetailsHelper.formatConstraintDescription(constraint, getCurrentCategorySelection(),
 					styles);
 
@@ -385,7 +397,7 @@ public class ConstraintsSelectionBlock {
 	/**
 	 * Helper method to create the category-tree part of the GUI. The result is a
 	 * form containing the checkbox tree and a prompt label.
-	 * 
+	 *
 	 * @param parent the parent composite in which to create the tree
 	 * @return the tree part of the GUI (itself a composite form)
 	 */
@@ -446,7 +458,7 @@ public class ConstraintsSelectionBlock {
 	/**
 	 * Helper method to create the constraint-list part of the GUI. The result is a
 	 * form containing the constraints list and a prompt label.
-	 * 
+	 *
 	 * @param parent the parent composite in which to create the list
 	 * @return the list part of the GUI (itself a composite form)
 	 */
@@ -514,7 +526,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Helper method to create the details are of the GUI.
-	 * 
+	 *
 	 * @param parent the parent composite in which to create the details area
 	 * @return the details text area
 	 */
@@ -528,7 +540,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Obtains my category tree.
-	 * 
+	 *
 	 * @return the tree
 	 */
 	private CheckboxTreeViewer getCategoryTree() {
@@ -537,7 +549,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Obtains my constraints list.
-	 * 
+	 *
 	 * @return the list
 	 */
 	private CheckboxTableViewer getConstraintList() {
@@ -546,7 +558,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Obtains my details area.
-	 * 
+	 *
 	 * @return the details text area
 	 */
 	private StyledText getDetailsArea() {
@@ -555,7 +567,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Obtains my mediator.
-	 * 
+	 *
 	 * @return my mediator
 	 */
 	private Mediator getMediator() {
@@ -605,7 +617,7 @@ public class ConstraintsSelectionBlock {
 
 	/**
 	 * Obtains the currently selected category, if any.
-	 * 
+	 *
 	 * @return the current category
 	 */
 	private Category getCurrentCategorySelection() {
@@ -621,7 +633,7 @@ public class ConstraintsSelectionBlock {
 	/**
 	 * Helper method to set the currently enabled categories in the tree. Also sets
 	 * gray states as appropriate.
-	 * 
+	 *
 	 * @param root the root of the tree model
 	 */
 	private void markEnabledCategories(ICategoryTreeNode root) {

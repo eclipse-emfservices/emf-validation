@@ -190,6 +190,7 @@ public class ClientContextTest extends TestCase {
 	}
 
 	public static final class ValidSelector implements IClientSelector {
+		@Override
 		public boolean selects(Object eObject) {
 			return false;
 		}

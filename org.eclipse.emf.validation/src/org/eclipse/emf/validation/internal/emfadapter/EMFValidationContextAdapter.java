@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.emfadapter;
 
@@ -63,7 +63,7 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 
 	/**
 	 * Obtains the validation context that I adapt.
-	 * 
+	 *
 	 * @return my validation context
 	 */
 	IValidationContext getAdaptedContext() {
@@ -72,7 +72,7 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 
 	/**
 	 * Assigns me a new adapted validation context.
-	 * 
+	 *
 	 * @param adaptedContext the new context that I adapt
 	 */
 	void setAdaptedContext(IValidationContext adaptedContext) {
@@ -82,7 +82,7 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 
 	/**
 	 * Obtains the last status added to me by the current constraint.
-	 * 
+	 *
 	 * @return my last status
 	 */
 	Diagnostic getLastStatus() {

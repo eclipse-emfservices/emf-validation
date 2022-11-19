@@ -53,7 +53,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * <tt>constraintProviders</tt> extension point. It is not intended to be
  * subclassed or otherwise used by client <i>code</i>.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConstraintProvider extends AbstractConstraintProvider implements IExecutableExtension {
@@ -76,7 +76,7 @@ public class XmlConstraintProvider extends AbstractConstraintProvider implements
 	/**
 	 * Extends the inherited method to configure myself with my meta-data of one or
 	 * more constraints.
-	 * 
+	 *
 	 * @throws CoreException if the superclass implementation of this method throws
 	 *                       or on an error in accessing the <code>config</code>
 	 */
@@ -104,7 +104,7 @@ public class XmlConstraintProvider extends AbstractConstraintProvider implements
 	/**
 	 * Adds a constraint to my collection, constructed from the specified XML
 	 * content.
-	 * 
+	 *
 	 * @param config the <TT>&lt;constraint&gt;</TT> element
 	 */
 	private void addConstraint(IConfigurationElement config) {

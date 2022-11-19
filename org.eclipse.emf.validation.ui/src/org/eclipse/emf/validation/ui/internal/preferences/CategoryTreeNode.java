@@ -29,7 +29,7 @@ import org.eclipse.osgi.util.NLS;
 
 /**
  * Concrete implementation of a node in the category selection tree.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class CategoryTreeNode extends AbstractCategoryTreeNode {
@@ -47,13 +47,13 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 
 	/**
 	 * Implementation of the root node of the category selection tree.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class RootNode extends AbstractCategoryTreeNode {
 		/**
 		 * Initializes me with just the tree that owns me.
-		 * 
+		 *
 		 * @param tree   the tree that owns me
 		 * @param filter a filter that defines which constraints I am interested in
 		 */
@@ -65,7 +65,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		@Override
 		protected List<ICategoryTreeNode> createChildren() {
 			Collection<Category> topLevel = CategoryManager.getInstance().getTopLevelCategories();
-			List<ICategoryTreeNode> result = new java.util.ArrayList<ICategoryTreeNode>(topLevel.size());
+			List<ICategoryTreeNode> result = new java.util.ArrayList<>(topLevel.size());
 
 			for (Category next : topLevel) {
 				if (!isRecursivelyEmpty(next)) {
@@ -77,26 +77,31 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 
 		// implements the inherited method
+		@Override
 		public boolean isChecked() {
 			return false;
 		}
 
 		// implements the inherited method
+		@Override
 		public boolean isGrayed() {
 			return false;
 		}
 
 		// implements the inherited method
+		@Override
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			// I cannot be selected by the user, so there is never a transition
 		}
 
 		// implements the inherited method
+		@Override
 		public void updateCheckState(ICategoryTreeNode child) {
 			// I am never visible and don't represent a category, anyway
 		}
 
 		// implements the inherited method
+		@Override
 		public void updateCheckState(IConstraintNode constraint) {
 			// I am never visible and don't represent a category, anyway
 		}
@@ -108,6 +113,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 
 		// redefines the inherited method
+		@Override
 		public List<IConstraintNode> getConstraints() {
 			return Collections.emptyList();
 		}
@@ -116,15 +122,15 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	/**
 	 * A special leaf node that acts as the delegate of an internal node that has
 	 * constraints.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
-	 * 
+	 *
 	 * @see CategoryTreeNode#delegate
 	 */
 	private static class DelegateNode extends CategoryTreeNode {
 		/**
 		 * Initializes me.
-		 * 
+		 *
 		 * @param tree     the tree that owns me
 		 * @param category the category that I represent
 		 * @param parent   my parent, which delegates to me
@@ -159,7 +165,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 
 	/**
 	 * Initializes me.
-	 * 
+	 *
 	 * @param tree     the tree that owns me
 	 * @param category the category that I represent
 	 * @param parent   my parent in the tree
@@ -174,7 +180,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	/**
 	 * Creates a root node for the specified <code>tree</code> viewer. This root
 	 * node will automatically discover the complete tree structure, as needed.
-	 * 
+	 *
 	 * @param tree   the tree viewer for which to create a root node
 	 * @param filter a filter that defines which constraints I am interested in
 	 * @return a suitable root node
@@ -184,6 +190,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		// otherwise the provider wanted to hide them and we couldn't manage
 		// their preferences
 		IConstraintFilter registeredOnly = new IConstraintFilter() {
+			@Override
 			public boolean accept(IConstraintDescriptor constraint, EObject target) {
 				if (ConstraintRegistry.getInstance().getDescriptor(constraint.getId()) == constraint) {
 
@@ -202,11 +209,13 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isChecked() {
 		return checked;
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isGrayed() {
 		return grayed;
 	}
@@ -221,13 +230,13 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 
 		if (!categoryChildren.isEmpty() && !getConstraints(category, getFilter()).isEmpty()) {
 			// add one for the delegate child that contains my own constraints
-			result = new java.util.ArrayList<ICategoryTreeNode>(categoryChildren.size() + 1);
+			result = new java.util.ArrayList<>(categoryChildren.size() + 1);
 
 			// add my delegate
 			delegate = new DelegateNode(getTree(), category, this, getFilter());
 			result.add(delegate);
 		} else {
-			result = new java.util.ArrayList<ICategoryTreeNode>(categoryChildren.size());
+			result = new java.util.ArrayList<>(categoryChildren.size());
 		}
 
 		for (Category next : categoryChildren) {
@@ -240,6 +249,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 
 	// implements the interface method
+	@Override
 	public void checkStateChanged(CheckStateChangedEvent event) {
 		boolean newState = event.getChecked();
 
@@ -258,7 +268,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * <code>newState</code>, and minding mandatory categories) the entire subtree
 	 * rooted at me. My state propagates up the tree, also, to possibly change the
 	 * gray-state of my ancestors.
-	 * 
+	 *
 	 * @param newState my new checked state
 	 */
 	protected void internalSetChecked(boolean newState) {
@@ -279,7 +289,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	/**
 	 * Propagates my new selection state to my constraints. If any of my constraints
 	 * cannot be made to reflect my new checked state, then I will be grayed.
-	 * 
+	 *
 	 * @param newState the new checked state to propagate to my constraints (those
 	 *                 that will accept it)
 	 */
@@ -320,6 +330,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 
 	// implements the interface method
+	@Override
 	public void updateCheckState(ICategoryTreeNode child) {
 		if (child.isGrayed()) {
 			// easy case
@@ -332,8 +343,8 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 
 			ICategoryTreeNode[] children = getChildren();
 
-			for (int i = 0; i < children.length; i++) {
-				if (children[i].isGrayed() || (children[i].isChecked() != newValue)) {
+			for (ICategoryTreeNode child2 : children) {
+				if (child2.isGrayed() || (child2.isChecked() != newValue)) {
 					grayed = true;
 					checked = true;
 
@@ -354,6 +365,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 
 	// implements the interface method
+	@Override
 	public void updateCheckState(IConstraintNode constraint) {
 		boolean newValue = constraint.isChecked();
 		boolean newChecked = newValue;
@@ -381,14 +393,14 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	 * Recursively propagates a new <code>checkedState</code> down my sub-tree. Note
 	 * that if <code>checkedState</code> is <code>false</code>, mandatory categories
 	 * will nonetheless remain checked.
-	 * 
+	 *
 	 * @param checkedState the new state
 	 */
 	private void propagateDown(boolean checkedState) {
 		ICategoryTreeNode[] children = getChildren();
 
-		for (int i = 0; i < children.length; i++) {
-			((CategoryTreeNode) children[i]).internalSetChecked(checkedState);
+		for (ICategoryTreeNode child : children) {
+			((CategoryTreeNode) child).internalSetChecked(checkedState);
 		}
 	}
 
@@ -451,7 +463,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	/**
 	 * Extends the superclass method to return <code>null</code> if I have a child
 	 * node to which I delegate my own category's constraints.
-	 * 
+	 *
 	 * @return <code>null</code> if I have a delegate node; the superclass result,
 	 *         otherwise
 	 */
@@ -465,12 +477,13 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	}
 
 	// implements the inherited method
+	@Override
 	public List<IConstraintNode> getConstraints() {
 		if (hasDelegate()) {
 			constraints = Collections.emptyList();
 		} else if (constraints == null) {
 			Collection<IConstraintDescriptor> descriptors = getConstraints(getCategory(), getFilter());
-			constraints = new java.util.ArrayList<IConstraintNode>(descriptors.size());
+			constraints = new java.util.ArrayList<>(descriptors.size());
 
 			for (IConstraintDescriptor next : descriptors) {
 				IConstraintNode node = ConstraintNode.getInstance(next);
@@ -486,7 +499,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	// implements the inherited method
 	@Override
 	public IConstraintNode[] getSelectedConstraints() {
-		List<IConstraintNode> result = new java.util.ArrayList<IConstraintNode>(getConstraints().size());
+		List<IConstraintNode> result = new java.util.ArrayList<>(getConstraints().size());
 
 		for (IConstraintNode next : getConstraints()) {
 			if (next.isChecked()) {
@@ -500,7 +513,7 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 	/**
 	 * Queries whether I have a delegate node that actually makes my category's
 	 * constraints available as a leaf node.
-	 * 
+	 *
 	 * @return whether I have a delegate check-state node
 	 */
 	private boolean hasDelegate() {

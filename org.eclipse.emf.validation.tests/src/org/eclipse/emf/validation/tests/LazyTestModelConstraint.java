@@ -18,7 +18,7 @@ import org.eclipse.emf.validation.IValidationContext;
 /**
  * Constraint implementation which is used to test the lazy instantiation of
  * constraint objects.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class LazyTestModelConstraint extends AbstractModelConstraint {
@@ -33,7 +33,7 @@ public class LazyTestModelConstraint extends AbstractModelConstraint {
 
 	/**
 	 * Queries the number of times that this class has been instantiated.
-	 * 
+	 *
 	 * @return the number of instances that were ever created
 	 */
 	public static int getInstanceCount() {

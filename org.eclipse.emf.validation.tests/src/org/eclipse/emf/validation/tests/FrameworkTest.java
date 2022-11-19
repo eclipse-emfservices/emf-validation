@@ -38,7 +38,7 @@ import ordersystem.special.SpecialFactory;
 /**
  * A suite of JUnit test cases covering the capabilities of the core constraints
  * framework.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class FrameworkTest extends TestBase {
@@ -78,7 +78,7 @@ public class FrameworkTest extends TestBase {
 
 	/**
 	 * This method creates an example Order System document.
-	 * 
+	 *
 	 * @param res the EMF resource to create
 	 * @param os  the top-level Order System model object
 	 * @throws IOException if there is any problem saving the resource
@@ -180,7 +180,7 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(Collections.nCopies(5, event)));
 
-		Collection<IModelConstraint> evaluatedConstraints = new java.util.HashSet<IModelConstraint>();
+		Collection<IModelConstraint> evaluatedConstraints = new java.util.HashSet<>();
 
 		for (IStatus element : status) {
 			IConstraintStatus next = (IConstraintStatus) element;

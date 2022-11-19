@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Borland Software - Bug 137213
  *    Zeligsoft - Bug 137213
  *    Mario Winterer - Bug 284348
@@ -42,7 +42,7 @@ import org.osgi.framework.BundleContext;
  * <p>
  * This class is not intended to be used by clients.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  * @author Boris Gruschko
  */
@@ -53,79 +53,79 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 	/**
 	 * String containing an open parenthesis.
-	 * 
+	 *
 	 */
 	protected static final String PARENTHESIS_OPEN = "("; //$NON-NLS-1$
 
 	/**
 	 * String containing a close parenthesis.
-	 * 
+	 *
 	 */
 	protected static final String PARENTHESIS_CLOSE = ")"; //$NON-NLS-1$
 
 	/**
 	 * Prefix for tracing the changing of values.
-	 * 
+	 *
 	 */
 	protected static final String PREFIX_CHANGING = "CHANGING "; //$NON-NLS-1$
 
 	/**
 	 * Prefix for tracing the catching of throwables.
-	 * 
+	 *
 	 */
 	protected static final String PREFIX_CATCHING = "CAUGHT "; //$NON-NLS-1$
 
 	/**
 	 * Prefix for tracing the throwing of throwables.
-	 * 
+	 *
 	 */
 	protected static final String PREFIX_THROWING = "THROWN "; //$NON-NLS-1$
 
 	/**
 	 * Prefix for tracing the entering of methods.
-	 * 
+	 *
 	 */
 	protected static final String PREFIX_ENTERING = "ENTERING "; //$NON-NLS-1$
 
 	/**
 	 * Prefix for tracing the exiting of methods.
-	 * 
+	 *
 	 */
 	protected static final String PREFIX_EXITING = "EXITING "; //$NON-NLS-1$
 
 	/**
 	 * Separator for methods.
-	 * 
+	 *
 	 */
 	protected static final String SEPARATOR_METHOD = "#"; //$NON-NLS-1$
 
 	/**
 	 * Separator for parameters.
-	 * 
+	 *
 	 */
 	protected static final String SEPARATOR_PARAMETER = ", "; //$NON-NLS-1$
 
 	/**
 	 * Separator for return values.
-	 * 
+	 *
 	 */
 	protected static final String SEPARATOR_RETURN = ":"; //$NON-NLS-1$
 
 	/**
 	 * Separator containing a space.
-	 * 
+	 *
 	 */
 	protected static final String SEPARATOR_SPACE = " "; //$NON-NLS-1$
 
 	/**
 	 * Label indicating old value.
-	 * 
+	 *
 	 */
 	protected static final String LABEL_OLD_VALUE = "old="; //$NON-NLS-1$
 
 	/**
 	 * Label indicating new value.
-	 * 
+	 *
 	 */
 	protected static final String LABEL_NEW_VALUE = "new="; //$NON-NLS-1$
 
@@ -188,7 +188,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 	/**
 	 * Obtains the Eclipse plug-in that I implement.
-	 * 
+	 *
 	 * @return my Eclipse plug-in self
 	 */
 	public static Implementation getPlugin() {
@@ -197,7 +197,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 	/**
 	 * Obtains my plug-in identifier.
-	 * 
+	 *
 	 * @return my plug-in unique ID
 	 */
 	public static String getPluginId() {
@@ -217,7 +217,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 	/**
 	 * The definition of the Eclipse plug-in flavour of this EMF plug-in.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	public static class Implementation extends EMFPlugin.EclipsePlugin {
@@ -245,7 +245,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 			extensionTracker = new ExtensionTracker();
 
 			// register listener that is notified whenever debug options change
-			Dictionary<String, Object> props = new Hashtable<String, Object>(4);
+			Dictionary<String, Object> props = new Hashtable<>(4);
 			props.put(DebugOptions.LISTENER_SYMBOLICNAME, getPluginId());
 			context.registerService(DebugOptionsListener.class.getName(), new _DebugOptionsListener(), props);
 		}
@@ -261,12 +261,13 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * This listener triggers the debug options cache invalidation upon debug
 		 * options cache change.
-		 * 
+		 *
 		 * @author Boris Gruschko
 		 *
 		 */
 		private static class _DebugOptionsListener implements DebugOptionsListener {
 
+			@Override
 			public void optionsChanged(DebugOptions options) {
 				Tracing.invalidateCache();
 			}
@@ -278,7 +279,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * The cached debug options (for optimization).
 		 */
-		private static final Map<String, Boolean> cachedOptions = new HashMap<String, Boolean>();
+		private static final Map<String, Boolean> cachedOptions = new HashMap<>();
 
 		/**
 		 * The cached Boolean value indicating whether tracing is enabled.
@@ -298,9 +299,9 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Retrieves a Boolean value indicating whether tracing is enabled.
-		 * 
+		 *
 		 * @return Whether tracing is enabled for the plug-in.
-		 * 
+		 *
 		 */
 		protected static boolean shouldTrace() {
 			if (plugin == null) {
@@ -318,10 +319,10 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * Retrieves a Boolean value indicating whether tracing is enabled for the
 		 * specified debug option.
-		 * 
+		 *
 		 * @return Whether tracing is enabled for the debug option of the plug-in.
 		 * @param option The debug option for which to determine trace enablement.
-		 * 
+		 *
 		 */
 		public static boolean shouldTrace(String option) {
 			if (shouldTrace()) {
@@ -345,10 +346,10 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Retrieves a textual representation of the specified argument.
-		 * 
+		 *
 		 * @return A textual representation of the specified argument.
 		 * @param argument The argument for which to retrieve a textual representation.
-		 * 
+		 *
 		 */
 		protected static String getArgumentString(Object argument) {
 			return String.valueOf(argument);
@@ -356,11 +357,11 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Retrieves a textual representation of the specified arguments.
-		 * 
+		 *
 		 * @return A textual representation of the specified arguments.
 		 * @param arguments The arguments for which to retrieve a textual
 		 *                  representation.
-		 * 
+		 *
 		 */
 		protected static String getArgumentsString(Object[] arguments) {
 			StringBuffer buffer = new StringBuffer();
@@ -378,9 +379,9 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Traces the specified message.
-		 * 
+		 *
 		 * @param message The message to be traced.
-		 * 
+		 *
 		 */
 		public static void trace(String message) {
 			if (shouldTrace()) {
@@ -390,10 +391,10 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Traces the specified message for the specified debug option.
-		 * 
+		 *
 		 * @param option  The debug option for which to trace.
 		 * @param message The message to be traced.
-		 * 
+		 *
 		 */
 		public static void trace(String option, String message) {
 			if (shouldTrace(option)) {
@@ -403,7 +404,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Traces the changing of a value.
-		 * 
+		 *
 		 * @param option           The debug option for which to trace.
 		 * @param valueDescription The description of the value which is changing.
 		 * @param oldValue         The old value.
@@ -419,7 +420,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		}
 
 		/**
-		 * 
+		 *
 		 * @param option           The debug option for which to trace.
 		 * @param clazz            The class in which the value is changing.
 		 * @param methodName       The name of the method in which the value is
@@ -442,13 +443,13 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * Traces the catching of the specified throwable in the specified method of the
 		 * specified class.
-		 * 
+		 *
 		 * @param option     The debug option for which to trace.
 		 * @param clazz      The class in which the throwable is being caught.
 		 * @param methodName The name of the method in which the throwable is being
 		 *                   caught.
 		 * @param throwable  The throwable that is being caught.
-		 * 
+		 *
 		 */
 		public static void catching(String option, Class<?> clazz, String methodName, Throwable throwable) {
 
@@ -464,13 +465,13 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * Traces the throwing of the specified throwable from the specified method of
 		 * the specified class.
-		 * 
+		 *
 		 * @param option     The debug option for which to trace.
 		 * @param clazz      The class from which the throwable is being thrown.
 		 * @param methodName The name of the method from which the throwable is being
 		 *                   thrown.
 		 * @param throwable  The throwable that is being thrown.
-		 * 
+		 *
 		 */
 		public static void throwing(String option, Class<?> clazz, String methodName, Throwable throwable) {
 
@@ -486,12 +487,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * Traces the entering into the specified method of the specified class, with
 		 * the specified parameters.
-		 * 
+		 *
 		 * @param option     The debug option for which to trace.
 		 * @param clazz      The class whose method is being entered.
 		 * @param methodName The name of method that is being entered.
 		 * @param parameters The parameters to the method being entered.
-		 * 
+		 *
 		 */
 		public static void entering(String option, Class<?> clazz, String methodName, Object... parameters) {
 
@@ -504,11 +505,11 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 		/**
 		 * Traces the exiting from the specified method of the specified class.
-		 * 
+		 *
 		 * @param option     The debug option for which to trace.
 		 * @param clazz      The class whose method is being exited.
 		 * @param methodName The name of method that is being exited.
-		 * 
+		 *
 		 */
 		public static void exiting(String option, Class<?> clazz, String methodName) {
 
@@ -521,12 +522,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 		/**
 		 * Traces the exiting from the specified method of the specified class, with the
 		 * specified return value.
-		 * 
+		 *
 		 * @param option      The debug option for which to trace.
 		 * @param clazz       The class whose method is being exited.
 		 * @param methodName  The name of method that is being exited.
 		 * @param returnValue The return value of the method being exited.
-		 * 
+		 *
 		 */
 		public static void exiting(String option, Class<?> clazz, String methodName, Object returnValue) {
 
@@ -562,11 +563,11 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	/**
 	 * Creates a localized, parameterized message from the specified pattern and
 	 * argument keys in the resource bundle.
-	 * 
+	 *
 	 * @param messagePattern resource bundle key of the message pattern
 	 * @param args           literal values as arguments to the pattern
 	 * @return the formatted message
-	 * 
+	 *
 	 * @see org.eclipse.osgi.util.NLS
 	 */
 	public static String getMessage(String messagePattern, Object... args) {
@@ -576,12 +577,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	/**
 	 * Creates a localized, parameterized message from the specified pattern in the
 	 * resource bundle.
-	 * 
+	 *
 	 * @param messagePattern the message pattern
 	 * @param args           objects to substitute into the <tt>{0}</tt>,
 	 *                       <tt>{1}</tt>, etc. parameters in the message pattern
 	 * @return the formatted message
-	 * 
+	 *
 	 * @see org.eclipse.osgi.util.NLS
 	 */
 	private static String formatMessage(String messagePattern, Object... args) {
@@ -606,7 +607,7 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	 * The individual elements of the collection are converted to strings using the
 	 * {@link String#valueOf(java.lang.Object)} method.
 	 * </p>
-	 * 
+	 *
 	 * @param items an array of objects to format into a list
 	 * @return the list, <code>strings[0]</code> if there is only one element, or
 	 *         <code>""</code> if the array has no elements
@@ -626,12 +627,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 
 	/**
 	 * Helper method to format a list of more than two items.
-	 * 
+	 *
 	 * @param mgr   the common core plug-in's resource manager, which is used to
 	 *              retrieve the localized components of a list
 	 * @param items the list of items (must be more than two)
 	 * @return the list as a string
-	 * 
+	 *
 	 * @see #formatList(Collection)
 	 */
 	private static String formatList2(Collection<?> items) {
@@ -668,12 +669,12 @@ public final class EMFModelValidationPlugin extends EMFPlugin {
 	/**
 	 * Helper method to format a two-item list (which in some locales looks
 	 * different from a list of more than two items).
-	 * 
+	 *
 	 * @param mgr   the common core plug-in's resource manager, which is used to
 	 *              retrieve the localized components of a list
 	 * @param items the pair of items (must be exactly two)
 	 * @return the pair as a string
-	 * 
+	 *
 	 * @see #formatList(Collection)
 	 */
 	private static String formatPair(Collection<?> items) {

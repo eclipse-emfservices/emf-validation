@@ -37,7 +37,7 @@ import ordersystem.OrderSystemPackage;
 
 /**
  * Tests the XML Constraint Provider class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConstraintProviderTest extends TestBase {
@@ -110,7 +110,7 @@ public class XmlConstraintProviderTest extends TestBase {
 	public void test_getBatchConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
-		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
+		Collection<IModelConstraint> result = new java.util.HashSet<>();
 
 		fixture.getBatchConstraints(object, result);
 
@@ -122,7 +122,7 @@ public class XmlConstraintProviderTest extends TestBase {
 	public void test_getLiveConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
-		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
+		Collection<IModelConstraint> result = new java.util.HashSet<>();
 
 		fixture.getLiveConstraints(new TestNotification(object, Notification.SET), result);
 
@@ -136,7 +136,7 @@ public class XmlConstraintProviderTest extends TestBase {
 	public void test_getLiveConstraintsForFeature() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
-		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
+		Collection<IModelConstraint> result = new java.util.HashSet<>();
 
 		fixture.getLiveConstraints(
 				new TestNotification(object, Notification.SET, OrderSystemPackage.PRODUCT__SKU, null, "12345"), //$NON-NLS-1$

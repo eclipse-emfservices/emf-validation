@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.preferences;
@@ -19,7 +19,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
 /**
  * Preferences manager for the EMF model validation plug-in.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class EMFModelValidationPreferences {
@@ -43,7 +43,7 @@ public class EMFModelValidationPreferences {
 
 	/**
 	 * Queries whether the specified constraint <code>ID</code> is disabled.
-	 * 
+	 *
 	 * @param id the constraint ID
 	 * @return whether it is disabled
 	 */
@@ -54,7 +54,7 @@ public class EMFModelValidationPreferences {
 	/**
 	 * Queries whether the specified constraint <code>ID</code> is disabled by
 	 * default.
-	 * 
+	 *
 	 * @param id the constraint ID
 	 * @return whether it is disabled
 	 */
@@ -64,7 +64,7 @@ public class EMFModelValidationPreferences {
 
 	/**
 	 * Sets whether the specified constraint <code>id</code> is disabled.
-	 * 
+	 *
 	 * @param id       the constraint ID
 	 * @param disabled whether it is disabled
 	 */

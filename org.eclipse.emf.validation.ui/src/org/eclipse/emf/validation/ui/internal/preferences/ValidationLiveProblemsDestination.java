@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal.preferences;
 
@@ -35,7 +35,7 @@ public enum ValidationLiveProblemsDestination implements Enumerator {
 
 	/**
 	 * Gets the preference setting for live validation problems destination.
-	 * 
+	 *
 	 * @return the preference setting
 	 */
 	public static ValidationLiveProblemsDestination getPreferenceSetting() {
@@ -51,7 +51,7 @@ public enum ValidationLiveProblemsDestination implements Enumerator {
 
 	/**
 	 * Constructor for ValidationLiveProblemsDestination.
-	 * 
+	 *
 	 * @param name The name for the ValidationLiveProblemsDestination type
 	 */
 	private ValidationLiveProblemsDestination(String name) {
@@ -60,7 +60,7 @@ public enum ValidationLiveProblemsDestination implements Enumerator {
 
 	/**
 	 * Retrieves the list of constants for this enumerated type.
-	 * 
+	 *
 	 * @return The list of constants for this enumerated type.
 	 */
 	protected List<ValidationLiveProblemsDestination> getValues() {
@@ -71,14 +71,17 @@ public enum ValidationLiveProblemsDestination implements Enumerator {
 		return getValue();
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public int getValue() {
 		return ordinal();
 	}
 
+	@Override
 	public String getLiteral() {
 		return getName();
 	}

@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 
 /**
  * JUnit tests for the {@link ConstraintSeverity} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintSeverityTest extends TestCase {

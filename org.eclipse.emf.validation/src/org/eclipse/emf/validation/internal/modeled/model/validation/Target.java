@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -45,7 +45,7 @@ public interface Target extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Feature</em>' reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getTarget_Feature()
 	 * @model
@@ -61,7 +61,7 @@ public interface Target extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>EClass</em>' reference.
 	 * @see #setEClass(EClassifier)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getTarget_EClass()
@@ -74,7 +74,7 @@ public interface Target extends EObject {
 	 * Sets the value of the
 	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target#getEClass
 	 * <em>EClass</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>EClass</em>' reference.
 	 * @see #getEClass()
 	 * @generated

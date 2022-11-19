@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled;
 
@@ -21,7 +21,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Provides classes in standalone scenario.
- * 
+ *
  * @author Boris Gruschko
  * @since 1.4
  *
@@ -39,10 +39,12 @@ public interface ClassProvider {
 			this.locator = locator;
 		}
 
+		@Override
 		public Class<?> loadClass(String name) throws ClassNotFoundException {
 			return locator.getClass().getClassLoader().loadClass(name);
 		}
 
+		@Override
 		public String bind(String string, Object[] args) {
 			if (string == null) {
 				return null;
@@ -69,6 +71,7 @@ public interface ClassProvider {
 			this.bundle = bundle;
 		}
 
+		@Override
 		public Class<?> loadClass(String name) throws ClassNotFoundException {
 			return bundle.loadClass(name);
 		}
@@ -77,6 +80,7 @@ public interface ClassProvider {
 			return Platform.getResourceBundle(bundle);
 		}
 
+		@Override
 		public String bind(String string, Object[] args) {
 			if (string == null)
 				return null;

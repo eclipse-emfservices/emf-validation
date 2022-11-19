@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation;
@@ -32,12 +32,12 @@ import org.eclipse.osgi.util.NLS;
  * the {@link Notification} interface in the EMF API. The second type correspond
  * to event types contributed through the <tt>eventTypes<tt>
  * extension point XML.
- * 
+ *
  * This enumeration assigns names corresponding to the event names
  * in the <tt>constraintProviders</tt> extension point XML.
- * 
+ *
  * @see Notification
- * 
+ *
  * @author Christian W. Damus (cdamus)
  * @author David Cummings (dcummin)
  */
@@ -46,7 +46,7 @@ public final class EMFEventType implements Serializable {
 
 	private static int nextNotificationTypeCode = 0;
 
-	private static final Map<String, EMFEventType> nameToInstance = new java.util.HashMap<String, EMFEventType>();
+	private static final Map<String, EMFEventType> nameToInstance = new java.util.HashMap<>();
 
 	/**
 	 * The EMF "Add" event (corresponds to {@link Notification#ADD}).
@@ -124,7 +124,7 @@ public final class EMFEventType implements Serializable {
 			.unmodifiableList(Arrays.asList(new EMFEventType[] { ADD, ADD_MANY, MOVE, REMOVE, REMOVE_MANY, SET, UNSET,
 					RESOLVE, REMOVING_ADAPTER, CREATE, NULL, }));
 
-	private static final List<EMFEventType> instances = new ArrayList<EMFEventType>(predefinedInstances);
+	private static final List<EMFEventType> instances = new ArrayList<>(predefinedInstances);
 
 	static {
 		EventTypeService.getInstance(); // initialize custom event types
@@ -137,12 +137,12 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Initializes me with my symbolic name and corresponding EMF
 	 * {@link Notification} type code.
-	 * 
+	 *
 	 * @param name                 my name
 	 * @param featureSpecific      whether the event is specific to features only,
 	 *                             not to objects
 	 * @param notificationTypeCode the EMF notification type code
-	 * 
+	 *
 	 * @throws IllegalArgumentException on attempt to define an event type with a
 	 *                                  name that is already used
 	 */
@@ -171,7 +171,7 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Initalizes me with my my symbolic name and the next available
 	 * {@link Notification} type code.
-	 * 
+	 *
 	 * @param name            my name
 	 * @param featureSpecific whether the event is specific to features only, not to
 	 *                        objects
@@ -182,7 +182,7 @@ public final class EMFEventType implements Serializable {
 
 	/**
 	 * Obtains the <code>name</code>d instance.
-	 * 
+	 *
 	 * @param name the name to retrieve (not case-sensitive)
 	 * @return the corresponding instance, or {@link #NULL} if no matching instance
 	 *         exists
@@ -203,7 +203,7 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Obtains the instance corresponding to the specified EMF notification type
 	 * <code>code</code>.
-	 * 
+	 *
 	 * @param code the EMF {@link Notification} type code
 	 * @return the corresponding instance of this class, or {@link #NULL} if no
 	 *         matching instance exists
@@ -223,7 +223,7 @@ public final class EMFEventType implements Serializable {
 
 	/**
 	 * Obtains all values of the enumeration.
-	 * 
+	 *
 	 * @return all values
 	 */
 	public static final List<EMFEventType> getAllInstances() {
@@ -233,9 +233,9 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Obtains all predefined values of the enumeration, that is, those who were not
 	 * contributed through the extension point XML
-	 * 
+	 *
 	 * @since 1.1
-	 * 
+	 *
 	 * @return all predefined values
 	 */
 	public static final List<EMFEventType> getPredefinedInstances() {
@@ -244,7 +244,7 @@ public final class EMFEventType implements Serializable {
 
 	/**
 	 * Obtains my symbolic name.
-	 * 
+	 *
 	 * @return my name
 	 * @see #getInstance
 	 */
@@ -254,13 +254,13 @@ public final class EMFEventType implements Serializable {
 
 	/**
 	 * Adds a custom event type to the list of event types
-	 * 
+	 *
 	 * @since 1.1
 	 *
 	 * @param name            my name
 	 * @param featureSpecific whether the event is specific to features only, not to
 	 *                        objects
-	 * 
+	 *
 	 * @throws IllegalArgumentException on attempt to define an event type with a
 	 *                                  name that is already used
 	 */
@@ -271,7 +271,7 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Queries whether I am an event that notifies for changes in features only. As
 	 * a special case, the {@link #NULL} event type is not feature-specific.
-	 * 
+	 *
 	 * @return <code>false</code> if I can indicate a change in the state of an
 	 *         object that is not feature-specific; <code>true</code>, otherwise
 	 */
@@ -282,7 +282,7 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Queries whether I am the <i>Null Object</i> of this enumeration. In general,
 	 * <code>null</code> pointers are never used with this type.
-	 * 
+	 *
 	 * @return whether I am the {@link #NULL} instance
 	 */
 	public boolean isNull() {
@@ -291,7 +291,7 @@ public final class EMFEventType implements Serializable {
 
 	/**
 	 * Converts me to the EMF {@link Notification} type code.
-	 * 
+	 *
 	 * @return my corresponding EMF notification type
 	 */
 	public int toNotificationType() {
@@ -307,7 +307,7 @@ public final class EMFEventType implements Serializable {
 	/**
 	 * Implements the instance substitution protocol defined by the Java
 	 * Serialization Specification.
-	 * 
+	 *
 	 * @return the correct pre-defined instance of the enumeration
 	 */
 	private Object readResolve() {

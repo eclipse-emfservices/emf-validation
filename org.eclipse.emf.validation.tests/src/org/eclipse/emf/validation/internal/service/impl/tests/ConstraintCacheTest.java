@@ -39,7 +39,7 @@ public class ConstraintCacheTest extends TestCase {
 
 	/**
 	 * Constructor for ConstraintCacheTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public ConstraintCacheTest(String name) {
@@ -126,22 +126,27 @@ public class ConstraintCacheTest extends TestCase {
 	static class TestDescriptor implements IProviderDescriptor {
 		private final IModelConstraintProvider testProvider = new TestProvider();
 
+		@Override
 		public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 			return true;
 		}
 
+		@Override
 		public boolean isCacheEnabled() {
 			return true;
 		}
 
+		@Override
 		public boolean isXmlProvider() {
 			return false;
 		}
 
+		@Override
 		public boolean isCache() {
 			return false;
 		}
 
+		@Override
 		public IModelConstraintProvider getProvider() {
 			return testProvider;
 		}

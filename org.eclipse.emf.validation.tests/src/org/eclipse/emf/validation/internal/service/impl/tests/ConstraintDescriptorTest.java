@@ -41,7 +41,7 @@ import ordersystem.OrderSystemFactory;
 
 /**
  * JUnit tests for the {@link XmlConstraintDescriptor} class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintDescriptorTest extends TestCase {
@@ -67,8 +67,8 @@ public class ConstraintDescriptorTest extends TestCase {
 	 * Handy implementation of the Eclipse extension configuration element.
 	 */
 	public static class FixtureElement implements IConfigurationElement {
-		private final Map<String, String> attributes = new java.util.HashMap<String, String>();
-		private final List<IConfigurationElement> children = new java.util.ArrayList<IConfigurationElement>();
+		private final Map<String, String> attributes = new java.util.HashMap<>();
+		private final List<IConfigurationElement> children = new java.util.ArrayList<>();
 		private Object parent;
 		private final String myName;
 		private String value = ""; //$NON-NLS-1$
@@ -100,6 +100,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String getAttribute(String name) {
 			return attributes.get(name);
 		}
@@ -111,23 +112,27 @@ public class ConstraintDescriptorTest extends TestCase {
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String getAttributeAsIs(String name) {
 			return getAttribute(name);
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String[] getAttributeNames() {
 			return attributes.keySet().toArray(new String[attributes.size()]);
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public IConfigurationElement[] getChildren() {
 			return children.toArray(new IConfigurationElement[children.size()]);
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public IConfigurationElement[] getChildren(String name) {
-			List<IConfigurationElement> result = new java.util.ArrayList<IConfigurationElement>();
+			List<IConfigurationElement> result = new java.util.ArrayList<>();
 
 			for (IConfigurationElement next : children) {
 				if (next.getName().equals(name)) {
@@ -149,16 +154,19 @@ public class ConstraintDescriptorTest extends TestCase {
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String getName() {
 			return myName;
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String getValue() {
 			return value;
 		}
 
 		// implements/extends the inherited method
+		@Override
 		public String getValueAsIs() {
 			return getValue();
 		}
@@ -173,6 +181,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		// constructor can find the plug-in ID that it needs from the
 		// configuration element
 		/** @deprecated */
+		@Override
 		@Deprecated
 		public IExtension getDeclaringExtension() {
 			return new IExtension() {
@@ -180,48 +189,59 @@ public class ConstraintDescriptorTest extends TestCase {
 				/*
 				 * (non-Javadoc) Redefines the inherited method.
 				 */
+				@Override
 				public String getNamespace() {
 					return TEST_PLUGIN;
 				}
 
+				@Override
 				public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
 				}
 
+				@Override
 				public IConfigurationElement[] getConfigurationElements() throws InvalidRegistryObjectException {
 					return null;
 				}
 
+				@Override
 				public String getExtensionPointUniqueIdentifier() throws InvalidRegistryObjectException {
 					return null;
 				}
 
+				@Override
 				public String getLabel() throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
 				}
 
+				@Override
 				public String getSimpleIdentifier() throws InvalidRegistryObjectException {
 					return null;
 				}
 
+				@Override
 				public String getUniqueIdentifier() throws InvalidRegistryObjectException {
 					return null;
 				}
 
+				@Override
 				public boolean isValid() {
 					return false;
 				}
 
+				@Override
 				public IContributor getContributor() throws InvalidRegistryObjectException {
 					return null;
 				}
 
+				@Override
 				public String getLabel(String locale) throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
 				}
 			};
 		}
 
+		@Override
 		public Object createExecutableExtension(String propertyName) throws CoreException {
 			try {
 				Object result = Class.forName(getAttribute(propertyName)).getDeclaredConstructor().newInstance();
@@ -240,9 +260,10 @@ public class ConstraintDescriptorTest extends TestCase {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see org.eclipse.core.runtime.IConfigurationElement#getParent()
 		 */
+		@Override
 		public Object getParent() {
 			return parent;
 		}
@@ -251,30 +272,37 @@ public class ConstraintDescriptorTest extends TestCase {
 			this.parent = parent;
 		}
 
+		@Override
 		public String getNamespace() throws InvalidRegistryObjectException {
 			return null;
 		}
 
+		@Override
 		public boolean isValid() {
 			return false;
 		}
 
+		@Override
 		public String getNamespaceIdentifier() throws InvalidRegistryObjectException {
 			return null;
 		}
 
+		@Override
 		public IContributor getContributor() throws InvalidRegistryObjectException {
 			return null;
 		}
 
+		@Override
 		public String getAttribute(String attrName, String locale) throws InvalidRegistryObjectException {
 			return null;
 		}
 
+		@Override
 		public String getValue(String locale) throws InvalidRegistryObjectException {
 			return null;
 		}
 
+		@Override
 		public int getHandleId() {
 			return 0;
 		}

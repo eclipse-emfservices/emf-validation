@@ -173,46 +173,57 @@ public class ConstraintListenersTest extends TestBase {
 			this.id = id;
 		}
 
+		@Override
 		public String getId() {
 			return id;
 		}
 
+		@Override
 		public String getPluginId() {
 			return TestBase.PLUGIN_ID;
 		}
 
+		@Override
 		public String getMessagePattern() {
 			return null;
 		}
 
+		@Override
 		public String getBody() {
 			return null;
 		}
 
+		@Override
 		public String getName() {
 			return null;
 		}
 
+		@Override
 		public String getDescription() {
 			return null;
 		}
 
+		@Override
 		public ConstraintSeverity getSeverity() {
 			return null;
 		}
 
+		@Override
 		public int getStatusCode() {
 			return 0;
 		}
 
+		@Override
 		public EvaluationMode<?> getEvaluationMode() {
 			return EvaluationMode.NULL;
 		}
 
+		@Override
 		public boolean targetsTypeOf(EObject eObject) {
 			return false;
 		}
 
+		@Override
 		public boolean targetsEvent(Notification notification) {
 			return false;
 		}

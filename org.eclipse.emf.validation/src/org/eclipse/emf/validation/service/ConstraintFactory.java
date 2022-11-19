@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
@@ -27,9 +27,9 @@ import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
  * <p>
  * This class is not intended to be used outside of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noextend This class is not intended to be subclassed by clients.
  */
 public abstract class ConstraintFactory {
@@ -44,9 +44,9 @@ public abstract class ConstraintFactory {
 
 	/**
 	 * Obtains the currently registered factory instance.
-	 * 
+	 *
 	 * @return the constraint factory instance
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static ConstraintFactory getInstance() {
@@ -59,11 +59,11 @@ public abstract class ConstraintFactory {
 	 * it may be a proxy for a disabled constraint if the <code>descriptor</code> is
 	 * invalid). This method delegates to the superclass implementation of the
 	 * {@link #createConstraint} method.
-	 * 
+	 *
 	 * @param descriptor the constraint descriptor
 	 * @return the corresponding constraint implementation
 	 * @see #createConstraint
-	 * 
+	 *
 	 * @deprecated Use the {@link #newConstraint(IConstraintDescriptor)} method,
 	 *             instead
 	 */
@@ -78,10 +78,10 @@ public abstract class ConstraintFactory {
 
 	/**
 	 * Implemented by subclasses to do the hard work of creating a constraint.
-	 * 
+	 *
 	 * @param descriptor a descriptor of the constraint to be created
 	 * @return the appropriate implementation of the constraint
-	 * 
+	 *
 	 * @deprecated Use the {@link #createConstraint(IConstraintDescriptor)} method,
 	 *             instead
 	 */
@@ -94,13 +94,13 @@ public abstract class ConstraintFactory {
 	 * it may be a proxy for a disabled constraint if the <code>descriptor</code> is
 	 * invalid). This method delegates to the superclass implementation of the
 	 * {@link #createConstraint} method.
-	 * 
+	 *
 	 * @param descriptor the constraint descriptor
 	 * @return the corresponding constraint implementation
 	 * @see #createConstraint
-	 * 
+	 *
 	 * @since 1.1
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final IModelConstraint newConstraint(IConstraintDescriptor descriptor) {
@@ -113,10 +113,10 @@ public abstract class ConstraintFactory {
 
 	/**
 	 * Implemented by subclasses to do the hard work of creating a constraint.
-	 * 
+	 *
 	 * @param descriptor a descriptor of the constraint to be created
 	 * @return the appropriate implementation of the constraint
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	protected abstract IModelConstraint createConstraint(IConstraintDescriptor descriptor);

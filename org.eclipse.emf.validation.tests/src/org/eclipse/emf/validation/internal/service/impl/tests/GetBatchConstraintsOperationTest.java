@@ -29,7 +29,7 @@ public class GetBatchConstraintsOperationTest extends AbstractGetConstraintsOper
 
 	/**
 	 * Constructor for GetBatchConstraintsOperationTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public GetBatchConstraintsOperationTest(String name) {

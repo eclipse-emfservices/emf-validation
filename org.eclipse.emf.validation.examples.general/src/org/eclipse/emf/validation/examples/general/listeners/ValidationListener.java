@@ -44,7 +44,7 @@ public class ValidationListener implements IValidationListener {
 		/**
 		 * Appends the problems contained within the specified <code>status</code>
 		 * collection to the specified <code>output</code> buffer.
-		 * 
+		 *
 		 * @param event  the live validation occurred event
 		 * @param output the output
 		 */
@@ -62,7 +62,7 @@ public class ValidationListener implements IValidationListener {
 		/**
 		 * Queries whether any errors were found in the last processing of validation
 		 * status.
-		 * 
+		 *
 		 * @return whether any errors were found
 		 */
 		boolean hasErrors() {
@@ -151,6 +151,7 @@ public class ValidationListener implements IValidationListener {
 	 * org.eclipse.emf.validation.service.IValidationListener#validationOccurred(org
 	 * .eclipse.emf.validation.service.ValidationEvent)
 	 */
+	@Override
 	public void validationOccurred(ValidationEvent event) {
 		if (displayEvents) {
 			// Display in the console
@@ -168,7 +169,7 @@ public class ValidationListener implements IValidationListener {
 	/**
 	 * Composes the string message to display based on the count of the various
 	 * types of problems in the <code>status</code>.
-	 * 
+	 *
 	 * @param event the live validation occurred event
 	 * @return A formulated message string.
 	 */
@@ -182,7 +183,7 @@ public class ValidationListener implements IValidationListener {
 
 	/**
 	 * Converts a validation event to an array of statuses.
-	 * 
+	 *
 	 * @param event the validation event
 	 * @return its validation results, as a status array
 	 */

@@ -7,11 +7,11 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
- * 
+ *
  * $Id$
- * 
+ *
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -32,9 +32,9 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  *
  * @see org.eclipse.emf.validation.service.ModelValidationService#newValidator(EvaluationMode)
  * @see org.eclipse.emf.validation.model.EvaluationMode#LIVE
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noimplement This interface is not intended to be implemented by clients.
  * @noextend This interface is not intended to be extended by clients.
  */
@@ -42,11 +42,12 @@ public interface ILiveValidator extends IValidator<Notification> {
 	/**
 	 * Validates the specified {@link Notification EMF event}. This method is a
 	 * synonym for the inherited {@link IValidator#validate(Object)}.
-	 * 
+	 *
 	 * @param notification the EMF event to validate
 	 * @return the validation status
 	 * @see IValidator#validate(Object)
 	 */
+	@Override
 	IStatus validate(Notification notification);
 
 	/**
@@ -54,11 +55,11 @@ public interface ILiveValidator extends IValidator<Notification> {
 	 * validated (passed on to constraints to check). The default filter, if one is
 	 * not set by the client of the validator, excludes any notification from an
 	 * object that is not attached to a resource at the time of validation.
-	 * 
+	 *
 	 * @return my notification filter
-	 * 
+	 *
 	 * @see #setNotificationFilter(org.eclipse.emf.validation.util.FilteredCollection.Filter)
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	FilteredCollection.Filter<Notification> getNotificationFilter();
@@ -66,11 +67,11 @@ public interface ILiveValidator extends IValidator<Notification> {
 	/**
 	 * Sets the filter that is used to determine which notifications will be
 	 * validated (passed on to constraints to check).
-	 * 
+	 *
 	 * @param filter the notification filter to use
-	 * 
+	 *
 	 * @see #getNotificationFilter()
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	void setNotificationFilter(FilteredCollection.Filter<Notification> filter);

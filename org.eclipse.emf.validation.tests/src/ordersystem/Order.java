@@ -45,7 +45,7 @@ public interface Order extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Placed On</em>' attribute.
 	 * @see #setPlacedOn(Date)
 	 * @see ordersystem.OrderSystemPackage#getOrder_PlacedOn()
@@ -57,7 +57,7 @@ public interface Order extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Order#getPlacedOn <em>Placed
 	 * On</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Placed On</em>' attribute.
 	 * @see #getPlacedOn()
 	 * @generated
@@ -72,7 +72,7 @@ public interface Order extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Filled On</em>' attribute.
 	 * @see #setFilledOn(Date)
 	 * @see ordersystem.OrderSystemPackage#getOrder_FilledOn()
@@ -84,7 +84,7 @@ public interface Order extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Order#getFilledOn <em>Filled
 	 * On</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Filled On</em>' attribute.
 	 * @see #getFilledOn()
 	 * @generated
@@ -99,7 +99,7 @@ public interface Order extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Completed</em>' attribute.
 	 * @see #setCompleted(boolean)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Completed()
@@ -111,7 +111,7 @@ public interface Order extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Order#isCompleted
 	 * <em>Completed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Completed</em>' attribute.
 	 * @see #isCompleted()
 	 * @generated
@@ -126,7 +126,7 @@ public interface Order extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Id()
@@ -138,7 +138,7 @@ public interface Order extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Order#getId <em>Id</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
@@ -154,7 +154,7 @@ public interface Order extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Owner</em>' container reference.
 	 * @see #setOwner(Customer)
 	 * @see ordersystem.OrderSystemPackage#getOrder_Owner()
@@ -167,7 +167,7 @@ public interface Order extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.Order#getOwner <em>Owner</em>}'
 	 * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Owner</em>' container reference.
 	 * @see #getOwner()
 	 * @generated
@@ -184,7 +184,7 @@ public interface Order extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Item</em>' containment reference list.
 	 * @see ordersystem.OrderSystemPackage#getOrder_Item()
 	 * @see ordersystem.LineItem#getOwner

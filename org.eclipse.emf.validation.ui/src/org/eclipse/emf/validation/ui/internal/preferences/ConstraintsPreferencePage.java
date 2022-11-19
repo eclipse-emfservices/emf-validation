@@ -24,7 +24,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * Preference page for user to select which constraint categories are disabled.
  * Mandatory constraints are shown in disabled text colour, and inoperable
  * (error) constraints are flagged with delta-bang warning icons.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  * @author David Cummings (dcummin)
  */
@@ -47,6 +47,7 @@ public class ConstraintsPreferencePage extends PreferencePage implements IWorkbe
 		return result;
 	}
 
+	@Override
 	public void init(IWorkbench workbench) {
 		// nothing to do
 	}

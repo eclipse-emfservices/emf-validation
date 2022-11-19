@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -25,7 +25,7 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 /**
  * Event notifying {@link IValidationListener}s that a validation operation has
  * occurred.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public final class ValidationEvent extends EventObject {
@@ -44,9 +44,9 @@ public final class ValidationEvent extends EventObject {
 	 * Initializes me with the evaluation mode, client data, elements or
 	 * notifications validated, and validation results that I will pass along to
 	 * listeners.
-	 * 
+	 *
 	 * @param <T>        the kind of objects that were validated
-	 * 
+	 *
 	 * @param mode       the evaluation mode
 	 * @param clientData data specific to the particular validation client that
 	 *                   performed the validation wishes to make available to
@@ -76,10 +76,10 @@ public final class ValidationEvent extends EventObject {
 	 * notifications validated, and validation results that I will pass along to
 	 * listeners. Also, I will be initialized with the client context IDs that were
 	 * involved in the validation.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param <T>              the kind of objects that were validated
-	 * 
+	 *
 	 * @param mode             the evaluation mode
 	 * @param clientData       data specific to the particular validation client
 	 *                         that performed the validation wishes to make
@@ -101,7 +101,7 @@ public final class ValidationEvent extends EventObject {
 	/**
 	 * Retrieves the client context ids that were involved in the validation that
 	 * lead to this event.
-	 * 
+	 *
 	 * @return A collection of the client context ids in String form. These ids
 	 *         should not be modified in any way as they may affect other listeners.
 	 */
@@ -114,7 +114,7 @@ public final class ValidationEvent extends EventObject {
 
 	/**
 	 * Queries the mode in which the validation operation occurred.
-	 * 
+	 *
 	 * @return the evaluation mode; never <code>null</code> or even
 	 *         {@link EvaluationMode#NULL}
 	 */
@@ -131,7 +131,7 @@ public final class ValidationEvent extends EventObject {
 	 * <li>the map is never <code>null</code></li>
 	 * <li>its keys are {@link String}s</li>
 	 * </ol>
-	 * 
+	 *
 	 * @return an unmodifiable mapping of client data
 	 */
 	public Map<String, Object> getClientData() {
@@ -142,9 +142,9 @@ public final class ValidationEvent extends EventObject {
 	 * Obtains the collection of {@link org.eclipse.emf.ecore.EObject}s (in the
 	 * batch mode case) or {@link org.eclipse.emf.common.notify.Notification}s (in
 	 * the live mode case) that were validated.
-	 * 
+	 *
 	 * @return an unmodifiable collection of the validation targets
-	 * 
+	 *
 	 * @see #getValidationResults()
 	 */
 	public Collection<?> getValidationTargets() {
@@ -154,9 +154,9 @@ public final class ValidationEvent extends EventObject {
 	/**
 	 * Queries the overall severity of the validation
 	 * {@linkplain #getValidationResults() results}.
-	 * 
+	 *
 	 * @return the severity, enumerated by the {@link IStatus} interface
-	 * 
+	 *
 	 * @see IStatus#getSeverity()
 	 */
 	public int getSeverity() {
@@ -167,10 +167,10 @@ public final class ValidationEvent extends EventObject {
 	 * Queries whether the overall severity of the validation
 	 * {@linkplain #getValidationResults() results} matches the specified severity
 	 * mask.
-	 * 
+	 *
 	 * @param severityMask the severity mask to match
 	 * @return whether the overall severity matches
-	 * 
+	 *
 	 * @see IStatus#matches(int)
 	 */
 	public boolean matches(int severityMask) {
@@ -179,10 +179,10 @@ public final class ValidationEvent extends EventObject {
 
 	/**
 	 * Obtains the results of the validation operation.
-	 * 
+	 *
 	 * @return the validation results, as an unmodifiable list of
 	 *         {@link org.eclipse.emf.validation.model.IConstraintStatus}es
-	 * 
+	 *
 	 * @see #getValidationTargets()
 	 */
 	public List<IConstraintStatus> getValidationResults() {
@@ -190,7 +190,7 @@ public final class ValidationEvent extends EventObject {
 			// lazily compute the results
 			if (status.isMultiStatus()) {
 				IStatus[] children = status.getChildren();
-				results = new java.util.ArrayList<IConstraintStatus>(children.length);
+				results = new java.util.ArrayList<>(children.length);
 				for (IStatus element : children) {
 					if (element instanceof IConstraintStatus) {
 						results.add((IConstraintStatus) element);

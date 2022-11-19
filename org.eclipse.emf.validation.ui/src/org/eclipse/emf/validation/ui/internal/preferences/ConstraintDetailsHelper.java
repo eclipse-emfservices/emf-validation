@@ -23,7 +23,7 @@ import org.eclipse.swt.custom.StyleRange;
 
 /**
  * Helper utilities for dealing with the display of constraint details.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintDetailsHelper {
@@ -45,7 +45,7 @@ public class ConstraintDetailsHelper {
 	 * Formats the description of the specified <code>constraint</code> and returns
 	 * it. The list of <code>styles</code> is populated with the {@link StyleRange}s
 	 * implementing the bold-text highlights parsed from the description pattern.
-	 * 
+	 *
 	 * @param constraint       the constraint whose description is to be formatted
 	 * @param selectedCategory the currently selected category. This is used to
 	 *                         determine which categories other than the current
@@ -90,7 +90,7 @@ public class ConstraintDetailsHelper {
 	/**
 	 * Obtains a string listing the other categories in which the currently selected
 	 * constraint is a member that are not the currently selected category.
-	 * 
+	 *
 	 * @param selected   the currently selected category
 	 * @param categories the categories which contain the constraint
 	 * @return the other categories than the currently selected one
@@ -115,7 +115,7 @@ public class ConstraintDetailsHelper {
 	 * specified <code>text</code> and adds corresponding {@link StyleRange}s to the
 	 * <code>styles</code> collector parameter. The result is the <code>text</code>
 	 * minus the style markup.
-	 * 
+	 *
 	 * @param text   marked up text
 	 * @param styles a list which collects the corresponding style ranges
 	 * @return the original <code>text</code> minus the markup

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-user-doc --> A representation of the literals of the enumeration
  * '<em><b>Event Types Enum</b></em>', and utility methods for working with
  * them. <!-- end-user-doc -->
- * 
+ *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getEventTypesEnum()
  * @model
  * @generated
@@ -31,7 +31,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Add</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #ADD_VALUE
 	 * @generated
 	 * @ordered
@@ -41,7 +41,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Add Many</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #ADD_MANY_VALUE
 	 * @generated
 	 * @ordered
@@ -51,7 +51,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Create</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #CREATE_VALUE
 	 * @generated
 	 * @ordered
@@ -61,7 +61,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Move</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #MOVE_VALUE
 	 * @generated
 	 * @ordered
@@ -71,7 +71,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Remove</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVE_VALUE
 	 * @generated
 	 * @ordered
@@ -81,7 +81,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Remove Many</b></em>' literal object. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVE_MANY_VALUE
 	 * @generated
 	 * @ordered
@@ -91,7 +91,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Removing Adapter</b></em>' literal object. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVING_ADAPTER_VALUE
 	 * @generated
 	 * @ordered
@@ -101,7 +101,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Resolve</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #RESOLVE_VALUE
 	 * @generated
 	 * @ordered
@@ -111,7 +111,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Set</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #SET_VALUE
 	 * @generated
 	 * @ordered
@@ -121,7 +121,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * The '<em><b>Unset</b></em>' literal object. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @see #UNSET_VALUE
 	 * @generated
 	 * @ordered
@@ -135,7 +135,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #ADD
 	 * @model name="Add"
 	 * @generated
@@ -150,7 +150,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #ADD_MANY
 	 * @model name="Add_Many"
 	 * @generated
@@ -165,7 +165,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #CREATE
 	 * @model name="Create"
 	 * @generated
@@ -180,7 +180,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #MOVE
 	 * @model name="Move"
 	 * @generated
@@ -195,7 +195,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVE
 	 * @model name="Remove"
 	 * @generated
@@ -210,7 +210,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVE_MANY
 	 * @model name="Remove_Many"
 	 * @generated
@@ -225,7 +225,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #REMOVING_ADAPTER
 	 * @model name="Removing_Adapter"
 	 * @generated
@@ -240,7 +240,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #RESOLVE
 	 * @model name="Resolve"
 	 * @generated
@@ -255,7 +255,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #SET
 	 * @model name="Set"
 	 * @generated
@@ -270,7 +270,7 @@ public enum EventTypesEnum implements Enumerator {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #UNSET
 	 * @model name="Unset"
 	 * @generated
@@ -281,7 +281,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * An array of all the '<em><b>Event Types Enum</b></em>' enumerators. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static final EventTypesEnum[] VALUES_ARRAY = new EventTypesEnum[] { ADD, ADD_MANY, CREATE, MOVE, REMOVE,
@@ -290,7 +290,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * A public read-only list of all the '<em><b>Event Types Enum</b></em>'
 	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static final List<EventTypesEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -298,12 +298,11 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Event Types Enum</b></em>' literal with the specified
 	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static EventTypesEnum get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EventTypesEnum result = VALUES_ARRAY[i];
+		for (EventTypesEnum result : VALUES_ARRAY) {
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -314,12 +313,11 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Event Types Enum</b></em>' literal with the specified
 	 * name. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static EventTypesEnum getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			EventTypesEnum result = VALUES_ARRAY[i];
+		for (EventTypesEnum result : VALUES_ARRAY) {
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -330,7 +328,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * Returns the '<em><b>Event Types Enum</b></em>' literal with the specified
 	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static EventTypesEnum get(int value) {
@@ -361,21 +359,21 @@ public enum EventTypesEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final int value;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String name;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private final String literal;
@@ -383,7 +381,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EventTypesEnum(int value, String name, String literal) {
@@ -394,27 +392,30 @@ public enum EventTypesEnum implements Enumerator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 		return value;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 		return literal;
 	}
@@ -422,7 +423,7 @@ public enum EventTypesEnum implements Enumerator {
 	/**
 	 * Returns the literal value of the enumerator, which is its string
 	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 package org.eclipse.emf.validation.util;
@@ -46,9 +46,9 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * <p>
  * This class is not intended to be used outside of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
  */
@@ -113,7 +113,7 @@ public class XmlConfig {
 	 * Parses a <tt>&lt;constraints&gt;</tt> element into an Eclipse configuration
 	 * element data structure, with support for including constraints from separate
 	 * XML files.
-	 * 
+	 *
 	 * @param constraints an Eclipse configuration element obtained either from
 	 *                    Eclipse's extension point parser or from this utility
 	 *                    class
@@ -121,7 +121,7 @@ public class XmlConfig {
 	 * @throws CoreException if there is any problem either in accessing an existing
 	 *                       configuration element or in parsing the XML to create
 	 *                       new ones
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static IConfigurationElement parseConstraintsWithIncludes(IConfigurationElement constraints)
@@ -158,14 +158,14 @@ public class XmlConfig {
 	 * Gets the value of the <code>name</code>d parameter on the specified
 	 * <code>constraint</code> configuration element. If the parameter occurs more
 	 * than once, only the first name will be retrieved.
-	 * 
+	 *
 	 * @param constraint the <tt>&lt;constraint&gt;</tt> configuration element
 	 * @param name       the name of the parameter to retrieve
 	 * @return the parameter's value, or <code>null</code> if no such parameter is
 	 *         defined
-	 * 
+	 *
 	 * @see #getParameterValues
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static String getParameter(IConfigurationElement constraint, String name) {
@@ -194,19 +194,19 @@ public class XmlConfig {
 	/**
 	 * Gets the values of the <code>name</code>d parameter in the order in which
 	 * they appear on the specified <code>constraint</code> configuration element.
-	 * 
+	 *
 	 * @param constraint the <tt>&lt;constraint&gt;</tt> configuration element
 	 * @param name       the name of the parameter to retrieve
 	 * @return the parameter's values, in order. Will be an empty array (not
 	 *         <code>null</code>) if no occurrences of the parameter are found
-	 * 
+	 *
 	 * @see #getParameter
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static String[] getParameterValues(IConfigurationElement constraint, String name) {
 
-		List<String> result = new java.util.ArrayList<String>();
+		List<String> result = new java.util.ArrayList<>();
 
 		IConfigurationElement[] parms = constraint.getChildren(E_PARAM);
 		for (IConfigurationElement element : parms) {
@@ -230,7 +230,7 @@ public class XmlConfig {
 	 * Resolves the category references in the specified
 	 * <tt>&lt;constraints&gt;</tt> element to {@link Category} instances, and adds
 	 * to them the constraint descriptors that are their members.
-	 * 
+	 *
 	 * @param constraints the <tt>&lt;constraints&gt;</tt> element
 	 * @return the same element
 	 */
@@ -245,7 +245,7 @@ public class XmlConfig {
 			categories = ""; //$NON-NLS-1$
 		}
 
-		List<Category> categoryList = new java.util.ArrayList<Category>(4);
+		List<Category> categoryList = new java.util.ArrayList<>(4);
 		StringTokenizer tokens = new StringTokenizer(categories, ","); //$NON-NLS-1$
 		while (tokens.hasMoreTokens()) {
 			String path = tokens.nextToken().trim();
@@ -285,7 +285,7 @@ public class XmlConfig {
 	 * <tt>&lt;include&gt;</tt> elements with the constraints obtained from the
 	 * included files. Essentially "flattens" the include structure into a single
 	 * giant <tt>&lt;constraints&gt;</tt> element.
-	 * 
+	 *
 	 * @param constraints the original <tt>&lt;constraints&gt;</tt> element
 	 * @param includes    the <tt>&lt;include&gt;</tt> elements to be merged into it
 	 * @return the merged <tt>&lt;constraints&gt;</tt> element
@@ -308,7 +308,7 @@ public class XmlConfig {
 	 * occurrences of nested <tt>&lt;constraints&gt;</tt> elements with the
 	 * constraints defined in them. Essentially "flattens" the constraints structure
 	 * into a single giant <tt>&lt;constraints&gt;</tt> element.
-	 * 
+	 *
 	 * @param constraints   the original <tt>&lt;includedConstraints&gt;</tt>
 	 *                      element
 	 * @param constraintses the nested <tt>&lt;constraints&gt;</tt> elements to be
@@ -330,7 +330,7 @@ public class XmlConfig {
 
 	/**
 	 * Obtains the URL from which the specified <code>element</code> was loaded.
-	 * 
+	 *
 	 * @param element the XML configuration element
 	 * @return the URL from which it was loaded
 	 */
@@ -345,7 +345,7 @@ public class XmlConfig {
 	/**
 	 * Loads a <tt>&lt;constraints&gt;</tt> element from the specified
 	 * <code>url</code>.
-	 * 
+	 *
 	 * @param parent the configuration element which is to be the parent of the new
 	 *               <tt>&lt;constraints&gt;</tt> element
 	 * @param url    the location of the document defining the
@@ -353,7 +353,7 @@ public class XmlConfig {
 	 * @return the configuration element representing the XML document
 	 * @throws CoreException on any problem accessing a configuration element or
 	 *                       parsing an XML file
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static IConfigurationElement load(IConfigurationElement parent, URL url) throws CoreException {
@@ -395,7 +395,7 @@ public class XmlConfig {
 	/**
 	 * Flushes the resource bundles that were loaded for localization of strings in
 	 * an XML constraint provider's XML constraint declarations.
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public static void flushResourceBundles() {
@@ -405,10 +405,10 @@ public class XmlConfig {
 	/**
 	 * Obtains an array including all of the <tt>event</tt> and <tt>customEvent</tt>
 	 * children of the specified <tt>config</tt>uration element.
-	 * 
+	 *
 	 * @param config a configuration element
 	 * @return its event children
-	 * 
+	 *
 	 * @since 1.1
 	 * @noreference This method is not intended to be referenced by clients.
 	 */

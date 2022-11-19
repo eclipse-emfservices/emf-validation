@@ -23,7 +23,7 @@ import ordersystem.OrderSystemFactory;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class XmlExpressionSelectorTest extends TestCase {

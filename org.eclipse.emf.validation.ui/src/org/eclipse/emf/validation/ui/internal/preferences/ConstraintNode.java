@@ -26,17 +26,17 @@ import org.eclipse.jface.viewers.CheckStateChangedEvent;
  */
 public class ConstraintNode implements IConstraintNode {
 
-	private static final java.util.Map<String, IConstraintNode> instanceMap = new java.util.HashMap<String, IConstraintNode>();
+	private static final java.util.Map<String, IConstraintNode> instanceMap = new java.util.HashMap<>();
 
 	private final IConstraintDescriptor constraint;
 	private Boolean mandatory;
 	private boolean checked = false;
 
-	private final java.util.Set<ICategoryTreeNode> categories = new java.util.HashSet<ICategoryTreeNode>();
+	private final java.util.Set<ICategoryTreeNode> categories = new java.util.HashSet<>();
 
 	/**
 	 * Initializes me with the constraint that I represent.
-	 * 
+	 *
 	 * @param constraint my constraint
 	 */
 	private ConstraintNode(IConstraintDescriptor constraint) {
@@ -47,7 +47,7 @@ public class ConstraintNode implements IConstraintNode {
 	/**
 	 * Obtains the cached node instance corresponding to the specified
 	 * <code>constraint</code>. Constraints are mapped one-to-one to nodes.
-	 * 
+	 *
 	 * @param constraint a validation constraint descriptor
 	 * @return the corresponding node
 	 */
@@ -78,6 +78,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public String getId() {
 		return constraint.getId();
 	}
@@ -85,6 +86,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public String getName() {
 		return constraint.getName();
 	}
@@ -92,6 +94,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public String getDescription() {
 		return constraint.getDescription();
 	}
@@ -99,6 +102,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public Collection<Category> getCategories() {
 		return constraint.getCategories();
 	}
@@ -106,6 +110,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public String getEvaluationMode() {
 		return constraint.getEvaluationMode().getLocalizedName();
 	}
@@ -113,6 +118,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public String getSeverity() {
 		return constraint.getSeverity().getLocalizedName();
 	}
@@ -120,6 +126,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public boolean isChecked() {
 		return checked;
 	}
@@ -127,6 +134,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void setChecked(boolean checked) {
 		if (checked != isChecked()) {
 			if (isMandatory()) {
@@ -146,6 +154,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public boolean isMandatory() {
 		if (mandatory == null) {
 			boolean m = false;
@@ -166,6 +175,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public boolean isErrored() {
 		return constraint.isError();
 	}
@@ -173,6 +183,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void addCategory(ICategoryTreeNode category) {
 		categories.add(category);
 	}
@@ -180,6 +191,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void checkStateChanged(CheckStateChangedEvent event) {
 		if (event.getChecked() != isChecked()) {
 			if (isMandatory() && !event.getChecked()) {
@@ -199,6 +211,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void applyToPreferences() {
 		// set the preference
 		EMFModelValidationPreferences.setConstraintDisabled(constraint.getId(), !isChecked());
@@ -210,6 +223,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void revertFromPreferences() {
 		setChecked(!EMFModelValidationPreferences.isConstraintDisabled(constraint.getId()));
 	}
@@ -217,6 +231,7 @@ public class ConstraintNode implements IConstraintNode {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void restoreDefaults() {
 		setChecked(!EMFModelValidationPreferences.isConstraintDisabledByDefault(constraint.getId()));
 	}

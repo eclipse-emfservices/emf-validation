@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -53,7 +53,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The cached value of the '{@link #getSubCategories() <em>Sub Categories</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSubCategories()
 	 * @generated
 	 * @ordered
@@ -63,7 +63,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -73,7 +73,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getId()
 	 * @generated
 	 * @ordered
@@ -83,7 +83,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The default value of the '{@link #isMandatory() <em>Mandatory</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isMandatory()
 	 * @generated
 	 * @ordered
@@ -93,7 +93,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The cached value of the '{@link #isMandatory() <em>Mandatory</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #isMandatory()
 	 * @generated
 	 * @ordered
@@ -103,7 +103,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -113,7 +113,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -122,7 +122,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected CategoryImpl() {
@@ -131,7 +131,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -141,12 +141,13 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Category> getSubCategories() {
 		if (subCategories == null) {
-			subCategories = new EObjectContainmentWithInverseEList<Category>(Category.class, this,
+			subCategories = new EObjectContainmentWithInverseEList<>(Category.class, this,
 					ValidationPackage.CATEGORY__SUB_CATEGORIES, ValidationPackage.CATEGORY__PARENT_CATEGORY);
 		}
 		return subCategories;
@@ -154,18 +155,20 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -175,18 +178,20 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isMandatory() {
 		return mandatory;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setMandatory(boolean newMandatory) {
 		boolean oldMandatory = mandatory;
 		mandatory = newMandatory;
@@ -197,18 +202,20 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -218,9 +225,10 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Category getParentCategory() {
 		if (eContainerFeatureID() != ValidationPackage.CATEGORY__PARENT_CATEGORY)
 			return null;
@@ -229,7 +237,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public NotificationChain basicSetParentCategory(Category newParentCategory, NotificationChain msgs) {
@@ -240,9 +248,10 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setParentCategory(Category newParentCategory) {
 		if (newParentCategory != eInternalContainer()
 				|| (eContainerFeatureID() != ValidationPackage.CATEGORY__PARENT_CATEGORY
@@ -265,16 +274,17 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated NOT
 	 */
+	@Override
 	public String getPath() {
 		return ValidationModelOperationsImpl.categoryGetPath(this);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -293,7 +303,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -309,7 +319,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -324,7 +334,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -346,7 +356,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -375,7 +385,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -402,7 +412,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -424,7 +434,7 @@ public class CategoryImpl extends EObjectImpl implements Category {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

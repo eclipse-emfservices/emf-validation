@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Radek Dvorak (Borland) - Bugzilla 165661
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
@@ -42,7 +42,7 @@ import org.eclipse.emf.validation.xml.XmlConstraintProvider;
 
 /**
  * Primary implementation of the {@link IProviderDescriptor} interface.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ProviderDescriptor implements IProviderDescriptor {
@@ -56,7 +56,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	private final EvaluationMode<?> mode;
 
 	// map of (String => Boolean) caching whether a namespace is provided
-	private final Map<String, Boolean> providedNamespaces = new java.util.HashMap<String, Boolean>();
+	private final Map<String, Boolean> providedNamespaces = new java.util.HashMap<>();
 
 	/**
 	 * The "null" provider never provides any constraints. It is used as a
@@ -81,13 +81,13 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		}
 
 		private Collection<IModelConstraint> noOp(Collection<IModelConstraint> constraints) {
-			return (constraints == null) ? new java.util.ArrayList<IModelConstraint>() : constraints;
+			return (constraints == null) ? new java.util.ArrayList<>() : constraints;
 		}
 	}
 
 	/**
 	 * Initializes me with the XML extension point data describing a provider.
-	 * 
+	 *
 	 * @param config my extension point data
 	 * @throws CoreException on any error in initializing the descriptor
 	 */
@@ -96,8 +96,8 @@ public class ProviderDescriptor implements IProviderDescriptor {
 
 		this.mode = getMode(config);
 
-		Set<String> uriSet = new java.util.HashSet<String>();
-		Map<String, StringMatcher> uriMatcherMap = new java.util.HashMap<String, StringMatcher>();
+		Set<String> uriSet = new java.util.HashSet<>();
+		Map<String, StringMatcher> uriMatcherMap = new java.util.HashMap<>();
 
 		// backward compatibility for the namespaceUri attribute
 		String uri = config.getAttribute(XmlConfig.A_NAMESPACE_URI);
@@ -160,7 +160,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Obtains the evaluation mode of the provider, which indicates the mode of all
 	 * constraints that it defines.
-	 * 
+	 *
 	 * @return the evaluation mode, or {@link EvaluationMode#NULL} if the provider
 	 *         provides constraints in mixed modes
 	 */
@@ -171,11 +171,12 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Queries whether the provider that I represent can potentially provide any
 	 * constraints for the specified operation.
-	 * 
+	 *
 	 * @param operation a "get constraints" request
 	 * @return whether the provider has any chance of providing constraints for this
 	 *         context
 	 */
+	@Override
 	public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 		if (operation instanceof GetLiveConstraintsOperation) {
 			return providesLiveConstraints(operation);
@@ -189,7 +190,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Obtains the Eclipse extension configuration element from which I was
 	 * initialized.
-	 * 
+	 *
 	 * @return my source configuration element
 	 */
 	final IConfigurationElement getConfig() {
@@ -199,19 +200,22 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Queries whether the system should cache constraints retrieved from this
 	 * provider.
-	 * 
+	 *
 	 * @return whether my constraints should be cached
 	 */
+	@Override
 	public final boolean isCacheEnabled() {
 		return shouldCacheConstraints;
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isCache() {
 		return false;
 	}
 
 	// implements the interface method
+	@Override
 	public boolean isXmlProvider() {
 		String className = getConfig().getAttribute(XmlConfig.A_CLASS);
 
@@ -222,9 +226,10 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * Obtains my provider. It is lazily instantiated to delay the loading of the
 	 * contributing plug-in. If, for some reason, the provider cannot be
 	 * initialized, then a "null provider" is returned which never does anything.
-	 * 
+	 *
 	 * @return my provider
 	 */
+	@Override
 	public synchronized IModelConstraintProvider getProvider() {
 		if (provider == null) {
 			try {
@@ -257,7 +262,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Determines whether I can provide live constraints for the specified
 	 * <code>operation</code>.
-	 * 
+	 *
 	 * @param operation a "get constraints" request
 	 * @return <CODE>false</CODE> if my provider's configuration excludes the
 	 *         possibility of it providing any constraints; <CODE>true</CODE>,
@@ -300,7 +305,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Determines whether I can provide batch constraints for the specified
 	 * <code>operation</code>.
-	 * 
+	 *
 	 * @param operation a "get constraints" request
 	 * @return <CODE>false</CODE> if my provider's configuration excludes the
 	 *         possibility of it providing any constraints; <CODE>true</CODE>,
@@ -342,7 +347,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Determines whether my provider can provide any constraints for an EMF object
 	 * according to its type.
-	 * 
+	 *
 	 * @param eObject an EMF object
 	 * @param target  the data from a &lt;target&gt; element in the provider XML
 	 *                which indicates one of the EMF types for which the provider
@@ -378,7 +383,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Helper method to determine whether my provider handles the namespace in which
 	 * an EMF object's type is defined.
-	 * 
+	 *
 	 * @param eObject an EMF object
 	 * @return whether this EMF object's metamodel is recognized by my provider
 	 */
@@ -422,7 +427,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Queries whether this provider has any constraints for the specified
 	 * namespace.
-	 * 
+	 *
 	 * @param originalTargetNamespace the namespace of the type of the object being
 	 *                                validated
 	 * @param namespace               a namespace for which, perhaps, this provider
@@ -459,7 +464,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * Adds the specified namespace URI to the list of namespaces that I target.
 	 * This may be the result of a pattern match or it may be a namespace that has
 	 * types that I target by inheritance.
-	 * 
+	 *
 	 * @param namespaceURI a namespace that I target
 	 */
 	private synchronized void addTargetNamespaceURI(String namespaceURI) {
@@ -473,13 +478,13 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	 * Obtains the set of all packages that the specified <code>epackage</code>
 	 * extends, by having classifiers that extend some classifier(s) in those
 	 * packages.
-	 * 
+	 *
 	 * @param epackage a package
 	 * @return all of the packages containing classifiers extended by this package's
 	 *         classifiers, not including the original package
 	 */
 	private Set<EPackage> getExtendedEPackages(EPackage epackage) {
-		Set<EPackage> result = new java.util.HashSet<EPackage>();
+		Set<EPackage> result = new java.util.HashSet<>();
 
 		getExtendedEPackages(epackage, result);
 		result.remove(epackage);
@@ -508,7 +513,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Helper method to determine whether my provider handles the specified event
 	 * type.
-	 * 
+	 *
 	 * @param eventType an EMF event type
 	 * @param config    the data from an &lt;event&gt; element in the provider XML
 	 *                  which indicates one of the EMF events for which the provider
@@ -544,7 +549,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 
 	/**
 	 * Determines whether my provider provides live constraints.
-	 * 
+	 *
 	 * @return <CODE>true</CODE> if my provider specifies live mode or no mode at
 	 *         all
 	 */
@@ -554,7 +559,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 
 	/**
 	 * Determines whether my provider provides batch constraints.
-	 * 
+	 *
 	 * @return <CODE>true</CODE> if my provider specifies batch mode or no mode at
 	 *         all
 	 */
@@ -565,7 +570,7 @@ public class ProviderDescriptor implements IProviderDescriptor {
 	/**
 	 * Parses the mode from the &lt;constraintProvider&gt; XML configuration
 	 * element.
-	 * 
+	 *
 	 * @param config the constraint provider element
 	 * @return the evaluation mode of the constraint provider, or
 	 *         {@link EvaluationMode#NULL} if it has none

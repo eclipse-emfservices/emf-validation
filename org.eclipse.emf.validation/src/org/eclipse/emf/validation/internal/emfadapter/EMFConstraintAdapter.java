@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.emfadapter;
 
@@ -51,7 +51,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	 * context, since the EMF APIs have no access to it and there is nothing else in
 	 * this adapter layer maintains a reference to it.
 	 */
-	private static final Map<IValidationContext, Map<Object, Object>> contextMapCache = new java.util.WeakHashMap<IValidationContext, Map<Object, Object>>();
+	private static final Map<IValidationContext, Map<Object, Object>> contextMapCache = new java.util.WeakHashMap<>();
 
 	private final IConstraintDescriptor descriptor;
 	private final Method validationMethod;
@@ -63,7 +63,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	/**
 	 * Initializes me with my descriptor and the method in the EMF API that I
 	 * delegate to.
-	 * 
+	 *
 	 * @param descriptor       my descriptor
 	 * @param validationMethod the method on the EMF interface that implements my
 	 *                         constraint logic. This must not be <code>null</code>,
@@ -79,6 +79,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	}
 
 	// implements the interface method
+	@Override
 	public IStatus validate(IValidationContext ctx) {
 		EMFValidationContextAdapter ctxAdapter = (EMFValidationContextAdapter) validationArgs[0];
 
@@ -107,6 +108,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	/*
 	 * (non-Javadoc) Implements the interface method.
 	 */
+	@Override
 	public IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}
@@ -115,14 +117,14 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	 * Creates a failure status from the information available from the EMF
 	 * validation context adapter. Note that the status details are as defined in
 	 * the Aurora validation XML, not in the Status object provided by the EMF.
-	 * 
+	 *
 	 * @param ctxAdapter the validation context adapter
 	 * @return the failure status
 	 */
 	private IStatus fail(EMFValidationContextAdapter ctxAdapter) {
 		final IValidationContext ctx = ctxAdapter.getAdaptedContext();
 
-		List<EObject> resultLocus = new java.util.ArrayList<EObject>(ctx.getResultLocus());
+		List<EObject> resultLocus = new java.util.ArrayList<>(ctx.getResultLocus());
 		resultLocus.remove(ctx.getTarget());
 
 		Diagnostic status = ctxAdapter.getLastStatus();
@@ -138,7 +140,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	/**
 	 * Constructs an informational status object indicating that the constraint is
 	 * disabled because of a run-time exception.
-	 * 
+	 *
 	 * @param ctx the current validation context
 	 * @param e   the run-time exception that was thrown by the EMF validation
 	 *            method
@@ -159,7 +161,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	/**
 	 * Returns the (lazily instantiated and stored) cached EMF context map
 	 * corresponding to the specified Aurora validation context.
-	 * 
+	 *
 	 * @param ctx our validation context
 	 * @return the corresponding EMF validation context
 	 */
@@ -167,7 +169,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 		Map<Object, Object> result = contextMapCache.get(ctx);
 
 		if (result == null) {
-			result = new java.util.HashMap<Object, Object>();
+			result = new java.util.HashMap<>();
 
 			// add a substitution label provider for good measure
 			result.put(EValidator.SubstitutionLabelProvider.class, SubstitutionProvider.INSTANCE);
@@ -192,14 +194,17 @@ public class EMFConstraintAdapter implements IModelConstraint {
 			super();
 		}
 
+		@Override
 		public String getObjectLabel(EObject eObject) {
 			return TextUtils.getText(eObject);
 		}
 
+		@Override
 		public String getFeatureLabel(EStructuralFeature eStructuralFeature) {
 			return eStructuralFeature.getName();
 		}
 
+		@Override
 		public String getValueLabel(EDataType eDataType, Object value) {
 			return EcoreUtil.convertToString(eDataType, value);
 		}

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.xml;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	/**
 	 * Obtains the Eclipse configuration element from which I was initialized.
-	 * 
+	 *
 	 * @return my Eclipse extension configuration data
 	 */
 	public IConfigurationElement getConfig();
@@ -38,7 +38,7 @@ public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	 * This method must be invoked before any requests for constraints are received
 	 * by the framework.
 	 * </p>
-	 * 
+	 *
 	 * @param namespaceUris the namespace URIs of the EPackages in which to search
 	 *                      for {@link org.eclipse.emf.ecore.EClass}es by name
 	 */

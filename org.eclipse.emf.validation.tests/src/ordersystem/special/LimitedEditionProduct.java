@@ -40,7 +40,7 @@ public interface LimitedEditionProduct extends Product {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Available Until</em>' attribute.
 	 * @see #setAvailableUntil(Date)
 	 * @see ordersystem.special.SpecialPackage#getLimitedEditionProduct_AvailableUntil()
@@ -54,7 +54,7 @@ public interface LimitedEditionProduct extends Product {
 	 * '{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil
 	 * <em>Available Until</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Available Until</em>' attribute.
 	 * @see #getAvailableUntil()
 	 * @generated

@@ -40,6 +40,7 @@ public class ValidationMarkerResolution implements IMarkerResolutionGenerator {
 	/*
 	 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 	 */
+	@Override
 	public IMarkerResolution[] getResolutions(IMarker marker) {
 		String constraintId = marker.getAttribute(MarkerUtil.RULE_ATTRIBUTE, ""); //$NON-NLS-1$
 
@@ -68,7 +69,7 @@ public class ValidationMarkerResolution implements IMarkerResolutionGenerator {
 	 * <li>the constraint is in a mandatory category and cannot, thereforem be
 	 * disabled</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param constraint
 	 * @return
 	 */
@@ -100,7 +101,7 @@ public class ValidationMarkerResolution implements IMarkerResolutionGenerator {
 		/**
 		 * Initializes me with the descriptor of the constraint that I will disable when
 		 * (and if) the user selects me.
-		 * 
+		 *
 		 * @param constraint the constraint descriptor that I would disable
 		 */
 		public Resolution(IConstraintDescriptor constraint) {
@@ -111,6 +112,7 @@ public class ValidationMarkerResolution implements IMarkerResolutionGenerator {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public String getLabel() {
 			return label;
 		}
@@ -118,6 +120,7 @@ public class ValidationMarkerResolution implements IMarkerResolutionGenerator {
 		/*
 		 * (non-Javadoc) Implements the inherited method.
 		 */
+		@Override
 		public void run(IMarker marker) {
 			// Just disable the constraint (in the preferences) for subsequent
 			// validation operations. The user can re-enable it via the UI

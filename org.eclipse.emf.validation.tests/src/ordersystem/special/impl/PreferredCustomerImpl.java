@@ -38,7 +38,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	/**
 	 * The default value of the '{@link #getSince() <em>Since</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSince()
 	 * @generated
 	 * @ordered
@@ -48,7 +48,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	/**
 	 * The cached value of the '{@link #getSince() <em>Since</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getSince()
 	 * @generated
 	 * @ordered
@@ -57,7 +57,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected PreferredCustomerImpl() {
@@ -66,7 +66,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -76,18 +76,20 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Date getSince() {
 		return since;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setSince(Date newSince) {
 		Date oldSince = since;
 		since = newSince;
@@ -98,7 +100,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -112,7 +114,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -127,7 +129,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,7 +144,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -156,7 +158,7 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

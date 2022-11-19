@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 218765
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
@@ -47,7 +47,7 @@ import org.eclipse.emf.validation.service.ValidationEvent;
  */
 abstract class AbstractValidator<T> implements IValidator<T> {
 	private final EvaluationMode<T> mode;
-	private final Map<String, Object> clientData = new java.util.HashMap<String, Object>();
+	private final Map<String, Object> clientData = new java.util.HashMap<>();
 	private final IProviderOperationExecutor executor;
 
 	private Collection<IConstraintFilter> filters = null;
@@ -57,7 +57,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/**
 	 * Initializes me with the evaluation <code>mode</code> that I support and the
 	 * operation <code>executor</code> that I use to execute provider operations.
-	 * 
+	 *
 	 * @param mode     my evaluation mode (must not be <code>null</code> or
 	 *                 {@link EvaluationMode#NULL}
 	 * @param executor used by me to execute operations (must not be
@@ -75,6 +75,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public final EvaluationMode<T> getEvaluationMode() {
 		return mode;
 	}
@@ -82,6 +83,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public boolean isReportSuccesses() {
 		return getOption(OPTION_REPORT_SUCCESSES);
 	}
@@ -89,12 +91,14 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void setReportSuccesses(boolean reportSuccesses) {
 		if (reportSuccesses != isReportSuccesses()) {
 			setOption(OPTION_REPORT_SUCCESSES, reportSuccesses);
 		}
 	}
 
+	@Override
 	public void putClientData(String key, Object data) {
 		assert key != null : "null key"; //$NON-NLS-1$
 
@@ -105,6 +109,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		}
 	}
 
+	@Override
 	public Object getClientData(String key) {
 		return clientData.get(key);
 	}
@@ -115,6 +120,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	 * also encouraged to delegate to this method after first checking that
 	 * arguments are of or coerced to the correct types.
 	 */
+	@Override
 	public final IStatus validate(T object) {
 		return validate(Collections.singleton(object));
 	}
@@ -131,10 +137,11 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	 * returns an appropriate {@link IStatus#CANCEL} status when it catches one.
 	 * </p>
 	 */
+	@Override
 	public final IStatus validate(Collection<? extends T> objects) {
 		IStatus result;
 
-		Set<IClientContext> encounteredClientContexts = new HashSet<IClientContext>();
+		Set<IClientContext> encounteredClientContexts = new HashSet<>();
 
 		try {
 			result = createStatus(doValidate(objects, encounteredClientContexts));
@@ -157,15 +164,15 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/**
 	 * Gives access to the identifiers of the client contexts that are currently
 	 * running.
-	 * 
+	 *
 	 * @param clientContexts The client contexts whose identifiers we will extract.
-	 * 
+	 *
 	 * @return The client contexts ids provided to this validator by the last call
 	 *         to the {@link #evaluateConstraints(AbstractValidationContext, List)
 	 *         method.
 	 */
 	private Collection<String> getClientContextIds(Collection<IClientContext> clientContexts) {
-		List<String> contextIds = new ArrayList<String>();
+		List<String> contextIds = new ArrayList<>();
 
 		if (clientContexts == null) {
 			return contextIds;
@@ -180,13 +187,13 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 
 	/**
 	 * Implemented by subclasses to validate the specified <code>objects</code>.
-	 * 
+	 *
 	 * @param objects        the objects (one or more) to validate
 	 * @param clientContexts the output collection that will be populated with all
 	 *                       of the client contexts encountered while the validator
 	 *                       was running.
 	 * @return the {@link IStatus} results of validating the <code>objects</code>
-	 * 
+	 *
 	 * @throws OperationCanceledException if the validation needs to be canceled
 	 *                                    (e.g., when a constraint returns
 	 *                                    {@link IStatus#CANCEL} status)
@@ -197,7 +204,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/**
 	 * Helper method to evaluate a bunch of constraints. Disabled constraints are
 	 * not evaluated.
-	 * 
+	 *
 	 * @param ctx     the context in which all constraints are to be evaluated. The
 	 *                context encapsulates the constraints
 	 * @param results a list of {@link IStatus}es indicating the results of all
@@ -205,7 +212,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	 *                accumulates constraint failures
 	 * @return a status describing the severity of constraint violations on the
 	 *         current target (if any). An OK status indicates no problems
-	 * 
+	 *
 	 * @throws OperationCanceledException if the validation needs to be canceled
 	 *                                    (e.g., when a constraint returns
 	 *                                    {@link IStatus#CANCEL} status)
@@ -265,7 +272,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 
 	/**
 	 * Executes the specified <code>operation</code>.
-	 * 
+	 *
 	 * @param operation the operation to execute
 	 */
 	protected final Collection<? extends IModelConstraint> execute(
@@ -275,7 +282,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 
 	/**
 	 * Obtains my private operation executor.
-	 * 
+	 *
 	 * @return my operation executor
 	 */
 	private IProviderOperationExecutor getOperationExecutor() {
@@ -287,7 +294,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	 * will be a {@link IStatus#isMultiStatus multi-status} storing (and
 	 * aggregating) a list of individual {@link IStatus}es if the
 	 * <code>results</code> has more than one element.
-	 * 
+	 *
 	 * @param results the constraint evaluation results
 	 * @return a multi-status if more than one result; a plain {@link IStatus},
 	 *         otherwise
@@ -316,20 +323,23 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		return true;
 	}
 
+	@Override
 	public void addConstraintFilter(IConstraintFilter filter) {
 		if (filters == null) {
-			filters = new BasicEList<IConstraintFilter>(4);
+			filters = new BasicEList<>(4);
 		}
 
 		filters.add(filter);
 	}
 
+	@Override
 	public void removeConstraintFilter(IConstraintFilter filter) {
 		if (filters != null) {
 			filters.remove(filter);
 		}
 	}
 
+	@Override
 	public Collection<IConstraintFilter> getConstraintFilters() {
 		if (filters == null) {
 			return Collections.emptyList();
@@ -338,10 +348,12 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		return Collections.unmodifiableCollection(filters);
 	}
 
+	@Override
 	public Map<Option<?>, ?> getOptions() {
 		return options;
 	}
 
+	@Override
 	public void setOptions(Map<Option<?>, ?> options) {
 		if ((options == null) || options.isEmpty()) {
 			this.options = Collections.emptyMap();
@@ -351,14 +363,16 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		}
 	}
 
+	@Override
 	public <V> V getOption(Option<V> option) {
 		@SuppressWarnings("unchecked")
 		V result = (V) getOptions().get(option);
 		return (result == null) ? option.defaultValue(this) : result;
 	}
 
+	@Override
 	public <V> void setOption(Option<? super V> option, V value) {
-		Map<Option<?>, Object> options = new java.util.HashMap<Option<?>, Object>(getOptions());
+		Map<Option<?>, Object> options = new java.util.HashMap<>(getOptions());
 
 		if (option.defaultValue(this) == null ? value == null : option.defaultValue(this).equals(value)) {
 			options.remove(option);
@@ -372,7 +386,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 	/**
 	 * A custom status type that aggregates multiple {@link IStatus}es and whose
 	 * severity is the worst severity among them.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class AggregateStatus implements IStatus {
@@ -384,7 +398,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		/**
 		 * Initializes me as an aggregate of the specified <code>statuses</code>. They
 		 * will become my {@link #getChildren() children}.
-		 * 
+		 *
 		 * @param statuses the statuses that I aggregate
 		 */
 		AggregateStatus(Collection<? extends IStatus> statuses) {
@@ -424,53 +438,62 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		}
 
 		// implements the interface method
+		@Override
 		public IStatus[] getChildren() {
 			return children.toArray(new IStatus[children.size()]);
 		}
 
 		// implements the interface method
+		@Override
 		public int getSeverity() {
 			return severity;
 		}
 
 		// implements the interface method
+		@Override
 		public int getCode() {
 			return code;
 		}
 
 		// implements the interface method
+		@Override
 		public String getMessage() {
 			return message;
 		}
 
 		// implements the interface method
+		@Override
 		public Throwable getException() {
 			return null;
 		}
 
 		// implements the interface method
+		@Override
 		public String getPlugin() {
 			return EMFModelValidationPlugin.getPluginId();
 		}
 
 		// implements the interface method
+		@Override
 		public boolean isMultiStatus() {
 			return true;
 		}
 
 		// implements the interface method
+		@Override
 		public boolean isOK() {
 			return severity == IStatus.OK;
 		}
 
 		// implements the interface method
+		@Override
 		public boolean matches(int severityMask) {
 			return (getSeverity() & severityMask) != 0;
 		}
 
 		/**
 		 * Helper method to get the maximal severity from a collection of statuses.
-		 * 
+		 *
 		 * @param statuses a collection of {@link IStatus} objects
 		 * @return the maximal severity amongst the <code>statuses</code>
 		 */

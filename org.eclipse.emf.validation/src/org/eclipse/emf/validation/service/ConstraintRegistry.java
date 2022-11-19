@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.service;
@@ -41,13 +41,13 @@ import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
  * mechanism</li>
  * </ul>
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintRegistry {
 	private static final ConstraintRegistry INSTANCE = new ConstraintRegistry();
 
-	private final Map<String, IConstraintDescriptor> descriptors = new java.util.HashMap<String, IConstraintDescriptor>();
+	private final Map<String, IConstraintDescriptor> descriptors = new java.util.HashMap<>();
 
 	private volatile IConstraintListener[] constraintListeners;
 
@@ -60,7 +60,7 @@ public class ConstraintRegistry {
 
 	/**
 	 * Obtains the instance of the constraint registry.
-	 * 
+	 *
 	 * @return the <i>Singleton</i> instance
 	 */
 	public static ConstraintRegistry getInstance() {
@@ -69,7 +69,7 @@ public class ConstraintRegistry {
 
 	/**
 	 * Obtains the unique constraint descriptor having the specified ID.
-	 * 
+	 *
 	 * @param id the ID of the constraint descriptor to retrieve (not
 	 *           <code>null</code>)
 	 * @return the matching constraint descriptor, or <code>null</code> if it does
@@ -83,7 +83,7 @@ public class ConstraintRegistry {
 	 * Obtains the unique constraint descriptor having the specified ID. The ID is
 	 * prepended by the supplied plug-in ID, to generate a fully-qualified ID of the
 	 * form <tt>&lt;pluginId&gt;.&lt;id&gt;</tt>.
-	 * 
+	 *
 	 * @param pluginId the ID of the plug-in that contributes the constraint
 	 * @param id       the constraint's ID, relative to the plug-in ID
 	 * @return the matching constraint descriptor, or <code>null</code> if it does
@@ -97,18 +97,18 @@ public class ConstraintRegistry {
 	 * Obtains the descriptors for all registered constraints, in no particular
 	 * order. Note that all disabled (for whatever reason) constraints are included
 	 * in the result.
-	 * 
+	 *
 	 * @return the available constraint descriptors, as an unmodifiable collection
 	 */
 	public Collection<IConstraintDescriptor> getAllDescriptors() {
 		synchronized (descriptors) {
-			return new java.util.ArrayList<IConstraintDescriptor>(descriptors.values());
+			return new java.util.ArrayList<>(descriptors.values());
 		}
 	}
 
 	/**
 	 * Registers a constraint descriptor.
-	 * 
+	 *
 	 * @param descriptor a new constraint descriptor, which must have a unique ID
 	 *                   (not <code>null</code>)
 	 * @throws ConstraintExistsException if a different descriptor is already
@@ -131,7 +131,7 @@ public class ConstraintRegistry {
 	/**
 	 * Unregisters an existing constraint descriptor. This <code>descriptor</code>'s
 	 * ID will subsequently be available for re-use.
-	 * 
+	 *
 	 * @param descriptor a constraint descriptor (not <code>null</code>)
 	 */
 	public void unregister(IConstraintDescriptor descriptor) {
@@ -153,9 +153,9 @@ public class ConstraintRegistry {
 	 * Adds an <code>IConstraintListener</code> to receive constraint change events.
 	 * This method has no effect if the <code>IConstraintListener
 	 * </code> is already registered.
-	 * 
+	 *
 	 * @param listener a new constraint listener
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	public synchronized void addConstraintListener(IConstraintListener listener) {
@@ -181,9 +181,9 @@ public class ConstraintRegistry {
 	 * Removes the <code>IConstraintListener</code> from the list of listeners. This
 	 * method has no effect if the <code>IConstraintListener</code> is not currently
 	 * registered.
-	 * 
+	 *
 	 * @param listener a constraint listener
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	public synchronized void removeConstraintListener(IConstraintListener listener) {
@@ -207,7 +207,7 @@ public class ConstraintRegistry {
 	/**
 	 * Computes the index of a specified <code>IConstraintListener</code> in the
 	 * array of registered listeners.
-	 * 
+	 *
 	 * @param listener a constraint listener
 	 * @return the <code>constraint listener</code>'s index, or -1 if it is not in
 	 *         my list
@@ -234,9 +234,9 @@ public class ConstraintRegistry {
 	 * <b>Note</b> that this method should only be invoked by implementation of of
 	 * the {@link IConstraintDescriptor} interface.
 	 * </p>
-	 * 
+	 *
 	 * @param event a constraint change event to broadcast
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	public void broadcastConstraintChangeEvent(ConstraintChangeEvent event) {
@@ -247,15 +247,15 @@ public class ConstraintRegistry {
 
 		IConstraintListener[] array = constraintListeners; // copy the reference
 
-		for (int i = 0; i < array.length; i++) {
+		for (IConstraintListener element : array) {
 			try {
-				array[i].constraintChanged(event);
+				element.constraintChanged(event);
 			} catch (Exception e) {
 				Trace.catching(getClass(), "broadcastConstraintChangeEvent", e); //$NON-NLS-1$
 
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.LISTENERS)) {
 					Trace.trace(EMFModelValidationDebugOptions.LISTENERS,
-							"Uncaught exception in constraint listener: " + array[i].getClass().getName()); //$NON-NLS-1$
+							"Uncaught exception in constraint listener: " + element.getClass().getName()); //$NON-NLS-1$
 				}
 
 				Log.l7dWarning(EMFModelValidationStatusCodes.LISTENER_UNCAUGHT_EXCEPTION,
@@ -267,12 +267,12 @@ public class ConstraintRegistry {
 	/**
 	 * Implements the registration of a constraint. <b>This method requires that the
 	 * caller synchronize on the <tt>descriptors</tt> map</b>.
-	 * 
+	 *
 	 * @param descriptor a descriptor to register
 	 * @return whether the descriptor was added to the registry or not
 	 *         (<code>false</code> in the case the same descriptor was already
 	 *         registered, which is OK)
-	 * 
+	 *
 	 * @throws ConstraintExistsException if a different descriptor was already
 	 *                                   registered under the same ID
 	 */
@@ -295,14 +295,14 @@ public class ConstraintRegistry {
 
 	/**
 	 * Performs a bulk registration of constraints for efficiency.
-	 * 
+	 *
 	 * @param constraints the constraints to register
-	 * 
+	 *
 	 * @throws ConstraintExistsException if any constraint's ID is already
 	 *                                   registered under a different descriptor
 	 */
 	void bulkRegister(Collection<? extends IConstraintDescriptor> constraints) throws ConstraintExistsException {
-		Collection<IConstraintDescriptor> registered = new java.util.ArrayList<IConstraintDescriptor>(
+		Collection<IConstraintDescriptor> registered = new java.util.ArrayList<>(
 				constraints.size());
 
 		synchronized (descriptors) {

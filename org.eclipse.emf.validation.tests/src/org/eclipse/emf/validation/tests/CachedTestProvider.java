@@ -21,17 +21,17 @@ import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 /**
  * A simple provider which is instrumented to count the number of hits that the
  * constraint service has made on it, to verify that caching works correctly.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class CachedTestProvider extends AbstractConstraintProvider {
 	private static CachedTestProvider instance;
 
-	private final java.util.Map<EClass, Integer> hits = new java.util.HashMap<EClass, Integer>();
+	private final java.util.Map<EClass, Integer> hits = new java.util.HashMap<>();
 
 	/**
 	 * Initializes me and remembers me for static access.
-	 * 
+	 *
 	 * @see #getInstance
 	 */
 	public CachedTestProvider() {
@@ -54,7 +54,7 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 
 	/**
 	 * Registers a hit on me (i.e., a miss on the cache) for this EMF type.
-	 * 
+	 *
 	 * @param clazz the EMF type
 	 */
 	private final void registerHit(EClass clazz) {
@@ -63,7 +63,7 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 
 	/**
 	 * Obtains the test instance.
-	 * 
+	 *
 	 * @return the test instance
 	 */
 	public static CachedTestProvider getInstance() {

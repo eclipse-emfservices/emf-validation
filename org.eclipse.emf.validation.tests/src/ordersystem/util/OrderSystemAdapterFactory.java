@@ -31,14 +31,14 @@ import ordersystem.Warehouse;
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
  * an adapter <code>createXXX</code> method for each class of the model. <!--
  * end-user-doc -->
- * 
+ *
  * @see ordersystem.OrderSystemPackage
  * @generated
  */
 public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected static OrderSystemPackage modelPackage;
@@ -46,7 +46,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public OrderSystemAdapterFactory() {
@@ -60,7 +60,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * begin-user-doc --> This implementation returns <code>true</code> if the
 	 * object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
@@ -78,10 +78,10 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The switch that delegates to the <code>createXXX</code> methods. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
-	protected OrderSystemSwitch<Adapter> modelSwitch = new OrderSystemSwitch<Adapter>() {
+	protected OrderSystemSwitch<Adapter> modelSwitch = new OrderSystemSwitch<>() {
 		@Override
 		public Adapter caseOrder(Order object) {
 			return createOrderAdapter();
@@ -136,7 +136,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
@@ -151,7 +151,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Order System</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.OrderSystem
 	 * @generated
@@ -165,7 +165,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Customer</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Customer
 	 * @generated
@@ -179,7 +179,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Account</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Account
 	 * @generated
@@ -193,7 +193,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Address</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Address
 	 * @generated
@@ -207,7 +207,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Order</em>}'. <!-- begin-user-doc --> This default implementation returns
 	 * null so that we can easily ignore cases; it's useful to ignore a case when
 	 * inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Order
 	 * @generated
@@ -221,7 +221,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Line Item</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.LineItem
 	 * @generated
@@ -235,7 +235,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Product</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Product
 	 * @generated
@@ -249,7 +249,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * <em>Warehouse</em>}'. <!-- begin-user-doc --> This default implementation
 	 * returns null so that we can easily ignore cases; it's useful to ignore a case
 	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.Warehouse
 	 * @generated
@@ -264,7 +264,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	 * begin-user-doc --> This default implementation returns null so that we can
 	 * easily ignore cases; it's useful to ignore a case when inheritance will catch
 	 * all the cases anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @see ordersystem.InventoryItem
 	 * @generated
@@ -276,7 +276,7 @@ public class OrderSystemAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * Creates a new adapter for the default case. <!-- begin-user-doc --> This
 	 * default implementation returns null. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the new adapter.
 	 * @generated
 	 */

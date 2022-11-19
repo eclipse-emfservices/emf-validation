@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.internal.util;
@@ -23,7 +23,7 @@ import org.eclipse.emf.validation.model.IModelConstraint;
  * A specialization of {@link ConstraintStatus} that indicates the failure of a
  * constraint to validate the target object, because an uncaught exception
  * occurred. This status makes that exception available to the client.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class DisabledConstraintStatus extends ConstraintStatus {
@@ -32,7 +32,7 @@ public class DisabledConstraintStatus extends ConstraintStatus {
 	/**
 	 * Initializes me as a constraint failure, with the exception that caused the
 	 * constraint to be disabled.
-	 * 
+	 *
 	 * @param constraint the constraint that is disabled
 	 * @param target     the target of the validation
 	 * @param exception  the uncaught exception that the constraint threw

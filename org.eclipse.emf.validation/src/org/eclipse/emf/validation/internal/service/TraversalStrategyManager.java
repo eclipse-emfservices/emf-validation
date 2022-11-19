@@ -7,11 +7,11 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 137213
  *    SAP AG - Bug 240352
  *    Christian W. Damus (CEA) - bug 433050
- *    
+ *
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -49,7 +49,7 @@ import org.eclipse.emf.validation.service.ITraversalStrategy;
  * (in batch validation).
  *
  * @author Christian W. Damus (cdamus)
- * 
+ *
  * @see org.eclipse.emf.validation.service.ITraversalStrategy
  * @see org.eclipse.emf.validation.service.IBatchValidator
  */
@@ -63,16 +63,18 @@ class TraversalStrategyManager {
 
 	private static final TraversalStrategyManager INSTANCE = new TraversalStrategyManager();
 
-	private volatile Map<String, Descriptor> packageDescriptors = new java.util.HashMap<String, Descriptor>();
+	private volatile Map<String, Descriptor> packageDescriptors = new java.util.HashMap<>();
 
 	private final Object traversalsLock = new Object();
 
 	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			registerTraversals(extension.getConfigurationElements());
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// traversal strategies cannot be undefined
 		}
@@ -87,7 +89,7 @@ class TraversalStrategyManager {
 
 	/**
 	 * Obtains the singleton instance of the class.
-	 * 
+	 *
 	 * @return the singleton instance
 	 */
 	public static TraversalStrategyManager getInstance() {
@@ -99,7 +101,7 @@ class TraversalStrategyManager {
 	 * specified <code>eObject</code>. This traversal strategy may be a custom
 	 * strategy provided through the <tt>traversal</tt> extension point, or it may
 	 * be the default strategy that simply recurses over the entire content tree.
-	 * 
+	 *
 	 * @param eObject the eObject that is a validation root
 	 * @return the appropriate traversal strategy for it
 	 */
@@ -136,11 +138,9 @@ class TraversalStrategyManager {
 	private void registerTraversals(IConfigurationElement[] configs) {
 		synchronized (traversalsLock) {
 			// copy on write
-			packageDescriptors = new java.util.HashMap<String, Descriptor>(packageDescriptors);
+			packageDescriptors = new java.util.HashMap<>(packageDescriptors);
 
-			for (int i = 0; i < configs.length; i++) {
-				IConfigurationElement config = configs[i];
-
+			for (IConfigurationElement config : configs) {
 				if (config.getName().equals(E_TRAVERSAL_STRATEGY)) {
 					addStrategy(config);
 				}
@@ -151,7 +151,7 @@ class TraversalStrategyManager {
 	/**
 	 * Adds the strategy contributed in the specified plug-in
 	 * <code>config</code>uration element.
-	 * 
+	 *
 	 * @param config the traversal strategy contribution of a plug-in
 	 */
 	private void addStrategy(IConfigurationElement config) {
@@ -179,7 +179,7 @@ class TraversalStrategyManager {
 	 * <p>
 	 * This method must only be called under synchronization on the
 	 * {@code traversalsLock}.
-	 * 
+	 *
 	 * @param nsUri the namespace URI of an EPackage
 	 * @return the corresponding descriptor
 	 */
@@ -230,13 +230,13 @@ class TraversalStrategyManager {
 	 */
 	private static class Descriptor {
 		private final String nsUri;
-		private Map<Object, ThreadLocal<ITraversalStrategy>> eclassMap = new java.util.HashMap<Object, ThreadLocal<ITraversalStrategy>>();
+		private Map<Object, ThreadLocal<ITraversalStrategy>> eclassMap = new java.util.HashMap<>();
 		private ThreadLocal<ITraversalStrategy> packageDefaultStrategy;
 		private boolean isResolved;
 
 		/**
 		 * The namespace URI of the EPackage that I handle.
-		 * 
+		 *
 		 * @param nsUri my EPackage's namespace URI
 		 */
 		Descriptor(String nsUri) {
@@ -245,7 +245,7 @@ class TraversalStrategyManager {
 
 		/**
 		 * Obtains the namespace URI of the EPackage that I handle.
-		 * 
+		 *
 		 * @returnmy EPackage's namespace URI
 		 */
 		final String getNamespaceUri() {
@@ -271,7 +271,7 @@ class TraversalStrategyManager {
 		 * Adds a traversal strategy for the EPackage that I handle. This method will
 		 * not add traversal strategies for EClasses that already have one defined, and
 		 * likewise for the package's default.
-		 * 
+		 *
 		 * @param config the extension point data for the traversal strategy
 		 */
 		void addTraversalStrategy(IConfigurationElement config) {
@@ -283,8 +283,7 @@ class TraversalStrategyManager {
 				// can only have one wildcard strategy
 				packageDefaultStrategy = strategy;
 			} else {
-				for (int i = 0; i < eclasses.length; i++) {
-					IConfigurationElement next = eclasses[i];
+				for (IConfigurationElement next : eclasses) {
 					String eclassName = next.getAttribute(A_NAME);
 
 					if (!eclassMap.containsKey(eclassName)) {
@@ -297,13 +296,13 @@ class TraversalStrategyManager {
 
 		/**
 		 * Resolves all of my eclass names to EClass instances in the specified package.
-		 * 
+		 *
 		 * @param ePackage the EPackage that I provide traversal strategies for
 		 */
 		private void resolve(EPackage ePackage) {
 			isResolved = true;
 
-			Map<Object, ThreadLocal<ITraversalStrategy>> newMap = new java.util.HashMap<Object, ThreadLocal<ITraversalStrategy>>();
+			Map<Object, ThreadLocal<ITraversalStrategy>> newMap = new java.util.HashMap<>();
 
 			for (Map.Entry<Object, ThreadLocal<ITraversalStrategy>> next : eclassMap.entrySet()) {
 				String eclassName = (String) next.getKey();
@@ -327,7 +326,7 @@ class TraversalStrategyManager {
 		 * This strategy will either be one that is declared by an extension for the
 		 * element's EClass (or a superclass thereof), or the default for the package.
 		 * The default package default is the basic eContents recursion strategy.
-		 * 
+		 *
 		 * @param eObject the model element
 		 * @return the most appropriate traversal strategy available
 		 */
@@ -354,7 +353,7 @@ class TraversalStrategyManager {
 		 * Inherits the traversal strategy for the specified <code>eclass</code> from
 		 * one of its ancestors (searched left-to-right, depth-first), if available. If
 		 * no inherited strategy is found, then the package's default is used.
-		 * 
+		 *
 		 * @param eclass the eclass to find an inherited traversal strategy for
 		 * @return the inherited strategy, or the package's default, if none better is
 		 *         found
@@ -378,7 +377,7 @@ class TraversalStrategyManager {
 		/**
 		 * Searches depth-first and left-to-right in the inheritance hierarchy for a
 		 * strategy that is inherited by the specified <code>eclass</code>.
-		 * 
+		 *
 		 * @param eclass an EClass
 		 * @return the inherited strategy, or <code>null</code> if none was provided by
 		 *         any extension point
@@ -404,7 +403,7 @@ class TraversalStrategyManager {
 		 * Initializes the traversal strategy implementation declared by the specified
 		 * <code>config</code>uration element. This is only done when the strategy is
 		 * actually needed to perform a validation.
-		 * 
+		 *
 		 * @param config the traversal strategy extension declaration
 		 * @return the traversal strategy declared by the <code>config</code>, or the
 		 *         default eContents recursion strategy if a problem occurred in

@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bug 218765
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
@@ -51,7 +51,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/**
 	 * Initializes me with the operation <code>executor</code> that I use to execute
 	 * provider operations.
-	 * 
+	 *
 	 * @param executor used by me to execute operations (must not be
 	 *                 <code>null</code>)
 	 */
@@ -62,6 +62,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public boolean isIncludeLiveConstraints() {
 		return getOption(OPTION_INCLUDE_LIVE_CONSTRAINTS);
 	}
@@ -69,6 +70,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void setIncludeLiveConstraints(boolean includeLiveConstraints) {
 		if (includeLiveConstraints != isIncludeLiveConstraints()) {
 			setOption(OPTION_INCLUDE_LIVE_CONSTRAINTS, includeLiveConstraints);
@@ -78,6 +80,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public ITraversalStrategy getDefaultTraversalStrategy() {
 		return defaultTraversalStrategy;
 	}
@@ -85,6 +88,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public ITraversalStrategy getTraversalStrategy() {
 		return getOption(OPTION_TRAVERSAL_STRATEGY);
 	}
@@ -92,6 +96,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public void setTraversalStrategy(ITraversalStrategy strategy) {
 		if (strategy == null) {
 			throw new IllegalArgumentException("strategy is null"); //$NON-NLS-1$
@@ -103,6 +108,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public IStatus validate(EObject eObject, IProgressMonitor monitor) {
 		IStatus result;
 
@@ -116,6 +122,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/*
 	 * (non-Javadoc) Implements the inherited method.
 	 */
+	@Override
 	public IStatus validate(Collection<? extends EObject> objects, IProgressMonitor monitor) {
 		IStatus result;
 
@@ -133,7 +140,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	protected Collection<IStatus> doValidate(Collection<? extends EObject> objects,
 			Set<IClientContext> clientContexts) {
 
-		List<IStatus> result = new java.util.ArrayList<IStatus>(64); // anticipate large scale
+		List<IStatus> result = new java.util.ArrayList<>(64); // anticipate large scale
 
 		GetBatchConstraintsOperation operation = new GetBatchConstraintsOperation(!isIncludeLiveConstraints());
 		AbstractValidationContext ctx = operation.getContext();
@@ -147,7 +154,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	/**
 	 * Helper method for validation of any number of objects, using the specified
 	 * <code>traversal</code> strategy.
-	 * 
+	 *
 	 * @param traversal         the traversal strategy to employ
 	 * @param evaluationResults the evaluation results that are being accumulated
 	 *                          recursively
@@ -167,7 +174,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		boolean trackResources = getOption(OPTION_TRACK_RESOURCES);
 
 		if (trackResources) {
-			resources = new java.util.HashSet<Resource>();
+			resources = new java.util.HashSet<>();
 		}
 
 		IProgressMonitor monitor = progressMonitor;
@@ -221,12 +228,12 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 
 	/**
 	 * Helper method for validation of a single object.
-	 * 
+	 *
 	 * @param ctx     the context within which to validate the <code>eObject</code>
 	 * @param eObject the EMF object to validate
 	 * @param the     operation to reuse for getting constraints
 	 * @param results list of {@link IStatus} results of constraint evaluations
-	 * 
+	 *
 	 * @return a summary status of the <code>eObject</code>'s validation
 	 */
 	private IStatus validate(AbstractValidationContext ctx, EObject eObject, GetBatchConstraintsOperation operation,
@@ -255,13 +262,13 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 	 * visited when the {@link IBatchValidator#OPTION_TRACK_RESOURCES} option is
 	 * set. These will cue the {@link MarkerUtil} to clear markers from resources
 	 * that had no problems.
-	 * 
+	 *
 	 * @param resources the resources covered by validation
-	 * 
+	 *
 	 * @return the status
 	 */
 	private IStatus createDummyResourceStatus(Collection<Resource> resources) {
-		List<IStatus> result = new java.util.ArrayList<IStatus>(resources.size());
+		List<IStatus> result = new java.util.ArrayList<>(resources.size());
 
 		for (Resource next : resources) {
 			if (next != null) {
@@ -286,10 +293,11 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public void startTraversal(Collection<? extends EObject> traversalRoots, IProgressMonitor monitor) {
 			current = null;
 			delegates = initDelegates(traversalRoots);
-			monitors = new java.util.HashMap<ITraversalStrategy, IProgressMonitor>();
+			monitors = new java.util.HashMap<>();
 
 			monitor.beginTask("", delegates.size() * 1024); //$NON-NLS-1$
 
@@ -308,6 +316,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public boolean hasNext() {
 			if ((current == null) && (delegateIterator.hasNext())) {
 				current = delegateIterator.next();
@@ -330,6 +339,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public EObject next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
@@ -341,6 +351,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public boolean isClientContextChanged() {
 			if (current != null) {
 				return current.isClientContextChanged();
@@ -352,6 +363,7 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		/*
 		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
+		@Override
 		public void elementValidated(EObject element, IStatus status) {
 			current.elementValidated(element, status);
 		}
@@ -359,14 +371,14 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		private Map<ITraversalStrategy, Collection<EObject>> initDelegates(
 				Collection<? extends EObject> traversalRoots) {
 
-			Map<ITraversalStrategy, Collection<EObject>> result = new java.util.HashMap<ITraversalStrategy, Collection<EObject>>();
+			Map<ITraversalStrategy, Collection<EObject>> result = new java.util.HashMap<>();
 
 			for (EObject next : traversalRoots) {
 				ITraversalStrategy delegate = TraversalStrategyManager.getInstance().getTraversalStrategy(next);
 
 				Collection<EObject> delegateRoots = result.get(delegate);
 				if (delegateRoots == null) {
-					delegateRoots = new java.util.ArrayList<EObject>();
+					delegateRoots = new java.util.ArrayList<>();
 					result.put(delegate, delegateRoots);
 				}
 

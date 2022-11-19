@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.model;
@@ -24,10 +24,10 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * Describes the severity of failure to meet a {@link IModelConstraint
  * constraint}. See the individual value descriptions for details. The values
  * correspond one-to-one with the Eclipse {@link IStatus} severity constants.
- * 
+ *
  * @see IStatus
  * @see IModelConstraint
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public enum ConstraintSeverity implements Enumerator {
@@ -71,7 +71,7 @@ public enum ConstraintSeverity implements Enumerator {
 
 	/**
 	 * Initializes me with my symbolic name and corresponding Eclipse severity code.
-	 * 
+	 *
 	 * @param name            my name
 	 * @param localizedName   my localized name
 	 * @param istatusSeverity the Eclipse status severity code
@@ -85,7 +85,7 @@ public enum ConstraintSeverity implements Enumerator {
 
 	/**
 	 * Obtains the <code>name</code>d instance.
-	 * 
+	 *
 	 * @param name the name to retrieve (not case-sensitive)
 	 * @return the corresponding instance, or {@link #NULL} if no matching instance
 	 *         exists
@@ -105,7 +105,7 @@ public enum ConstraintSeverity implements Enumerator {
 
 	/**
 	 * Obtains all values of the enumeration.
-	 * 
+	 *
 	 * @return all values
 	 */
 	public static final List<ConstraintSeverity> getAllInstances() {
@@ -114,17 +114,18 @@ public enum ConstraintSeverity implements Enumerator {
 
 	/**
 	 * Obtains my symbolic name.
-	 * 
+	 *
 	 * @return my name
 	 * @see #getInstance
 	 */
+	@Override
 	public final String getName() {
 		return name;
 	}
 
 	/**
 	 * Obtains my localized (user-friendly) name.
-	 * 
+	 *
 	 * @return a name suitable for display to the user
 	 * @see #getName
 	 */
@@ -135,7 +136,7 @@ public enum ConstraintSeverity implements Enumerator {
 	/**
 	 * Queries whether I am the <i>Null Object</i> of this enumeration. In general,
 	 * <code>null</code> pointers are never used with this type.
-	 * 
+	 *
 	 * @return whether I am the {@link #NULL} instance
 	 */
 	public boolean isNull() {
@@ -144,7 +145,7 @@ public enum ConstraintSeverity implements Enumerator {
 
 	/**
 	 * Converts me to the Eclipse {@link IStatus} severity code.
-	 * 
+	 *
 	 * @return my corresponding Eclipse severity code
 	 */
 	public int toIStatusSeverity() {
@@ -157,10 +158,12 @@ public enum ConstraintSeverity implements Enumerator {
 		return getName();
 	}
 
+	@Override
 	public int getValue() {
 		return ordinal();
 	}
 
+	@Override
 	public String getLiteral() {
 		return getName();
 	}

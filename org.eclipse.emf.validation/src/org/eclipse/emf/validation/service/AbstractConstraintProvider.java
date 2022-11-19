@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Radek Dvorak (Borland) - Bugzilla 165661
  ****************************************************************************/
 
@@ -50,20 +50,20 @@ import org.eclipse.emf.validation.util.XmlConfig;
  * <p>
  * This class may be subclassed by clients of the validation framework.
  * </p>
- * 
+ *
  * @see AbstractConstraintDescriptor
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractConstraintProvider implements IModelConstraintProvider, IExecutableExtension {
 
 	private String[] namespaceUris;
-	private final List<IModelConstraint> myConstraints = new java.util.ArrayList<IModelConstraint>();
+	private final List<IModelConstraint> myConstraints = new java.util.ArrayList<>();
 
 	/**
 	 * A proxy for a lazily instantiated implementation of the
 	 * {@link IModelConstraint} interface.
-	 * 
+	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class ConstraintProxy implements IModelConstraint {
@@ -73,7 +73,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 		/**
 		 * Initializes me with the descriptor that I can provide with little performance
 		 * cost.
-		 * 
+		 *
 		 * @param descriptor my descriptor
 		 */
 		ConstraintProxy(IConstraintDescriptor descriptor) {
@@ -83,6 +83,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 		/*
 		 * (non-Javadoc) Implements the interface method.
 		 */
+		@Override
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}
@@ -90,6 +91,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 		/**
 		 * Lazily initializes my delegate constraint before invoking it, if necessary.
 		 */
+		@Override
 		public IStatus validate(IValidationContext ctx) {
 			IStatus result;
 
@@ -164,10 +166,10 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	 * framework or a language for which it is not registering a parser should
 	 * override this method to create an appropriate constraint implementation.
 	 * </p>
-	 * 
+	 *
 	 * @param descriptor the descriptor of the constraint to be created
 	 * @return actual constraint implementation
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	protected IModelConstraint createModelConstraint(IConstraintDescriptor descriptor) {
@@ -181,11 +183,11 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	 * This method is to be used by the concrete provider to initialize its
 	 * constraints list if it's the intention to initialize the actual constraints
 	 * lazily.
-	 * 
+	 *
 	 * @param descriptor the descriptor of the constraint for which a proxy is to be
 	 *                   created
 	 * @return a proxy for the actual constraint implementation
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	protected IModelConstraint createModelConstraintProxy(IConstraintDescriptor descriptor) {
@@ -194,9 +196,9 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 
 	/**
 	 * Obtains my constraints.
-	 * 
+	 *
 	 * @return a list of constraints
-	 * 
+	 *
 	 * @since 1.1
 	 */
 	protected List<IModelConstraint> getConstraints() {
@@ -206,7 +208,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	/**
 	 * Obtains the namespace URIs of the EMF packages that I provide constraints
 	 * for.
-	 * 
+	 *
 	 * @return my packages' namespace URIs
 	 */
 	public final String[] getNamespaceUris() {
@@ -215,15 +217,16 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @throws CoreException if the subclass implementation of this method throws on
 	 *                       an error in accessing the <code>config</code> or for
 	 *                       any other reason (see the subclass documentation)
 	 */
+	@Override
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
 			throws CoreException {
 
-		Set<String> uris = new java.util.HashSet<String>();
+		Set<String> uris = new java.util.HashSet<>();
 
 		// backwards compatibility to the namespaceUri attribute
 		String uri = config.getAttribute(XmlConfig.A_NAMESPACE_URI);
@@ -257,6 +260,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	/**
 	 * @since 1.1
 	 */
+	@Override
 	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 			Collection<IModelConstraint> constraints) {
 
@@ -269,7 +273,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList<IModelConstraint>();
+			result = new java.util.ArrayList<>();
 		}
 
 		if (notification.getNotifier() instanceof EObject) {
@@ -294,6 +298,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	/**
 	 * @since 1.1
 	 */
+	@Override
 	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 
 		if (Trace.shouldTraceEntering(EMFModelValidationDebugOptions.PROVIDERS)) {
@@ -303,7 +308,7 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
-			result = new java.util.ArrayList<IModelConstraint>();
+			result = new java.util.ArrayList<>();
 		}
 
 		for (IModelConstraint next : getConstraints()) {
@@ -325,20 +330,20 @@ public abstract class AbstractConstraintProvider implements IModelConstraintProv
 	 * Bulk-registers the specified constraints so that they are accessible to
 	 * applications via the {@link ConstraintRegistry} and are visible in the
 	 * preferences UI.
-	 * 
+	 *
 	 * @param constraints the constraints to register
-	 * 
+	 *
 	 * @throws ConstraintExistsException in case any of the constraints has an ID
 	 *                                   that is already registered for a different
 	 *                                   constraint
-	 * 
+	 *
 	 * @since 1.2
 	 */
 	protected void registerConstraints(Collection<? extends IModelConstraint> constraints)
 			throws ConstraintExistsException {
 
 		if (!constraints.isEmpty()) {
-			List<IConstraintDescriptor> descriptors = new java.util.ArrayList<IConstraintDescriptor>(
+			List<IConstraintDescriptor> descriptors = new java.util.ArrayList<>(
 					constraints.size());
 
 			for (IModelConstraint next : constraints) {

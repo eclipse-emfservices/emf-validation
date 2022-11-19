@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  *    Zeligsoft - Bugs 249690, 137213
  ****************************************************************************/
 package org.eclipse.emf.validation.service;
@@ -35,10 +35,10 @@ import org.eclipse.emf.validation.internal.util.Trace;
  * The Event Type Service is responsible for loading the <tt>eventTypes</tt>
  * Eclipse extension point and creating {@link EMFEventType}s for the event
  * types that have been contributed.
- * 
+ *
  * It provides accessor methods for retrieving {@link INotificationGenerator}s
  * that have been contributed along with the {@link EMFEventType}s.
- * 
+ *
  * @since 1.1
  *
  * @author David Cummings (dcummin)
@@ -57,10 +57,12 @@ public class EventTypeService {
 
 	private final IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
 
+		@Override
 		public void addExtension(IExtensionTracker tracker, IExtension extension) {
 			registerEventTypes(extension.getConfigurationElements());
 		}
 
+		@Override
 		public void removeExtension(IExtension extension, Object[] objects) {
 			// event-types cannot be undefined
 		}
@@ -70,7 +72,7 @@ public class EventTypeService {
 	 * Cannot be instantiated by clients.
 	 */
 	private EventTypeService() {
-		notificationGenerators = new HashMap<String, INotificationGenerator>();
+		notificationGenerators = new HashMap<>();
 
 		configureEventTypes();
 	}
@@ -99,7 +101,7 @@ public class EventTypeService {
 	private void registerEventTypes(IConfigurationElement[] configs) {
 		synchronized (eventTypesLock) {
 			// copy on write
-			notificationGenerators = new java.util.HashMap<String, INotificationGenerator>(notificationGenerators);
+			notificationGenerators = new java.util.HashMap<>(notificationGenerators);
 
 			for (IConfigurationElement element : configs) {
 				if (element.getName().equals("eventType")) { //$NON-NLS-1$
@@ -127,7 +129,7 @@ public class EventTypeService {
 
 	/**
 	 * Obtains the instance of this class.
-	 * 
+	 *
 	 * @return the <em>Singleton</em> instance
 	 */
 	public static EventTypeService getInstance() {
@@ -143,11 +145,11 @@ public class EventTypeService {
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
-	 * 
+	 *
 	 * @param elements
-	 * 
+	 *
 	 * @deprecated 1.2 This method is no longer implemented
-	 * 
+	 *
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	@Deprecated
@@ -157,7 +159,7 @@ public class EventTypeService {
 
 	/**
 	 * Retrieves the available notification generators.
-	 * 
+	 *
 	 * @return collection of notification generators
 	 */
 	public Collection<INotificationGenerator> getNotificationGenerators() {
@@ -169,7 +171,7 @@ public class EventTypeService {
 	/**
 	 * Retrieves the {@link INotificationGenerator} associated with the given event
 	 * name.
-	 * 
+	 *
 	 * @param eventName
 	 * @return notification generator associated with the given event name, null
 	 *         otherwise

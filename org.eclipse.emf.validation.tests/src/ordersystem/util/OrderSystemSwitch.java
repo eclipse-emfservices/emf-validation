@@ -33,14 +33,14 @@ import ordersystem.Warehouse;
  * the actual class of the object and proceeding up the inheritance hierarchy
  * until a non-null result is returned, which is the result of the switch. <!--
  * end-user-doc -->
- * 
+ *
  * @see ordersystem.OrderSystemPackage
  * @generated
  */
 public class OrderSystemSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected static OrderSystemPackage modelPackage;
@@ -48,7 +48,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	/**
 	 * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public OrderSystemSwitch() {
@@ -60,7 +60,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	/**
 	 * Checks whether this is a switch for the given package. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @parameter ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
@@ -74,7 +74,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Calls <code>caseXXX</code> for each class of the model until one returns a
 	 * non null result; it yields that result. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
@@ -153,7 +153,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Order
 	 * System</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Order
 	 *         System</em>'.
@@ -169,7 +169,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * '<em>Customer</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Customer</em>'.
@@ -184,7 +184,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Account</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Account</em>'.
@@ -199,7 +199,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Address</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Address</em>'.
@@ -214,7 +214,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Order</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Order</em>'.
@@ -229,7 +229,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of '<em>Line
 	 * Item</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Line
 	 *         Item</em>'.
@@ -244,7 +244,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * Returns the result of interpreting the object as an instance of
 	 * '<em>Product</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Product</em>'.
@@ -260,7 +260,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * '<em>Warehouse</em>'. <!-- begin-user-doc --> This implementation returns
 	 * null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Warehouse</em>'.
@@ -276,7 +276,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * '<em>Inventory Item</em>'. <!-- begin-user-doc --> This implementation
 	 * returns null; returning a non-null result will terminate the switch. <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>Inventory Item</em>'.
@@ -292,7 +292,7 @@ public class OrderSystemSwitch<T> extends Switch<T> {
 	 * '<em>EObject</em>'. <!-- begin-user-doc --> This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last
 	 * case anyway. <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of
 	 *         '<em>EObject</em>'.

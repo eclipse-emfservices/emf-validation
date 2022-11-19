@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.service;
 
@@ -19,29 +19,29 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
  * Interface describing an {@link IModelConstraintProvider} operation.
- * 
+ *
  * @param <T> the result type of the operation
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public interface IProviderOperation<T extends Collection<? extends IModelConstraint>> {
 	/**
 	 * Obtains the EMF object that is to be validated.
-	 * 
+	 *
 	 * @return the EMF object
 	 */
 	EObject getEObject();
 
 	/**
 	 * Obtains the constraints that I have gathered from the available providers.
-	 * 
+	 *
 	 * @return the constraints
 	 */
 	T getConstraints();
 
 	/**
 	 * Executes me on the specified constraint <code>provider</code>.
-	 * 
+	 *
 	 * @param provider a constraint provider
 	 * @return my {@link #getConstraints constraints collection}
 	 */

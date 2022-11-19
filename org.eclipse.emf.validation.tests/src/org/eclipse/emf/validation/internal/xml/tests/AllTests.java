@@ -15,13 +15,13 @@ import junit.framework.TestSuite;
 
 /**
  * Test suite encapsulating all of the JUnit tests in this package.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public final class AllTests extends TestSuite {
 	/**
 	 * Creates the test suite.
-	 * 
+	 *
 	 * @return the test suite
 	 */
 	public AllTests() {

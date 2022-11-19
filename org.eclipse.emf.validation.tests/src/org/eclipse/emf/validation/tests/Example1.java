@@ -25,7 +25,7 @@ import ordersystem.Warehouse;
 
 /**
  * Utility methods for creating an example Order System model.
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 class Example1 {
@@ -43,7 +43,7 @@ class Example1 {
 	/**
 	 * Creates an example Order System. The example data are populated into the
 	 * supplied <code>orderSystem</code> instance.
-	 * 
+	 *
 	 * @param orderSystem the example order system to be populated
 	 */
 	static void create(OrderSystem orderSystem) {

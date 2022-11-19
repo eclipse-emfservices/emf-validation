@@ -45,7 +45,7 @@ public interface InventoryItem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>In Stock</em>' attribute.
 	 * @see #setInStock(int)
 	 * @see ordersystem.OrderSystemPackage#getInventoryItem_InStock()
@@ -57,7 +57,7 @@ public interface InventoryItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.InventoryItem#getInStock <em>In
 	 * Stock</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>In Stock</em>' attribute.
 	 * @see #getInStock()
 	 * @generated
@@ -72,7 +72,7 @@ public interface InventoryItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Restock Threshold</em>' attribute.
 	 * @see #setRestockThreshold(int)
 	 * @see ordersystem.OrderSystemPackage#getInventoryItem_RestockThreshold()
@@ -85,7 +85,7 @@ public interface InventoryItem extends EObject {
 	 * Sets the value of the '{@link ordersystem.InventoryItem#getRestockThreshold
 	 * <em>Restock Threshold</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Restock Threshold</em>' attribute.
 	 * @see #getRestockThreshold()
 	 * @generated
@@ -100,7 +100,7 @@ public interface InventoryItem extends EObject {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Next Stock Date</em>' attribute.
 	 * @see #setNextStockDate(Date)
 	 * @see ordersystem.OrderSystemPackage#getInventoryItem_NextStockDate()
@@ -113,7 +113,7 @@ public interface InventoryItem extends EObject {
 	 * Sets the value of the '{@link ordersystem.InventoryItem#getNextStockDate
 	 * <em>Next Stock Date</em>}' attribute. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Next Stock Date</em>' attribute.
 	 * @see #getNextStockDate()
 	 * @generated
@@ -129,7 +129,7 @@ public interface InventoryItem extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Warehouse</em>' container reference.
 	 * @see #setWarehouse(Warehouse)
 	 * @see ordersystem.OrderSystemPackage#getInventoryItem_Warehouse()
@@ -143,7 +143,7 @@ public interface InventoryItem extends EObject {
 	 * Sets the value of the '{@link ordersystem.InventoryItem#getWarehouse
 	 * <em>Warehouse</em>}' container reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Warehouse</em>' container reference.
 	 * @see #getWarehouse()
 	 * @generated
@@ -158,7 +158,7 @@ public interface InventoryItem extends EObject {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Product</em>' reference.
 	 * @see #setProduct(Product)
 	 * @see ordersystem.OrderSystemPackage#getInventoryItem_Product()
@@ -170,7 +170,7 @@ public interface InventoryItem extends EObject {
 	/**
 	 * Sets the value of the '{@link ordersystem.InventoryItem#getProduct
 	 * <em>Product</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value the new value of the '<em>Product</em>' reference.
 	 * @see #getProduct()
 	 * @generated

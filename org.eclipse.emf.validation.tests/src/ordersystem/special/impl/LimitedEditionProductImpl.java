@@ -38,7 +38,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	/**
 	 * The default value of the '{@link #getAvailableUntil() <em>Available
 	 * Until</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getAvailableUntil()
 	 * @generated
 	 * @ordered
@@ -48,7 +48,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	/**
 	 * The cached value of the '{@link #getAvailableUntil() <em>Available
 	 * Until</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getAvailableUntil()
 	 * @generated
 	 * @ordered
@@ -57,7 +57,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected LimitedEditionProductImpl() {
@@ -66,7 +66,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -76,18 +76,20 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public Date getAvailableUntil() {
 		return availableUntil;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setAvailableUntil(Date newAvailableUntil) {
 		Date oldAvailableUntil = availableUntil;
 		availableUntil = newAvailableUntil;
@@ -98,7 +100,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -112,7 +114,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -127,7 +129,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -142,7 +144,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -157,7 +159,7 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override

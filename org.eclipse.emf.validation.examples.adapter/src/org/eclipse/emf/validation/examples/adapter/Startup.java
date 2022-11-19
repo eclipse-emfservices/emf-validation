@@ -32,6 +32,7 @@ public class Startup implements IStartup {
 	/**
 	 * Install the validator.
 	 */
+	@Override
 	public void earlyStartup() {
 		EValidator.Registry.INSTANCE.put(EXTLibraryPackage.eINSTANCE, new EValidatorAdapter());
 	}

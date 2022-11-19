@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 public class EventTypeServiceTest extends TestCase {
 	/**
 	 * Constructor for ConstraintRegistryTest.
-	 * 
+	 *
 	 * @param name
 	 */
 	public EventTypeServiceTest(String name) {

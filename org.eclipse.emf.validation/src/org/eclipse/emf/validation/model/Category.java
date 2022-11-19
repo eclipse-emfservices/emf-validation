@@ -7,17 +7,17 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    IBM Corporation - initial API and implementation 
+ *    IBM Corporation - initial API and implementation
  ****************************************************************************/
 
 package org.eclipse.emf.validation.model;
 
+import java.text.Collator;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.text.Collator;
 
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
@@ -35,7 +35,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * <p>
  * This class is intended to be used by clients of the validation framework.
  * </p>
- * 
+ *
  * @author Christian W. Damus (cdamus)
  */
 public class Category implements Comparable<Category> {
@@ -67,13 +67,13 @@ public class Category implements Comparable<Category> {
 	private boolean mandatory;
 
 	private final Category parent;
-	private final Map<String, Category> children = new java.util.HashMap<String, Category>();
+	private final Map<String, Category> children = new java.util.HashMap<>();
 
-	private final Set<IConstraintDescriptor> constraints = new java.util.HashSet<IConstraintDescriptor>();
+	private final Set<IConstraintDescriptor> constraints = new java.util.HashSet<>();
 
 	/**
 	 * Initializes me with my ID and parent category.
-	 * 
+	 *
 	 * @param id     my ID (must not be <code>null</code>)
 	 * @param parent my parent category, or <code>null</code> if none (which should
 	 *               only be the case for the {@link #GLOBAL_NAMESPACE}
@@ -94,7 +94,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Obtains my ID, which is unique within my parent's ID (or just unique within
 	 * the global namespace if I have no parent).
-	 * 
+	 *
 	 * @return my ID
 	 */
 	public final String getId() {
@@ -104,7 +104,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Obtains my path, which is my fully-qualified slash-separated ID that is
 	 * unique within the global namespace.
-	 * 
+	 *
 	 * @return my unique path
 	 */
 	public final String getPath() {
@@ -121,7 +121,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Obtains my user-presentable name.
-	 * 
+	 *
 	 * @return my name
 	 */
 	public final String getName() {
@@ -131,7 +131,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Obtains my qualified name, which includes my ancestors' names separated by
 	 * slashes.
-	 * 
+	 *
 	 * @return my qualified name
 	 */
 	public final String getQualifiedName() {
@@ -148,7 +148,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Obtains a string which (briefly) describes my purpose to the user.
-	 * 
+	 *
 	 * @return my description
 	 */
 	public String getDescription() {
@@ -157,7 +157,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Obtains my constraints.
-	 * 
+	 *
 	 * @return the {@link IConstraintDescriptor}s that are members of me as an
 	 *         unmodifiable set
 	 */
@@ -167,7 +167,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Adds a constraint to me.
-	 * 
+	 *
 	 * @param constraint my constraint
 	 */
 	public void addConstraint(IConstraintDescriptor constraint) {
@@ -179,7 +179,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Removes a constraint from me.
-	 * 
+	 *
 	 * @param constraint a constraint
 	 */
 	public void removeConstraint(IConstraintDescriptor constraint) {
@@ -192,7 +192,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Obtains my parent category, or <code>null</code> if I am a top-level
 	 * category.
-	 * 
+	 *
 	 * @return my parent, if I have one
 	 */
 	public Category getParent() {
@@ -208,7 +208,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Gets my real parent (which may be the {@link #GLOBAL_NAMESPACE} if I am a
 	 * top-level category.
-	 * 
+	 *
 	 * @return my real parent
 	 */
 	private Category getParentInternal() {
@@ -217,18 +217,18 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Obtains my children.
-	 * 
+	 *
 	 * @return an unmodifiable set of the {@link Category}s that are my children,
 	 *         sorted by {@link #getName name}. May be an empty set
 	 */
 	public SortedSet<Category> getChildren() {
-		return Collections.unmodifiableSortedSet(new java.util.TreeSet<Category>(children.values()));
+		return Collections.unmodifiableSortedSet(new java.util.TreeSet<>(children.values()));
 	}
 
 	/**
 	 * Obtains the child category of mine that has the specified
 	 * <code>childId</code>.
-	 * 
+	 *
 	 * @param childId the ID to find
 	 * @return the matching category, or <code>null</code> if not found
 	 */
@@ -239,10 +239,10 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Obtains the descendent category of mine that has the specified
 	 * <code>descendentPath</code> relative to my path.
-	 * 
+	 *
 	 * @param descendentPath the relative path to find
 	 * @return the matching category, or <code>null</code> if not found
-	 * 
+	 *
 	 * @see #getPath
 	 */
 	public Category getDescendent(String descendentPath) {
@@ -253,7 +253,7 @@ public class Category implements Comparable<Category> {
 	 * Obtains my descendent category having the specified
 	 * <code>descendentPath</code> relative to me. It will be <code>create</code>d,
 	 * if desired by the caller, if it does not already exist.
-	 * 
+	 *
 	 * @param descendentPath the relative path of my descendent
 	 * @param create         whether to create it if it does not exist
 	 * @return the descendent, or <code>null</code> if it was not found and
@@ -292,7 +292,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Sets my localized name.
-	 * 
+	 *
 	 * @param name my name (may not be <code>null</code>)
 	 */
 	public final void setName(String name) {
@@ -304,7 +304,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Sets my localized description.
-	 * 
+	 *
 	 * @param description my description
 	 */
 	public void setDescription(String description) {
@@ -313,7 +313,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Queries whether I am a mandatory category, which the user may not deselect.
-	 * 
+	 *
 	 * @return whether I am mandatory
 	 */
 	public boolean isMandatory() {
@@ -323,7 +323,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Sets whether I am mandatory. If I am mandatory, then I change my state to
 	 * enabled if it wasn't already.
-	 * 
+	 *
 	 * @param b whether I am mandatory
 	 */
 	public void setMandatory(boolean b) {
@@ -333,7 +333,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Adds the specified <code>child</code> category to me. Note that this must
 	 * only be called from the constructor of <code>child</code>.
-	 * 
+	 *
 	 * @param child my new child category
 	 */
 	private void addChild(Category child) {
@@ -349,7 +349,7 @@ public class Category implements Comparable<Category> {
 
 	/**
 	 * Removes the child having the specified ID from me.
-	 * 
+	 *
 	 * @param childId the ID of the child category to be removed
 	 */
 	void removeChild(String childId) {
@@ -377,6 +377,7 @@ public class Category implements Comparable<Category> {
 	}
 
 	// implements the interface method
+	@Override
 	public int compareTo(Category other) {
 		Collator aCollator = getCollator();
 
@@ -408,7 +409,7 @@ public class Category implements Comparable<Category> {
 	/**
 	 * Fills the specified <code>collection</code> with the categories that are
 	 * mandatory in my sub-tree.
-	 * 
+	 *
 	 * @param collection the collection of mandatory categories to which I append
 	 */
 	void getMandatoryCategories(Collection<? super Category> collection) {

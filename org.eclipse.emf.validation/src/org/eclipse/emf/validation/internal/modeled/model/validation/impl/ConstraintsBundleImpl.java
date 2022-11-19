@@ -7,7 +7,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *    SAP AG - initial API and implementation 
+ *    SAP AG - initial API and implementation
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation.impl;
 
@@ -55,7 +55,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * The cached value of the '{@link #getProviders() <em>Providers</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getProviders()
 	 * @generated
 	 * @ordered
@@ -65,7 +65,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * The cached value of the '{@link #getCategories() <em>Categories</em>}'
 	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getCategories()
 	 * @generated
 	 * @ordered
@@ -76,7 +76,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	 * The cached value of the '{@link #getConstraintBindingsBundles()
 	 * <em>Constraint Bindings Bundles</em>}' containment reference list. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getConstraintBindingsBundles()
 	 * @generated
 	 * @ordered
@@ -86,7 +86,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * The cached value of the '{@link #getParsers() <em>Parsers</em>}' containment
 	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getParsers()
 	 * @generated
 	 * @ordered
@@ -96,7 +96,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * The default value of the '{@link #getMessageBundlePath() <em>Message Bundle
 	 * Path</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMessageBundlePath()
 	 * @generated
 	 * @ordered
@@ -106,7 +106,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * The cached value of the '{@link #getMessageBundlePath() <em>Message Bundle
 	 * Path</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #getMessageBundlePath()
 	 * @generated
 	 * @ordered
@@ -116,7 +116,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 	/**
 	 * This is true if the Message Bundle Path attribute has been set. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 * @ordered
 	 */
@@ -124,7 +124,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	protected ConstraintsBundleImpl() {
@@ -133,7 +133,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -143,12 +143,13 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<ConstraintProvider> getProviders() {
 		if (providers == null) {
-			providers = new EObjectContainmentEList<ConstraintProvider>(ConstraintProvider.class, this,
+			providers = new EObjectContainmentEList<>(ConstraintProvider.class, this,
 					ValidationPackage.CONSTRAINTS_BUNDLE__PROVIDERS);
 		}
 		return providers;
@@ -156,12 +157,13 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Category> getCategories() {
 		if (categories == null) {
-			categories = new EObjectContainmentEList<Category>(Category.class, this,
+			categories = new EObjectContainmentEList<>(Category.class, this,
 					ValidationPackage.CONSTRAINTS_BUNDLE__CATEGORIES);
 		}
 		return categories;
@@ -169,12 +171,13 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<ConstraintBindingsBundle> getConstraintBindingsBundles() {
 		if (constraintBindingsBundles == null) {
-			constraintBindingsBundles = new EObjectContainmentEList<ConstraintBindingsBundle>(
+			constraintBindingsBundles = new EObjectContainmentEList<>(
 					ConstraintBindingsBundle.class, this,
 					ValidationPackage.CONSTRAINTS_BUNDLE__CONSTRAINT_BINDINGS_BUNDLES);
 		}
@@ -183,12 +186,13 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public EList<Parser> getParsers() {
 		if (parsers == null) {
-			parsers = new EObjectContainmentEList<Parser>(Parser.class, this,
+			parsers = new EObjectContainmentEList<>(Parser.class, this,
 					ValidationPackage.CONSTRAINTS_BUNDLE__PARSERS);
 		}
 		return parsers;
@@ -196,18 +200,20 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public String getMessageBundlePath() {
 		return messageBundlePath;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void setMessageBundlePath(String newMessageBundlePath) {
 		String oldMessageBundlePath = messageBundlePath;
 		messageBundlePath = newMessageBundlePath;
@@ -221,9 +227,10 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public void unsetMessageBundlePath() {
 		String oldMessageBundlePath = messageBundlePath;
 		boolean oldMessageBundlePathESet = messageBundlePathESet;
@@ -237,16 +244,17 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMessageBundlePath() {
 		return messageBundlePathESet;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -266,7 +274,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -288,7 +296,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -320,7 +328,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -347,7 +355,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -369,7 +377,7 @@ public class ConstraintsBundleImpl extends EObjectImpl implements ConstraintsBun
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
