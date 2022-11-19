@@ -114,7 +114,7 @@
 					</execution>
 					<execution>
 						<id>replace-back-build-token</id>
-						<phase>install</phase>
+						<phase>package</phase>
 						<configuration>
 							<target>
 								<taskdef
