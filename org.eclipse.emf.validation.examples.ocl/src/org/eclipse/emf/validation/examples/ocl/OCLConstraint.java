@@ -27,20 +27,19 @@ import org.eclipse.ocl.ecore.OCL;
  */
 class OCLConstraint extends AbstractOCLModelConstraint<EClassifier, Constraint, EClass, EObject> {
 	private final OCL.Query query;
-	
+
 	OCLConstraint(OCLConstraintDescriptor desc, OCL ocl) {
 		super(desc);
-		
+
 		this.query = ocl.createQuery(desc.getConstraint());
 	}
-	
+
 	// override this method to indicate that we are doing new-style OCL
 	@Override
-	protected EnvironmentFactory<?, EClassifier, ?, ?, ?, ?, ?, ?, ?, Constraint, EClass, EObject>
-	createOCLEnvironmentFactory() {
+	protected EnvironmentFactory<?, EClassifier, ?, ?, ?, ?, ?, ?, ?, Constraint, EClass, EObject> createOCLEnvironmentFactory() {
 		return query.getOCL().getEnvironment().getFactory();
 	}
-	
+
 	@Override
 	public Query<EClassifier, EClass, EObject> getConstraintCondition(EObject target) {
 		return query;

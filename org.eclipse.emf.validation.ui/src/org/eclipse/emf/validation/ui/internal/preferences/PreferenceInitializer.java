@@ -15,14 +15,12 @@ import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 
-
 /**
  * Default preferences initializer for the Validation UI plug-in.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class PreferenceInitializer
-	extends AbstractPreferenceInitializer {
+public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 	/**
 	 * Initializes me.
@@ -31,17 +29,18 @@ public class PreferenceInitializer
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	@Override
-    public void initializeDefaultPreferences() {
+	public void initializeDefaultPreferences() {
 		Preferences prefs = ValidationUIPlugin.getPlugin().getPluginPreferences();
-		
-		//validation preference defaults
-        prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY, ValidationLiveProblemsDestination.DIALOG.getName());
-        prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG, true);
-        prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE, false);
+
+		// validation preference defaults
+		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY,
+				ValidationLiveProblemsDestination.DIALOG.getName());
+		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG, true);
+		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE, false);
 	}
 
 }

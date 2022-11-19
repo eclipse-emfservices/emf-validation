@@ -30,27 +30,28 @@ import junit.framework.TestCase;
  * Indirect tests for the {@code TraversalStrategyManager} class.
  */
 public class TraversalStrategyManagerTest extends TestCase {
-	
+
 	public TraversalStrategyManagerTest(String name) {
 		super(name);
 	}
 
 	/**
-	 * Test that the TraversalStrategyManager does not leak EPackages loaded locally in a ResourceSet.
+	 * Test that the TraversalStrategyManager does not leak EPackages loaded locally
+	 * in a ResourceSet.
 	 * 
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=433050
 	 */
 	public void testTraversalStrategyManagerDoesNotLeakDynamicEPackages() {
 		ResourceSet rset = new ResourceSetImpl();
-		
+
 		// Track a phantom reference to the package that should not leak
 		ReferenceQueue<EPackage> queue = new ReferenceQueue<EPackage>();
 		EObject thing = loadThing(rset);
 		final Reference<?> ref = new PhantomReference<EPackage>(thing.eClass().getEPackage(), queue);
-		
+
 		// Validate (which triggers the TraversalStrategyManager)
 		ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH).validate(thing);
-		
+
 		// Unload everything
 		for (Resource next : rset.getResources()) {
 			next.unload();
@@ -58,30 +59,31 @@ public class TraversalStrategyManagerTest extends TestCase {
 		rset.getResources().clear();
 		thing = null;
 		rset = null;
-		
+
 		// Verify that the package has not leaked
 		Reference<?> cleared = null;
-		
+
 		for (int i = 0; (cleared == null) && (i < 5); i++) {
 			// Try to suggest garbage collection
 			System.gc();
-			
+
 			try {
 				cleared = queue.remove(1000);
 			} catch (Exception e) {
 				// try again
 			}
 		}
-		
+
 		assertSame(ref, cleared);
 	}
-	
+
 	//
 	// Test framework
 	//
-	
+
 	EObject loadThing(ResourceSet rset) {
-		Resource res = rset.getResource(URI.createPlatformPluginURI("org.eclipse.emf.validation.tests/model/thing.xmi", true), true);
+		Resource res = rset.getResource(
+				URI.createPlatformPluginURI("org.eclipse.emf.validation.tests/model/thing.xmi", true), true);
 		return res.getContents().get(0);
 	}
 }

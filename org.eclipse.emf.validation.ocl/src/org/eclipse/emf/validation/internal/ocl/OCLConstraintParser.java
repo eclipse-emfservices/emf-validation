@@ -38,11 +38,10 @@ import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
  * @author Christian W. Damus (cdamus)
  */
 @SuppressWarnings("deprecation")
-public class OCLConstraintParser
-		implements IParameterizedConstraintParser, IXmlConstraintParser {
-	
+public class OCLConstraintParser implements IParameterizedConstraintParser, IXmlConstraintParser {
+
 	/**
-	 * Initializes me. 
+	 * Initializes me.
 	 */
 	public OCLConstraintParser() {
 		super();
@@ -52,26 +51,26 @@ public class OCLConstraintParser
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor desc) {
 		return new EcoreOCLConstraint(desc);
 	}
-	
+
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
-        return new EcoreOCLConstraint(descriptor);
+		return new EcoreOCLConstraint(descriptor);
 	}
-    
-    /**
-     * A concrete implementation of OCL constraints for the Ecore metamodel.
-     *
-     * @author Christian W. Damus (cdamus)
-     */
-    private static class EcoreOCLConstraint
-            extends AbstractOCLModelConstraint<EClassifier, Constraint, EClass, EObject> {
-        
-        EcoreOCLConstraint(IConstraintDescriptor descriptor) {
-            super(descriptor);
-        }
-        
-        @Override
-        protected EcoreEnvironmentFactory createOCLEnvironmentFactory() {
-            return EcoreEnvironmentFactory.INSTANCE;
-        }
-    }
+
+	/**
+	 * A concrete implementation of OCL constraints for the Ecore metamodel.
+	 *
+	 * @author Christian W. Damus (cdamus)
+	 */
+	private static class EcoreOCLConstraint
+			extends AbstractOCLModelConstraint<EClassifier, Constraint, EClass, EObject> {
+
+		EcoreOCLConstraint(IConstraintDescriptor descriptor) {
+			super(descriptor);
+		}
+
+		@Override
+		protected EcoreEnvironmentFactory createOCLEnvironmentFactory() {
+			return EcoreEnvironmentFactory.INSTANCE;
+		}
+	}
 }

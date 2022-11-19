@@ -24,14 +24,15 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStr
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Traversal Strategy</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Traversal Strategy</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl#getClass_ <em>Class</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl#getPackage <em>Package</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl#getClass_
+ * <em>Class</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TraversalStrategyImpl#getPackage
+ * <em>Package</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,8 +42,8 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
 public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrategy {
 	/**
 	 * The default value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getClass_()
 	 * @generated
 	 * @ordered
@@ -50,9 +51,9 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	protected static final String CLASS_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getClass_() <em>Class</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getClass_()
 	 * @generated
 	 * @ordered
@@ -60,9 +61,9 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	protected String class_ = CLASS_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPackage() <em>Package</em>}' reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPackage()
 	 * @generated
 	 * @ordered
@@ -70,8 +71,8 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	protected EList<EPackage> package_;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TraversalStrategyImpl() {
@@ -79,8 +80,8 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -89,8 +90,8 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getClass_() {
@@ -98,107 +99,110 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setClass(String newClass) {
 		String oldClass = class_;
 		class_ = newClass;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ValidationPackage.TRAVERSAL_STRATEGY__CLASS, oldClass, class_));
+			eNotify(new ENotificationImpl(this, Notification.SET, ValidationPackage.TRAVERSAL_STRATEGY__CLASS, oldClass,
+					class_));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<EPackage> getPackage() {
 		if (package_ == null) {
-			package_ = new EObjectResolvingEList<EPackage>(EPackage.class, this, ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE);
+			package_ = new EObjectResolvingEList<EPackage>(EPackage.class, this,
+					ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE);
 		}
 		return package_;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
-				return getClass_();
-			case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
-				return getPackage();
+		case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
+			return getClass_();
+		case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
+			return getPackage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
-				setClass((String)newValue);
-				return;
-			case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
-				getPackage().clear();
-				getPackage().addAll((Collection<? extends EPackage>)newValue);
-				return;
+		case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
+			setClass((String) newValue);
+			return;
+		case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
+			getPackage().clear();
+			getPackage().addAll((Collection<? extends EPackage>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
-				setClass(CLASS_EDEFAULT);
-				return;
-			case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
-				getPackage().clear();
-				return;
+		case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
+			setClass(CLASS_EDEFAULT);
+			return;
+		case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
+			getPackage().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
-				return CLASS_EDEFAULT == null ? class_ != null : !CLASS_EDEFAULT.equals(class_);
-			case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
-				return package_ != null && !package_.isEmpty();
+		case ValidationPackage.TRAVERSAL_STRATEGY__CLASS:
+			return CLASS_EDEFAULT == null ? class_ != null : !CLASS_EDEFAULT.equals(class_);
+		case ValidationPackage.TRAVERSAL_STRATEGY__PACKAGE:
+			return package_ != null && !package_.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (class: ");
@@ -207,4 +211,4 @@ public class TraversalStrategyImpl extends EObjectImpl implements TraversalStrat
 		return result.toString();
 	}
 
-} //TraversalStrategyImpl
+} // TraversalStrategyImpl

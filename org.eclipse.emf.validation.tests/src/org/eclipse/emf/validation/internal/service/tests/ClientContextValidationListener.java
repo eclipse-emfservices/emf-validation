@@ -16,7 +16,7 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 
 public class ClientContextValidationListener implements IValidationListener {
 	public static boolean LISTENER_CALLED = false;
-	
+
 	public void validationOccurred(ValidationEvent event) {
 		LISTENER_CALLED = true;
 	}

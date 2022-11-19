@@ -28,42 +28,39 @@ import junit.framework.TestCase;
  */
 public class ConstraintFactoryTest extends TestCase {
 	private final ConstraintFactory factory = ConstraintFactory.getInstance();
-	
+
 	public void test_getInstance() {
 		assertSame(factory, ConstraintFactory.getInstance());
 	}
 
 	public void test_newConstraint() {
 		@SuppressWarnings("deprecation")
-		IModelConstraint constraint = factory.newConstraint(
-				ConstraintDescriptorTest.getFixture());
-		
+		IModelConstraint constraint = factory.newConstraint(ConstraintDescriptorTest.getFixture());
+
 		assertNotNull(constraint);
-		assertSame(
-				ConstraintDescriptorTest.getFixture(),
-				constraint.getDescriptor());
+		assertSame(ConstraintDescriptorTest.getFixture(), constraint.getDescriptor());
 	}
-	
+
 	public void test_newConstraint_disabledConstraint() {
-		ConstraintDescriptorTest.FixtureElement element =
-			new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_CONSTRAINT);
-		
+		ConstraintDescriptorTest.FixtureElement element = new ConstraintDescriptorTest.FixtureElement(
+				XmlConfig.E_CONSTRAINT);
+
 		// non "class" attribute specified
 		element.putAttribute(XmlConfig.A_ID, "junit.validation.util.foo"); //$NON-NLS-1$
 		element.putAttribute(XmlConfig.A_NAME, "foo"); //$NON-NLS-1$
 		element.putAttribute(XmlConfig.A_LANG, "Java"); //$NON-NLS-1$
-		
-		ConstraintDescriptorTest.FixtureElement message =
-			new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_MESSAGE);
-		
+
+		ConstraintDescriptorTest.FixtureElement message = new ConstraintDescriptorTest.FixtureElement(
+				XmlConfig.E_MESSAGE);
+
 		message.setValue("Nothing."); //$NON-NLS-1$
-		
+
 		try {
 			XmlConstraintDescriptor desc = new XmlConstraintDescriptor(element);
-			
+
 			@SuppressWarnings("deprecation")
 			IModelConstraint constraint = factory.newConstraint(desc);
-			
+
 			assertFalse(desc.isEnabled());
 			assertTrue(desc.isError());
 			assertTrue(constraint instanceof DisabledConstraint);

@@ -17,8 +17,7 @@ package org.eclipse.emf.validation.xml;
  * </p>
  * <p>
  * This class is not intended to be used by implementors of the
- * {@link org.eclipse.emf.validation.xml.IXmlConstraintParser}
- * interface.
+ * {@link org.eclipse.emf.validation.xml.IXmlConstraintParser} interface.
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
@@ -39,7 +38,7 @@ public class ConstraintParserException extends Exception {
 	 * Initializes me with a user-friendly message and a root cause.
 	 * 
 	 * @param message the user-friendly message
-	 * @param cause the original exception which caused parsing to fail
+	 * @param cause   the original exception which caused parsing to fail
 	 */
 	public ConstraintParserException(String message, Throwable cause) {
 		super(message, cause);

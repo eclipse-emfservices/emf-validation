@@ -14,9 +14,8 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Ocl Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Ocl
+ * Constraint</b></em>'. <!-- end-user-doc -->
  *
  *
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getOclConstraint()

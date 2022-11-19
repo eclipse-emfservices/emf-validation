@@ -36,8 +36,7 @@ import junit.framework.TestSuite;
  * @author Christian W. Damus (cdamus)
  */
 @SuppressWarnings("nls")
-public class ClientContextTest
-		extends TestCase {
+public class ClientContextTest extends TestCase {
 
 	private IModelConstraint constraint1_1;
 
@@ -64,8 +63,7 @@ public class ClientContextTest
 	/**
 	 * Initialize me with my name.
 	 * 
-	 * @param name
-	 *            my name
+	 * @param name my name
 	 */
 	public ClientContextTest(String name) {
 		super(name);
@@ -101,28 +99,28 @@ public class ClientContextTest
 	}
 
 	/**
-	 * Tests that the determination of client-contexts matching an object does
-	 * not include any that are extended by other matching contexts.
+	 * Tests that the determination of client-contexts matching an object does not
+	 * include any that are extended by other matching contexts.
 	 */
 	public void test_multipleMatchingContextsWithExclusions() {
 		Collection<IClientContext> contexts;
 
 		System.setProperty("BOGUS_SYSTEM_PROPERTY", "1");
 		try {
-			contexts = ClientContextManager.getInstance().getClientContextsFor(
-				EcoreFactory.eINSTANCE.createEAnnotation());
+			contexts = ClientContextManager.getInstance()
+					.getClientContextsFor(EcoreFactory.eINSTANCE.createEAnnotation());
 		} finally {
 			System.clearProperty("BOGUS_SYSTEM_PROPERTY");
 		}
 
 		boolean extenderFound = false;
 		boolean extendedFound = false;
-		
+
 		for (IClientContext next : contexts) {
 			extenderFound |= "org.eclipse.emf.validation.tests.testcontext".equals(next.getId());
 			extendedFound |= "org.eclipse.emf.validation.tests.testContextToExtend".equals(next.getId());
 		}
-		
+
 		assertTrue("Extending context not matched", extenderFound);
 		assertFalse("Extended context was matched", extendedFound);
 	}
@@ -132,20 +130,18 @@ public class ClientContextTest
 	//
 
 	@Override
-	protected void setUp()
-			throws Exception {
+	protected void setUp() throws Exception {
 
 		super.setUp();
 
-		fixture = ClientContextManager.getInstance().getClientContext(
-			"org.eclipse.emf.validation.tests.testcontext");
+		fixture = ClientContextManager.getInstance().getClientContext("org.eclipse.emf.validation.tests.testcontext");
 
 		final String prefix = "org.eclipse.emf.validation.tests.clientContext.";
 		final ConstraintRegistry reg = ConstraintRegistry.getInstance();
 
 		// cause our test constraints to be created
 		ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH)
-			.validate(EcoreFactory.eINSTANCE.createEAnnotation());
+				.validate(EcoreFactory.eINSTANCE.createEAnnotation());
 
 		constraint1_1 = new TestConstraint(reg.getDescriptor(prefix + "1.1"));
 		constraint1_2 = new TestConstraint(reg.getDescriptor(prefix + "1.2"));
@@ -159,8 +155,7 @@ public class ClientContextTest
 		constraint3a_2 = new TestConstraint(reg.getDescriptor(prefix + "3a.2"));
 	}
 
-	private static final class TestConstraint
-			implements IModelConstraint {
+	private static final class TestConstraint implements IModelConstraint {
 
 		private IConstraintDescriptor desc;
 

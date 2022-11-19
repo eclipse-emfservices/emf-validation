@@ -17,72 +17,69 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 
-
 /**
  * An enumeration of destinations for display of live validation problems.
  *
  * @author Christian W. Damus (cdamus)
  */
 public enum ValidationLiveProblemsDestination implements Enumerator {
-    DIALOG("Dialog"), //$NON-NLS-1$
-    CONSOLE("Console"); //$NON-NLS-1$
+	DIALOG("Dialog"), //$NON-NLS-1$
+	CONSOLE("Console"); //$NON-NLS-1$
 
-    private String name;
+	private String name;
 
-    /**
-     * The list of values for this enumerated type.
-     */
-    private static final ValidationLiveProblemsDestination[] VALUES =
-        { DIALOG, CONSOLE };
+	/**
+	 * The list of values for this enumerated type.
+	 */
+	private static final ValidationLiveProblemsDestination[] VALUES = { DIALOG, CONSOLE };
 
-    /**
-     * Gets the preference setting for live validation problems destination.
-     * 
-     * @return the preference setting
-     */
-    public static ValidationLiveProblemsDestination getPreferenceSetting() {
-        String name =
-            ValidationUIPlugin.getPlugin().getPluginPreferences().getString(
-                 IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY);
+	/**
+	 * Gets the preference setting for live validation problems destination.
+	 * 
+	 * @return the preference setting
+	 */
+	public static ValidationLiveProblemsDestination getPreferenceSetting() {
+		String name = ValidationUIPlugin.getPlugin().getPluginPreferences()
+				.getString(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY);
 
-        if (name.equals(DIALOG.getName())) {
-        	return DIALOG;
-        }
-        
-        return CONSOLE;
-    }
+		if (name.equals(DIALOG.getName())) {
+			return DIALOG;
+		}
 
-    /**
-     * Constructor for ValidationLiveProblemsDestination.
-     * 
-     * @param name The name for the ValidationLiveProblemsDestination type
-     */
-    private ValidationLiveProblemsDestination(String name) {
-        this.name = name;
-    }
+		return CONSOLE;
+	}
 
-    /**
-     * Retrieves the list of constants for this enumerated type.
-     * 
-     * @return The list of constants for this enumerated type.
-     */
-    protected List<ValidationLiveProblemsDestination> getValues() {
-        return Arrays.asList(VALUES);
-    }
-    
-    public int getOrdinal() {
-    	return getValue();
-    }
-    
-    public String getName() {
-    	return name;
-    }
-    
-    public int getValue() {
-    	return ordinal();
-    }
-    
-    public String getLiteral() {
-    	return getName();
-    }
+	/**
+	 * Constructor for ValidationLiveProblemsDestination.
+	 * 
+	 * @param name The name for the ValidationLiveProblemsDestination type
+	 */
+	private ValidationLiveProblemsDestination(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Retrieves the list of constants for this enumerated type.
+	 * 
+	 * @return The list of constants for this enumerated type.
+	 */
+	protected List<ValidationLiveProblemsDestination> getValues() {
+		return Arrays.asList(VALUES);
+	}
+
+	public int getOrdinal() {
+		return getValue();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getValue() {
+		return ordinal();
+	}
+
+	public String getLiteral() {
+		return getName();
+	}
 }

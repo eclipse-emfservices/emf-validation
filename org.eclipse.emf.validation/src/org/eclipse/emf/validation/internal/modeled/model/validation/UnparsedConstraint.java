@@ -11,16 +11,15 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.modeled.model.validation;
 
-
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Unparsed Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Unparsed
+ * Constraint</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody <em>Body</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody
+ * <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,13 +30,14 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
  */
 public interface UnparsedConstraint extends Constraint {
 	/**
-	 * Returns the value of the '<em><b>Body</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Body</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Body</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Body</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Body</em>' attribute.
 	 * @see #setBody(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getUnparsedConstraint_Body()
@@ -47,9 +47,10 @@ public interface UnparsedConstraint extends Constraint {
 	String getBody();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody <em>Body</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint#getBody
+	 * <em>Body</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Body</em>' attribute.
 	 * @see #getBody()
 	 * @generated

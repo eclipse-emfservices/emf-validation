@@ -29,25 +29,25 @@ class OCLConstraintDescriptor extends AbstractConstraintDescriptor {
 	private final String name;
 	private final String namespace;
 	private final int code;
-	
+
 	public OCLConstraintDescriptor(String namespace, Constraint constraint, int code) {
 		this.constraint = constraint;
-		
+
 		String name = constraint.getName();
 		if (name == null) {
 			name = Long.toHexString(System.identityHashCode(constraint));
 		}
-		
+
 		id = namespace + '.' + name;
 		this.name = name;
 		this.namespace = namespace;
 		this.code = code;
 	}
-	
+
 	final Constraint getConstraint() {
 		return constraint;
 	}
-	
+
 	public String getBody() {
 		return constraint.getSpecification().getBodyExpression().toString();
 	}
@@ -89,8 +89,7 @@ class OCLConstraintDescriptor extends AbstractConstraintDescriptor {
 	}
 
 	public boolean targetsTypeOf(EObject eObject) {
-		return constraint.getSpecification().getContextVariable().getType()
-				.isInstance(eObject);
+		return constraint.getSpecification().getContextVariable().getType().isInstance(eObject);
 	}
 
 }

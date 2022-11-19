@@ -63,85 +63,99 @@ import org.osgi.framework.Bundle;
  *
  */
 public class ModeledConstraintsLoader {
-	
-	private	Set<URI>	loadedConstraintProviders;
-	
+
+	private Set<URI> loadedConstraintProviders;
+
 	private final static ModeledConstraintsLoader instance = new ModeledConstraintsLoader();
-	
+
 	public static ModeledConstraintsLoader getInstance() {
 		return instance;
 	}
-	
+
 	private ModeledConstraintsLoader() {
 		loadedConstraintProviders = new HashSet<URI>();
 	}
-	
+
 	/**
 	 * <p>
 	 * Loads constraint bundles into the validation system.
 	 * </p>
 	 * <p>
-	 * This method is provided to support the standalone use case. For loading bundles 
-	 * in a running platform use either {@link ModeledConstraintsLoader#loadConstraintBundles(ResourceSet, URI, ModelValidationService, Bundle)} or
-	 * use the modeledConstraintProviders extension point.
+	 * This method is provided to support the standalone use case. For loading
+	 * bundles in a running platform use either
+	 * {@link ModeledConstraintsLoader#loadConstraintBundles(ResourceSet, URI, ModelValidationService, Bundle)}
+	 * or use the modeledConstraintProviders extension point.
 	 * </p>
-	 * @param rs optional resource set to be used for resource loading. if this argument is null, a resource set will be created.
-	 * @param uri URI of the resource containing the modeled constraints.
+	 * 
+	 * @param rs                optional resource set to be used for resource
+	 *                          loading. if this argument is null, a resource set
+	 *                          will be created.
+	 * @param uri               URI of the resource containing the modeled
+	 *                          constraints.
 	 * @param validationService {@link ModelValidationService} to be used.
-	 * @param resourceLocator {@link ResourceLocator} for locating message bundles.
+	 * @param resourceLocator   {@link ResourceLocator} for locating message
+	 *                          bundles.
 	 */
-	public void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService, ResourceLocator resourceLocator) {
+	public void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService,
+			ResourceLocator resourceLocator) {
 		loadConstraintBundles(rs, uri, validationService, new ClassProvider.ClassLoaderProvider(resourceLocator));
 	}
-	
+
 	/**
 	 * <p>
 	 * Loads constraint bundles into the validation system.
 	 * </p>
-	 * @param rs optional resource set to be used for resource loading. if this argument is null, a resource set will be created.
-	 * @param uri URI of the resource containing the modeled constraints.
+	 * 
+	 * @param rs                optional resource set to be used for resource
+	 *                          loading. if this argument is null, a resource set
+	 *                          will be created.
+	 * @param uri               URI of the resource containing the modeled
+	 *                          constraints.
 	 * @param validationService {@link ModelValidationService} to be used.
-	 * @param bundle {@link Bundle} for locating internationalization messages.
+	 * @param bundle            {@link Bundle} for locating internationalization
+	 *                          messages.
 	 */
-	public void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService, Bundle bundle) {
+	public void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService,
+			Bundle bundle) {
 		loadConstraintBundles(rs, uri, validationService, new ClassProvider.BundleProvider(bundle));
 	}
-	
+
 	/**
 	 * Loads constraint categories into the validation system.
 	 * 
-	 * @param rs rs optional resource set to be used for resource loading.
-	 * @param uri URI of the resource containing the modeled constraints.
+	 * @param rs     rs optional resource set to be used for resource loading.
+	 * @param uri    URI of the resource containing the modeled constraints.
 	 * @param bundle {@link Bundle} for locating internationalization messages.
 	 */
 	public void loadCategories(ResourceSet rs, URI uri, Bundle bundle) {
 		Resource r = getResource(rs, uri);
-		
-		for ( EObject o :  r.getContents() ) {
-			if ( o instanceof ConstraintsBundle) {
+
+		for (EObject o : r.getContents()) {
+			if (o instanceof ConstraintsBundle) {
 				ConstraintsBundle constraintsBundle = (ConstraintsBundle) o;
 				registerCategories(constraintsBundle.getCategories(), new ClassProvider.BundleProvider(bundle));
 			}
 		}
 	}
-	
-	private void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService, ClassProvider classPovider) {
+
+	private void loadConstraintBundles(ResourceSet rs, URI uri, ModelValidationService validationService,
+			ClassProvider classPovider) {
 		Resource r = getResource(rs, uri);
-		
-		for ( EObject o :  r.getContents() ) {
-			if ( o instanceof ConstraintsBundle) {
+
+		for (EObject o : r.getContents()) {
+			if (o instanceof ConstraintsBundle) {
 				ConstraintsBundle bundle = (ConstraintsBundle) o;
 				registerCategories(bundle.getCategories(), classPovider);
-				
-				for ( ConstraintProvider provider : bundle.getProviders() ) {
+
+				for (ConstraintProvider provider : bundle.getProviders()) {
 					registerConstraintsProvider(provider, validationService, classPovider);
 				}
-				
-				for ( ConstraintBindingsBundle bindings : bundle.getConstraintBindingsBundles()) {
+
+				for (ConstraintBindingsBundle bindings : bundle.getConstraintBindingsBundles()) {
 					registerConstraintBindingsBundle(bindings, classPovider);
 				}
 
-				for ( Parser parser : bundle.getParsers() ) {
+				for (Parser parser : bundle.getParsers()) {
 					registerParser(classPovider, parser);
 				}
 			}
@@ -151,139 +165,135 @@ public class ModeledConstraintsLoader {
 	private void registerParser(ClassProvider classPovider, Parser parser) {
 		try {
 			String language = parser.getLanguage();
-			String className = parser.getClassName(); 
-			
-			if ( language == null ) {
-				Log.warningMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG,
-						new Object[] {className, language});
-			} else if ( className == null ) {
-				Log.warningMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG,
-						new Object[] {className, language});
+			String className = parser.getClassName();
+
+			if (language == null) {
+				Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG, new Object[] { className, language });
+			} else if (className == null) {
+				Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG, new Object[] { className, language });
 			} else {
-				((XmlConstraintFactory)ConstraintFactory.getInstance()).registerParser(language,
+				((XmlConstraintFactory) ConstraintFactory.getInstance()).registerParser(language,
 						(IConstraintParser) classPovider.loadClass(className).newInstance());
-				Trace.trace(
-						EMFModelValidationDebugOptions.PARSERS,
+				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Initialized parser for constraint language: " + language); //$NON-NLS-1$
 			}
-			
+
 		} catch (Exception e) {
 			Trace.catching(getClass(), "loadConstraintBundles", e); //$NON-NLS-1$
 		}
 	}
-	
-	private void registerConstraintBindingsBundle(
-			ConstraintBindingsBundle bindings, ClassProvider classProvider) {
-		
-		for ( ClientContext ctx : bindings.getClientContexts()) {
-			if ( ctx instanceof Selector) {
+
+	private void registerConstraintBindingsBundle(ConstraintBindingsBundle bindings, ClassProvider classProvider) {
+
+		for (ClientContext ctx : bindings.getClientContexts()) {
+			if (ctx instanceof Selector) {
 				assert classProvider != null;
-				
+
 				Selector sel = (Selector) ctx;
-				
+
 				Class<?> selectorClass = null;
-				
+
 				try {
 					selectorClass = classProvider.loadClass(sel.getClassName());
 				} catch (ClassNotFoundException e) {
 					throw new RuntimeException(e);
 				}
-				
-				
+
 				IClientSelector instance = null;
-				
+
 				try {
-					 instance = (IClientSelector) selectorClass.newInstance();
+					instance = (IClientSelector) selectorClass.newInstance();
 				} catch (InstantiationException e) {
 					throw new RuntimeException(e);
 				} catch (IllegalAccessException e) {
 					throw new RuntimeException(e);
 				}
-				
+
 				IClientContext oldCtx = ClientContextManager.getInstance().getClientContext(sel.getId());
-				
-				if ( oldCtx == null ) {
-					
-					org.eclipse.emf.validation.internal.service.ClientContext newCtx =
-						new org.eclipse.emf.validation.internal.service.ClientContext(sel.getId(), EMFModelValidationPlugin.getPluginId());
-					
+
+				if (oldCtx == null) {
+
+					org.eclipse.emf.validation.internal.service.ClientContext newCtx = new org.eclipse.emf.validation.internal.service.ClientContext(
+							sel.getId(), EMFModelValidationPlugin.getPluginId());
+
 					newCtx.setSelector(instance);
-					
-					ClientContextManager.getInstance().addClientContext( newCtx);
+
+					ClientContextManager.getInstance().addClientContext(newCtx);
 				} else {
 					// already present
 					throw new RuntimeException("Context already present: " + sel.getId()); //$NON-NLS-1$
 				}
-				
+
 			} else {
 				throw new UnsupportedOperationException("Enablements not implemented yet."); //$NON-NLS-1$
 			}
 		}
-		
-		for ( Binding binding : bindings.getBindings()) {
-			for ( ClientContext ctx : binding.getClientContexts()) {
-				org.eclipse.emf.validation.internal.service.ClientContext context = 
-					(org.eclipse.emf.validation.internal.service.ClientContext) ClientContextManager.getInstance().getClientContext(ctx.getId());
-				
-				if ( context == null ) {
+
+		for (Binding binding : bindings.getBindings()) {
+			for (ClientContext ctx : binding.getClientContexts()) {
+				org.eclipse.emf.validation.internal.service.ClientContext context = (org.eclipse.emf.validation.internal.service.ClientContext) ClientContextManager
+						.getInstance().getClientContext(ctx.getId());
+
+				if (context == null) {
 					throw new IllegalStateException("Context not found"); //$NON-NLS-1$
 				}
 
-				for ( Constraint constraint: binding.getConstraints()) {
+				for (Constraint constraint : binding.getConstraints()) {
 					context.includeConstraint(constraint.getId());
 				}
-				
-				for ( Constraint constraint : binding.getExcludedConstraints()) {
+
+				for (Constraint constraint : binding.getExcludedConstraints()) {
 					context.excludeConstraint(constraint.getId());
 				}
-				
-				for ( Category category : binding.getCategories()) {
+
+				for (Category category : binding.getCategories()) {
 					context.includeCategory(category.getId());
 				}
 
-				for ( Category category : binding.getExcludedCategories()) {
+				for (Category category : binding.getExcludedCategories()) {
 					context.excludeCategory(category.getId());
 				}
 			}
 		}
-		
+
 	}
 
-		
 	private void registerCategories(EList<Category> categories, ClassProvider classProvider) {
-		for ( Category category : categories) {
-			org.eclipse.emf.validation.model.Category valCategory = CategoryManager.getInstance().getCategory(category.getPath());
-			
+		for (Category category : categories) {
+			org.eclipse.emf.validation.model.Category valCategory = CategoryManager.getInstance()
+					.getCategory(category.getPath());
+
 			valCategory.setName(classProvider.bind(category.getName(), null));
 			valCategory.setMandatory(category.isMandatory());
-			
+
 			registerCategories(category.getSubCategories(), classProvider);
 		}
 	}
-	
-	private void registerConstraintsProvider(ConstraintProvider provider, ModelValidationService validationService, ClassProvider classProvider) {
+
+	private void registerConstraintsProvider(ConstraintProvider provider, ModelValidationService validationService,
+			ClassProvider classProvider) {
 		URI providerUri = EcoreUtil.getURI(provider);
-		if ( !loadedConstraintProviders.contains(providerUri)) {
+		if (!loadedConstraintProviders.contains(providerUri)) {
 			loadedConstraintProviders.add(providerUri);
-			
-			ModelValidationService validationServiceToBeUsed = validationService == null ? ModelValidationService.getInstance() : validationService;
-			
+
+			ModelValidationService validationServiceToBeUsed = validationService == null
+					? ModelValidationService.getInstance()
+					: validationService;
+
 			ModeledConstraintProvider modeledProvider = null;
-			
-			
-			if ( provider.getClassName() == null ) {
+
+			if (provider.getClassName() == null) {
 				modeledProvider = new ModeledConstraintProvider();
-				
-				for ( Constraints constraints : provider.getConstraints() ) {
-					for ( Constraint constraint : constraints.getConstraints()) {
-						ModeledConstraintDescriptor descriptor = new ModeledConstraintDescriptor(provider.getPluginId(), classProvider);
+
+				for (Constraints constraints : provider.getConstraints()) {
+					for (Constraint constraint : constraints.getConstraints()) {
+						ModeledConstraintDescriptor descriptor = new ModeledConstraintDescriptor(provider.getPluginId(),
+								classProvider);
 						descriptor.setInitializationData(constraint);
-						
-						for ( Category category : constraints.getCategories() ) {
+
+						for (Category category : constraints.getCategories()) {
 							CategoryManager.getInstance().getCategory(category.getPath()).addConstraint(descriptor);
 							try {
 								ConstraintRegistry.getInstance().register(descriptor);
@@ -302,8 +312,8 @@ public class ModeledConstraintsLoader {
 					// TODO: log and throw exception
 					throw new RuntimeException(e);
 				}
-				
-				if ( ModeledConstraintProvider.class.isAssignableFrom(clazz) ) {
+
+				if (ModeledConstraintProvider.class.isAssignableFrom(clazz)) {
 					try {
 						modeledProvider = (ModeledConstraintProvider) clazz.newInstance();
 					} catch (InstantiationException e) {
@@ -317,25 +327,23 @@ public class ModeledConstraintsLoader {
 					// TODO: log and throw exception
 				}
 			}
-			
+
 			modeledProvider.setConstraintProviderModel(provider);
-			validationServiceToBeUsed.registerProvider(new _ProviderDescriptor(
-					modeledProvider));
-			
-			
+			validationServiceToBeUsed.registerProvider(new _ProviderDescriptor(modeledProvider));
+
 		}
 	}
-	
+
 	private Resource getResource(ResourceSet rs, URI uri) {
-		if ( rs == null ) {
+		if (rs == null) {
 			// create a default one if none has been provided
 			rs = new ResourceSetImpl();
 		}
-		
+
 		Resource r = rs.getResource(uri, true);
 		return r;
 	}
-	
+
 	private static class _ProviderDescriptor implements IProviderDescriptor {
 
 		private final ModeledConstraintProvider provider;
@@ -343,7 +351,7 @@ public class ModeledConstraintsLoader {
 		public _ProviderDescriptor(ModeledConstraintProvider provider) {
 			this.provider = provider;
 		}
-		
+
 		public IModelConstraintProvider getProvider() {
 			return provider;
 		}
@@ -360,8 +368,7 @@ public class ModeledConstraintsLoader {
 			return false;
 		}
 
-		public boolean provides(
-				IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
+		public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 			if (operation instanceof GetLiveConstraintsOperation) {
 				return providesLiveConstraints(operation);
 			} else if (operation instanceof GetBatchConstraintsOperation) {
@@ -374,25 +381,24 @@ public class ModeledConstraintsLoader {
 
 		private boolean providesBatchConstraints(
 				IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
-			if ( provider.isLive()) {
+			if (provider.isLive()) {
 				return false;
 			}
-			
+
 			GetBatchConstraintsOperation op = (GetBatchConstraintsOperation) operation;
-			
+
 			return provider.getModel().getPackage().contains(op.getEObject().eClass().getEPackage());
 		}
 
 		private boolean providesLiveConstraints(
 				IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
-			if ( !provider.isLive()) {
+			if (!provider.isLive()) {
 				return false;
 			}
-			
+
 			return false;
 		}
-		
+
 	}
-	
-	
+
 }

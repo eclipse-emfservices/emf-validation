@@ -10,7 +10,6 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.internal.util;
 
 import java.util.Arrays;
@@ -31,103 +30,93 @@ import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * Utilities for working with text in EMF models.  So far, the following
+ * Utilities for working with text in EMF models. So far, the following
  * capabilities are available:
  * <ul>
- *   <li>obtaining text representations of model elements for use in the UI
- *       (see {@link #getText(EObject)})</li>
- *   <li>formatting error messages
- *       (see {@link #formatMessage(String, Object[])})</li>
+ * <li>obtaining text representations of model elements for use in the UI (see
+ * {@link #getText(EObject)})</li>
+ * <li>formatting error messages (see
+ * {@link #formatMessage(String, Object[])})</li>
  * </ul>
  *
  * @author Christian W. Damus (cdamus)
  */
 public class TextUtils {
 	// back-up for unregistered packages
-    private static AdapterFactory defaultFactory =
-        new ReflectiveItemProviderAdapterFactory();
-	
-    private static AdapterFactory factory = new ComposedAdapterFactory(
-    	ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-    
+	private static AdapterFactory defaultFactory = new ReflectiveItemProviderAdapterFactory();
+
+	private static AdapterFactory factory = new ComposedAdapterFactory(
+			ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
 	/**
 	 * Not instantiable by clients.
 	 */
 	private TextUtils() {
 		super();
-	}		
-	
+	}
+
 	/**
 	 * Obtains a textual representation of the specified model element, as for
-	 * display in error messages.  If no suitable factory is registered, then
-	 * the EMF reflective item provider is used.
+	 * display in error messages. If no suitable factory is registered, then the EMF
+	 * reflective item provider is used.
 	 * 
 	 * @param eObject the model element for which to get text
 	 * @return the corresponding text
 	 */
 	public static String getText(EObject eObject) {
-		IItemLabelProvider provider =
-			(IItemLabelProvider)factory.adapt(
-				eObject,
-				IItemLabelProvider.class);
+		IItemLabelProvider provider = (IItemLabelProvider) factory.adapt(eObject, IItemLabelProvider.class);
 
 		if (provider == null) {
 			// for backward compatibility, try looking in the resource set
-			provider = (IItemLabelProvider)getRegisteredAdapter(
-					eObject,
-					IItemLabelProvider.class);
+			provider = (IItemLabelProvider) getRegisteredAdapter(eObject, IItemLabelProvider.class);
 		}
-		
+
 		if (provider == null) {
-			provider = (IItemLabelProvider)defaultFactory.adapt(
-					eObject,
-					IItemLabelProvider.class);
+			provider = (IItemLabelProvider) defaultFactory.adapt(eObject, IItemLabelProvider.class);
 		}
-		
+
 		String result = provider.getText(eObject);
-		
+
 		if (result != null) {
 			// don't want leading or trailing blanks in messages
 			result = result.trim();
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Similar to the {@link EcoreUtil#getRegisteredAdapter(EObject, Object)}
-	 * method, attempts to adapt the given <code>eObject</code> to the
-	 * specified <code>type</code> using adapter factories registered on its
-	 * resource set.  The difference is, that this method anticipates that
-	 * adapter factories from multiple disjoint metamodels may be registered,
-	 * that adapt different kinds of objects to the same types.  This method
-	 * will try them all until it either gets a successful adaptation or runs
-	 * out of factories.
+	 * method, attempts to adapt the given <code>eObject</code> to the specified
+	 * <code>type</code> using adapter factories registered on its resource set. The
+	 * difference is, that this method anticipates that adapter factories from
+	 * multiple disjoint metamodels may be registered, that adapt different kinds of
+	 * objects to the same types. This method will try them all until it either gets
+	 * a successful adaptation or runs out of factories.
 	 * 
 	 * @param eObject the model element to adapt
-	 * @param type indicates the type of adapter to obtain
-	 * @return the available registered adapter, or <code>null</code> if no
-	 *     suitable adapter factory is found
+	 * @param type    indicates the type of adapter to obtain
+	 * @return the available registered adapter, or <code>null</code> if no suitable
+	 *         adapter factory is found
 	 */
 	private static Object getRegisteredAdapter(EObject eObject, Object type) {
 		Object result = EcoreUtil.getExistingAdapter(eObject, type);
-		
+
 		if (result == null) {
 			Resource resource = eObject.eResource();
-			
+
 			if (resource != null) {
 				ResourceSet resourceSet = resource.getResourceSet();
-				
+
 				if (resourceSet != null) {
 					List<AdapterFactory> factories = resourceSet.getAdapterFactories();
-					
+
 					// iterate only as long as we don't find an adapter factory
-					//    that successfully adapted the eObject
-					for (Iterator<AdapterFactory> iter = factories.iterator();
-							iter.hasNext() && (result == null);) {
-						
+					// that successfully adapted the eObject
+					for (Iterator<AdapterFactory> iter = factories.iterator(); iter.hasNext() && (result == null);) {
+
 						AdapterFactory next = iter.next();
-						
+
 						if (next.isFactoryForType(type)) {
 							result = next.adapt(eObject, type);
 						}
@@ -135,7 +124,7 @@ public class TextUtils {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -143,7 +132,7 @@ public class TextUtils {
 	 * Applies the specified arguments to my message pattern.
 	 * 
 	 * @param messagePattern the message pattern
-	 * @param inputArg the pattern arguments
+	 * @param inputArg       the pattern arguments
 	 * @return the formatted message string
 	 * 
 	 * @since 1.1
@@ -169,8 +158,8 @@ public class TextUtils {
 	}
 
 	/**
-	 * Helper method which converts multiple objects into a list as prescribed
-	 * by locale-specific conventions.
+	 * Helper method which converts multiple objects into a list as prescribed by
+	 * locale-specific conventions.
 	 * 
 	 * @param multiValuedArg the multiple objects
 	 * @return the string representation of the list
@@ -178,7 +167,7 @@ public class TextUtils {
 	private static String formatMultiValue(Collection<?> multiValuedArg) {
 		List<Object> args = new java.util.ArrayList<Object>(multiValuedArg);
 
-		for (ListIterator<Object> iter = args.listIterator(); iter.hasNext(); ) {
+		for (ListIterator<Object> iter = args.listIterator(); iter.hasNext();) {
 			iter.set(formatScalarValue(iter.next()));
 		}
 
@@ -186,8 +175,8 @@ public class TextUtils {
 	}
 
 	/**
-	 * Helper method which converts a single object to a string.  Model objects
-	 * are represented by their names, other objects by their default string
+	 * Helper method which converts a single object to a string. Model objects are
+	 * represented by their names, other objects by their default string
 	 * representation.
 	 * 
 	 * @param value the object to convert

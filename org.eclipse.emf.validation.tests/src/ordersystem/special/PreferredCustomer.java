@@ -16,14 +16,14 @@ import java.util.Date;
 import ordersystem.Customer;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Preferred Customer</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Preferred Customer</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ordersystem.special.PreferredCustomer#getSince <em>Since</em>}</li>
+ * <li>{@link ordersystem.special.PreferredCustomer#getSince
+ * <em>Since</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,13 +33,14 @@ import ordersystem.Customer;
  */
 public interface PreferredCustomer extends Customer {
 	/**
-	 * Returns the value of the '<em><b>Since</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Since</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Since</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Since</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Since</em>' attribute.
 	 * @see #setSince(Date)
 	 * @see ordersystem.special.SpecialPackage#getPreferredCustomer_Since()
@@ -49,9 +50,9 @@ public interface PreferredCustomer extends Customer {
 	Date getSince();
 
 	/**
-	 * Sets the value of the '{@link ordersystem.special.PreferredCustomer#getSince <em>Since</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the '{@link ordersystem.special.PreferredCustomer#getSince
+	 * <em>Since</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Since</em>' attribute.
 	 * @see #getSince()
 	 * @generated

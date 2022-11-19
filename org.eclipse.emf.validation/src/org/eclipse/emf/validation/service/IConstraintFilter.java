@@ -14,8 +14,8 @@ package org.eclipse.emf.validation.service;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * Interface implemented by clients who wish to define a constraint
- * filter on their validator.
+ * Interface implemented by clients who wish to define a constraint filter on
+ * their validator.
  * 
  * @see IValidator#addConstraintFilter(IConstraintFilter)
  *
@@ -24,24 +24,25 @@ import org.eclipse.emf.ecore.EObject;
  * @author David Cummings (dcummin)
  */
 public interface IConstraintFilter {
-    /**
-     * A shared filter instance that doesn't filter out any constraints (all
-     * pass through).
-     */
-    IConstraintFilter IDENTITY_INSTANCE = new IConstraintFilter() { 
-        public boolean accept(IConstraintDescriptor constraint, EObject target) {
-            return true;
-        }};
-        
 	/**
-	 * Determines whether a given <code>constraint</code> and
-	 * <code>target</code> pair are accepted by this filter.  This is
-     * applicable to both batch and live validation modes.
+	 * A shared filter instance that doesn't filter out any constraints (all pass
+	 * through).
+	 */
+	IConstraintFilter IDENTITY_INSTANCE = new IConstraintFilter() {
+		public boolean accept(IConstraintDescriptor constraint, EObject target) {
+			return true;
+		}
+	};
+
+	/**
+	 * Determines whether a given <code>constraint</code> and <code>target</code>
+	 * pair are accepted by this filter. This is applicable to both batch and live
+	 * validation modes.
 	 * 
 	 * @param constraint descriptor of a constraint to consider for filtering
-	 * @param target the object on which the <code>constraint</code> would
-     *     be validated
-     * 
+	 * @param target     the object on which the <code>constraint</code> would be
+	 *                   validated
+	 * 
 	 * @return true if the pair is accepted by the filter, false otherwise
 	 */
 	boolean accept(IConstraintDescriptor constraint, EObject target);

@@ -10,7 +10,6 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.model;
 
 import java.io.Serializable;
@@ -24,8 +23,8 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
 /**
  * <p>
- * Describes the context in which a {@link IModelConstraint} is evaluated.
- * See the individual value descriptions for more information.
+ * Describes the context in which a {@link IModelConstraint} is evaluated. See
+ * the individual value descriptions for more information.
  * </p>
  * <p>
  * <b>Note</b> that both batch and live constraints are evaluated in batch mode.
@@ -38,53 +37,49 @@ import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
  * @author Christian W. Damus (cdamus)
  */
 public final class EvaluationMode<T> implements Serializable {
-	
+
 	private static final long serialVersionUID = 1862313226055912569L;
 
 	/**
 	 * <p>
-	 * Constraints executed in the "Live" context are intended to be
-	 * constraints that are requirements for committing a transaction in an
-	 * application that implements a transactional model for changes to the
-	 * data.  The intent is that if any live constraints fail, the transaction
-	 * may not be committed and may have to be rolled back if the application
-	 * cannot fix the data. 
+	 * Constraints executed in the "Live" context are intended to be constraints
+	 * that are requirements for committing a transaction in an application that
+	 * implements a transactional model for changes to the data. The intent is that
+	 * if any live constraints fail, the transaction may not be committed and may
+	 * have to be rolled back if the application cannot fix the data.
 	 * </p>
 	 * <p>
 	 * <b>Note</b> that "live" mode constraints are also evaluated in batch
-	 * contexts.
-	 * </b> 
+	 * contexts. </b>
 	 */
 	public static final EvaluationMode<Notification> LIVE = new EvaluationMode<Notification>("Live", //$NON-NLS-1$
-		ValidationMessages.mode_live);
-	
+			ValidationMessages.mode_live);
+
 	/**
-	 * Constraints executed in the "Batch" context are intended to be
-	 * constraints that are evaluated on demand (when the user elects to
-	 * evaluate them).  These do not, therefore, usually define conditions for
-	 * data integrity, but rather semantic rules that guide a user to creating
-	 * a better model.
+	 * Constraints executed in the "Batch" context are intended to be constraints
+	 * that are evaluated on demand (when the user elects to evaluate them). These
+	 * do not, therefore, usually define conditions for data integrity, but rather
+	 * semantic rules that guide a user to creating a better model.
 	 */
 	public static final EvaluationMode<EObject> BATCH = new EvaluationMode<EObject>("Batch", //$NON-NLS-1$
-		ValidationMessages.mode_batch);
+			ValidationMessages.mode_batch);
 
 	/**
-	 * This special value is a pointer-safe null value according to the
-	 * <i>Null Object</i> pattern.  It is not a valid evaluation mode for
-	 * a constraint.
+	 * This special value is a pointer-safe null value according to the <i>Null
+	 * Object</i> pattern. It is not a valid evaluation mode for a constraint.
 	 */
 	public static final EvaluationMode<Void> NULL = new EvaluationMode<Void>("none", //$NON-NLS-1$
-		ValidationMessages.mode_unknown);
+			ValidationMessages.mode_unknown);
 
 	/** All valid instances. */
-	private static final List<EvaluationMode<?>> instances = Collections.unmodifiableList(
-		Arrays.asList(new EvaluationMode<?>[] {LIVE, BATCH, NULL}));
+	private static final List<EvaluationMode<?>> instances = Collections
+			.unmodifiableList(Arrays.asList(new EvaluationMode<?>[] { LIVE, BATCH, NULL }));
 
 	private final String name;
 	private final String localizedName;
 
 	/**
-	 * Initializes me with my <code>name</code>.  I get the next ordinal in the
+	 * Initializes me with my <code>name</code>. I get the next ordinal in the
 	 * sequence.
 	 * 
 	 * @param name
@@ -96,10 +91,9 @@ public final class EvaluationMode<T> implements Serializable {
 	}
 
 	/**
-	 * Obtains the <code>name</code>d instance.  If the specified
-	 * <code>name</code> is not recognized as the name of a valid instance or
-	 * is <code>null</code>, then the result is the special {@link #NULL}
-	 * instance.
+	 * Obtains the <code>name</code>d instance. If the specified <code>name</code>
+	 * is not recognized as the name of a valid instance or is <code>null</code>,
+	 * then the result is the special {@link #NULL} instance.
 	 * 
 	 * @param name the name of the instance to retrieve (not case-sensitive)
 	 * @return the named instance, or {@link #NULL} if no such instance exists
@@ -147,8 +141,8 @@ public final class EvaluationMode<T> implements Serializable {
 	}
 
 	/**
-	 * Queries whether I am the <i>Null Object</i> of this enumeration.
-	 * In general, <code>null</code> pointers are never used with this type.
+	 * Queries whether I am the <i>Null Object</i> of this enumeration. In general,
+	 * <code>null</code> pointers are never used with this type.
 	 * 
 	 * @return whether I am the {@link #NULL} instance
 	 */
@@ -175,8 +169,7 @@ public final class EvaluationMode<T> implements Serializable {
 	}
 
 	/**
-	 * Queries whether I am evaluated in batch mode only (not also in live
-	 * mode).
+	 * Queries whether I am evaluated in batch mode only (not also in live mode).
 	 * 
 	 * @return whether I support only batch evaluation
 	 */
@@ -189,7 +182,7 @@ public final class EvaluationMode<T> implements Serializable {
 	public String toString() {
 		return getName();
 	}
-	
+
 	private Object readResolve() {
 		return getInstance(getName());
 	}

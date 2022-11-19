@@ -18,7 +18,7 @@ import org.eclipse.emf.validation.util.XmlConfig;
 
 /**
  * A custom implementation of the Eclipse configuration element API which is
- * parsed from the <tt>&lt;constraints&gt;</tt> XML element.  This unifies the
+ * parsed from the <tt>&lt;constraints&gt;</tt> XML element. This unifies the
  * representation of constraint data obtained from "included" XML files with
  * constraint data parsed by Eclipse from the <tt>plugin.xml</tt>.
  * 
@@ -30,11 +30,11 @@ public class ConstraintsConfigurationElement extends XmlConfigurationElement {
 	 * <TT>&lt;include&gt;</TT> children.
 	 * 
 	 * @param original the original <TT>&lt;constraints&gt;</TT> element
-	 * @param url the URL from which the element was loaded, originally
+	 * @param url      the URL from which the element was loaded, originally
 	 */
 	public ConstraintsConfigurationElement(IConfigurationElement original, URL url) {
 		super(original.getName(), original.getDeclaringExtension(), url);
-		
+
 		setValue(original.getValue());
 
 		String[] names = original.getAttributeNames();

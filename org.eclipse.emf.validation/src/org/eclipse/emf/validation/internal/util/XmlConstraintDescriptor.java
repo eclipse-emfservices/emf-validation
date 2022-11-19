@@ -44,20 +44,18 @@ import org.eclipse.emf.validation.xml.IXmlConstraintDescriptor;
  * A light-weight descriptor for a constraint, containing all of the meta-data
  * required by the framework to determine when a constraint should be evaluated.
  * Its primary purpose is to defer the instantiation of a
- * {@link org.eclipse.emf.validation.model.IModelConstraint constraint}
- * until it needs to be evaluated, as it is anticipated that this may be a
- * costly operation (involving parsing a script from XML, loading a plug-in,
- * etc.).
+ * {@link org.eclipse.emf.validation.model.IModelConstraint constraint} until it
+ * needs to be evaluated, as it is anticipated that this may be a costly
+ * operation (involving parsing a script from XML, loading a plug-in, etc.).
  * </p>
  * <p>
- * This class is intended to be used by clients of the validation framework
- * for constraint discovery purposes.
+ * This class is intended to be used by clients of the validation framework for
+ * constraint discovery purposes.
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
  */
-public final class XmlConstraintDescriptor
-		extends AbstractConstraintDescriptor
+public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		implements IXmlConstraintDescriptor, IParameterizedConstraintDescriptor {
 
 	static final String RULE_INCOMPLETE = ValidationMessages.rule_incomplete_ERROR_;
@@ -65,10 +63,10 @@ public final class XmlConstraintDescriptor
 	static final String RULE_NAME = ValidationMessages.rule_name;
 	static final String RULE_BODY = ValidationMessages.rule_body;
 	static final String MESSAGE_PATTERN = ValidationMessages.rule_message;
-	
+
 	private static final String NAMESPACE_URI_SEPARATOR = ":"; //$NON-NLS-1$
 	private static final String EOBJECT_CLASS_NAME = "org.eclipse.emf.ecore.EObject"; //$NON-NLS-1$
-	
+
 	private final IConfigurationElement config;
 
 	private String name;
@@ -80,13 +78,12 @@ public final class XmlConstraintDescriptor
 	private ConstraintSeverity severity = ConstraintSeverity.ERROR;
 	private EvaluationMode<?> mode;
 
-	private Map<Object, TargetDescriptor> targetMap =
-		new java.util.HashMap<Object, TargetDescriptor>();
+	private Map<Object, TargetDescriptor> targetMap = new java.util.HashMap<Object, TargetDescriptor>();
 
 	private String messagePattern;
 
 	private String body;
-	
+
 	private boolean resolved = false;
 	private boolean isEnabledByDefault = true;
 
@@ -94,20 +91,20 @@ public final class XmlConstraintDescriptor
 	 * Initializes me from the specified Eclipse configuration element.
 	 * 
 	 * @param config the configuration element
-	 * @throws ConstraintExistsException if the <code>config</code>uration
-	 *     element specified a constraint ID that already exists in the system
+	 * @throws ConstraintExistsException if the <code>config</code>uration element
+	 *                                   specified a constraint ID that already
+	 *                                   exists in the system
 	 */
-	public XmlConstraintDescriptor(IConfigurationElement config)
-			throws ConstraintExistsException {
+	public XmlConstraintDescriptor(IConfigurationElement config) throws ConstraintExistsException {
 		this.config = config;
 
 		name = config.getAttribute(XmlConfig.A_NAME);
 		String statusCodeStr = config.getAttribute(XmlConfig.A_STATUS_CODE);
 		pluginId = config.getDeclaringExtension().getNamespaceIdentifier();
-		
+
 		// constraint ID is required to start with contributing plugin ID
 		id = normalizedId(pluginId, config.getAttribute(XmlConfig.A_ID));
-		
+
 		int newStatusCode;
 
 		try {
@@ -121,9 +118,9 @@ public final class XmlConstraintDescriptor
 		try {
 			assertNotNull(id, RULE_ID);
 			assertNotNull(name, RULE_NAME);
-	
+
 			parseDescription(config);
-	
+
 			parseSeverity(config);
 			parseTargets(config);
 			parseIsEnabledByDefault(config);
@@ -147,46 +144,46 @@ public final class XmlConstraintDescriptor
 			if (this.id == null) {
 				this.id = "$error." + System.identityHashCode(this); //$NON-NLS-1$
 			}
-			
+
 			if (this.name == null) {
 				this.name = this.id;
 			}
-			
+
 			this.statusCode = EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED;
-			
+
 			setError(e);
 			setMessagePattern(e.getLocalizedMessage());
-			
+
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 				Trace.trace("Initialized constraint " + id //$NON-NLS-1$
 						+ " as error constraint."); //$NON-NLS-1$
 			}
 		}
 	}
-	
+
 	/**
-	 * Returns the normalized constraint ID, which is prefixed by the
-	 * contributing plug-in's ID.
+	 * Returns the normalized constraint ID, which is prefixed by the contributing
+	 * plug-in's ID.
 	 * 
 	 * @param pluginId the ID of the plug-in that contributes the constraint
-	 * @param id the constraint's ID, as declared in the XML
-	 * @return the normalized ID, which either the original ID if it already
-	 *     starts with the plug-in ID; the original ID prefixed by the
-	 *    plug-in ID, otherwise
+	 * @param id       the constraint's ID, as declared in the XML
+	 * @return the normalized ID, which either the original ID if it already starts
+	 *         with the plug-in ID; the original ID prefixed by the plug-in ID,
+	 *         otherwise
 	 */
 	public static String normalizedId(String pluginId, String id) {
 		assert pluginId != null;
 		assert id != null;
-		
+
 		String result = id;
-		
+
 		if (!result.startsWith(pluginId)) {
 			result = pluginId + '.' + result;
 		}
-		
+
 		return result;
 	}
-	
+
 	// implements the interface method
 	public IConfigurationElement getConfig() {
 		return config;
@@ -233,9 +230,9 @@ public final class XmlConstraintDescriptor
 	}
 
 	/**
-	 * Obtains the target descriptor corresponding to the specified
-	 * <code>key</code> which indicates the EMF object type.  The descriptor
-	 * is lazily instantiated, if it does not already exist.
+	 * Obtains the target descriptor corresponding to the specified <code>key</code>
+	 * which indicates the EMF object type. The descriptor is lazily instantiated,
+	 * if it does not already exist.
 	 * 
 	 * @param key the EMF object type, as a class name (string) or {@link EClass}
 	 * @return the descriptor
@@ -243,7 +240,7 @@ public final class XmlConstraintDescriptor
 	private TargetDescriptor getTarget(Object key) {
 		if (Trace.shouldTraceEntering()) {
 			Trace.entering(getClass(), "getTarget", //$NON-NLS-1$
-					new Object[] {key});
+					new Object[] { key });
 		}
 
 		TargetDescriptor result = targetMap.get(key);
@@ -274,93 +271,85 @@ public final class XmlConstraintDescriptor
 		this.mode = mode;
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void resolveTargetTypes(String[] namespaceUris) {
 		if (resolved) {
-			// I already did this.  Don't bother me about it again
+			// I already did this. Don't bother me about it again
 			return;
 		}
-		
+
 		resolved = true;
-		
+
 		Map<Object, TargetDescriptor> oldMap = targetMap;
 		targetMap = new java.util.HashMap<Object, TargetDescriptor>();
 
 		for (Map.Entry<Object, TargetDescriptor> next : oldMap.entrySet()) {
 			String typeName = (String) next.getKey();
-			
+
 			EClass targetEClass = null;
 			// See if the typeName value from the extension has a qualified
-			//  namespace URI in it. This might be used in cases where there
-			//  are two EClasses with the same name in two different EPackages.
+			// namespace URI in it. This might be used in cases where there
+			// are two EClasses with the same name in two different EPackages.
 			int separatorPosition = typeName.indexOf(NAMESPACE_URI_SEPARATOR);
 			if (separatorPosition != -1) {
-				String namespaceUri = typeName.substring(separatorPosition+1);
-				typeName = typeName.substring(0,separatorPosition);
+				String namespaceUri = typeName.substring(separatorPosition + 1);
+				typeName = typeName.substring(0, separatorPosition);
 				targetEClass = ModelValidationService.findClass(namespaceUri, typeName);
 			} else {
 				// Otherwise, we have to go through all of the namespace URI's provided
-				//  and find the EClass with the name in the first EPackage.
+				// and find the EClass with the name in the first EPackage.
 				for (int i = 0; (targetEClass == null) && (i < namespaceUris.length); i++) {
-					targetEClass = ModelValidationService
-						.findClass(namespaceUris[i], typeName);
+					targetEClass = ModelValidationService.findClass(namespaceUris[i], typeName);
 				}
 			}
 
 			if (targetEClass != null) {
 				targetMap.put(targetEClass, next.getValue());
-			
+
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
-					Trace.trace(
-							EMFModelValidationDebugOptions.CONSTRAINTS,
-							"Resolved target: " + typeName //$NON-NLS-1$
-								+ " for: " + this); //$NON-NLS-1$
+					Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS, "Resolved target: " + typeName //$NON-NLS-1$
+							+ " for: " + this); //$NON-NLS-1$
 				}
 			} else {
 				// didn't resolve it
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
-					Trace.trace(
-							EMFModelValidationDebugOptions.CONSTRAINTS,
-							"Failed to resolve target: " + typeName //$NON-NLS-1$
-								+ " for: " + this); //$NON-NLS-1$
+					Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS, "Failed to resolve target: " + typeName //$NON-NLS-1$
+							+ " for: " + this); //$NON-NLS-1$
 				}
-				
-				Log.warningMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
-						EMFModelValidationStatusCodes.TARGET_TYPE_NOT_FOUND_MSG,
-						new Object[] {getId(), typeName});
+
+				Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
+						EMFModelValidationStatusCodes.TARGET_TYPE_NOT_FOUND_MSG, new Object[] { getId(), typeName });
 			}
 		}
-		
+
 		// now, let each target descriptor "inherit" triggers from descriptors
-		// that are for ancestor EClasses.  This is an O{n**2) algorithm, but
+		// that are for ancestor EClasses. This is an O{n**2) algorithm, but
 		// there are not expected ever to be more than a handful of targets in
 		// any given constraint
 		for (Map.Entry<Object, TargetDescriptor> next : targetMap.entrySet()) {
 			inheritTriggers((EClass) next.getKey(), next.getValue());
 		}
 	}
-	
+
 	/**
-	 * Causes the specified <code>target</code>'s <code>descriptor</code> to
-	 * inherit trigger definitions from the descriptors of any registers
-	 * ancestor EClasses.
+	 * Causes the specified <code>target</code>'s <code>descriptor</code> to inherit
+	 * trigger definitions from the descriptors of any registers ancestor EClasses.
 	 * 
-	 * @param target a target EClass
+	 * @param target     a target EClass
 	 * @param descriptor its descriptor
 	 */
 	private void inheritTriggers(EClass target, TargetDescriptor descriptor) {
 		for (Map.Entry<Object, TargetDescriptor> next : targetMap.entrySet()) {
 			EClass otherTarget = (EClass) next.getKey();
-			
+
 			if ((otherTarget != target) && (otherTarget.isSuperTypeOf(target))) {
 				descriptor.merge(next.getValue());
 			}
 		}
 	}
-	
+
 	/**
 	 * Queries whether I am a universal constraint, supporting all target types,
 	 * events, and features.
@@ -373,11 +362,9 @@ public final class XmlConstraintDescriptor
 
 	// implements the interface method
 	public boolean targetsTypeOf(EObject eObject) {
-		return (eObject == null)
-			? false
-			: isUniversal() || targetsType(eObject.eClass());
+		return (eObject == null) ? false : isUniversal() || targetsType(eObject.eClass());
 	}
-	
+
 	/**
 	 * Determines whether I explicitly support this type.
 	 * 
@@ -402,51 +389,46 @@ public final class XmlConstraintDescriptor
 		} else {
 			result = getTarget(typeName);
 		}
-		
+
 		// ensure that the descriptor explicitly supports this EClass type
 		result.setExplicit();
-		
+
 		return result;
 	}
 
 	// implements the interface method
 	public boolean targetsEvent(Notification notification) {
 		if (notification.getNotifier() instanceof EObject) {
-			EObject eObject = (EObject)notification.getNotifier();
-			EMFEventType eventType = EMFEventType.getInstance(
-					notification.getEventType());
-			
+			EObject eObject = (EObject) notification.getNotifier();
+			EMFEventType eventType = EMFEventType.getInstance(notification.getEventType());
+
 			EStructuralFeature changedFeature = null;
 			if (notification.getFeature() instanceof EStructuralFeature) {
-				changedFeature = (EStructuralFeature)notification.getFeature();
+				changedFeature = (EStructuralFeature) notification.getFeature();
 			}
-			
-            // if we specify no targets ("universal case"), then we match if
-            //   and only if the event type is an EMF-standard type.  Only if
-            //   we are not universal do we check whether we match a custom event
-			return ((eObject == null) || eventType.isNull())
-				? false
-				: (isUniversal() && EMFEventType.getPredefinedInstances().contains(eventType))
-					|| (!isUniversal() && targetsEvent(eObject.eClass(), eventType, changedFeature));
+
+			// if we specify no targets ("universal case"), then we match if
+			// and only if the event type is an EMF-standard type. Only if
+			// we are not universal do we check whether we match a custom event
+			return ((eObject == null) || eventType.isNull()) ? false
+					: (isUniversal() && EMFEventType.getPredefinedInstances().contains(eventType))
+							|| (!isUniversal() && targetsEvent(eObject.eClass(), eventType, changedFeature));
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Queries whether the specified <CODE>eventType</CODE> is one that I
-	 * explicitly support.
+	 * Queries whether the specified <CODE>eventType</CODE> is one that I explicitly
+	 * support.
 	 * 
-	 * @param eClass the EMF type
+	 * @param eClass    the EMF type
 	 * @param eventType the EMF event type
-	 * @param feature the particular feature that is changed (may be
-	 *     <code>null</code> for some kinds of notifications)
+	 * @param feature   the particular feature that is changed (may be
+	 *                  <code>null</code> for some kinds of notifications)
 	 * @return whether the event type is supported for the <code>eClass</code>
 	 */
-	private boolean targetsEvent(
-			EClass eClass,
-			EMFEventType eventType,
-			EStructuralFeature feature) {
+	private boolean targetsEvent(EClass eClass, EMFEventType eventType, EStructuralFeature feature) {
 		return getTarget(eClass).hasEvent(eventType, feature);
 	}
 
@@ -467,14 +449,14 @@ public final class XmlConstraintDescriptor
 	private void setBody(String body) {
 		this.body = body;
 	}
-	
+
 	public String getLanguage() {
 		return getConfig().getAttribute(XmlConfig.A_LANG);
 	}
-	
+
 	public String getParameterValue(String name) {
 		String result = XmlConfig.getParameter(getConfig(), name);
-		
+
 		if (result == null) {
 			// some parameters have other ways of being derived
 			if (CLASS_PARAMETER.equals(name)) {
@@ -483,10 +465,10 @@ public final class XmlConstraintDescriptor
 				result = getConfig().getDeclaringExtension().getNamespaceIdentifier();
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public boolean isEnabledByDefault() {
 		return isEnabledByDefault;
 	}
@@ -495,16 +477,15 @@ public final class XmlConstraintDescriptor
 	 * Parses the <tt>&lt;description&gt;</tt> element from the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
+	 *                  extension data
 	 */
 	private void parseDescription(IConfigurationElement extConfig) {
-		IConfigurationElement[] descConfig = extConfig.getChildren(
-				XmlConfig.E_DESCRIPTION);
+		IConfigurationElement[] descConfig = extConfig.getChildren(XmlConfig.E_DESCRIPTION);
 
 		if (descConfig.length > 0) {
 			setDescription(descConfig[0].getValue());
 		}
-		
+
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id + " description"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -514,14 +495,12 @@ public final class XmlConstraintDescriptor
 	 * Parses the <tt>&lt;message&gt;</tt> element from the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
-	 * @throws CoreException on any failure to obtain the message pattern
-	 *    from the XML
+	 *                  extension data
+	 * @throws CoreException on any failure to obtain the message pattern from the
+	 *                       XML
 	 */
-	private void parseMessagePattern(IConfigurationElement extConfig)
-			throws CoreException {
-		IConfigurationElement[] msgConfig = extConfig.getChildren(
-				XmlConfig.E_MESSAGE);
+	private void parseMessagePattern(IConfigurationElement extConfig) throws CoreException {
+		IConfigurationElement[] msgConfig = extConfig.getChildren(XmlConfig.E_MESSAGE);
 
 		String newMessagePattern = null;
 
@@ -532,18 +511,18 @@ public final class XmlConstraintDescriptor
 		assertNotNull(newMessagePattern, MESSAGE_PATTERN);
 
 		setMessagePattern(newMessagePattern);
-		
+
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id + " message: " + newMessagePattern); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
 	/**
-	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>mode</tt> attribute
-	 * from the XML.
+	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>mode</tt> attribute from
+	 * the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
+	 *                  extension data
 	 */
 	private void parseMode(IConfigurationElement extConfig) {
 		String modeName = extConfig.getAttribute(XmlConfig.A_MODE);
@@ -553,18 +532,18 @@ public final class XmlConstraintDescriptor
 		} else {
 			setEvaluationMode(EvaluationMode.getInstance(modeName));
 		}
-		
+
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id + " mode: " + modeName); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
 	/**
-	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>severity</tt>
-	 * attribute from the XML.
+	 * Parses the <tt>&lt;constraint&gt;</tt> element's <tt>severity</tt> attribute
+	 * from the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
+	 *                  extension data
 	 */
 	private void parseSeverity(IConfigurationElement extConfig) {
 		String severityName = extConfig.getAttribute(XmlConfig.A_SEVERITY);
@@ -574,7 +553,7 @@ public final class XmlConstraintDescriptor
 		} else {
 			setSeverity(ConstraintSeverity.getInstance(severityName));
 		}
-		
+
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id + " severity: " + severityName); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -584,7 +563,7 @@ public final class XmlConstraintDescriptor
 	 * Parses the <tt>&lt;target&gt;</tt> elements from the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
+	 *                  extension data
 	 */
 	private void parseTargets(IConfigurationElement extConfig) {
 		parseMode(extConfig);
@@ -592,37 +571,31 @@ public final class XmlConstraintDescriptor
 		IConfigurationElement[] targets = extConfig.getChildren(XmlConfig.E_TARGET);
 
 		for (final IConfigurationElement target : targets) {
-			TargetDescriptor targetType = addTargetType(
-					target.getAttribute(XmlConfig.A_CLASS));
-			
+			TargetDescriptor targetType = addTargetType(target.getAttribute(XmlConfig.A_CLASS));
+
 			if (getEvaluationMode().isLive()) {
 				// only live constraints are applied automatically in response
-				//   to events in the model
+				// to events in the model
 				IConfigurationElement[] events = XmlConfig.getEvents(target);
 
 				for (IConfigurationElement element : events) {
-					EMFEventType eventType = EMFEventType.getInstance(
-							element.getAttribute(XmlConfig.A_NAME));
+					EMFEventType eventType = EMFEventType.getInstance(element.getAttribute(XmlConfig.A_NAME));
 
 					if (!eventType.isNull()) {
 						// add specific supported features, if any
-						IConfigurationElement[] features =
-							element.getChildren(XmlConfig.E_FEATURE);
-						
+						IConfigurationElement[] features = element.getChildren(XmlConfig.E_FEATURE);
+
 						if ((features == null) || (features.length == 0)) {
 							targetType.addEvent(eventType);
 						} else {
 							for (IConfigurationElement element2 : features) {
-								targetType.addEvent(
-										eventType,
-										element2.getAttribute(
-												XmlConfig.A_NAME));
+								targetType.addEvent(eventType, element2.getAttribute(XmlConfig.A_NAME));
 							}
 						}
 					}
 				}
 			}
-		
+
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 				Trace.trace("Parsed constraint " + id //$NON-NLS-1$
 						+ " target: " + target.getAttribute(XmlConfig.A_CLASS) //$NON-NLS-1$
@@ -636,14 +609,14 @@ public final class XmlConstraintDescriptor
 	 * attribute from the XML.
 	 * 
 	 * @param extConfig the Eclipse configuration element representing the XML
-	 *    extension data
+	 *                  extension data
 	 */
 	private void parseIsEnabledByDefault(IConfigurationElement extConfig) {
-		String attr = extConfig.getAttribute( XmlConfig.A_IS_ENABLED_BY_DEFAULT);
+		String attr = extConfig.getAttribute(XmlConfig.A_IS_ENABLED_BY_DEFAULT);
 
 		this.isEnabledByDefault = true;
-		
-		if ( attr != null ) {
+
+		if (attr != null) {
 			isEnabledByDefault = Boolean.parseBoolean(attr);
 		}
 
@@ -653,57 +626,49 @@ public final class XmlConstraintDescriptor
 
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS)) {
 			Trace.trace("Parsed constraint " + id //$NON-NLS-1$
-					+ " isEnabledByDefault: " + attr ); //$NON-NLS-1$
+					+ " isEnabledByDefault: " + attr); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * Asserts that a <code>value</code> be not <code>null</code>.
 	 *
-	 * @param value the value which must not be <code>null</code>
-	 * @param missingItem I18N key of the item which  has the specified
-	 *    <code>value</code>
+	 * @param value       the value which must not be <code>null</code>
+	 * @param missingItem I18N key of the item which has the specified
+	 *                    <code>value</code>
 	 * @throws CoreException if the <code>value</code> is <code>null</code>
 	 * @see XmlConstraintDescriptor#RULE_ID
 	 * @see XmlConstraintDescriptor#RULE_NAME, etc.
 	 */
-	private void assertNotNull(Object value, String missingItem)
-			throws CoreException {
+	private void assertNotNull(Object value, String missingItem) throws CoreException {
 		if (value == null) {
-			CoreException ce = new CoreException(new Status(
-				IStatus.ERROR,
-				EMFModelValidationPlugin.getPluginId(),
-				EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
-				EMFModelValidationPlugin.getMessage(
-						RULE_INCOMPLETE,
-						missingItem),
-				null));
-			
+			CoreException ce = new CoreException(new Status(IStatus.ERROR, EMFModelValidationPlugin.getPluginId(),
+					EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
+					EMFModelValidationPlugin.getMessage(RULE_INCOMPLETE, missingItem), null));
+
 			Trace.throwing(getClass(), "assertNotNull", ce); //$NON-NLS-1$
-			
+
 			throw ce;
 		}
 	}
 
 	/**
 	 * <p>
-	 * Describes the applicability of a constraint, including the target object
-	 * type and event/feature context according to the evaluation mode of the
-	 * constraint.
+	 * Describes the applicability of a constraint, including the target object type
+	 * and event/feature context according to the evaluation mode of the constraint.
 	 * </p>
 	 * <p>
-	 * A target may be either {@link #isSupported supported} or unsupported for
-	 * a constraint.  This is the only information maintained for batch-mode
-	 * constraints.  Live-mode and feature-mode constraints have additional
-	 * information describing which events or features, respectively, they
-	 * apply to.  
+	 * A target may be either {@link #isSupported supported} or unsupported for a
+	 * constraint. This is the only information maintained for batch-mode
+	 * constraints. Live-mode and feature-mode constraints have additional
+	 * information describing which events or features, respectively, they apply to.
 	 * </p>
 	 * <p>
-	 * Finally, target descriptors are organized into a type hierarchy
-	 * according to the meta-model.  Descriptors have zero or more 'parents'
-	 * from which they may 'inherit' the applicability characteristics described
-	 * above.  There is currently no means for excluding inherited
-	 * characteristics, but only to add to them.
+	 * Finally, target descriptors are organized into a type hierarchy according to
+	 * the meta-model. Descriptors have zero or more 'parents' from which they may
+	 * 'inherit' the applicability characteristics described above. There is
+	 * currently no means for excluding inherited characteristics, but only to add
+	 * to them.
 	 * </p>
 	 * 
 	 * @author Christian W. Damus (cdamus)
@@ -713,21 +678,20 @@ public final class XmlConstraintDescriptor
 		private Map<EMFEventType, Collection<String>> featureSpecificEvents;
 
 		/**
-		 * Indicates whether I explicitly support my target EClass, or whether
-		 * I was just created lazily on a query for support.
+		 * Indicates whether I explicitly support my target EClass, or whether I was
+		 * just created lazily on a query for support.
 		 */
 		private boolean explicit;
-		
+
 		/**
 		 * Initializes me.
 		 */
 		TargetDescriptor() {
 			super();
 		}
-		
+
 		/**
-		 * Does lazy initialization of the <code>nonFeatureSpecificEvents</code>
-		 * map.
+		 * Does lazy initialization of the <code>nonFeatureSpecificEvents</code> map.
 		 * 
 		 * @return the <code>nonFeatureSpecificEvents</code> map; never null
 		 */
@@ -739,8 +703,7 @@ public final class XmlConstraintDescriptor
 		}
 
 		/**
-		 * Does lazy initialization of the <code>featureSpecificEvents</code>
-		 * map.
+		 * Does lazy initialization of the <code>featureSpecificEvents</code> map.
 		 * 
 		 * @return the <code>featureSpecificEvents</code> map; never null
 		 */
@@ -750,18 +713,18 @@ public final class XmlConstraintDescriptor
 			}
 			return featureSpecificEvents;
 		}
-		
+
 		/**
-		 * Queries whether I explicitly support my target EClass, or whether
-		 * I was just created lazily on a query for support.
+		 * Queries whether I explicitly support my target EClass, or whether I was just
+		 * created lazily on a query for support.
 		 * 
-		 * @return <code>true</code> if I explicitly declare support
-		 *    for my corresponding EClass type; <code>false</code>, otherwise
+		 * @return <code>true</code> if I explicitly declare support for my
+		 *         corresponding EClass type; <code>false</code>, otherwise
 		 */
 		boolean isExplicit() {
 			return explicit;
 		}
-		
+
 		/**
 		 * Sets me as explicitly supporting my associated EClass type.
 		 */
@@ -770,37 +733,35 @@ public final class XmlConstraintDescriptor
 		}
 
 		/**
-		 * Adds an event type that was not designated for any specific feature.
-		 * If the specified event is a
-		 * {@link EMFEventType#isFeatureSpecific() feature-specific} event type,
-		 * then this event will be triggered by all features.  Otherwise, it
-		 * will only be triggered by an event pertaining (such as "create") to
-		 * the object as a whole.
+		 * Adds an event type that was not designated for any specific feature. If the
+		 * specified event is a {@link EMFEventType#isFeatureSpecific()
+		 * feature-specific} event type, then this event will be triggered by all
+		 * features. Otherwise, it will only be triggered by an event pertaining (such
+		 * as "create") to the object as a whole.
 		 * 
 		 * @param eventType the event type
 		 */
 		void addEvent(EMFEventType eventType) {
 			getNonFeatureSpecificEvents().add(eventType);
 		}
-		
+
 		/**
-		 * Appends a supported event type, for live constraints, with an
-		 * optional feature designation.
+		 * Appends a supported event type, for live constraints, with an optional
+		 * feature designation.
 		 * 
-		 * @param eventType the event type
-		 * @param featureName the feature name for which to register support of
-		 *     the specified <code>eventType</code>
+		 * @param eventType   the event type
+		 * @param featureName the feature name for which to register support of the
+		 *                    specified <code>eventType</code>
 		 */
 		void addEvent(EMFEventType eventType, String featureName) {
 			if (featureName != null) {
-				Collection<String> currentFeatures = getFeatureSpecificEvents().get(
-						eventType);
-				
+				Collection<String> currentFeatures = getFeatureSpecificEvents().get(eventType);
+
 				if (currentFeatures == null) {
 					currentFeatures = new java.util.HashSet<String>();
 					getFeatureSpecificEvents().put(eventType, currentFeatures);
 				}
-				
+
 				currentFeatures.add(featureName);
 			}
 		}
@@ -809,45 +770,41 @@ public final class XmlConstraintDescriptor
 		 * Queries whether I support the specified event type.
 		 * 
 		 * @param eventType the event type
-		 * @param feature the particular feature that I must support, or
-		 *     <code>null</code> the event is not for any feature
+		 * @param feature   the particular feature that I must support, or
+		 *                  <code>null</code> the event is not for any feature
 		 * @return whether I support this event type for this feature
 		 */
 		boolean hasEvent(EMFEventType eventType, EStructuralFeature feature) {
 			if (Trace.shouldTraceEntering()) {
-				Trace.entering(
-						getClass(),
-						"hasEvent", //$NON-NLS-1$
-						new Object[] {eventType, feature});
+				Trace.entering(getClass(), "hasEvent", //$NON-NLS-1$
+						new Object[] { eventType, feature });
 			}
-			
+
 			String featureName = (feature == null) ? null : feature.getName();
-			
+
 			// if no events are registered, and I explicitly support the EClass,
 			// then it is implied that I support all predefined events
 			boolean result = ((nonFeatureSpecificEvents == null) || nonFeatureSpecificEvents.isEmpty())
-					&& ((featureSpecificEvents == null) || featureSpecificEvents.isEmpty())
-					&& isExplicit() 
+					&& ((featureSpecificEvents == null) || featureSpecificEvents.isEmpty()) && isExplicit()
 					&& EMFEventType.getPredefinedInstances().contains(eventType);
-			
+
 			if (!result) {
-				// do I support this event for all features?  If so, the
-				//   answer is easy
+				// do I support this event for all features? If so, the
+				// answer is easy
 				if ((nonFeatureSpecificEvents != null) && nonFeatureSpecificEvents.contains(eventType)) {
 					result = true;
 				} else {
 					// null feature name can't be included in the feature list
-					//    for the event
+					// for the event
 					if (featureName != null) {
 						// see whether the collection of supported event
-						//   types includes this feature
+						// types includes this feature
 						if ((featureSpecificEvents != null) && featureSpecificEvents.containsKey(eventType)) {
-							Collection<String> eventFeatures =
-								featureSpecificEvents.get(eventType);
-							
+							Collection<String> eventFeatures = featureSpecificEvents.get(eventType);
+
 							// if no features are registered and I am supported and
-							//    I have no parents, then it is implied that I
-							//    support all features 
+							// I have no parents, then it is implied that I
+							// support all features
 							result = eventFeatures.contains(featureName);
 						}
 					}
@@ -863,35 +820,33 @@ public final class XmlConstraintDescriptor
 		}
 
 		/**
-		 * Merge's a supertype's target descriptor into me.  I will inherit its
+		 * Merge's a supertype's target descriptor into me. I will inherit its
 		 * applicability characteristics.
 		 * 
 		 * @param parent a descriptor for a parent type
 		 */
 		void merge(TargetDescriptor parent) {
 			// if my ancestor EClass is explicitly supported, then obviously
-			//   so am I
+			// so am I
 			if (parent.isExplicit()) {
 				setExplicit();
 			}
-			
+
 			if (parent.nonFeatureSpecificEvents != null) {
 				getNonFeatureSpecificEvents().addAll(parent.nonFeatureSpecificEvents);
 			}
-			
+
 			if (parent.featureSpecificEvents != null) {
 				for (Map.Entry<EMFEventType, Collection<String>> next : parent.featureSpecificEvents.entrySet()) {
 					EMFEventType eventType = next.getKey();
 					Collection<String> features = next.getValue();
-					
+
 					Collection<String> myFeatures = this.getFeatureSpecificEvents().get(eventType);
 					if (myFeatures == null) {
-						// add all of my parent's features.  Need to create a copy
+						// add all of my parent's features. Need to create a copy
 						// because I might inherit other features from a different
 						// parent
-						getFeatureSpecificEvents().put(
-							eventType,
-							new java.util.HashSet<String>(features));
+						getFeatureSpecificEvents().put(eventType, new java.util.HashSet<String>(features));
 					} else {
 						myFeatures.addAll(features);
 					}

@@ -34,14 +34,14 @@ class Example1 {
 	private static Random random = new Random(1234567890L);
 
 	/**
-	 *  Cannot be instantiated by clients.
+	 * Cannot be instantiated by clients.
 	 */
 	private Example1() {
 		super();
 	}
 
 	/**
-	 * Creates an example Order System.  The example data are populated into the
+	 * Creates an example Order System. The example data are populated into the
 	 * supplied <code>orderSystem</code> instance.
 	 * 
 	 * @param orderSystem the example order system to be populated
@@ -64,9 +64,7 @@ class Example1 {
 		Product result = factory.createProduct();
 
 		result.setName(name);
-		result
-				.setSku(String.valueOf(hashCode(name)) + '-'
-						+ (nextInt(100) - 1));
+		result.setSku(String.valueOf(hashCode(name)) + '-' + (nextInt(100) - 1));
 		result.setPrice(nextInt(30));
 
 		os.getProduct().add(result);
@@ -105,24 +103,20 @@ class Example1 {
 		return result;
 	}
 
-	private static Customer createCustomer(OrderSystem os, String last,
-			String first, String city) {
+	private static Customer createCustomer(OrderSystem os, String last, String first, String city) {
 		Customer result = factory.createCustomer();
 
 		result.setLastName(last);
 		result.setFirstName(first);
-		result.getAccount().add(
-				createAccount("VISA", //$NON-NLS-1$
-						String.valueOf(hashCode(last)) + '-' + hashCode(first),
-						city));
+		result.getAccount().add(createAccount("VISA", //$NON-NLS-1$
+				String.valueOf(hashCode(last)) + '-' + hashCode(first), city));
 
 		os.getCustomer().add(result);
 
 		return result;
 	}
 
-	private static Account createAccount(String payment, String number,
-			String city) {
+	private static Account createAccount(String payment, String number, String city) {
 		Account result = factory.createAccount();
 
 		result.setAccountNumber(number);

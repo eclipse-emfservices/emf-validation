@@ -41,50 +41,48 @@ import ordersystem.OrderSystemFactory;
  */
 public class DisabledConstraintTest extends TestCase {
 	public void test_validate() {
-		ConstraintDescriptorTest.FixtureElement config =
-			ConstraintDescriptorTest.newFixtureConfig();
+		ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.newFixtureConfig();
 		config.putAttribute(XmlConfig.A_ID, "test.disabled.id"); //$NON-NLS-1$
 		config.putAttribute(XmlConfig.A_NAME, "Disabled test"); //$NON-NLS-1$
-		
+
 		try {
 			IConstraintDescriptor descriptor = new XmlConstraintDescriptor(config);
-			
+
 			Exception exception = new Exception();
 			EObject eObject = OrderSystemFactory.eINSTANCE.createAccount();
 			IValidationContext ctx = new ValidationContext(eObject);
-			
-			IStatus result = new DisabledConstraint(descriptor, exception)
-					.validate(ctx);
-			
+
+			IStatus result = new DisabledConstraint(descriptor, exception).validate(ctx);
+
 			assertTrue(result instanceof IConstraintStatus);
-			
+
 			assertFalse(result.isOK());
 			assertFalse(result.isMultiStatus());
-			
+
 			assertTrue(descriptor.isError());
 			assertFalse(descriptor.isEnabled());
-			
+
 			assertSame(exception, descriptor.getException());
-			
+
 			// try to set status back to enabled
 			descriptor.setEnabled(true);
-			
+
 			// verify that, because of the error, it is still disabled
 			assertFalse(descriptor.isEnabled());
 		} catch (ConstraintExistsException e) {
 			fail("Test constraint already exists!  Is the test being repeated?"); //$NON-NLS-1$
 		}
 	}
-	
+
 	public static class ValidationContext implements IValidationContext {
 		private final EObject target;
 		private final Set<EObject> resultLocus = new java.util.HashSet<EObject>();
-		
+
 		public ValidationContext(EObject target) {
 			this.target = target;
 			resultLocus.add(target);
 		}
-		
+
 		// implements the inherited method
 		public String getCurrentConstraintId() {
 			return "test.disabled.id"; //$NON-NLS-1$
@@ -109,7 +107,7 @@ public class DisabledConstraintTest extends TestCase {
 		public EStructuralFeature getFeature() {
 			return null;
 		}
-		
+
 		// implements the inherited method
 		public Object getFeatureNewValue() {
 			return null;
@@ -124,7 +122,7 @@ public class DisabledConstraintTest extends TestCase {
 		public void skipCurrentConstraintForAll(Collection<?> eObjects) {
 			// no need to do anything in this test fixture
 		}
-		
+
 		// implements the inherited method
 		public void disableCurrentConstraint(Throwable exception) {
 			// no need to do anything in this test fixture
@@ -144,34 +142,31 @@ public class DisabledConstraintTest extends TestCase {
 		public Set<EObject> getResultLocus() {
 			return resultLocus;
 		}
-		
+
 		// implements the inherited method
 		public void addResult(EObject eObject) {
 			resultLocus.add(eObject);
 		}
-		
+
 		// implements the inherited method
 		public void addResults(Collection<? extends EObject> eObjects) {
 			resultLocus.addAll(eObjects);
 		}
 
-		/* (non-Javadoc)
-		 * Redefines/Implements/Extends the inherited method.
+		/*
+		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
 		public IStatus createSuccessStatus() {
 			return Status.OK_STATUS;
 		}
 
-		/* (non-Javadoc)
-		 * Redefines/Implements/Extends the inherited method.
+		/*
+		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
 		public IStatus createFailureStatus(Object... messageArguments) {
-			return new Status(
-				IStatus.ERROR,
-				"org.eclipse.emf.validation.tests", //$NON-NLS-1$
-				1,
-				"", //$NON-NLS-1$
-				null);
+			return new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
+					1, "", //$NON-NLS-1$
+					null);
 		}
 	}
 }

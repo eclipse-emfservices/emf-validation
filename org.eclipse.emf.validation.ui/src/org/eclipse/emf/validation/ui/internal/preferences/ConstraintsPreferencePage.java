@@ -28,40 +28,38 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * @author Christian W. Damus (cdamus)
  * @author David Cummings (dcummin)
  */
-public class ConstraintsPreferencePage
-		extends PreferencePage
-		implements IWorkbenchPreferencePage {
-	
+public class ConstraintsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+
 	private ConstraintsSelectionBlock constraintsComposite;
-    
+
 	// implements the inherited method
 	@Override
-    protected Control createContents(Composite parent) {
+	protected Control createContents(Composite parent) {
 		Composite result = new Composite(parent, SWT.NONE);
 		FillLayout layout = new FillLayout();
 		result.setLayout(layout);
-        
+
 		constraintsComposite = new ConstraintsSelectionBlock();
 		constraintsComposite.createComposite(result);
-        
+
 		applyDialogFont(result);
-		
+
 		return result;
 	}
 
 	public void init(IWorkbench workbench) {
 		// nothing to do
 	}
-	
+
 	// redefines the inherited method
 	@Override
-    public boolean performOk() {
+	public boolean performOk() {
 		return constraintsComposite.performOk();
 	}
-	
+
 	// extends the inherited method
 	@Override
-    protected void performDefaults() {
+	protected void performDefaults() {
 		constraintsComposite.performDefaults();
 	}
 }

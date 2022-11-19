@@ -41,17 +41,15 @@ public class ConstraintStatusTest extends TestCase {
 	private static final String TEST_MESSAGE = "Error happened";//$NON-NLS-1$
 	private static final int TEST_CODE = 1000;
 	private static final ConstraintSeverity TEST_SEVERITY = ConstraintSeverity.WARNING;
-	
-	private static final EObject TEST_TARGET =
-		OrderSystemFactory.eINSTANCE.createWarehouse();
-	
-	private static final Set<EObject> TEST_RESULTLOCUS =
-		Collections.singleton(TEST_TARGET);
-	
+
+	private static final EObject TEST_TARGET = OrderSystemFactory.eINSTANCE.createWarehouse();
+
+	private static final Set<EObject> TEST_RESULTLOCUS = Collections.singleton(TEST_TARGET);
+
 	private static FixtureConstraint fixtureConstraint;
 	private static ConstraintStatus successFixture;
 	private static ConstraintStatus failedFixture;
-	
+
 	private static class FixtureConstraint implements IModelConstraint {
 		private final String name;
 		private final String id;
@@ -59,8 +57,7 @@ public class ConstraintStatusTest extends TestCase {
 		private final ConstraintSeverity severity;
 		private final int code;
 
-		FixtureConstraint(String name, String id, String pluginId,
-				ConstraintSeverity severity, int code) {
+		FixtureConstraint(String name, String id, String pluginId, ConstraintSeverity severity, int code) {
 			this.name = name;
 			this.id = id;
 			this.pluginId = pluginId;
@@ -94,23 +91,23 @@ public class ConstraintStatusTest extends TestCase {
 				public String getDescription() {
 					return null;
 				}
-				
+
 				public String getBody() {
 					return null;
 				}
-				
+
 				public boolean isError() {
 					return false;
 				}
-				
+
 				public boolean isEnabled() {
 					return true;
 				}
-				
+
 				public void setEnabled(boolean enabled) {
 					// do nothing
 				}
-				
+
 				public Throwable getException() {
 					return null;
 				}
@@ -156,63 +153,44 @@ public class ConstraintStatusTest extends TestCase {
 				}
 			};
 		}
-		
+
 		public IStatus validate(IValidationContext ctx) {
 			return null;
 		}
 	}
-	
+
 	private static FixtureConstraint getFixtureConstraint() {
 		if (fixtureConstraint == null) {
-			fixtureConstraint = new FixtureConstraint(
-					TEST_NAME,
-					TEST_ID,
-					TEST_PLUGIN,
-					TEST_SEVERITY,
-					TEST_CODE);
+			fixtureConstraint = new FixtureConstraint(TEST_NAME, TEST_ID, TEST_PLUGIN, TEST_SEVERITY, TEST_CODE);
 		}
-		
+
 		return fixtureConstraint;
 	}
-	
+
 	private static ConstraintStatus getSuccessFixture() {
 		if (successFixture == null) {
-			successFixture = new ConstraintStatus(
-					getFixtureConstraint(),
-					TEST_TARGET);
+			successFixture = new ConstraintStatus(getFixtureConstraint(), TEST_TARGET);
 		}
-		
+
 		return successFixture;
 	}
-	
+
 	private static ConstraintStatus getFailedFixture() {
 		if (failedFixture == null) {
-			failedFixture = new ConstraintStatus(
-					getFixtureConstraint(),
-					TEST_TARGET,
-					TEST_MESSAGE,
-					TEST_RESULTLOCUS);
+			failedFixture = new ConstraintStatus(getFixtureConstraint(), TEST_TARGET, TEST_MESSAGE, TEST_RESULTLOCUS);
 		}
-		
+
 		return failedFixture;
 	}
 
 	public void test_getConstraint() {
-		assertSame(
-				getFixtureConstraint(),
-				getSuccessFixture().getConstraint());
-		assertSame(
-				getFixtureConstraint(),
-				getFailedFixture().getConstraint());
+		assertSame(getFixtureConstraint(), getSuccessFixture().getConstraint());
+		assertSame(getFixtureConstraint(), getFailedFixture().getConstraint());
 	}
 
 	public void test_getTarget() {
-		assertEquals(
-				TEST_TARGET,
-				getSuccessFixture().getTarget());
-		assertEquals(
-				TEST_TARGET,
-				getFailedFixture().getTarget());
+		assertEquals(TEST_TARGET, getSuccessFixture().getTarget());
+		assertEquals(TEST_TARGET, getFailedFixture().getTarget());
 	}
 
 	public void test_getResultLocus() {
@@ -226,39 +204,23 @@ public class ConstraintStatusTest extends TestCase {
 	}
 
 	public void test_getCode() {
-		assertEquals(
-				EMFModelValidationStatusCodes.ALL_CONSTRAINTS_PASSED,
-				getSuccessFixture().getCode());
-		assertEquals(
-				TEST_CODE,
-				getFailedFixture().getCode());
+		assertEquals(EMFModelValidationStatusCodes.ALL_CONSTRAINTS_PASSED, getSuccessFixture().getCode());
+		assertEquals(TEST_CODE, getFailedFixture().getCode());
 	}
 
 	public void test_getMessage() {
-		assertEquals(
-				EMFModelValidationStatusCodes.CONSTRAINT_SUCCESS_MSG,
-				getSuccessFixture().getMessage());
-		assertEquals(
-				TEST_MESSAGE,
-				getFailedFixture().getMessage());
+		assertEquals(EMFModelValidationStatusCodes.CONSTRAINT_SUCCESS_MSG, getSuccessFixture().getMessage());
+		assertEquals(TEST_MESSAGE, getFailedFixture().getMessage());
 	}
 
 	public void test_getPlugin() {
-		assertEquals(
-				TEST_PLUGIN,
-				getSuccessFixture().getPlugin());
-		assertEquals(
-				TEST_PLUGIN,
-				getFailedFixture().getPlugin());
+		assertEquals(TEST_PLUGIN, getSuccessFixture().getPlugin());
+		assertEquals(TEST_PLUGIN, getFailedFixture().getPlugin());
 	}
 
 	public void test_getSeverity() {
-		assertEquals(
-				IStatus.OK,
-				getSuccessFixture().getSeverity());
-		assertEquals(
-				TEST_SEVERITY.toIStatusSeverity(),
-				getFailedFixture().getSeverity());
+		assertEquals(IStatus.OK, getSuccessFixture().getSeverity());
+		assertEquals(TEST_SEVERITY.toIStatusSeverity(), getFailedFixture().getSeverity());
 	}
 
 	public void test_isMultiStatus() {

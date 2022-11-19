@@ -35,7 +35,7 @@ public class ThrowsConstraint extends AbstractModelConstraint {
 	 * @throws RuntimeException always
 	 */
 	@Override
-    public IStatus validate(IValidationContext ctx) {
+	public IStatus validate(IValidationContext ctx) {
 		throw new RuntimeException("I was meant to abend."); //$NON-NLS-1$
 	}
 }

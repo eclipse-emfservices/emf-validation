@@ -23,7 +23,7 @@ import org.eclipse.emf.validation.IValidationContext;
  */
 public class LazyTestModelConstraint extends AbstractModelConstraint {
 	private static int instanceCount = 0;
-	
+
 	/**
 	 * Initializes me.
 	 */
@@ -39,7 +39,7 @@ public class LazyTestModelConstraint extends AbstractModelConstraint {
 	public static int getInstanceCount() {
 		return instanceCount;
 	}
-	
+
 	/**
 	 * Increments the instance count.
 	 */
@@ -49,7 +49,7 @@ public class LazyTestModelConstraint extends AbstractModelConstraint {
 
 	// implements the inherited method
 	@Override
-    public IStatus validate(IValidationContext ctx) {
+	public IStatus validate(IValidationContext ctx) {
 		return ctx.createSuccessStatus();
 	}
 }

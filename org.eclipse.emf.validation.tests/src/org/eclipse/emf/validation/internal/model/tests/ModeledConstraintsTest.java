@@ -54,22 +54,21 @@ import ordersystem.OrderSystemPackage;
  *
  */
 public class ModeledConstraintsTest extends TestCase {
-	
+
 	private static boolean setup = false;
-	
+
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-		if ( !EMFPlugin.IS_ECLIPSE_RUNNING && !setup ) {
+
+		if (!EMFPlugin.IS_ECLIPSE_RUNNING && !setup) {
 			setup = true;
 			EPackage.Registry.INSTANCE.put(ValidationPackage.eNS_URI, ValidationPackage.eINSTANCE);
 			EPackage.Registry.INSTANCE.put(OrderSystemPackage.eNS_URI, OrderSystemPackage.eINSTANCE);
-			
+
 			Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl()); //$NON-NLS-1$
-			ModeledConstraintsLoader.getInstance().loadConstraintBundles(null, 
+			ModeledConstraintsLoader.getInstance().loadConstraintBundles(null,
 					URI.createURI(getClass().getClassLoader().getResource("order.validation").toString()), //$NON-NLS-1$
-					null,
-					ValidationTestsPlugin.INSTANCE); //$NON-NLS-1
+					null, ValidationTestsPlugin.INSTANCE); // $NON-NLS-1
 		}
 	}
 
@@ -77,46 +76,46 @@ public class ModeledConstraintsTest extends TestCase {
 		assertNotNull(CategoryManager.getInstance().findCategory("modeled.test")); //$NON-NLS-1$
 		assertNotNull(CategoryManager.getInstance().findCategory("modeled.test/modeled.test.sub")); //$NON-NLS-1$
 	}
-	
+
 	public void testConstraintDescriptor() {
 		Category cat = CategoryManager.getInstance().findCategory("modeled.test"); //$NON-NLS-1$
 		assertNotNull(cat);
-		
+
 		Set<IConstraintDescriptor> constraints = cat.getConstraints();
 		assertEquals(5, constraints.size());
 	}
-	
+
 	public void testValidation() {
 		Account acc = OrderSystemFactory.eINSTANCE.createAccount();
 		acc.setAccountNumber("12345A"); //$NON-NLS-1$
-		
+
 		IValidator<EObject> val = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-		
+
 		IStatus result = val.validate(acc);
-		
+
 		assertFalse(result.isOK());
 	}
-	
+
 	public void testIrrelevantTarget() {
-		Address	add = OrderSystemFactory.eINSTANCE.createAddress();
-	
+		Address add = OrderSystemFactory.eINSTANCE.createAddress();
+
 		IValidator<EObject> val = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-		
+
 		IStatus result = val.validate(add);
-		
+
 		assertTrue(result.isOK());
 	}
-	
+
 	public void testInternationalization() {
 		Category cat = CategoryManager.getInstance().findCategory("modeled.test"); //$NON-NLS-1$
 		assertNotNull(cat);
-		
+
 		Set<IConstraintDescriptor> constraints = cat.getConstraints();
 
-		for ( IConstraintDescriptor desc : constraints) {
-			
-			String id = XmlConstraintDescriptor.normalizedId("org.eclipse.emf.validation.tests", "modeled4");  //$NON-NLS-1$//$NON-NLS-2$
-			if ( id.equals(desc.getId())) {
+		for (IConstraintDescriptor desc : constraints) {
+
+			String id = XmlConstraintDescriptor.normalizedId("org.eclipse.emf.validation.tests", "modeled4"); //$NON-NLS-1$//$NON-NLS-2$
+			if (id.equals(desc.getId())) {
 				assertEquals("Constraint failed", desc.getMessagePattern()); //$NON-NLS-1$
 				assertEquals("Test constraint for modeled i18n", desc.getName()); //$NON-NLS-1$
 				assertEquals("Tests message bundles for constraints", desc.getDescription()); //$NON-NLS-1$
@@ -124,28 +123,26 @@ public class ModeledConstraintsTest extends TestCase {
 		}
 	}
 
-	
-	
 	public static class AccountClientSelector implements IClientSelector {
 
 		public boolean selects(Object object) {
 			return object instanceof Account;
 		}
-		
+
 	}
-	
+
 	public static class AccountNumberTestConstraint extends AbstractModelConstraint {
 
 		@Override
 		public IStatus validate(IValidationContext ctx) {
 			Account act = (Account) ctx.getTarget();
-			
-			if ( "12345C".equals(act.getAccountNumber())) { //$NON-NLS-1$
+
+			if ("12345C".equals(act.getAccountNumber())) { //$NON-NLS-1$
 				return Status.OK_STATUS;
 			}
-			
+
 			IStatus fail = new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", "failed"); //$NON-NLS-1$ //$NON-NLS-2$
-			
+
 			return fail;
 		}
 	}

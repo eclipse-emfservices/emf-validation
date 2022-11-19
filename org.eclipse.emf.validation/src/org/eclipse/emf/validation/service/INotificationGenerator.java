@@ -16,11 +16,10 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
 /**
- * Interface implemented by clients who wish to define a notification
- * generator.
+ * Interface implemented by clients who wish to define a notification generator.
  * <p>
- * Notification generators are contributed through the
- * <tt>eventTypes</tt> Eclipse extension point.
+ * Notification generators are contributed through the <tt>eventTypes</tt>
+ * Eclipse extension point.
  * </p>
  * 
  * @see EventTypeService#getNotificationGenerator(String)
@@ -32,12 +31,11 @@ import org.eclipse.emf.common.notify.Notification;
  */
 public interface INotificationGenerator {
 	/**
-	 * Generates and returns custom notifications from a list of 
-	 * notifications that are eligible for validation.
+	 * Generates and returns custom notifications from a list of notifications that
+	 * are eligible for validation.
 	 * 
 	 * @param notifications that are eligible for validation
 	 * @return collection of newly generated notifications
 	 */
-	public Collection<Notification> generateNotifications(
-		Collection<? extends Notification> notifications);
+	public Collection<Notification> generateNotifications(Collection<? extends Notification> notifications);
 }

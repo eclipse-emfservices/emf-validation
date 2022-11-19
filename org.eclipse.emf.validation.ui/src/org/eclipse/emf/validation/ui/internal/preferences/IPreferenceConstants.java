@@ -11,17 +11,16 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal.preferences;
 
-
 /**
  * Preference constants for the Validation UI plug-in.
  *
  * @author Christian W. Damus (cdamus)
  */
 public interface IPreferenceConstants {
-	
-	//	ValidationPreferencePage
-    public static final String VALIDATION_LIVE_PROBLEMS_DISPLAY = "Validation.liveProblemsDisplay"; //$NON-NLS-1$    
-    public static final String VALIDATION_LIVE_SHOW_CONSOLE = "Validation.liveShowConsole"; //$NON-NLS-1$
-    public static final String VALIDATION_LIVE_WARNINGS_IN_DIALOG = "Validation.liveWarningsInDialog"; //$NON-NLS-1$
+
+	// ValidationPreferencePage
+	public static final String VALIDATION_LIVE_PROBLEMS_DISPLAY = "Validation.liveProblemsDisplay"; //$NON-NLS-1$
+	public static final String VALIDATION_LIVE_SHOW_CONSOLE = "Validation.liveShowConsole"; //$NON-NLS-1$
+	public static final String VALIDATION_LIVE_WARNINGS_IN_DIALOG = "Validation.liveWarningsInDialog"; //$NON-NLS-1$
 
 }

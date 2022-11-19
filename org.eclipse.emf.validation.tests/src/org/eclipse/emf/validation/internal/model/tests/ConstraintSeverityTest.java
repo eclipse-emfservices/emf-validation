@@ -31,23 +31,15 @@ import junit.framework.TestCase;
 public class ConstraintSeverityTest extends TestCase {
 
 	public void test_getInstance() {
-		assertSame(
-				ConstraintSeverity.NULL,
-				ConstraintSeverity.getInstance("")); //$NON-NLS-1$
-		assertSame(
-				ConstraintSeverity.INFO,
-				ConstraintSeverity.getInstance(ConstraintSeverity.INFO.getName()));
-		assertSame(
-				ConstraintSeverity.WARNING,
-				ConstraintSeverity.getInstance(ConstraintSeverity.WARNING.getName()));
-		assertSame(
-				ConstraintSeverity.ERROR,
-				ConstraintSeverity.getInstance(ConstraintSeverity.ERROR.getName()));
+		assertSame(ConstraintSeverity.NULL, ConstraintSeverity.getInstance("")); //$NON-NLS-1$
+		assertSame(ConstraintSeverity.INFO, ConstraintSeverity.getInstance(ConstraintSeverity.INFO.getName()));
+		assertSame(ConstraintSeverity.WARNING, ConstraintSeverity.getInstance(ConstraintSeverity.WARNING.getName()));
+		assertSame(ConstraintSeverity.ERROR, ConstraintSeverity.getInstance(ConstraintSeverity.ERROR.getName()));
 	}
 
 	public void test_getAllInstances() {
 		List<ConstraintSeverity> instances = ConstraintSeverity.getAllInstances();
-		
+
 		assertTrue(instances.contains(ConstraintSeverity.NULL));
 		assertTrue(instances.contains(ConstraintSeverity.INFO));
 		assertTrue(instances.contains(ConstraintSeverity.WARNING));
@@ -73,19 +65,18 @@ public class ConstraintSeverityTest extends TestCase {
 
 		ObjectOutput output = null;
 		ObjectInput input = null;
-		
+
 		try {
 			output = new ObjectOutputStream(stream);
-			
+
 			for (ConstraintSeverity next : ConstraintSeverity.getAllInstances()) {
 				output.writeObject(next);
 			}
-			
+
 			output.flush();
 
-			input =	new ObjectInputStream(
-					new ByteArrayInputStream(stream.toByteArray()));
-			
+			input = new ObjectInputStream(new ByteArrayInputStream(stream.toByteArray()));
+
 			for (ConstraintSeverity next : ConstraintSeverity.getAllInstances()) {
 				assertSame(next, input.readObject());
 			}

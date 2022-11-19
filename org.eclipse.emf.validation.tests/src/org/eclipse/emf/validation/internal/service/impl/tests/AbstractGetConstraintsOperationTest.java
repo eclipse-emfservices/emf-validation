@@ -35,34 +35,32 @@ import org.eclipse.emf.validation.util.XmlConfig;
 abstract class AbstractGetConstraintsOperationTest extends TestBase {
 	protected static final IModelConstraint BATCH_TOKEN = newConstraint(EvaluationMode.BATCH);
 	protected static final IModelConstraint LIVE_TOKEN = newConstraint(EvaluationMode.LIVE);
-	
+
 	private AbstractGetConstraintsOperation fixture;
-	
+
 	/**
 	 * Constructor for AbstractGetConstraintsOperationTest.
+	 * 
 	 * @param name
 	 */
 	public AbstractGetConstraintsOperationTest(String name) {
 		super(name);
 	}
-	
+
 	protected final AbstractGetConstraintsOperation getFixture() {
 		return fixture;
 	}
-	
+
 	protected final void setFixture(AbstractGetConstraintsOperation fixture) {
 		this.fixture = fixture;
 	}
-	
+
 	private static TestConstraint newConstraint(EvaluationMode<?> mode) {
-		ConstraintDescriptorTest.FixtureElement config =
-			ConstraintDescriptorTest.newFixtureConfig();
-		
-		config.putAttribute(
-				XmlConfig.A_ID,
-				"aGetConOpTest@" + System.identityHashCode(config)) //$NON-NLS-1$
-			.putAttribute(XmlConfig.A_MODE, mode.getName());
-		
+		ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.newFixtureConfig();
+
+		config.putAttribute(XmlConfig.A_ID, "aGetConOpTest@" + System.identityHashCode(config)) //$NON-NLS-1$
+				.putAttribute(XmlConfig.A_MODE, mode.getName());
+
 		try {
 			return new TestConstraint(new XmlConstraintDescriptor(config));
 		} catch (ConstraintExistsException e) {
@@ -70,43 +68,40 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	protected static class TestProvider implements IModelConstraintProvider {
 
-		/* (non-Javadoc)
-		 * Redefines/Implements/Extends the inherited method.
+		/*
+		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
-		public Collection<IModelConstraint> getBatchConstraints(
-				EObject eObject,
+		public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
 				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, BATCH_TOKEN);
 		}
 
-		/* (non-Javadoc)
-		 * Redefines/Implements/Extends the inherited method.
+		/*
+		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
-		public Collection<IModelConstraint> getLiveConstraints(
-				Notification notification,
+		public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, LIVE_TOKEN);
 		}
-		
-		private Collection<IModelConstraint> appendTo(Collection<IModelConstraint> c,
-				IModelConstraint constraint) {
-			
+
+		private Collection<IModelConstraint> appendTo(Collection<IModelConstraint> c, IModelConstraint constraint) {
+
 			if (c == null) {
 				c = new java.util.ArrayList<IModelConstraint>(1);
 			}
-			
+
 			c.add(constraint);
-			
+
 			return c;
 		}
 	}
-	
+
 	protected static class TestConstraint implements IModelConstraint {
 		private final IConstraintDescriptor descriptor;
-		
+
 		TestConstraint(IConstraintDescriptor descriptor) {
 			this.descriptor = descriptor;
 		}
@@ -114,7 +109,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 		public IStatus validate(IValidationContext ctx) {
 			return null;
 		}
-		
+
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}

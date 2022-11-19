@@ -21,13 +21,14 @@ import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 /**
- * A content adapter that performs live validation in response to changes in
- * the model.
+ * A content adapter that performs live validation in response to changes in the
+ * model.
  * <p>
- * TODO: This class was an inner class in the {@link EnableLiveValidationDelegate}
- * class, but was factored out to work around Bugzilla
- * <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=97632">97632</a>.
- * It should be reinstated as an inner class when that bug is fixed.
+ * TODO: This class was an inner class in the
+ * {@link EnableLiveValidationDelegate} class, but was factored out to work
+ * around Bugzilla
+ * <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=97632">97632</a>. It
+ * should be reinstated as an inner class when that bug is fixed.
  * </p>
  */
 class LiveValidationContentAdapter extends EContentAdapter {
@@ -41,32 +42,36 @@ class LiveValidationContentAdapter extends EContentAdapter {
 		actionDelegate = delegate;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.
+	 * common.notify.Notification)
 	 */
 	@Override
 	public void notifyChanged(final Notification notification) {
 		super.notifyChanged(notification);
-		
+
 		actionDelegate.shell.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				if (validator == null) {
-					validator = ModelValidationService.getInstance().newValidator(
-						EvaluationMode.LIVE);
+					validator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 				}
-				
+
 				ValidationDelegateClientSelector.running = true;
-				
+
 				IStatus status = validator.validate(notification);
-				
+
 				if (!status.isOK()) {
 					if (status.isMultiStatus()) {
 						status = status.getChildren()[0];
 					}
-					
-					MessageDialog.openError(LiveValidationContentAdapter.this.actionDelegate.shell,LiveValidationContentAdapter.this.actionDelegate.title,status.getMessage());
+
+					MessageDialog.openError(LiveValidationContentAdapter.this.actionDelegate.shell,
+							LiveValidationContentAdapter.this.actionDelegate.title, status.getMessage());
 				}
-				
+
 				ValidationDelegateClientSelector.running = false;
 			}
 		});

@@ -58,14 +58,13 @@ public class ConstraintDescriptorTest extends TestCase {
 	private static final String TEST_NAMESPACE_URI = "http:///ordersystem.ecore"; //$NON-NLS-1$
 	private static final String TEST_CLASS = "Warehouse"; //$NON-NLS-1$
 	private static final String TEST_EVENT = "Set"; //$NON-NLS-1$
-	private static final Category TEST_CATEGORY =
-		CategoryManager.getInstance().getCategory("test/descriptor"); //$NON-NLS-1$
+	private static final Category TEST_CATEGORY = CategoryManager.getInstance().getCategory("test/descriptor"); //$NON-NLS-1$
 
 	private static XmlConstraintDescriptor fixture;
 	private static FixtureElement fixtureConfig;
-	
-	/** 
-	 * Handy implementation of the Eclipse extension configuration element. 
+
+	/**
+	 * Handy implementation of the Eclipse extension configuration element.
 	 */
 	public static class FixtureElement implements IConfigurationElement {
 		private final Map<String, String> attributes = new java.util.HashMap<String, String>();
@@ -73,7 +72,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		private Object parent;
 		private final String myName;
 		private String value = ""; //$NON-NLS-1$
-		
+
 		public FixtureElement(String name) {
 			this.myName = name;
 		}
@@ -81,36 +80,33 @@ public class ConstraintDescriptorTest extends TestCase {
 		public static FixtureElement build(String name, String[][] attributes) {
 			return build(name, null, attributes);
 		}
-		
+
 		public static FixtureElement build(String name, String value) {
 			return build(name, value, null);
 		}
-		
-		public static FixtureElement build(
-				String name,
-				String value,
-				String[][] attributes) {
+
+		public static FixtureElement build(String name, String value, String[][] attributes) {
 			FixtureElement result = new FixtureElement(name);
-			
+
 			if (attributes != null) {
 				for (String[] element : attributes) {
 					result.putAttribute(element[0], element[1]);
 				}
 			}
-				
+
 			result.setValue(value);
-			
+
 			return result;
 		}
-		
+
 		// implements/extends the inherited method
 		public String getAttribute(String name) {
 			return attributes.get(name);
 		}
-		
+
 		public FixtureElement putAttribute(String name, String newValue) {
 			attributes.put(name, newValue);
-			
+
 			return this;
 		}
 
@@ -132,23 +128,23 @@ public class ConstraintDescriptorTest extends TestCase {
 		// implements/extends the inherited method
 		public IConfigurationElement[] getChildren(String name) {
 			List<IConfigurationElement> result = new java.util.ArrayList<IConfigurationElement>();
-			
+
 			for (IConfigurationElement next : children) {
 				if (next.getName().equals(name)) {
 					result.add(next);
 				}
 			}
-			
+
 			return result.toArray(new IConfigurationElement[result.size()]);
 		}
-		
+
 		public FixtureElement addChild(IConfigurationElement child) {
 			children.add(child);
-			
+
 			if (child instanceof FixtureElement) {
-				((FixtureElement)child).setParent(this);
+				((FixtureElement) child).setParent(this);
 			}
-			
+
 			return this;
 		}
 
@@ -166,10 +162,10 @@ public class ConstraintDescriptorTest extends TestCase {
 		public String getValueAsIs() {
 			return getValue();
 		}
-		
+
 		public FixtureElement setValue(String value) {
 			this.value = value;
-			
+
 			return this;
 		}
 
@@ -180,9 +176,9 @@ public class ConstraintDescriptorTest extends TestCase {
 		@Deprecated
 		public IExtension getDeclaringExtension() {
 			return new IExtension() {
-				
-				/* (non-Javadoc)
-				 * Redefines the inherited method.
+
+				/*
+				 * (non-Javadoc) Redefines the inherited method.
 				 */
 				public String getNamespace() {
 					return TEST_PLUGIN;
@@ -220,45 +216,37 @@ public class ConstraintDescriptorTest extends TestCase {
 					return null;
 				}
 
-				public String getLabel(String locale)
-						throws InvalidRegistryObjectException {
+				public String getLabel(String locale) throws InvalidRegistryObjectException {
 					return TEST_PLUGIN;
-				}				
+				}
 			};
 		}
-		
-		public Object createExecutableExtension(String propertyName)
-				throws CoreException {
+
+		public Object createExecutableExtension(String propertyName) throws CoreException {
 			try {
-				Object result =
-					Class.forName(getAttribute(propertyName)).getDeclaredConstructor().newInstance();
-				
+				Object result = Class.forName(getAttribute(propertyName)).getDeclaredConstructor().newInstance();
+
 				if (result instanceof IExecutableExtension) {
-					((IExecutableExtension)result).setInitializationData(
-							this,
-							propertyName,
-							null);
+					((IExecutableExtension) result).setInitializationData(this, propertyName, null);
 				}
-				
+
 				return result;
 			} catch (Exception e) {
-				throw new CoreException(
-						new Status(
-								IStatus.ERROR,
-								"org.eclipse.emf.validation.tests", //$NON-NLS-1$
-								1,
-								"Failed to create executable extension", //$NON-NLS-1$
-								e));
+				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
+						1, "Failed to create executable extension", //$NON-NLS-1$
+						e));
 			}
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see org.eclipse.core.runtime.IConfigurationElement#getParent()
 		 */
 		public Object getParent() {
 			return parent;
 		}
-		
+
 		void setParent(Object parent) {
 			this.parent = parent;
 		}
@@ -279,13 +267,11 @@ public class ConstraintDescriptorTest extends TestCase {
 			return null;
 		}
 
-		public String getAttribute(String attrName, String locale)
-				throws InvalidRegistryObjectException {
+		public String getAttribute(String attrName, String locale) throws InvalidRegistryObjectException {
 			return null;
 		}
 
-		public String getValue(String locale)
-				throws InvalidRegistryObjectException {
+		public String getValue(String locale) throws InvalidRegistryObjectException {
 			return null;
 		}
 
@@ -293,7 +279,7 @@ public class ConstraintDescriptorTest extends TestCase {
 			return 0;
 		}
 	}
-	
+
 	/** Make this accessible to the constraint implementation tests. */
 	public static XmlConstraintDescriptor getFixture() {
 		if (fixture == null) {
@@ -304,13 +290,13 @@ public class ConstraintDescriptorTest extends TestCase {
 				fail("Constraint already exists: " + e.getLocalizedMessage()); //$NON-NLS-1$
 			}
 		}
-		
+
 		return fixture;
 	}
-	
+
 	public static FixtureElement newFixtureConfig() {
 		FixtureElement result = new FixtureElement(XmlConfig.E_CONSTRAINT);
-		
+
 		result.putAttribute(XmlConfig.A_ID, TEST_ID);
 		result.putAttribute(XmlConfig.A_NAME, TEST_NAME);
 		result.putAttribute(XmlConfig.A_LANG, TEST_LANG);
@@ -318,50 +304,46 @@ public class ConstraintDescriptorTest extends TestCase {
 		result.putAttribute(XmlConfig.A_STATUS_CODE, String.valueOf(TEST_CODE));
 		result.putAttribute(XmlConfig.A_MODE, TEST_MODE.getName());
 		result.setValue(TEST_BODY);
-		
+
 		FixtureElement description = new FixtureElement(XmlConfig.E_DESCRIPTION);
-		
+
 		description.setValue(TEST_DESCRIPTION);
-		
+
 		FixtureElement message = new FixtureElement(XmlConfig.E_MESSAGE);
-		
+
 		message.setValue(TEST_MESSAGE);
-		
+
 		FixtureElement target = new FixtureElement(XmlConfig.E_TARGET);
-		
+
 		target.putAttribute(XmlConfig.A_CLASS, TEST_CLASS);
-		
+
 		FixtureElement event = new FixtureElement(XmlConfig.E_EVENT);
-		
+
 		event.putAttribute(XmlConfig.A_NAME, TEST_EVENT);
-		
+
 		target.addChild(event);
-		
+
 		result.addChild(description);
 		result.addChild(message);
 		result.addChild(target);
-		
+
 		return result;
 	}
-	
+
 	static IConfigurationElement getFixtureConfig() {
 		if (fixtureConfig == null) {
 			fixtureConfig = newFixtureConfig();
 		}
-		
+
 		return fixtureConfig;
 	}
-	
+
 	public void test_hashCode() {
 		assertEquals(TEST_ID.hashCode(), getFixture().hashCode());
 	}
 
 	public void test_registry() {
-		assertSame(
-				getFixture(),
-				ConstraintRegistry.getInstance().getDescriptor(
-						TEST_PLUGIN,
-						TEST_ID));
+		assertSame(getFixture(), ConstraintRegistry.getInstance().getDescriptor(TEST_PLUGIN, TEST_ID));
 	}
 
 	public void test_getConfig() {
@@ -412,57 +394,50 @@ public class ConstraintDescriptorTest extends TestCase {
 		assertTrue(getFixture().isEnabled());
 		assertFalse(getFixture().isError());
 		assertNull(getFixture().getException());
-		
+
 		Exception e = new Exception();
-		
+
 		getFixture().setError(e);
-		
+
 		assertFalse(getFixture().isEnabled());
 		assertTrue(getFixture().isError());
 		assertSame(e, getFixture().getException());
 	}
 
 	public void test_getCategories() {
-		Set<Category> categories = Collections.singleton(
-				CategoryManager.getInstance().getDefaultCategory());
-		
+		Set<Category> categories = Collections.singleton(CategoryManager.getInstance().getDefaultCategory());
+
 		assertEquals(categories, getFixture().getCategories());
 	}
 
 	public void test_addCategory_removeCategory() {
 		getFixture().addCategory(TEST_CATEGORY);
-		
-		assertEquals(
-				Collections.singleton(TEST_CATEGORY),
-				getFixture().getCategories());
-		
+
+		assertEquals(Collections.singleton(TEST_CATEGORY), getFixture().getCategories());
+
 		getFixture().removeCategory(TEST_CATEGORY);
-		
-		assertEquals(
-				Collections.singleton(CategoryManager.getInstance().getDefaultCategory()),
+
+		assertEquals(Collections.singleton(CategoryManager.getInstance().getDefaultCategory()),
 				getFixture().getCategories());
 	}
 
 	public void test_resolveTargetTypes() {
-		getFixture().resolveTargetTypes(new String[] {TEST_NAMESPACE_URI});
-		
-		assertTrue(getFixture().targetsTypeOf(
-						OrderSystemFactory.eINSTANCE.createWarehouse()));
+		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
+
+		assertTrue(getFixture().targetsTypeOf(OrderSystemFactory.eINSTANCE.createWarehouse()));
 	}
 
 	public void test_targetsTypeOf() {
-		getFixture().resolveTargetTypes(new String[] {TEST_NAMESPACE_URI});
-		
-		assertTrue(getFixture().targetsTypeOf(
-						OrderSystemFactory.eINSTANCE.createWarehouse()));
+		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
+
+		assertTrue(getFixture().targetsTypeOf(OrderSystemFactory.eINSTANCE.createWarehouse()));
 	}
 
 	public void test_targetsEvent() {
-		getFixture().resolveTargetTypes(new String[] {TEST_NAMESPACE_URI});
-		
-		assertTrue(getFixture().targetsEvent(new TestNotification(
-						OrderSystemFactory.eINSTANCE.createWarehouse(),
-						EMFEventType.getInstance(TEST_EVENT).toNotificationType())));
+		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
+
+		assertTrue(getFixture().targetsEvent(new TestNotification(OrderSystemFactory.eINSTANCE.createWarehouse(),
+				EMFEventType.getInstance(TEST_EVENT).toNotificationType())));
 	}
 
 	public void test_getMessagePattern() {

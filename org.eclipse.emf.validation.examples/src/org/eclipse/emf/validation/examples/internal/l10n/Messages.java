@@ -19,13 +19,12 @@ import org.eclipse.osgi.util.NLS;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class Messages
-		extends NLS {
+public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.emf.validation.examples.internal.l10n.messages"; //$NON-NLS-1$
 
 	public static String AbstractExampleWizard_unzipping;
-	
+
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

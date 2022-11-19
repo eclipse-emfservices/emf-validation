@@ -16,23 +16,23 @@ import org.eclipse.emf.common.notify.impl.NotificationImpl;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * Implementation of the EMF {@link Notification} interface to "fake out"
- * EMF model change events.
+ * Implementation of the EMF {@link Notification} interface to "fake out" EMF
+ * model change events.
  * 
  * @author Christian W. Damus (cdamus)
  */
 public class TestNotification extends NotificationImpl {
 	private final EObject notifier;
 	private final int featureId;
-	
+
 	/**
 	 * Initializes me with the source and <code>type</code> of the event.
 	 * 
 	 * @param notifier my source
-	 * @param type the type of notification that I am 
+	 * @param type     the type of notification that I am
 	 */
 	public TestNotification(EObject notifier, int type) {
-		
+
 		this(notifier, type, Notification.NO_FEATURE_ID, null, null);
 	}
 
@@ -40,34 +40,29 @@ public class TestNotification extends NotificationImpl {
 	 * Initializes me with the source and <code>type</code> of the event, plus
 	 * information about the changed feature.
 	 * 
-	 * @param notifier my source
-	 * @param type the type of notification that I am 
+	 * @param notifier  my source
+	 * @param type      the type of notification that I am
 	 * @param featureId the ID of the feature that is changed
-	 * @param oldValue the old value of the changed feature
-	 * @param newValue the new value of the changed feature
+	 * @param oldValue  the old value of the changed feature
+	 * @param newValue  the new value of the changed feature
 	 */
-	public TestNotification(
-			EObject notifier,
-			int type,
-			int featureId,
-			Object oldValue,
-			Object newValue) {
-		
+	public TestNotification(EObject notifier, int type, int featureId, Object oldValue, Object newValue) {
+
 		super(type, oldValue, newValue);
-		
+
 		this.notifier = notifier;
 		this.featureId = featureId;
 	}
 
 	// redefines the inherited method
 	@Override
-    public Object getNotifier() {
+	public Object getNotifier() {
 		return notifier;
 	}
-	
+
 	// redefiness the inherited method
 	@Override
-    public Object getFeature() {
+	public Object getFeature() {
 		if (featureId == Notification.NO_FEATURE_ID) {
 			return null;
 		} else {

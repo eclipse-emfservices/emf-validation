@@ -34,51 +34,39 @@ import ordersystem.Order;
  */
 public class SetTargetConstraint extends AbstractModelConstraint {
 	public static boolean enabled = false;
-	
+
 	// Documentation copied from the inherited specification
 	@Override
 	public IStatus validate(IValidationContext ctx) {
 		if (!enabled) {
 			return ctx.createSuccessStatus();
 		}
-		
+
 		LineItem lineItem = null;
-		
+
 		if (ctx.getTarget() instanceof Order) {
-			Order order = (Order)ctx.getTarget();
+			Order order = (Order) ctx.getTarget();
 			Object obj = order.getItem().get(0);
 			if (obj != null && obj instanceof LineItem) {
-				lineItem = (LineItem)obj;
+				lineItem = (LineItem) obj;
 			}
 		}
-		
+
 		if (lineItem == null) {
-			return new org.eclipse.core.runtime.Status(
-					IStatus.OK,
-					EMFModelValidationPlugin.getPluginId(),
+			return new org.eclipse.core.runtime.Status(IStatus.OK, EMFModelValidationPlugin.getPluginId(),
 					EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED,
-					EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED_MSG,
-					null);
+					EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED_MSG, null);
 		}
-		
+
 		Collection<IStatus> statuses = new java.util.ArrayList<IStatus>();
-		
-		statuses.add(ConstraintStatus.createStatus(
-				ctx,
-				lineItem,
-				Collections.singletonList(lineItem),
-				IStatus.INFO, 13,
+
+		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, Collections.singletonList(lineItem), IStatus.INFO, 13,
 				"This is {0}.", //$NON-NLS-1$
-				new Object[] {"fun"})); //$NON-NLS-1$
-		statuses.add(ConstraintStatus.createStatus(
-				ctx,
-				lineItem,
-				null,
-				IStatus.WARNING, 7,
-				"This is {0}.", //$NON-NLS-1$
-				new Object[] {"silly"})); //$NON-NLS-1$
+				new Object[] { "fun" })); //$NON-NLS-1$
+		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, null, IStatus.WARNING, 7, "This is {0}.", //$NON-NLS-1$
+				new Object[] { "silly" })); //$NON-NLS-1$
 		statuses.add(ConstraintStatus.createSuccessStatus(ctx, lineItem, Collections.singletonList(ctx.getTarget())));
-		
+
 		return ConstraintStatus.createMultiStatus(ctx, statuses);
 	}
 

@@ -33,8 +33,8 @@ import org.eclipse.emf.validation.internal.util.Trace;
 
 /**
  * The Event Type Service is responsible for loading the <tt>eventTypes</tt>
- * Eclipse extension point and creating {@link EMFEventType}s for the
- * event types that have been contributed.
+ * Eclipse extension point and creating {@link EMFEventType}s for the event
+ * types that have been contributed.
  * 
  * It provides accessor methods for retrieving {@link INotificationGenerator}s
  * that have been contributed along with the {@link EMFEventType}s.
@@ -46,11 +46,11 @@ import org.eclipse.emf.validation.internal.util.Trace;
 public class EventTypeService {
 
 	private static EventTypeService instance = new EventTypeService();
-	
+
 	private static final String A_NAME = "name"; //$NON-NLS-1$
 	private static final String A_FEATURE_SPECIFIC = "featureSpecific"; //$NON-NLS-1$
 	private static final String A_NOTIFICATION_GENERATOR = "notificationGenerator"; //$NON-NLS-1$
-	
+
 	private volatile Map<String, INotificationGenerator> notificationGenerators;
 
 	private final Object eventTypesLock = new Object();
@@ -65,64 +65,54 @@ public class EventTypeService {
 			// event-types cannot be undefined
 		}
 	};
-	
+
 	/**
 	 * Cannot be instantiated by clients.
 	 */
 	private EventTypeService() {
 		notificationGenerators = new HashMap<String, INotificationGenerator>();
-		
+
 		configureEventTypes();
 	}
-    
-    /**
-     * Configures custom event types based on the 
-     * <tt>eventTypes</tt> extension configuration
-     */
-    private void configureEventTypes() {
-    	if ( EMFPlugin.IS_ECLIPSE_RUNNING ) {
-    		IExtensionPoint extPoint = Platform.getExtensionRegistry()
-    		.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-    				EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
-    		
-    		IExtensionTracker extTracker = EMFModelValidationPlugin
-    		.getExtensionTracker();
-    		
-    		if (extTracker != null) {
-    			extTracker.registerHandler(extensionHandler, ExtensionTracker
-    					.createExtensionPointFilter(extPoint));
-    			
-    			for (IExtension extension : extPoint.getExtensions()) {
-    				extensionHandler.addExtension(extTracker, extension);
-    			}
-    		}
-    	}
-    }
-    
-    private void registerEventTypes(IConfigurationElement[] configs) {
+
+	/**
+	 * Configures custom event types based on the <tt>eventTypes</tt> extension
+	 * configuration
+	 */
+	private void configureEventTypes() {
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
+			IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+					EMFModelValidationPlugin.getPluginId(), EMFModelValidationPlugin.EVENT_TYPES_EXT_P_NAME);
+
+			IExtensionTracker extTracker = EMFModelValidationPlugin.getExtensionTracker();
+
+			if (extTracker != null) {
+				extTracker.registerHandler(extensionHandler, ExtensionTracker.createExtensionPointFilter(extPoint));
+
+				for (IExtension extension : extPoint.getExtensions()) {
+					extensionHandler.addExtension(extTracker, extension);
+				}
+			}
+		}
+	}
+
+	private void registerEventTypes(IConfigurationElement[] configs) {
 		synchronized (eventTypesLock) {
 			// copy on write
-			notificationGenerators = new java.util.HashMap<String, INotificationGenerator>(
-				notificationGenerators);
+			notificationGenerators = new java.util.HashMap<String, INotificationGenerator>(notificationGenerators);
 
 			for (IConfigurationElement element : configs) {
 				if (element.getName().equals("eventType")) { //$NON-NLS-1$
 					try {
 						String name = element.getAttribute(A_NAME);
 						if ((name != null) && (name.length() > 0)) {
-							EMFEventType.addEventType(name, Boolean.valueOf(
-								element.getAttribute(A_FEATURE_SPECIFIC))
-								.booleanValue());
+							EMFEventType.addEventType(name,
+									Boolean.valueOf(element.getAttribute(A_FEATURE_SPECIFIC)).booleanValue());
 
-							String notificationGenerator = element
-								.getAttribute(A_NOTIFICATION_GENERATOR);
-							if ((notificationGenerator != null)
-								&& (notificationGenerator.length() > 0)) {
-								notificationGenerators
-									.put(
-										name,
-										(INotificationGenerator) element
-											.createExecutableExtension(A_NOTIFICATION_GENERATOR));
+							String notificationGenerator = element.getAttribute(A_NOTIFICATION_GENERATOR);
+							if ((notificationGenerator != null) && (notificationGenerator.length() > 0)) {
+								notificationGenerators.put(name, (INotificationGenerator) element
+										.createExecutableExtension(A_NOTIFICATION_GENERATOR));
 							}
 						}
 					} catch (CoreException e) {
@@ -133,7 +123,7 @@ public class EventTypeService {
 				}
 			}
 		}
-    }
+	}
 
 	/**
 	 * Obtains the instance of this class.
@@ -146,27 +136,27 @@ public class EventTypeService {
 
 	/**
 	 * <p>
-	 * Configures event types from the Eclipse configuration
-	 * <code>elements</code> representing implementations of my extension point.
+	 * Configures event types from the Eclipse configuration <code>elements</code>
+	 * representing implementations of my extension point.
 	 * </p>
 	 * <p>
 	 * <b>NOTE</b> that this method should only be called by the EMF Model
 	 * Validation Plug-in, not by any client code!
 	 * </p>
 	 * 
-	 * @param elements 
+	 * @param elements
 	 * 
 	 * @deprecated 1.2 This method is no longer implemented
 	 * 
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	@Deprecated
-    public void configureEventTypes(IConfigurationElement[] elements) {
+	public void configureEventTypes(IConfigurationElement[] elements) {
 		// no longer implemented
 	}
-	
+
 	/**
-	 * Retrieves the available notification generators. 
+	 * Retrieves the available notification generators.
 	 * 
 	 * @return collection of notification generators
 	 */
@@ -175,14 +165,14 @@ public class EventTypeService {
 			return Collections.unmodifiableCollection(notificationGenerators.values());
 		}
 	}
-	
+
 	/**
-	 * Retrieves the {@link INotificationGenerator} associated with the given
-	 * event name.
+	 * Retrieves the {@link INotificationGenerator} associated with the given event
+	 * name.
 	 * 
-	 * @param eventName 
-	 * @return notification generator associated with the given event name,
-	 *         null otherwise
+	 * @param eventName
+	 * @return notification generator associated with the given event name, null
+	 *         otherwise
 	 */
 	public INotificationGenerator getNotificationGenerator(String eventName) {
 		synchronized (eventTypesLock) {

@@ -18,10 +18,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Severity Enum</b></em>',
- * and utility methods for working with them.
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration
+ * '<em><b>Severity Enum</b></em>', and utility methods for working with them.
  * <!-- end-user-doc -->
+ * 
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getSeverityEnum()
  * @model
  * @generated
@@ -29,9 +29,9 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum SeverityEnum implements Enumerator {
 	/**
-	 * The '<em><b>INFO</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>INFO</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #INFO_VALUE
 	 * @generated
 	 * @ordered
@@ -39,9 +39,9 @@ public enum SeverityEnum implements Enumerator {
 	INFO(0, "INFO", "INFO"),
 
 	/**
-	 * The '<em><b>WARNING</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>WARNING</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #WARNING_VALUE
 	 * @generated
 	 * @ordered
@@ -49,9 +49,9 @@ public enum SeverityEnum implements Enumerator {
 	WARNING(1, "WARNING", "WARNING"),
 
 	/**
-	 * The '<em><b>ERROR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>ERROR</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #ERROR_VALUE
 	 * @generated
 	 * @ordered
@@ -59,9 +59,9 @@ public enum SeverityEnum implements Enumerator {
 	ERROR(2, "ERROR", "ERROR"),
 
 	/**
-	 * The '<em><b>CANCEL</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>CANCEL</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #CANCEL_VALUE
 	 * @generated
 	 * @ordered
@@ -69,13 +69,13 @@ public enum SeverityEnum implements Enumerator {
 	CANCEL(3, "CANCEL", "CANCEL");
 
 	/**
-	 * The '<em><b>INFO</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>INFO</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>INFO</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>INFO</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #INFO
 	 * @model
 	 * @generated
@@ -84,13 +84,13 @@ public enum SeverityEnum implements Enumerator {
 	public static final int INFO_VALUE = 0;
 
 	/**
-	 * The '<em><b>WARNING</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>WARNING</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>WARNING</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>WARNING</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #WARNING
 	 * @model
 	 * @generated
@@ -99,13 +99,13 @@ public enum SeverityEnum implements Enumerator {
 	public static final int WARNING_VALUE = 1;
 
 	/**
-	 * The '<em><b>ERROR</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>ERROR</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>ERROR</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #ERROR
 	 * @model
 	 * @generated
@@ -114,13 +114,13 @@ public enum SeverityEnum implements Enumerator {
 	public static final int ERROR_VALUE = 2;
 
 	/**
-	 * The '<em><b>CANCEL</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>CANCEL</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>CANCEL</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>CANCEL</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #CANCEL
 	 * @model
 	 * @generated
@@ -129,31 +129,25 @@ public enum SeverityEnum implements Enumerator {
 	public static final int CANCEL_VALUE = 3;
 
 	/**
-	 * An array of all the '<em><b>Severity Enum</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * An array of all the '<em><b>Severity Enum</b></em>' enumerators. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	private static final SeverityEnum[] VALUES_ARRAY =
-		new SeverityEnum[] {
-			INFO,
-			WARNING,
-			ERROR,
-			CANCEL,
-		};
+	private static final SeverityEnum[] VALUES_ARRAY = new SeverityEnum[] { INFO, WARNING, ERROR, CANCEL, };
 
 	/**
-	 * A public read-only list of all the '<em><b>Severity Enum</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * A public read-only list of all the '<em><b>Severity Enum</b></em>'
+	 * enumerators. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static final List<SeverityEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified
+	 * literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static SeverityEnum get(String literal) {
@@ -168,8 +162,8 @@ public enum SeverityEnum implements Enumerator {
 
 	/**
 	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static SeverityEnum getByName(String name) {
@@ -183,46 +177,50 @@ public enum SeverityEnum implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the '<em><b>Severity Enum</b></em>' literal with the specified
+	 * integer value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static SeverityEnum get(int value) {
 		switch (value) {
-			case INFO_VALUE: return INFO;
-			case WARNING_VALUE: return WARNING;
-			case ERROR_VALUE: return ERROR;
-			case CANCEL_VALUE: return CANCEL;
+		case INFO_VALUE:
+			return INFO;
+		case WARNING_VALUE:
+			return WARNING;
+		case ERROR_VALUE:
+			return ERROR;
+		case CANCEL_VALUE:
+			return CANCEL;
 		}
 		return null;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final int value;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final String name;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private SeverityEnum(int value, String name, String literal) {
@@ -232,41 +230,41 @@ public enum SeverityEnum implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public int getValue() {
-	  return value;
+		return value;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getName() {
-	  return name;
+		return name;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getLiteral() {
-	  return literal;
+		return literal;
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string
+	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
 		return literal;
 	}
-	
-} //SeverityEnum
+
+} // SeverityEnum

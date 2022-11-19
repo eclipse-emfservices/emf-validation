@@ -26,9 +26,9 @@ import org.eclipse.emf.validation.service.AbstractConstraintProvider;
  */
 public class CachedTestProvider extends AbstractConstraintProvider {
 	private static CachedTestProvider instance;
-	
+
 	private final java.util.Map<EClass, Integer> hits = new java.util.HashMap<EClass, Integer>();
-	
+
 	/**
 	 * Initializes me and remembers me for static access.
 	 * 
@@ -36,23 +36,22 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	 */
 	public CachedTestProvider() {
 		super();
-		
+
 		instance = this;
 	}
-	
+
 	// redefines the inherited method
 	@Override
-	public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
-			Collection<IModelConstraint> constraints) {
+	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 		// I don't actually need to provide any constraints in order to
-		//   register a hit.  The cache will remember that there are no
-		//   constraints!
-		
+		// register a hit. The cache will remember that there are no
+		// constraints!
+
 		registerHit(eObject.eClass());
-		
+
 		return constraints;
 	}
-	
+
 	/**
 	 * Registers a hit on me (i.e., a miss on the cache) for this EMF type.
 	 * 
@@ -61,7 +60,7 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	private final void registerHit(EClass clazz) {
 		hits.put(clazz, getHitCount(clazz) + 1);
 	}
-	
+
 	/**
 	 * Obtains the test instance.
 	 * 
@@ -70,17 +69,17 @@ public class CachedTestProvider extends AbstractConstraintProvider {
 	public static CachedTestProvider getInstance() {
 		return instance;
 	}
-	
+
 	/**
-	 * Obtains the number of times that I have been "hit" for constraints for
-	 * the specified EMF class.
+	 * Obtains the number of times that I have been "hit" for constraints for the
+	 * specified EMF class.
 	 *
-	 * @param clazz an EMF class 
+	 * @param clazz an EMF class
 	 * @return the number of times that I have provided constraints
 	 */
 	public int getHitCount(EClass clazz) {
 		Integer result = hits.get(clazz);
-		
+
 		return (result == null) ? 0 : result;
 	}
 }

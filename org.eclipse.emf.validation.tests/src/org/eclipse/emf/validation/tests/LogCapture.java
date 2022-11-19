@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
 import org.junit.Assert;
+
 /**
  * A log listener that captures the last entry (if any) logged by a specified
  * bundle during an interval.
@@ -33,18 +34,19 @@ public class LogCapture {
 			if (status.getPlugin().equals(targetBundle.getSymbolicName())) {
 				record(status);
 			}
-		}};
-	
+		}
+	};
+
 	private final List<IStatus> logs = new ArrayList<IStatus>();
 	private IStatus lastLog;
-    
-    /**
-     * Initializes me to capture logs from the EMF Validation Core bundle.
-     */
-    public LogCapture() {
-        this(Platform.getBundle("org.eclipse.emf.validation")); //$NON-NLS-1$
-    }
-	
+
+	/**
+	 * Initializes me to capture logs from the EMF Validation Core bundle.
+	 */
+	public LogCapture() {
+		this(Platform.getBundle("org.eclipse.emf.validation")); //$NON-NLS-1$
+	}
+
 	/**
 	 * Initializes me to capture logs from the specified bundle.
 	 * 
@@ -54,14 +56,14 @@ public class LogCapture {
 		this.targetBundle = targetBundle;
 		Platform.addLogListener(listener);
 	}
-	
+
 	/**
 	 * Stops me, detaching my log listener from the platform.
 	 */
 	public void stop() {
 		Platform.removeLogListener(listener);
 	}
-	
+
 	/**
 	 * Gets the last log, if any, from my target bundle.
 	 * 
@@ -70,7 +72,7 @@ public class LogCapture {
 	public IStatus getLastLog() {
 		return lastLog;
 	}
-	
+
 	/**
 	 * Obtains the list of logs from my target bundle.
 	 * 
@@ -79,64 +81,64 @@ public class LogCapture {
 	public List<IStatus> getLogs() {
 		return logs;
 	}
-	
+
 	/**
-	 * Obtains the list of log entries from my target bundle that bear the
-	 * specified status code.
+	 * Obtains the list of log entries from my target bundle that bear the specified
+	 * status code.
 	 * 
 	 * @param statusCode the status code to filter for
 	 * 
 	 * @return the matching log entries
 	 */
 	public List<IStatus> getLogs(int statusCode) {
-	    List<IStatus> result = new ArrayList<IStatus>();
-	    
-	    for (IStatus next : logs) {
-	        if (next.getCode() == statusCode) {
-	            result.add(next);
-	        }
-	    }
-	    
-	    return result;
+		List<IStatus> result = new ArrayList<IStatus>();
+
+		for (IStatus next : logs) {
+			if (next.getCode() == statusCode) {
+				result.add(next);
+			}
+		}
+
+		return result;
 	}
-	
+
 	/**
 	 * Asserts that I captured a status that logged the specified throwable.
 	 * 
 	 * @param throwable a throwable that should have been logged
 	 */
 	public void assertLogged(Throwable throwable) {
-        IStatus log = getLastLog();
-        Assert.assertNotNull(log);
-        log = findStatus(log, throwable);
-        Assert.assertNotNull(log);
+		IStatus log = getLastLog();
+		Assert.assertNotNull(log);
+		log = findStatus(log, throwable);
+		Assert.assertNotNull(log);
 	}
-	
+
 	private void record(IStatus log) {
 		logs.add(log);
 		lastLog = log;
 	}
-	
+
 	/**
-	 * Finds the status in a (potentially multi-) status that carries the
-	 * specified exception.
+	 * Finds the status in a (potentially multi-) status that carries the specified
+	 * exception.
 	 * 
-	 * @param status a status
+	 * @param status    a status
 	 * @param exception a throwable to look for
 	 * 
 	 * @return the matching status, or <code>null</code> if not found
 	 */
 	private IStatus findStatus(IStatus status, Throwable exception) {
-		IStatus result = (status.getException() == exception)? status : null;
+		IStatus result = (status.getException() == exception) ? status : null;
 
 		if (status.isMultiStatus()) {
 			IStatus[] children = status.getChildren();
-			
+
 			for (int i = 0; (result == null) && (i < children.length); i++) {
 				result = findStatus(children[i], exception);
 			}
 		}
-		
+
 		return result;
 	}
 }

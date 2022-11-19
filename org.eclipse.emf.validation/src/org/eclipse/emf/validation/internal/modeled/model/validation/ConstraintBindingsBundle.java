@@ -15,15 +15,16 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Constraint Bindings Bundle</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Constraint Bindings Bundle</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getClientContexts <em>Client Contexts</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getBindings <em>Bindings</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getClientContexts
+ * <em>Client Contexts</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle#getBindings
+ * <em>Bindings</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,15 +35,18 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ConstraintBindingsBundle extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Client Contexts</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext}.
+	 * Returns the value of the '<em><b>Client Contexts</b></em>' containment
+	 * reference list. The list contents are of type
+	 * {@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Client Contexts</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Client Contexts</em>' containment reference list
+	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Client Contexts</em>' containment reference list.
+	 * 
+	 * @return the value of the '<em>Client Contexts</em>' containment reference
+	 *         list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintBindingsBundle_ClientContexts()
 	 * @model containment="true"
 	 * @generated
@@ -50,14 +54,16 @@ public interface ConstraintBindingsBundle extends EObject {
 	EList<ClientContext> getClientContexts();
 
 	/**
-	 * Returns the value of the '<em><b>Bindings</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding}.
+	 * Returns the value of the '<em><b>Bindings</b></em>' containment reference
+	 * list. The list contents are of type
+	 * {@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bindings</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Bindings</em>' containment reference list isn't
+	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Bindings</em>' containment reference list.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getConstraintBindingsBundle_Bindings()
 	 * @model containment="true"

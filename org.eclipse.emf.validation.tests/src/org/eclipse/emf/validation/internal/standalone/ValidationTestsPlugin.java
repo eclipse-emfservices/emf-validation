@@ -20,16 +20,15 @@ import org.eclipse.emf.common.util.ResourceLocator;
  *
  */
 public class ValidationTestsPlugin extends EMFPlugin {
-	
+
 	public static final ValidationTestsPlugin INSTANCE = new ValidationTestsPlugin();
-	
+
 	/**
 	 * @param delegateResourceLocators
 	 */
 	public ValidationTestsPlugin() {
 		super(new ResourceLocator[] {});
 	}
-
 
 	@Override
 	public ResourceLocator getPluginResourceLocator() {

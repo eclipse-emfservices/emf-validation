@@ -32,20 +32,14 @@ import junit.framework.TestCase;
 public class EvaluationModeTest extends TestCase {
 
 	public void test_getInstance() {
-		assertSame(
-				EvaluationMode.BATCH,
-				EvaluationMode.getInstance(EvaluationMode.BATCH.getName()));
-		assertSame(
-				EvaluationMode.LIVE,
-				EvaluationMode.getInstance(EvaluationMode.LIVE.getName()));
-		assertSame(
-				EvaluationMode.NULL,
-				EvaluationMode.getInstance("")); //$NON-NLS-1$
+		assertSame(EvaluationMode.BATCH, EvaluationMode.getInstance(EvaluationMode.BATCH.getName()));
+		assertSame(EvaluationMode.LIVE, EvaluationMode.getInstance(EvaluationMode.LIVE.getName()));
+		assertSame(EvaluationMode.NULL, EvaluationMode.getInstance("")); //$NON-NLS-1$
 	}
 
 	public void test_getAllInstances() {
 		List<EvaluationMode<?>> instances = EvaluationMode.getAllInstances();
-		
+
 		assertTrue(instances.contains(EvaluationMode.BATCH));
 		assertTrue(instances.contains(EvaluationMode.LIVE));
 		assertTrue(instances.contains(EvaluationMode.NULL));
@@ -58,15 +52,9 @@ public class EvaluationModeTest extends TestCase {
 	}
 
 	public void test_getLocalizedName() {
-		assertEquals(
-				ValidationMessages.mode_batch,
-				EvaluationMode.BATCH.getLocalizedName());
-		assertEquals(
-				ValidationMessages.mode_live,
-				EvaluationMode.LIVE.getLocalizedName());
-		assertEquals(
-				ValidationMessages.mode_unknown,
-				EvaluationMode.NULL.getLocalizedName());
+		assertEquals(ValidationMessages.mode_batch, EvaluationMode.BATCH.getLocalizedName());
+		assertEquals(ValidationMessages.mode_live, EvaluationMode.LIVE.getLocalizedName());
+		assertEquals(ValidationMessages.mode_unknown, EvaluationMode.NULL.getLocalizedName());
 	}
 
 	public void test_isNull() {
@@ -98,19 +86,18 @@ public class EvaluationModeTest extends TestCase {
 
 		ObjectOutput output = null;
 		ObjectInput input = null;
-		
+
 		try {
 			output = new ObjectOutputStream(stream);
-			
+
 			for (EvaluationMode<?> next : EvaluationMode.getAllInstances()) {
 				output.writeObject(next);
 			}
-			
+
 			output.flush();
 
-			input =	new ObjectInputStream(
-					new ByteArrayInputStream(stream.toByteArray()));
-			
+			input = new ObjectInputStream(new ByteArrayInputStream(stream.toByteArray()));
+
 			for (EvaluationMode<?> next : EvaluationMode.getAllInstances()) {
 				assertSame(next, input.readObject());
 			}

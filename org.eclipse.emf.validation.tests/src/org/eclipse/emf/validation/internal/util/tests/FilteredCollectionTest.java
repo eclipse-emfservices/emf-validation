@@ -33,26 +33,13 @@ public class FilteredCollectionTest extends TestCase {
 			return (element % 2) == 0;
 		}
 	}
-	
+
 	private final Filter filter = new Filter();
-	private final Collection<Integer> original = Arrays.asList(
-		new Integer[] {
-			Integer.valueOf(0),
-			Integer.valueOf(1),
-			Integer.valueOf(2),
-			Integer.valueOf(3),
-			Integer.valueOf(4),
-			Integer.valueOf(5),
-			});
-	private final Collection<Integer> expectedFilteredResult = Arrays.asList(
-		new Integer[] {
-			Integer.valueOf(0),
-			Integer.valueOf(2),
-			Integer.valueOf(4),
-			});
-	private final FilteredCollection<Integer> filteredCollection = new FilteredCollection<Integer>(
-			original,
-			filter);
+	private final Collection<Integer> original = Arrays.asList(new Integer[] { Integer.valueOf(0), Integer.valueOf(1),
+			Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(5), });
+	private final Collection<Integer> expectedFilteredResult = Arrays
+			.asList(new Integer[] { Integer.valueOf(0), Integer.valueOf(2), Integer.valueOf(4), });
+	private final FilteredCollection<Integer> filteredCollection = new FilteredCollection<Integer>(original, filter);
 
 	public static Test suite() {
 		return new TestSuite(FilteredCollectionTest.class);
@@ -70,14 +57,14 @@ public class FilteredCollectionTest extends TestCase {
 
 	/** Tests for correct iteration. */
 	public void test_iterator() {
-		// test for contents.  Note that lists can only be compared to lists
+		// test for contents. Note that lists can only be compared to lists
 		assertEquals(expectedFilteredResult, new ArrayList<Integer>(filteredCollection));
-		
+
 		// test for ordering
 		int i = 0;
 		for (Integer next : filteredCollection) {
 			assertEquals(i, next.intValue());
-			
+
 			i = i + 2;
 		}
 	}

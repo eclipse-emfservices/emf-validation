@@ -35,39 +35,38 @@ import junit.framework.TestCase;
  */
 public class JavaConstraintParserTest extends TestCase {
 	IParameterizedConstraintParser parser = new JavaConstraintParser();
-	
+
 	public void test_parseConstraint() {
 		try {
 			// this descriptor is known to exist and be parsable
-			parser.parseConstraint((IParameterizedConstraintDescriptor)
-					ConstraintRegistry.getInstance().getDescriptor(
-							"org.eclipse.emf.validation.tests", //$NON-NLS-1$
-							"bad.constraint.disabled.runtime")); //$NON-NLS-1$
+			parser.parseConstraint((IParameterizedConstraintDescriptor) ConstraintRegistry.getInstance().getDescriptor(
+					"org.eclipse.emf.validation.tests", //$NON-NLS-1$
+					"bad.constraint.disabled.runtime")); //$NON-NLS-1$
 		} catch (ConstraintParserException e) {
 			fail("Got exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	public void test_parseConstraint_throws() {
-		ConstraintDescriptorTest.FixtureElement element =
-			new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_CONSTRAINT);
-		
+		ConstraintDescriptorTest.FixtureElement element = new ConstraintDescriptorTest.FixtureElement(
+				XmlConfig.E_CONSTRAINT);
+
 		// non "class" attribute specified
 		element.putAttribute(XmlConfig.A_ID, "junit.validation.util.foo"); //$NON-NLS-1$
 		element.putAttribute(XmlConfig.A_NAME, "foo"); //$NON-NLS-1$
 		element.putAttribute(XmlConfig.A_LANG, "Java"); //$NON-NLS-1$
-		
-		ConstraintDescriptorTest.FixtureElement message =
-			new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_MESSAGE);
-		
+
+		ConstraintDescriptorTest.FixtureElement message = new ConstraintDescriptorTest.FixtureElement(
+				XmlConfig.E_MESSAGE);
+
 		message.setValue("Nothing."); //$NON-NLS-1$
-		
+
 		try {
 			XmlConstraintDescriptor desc = new XmlConstraintDescriptor(element);
-			
+
 			try {
 				parser.parseConstraint(desc);
-				
+
 				fail("Did not get an exception."); //$NON-NLS-1$
 			} catch (ConstraintParserException e) {
 				// success
@@ -77,38 +76,33 @@ public class JavaConstraintParserTest extends TestCase {
 			fail("Constraint already exists: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	public void test_getInstance() {
-		ConstraintDescriptorTest.FixtureElement config =
-			ConstraintDescriptorTest.FixtureElement.build(
-				XmlConfig.E_CONSTRAINT,
-				new String[][] {
-					{XmlConfig.A_ID, "constraint.parser.test.constraint1"}, //$NON-NLS-1$
-					{XmlConfig.A_NAME, "Constraint Parser Test Constraint"}, //$NON-NLS-1$
-					{XmlConfig.A_LANG, "OCL"}, //$NON-NLS-1$
-					{XmlConfig.A_STATUS_CODE, "1"}, //$NON-NLS-1$
-					{XmlConfig.A_CLASS, ConstraintUniquenessTest.class.getName()}});
-		config.addChild(ConstraintDescriptorTest.FixtureElement.build(
-			XmlConfig.E_MESSAGE, "No message.")); //$NON-NLS-1$
-		
+		ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.FixtureElement
+				.build(XmlConfig.E_CONSTRAINT,
+						new String[][] { { XmlConfig.A_ID, "constraint.parser.test.constraint1" }, //$NON-NLS-1$
+								{ XmlConfig.A_NAME, "Constraint Parser Test Constraint" }, //$NON-NLS-1$
+								{ XmlConfig.A_LANG, "OCL" }, //$NON-NLS-1$
+								{ XmlConfig.A_STATUS_CODE, "1" }, //$NON-NLS-1$
+								{ XmlConfig.A_CLASS, ConstraintUniquenessTest.class.getName() } });
+		config.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_MESSAGE, "No message.")); //$NON-NLS-1$
+
 		try {
 			assertEquals(0, ConstraintUniquenessTest.instanceCount);
-			
-			IModelConstraint constraint1 = parser.parseConstraint(
-				new XmlConstraintDescriptor(config));
-			
+
+			IModelConstraint constraint1 = parser.parseConstraint(new XmlConstraintDescriptor(config));
+
 			assertEquals(1, ConstraintUniquenessTest.instanceCount);
-			
+
 			// change the ID so we don't get an exists exception
 			config.putAttribute(XmlConfig.A_ID, "constraint.parser.test.constraint2"); //$NON-NLS-1$
-			IModelConstraint constraint2 = parser.parseConstraint(
-				new XmlConstraintDescriptor(config));
+			IModelConstraint constraint2 = parser.parseConstraint(new XmlConstraintDescriptor(config));
 
 			// must not have created a new instance
 			assertEquals(1, ConstraintUniquenessTest.instanceCount);
-			
+
 			// must get different constraint objects, but implemented by the
-			//   same instance underneath
+			// same instance underneath
 			assertNotSame(constraint1, constraint2);
 		} catch (ConstraintExistsException e) {
 			fail("Got exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
@@ -116,22 +110,22 @@ public class JavaConstraintParserTest extends TestCase {
 			fail("Got exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	/**
 	 * A test constraint implementation for checking that multiple constraints
-	 * implemented by a single class do not result in multiple instantations
-	 * of that class.
+	 * implemented by a single class do not result in multiple instantations of that
+	 * class.
 	 */
 	public static class ConstraintUniquenessTest extends AbstractModelConstraint {
 		static int instanceCount = 0;
-		
+
 		public ConstraintUniquenessTest() {
 			instanceCount++;
 		}
-		
+
 		// Dummy implementation to make the compiler happy
 		@Override
-        public IStatus validate(IValidationContext ctx) {
+		public IStatus validate(IValidationContext ctx) {
 			return Status.OK_STATUS;
 		}
 	}

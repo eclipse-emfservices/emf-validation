@@ -33,68 +33,61 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 
-
 /**
- * A constraint implementation that forwards (adapts) validation to the
- * EMF API's validation methods.
+ * A constraint implementation that forwards (adapts) validation to the EMF
+ * API's validation methods.
  *
  * @author Christian W. Damus (cdamus)
  */
 public class EMFConstraintAdapter implements IModelConstraint {
 	/**
-	 * A canonical mapping of Aurora validation contexts to corresponding
-	 * "context maps" passed to EMF constraints.  The mapping is canonical, as
-	 * the EMF context serves a similar function to our validation
-	 * context, but we don't want to expose the map that is implemented in
-	 * the Aurora validation context.  The mapping is weak so that the EMF
-	 * context can be GCed when the Aurora context is (both contexts only
-	 * enduring as long as the validation operation).  There is no danger of
-	 * elements in the EMF context holding references to our context,
-	 * since the EMF APIs have no access to it and there is nothing else in
+	 * A canonical mapping of Aurora validation contexts to corresponding "context
+	 * maps" passed to EMF constraints. The mapping is canonical, as the EMF context
+	 * serves a similar function to our validation context, but we don't want to
+	 * expose the map that is implemented in the Aurora validation context. The
+	 * mapping is weak so that the EMF context can be GCed when the Aurora context
+	 * is (both contexts only enduring as long as the validation operation). There
+	 * is no danger of elements in the EMF context holding references to our
+	 * context, since the EMF APIs have no access to it and there is nothing else in
 	 * this adapter layer maintains a reference to it.
 	 */
-	private static final Map<IValidationContext, Map<Object, Object>> contextMapCache =
-		new java.util.WeakHashMap<IValidationContext, Map<Object,Object>>();
-	
+	private static final Map<IValidationContext, Map<Object, Object>> contextMapCache = new java.util.WeakHashMap<IValidationContext, Map<Object, Object>>();
+
 	private final IConstraintDescriptor descriptor;
 	private final Method validationMethod;
-	
+
 	// store as an array for convenient passing to the delegate
-	//    validation method in the EMF API reflectively
+	// validation method in the EMF API reflectively
 	private final Object[] validationArgs = new Object[2];
-	
+
 	/**
 	 * Initializes me with my descriptor and the method in the EMF API that I
 	 * delegate to.
 	 * 
-	 * @param descriptor my descriptor
-	 * @param validationMethod the method on the EMF interface that implements
-	 *      my constraint logic.  This must not be <code>null</code>, and must
-	 *      be applicable to all element types that I target
+	 * @param descriptor       my descriptor
+	 * @param validationMethod the method on the EMF interface that implements my
+	 *                         constraint logic. This must not be <code>null</code>,
+	 *                         and must be applicable to all element types that I
+	 *                         target
 	 */
-	public EMFConstraintAdapter(
-			IConstraintDescriptor descriptor,
-			Method validationMethod) {
-		this.descriptor = descriptor;		
+	public EMFConstraintAdapter(IConstraintDescriptor descriptor, Method validationMethod) {
+		this.descriptor = descriptor;
 		this.validationMethod = validationMethod;
-		
+
 		validationArgs[0] = new EMFValidationContextAdapter();
 		validationArgs[1] = null;
 	}
 
 	// implements the interface method
 	public IStatus validate(IValidationContext ctx) {
-		EMFValidationContextAdapter ctxAdapter =
-			(EMFValidationContextAdapter)validationArgs[0];
-		
+		EMFValidationContextAdapter ctxAdapter = (EMFValidationContextAdapter) validationArgs[0];
+
 		ctxAdapter.setAdaptedContext(ctx);
 		validationArgs[1] = getEMFContextFor(ctx);
-		
+
 		try {
-			boolean success = ((Boolean)validationMethod.invoke(
-				ctx.getTarget(),
-				validationArgs)).booleanValue();
-			
+			boolean success = ((Boolean) validationMethod.invoke(ctx.getTarget(), validationArgs)).booleanValue();
+
 			return success ? ctx.createSuccessStatus() : fail(ctxAdapter);
 		} catch (IllegalAccessException e) {
 			ctx.disableCurrentConstraint(e);
@@ -104,79 +97,65 @@ public class EMFConstraintAdapter implements IModelConstraint {
 			return disabledInfo(ctx, e);
 		} finally {
 			// clear this reference so that, if I am the last constraint to
-			//    be evaluated in the current validation operation, the
-			//    validation context can be GCed ASAP to free the EMF map
+			// be evaluated in the current validation operation, the
+			// validation context can be GCed ASAP to free the EMF map
 			ctxAdapter.setAdaptedContext(null);
 			validationArgs[1] = null;
 		}
 	}
-	
-	
-	/* (non-Javadoc)
-	 * Implements the interface method.
+
+	/*
+	 * (non-Javadoc) Implements the interface method.
 	 */
 	public IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}
-	
+
 	/**
-	 * Creates a failure status from the information available from the
-	 * EMF validation context adapter.  Note that the status details are
-	 * as defined in the Aurora validation XML, not in the Status object
-	 * provided by the EMF.
+	 * Creates a failure status from the information available from the EMF
+	 * validation context adapter. Note that the status details are as defined in
+	 * the Aurora validation XML, not in the Status object provided by the EMF.
 	 * 
 	 * @param ctxAdapter the validation context adapter
 	 * @return the failure status
 	 */
 	private IStatus fail(EMFValidationContextAdapter ctxAdapter) {
 		final IValidationContext ctx = ctxAdapter.getAdaptedContext();
-		
+
 		List<EObject> resultLocus = new java.util.ArrayList<EObject>(ctx.getResultLocus());
 		resultLocus.remove(ctx.getTarget());
-		
+
 		Diagnostic status = ctxAdapter.getLastStatus();
-		
+
 		// The message arguments supported are:
-		//   0 - the error message from EMF (which should include the target
-		//       element name)
-		//   1 - the result locus minus the target(as a collection of
-		//       model elements)
-		return ctx.createFailureStatus(
-				(status == null) ? null : status.getMessage(),
-				resultLocus);
+		// 0 - the error message from EMF (which should include the target
+		// element name)
+		// 1 - the result locus minus the target(as a collection of
+		// model elements)
+		return ctx.createFailureStatus((status == null) ? null : status.getMessage(), resultLocus);
 	}
-	
+
 	/**
-	 * Constructs an informational status object indicating that the constraint
-	 * is disabled because of a run-time exception.
+	 * Constructs an informational status object indicating that the constraint is
+	 * disabled because of a run-time exception.
 	 * 
 	 * @param ctx the current validation context
-	 * @param e the run-time exception that was thrown by the
-	 *        EMF validation method
+	 * @param e   the run-time exception that was thrown by the EMF validation
+	 *            method
 	 * @return a suitable informational status
 	 */
 	private IStatus disabledInfo(IValidationContext ctx, Throwable e) {
 		IStatus result = new ConstraintStatus(
-			this,
-			ctx.getTarget(),
-			IStatus.INFO,
-			getDescriptor().getStatusCode(),
-			EMFModelValidationPlugin.getMessage(
-				ValidationMessages.emfadapter_disabled_WARN_,
-				getDescriptor().getName()),
-			Collections.<EObject>emptySet());
-		
-		EMFModelValidationPlugin.getPlugin().getLog().log(
-			new Status(
-				IStatus.WARNING,
-				result.getPlugin(),
-				result.getCode(),
-				result.getMessage(),
-				e));
-		
+				this, ctx.getTarget(), IStatus.INFO, getDescriptor().getStatusCode(), EMFModelValidationPlugin
+						.getMessage(ValidationMessages.emfadapter_disabled_WARN_, getDescriptor().getName()),
+				Collections.<EObject>emptySet());
+
+		EMFModelValidationPlugin.getPlugin().getLog()
+				.log(new Status(IStatus.WARNING, result.getPlugin(), result.getCode(), result.getMessage(), e));
+
 		return result;
 	}
-	
+
 	/**
 	 * Returns the (lazily instantiated and stored) cached EMF context map
 	 * corresponding to the specified Aurora validation context.
@@ -186,35 +165,33 @@ public class EMFConstraintAdapter implements IModelConstraint {
 	 */
 	private static Map<Object, Object> getEMFContextFor(IValidationContext ctx) {
 		Map<Object, Object> result = contextMapCache.get(ctx);
-		
+
 		if (result == null) {
 			result = new java.util.HashMap<Object, Object>();
-			
+
 			// add a substitution label provider for good measure
-			result.put(
-				EValidator.SubstitutionLabelProvider.class,
-				SubstitutionProvider.INSTANCE);
-			
+			result.put(EValidator.SubstitutionLabelProvider.class, SubstitutionProvider.INSTANCE);
+
 			contextMapCache.put(ctx, result);
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * A substitution label provider to include in the context map for EMF
-	 * validation.  Provides labels from the item providers, where possible.
+	 * validation. Provides labels from the item providers, where possible.
 	 *
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class SubstitutionProvider implements EValidator.SubstitutionLabelProvider {
 		static final SubstitutionProvider INSTANCE = new SubstitutionProvider();
-		
+
 		/** Cannot be instantiated by clients. */
 		private SubstitutionProvider() {
 			super();
 		}
-		
+
 		public String getObjectLabel(EObject eObject) {
 			return TextUtils.getText(eObject);
 		}

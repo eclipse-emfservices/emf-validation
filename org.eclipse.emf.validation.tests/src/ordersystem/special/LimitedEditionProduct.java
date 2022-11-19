@@ -16,14 +16,14 @@ import java.util.Date;
 import ordersystem.Product;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Limited Edition Product</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Limited
+ * Edition Product</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil <em>Available Until</em>}</li>
+ * <li>{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil
+ * <em>Available Until</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,13 +33,14 @@ import ordersystem.Product;
  */
 public interface LimitedEditionProduct extends Product {
 	/**
-	 * Returns the value of the '<em><b>Available Until</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Available Until</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Available Until</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Available Until</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Available Until</em>' attribute.
 	 * @see #setAvailableUntil(Date)
 	 * @see ordersystem.special.SpecialPackage#getLimitedEditionProduct_AvailableUntil()
@@ -49,9 +50,11 @@ public interface LimitedEditionProduct extends Product {
 	Date getAvailableUntil();
 
 	/**
-	 * Sets the value of the '{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil <em>Available Until</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link ordersystem.special.LimitedEditionProduct#getAvailableUntil
+	 * <em>Available Until</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Available Until</em>' attribute.
 	 * @see #getAvailableUntil()
 	 * @generated

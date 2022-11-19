@@ -25,32 +25,29 @@ import junit.framework.TestCase;
  */
 public class AbstractConstraintProviderTest extends TestCase {
 	private static final String TEST_NS_URI = "com.ibm.example"; //$NON-NLS-1$
-	
+
 	private static class FixtureProvider extends AbstractConstraintProvider {
 		Exception exception;
 	}
-	
+
 	private FixtureProvider fixture;
-	
+
 	private static ConstraintDescriptorTest.FixtureElement fixtureConfig;
-	
+
 	static {
-		fixtureConfig = new ConstraintDescriptorTest.FixtureElement(
-				XmlConfig.E_CONSTRAINT_PROVIDER);
-		
+		fixtureConfig = new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_CONSTRAINT_PROVIDER);
+
 		fixtureConfig.putAttribute(XmlConfig.A_CLASS, FixtureProvider.class.getName());
 		fixtureConfig.putAttribute(XmlConfig.A_CACHE, Boolean.FALSE.toString());
-		
-		fixtureConfig.addChild(new ConstraintDescriptorTest.FixtureElement(
-			XmlConfig.E_PACKAGE)).putAttribute(
-				XmlConfig.A_NAMESPACE_URI,
-				TEST_NS_URI);
+
+		fixtureConfig.addChild(new ConstraintDescriptorTest.FixtureElement(XmlConfig.E_PACKAGE))
+				.putAttribute(XmlConfig.A_NAMESPACE_URI, TEST_NS_URI);
 	}
 
 	private FixtureProvider getFixture() {
 		if (fixture == null) {
 			fixture = new FixtureProvider();
-			
+
 			try {
 				fixture.setInitializationData(fixtureConfig, XmlConfig.A_CLASS, null);
 			} catch (CoreException e) {
@@ -58,16 +55,16 @@ public class AbstractConstraintProviderTest extends TestCase {
 				fixture.exception = e;
 			}
 		}
-		
+
 		return fixture;
 	}
-	
+
 	public void test_setInitializationData() {
 		if (getFixture().exception != null) {
 			fail("Got exception: " + getFixture().exception.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	public void test_getUriNamespacePrefix() {
 		assertEquals(TEST_NS_URI, getFixture().getNamespaceUris()[0]);
 	}

@@ -18,7 +18,6 @@ import org.eclipse.emf.validation.service.INotificationGenerator;
 
 import junit.framework.TestCase;
 
-
 /**
  * JUnit tests for the {@link EventTypeService} class.
  *
@@ -26,28 +25,28 @@ import junit.framework.TestCase;
  */
 public class EventTypeServiceTest extends TestCase {
 	/**
- 	 * Constructor for ConstraintRegistryTest.
- 	 * @param name
- 	 */
+	 * Constructor for ConstraintRegistryTest.
+	 * 
+	 * @param name
+	 */
 	public EventTypeServiceTest(String name) {
 		super(name);
 	}
-	
+
 	public void test_getInstance_177647() {
 		EventTypeService instance = EventTypeService.getInstance();
 		assertSame(instance, EventTypeService.getInstance());
 	}
-	
+
 	public void test_getNotificationGenerators_177647() {
-		Collection<INotificationGenerator> generators =
-			EventTypeService.getInstance().getNotificationGenerators();
-		
+		Collection<INotificationGenerator> generators = EventTypeService.getInstance().getNotificationGenerators();
+
 		assertEquals(generators.size(), 1);
 	}
-	
+
 	public void test_getNotificationGenerator_177647() {
 		INotificationGenerator generator = EventTypeService.getInstance().getNotificationGenerator("Special Order"); //$NON-NLS-1$
-		
+
 		assertNotNull(generator);
 	}
 }

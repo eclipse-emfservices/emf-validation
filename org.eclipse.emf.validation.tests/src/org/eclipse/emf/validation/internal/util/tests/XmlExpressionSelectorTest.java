@@ -29,40 +29,36 @@ import ordersystem.OrderSystemFactory;
 public class XmlExpressionSelectorTest extends TestCase {
 	private OrderSystemFactory fact;
 	private ConstraintDescriptorTest.FixtureElement expression;
-	
+
 	@Override
-    protected void setUp() {
+	protected void setUp() {
 		fact = OrderSystemFactory.eINSTANCE;
-		
-		expression = new ConstraintDescriptorTest.FixtureElement(
-			"enablement");  //$NON-NLS-1$
-		expression.addChild(ConstraintDescriptorTest.FixtureElement.build(
-			"instanceof", //$NON-NLS-1$
-			new String[][] {
-				{"value", Order.class.getName()}}));  //$NON-NLS-1$
+
+		expression = new ConstraintDescriptorTest.FixtureElement("enablement"); //$NON-NLS-1$
+		expression.addChild(ConstraintDescriptorTest.FixtureElement.build("instanceof", //$NON-NLS-1$
+				new String[][] { { "value", Order.class.getName() } })); //$NON-NLS-1$
 	}
-	
+
 	public void test_selects() {
 		try {
 			XmlExpressionSelector sel = new XmlExpressionSelector(expression);
-			
+
 			EvaluationContext ctx = new EvaluationContext(null, fact.createOrder());
 			assertTrue(sel.selects(ctx));
-			
+
 			ctx = new EvaluationContext(null, fact.createProduct());
 			assertFalse(sel.selects(ctx));
 		} catch (CoreException e) {
 			fail("Should not throw exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	public void test_init() {
 		try {
-			expression.addChild(new ConstraintDescriptorTest.FixtureElement(
-				"foo")); //$NON-NLS-1$
-			
+			expression.addChild(new ConstraintDescriptorTest.FixtureElement("foo")); //$NON-NLS-1$
+
 			new XmlExpressionSelector(expression);
-			
+
 			fail("Should throw exception."); //$NON-NLS-1$
 		} catch (CoreException e) {
 			// success

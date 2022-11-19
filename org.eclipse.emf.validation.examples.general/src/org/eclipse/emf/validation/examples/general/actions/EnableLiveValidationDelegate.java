@@ -31,11 +31,10 @@ import org.eclipse.ui.IEditorPart;
 
 /**
  * This action delegate calls upon the validation service to provide a batch
- *  validation of the selected EObjects and their children.
+ * validation of the selected EObjects and their children.
  * 
  */
-public class EnableLiveValidationDelegate
-	implements IEditorActionDelegate, IActionDelegate2 {
+public class EnableLiveValidationDelegate implements IEditorActionDelegate, IActionDelegate2 {
 
 	/**
 	 * Error message to display when an exception occured
@@ -59,22 +58,22 @@ public class EnableLiveValidationDelegate
 
 	String title = ValidationMessages.EnableLiveValidationDelegate_title;
 
-
 	/*
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.jface.viewers.ISelection)
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
+	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedResources = null;
 		action.setEnabled(false);
-		
+
 		try {
 			if (selection instanceof IStructuredSelection) {
 				IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				
+
 				Collection<?> selectedHunh = structuredSelection.toList();
-				
+
 				for (Object next : selectedHunh) {
 					if (!(next instanceof Resource)) {
 						action.setEnabled(false);
@@ -86,7 +85,7 @@ public class EnableLiveValidationDelegate
 						action.setEnabled(true);
 					}
 				}
-				
+
 				if (action.isEnabled()) {
 					this.selectedResources = (Collection<Resource>) selectedHunh;
 				} else {
@@ -106,16 +105,17 @@ public class EnableLiveValidationDelegate
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-		//No-op
+		// No-op
 	}
 
 	/*
-	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IEditorPart)
+	 * @see
+	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
+	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.editor = (EXTLibraryEditor) targetEditor;
-		if ( targetEditor != null ) {
+		if (targetEditor != null) {
 			this.shell = targetEditor.getSite().getShell();
 		}
 	}
@@ -128,14 +128,16 @@ public class EnableLiveValidationDelegate
 	}
 
 	/*
-	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.swt.widgets.Event)
+	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
+	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
 	public void run(IAction action) {
@@ -146,14 +148,14 @@ public class EnableLiveValidationDelegate
 			}
 		}
 	}
-	
+
 	private boolean resourceHasAdapter(Resource r) {
 		for (Adapter next : r.eAdapters()) {
 			if (next instanceof LiveValidationContentAdapter) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }

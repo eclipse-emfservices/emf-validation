@@ -37,8 +37,8 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
 
 /**
  * <p>
- * Constraint factory implementation which parses constraints from the
- * XML plug-in manifest.
+ * Constraint factory implementation which parses constraints from the XML
+ * plug-in manifest.
  * </p>
  * 
  * @author Christian W. Damus (cdamus)
@@ -47,12 +47,10 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	/**
 	 * Extension point name for the model providers extension point.
 	 */
-	public static final String CONSTRAINT_PARSERS_EXT_P_NAME =
-			"constraintParsers"; //$NON-NLS-1$
+	public static final String CONSTRAINT_PARSERS_EXT_P_NAME = "constraintParsers"; //$NON-NLS-1$
 
 	/** Mapping of language names to parser implementations. */
-	private final java.util.Map<String, IConstraintParser> parserMap =
-		new java.util.HashMap<String, IConstraintParser>();
+	private final java.util.Map<String, IConstraintParser> parserMap = new java.util.HashMap<String, IConstraintParser>();
 
 	private final Object parsersLock = new Object();
 
@@ -70,7 +68,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	};
 
 	/**
-	 * Initializes me.  I load my parsers from the <tt>constraintParsers</tt>
+	 * Initializes me. I load my parsers from the <tt>constraintParsers</tt>
 	 * extension point.
 	 */
 	public XmlConstraintFactory() {
@@ -86,40 +84,35 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		IConfigurationElement config = desc.getConfig();
 
 		final String lang = config.getAttribute(XmlConfig.A_LANG);
-		
+
 		IConstraintParser parser = getParser(lang);
 		IXmlConstraintParser xmlParser = null;
-		
+
 		if (parser instanceof IXmlConstraintParser) {
 			xmlParser = (IXmlConstraintParser) parser;
 		} else if ((parser instanceof IParameterizedConstraintParser)
 				&& (desc instanceof IParameterizedConstraintDescriptor)) {
 			return createConstraint((IParameterizedConstraintDescriptor) desc);
 		}
-	
+
 		try {
 			if (xmlParser != null) {
 				return xmlParser.parseConstraint(desc);
 			} else {
-				Trace.trace(
-						EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
+				Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
 						"Constraint is disabled: " + desc.getId() + ".  See log for details."); //$NON-NLS-1$ //$NON-NLS-2$
-				ConstraintParserException e = new ConstraintParserException(
-					EMFModelValidationPlugin.getMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG,
-						new Object[] {lang}));
-				
-				Log.warning(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING,
-						e.getMessage());
-				
+				ConstraintParserException e = new ConstraintParserException(EMFModelValidationPlugin.getMessage(
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG, new Object[] { lang }));
+
+				Log.warning(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING, e.getMessage());
+
 				return new DisabledConstraint(desc, e);
 			}
 		} catch (ConstraintParserException e) {
 			return new DisabledConstraint(desc, e);
 		}
 	}
-	
+
 	@Override
 	protected IModelConstraint createConstraint(IConstraintDescriptor descriptor) {
 		if (descriptor instanceof IXmlConstraintDescriptor) {
@@ -127,22 +120,20 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		} else if (descriptor instanceof IParameterizedConstraintDescriptor) {
 			return createConstraint((IParameterizedConstraintDescriptor) descriptor);
 		} else {
-			return new DisabledConstraint(
-					descriptor,
+			return new DisabledConstraint(descriptor,
 					new IllegalArgumentException("unsupported constraint descriptor")); //$NON-NLS-1$
 		}
 	}
-	
+
 	protected IModelConstraint createConstraint(IParameterizedConstraintDescriptor descriptor) {
 		final String lang = descriptor.getLanguage();
-		
+
 		IConstraintParser parser = getParser(lang);
 		IParameterizedConstraintParser parmParser = null;
-		
+
 		if (parser instanceof IParameterizedConstraintParser) {
 			parmParser = (IParameterizedConstraintParser) parser;
-		} else if ((parser instanceof IXmlConstraintParser)
-				&& (descriptor instanceof IXmlConstraintDescriptor)) {
+		} else if ((parser instanceof IXmlConstraintParser) && (descriptor instanceof IXmlConstraintDescriptor)) {
 			return createConstraint((IXmlConstraintDescriptor) descriptor);
 		}
 
@@ -150,18 +141,13 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			if (parmParser != null) {
 				return parmParser.parseConstraint(descriptor);
 			} else {
-				Trace.trace(
-						EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
+				Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
 						"Constraint is disabled: " + descriptor.getId() + ".  See log for details."); //$NON-NLS-1$ //$NON-NLS-2$
-				ConstraintParserException e = new ConstraintParserException(
-					EMFModelValidationPlugin.getMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG,
-						new Object[] {lang}));
-				
-				Log.warning(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING,
-						e.getMessage());
-				
+				ConstraintParserException e = new ConstraintParserException(EMFModelValidationPlugin.getMessage(
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG, new Object[] { lang }));
+
+				Log.warning(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING, e.getMessage());
+
 				return new DisabledConstraint(descriptor, e);
 			}
 		} catch (ConstraintParserException e) {
@@ -181,64 +167,49 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		String className = config.getAttribute(XmlConfig.A_CLASS);
 
 		try {
-			Object parser = config.createExecutableExtension(
-					XmlConfig.A_CLASS);
+			Object parser = config.createExecutableExtension(XmlConfig.A_CLASS);
 
-			if ( parser instanceof IConstraintParser) {
+			if (parser instanceof IConstraintParser) {
 				registerParser(language, (IConstraintParser) parser);
 			} else {
-				Trace.trace(
-						EMFModelValidationDebugOptions.PARSERS,
+				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Parser could not be initialized for constraint language: " + language); //$NON-NLS-1$
-				Log.warningMessage(
-					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
-					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG,
-					new Object[] {className, language});
+				Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG, new Object[] { className, language });
 			}
 		} catch (Exception e) {
 			Trace.catching(getClass(), "registerParser", e); //$NON-NLS-1$
-			Log.warningMessage(
-				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED,
-				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED_MSG,
-				new Object[] {className, language},
-				e);
+			Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED,
+					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED_MSG,
+					new Object[] { className, language }, e);
 		}
 	}
-	
-	
+
 	@SuppressWarnings("deprecation")
-	public void registerParser( String language, IConstraintParser parser ) {
+	public void registerParser(String language, IConstraintParser parser) {
 		assert language != null;
 		assert parser != null;
 
 		String className = parser.getClass().getName();
-		
+
 		try {
 
-			if (parser instanceof IXmlConstraintParser
-					|| parser instanceof IParameterizedConstraintParser) {
-				parserMap.put(language.toLowerCase(),
-					(IConstraintParser) parser);
-				
-				Trace.trace(
-						EMFModelValidationDebugOptions.PARSERS,
+			if (parser instanceof IXmlConstraintParser || parser instanceof IParameterizedConstraintParser) {
+				parserMap.put(language.toLowerCase(), (IConstraintParser) parser);
+
+				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Initialized parser for constraint language: " + language); //$NON-NLS-1$
 			} else {
-				Trace.trace(
-						EMFModelValidationDebugOptions.PARSERS,
+				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Parser could not be initialized for constraint language: " + language); //$NON-NLS-1$
-				Log.warningMessage(
-					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
-					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG,
-					new Object[] {className, language});
+				Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE,
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG, new Object[] { className, language });
 			}
 		} catch (Exception e) {
 			Trace.catching(getClass(), "registerParser", e); //$NON-NLS-1$
-			Log.warningMessage(
-				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED,
-				EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED_MSG,
-				new Object[] {className, language},
-				e);
+			Log.warningMessage(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED,
+					EMFModelValidationStatusCodes.CONSTRAINT_PARSER_NOT_INITED_MSG,
+					new Object[] { className, language }, e);
 		}
 
 	}
@@ -258,17 +229,14 @@ public class XmlConstraintFactory extends ConstraintFactory {
 	 * extension point.
 	 */
 	private void initializeParsers() {
-		if ( EMFPlugin.IS_ECLIPSE_RUNNING ) {
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
 			IExtensionPoint extPoint = Platform.getExtensionRegistry()
-				.getExtensionPoint(EMFModelValidationPlugin.getPluginId(),
-					CONSTRAINT_PARSERS_EXT_P_NAME);
-			
-			IExtensionTracker extTracker = EMFModelValidationPlugin
-				.getExtensionTracker();
-			
+					.getExtensionPoint(EMFModelValidationPlugin.getPluginId(), CONSTRAINT_PARSERS_EXT_P_NAME);
+
+			IExtensionTracker extTracker = EMFModelValidationPlugin.getExtensionTracker();
+
 			if (extTracker != null) {
-				extTracker.registerHandler(extensionHandler, ExtensionTracker
-					.createExtensionPointFilter(extPoint));
+				extTracker.registerHandler(extensionHandler, ExtensionTracker.createExtensionPointFilter(extPoint));
 
 				for (IExtension extension : extPoint.getExtensions()) {
 					extensionHandler.addExtension(extTracker, extension);
@@ -276,7 +244,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 			}
 		}
 	}
-	
+
 	/**
 	 * Loads the constraint language parsers.
 	 * 

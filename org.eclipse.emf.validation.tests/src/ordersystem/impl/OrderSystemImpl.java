@@ -30,16 +30,17 @@ import ordersystem.Product;
 import ordersystem.Warehouse;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>OrderSystem</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>OrderSystem</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ordersystem.impl.OrderSystemImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link ordersystem.impl.OrderSystemImpl#getCustomer <em>Customer</em>}</li>
- *   <li>{@link ordersystem.impl.OrderSystemImpl#getProduct <em>Product</em>}</li>
- *   <li>{@link ordersystem.impl.OrderSystemImpl#getWarehouse <em>Warehouse</em>}</li>
+ * <li>{@link ordersystem.impl.OrderSystemImpl#getVersion <em>Version</em>}</li>
+ * <li>{@link ordersystem.impl.OrderSystemImpl#getCustomer
+ * <em>Customer</em>}</li>
+ * <li>{@link ordersystem.impl.OrderSystemImpl#getProduct <em>Product</em>}</li>
+ * <li>{@link ordersystem.impl.OrderSystemImpl#getWarehouse
+ * <em>Warehouse</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,273 +49,277 @@ import ordersystem.Warehouse;
 public class OrderSystemImpl extends EObjectImpl implements OrderSystem {
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final int VERSION_EDEFAULT = 0;
+	protected static final int VERSION_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
 	 */
-    protected int version = VERSION_EDEFAULT;
+	protected int version = VERSION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCustomer() <em>Customer</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getCustomer() <em>Customer</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getCustomer()
 	 * @generated
 	 * @ordered
 	 */
-    protected EList<Customer> customer;
+	protected EList<Customer> customer;
 
 	/**
-	 * The cached value of the '{@link #getProduct() <em>Product</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getProduct() <em>Product</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getProduct()
 	 * @generated
 	 * @ordered
 	 */
-    protected EList<Product> product;
+	protected EList<Product> product;
 
 	/**
-	 * The cached value of the '{@link #getWarehouse() <em>Warehouse</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getWarehouse() <em>Warehouse</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getWarehouse()
 	 * @generated
 	 * @ordered
 	 */
-    protected EList<Warehouse> warehouse;
+	protected EList<Warehouse> warehouse;
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    protected OrderSystemImpl() {
+	protected OrderSystemImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    @Override
-				protected EClass eStaticClass() {
+	@Override
+	protected EClass eStaticClass() {
 		return OrderSystemPackage.Literals.ORDER_SYSTEM;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public int getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setVersion(int newVersion) {
+	public void setVersion(int newVersion) {
 		int oldVersion = version;
 		version = newVersion;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER_SYSTEM__VERSION, oldVersion, version));
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER_SYSTEM__VERSION, oldVersion,
+					version));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public EList<Customer> getCustomer() {
+	public EList<Customer> getCustomer() {
 		if (customer == null) {
-			customer = new EObjectContainmentWithInverseEList<Customer>(Customer.class, this, OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystemPackage.CUSTOMER__OWNER);
+			customer = new EObjectContainmentWithInverseEList<Customer>(Customer.class, this,
+					OrderSystemPackage.ORDER_SYSTEM__CUSTOMER, OrderSystemPackage.CUSTOMER__OWNER);
 		}
 		return customer;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public EList<Product> getProduct() {
+	public EList<Product> getProduct() {
 		if (product == null) {
-			product = new EObjectContainmentWithInverseEList<Product>(Product.class, this, OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystemPackage.PRODUCT__OWNER);
+			product = new EObjectContainmentWithInverseEList<Product>(Product.class, this,
+					OrderSystemPackage.ORDER_SYSTEM__PRODUCT, OrderSystemPackage.PRODUCT__OWNER);
 		}
 		return product;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public EList<Warehouse> getWarehouse() {
+	public EList<Warehouse> getWarehouse() {
 		if (warehouse == null) {
-			warehouse = new EObjectContainmentWithInverseEList<Warehouse>(Warehouse.class, this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystemPackage.WAREHOUSE__OWNER);
+			warehouse = new EObjectContainmentWithInverseEList<Warehouse>(Warehouse.class, this,
+					OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystemPackage.WAREHOUSE__OWNER);
 		}
 		return warehouse;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCustomer()).basicAdd(otherEnd, msgs);
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getProduct()).basicAdd(otherEnd, msgs);
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getWarehouse()).basicAdd(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getCustomer()).basicAdd(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getProduct()).basicAdd(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getWarehouse()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				return ((InternalEList<?>)getCustomer()).basicRemove(otherEnd, msgs);
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				return ((InternalEList<?>)getProduct()).basicRemove(otherEnd, msgs);
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				return ((InternalEList<?>)getWarehouse()).basicRemove(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			return ((InternalEList<?>) getCustomer()).basicRemove(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			return ((InternalEList<?>) getProduct()).basicRemove(otherEnd, msgs);
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			return ((InternalEList<?>) getWarehouse()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				return getVersion();
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				return getCustomer();
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				return getProduct();
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				return getWarehouse();
+		case OrderSystemPackage.ORDER_SYSTEM__VERSION:
+			return getVersion();
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			return getCustomer();
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			return getProduct();
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			return getWarehouse();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				setVersion((Integer)newValue);
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				getCustomer().clear();
-				getCustomer().addAll((Collection<? extends Customer>)newValue);
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				getProduct().clear();
-				getProduct().addAll((Collection<? extends Product>)newValue);
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				getWarehouse().clear();
-				getWarehouse().addAll((Collection<? extends Warehouse>)newValue);
-				return;
+		case OrderSystemPackage.ORDER_SYSTEM__VERSION:
+			setVersion((Integer) newValue);
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			getCustomer().clear();
+			getCustomer().addAll((Collection<? extends Customer>) newValue);
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			getProduct().clear();
+			getProduct().addAll((Collection<? extends Product>) newValue);
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			getWarehouse().clear();
+			getWarehouse().addAll((Collection<? extends Warehouse>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				setVersion(VERSION_EDEFAULT);
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				getCustomer().clear();
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				getProduct().clear();
-				return;
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				getWarehouse().clear();
-				return;
+		case OrderSystemPackage.ORDER_SYSTEM__VERSION:
+			setVersion(VERSION_EDEFAULT);
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			getCustomer().clear();
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			getProduct().clear();
+			return;
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			getWarehouse().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER_SYSTEM__VERSION:
-				return version != VERSION_EDEFAULT;
-			case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
-				return customer != null && !customer.isEmpty();
-			case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
-				return product != null && !product.isEmpty();
-			case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
-				return warehouse != null && !warehouse.isEmpty();
+		case OrderSystemPackage.ORDER_SYSTEM__VERSION:
+			return version != VERSION_EDEFAULT;
+		case OrderSystemPackage.ORDER_SYSTEM__CUSTOMER:
+			return customer != null && !customer.isEmpty();
+		case OrderSystemPackage.ORDER_SYSTEM__PRODUCT:
+			return product != null && !product.isEmpty();
+		case OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE:
+			return warehouse != null && !warehouse.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     */
-    @Override
-    public String toString() {
-        if (eIsProxy()) return super.toString();
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
 
-        StringBuffer result = new StringBuffer(32);
-        
-        result.append("OrderSystem v. "); //$NON-NLS-1$
-        result.append(version);
-        
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(32);
 
-} //OrderSystemImpl
+		result.append("OrderSystem v. "); //$NON-NLS-1$
+		result.append(version);
+
+		return result.toString();
+	}
+
+} // OrderSystemImpl

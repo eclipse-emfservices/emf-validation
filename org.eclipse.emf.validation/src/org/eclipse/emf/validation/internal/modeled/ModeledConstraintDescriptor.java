@@ -41,30 +41,29 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 
 	private final String pluginId;
 	private final ClassProvider classProvider;
-	
+
 	// values computed from constraint model
 	private String body = null;
-	private	EvaluationMode<?> evaluationMode = null;
+	private EvaluationMode<?> evaluationMode = null;
 	private String id = null;
 	private String messagePattern = null;
 	private String description = null;
-	private	String name = null;
+	private String name = null;
 	private ConstraintSeverity constraintSeverity = null;
 	private int statusCode;
 	private String language;
-	private Map<String,String>	parameters = null;
-	private EClassifier	targetClassifier;
-	
-	public ModeledConstraintDescriptor( String pluginId,
-			ClassProvider classProvider) {
+	private Map<String, String> parameters = null;
+	private EClassifier targetClassifier;
+
+	public ModeledConstraintDescriptor(String pluginId, ClassProvider classProvider) {
 		this.pluginId = pluginId;
 		this.classProvider = classProvider;
 
-		
 	}
-	
+
 	/**
-	 * Sets the constraint. No reference to the constraint object will be held after this method had been executed.
+	 * Sets the constraint. No reference to the constraint object will be held after
+	 * this method had been executed.
 	 * 
 	 * @noreference This method is not intended to be referenced by clients.
 	 * 
@@ -77,7 +76,7 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 
 		{
 			ModeEnum mode = constraint.getMode();
-	
+
 			if (mode.equals(ModeEnum.BATCH)) {
 				this.evaluationMode = EvaluationMode.BATCH;
 			} else if (mode.equals(ModeEnum.LIVE)) {
@@ -91,9 +90,9 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 		{
 			this.messagePattern = classProvider.bind(constraint.getMessage(), null);
 			this.description = classProvider.bind(constraint.getDescription(), null);
-			this.name = classProvider.bind(constraint.getName(), null); 
+			this.name = classProvider.bind(constraint.getName(), null);
 		}
-		
+
 		{
 			SeverityEnum severity = constraint.getSeverity();
 
@@ -113,31 +112,29 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 			default:
 				throw new IllegalArgumentException();
 			}
-	
+
 		}
-		
+
 		{
-			EMap<String,String> localParameters = constraint.getParameters();
-			
-			if ( localParameters == null || localParameters.size() == 0 ) {
+			EMap<String, String> localParameters = constraint.getParameters();
+
+			if (localParameters == null || localParameters.size() == 0) {
 				this.parameters = Collections.emptyMap();
 			} else {
-				this.parameters = new HashMap<String, String>( localParameters.size()*2, 0.7f);
+				this.parameters = new HashMap<String, String>(localParameters.size() * 2, 0.7f);
 				this.parameters.putAll(localParameters.map());
 			}
 		}
-		
+
 		this.statusCode = constraint.getStatusCode();
 		this.language = constraint.getLang();
-		if ( constraint.getTarget() != null ) {
+		if (constraint.getTarget() != null) {
 			this.targetClassifier = constraint.getTarget().getEClass();
 		}
-		this.id = XmlConstraintDescriptor.normalizedId(pluginId, constraint
-				.getId());
-		
+		this.id = XmlConstraintDescriptor.normalizedId(pluginId, constraint.getId());
+
 		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
-			EMFModelValidationPreferences.setConstraintDisabledDefault(getId(),
-					!constraint.isIsEnabledByDefault());
+			EMFModelValidationPreferences.setConstraintDisabledDefault(getId(), !constraint.isIsEnabledByDefault());
 		}
 	}
 
@@ -156,11 +153,11 @@ public class ModeledConstraintDescriptor extends AbstractConstraintDescriptor
 	public String getMessagePattern() {
 		return messagePattern;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

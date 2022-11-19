@@ -30,23 +30,28 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
  * <p>
- * Caches constraints provided by {@link IModelConstraintProvider}s.
- * Constraints are cached by EMF class, as follows:
+ * Caches constraints provided by {@link IModelConstraintProvider}s. Constraints
+ * are cached by EMF class, as follows:
  * <ul>
- *     <li>One bucket for each {@link EClass}, containing:
- *         <ul>
- *             <li>the batch constraints for the <code>EClass</code></li>
- *             <li>the live constraints for the <code>EClass</code>:
- *                 <ul>
- *                     one bucket for each triggering event type<li></li>
- *                 </ul></li>
- *             <li>the feature constraints for the <code>EClass</code>:
- *                 <ul>
- *                     one bucket for each {@link EStructuralFeature}<li></li>
- *                 </ul></li>
- *         </ul></li>
+ * <li>One bucket for each {@link EClass}, containing:
+ * <ul>
+ * <li>the batch constraints for the <code>EClass</code></li>
+ * <li>the live constraints for the <code>EClass</code>:
+ * <ul>
+ * one bucket for each triggering event type
+ * <li></li>
  * </ul>
- * </p> 
+ * </li>
+ * <li>the feature constraints for the <code>EClass</code>:
+ * <ul>
+ * one bucket for each {@link EStructuralFeature}
+ * <li></li>
+ * </ul>
+ * </li>
+ * </ul>
+ * </li>
+ * </ul>
+ * </p>
  * 
  * @author Christian W. Damus (cdamus)
  */
@@ -56,47 +61,44 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * related to any specific feature).
 	 */
 	private static final String NOT_A_FEATURE_NAME = "$none$"; //$NON-NLS-1$
-	
+
 	/**
-	 * Mapping of {@link EClass} ==&gt; {@link EClassBucket}.  The map is a
-	 * weak map to avoid interfering with garbage-collection of EMF metamodels
-	 * (and to clean up the cache when metamodels disappear!).
+	 * Mapping of {@link EClass} ==&gt; {@link EClassBucket}. The map is a weak map
+	 * to avoid interfering with garbage-collection of EMF metamodels (and to clean
+	 * up the cache when metamodels disappear!).
 	 */
-	private final Map<EClass, EClassBucket> buckets =
-		new java.util.WeakHashMap<EClass, EClassBucket>();
-	
+	private final Map<EClass, EClassBucket> buckets = new java.util.WeakHashMap<EClass, EClassBucket>();
+
 	/** The cacheable providers. */
-	private final Collection<IProviderDescriptor> providers =
-		new java.util.ArrayList<IProviderDescriptor>();
-	
+	private final Collection<IProviderDescriptor> providers = new java.util.ArrayList<IProviderDescriptor>();
+
 	/**
-	 * A container for the constraints provided by all cacheable providers
-	 * for a particular EMF type ({@link EClass}).
+	 * A container for the constraints provided by all cacheable providers for a
+	 * particular EMF type ({@link EClass}).
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private static class EClassBucket {
 		private Collection<IModelConstraint> batchConstraints;
-		private final Map<EMFEventType, Map<String, Collection<IModelConstraint>>>
-		liveConstraints = new java.util.HashMap<EMFEventType, Map<String, Collection<IModelConstraint>>>();
-		
+		private final Map<EMFEventType, Map<String, Collection<IModelConstraint>>> liveConstraints = new java.util.HashMap<EMFEventType, Map<String, Collection<IModelConstraint>>>();
+
 		/**
 		 * Initializes me.
 		 */
 		EClassBucket() {
 			super();
 		}
-		
+
 		/**
 		 * Obtains the batch constraints for my EMF class.
 		 * 
-		 * @return my batch constraints, or <code>null</code> if they have not
-		 *    yet been retrieved from my registered providers
+		 * @return my batch constraints, or <code>null</code> if they have not yet been
+		 *         retrieved from my registered providers
 		 */
 		Collection<IModelConstraint> getBatchConstraints() {
 			return batchConstraints;
 		}
-		
+
 		/**
 		 * Assigns the batch constraints for my EMF class.
 		 * 
@@ -105,68 +107,61 @@ public class ConstraintCache implements IModelConstraintProvider {
 		void cacheBatchConstraints(Collection<IModelConstraint> constraints) {
 			batchConstraints = new java.util.ArrayList<IModelConstraint>(constraints);
 		}
-		
+
 		/**
 		 * Obtains the live constraints for my EMF class, for the specified
 		 * <code>eventType</code> and feature name.
 		 * 
-		 * @param eventType the EMF notification event type
-		 * @param featureName the name of the feature that produced the
-		 *     notification (may be <code>null</code> if the notification was
-		 *     not a feature change)
-		 * @return the corresponding constraints, or <code>null</code> if they
-		 *     have not yet been retrieved from my registered providers
+		 * @param eventType   the EMF notification event type
+		 * @param featureName the name of the feature that produced the notification
+		 *                    (may be <code>null</code> if the notification was not a
+		 *                    feature change)
+		 * @return the corresponding constraints, or <code>null</code> if they have not
+		 *         yet been retrieved from my registered providers
 		 */
 		Collection<IModelConstraint> getLiveConstraints(EMFEventType eventType, String featureName) {
 			if (featureName == null) {
 				featureName = NOT_A_FEATURE_NAME;
 			}
-			
-			Map<String, Collection<IModelConstraint>> constraintMap =
-				liveConstraints.get(eventType);
-			
+
+			Map<String, Collection<IModelConstraint>> constraintMap = liveConstraints.get(eventType);
+
 			if (constraintMap != null) {
 				return constraintMap.get(featureName);
 			} else {
 				return null;
 			}
 		}
-		
+
 		/**
 		 * Assigns the live constraints for my EMF class, for the specified
 		 * <code>eventType</code> and feature name.
 		 * 
-		 * @param eventType the EMF notification event type
-		 * @param featureName the name of the feature that produced the
-		 *     notification (may be <code>null</code> if the notification was
-		 *     not a feature change)
+		 * @param eventType   the EMF notification event type
+		 * @param featureName the name of the feature that produced the notification
+		 *                    (may be <code>null</code> if the notification was not a
+		 *                    feature change)
 		 * @param constraints the corresponding constraints
 		 */
-		void cacheLiveConstraints(
-				EMFEventType eventType,
-				String featureName,
+		void cacheLiveConstraints(EMFEventType eventType, String featureName,
 				Collection<IModelConstraint> constraints) {
-			
+
 			if (featureName == null) {
 				featureName = NOT_A_FEATURE_NAME;
 			}
-	
-			Map<String, Collection<IModelConstraint>> constraintMap =
-				liveConstraints.get(eventType);
-	
+
+			Map<String, Collection<IModelConstraint>> constraintMap = liveConstraints.get(eventType);
+
 			if (constraintMap == null) {
 				constraintMap = new java.util.HashMap<String, Collection<IModelConstraint>>();
 				liveConstraints.put(eventType, constraintMap);
 			}
-			
-			constraintMap.put(
-					featureName,
-					new java.util.ArrayList<IModelConstraint>(constraints));
+
+			constraintMap.put(featureName, new java.util.ArrayList<IModelConstraint>(constraints));
 		}
-		
+
 		/**
-		 * Replaces a constraint in the bucket with an alternative
-		 * implementation.
+		 * Replaces a constraint in the bucket with an alternative implementation.
 		 * 
 		 * @param oldConstraint the constraint to be replaced
 		 * @param newConstraint the new constraint to replace it
@@ -176,7 +171,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 			if ((batchConstraints != null) && batchConstraints.remove(oldConstraint)) {
 				batchConstraints.add(newConstraint);
 			}
-			
+
 			// replace in the live constraints, if appropriate
 			for (Map<String, Collection<IModelConstraint>> next : liveConstraints.values()) {
 				for (Collection<IModelConstraint> constraints : next.values()) {
@@ -187,14 +182,14 @@ public class ConstraintCache implements IModelConstraintProvider {
 			}
 		}
 	}
-	
+
 	/**
 	 * Initializes me.
 	 */
 	public ConstraintCache() {
 		super();
 	}
-	
+
 	/**
 	 * Obtains a descriptor that can adequately represent me.
 	 * 
@@ -203,8 +198,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	public IProviderDescriptor getDescriptor() {
 		return new IProviderDescriptor() {
 			// the cache is assumed to always have an answer
-			public boolean provides(
-					IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
+			public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 				return true;
 			}
 
@@ -212,7 +206,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 			public boolean isCacheEnabled() {
 				return false;
 			}
-			
+
 			// yes, I am the cache
 			public boolean isCache() {
 				return true;
@@ -222,13 +216,14 @@ public class ConstraintCache implements IModelConstraintProvider {
 			public boolean isXmlProvider() {
 				return false;
 			}
-			
+
 			// the cache descriptor describes the cache
 			public IModelConstraintProvider getProvider() {
 				return ConstraintCache.this;
-			}};
+			}
+		};
 	}
-	
+
 	/**
 	 * Obtains the collection of providers whose constraints I cache.
 	 * 
@@ -242,15 +237,15 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * Adds a constraint provider to the cache.
 	 * 
 	 * @param provider the provider (must be
-	 *     {@linkplain IProviderDescriptor#isCacheEnabled cacheable})
+	 *                 {@linkplain IProviderDescriptor#isCacheEnabled cacheable})
 	 */
 	public void addProvider(IProviderDescriptor provider) {
 		assert provider != null;
 		assert provider.isCacheEnabled();
-		
+
 		getProviders().add(provider);
 	}
-	
+
 	/**
 	 * Obtains the cache bucket for the specified EMF type.
 	 * 
@@ -259,12 +254,12 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 */
 	private EClassBucket getBucket(EClass clazz) {
 		EClassBucket result = buckets.get(clazz);
-		
+
 		if (result == null) {
 			result = new EClassBucket();
 			buckets.put(clazz, result);
 		}
-		
+
 		return result;
 	}
 
@@ -275,7 +270,7 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 * @return the constraints retrieved by the operation
 	 */
 	private Collection<IModelConstraint> execute(AbstractGetConstraintsOperation operation) {
-		for (Iterator<IProviderDescriptor> iter = getProviders().iterator(); iter.hasNext(); ) {
+		for (Iterator<IProviderDescriptor> iter = getProviders().iterator(); iter.hasNext();) {
 			IProviderDescriptor next = iter.next();
 
 			if (next.provides(operation)) {
@@ -283,26 +278,23 @@ public class ConstraintCache implements IModelConstraintProvider {
 					operation.execute(next.getProvider());
 				} catch (RuntimeException e) {
 					Trace.catching(getClass(), "execute", e); //$NON-NLS-1$
-					Log.l7dWarning(
-							EMFModelValidationStatusCodes.PROVIDER_FAILURE,
-							EMFModelValidationStatusCodes.PROVIDER_FAILURE_MSG,
-							e);
-					
-					iter.remove();  // don't try the offending provider, again
+					Log.l7dWarning(EMFModelValidationStatusCodes.PROVIDER_FAILURE,
+							EMFModelValidationStatusCodes.PROVIDER_FAILURE_MSG, e);
+
+					iter.remove(); // don't try the offending provider, again
 				}
 			}
 		}
-		
+
 		return operation.getUnfilteredConstraints();
 	}
 
 	// implements the interface method
-	public Collection<IModelConstraint> getLiveConstraints(
-			Notification notification,
+	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 			Collection<IModelConstraint> constraints) {
-		
+
 		assert notification != null;
-		
+
 		Collection<IModelConstraint> result = constraints;
 
 		if (result == null) {
@@ -310,53 +302,39 @@ public class ConstraintCache implements IModelConstraintProvider {
 		}
 
 		if (notification.getNotifier() instanceof EObject) {
-			final EObject eObject = (EObject)notification.getNotifier();
-			final EMFEventType eventType = EMFEventType.getInstance(
-					notification.getEventType());
-			
+			final EObject eObject = (EObject) notification.getNotifier();
+			final EMFEventType eventType = EMFEventType.getInstance(notification.getEventType());
+
 			String featureName = null;
 			if (notification.getFeature() instanceof EStructuralFeature) {
-				featureName = ((EStructuralFeature)notification.getFeature())
-						.getName();
+				featureName = ((EStructuralFeature) notification.getFeature()).getName();
 			}
-			
+
 			EClassBucket bucket = getBucket(eObject.eClass());
-			Collection<IModelConstraint> cached = bucket.getLiveConstraints(
-				eventType, featureName);
-			
+			Collection<IModelConstraint> cached = bucket.getLiveConstraints(eventType, featureName);
+
 			if (cached == null) {
 				if (Trace.shouldTrace(EMFModelValidationDebugOptions.CACHE)) {
-					Trace.trace(
-							EMFModelValidationDebugOptions.CACHE,
-							"Cache missed live constraints for: " //$NON-NLS-1$
-								+ Trace.toString(new Object[] {
-											qualifiedName(eObject.eClass()),
-											eventType,
-											featureName}));
+					Trace.trace(EMFModelValidationDebugOptions.CACHE, "Cache missed live constraints for: " //$NON-NLS-1$
+							+ Trace.toString(new Object[] { qualifiedName(eObject.eClass()), eventType, featureName }));
 				}
-				
-				// not cached, yet?  Ask my providers
-				GetLiveConstraintsOperation operation =
-					new GetLiveConstraintsOperation();
+
+				// not cached, yet? Ask my providers
+				GetLiveConstraintsOperation operation = new GetLiveConstraintsOperation();
 				operation.setNotification(notification);
-				
+
 				cached = execute(operation);
-				bucket.cacheLiveConstraints(
-						eventType,
-						featureName,
-						cached);
+				bucket.cacheLiveConstraints(eventType, featureName, cached);
 			}
-			
+
 			result.addAll(cached);
 		}
-		
+
 		return result;
 	}
 
 	// implements the interface method
-	public Collection<IModelConstraint> getBatchConstraints(
-			EObject eObject,
-			Collection<IModelConstraint> constraints) {
+	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 
 		Collection<IModelConstraint> result = constraints;
 
@@ -368,28 +346,25 @@ public class ConstraintCache implements IModelConstraintProvider {
 		Collection<IModelConstraint> cached = bucket.getBatchConstraints();
 		if (cached == null) {
 			if (Trace.shouldTrace(EMFModelValidationDebugOptions.CACHE)) {
-				Trace.trace(
-						EMFModelValidationDebugOptions.CACHE,
-						"Cache missed batch constraints for: " //$NON-NLS-1$
-							+ qualifiedName(eObject.eClass()));
+				Trace.trace(EMFModelValidationDebugOptions.CACHE, "Cache missed batch constraints for: " //$NON-NLS-1$
+						+ qualifiedName(eObject.eClass()));
 			}
-			
-			// not cached, yet?  Ask my providers
-			GetBatchConstraintsOperation operation =
-				new GetBatchConstraintsOperation(
-					false);  // must use false to cache live constraints also
+
+			// not cached, yet? Ask my providers
+			GetBatchConstraintsOperation operation = new GetBatchConstraintsOperation(false); // must use false to cache
+																								// live constraints also
 
 			operation.setTarget(eObject);
-			
+
 			cached = execute(operation);
 			bucket.cacheBatchConstraints(cached);
 		}
 
 		result.addAll(bucket.getBatchConstraints());
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Obtains the fully-qualified name (with namespace URI) of an EClass.
 	 * 
@@ -398,19 +373,19 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 */
 	private String qualifiedName(EClass eClass) {
 		StringBuffer result = new StringBuffer(32);
-		
+
 		appendQualifiedName(eClass.getEPackage(), result);
 		result.append(eClass.getName());
-		
+
 		return result.toString();
 	}
-	
+
 	/**
 	 * Appends an EMF package's fully-qualified name to a string
 	 * <code>buf</code>fer, including the namespace URI.
 	 * 
 	 * @param ePackage the EMF package
-	 * @param buf the String buffer to append its name to
+	 * @param buf      the String buffer to append its name to
 	 */
 	private void appendQualifiedName(EPackage ePackage, StringBuffer buf) {
 		if (ePackage.getESuperPackage() != null) {
@@ -419,11 +394,11 @@ public class ConstraintCache implements IModelConstraintProvider {
 			buf.append(ePackage.getNsURI());
 			buf.append('/');
 		}
-		
+
 		buf.append(ePackage.getName());
 		buf.append('.');
 	}
-	
+
 	/**
 	 * Replaces a constraint in the cache with an alternative implementation.
 	 * 
@@ -432,12 +407,10 @@ public class ConstraintCache implements IModelConstraintProvider {
 	 */
 	public void replace(IModelConstraint oldConstraint, IModelConstraint newConstraint) {
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CACHE)) {
-			Trace.trace(
-					EMFModelValidationDebugOptions.CACHE,
-					"Cache replacing: " + oldConstraint //$NON-NLS-1$
+			Trace.trace(EMFModelValidationDebugOptions.CACHE, "Cache replacing: " + oldConstraint //$NON-NLS-1$
 					+ " with: " + newConstraint); //$NON-NLS-1$
 		}
-		
+
 		// ask each bucket to replace the old constraint with the new, if
 		// that constraint is in that bucket
 		for (EClassBucket next : buckets.values()) {

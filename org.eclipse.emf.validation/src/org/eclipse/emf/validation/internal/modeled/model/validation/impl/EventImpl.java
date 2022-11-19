@@ -19,13 +19,13 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.EventTypesEn
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Event</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Event</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl#getName <em>Name</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EventImpl#getName
+ * <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,9 +34,9 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  */
 public class EventImpl extends TargetImpl implements Event {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -44,9 +44,9 @@ public class EventImpl extends TargetImpl implements Event {
 	protected static final EventTypesEnum NAME_EDEFAULT = EventTypesEnum.ADD;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -54,8 +54,8 @@ public class EventImpl extends TargetImpl implements Event {
 	protected EventTypesEnum name = NAME_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected EventImpl() {
@@ -63,8 +63,8 @@ public class EventImpl extends TargetImpl implements Event {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -73,8 +73,8 @@ public class EventImpl extends TargetImpl implements Event {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EventTypesEnum getName() {
@@ -82,8 +82,8 @@ public class EventImpl extends TargetImpl implements Event {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setName(EventTypesEnum newName) {
@@ -94,71 +94,72 @@ public class EventImpl extends TargetImpl implements Event {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ValidationPackage.EVENT__NAME:
-				return getName();
+		case ValidationPackage.EVENT__NAME:
+			return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ValidationPackage.EVENT__NAME:
-				setName((EventTypesEnum)newValue);
-				return;
+		case ValidationPackage.EVENT__NAME:
+			setName((EventTypesEnum) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.EVENT__NAME:
-				setName(NAME_EDEFAULT);
-				return;
+		case ValidationPackage.EVENT__NAME:
+			setName(NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.EVENT__NAME:
-				return name != NAME_EDEFAULT;
+		case ValidationPackage.EVENT__NAME:
+			return name != NAME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
@@ -167,4 +168,4 @@ public class EventImpl extends TargetImpl implements Event {
 		return result.toString();
 	}
 
-} //EventImpl
+} // EventImpl

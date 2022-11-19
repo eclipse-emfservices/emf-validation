@@ -27,7 +27,7 @@ public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	 * @return my Eclipse extension configuration data
 	 */
 	public IConfigurationElement getConfig();
-	
+
 	/**
 	 * <p>
 	 * I resolve all class names registered with me from <tt>%lt;target&gt;</tt>
@@ -35,12 +35,12 @@ public interface IXmlConstraintDescriptor extends IConstraintDescriptor {
 	 * instances in the specified URI namespace.
 	 * </p>
 	 * <p>
-	 * This method must be invoked before any requests for constraints are
-	 * received by the framework. 
+	 * This method must be invoked before any requests for constraints are received
+	 * by the framework.
 	 * </p>
 	 * 
-	 * @param namespaceUris the namespace URIs of the EPackages in which to
-	 *    search for {@link org.eclipse.emf.ecore.EClass}es by name
+	 * @param namespaceUris the namespace URIs of the EPackages in which to search
+	 *                      for {@link org.eclipse.emf.ecore.EClass}es by name
 	 */
 	public void resolveTargetTypes(String[] namespaceUris);
 }

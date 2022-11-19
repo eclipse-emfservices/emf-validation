@@ -16,38 +16,38 @@ import org.eclipse.emf.validation.service.IConstraintListener;
 
 public class ConstraintListener implements IConstraintListener {
 
-    private int eventCount = 0;
+	private int eventCount = 0;
 	private ConstraintChangeEvent lastEvent = null;
 	private boolean enabled = false;
-	
+
 	private static ConstraintListener instance;
-	
+
 	private ConstraintListener() {
 		super();
 	}
-	
+
 	public static ConstraintListener getInstance() {
 		if (instance == null) {
 			instance = new ConstraintListener();
 		}
 		return instance;
 	}
-	
+
 	public void constraintChanged(ConstraintChangeEvent event) {
 		if (isEnabled()) {
 			this.lastEvent = event;
 			eventCount++;
 		}
 	}
-	
+
 	public ConstraintChangeEvent getLastEvent() {
 		return this.lastEvent;
 	}
-	
+
 	public int getEventCount() {
-	    return eventCount;
+		return eventCount;
 	}
-	
+
 	public boolean isEnabled() {
 		return this.enabled;
 	}
@@ -59,10 +59,10 @@ public class ConstraintListener implements IConstraintListener {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
+
 	public void reset() {
-	    lastEvent = null;
-	    eventCount = 0;
+		lastEvent = null;
+		eventCount = 0;
 	}
-	
+
 }

@@ -40,13 +40,12 @@ import org.osgi.framework.BundleContext;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class ValidationUIPlugin
-	extends EMFPlugin {
+public class ValidationUIPlugin extends EMFPlugin {
 
 	///
 	// TRACING STRINGS
 	//
-	
+
 	/**
 	 * String containing an open parenthesis.
 	 * 
@@ -64,7 +63,7 @@ public class ValidationUIPlugin
 	 * 
 	 */
 	protected static final String PREFIX_CHANGING = "CHANGING "; //$NON-NLS-1$
-	
+
 	/**
 	 * Prefix for tracing the catching of throwables.
 	 * 
@@ -112,7 +111,7 @@ public class ValidationUIPlugin
 	 * 
 	 */
 	protected static final String SEPARATOR_SPACE = " "; //$NON-NLS-1$
-	
+
 	/**
 	 * Label indicating old value.
 	 * 
@@ -125,429 +124,346 @@ public class ValidationUIPlugin
 	 */
 	protected static final String LABEL_NEW_VALUE = "new="; //$NON-NLS-1$
 
-    /**
-     * The shared plug-in instance.
-     */
-    public static final ValidationUIPlugin INSTANCE = new ValidationUIPlugin();
+	/**
+	 * The shared plug-in instance.
+	 */
+	public static final ValidationUIPlugin INSTANCE = new ValidationUIPlugin();
 
-    private static Implementation plugin;
+	private static Implementation plugin;
 
-    /**
-     * Initializes me.
-     */
-    public ValidationUIPlugin() {
-        super(new ResourceLocator[] {});
-    }
+	/**
+	 * Initializes me.
+	 */
+	public ValidationUIPlugin() {
+		super(new ResourceLocator[] {});
+	}
 
-    @Override
+	@Override
 	public ResourceLocator getPluginResourceLocator() {
-        return plugin;
-    }
+		return plugin;
+	}
 
-    /**
-     * Gets the shared Eclipse plug-in implementation.
-     * 
-     * @return the shared implementation plug-in
-     */
-    public static Implementation getPlugin() {
-        return plugin;
-    }
+	/**
+	 * Gets the shared Eclipse plug-in implementation.
+	 * 
+	 * @return the shared implementation plug-in
+	 */
+	public static Implementation getPlugin() {
+		return plugin;
+	}
 
 	/**
 	 * @return utility to track extensions managed by this bundle
 	 */
 	public static IExtensionTracker getExtensionTracker() {
-		return (plugin == null)? null : plugin.extensionTracker;
+		return (plugin == null) ? null : plugin.extensionTracker;
 	}
 
-    /**
-     * The Eclipse plug-in implementation that represents the EMF plug-in.
-     */
-    public static class Implementation extends EclipsePlugin {
+	/**
+	 * The Eclipse plug-in implementation that represents the EMF plug-in.
+	 */
+	public static class Implementation extends EclipsePlugin {
 		/**
 		 * Track extensions for extension points defined in this bundle.
 		 */
 		private ExtensionTracker extensionTracker = new ExtensionTracker();
 
-    	private IPreferenceStore preferenceStore;
-    	
-    	/** Initializes me. */
-        public Implementation() {
-            super();
+		private IPreferenceStore preferenceStore;
 
-            // Remember the static instance.
-            //
-            plugin = this;
-        }
+		/** Initializes me. */
+		public Implementation() {
+			super();
+
+			// Remember the static instance.
+			//
+			plugin = this;
+		}
 
 		@Override
-		public void start(BundleContext context)
-				throws Exception {
-			
+		public void start(BundleContext context) throws Exception {
+
 			super.start(context);
-			
+
 			extensionTracker = new ExtensionTracker();
 		}
-		
+
 		@Override
 		public void stop(BundleContext context) throws Exception {
 			extensionTracker.close();
 			extensionTracker = null;
-			
+
 			super.stop(context);
 		}
-        
-        public IPreferenceStore getPreferenceStore() {
-            // Create the preference store lazily.
-            if (preferenceStore == null) {
-                preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, getBundle().getSymbolicName());
 
-            }
-            return preferenceStore;
-        }
-    }
-    
-    public static class Tracing {
-    	/**
-    	 * The cached debug options (for optimization).
-    	 */
-    	private static final Map<String, Boolean> cachedOptions =
-    		new HashMap<String, Boolean>();
+		public IPreferenceStore getPreferenceStore() {
+			// Create the preference store lazily.
+			if (preferenceStore == null) {
+				preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, getBundle().getSymbolicName());
 
-    	/**
-    	 * Retrieves a Boolean value indicating whether tracing is enabled.
-    	 * 
-    	 * @return Whether tracing is enabled for the plug-in.
-    	 * 
-    	 */
-    	protected static boolean shouldTrace() {
-    		return plugin.isDebugging();
-    	}
+			}
+			return preferenceStore;
+		}
+	}
 
-    	/**
-    	 * Retrieves a Boolean value indicating whether tracing is enabled for the
-    	 * specified debug option.
-    	 * 
-    	 * @return Whether tracing is enabled for the debug option of the plug-in.
-    	 * @param option The debug option for which to determine trace enablement.
-    	 * 
-    	 */
-    	public static boolean shouldTrace(String option) {
-    		if (shouldTrace()) {
-    			Boolean value = null;
-    			
-    			synchronized (cachedOptions) {
-    				value = cachedOptions.get(option);
-    	
-    				if (null == value) {
-    					value =
-    						Boolean.valueOf(
-    								org.eclipse.core.runtime.Platform.getDebugOption(option));
-    	
-    					cachedOptions.put(option, value);
-    				}
-    			}
-    			
-    			return value.booleanValue();
-    		}
+	public static class Tracing {
+		/**
+		 * The cached debug options (for optimization).
+		 */
+		private static final Map<String, Boolean> cachedOptions = new HashMap<String, Boolean>();
 
-    		return false;
-    	}
+		/**
+		 * Retrieves a Boolean value indicating whether tracing is enabled.
+		 * 
+		 * @return Whether tracing is enabled for the plug-in.
+		 * 
+		 */
+		protected static boolean shouldTrace() {
+			return plugin.isDebugging();
+		}
 
-    	/**
-    	 * Retrieves a textual representation of the specified argument.
-    	 * 
-    	 * @return A textual representation of the specified argument.
-    	 * @param argument The argument for which to retrieve a textual
-    	 *                  representation.
-    	 * 
-    	 */
-    	protected static String getArgumentString(Object argument) {
-    		return String.valueOf(argument);
-    	}
+		/**
+		 * Retrieves a Boolean value indicating whether tracing is enabled for the
+		 * specified debug option.
+		 * 
+		 * @return Whether tracing is enabled for the debug option of the plug-in.
+		 * @param option The debug option for which to determine trace enablement.
+		 * 
+		 */
+		public static boolean shouldTrace(String option) {
+			if (shouldTrace()) {
+				Boolean value = null;
 
-    	/**
-    	 * Retrieves a textual representation of the specified arguments.
-    	 * 
-    	 * @return A textual representation of the specified arguments.
-    	 * @param arguments The arguments for which to retrieve a textual
-    	 *                   representation.
-    	 * 
-    	 */
-    	protected static String getArgumentsString(Object[] arguments) {
-    		StringBuffer buffer = new StringBuffer();
+				synchronized (cachedOptions) {
+					value = cachedOptions.get(option);
 
-    		for (int i = 0; i < arguments.length; i++) {
-    			buffer.append(getArgumentString(arguments[i]));
+					if (null == value) {
+						value = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(option));
 
-    			if (i < arguments.length - 1) {
-    				buffer.append(SEPARATOR_PARAMETER);
-    			}
-    		}
+						cachedOptions.put(option, value);
+					}
+				}
 
-    		return buffer.toString();
-    	}
+				return value.booleanValue();
+			}
 
-    	/**
-    	 * Traces the specified message.
-    	 * 
-    	 * @param message The message to be traced.
-    	 * 
-    	 */
-    	public static void trace(String message) {
-    		if (shouldTrace()) {
-    			System.out.println(message);
-    		}
-    	}
+			return false;
+		}
 
-    	/**
-    	 * Traces the specified message for the specified
-    	 * debug option.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param message The message to be traced.
-    	 * 
-    	 */
-    	public static void trace(String option, String message) {
-    		if (shouldTrace(option)) {
-    			trace(message);
-    		}
-    	}
-    	
-    	/**
-    	 * Traces the changing of a value.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param valueDescription The description of the value which is changing.
-    	 * @param oldValue The old value.
-    	 * @param newValue The new value.
-    	 */
-    	public static void changing(
-    	        String option,
-    	        String valueDescription,
-    	        Object oldValue,
-    	        Object newValue) {
-    		    
-    	        if (shouldTrace(option)) {
-    	            trace(
-    	                PREFIX_CHANGING
-    	                	+ valueDescription
-    	                	+ SEPARATOR_SPACE
-    	                	+ LABEL_OLD_VALUE
-    	                	+ getArgumentString(oldValue)
-    	                	+ SEPARATOR_PARAMETER
-    	                   	+ LABEL_NEW_VALUE
-    	                	+ getArgumentString(newValue)
-    						);
-    	        }
-    	    }
-    	
-    	/**
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class in which the value is changing.
-    	 * @param methodName The name of the method in which the value is changing.
-    	 * @param valueDescription The description of the value which is changing.
-    	 * @param oldValue The old value.
-    	 * @param newValue The new value.
-    	 */
-    	public static void changing(
-            String option,
-            Class<?> clazz,
-            String methodName,
-            String valueDescription,
-            Object oldValue,
-            Object newValue) {
-    	    
-            if (shouldTrace(option)) {
-                trace(
-                    PREFIX_CHANGING
-                    	+ valueDescription
-                    	+ SEPARATOR_SPACE
-                    	+ LABEL_OLD_VALUE
-                    	+ getArgumentString(oldValue)
-                    	+ SEPARATOR_PARAMETER
-                       	+ LABEL_NEW_VALUE
-                    	+ getArgumentString(newValue)
-                    	+ SEPARATOR_SPACE
-                    	+ PARENTHESIS_OPEN
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ PARENTHESIS_CLOSE
-    					);
-            }
-        }
+		/**
+		 * Retrieves a textual representation of the specified argument.
+		 * 
+		 * @return A textual representation of the specified argument.
+		 * @param argument The argument for which to retrieve a textual representation.
+		 * 
+		 */
+		protected static String getArgumentString(Object argument) {
+			return String.valueOf(argument);
+		}
 
-    	/**
-    	 * Traces the catching of the specified throwable in the specified method of
-    	 * the specified class.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class in which the throwable is being caught.
-    	 * @param methodName The name of the method in which the throwable is being
-    	 *                    caught.
-    	 * @param throwable The throwable that is being caught.
-    	 * 
-    	 */
-    	public static void catching(
-    		String option,
-    		Class<?> clazz,
-    		String methodName,
-    		Throwable throwable) {
+		/**
+		 * Retrieves a textual representation of the specified arguments.
+		 * 
+		 * @return A textual representation of the specified arguments.
+		 * @param arguments The arguments for which to retrieve a textual
+		 *                  representation.
+		 * 
+		 */
+		protected static String getArgumentsString(Object[] arguments) {
+			StringBuffer buffer = new StringBuffer();
 
-    		if (shouldTrace(option)) {
+			for (int i = 0; i < arguments.length; i++) {
+				buffer.append(getArgumentString(arguments[i]));
 
-    			trace(
-    				PREFIX_CATCHING
-    					+ throwable.getMessage()
-    					+ SEPARATOR_SPACE
-    					+ PARENTHESIS_OPEN
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ PARENTHESIS_CLOSE);
+				if (i < arguments.length - 1) {
+					buffer.append(SEPARATOR_PARAMETER);
+				}
+			}
 
-    			throwable.printStackTrace(System.err);
-    		}
-    	}
+			return buffer.toString();
+		}
 
-    	/**
-    	 * Traces the throwing of the specified throwable from the specified method
-    	 * of the specified class.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class from which the throwable is being thrown.
-    	 * @param methodName The name of the method from which the throwable is
-    	 *                    being thrown.
-    	 * @param throwable The throwable that is being thrown.
-    	 * 
-    	 */
-    	public static void throwing(
-    		String option,
-    		Class<?> clazz,
-    		String methodName,
-    		Throwable throwable) {
+		/**
+		 * Traces the specified message.
+		 * 
+		 * @param message The message to be traced.
+		 * 
+		 */
+		public static void trace(String message) {
+			if (shouldTrace()) {
+				System.out.println(message);
+			}
+		}
 
-    		if (shouldTrace(option)) {
+		/**
+		 * Traces the specified message for the specified debug option.
+		 * 
+		 * @param option  The debug option for which to trace.
+		 * @param message The message to be traced.
+		 * 
+		 */
+		public static void trace(String option, String message) {
+			if (shouldTrace(option)) {
+				trace(message);
+			}
+		}
 
-    			trace(
-    				PREFIX_THROWING
-    					+ throwable.getMessage()
-    					+ SEPARATOR_SPACE
-    					+ PARENTHESIS_OPEN
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ PARENTHESIS_CLOSE);
+		/**
+		 * Traces the changing of a value.
+		 * 
+		 * @param option           The debug option for which to trace.
+		 * @param valueDescription The description of the value which is changing.
+		 * @param oldValue         The old value.
+		 * @param newValue         The new value.
+		 */
+		public static void changing(String option, String valueDescription, Object oldValue, Object newValue) {
 
-    			throwable.printStackTrace(System.err);
-    		}
-    	}
+			if (shouldTrace(option)) {
+				trace(PREFIX_CHANGING + valueDescription + SEPARATOR_SPACE + LABEL_OLD_VALUE
+						+ getArgumentString(oldValue) + SEPARATOR_PARAMETER + LABEL_NEW_VALUE
+						+ getArgumentString(newValue));
+			}
+		}
 
-    	/**
-    	 * Traces the entering into the specified method of the specified class,
-    	 * with the specified parameters.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class whose method is being entered.
-    	 * @param methodName The name of method that is being entered.
-    	 * @param parameters The parameters to the method being entered.
-    	 * 
-    	 */
-    	public static void entering(
-    		String option,
-    		Class<?> clazz,
-    		String methodName,
-    		Object... parameters) {
+		/**
+		 * 
+		 * @param option           The debug option for which to trace.
+		 * @param clazz            The class in which the value is changing.
+		 * @param methodName       The name of the method in which the value is
+		 *                         changing.
+		 * @param valueDescription The description of the value which is changing.
+		 * @param oldValue         The old value.
+		 * @param newValue         The new value.
+		 */
+		public static void changing(String option, Class<?> clazz, String methodName, String valueDescription,
+				Object oldValue, Object newValue) {
 
-    		if (shouldTrace(option)) {
+			if (shouldTrace(option)) {
+				trace(PREFIX_CHANGING + valueDescription + SEPARATOR_SPACE + LABEL_OLD_VALUE
+						+ getArgumentString(oldValue) + SEPARATOR_PARAMETER + LABEL_NEW_VALUE
+						+ getArgumentString(newValue) + SEPARATOR_SPACE + PARENTHESIS_OPEN + clazz.getName()
+						+ SEPARATOR_METHOD + methodName + PARENTHESIS_CLOSE);
+			}
+		}
 
-    			trace(
-    				PREFIX_ENTERING
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ PARENTHESIS_OPEN
-    					+ getArgumentsString(parameters)
-    					+ PARENTHESIS_CLOSE);
-    		}
-    	}
+		/**
+		 * Traces the catching of the specified throwable in the specified method of the
+		 * specified class.
+		 * 
+		 * @param option     The debug option for which to trace.
+		 * @param clazz      The class in which the throwable is being caught.
+		 * @param methodName The name of the method in which the throwable is being
+		 *                   caught.
+		 * @param throwable  The throwable that is being caught.
+		 * 
+		 */
+		public static void catching(String option, Class<?> clazz, String methodName, Throwable throwable) {
 
-    	/**
-    	 * Traces the exiting from the specified method of the specified class.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class whose method is being exited.
-    	 * @param methodName The name of method that is being exited.
-    	 * 
-    	 */
-    	public static void exiting(
-    		String option,
-    		Class<?> clazz,
-    		String methodName) {
+			if (shouldTrace(option)) {
 
-    		if (shouldTrace(option)) {
+				trace(PREFIX_CATCHING + throwable.getMessage() + SEPARATOR_SPACE + PARENTHESIS_OPEN + clazz.getName()
+						+ SEPARATOR_METHOD + methodName + PARENTHESIS_CLOSE);
 
-    			trace(
-    				PREFIX_EXITING
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName);
-    		}
-    	}
+				throwable.printStackTrace(System.err);
+			}
+		}
 
-    	/**
-    	 * Traces the exiting from the specified method of the specified class,
-    	 * with the specified return value.
-    	 * 
-    	 * @param option The debug option for which to trace.
-    	 * @param clazz The class whose method is being exited.
-    	 * @param methodName The name of method that is being exited.
-    	 * @param returnValue The return value of the method being exited.
-    	 * 
-    	 */
-    	public static void exiting(
-    		String option,
-    		Class<?> clazz,
-    		String methodName,
-    		Object returnValue) {
+		/**
+		 * Traces the throwing of the specified throwable from the specified method of
+		 * the specified class.
+		 * 
+		 * @param option     The debug option for which to trace.
+		 * @param clazz      The class from which the throwable is being thrown.
+		 * @param methodName The name of the method from which the throwable is being
+		 *                   thrown.
+		 * @param throwable  The throwable that is being thrown.
+		 * 
+		 */
+		public static void throwing(String option, Class<?> clazz, String methodName, Throwable throwable) {
 
-    		if (shouldTrace(option)) {
+			if (shouldTrace(option)) {
 
-    			trace(
-    				PREFIX_EXITING
-    					+ clazz.getName()
-    					+ SEPARATOR_METHOD
-    					+ methodName
-    					+ SEPARATOR_RETURN
-    					+ getArgumentString(returnValue));
-    		}
-    	}
-    }
-    
+				trace(PREFIX_THROWING + throwable.getMessage() + SEPARATOR_SPACE + PARENTHESIS_OPEN + clazz.getName()
+						+ SEPARATOR_METHOD + methodName + PARENTHESIS_CLOSE);
+
+				throwable.printStackTrace(System.err);
+			}
+		}
+
+		/**
+		 * Traces the entering into the specified method of the specified class, with
+		 * the specified parameters.
+		 * 
+		 * @param option     The debug option for which to trace.
+		 * @param clazz      The class whose method is being entered.
+		 * @param methodName The name of method that is being entered.
+		 * @param parameters The parameters to the method being entered.
+		 * 
+		 */
+		public static void entering(String option, Class<?> clazz, String methodName, Object... parameters) {
+
+			if (shouldTrace(option)) {
+
+				trace(PREFIX_ENTERING + clazz.getName() + SEPARATOR_METHOD + methodName + PARENTHESIS_OPEN
+						+ getArgumentsString(parameters) + PARENTHESIS_CLOSE);
+			}
+		}
+
+		/**
+		 * Traces the exiting from the specified method of the specified class.
+		 * 
+		 * @param option     The debug option for which to trace.
+		 * @param clazz      The class whose method is being exited.
+		 * @param methodName The name of method that is being exited.
+		 * 
+		 */
+		public static void exiting(String option, Class<?> clazz, String methodName) {
+
+			if (shouldTrace(option)) {
+
+				trace(PREFIX_EXITING + clazz.getName() + SEPARATOR_METHOD + methodName);
+			}
+		}
+
+		/**
+		 * Traces the exiting from the specified method of the specified class, with the
+		 * specified return value.
+		 * 
+		 * @param option      The debug option for which to trace.
+		 * @param clazz       The class whose method is being exited.
+		 * @param methodName  The name of method that is being exited.
+		 * @param returnValue The return value of the method being exited.
+		 * 
+		 */
+		public static void exiting(String option, Class<?> clazz, String methodName, Object returnValue) {
+
+			if (shouldTrace(option)) {
+
+				trace(PREFIX_EXITING + clazz.getName() + SEPARATOR_METHOD + methodName + SEPARATOR_RETURN
+						+ getArgumentString(returnValue));
+			}
+		}
+	}
+
 	private static final String ICONS = "icons/"; //$NON-NLS-1$
 
 	/**
 	 * <p>
 	 * Returns an {@link ImageDescriptor}whose path, relative to the plugin
-	 * directory's <tt>icons/</tt> directory, is <code>imageFile</code>. If
-	 * the image descriptor cannot be created, either because the file does not
-	 * exist or because of an internal error, then the result is the Eclipse
-	 * default "missing image" descriptor.
+	 * directory's <tt>icons/</tt> directory, is <code>imageFile</code>. If the
+	 * image descriptor cannot be created, either because the file does not exist or
+	 * because of an internal error, then the result is the Eclipse default "missing
+	 * image" descriptor.
 	 * </p>
 	 * <p>
-	 * <b>Note </b> that the file specified must not have any leading "." or
-	 * path separators "/" or "\". It is strictly relative to the
-	 * <tt>icons/</tt> directory.
+	 * <b>Note </b> that the file specified must not have any leading "." or path
+	 * separators "/" or "\". It is strictly relative to the <tt>icons/</tt>
+	 * directory.
 	 * 
-	 * @param imageFile
-	 *            the name of the image file to retrieve
+	 * @param imageFile the name of the image file to retrieve
 	 * @return the corresponding image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String imageFile) {
-		URL fullPath = FileLocator.find(getPlugin().getBundle(), new Path(ICONS
-			+ imageFile), null);
+		URL fullPath = FileLocator.find(getPlugin().getBundle(), new Path(ICONS + imageFile), null);
 		if (fullPath != null) {
 			return ImageDescriptor.createFromURL(fullPath);
 		}

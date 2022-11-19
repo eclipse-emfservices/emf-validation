@@ -22,15 +22,15 @@ import org.eclipse.emf.validation.IValidationContext;
  */
 public class CancelConstraint extends AbstractModelConstraint {
 	public static boolean enabled = false;
-	
+
 	// Documentation copied from the inherited specification
 	@Override
-    public IStatus validate(IValidationContext ctx) {
+	public IStatus validate(IValidationContext ctx) {
 		if (!enabled) {
 			return ctx.createSuccessStatus();
 		}
-		
-		return ctx.createFailureStatus(new Object[] {ctx.getTarget()});
+
+		return ctx.createFailureStatus(new Object[] { ctx.getTarget() });
 	}
 
 }

@@ -35,12 +35,12 @@ public class ValidationListenersTest extends TestBase {
 		batchValidator.validate(object);
 
 		assertTrue(UniversalValidationListener.LAST_EVENT != null);
-		
+
 		ValidationEvent event = UniversalValidationListener.LAST_EVENT;
-		
+
 		assertTrue(event.getClientContextIds().contains("org.eclipse.emf.validation.tests.junit")); //$NON-NLS-1$
 	}
-	
+
 	public void test_ClientContextListener() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
@@ -48,56 +48,56 @@ public class ValidationListenersTest extends TestBase {
 
 		assertTrue(ClientContextValidationListener.LISTENER_CALLED);
 	}
-	
+
 	public void liveValidationJUnitLockupTest() {
 		AllTests.executingUnitTests = true;
-		
+
 		// Uncomment the following line to ensure that this
-		//  test will lock up.
-		//org.eclipse.jface.dialogs.ErrorDialog.AUTOMATED_MODE = false;
-		
+		// test will lock up.
+		// org.eclipse.jface.dialogs.ErrorDialog.AUTOMATED_MODE = false;
+
 		Resource r = new ResourceImpl();
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		r.getContents().add(order);
-		
+
 		final Notification[] notification = new Notification[1];
 		notification[0] = null;
 		order.eAdapters().add(new AdapterImpl() {
 			@Override
-            public void notifyChanged(Notification msg) {
+			public void notifyChanged(Notification msg) {
 				notification[0] = msg;
 			}
 		});
-		
+
 		order.setId("id"); //$NON-NLS-1$
-		
+
 		// We need the workbench to be running in order to simulate this
-		//  problem with the JUnits getting locked up by the live validation
-		//  dialog.
+		// problem with the JUnits getting locked up by the live validation
+		// dialog.
 		assert PlatformUI.isWorkbenchRunning() : "The workbench must be up in order for this test to make any sense."; //$NON-NLS-1$
-		
+
 		liveValidator.validate(notification[0]);
-		
+
 		// If this test case doesn't lock up then we have proven
-		//  that the live validation dialog will not lock up JUnit
-		//  test cases.
+		// that the live validation dialog will not lock up JUnit
+		// test cases.
 	}
-	
+
 	@Override
-    protected void setUp() throws Exception {
+	protected void setUp() throws Exception {
 		super.setUp();
-		
+
 		ClientContextValidationListener.LISTENER_CALLED = false;
 		UniversalValidationListener.LAST_EVENT = null;
 		UniversalValidationListener.enabled = true;
 	}
-	
+
 	@Override
-    protected void tearDown() throws Exception {
+	protected void tearDown() throws Exception {
 		UniversalValidationListener.enabled = false;
 		UniversalValidationListener.LAST_EVENT = null;
 		ClientContextValidationListener.LISTENER_CALLED = false;
-		
+
 		super.tearDown();
 	}
 }

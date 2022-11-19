@@ -30,18 +30,18 @@ public final class AllTests extends TestSuite {
 		super("Test for org.eclipse.emf.validation.internal.service package"); //$NON-NLS-1$
 
 		addTestSuite(ConstraintDescriptorTest.class);
-		
+
 		addTestSuite(GetBatchConstraintsOperationTest.class);
 		addTestSuite(GetLiveConstraintsOperationTest.class);
-		
+
 		addTestSuite(ProviderDescriptorTest.class);
 		addTestSuite(ConstraintCacheTest.class);
-		
+
 		addTestSuite(BatchValidatorTest.class);
 		addTestSuite(LiveValidatorTest.class);
-		
+
 		addTest(ClientContextTest.suite());
-		
+
 		addTestSuite(TraversalStrategyManagerTest.class);
 	}
 }

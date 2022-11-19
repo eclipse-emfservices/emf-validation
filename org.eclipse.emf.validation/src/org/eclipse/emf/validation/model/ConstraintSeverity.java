@@ -10,7 +10,6 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.model;
 
 import java.util.Arrays;
@@ -22,10 +21,9 @@ import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
 /**
- * Describes the severity of failure to meet a
- * {@link IModelConstraint constraint}.  See the individual value descriptions
- * for details.  The values correspond one-to-one with the Eclipse
- * {@link IStatus} severity constants.
+ * Describes the severity of failure to meet a {@link IModelConstraint
+ * constraint}. See the individual value descriptions for details. The values
+ * correspond one-to-one with the Eclipse {@link IStatus} severity constants.
  * 
  * @see IStatus
  * @see IModelConstraint
@@ -38,7 +36,7 @@ public enum ConstraintSeverity implements Enumerator {
 	 * informational message to the user.
 	 */
 	INFO("INFO", ValidationMessages.severity_info, IStatus.INFO), //$NON-NLS-1$
-	
+
 	/**
 	 * Indicates that failure of the constraint constitutes a warning condition.
 	 */
@@ -50,46 +48,38 @@ public enum ConstraintSeverity implements Enumerator {
 	ERROR("ERROR", ValidationMessages.severity_error, IStatus.ERROR), //$NON-NLS-1$
 
 	/**
-	 * Indicates that failure of the constraint constitutes an error condition
-	 * that should cancel the validation operation (no further constraints are
+	 * Indicates that failure of the constraint constitutes an error condition that
+	 * should cancel the validation operation (no further constraints are
 	 * evaluated).
 	 */
 	CANCEL("CANCEL", ValidationMessages.severity_cancel, IStatus.CANCEL), //$NON-NLS-1$
 	/**
-	 * This special value is a pointer-safe null value according to the
-	 * <i>Null Object</i> pattern.  It is not a valid severity for
-	 * a constraint.
+	 * This special value is a pointer-safe null value according to the <i>Null
+	 * Object</i> pattern. It is not a valid severity for a constraint.
 	 */
 	NULL("none", ValidationMessages.severity_null, IStatus.OK); //$NON-NLS-1$
 
 	private static final long serialVersionUID = -5310833954198275258L;
 
 	/** All of my values. */
-	private static final List<ConstraintSeverity> instances = Collections.unmodifiableList(
-			Arrays.asList(new ConstraintSeverity[]{
-					INFO,
-					WARNING,
-					ERROR,
-					CANCEL,
-					NULL,
-				}));
+	private static final List<ConstraintSeverity> instances = Collections
+			.unmodifiableList(Arrays.asList(new ConstraintSeverity[] { INFO, WARNING, ERROR, CANCEL, NULL, }));
 
 	private final String name;
 	private final String localizedName;
 	private final int istatusSeverity;
 
 	/**
-	 * Initializes me with my symbolic name and corresponding Eclipse
-	 * severity code.
+	 * Initializes me with my symbolic name and corresponding Eclipse severity code.
 	 * 
-	 * @param name my name
-	 * @param localizedName my localized name
+	 * @param name            my name
+	 * @param localizedName   my localized name
 	 * @param istatusSeverity the Eclipse status severity code
 	 */
 	private ConstraintSeverity(String name, String localizedName, int istatusSeverity) {
 		this.name = name;
 		this.istatusSeverity = istatusSeverity;
-		
+
 		this.localizedName = localizedName;
 	}
 
@@ -97,8 +87,8 @@ public enum ConstraintSeverity implements Enumerator {
 	 * Obtains the <code>name</code>d instance.
 	 * 
 	 * @param name the name to retrieve (not case-sensitive)
-	 * @return the corresponding instance, or {@link #NULL} if no matching
-	 *    instance exists
+	 * @return the corresponding instance, or {@link #NULL} if no matching instance
+	 *         exists
 	 */
 	public static ConstraintSeverity getInstance(String name) {
 		ConstraintSeverity result = NULL;
@@ -143,8 +133,8 @@ public enum ConstraintSeverity implements Enumerator {
 	}
 
 	/**
-	 * Queries whether I am the <i>Null Object</i> of this enumeration.
-	 * In general, <code>null</code> pointers are never used with this type.
+	 * Queries whether I am the <i>Null Object</i> of this enumeration. In general,
+	 * <code>null</code> pointers are never used with this type.
 	 * 
 	 * @return whether I am the {@link #NULL} instance
 	 */
@@ -166,11 +156,11 @@ public enum ConstraintSeverity implements Enumerator {
 	public String toString() {
 		return getName();
 	}
-	
+
 	public int getValue() {
 		return ordinal();
 	}
-	
+
 	public String getLiteral() {
 		return getName();
 	}

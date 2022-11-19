@@ -20,41 +20,35 @@ import org.eclipse.emf.validation.IValidationContext;
 import org.eclipse.emf.validation.internal.EMFModelValidationPlugin;
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 
-
 /**
- * An adapter from the {@link IValidationContext} interface to
- * EMF API's validation context interface.  Essentially, I just shunt
- * {@link Diagnostic}s into the wrapped validation context.
+ * An adapter from the {@link IValidationContext} interface to EMF API's
+ * validation context interface. Essentially, I just shunt {@link Diagnostic}s
+ * into the wrapped validation context.
  *
  * @author Christian W. Damus (cdamus)
  */
 public class EMFValidationContextAdapter extends BasicDiagnostic {
 	private IValidationContext adaptedContext;
 	private Diagnostic lastStatus;
-	
+
 	/**
 	 * Initializes me.
 	 */
 	public EMFValidationContextAdapter() {
-		super(
-			EMFModelValidationPlugin.getPluginId(),
-			0,
-			ValidationMessages.emfadapter_noMessage,
-			null);
+		super(EMFModelValidationPlugin.getPluginId(), 0, ValidationMessages.emfadapter_noMessage, null);
 	}
-	
-	
-	/* (non-Javadoc)
-	 * Redefines the inherited method
+
+	/*
+	 * (non-Javadoc) Redefines the inherited method
 	 */
 	@Override
 	public void add(Diagnostic diagnostic) {
 		if (diagnostic.getSeverity() != Diagnostic.OK) {
 			List<?> ddata = diagnostic.getData();
-			
+
 			if (ddata != null) {
 				// add any EObjects that we find to our results
-				
+
 				for (Object next : ddata) {
 					if (next instanceof EObject) {
 						adaptedContext.addResult((EObject) next);
@@ -62,11 +56,11 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 				}
 			}
 		}
-		
+
 		// record the last status that was set by a constraint
 		lastStatus = diagnostic;
 	}
-	
+
 	/**
 	 * Obtains the validation context that I adapt.
 	 * 
@@ -75,7 +69,7 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 	IValidationContext getAdaptedContext() {
 		return adaptedContext;
 	}
-	
+
 	/**
 	 * Assigns me a new adapted validation context.
 	 * 
@@ -83,9 +77,9 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 	 */
 	void setAdaptedContext(IValidationContext adaptedContext) {
 		this.adaptedContext = adaptedContext;
-		this.lastStatus = null;  // clear the last status to free memory
+		this.lastStatus = null; // clear the last status to free memory
 	}
-	
+
 	/**
 	 * Obtains the last status added to me by the current constraint.
 	 * 

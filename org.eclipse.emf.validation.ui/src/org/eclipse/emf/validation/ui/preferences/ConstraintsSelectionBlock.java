@@ -58,11 +58,11 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Encapsulation of the control for browsing and manipulating
- * constraints in the constraints preference page.
- * <p>
- * Clients can use this class to implement their own filtered
+ * Encapsulation of the control for browsing and manipulating constraints in the
  * constraints preference page.
+ * <p>
+ * Clients can use this class to implement their own filtered constraints
+ * preference page.
  * </p>
  * 
  * @since 1.1
@@ -74,73 +74,69 @@ public class ConstraintsSelectionBlock {
 
 	/** name of the lock icon file */
 	private static final String LOCK_ICON = "full/lock.gif"; //$NON-NLS-1$
-	
-	static final String CATEGORIES_PROMPT =
-		ValidationUIMessages.prefs_categories_prompt;
-	static final String CONSTRAINTS_PROMPT =
-		ValidationUIMessages.prefs_constraints_prompt;
-	static final String NO_SELECTION =
-		ValidationUIMessages.prefs_no_selection;
-	static final String NO_CATEGORY_DESCRIPTION =
-		ValidationUIMessages.prefs_no_description_category;
-	
+
+	static final String CATEGORIES_PROMPT = ValidationUIMessages.prefs_categories_prompt;
+	static final String CONSTRAINTS_PROMPT = ValidationUIMessages.prefs_constraints_prompt;
+	static final String NO_SELECTION = ValidationUIMessages.prefs_no_selection;
+	static final String NO_CATEGORY_DESCRIPTION = ValidationUIMessages.prefs_no_description_category;
+
 	private CheckboxTreeViewer categoryTree;
 	private CheckboxTableViewer constraintList;
 	private StyledText detailsArea;
-	
+
 	private Mediator mediator;
-	
+
 	private ICategoryTreeNode rootcategory;
-	
-    private final IConstraintFilter filter;
-    
-    static {
-        // ensure that the statically declared (in XML) constraints are
-        //   available for display to the user
-        ModelValidationService.getInstance().loadXmlConstraintDeclarations();
-    }
-    
-    /**
-     * Initializes me without a constraint filter.
-     */
-    public ConstraintsSelectionBlock() {
-        this(IConstraintFilter.IDENTITY_INSTANCE);
-    }
-    
-    /**
-     * Initializes me with a constraint filter.
-     * 
-     * @param filter used to filter the constraints which are presented in this 
-     *        composite (must not be <code>null</code>)
-     */
-    public ConstraintsSelectionBlock(IConstraintFilter filter) {
-        if (filter == null) {
-            throw new IllegalArgumentException ("null filter"); //$NON-NLS-1$
-        }
-        
-        this.filter = filter;
-    }
-    
+
+	private final IConstraintFilter filter;
+
+	static {
+		// ensure that the statically declared (in XML) constraints are
+		// available for display to the user
+		ModelValidationService.getInstance().loadXmlConstraintDeclarations();
+	}
+
+	/**
+	 * Initializes me without a constraint filter.
+	 */
+	public ConstraintsSelectionBlock() {
+		this(IConstraintFilter.IDENTITY_INSTANCE);
+	}
+
+	/**
+	 * Initializes me with a constraint filter.
+	 * 
+	 * @param filter used to filter the constraints which are presented in this
+	 *               composite (must not be <code>null</code>)
+	 */
+	public ConstraintsSelectionBlock(IConstraintFilter filter) {
+		if (filter == null) {
+			throw new IllegalArgumentException("null filter"); //$NON-NLS-1$
+		}
+
+		this.filter = filter;
+	}
+
 	/**
 	 * Content provider for the category tree.
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
 	private class CategoryTreeContents implements ITreeContentProvider {
-		
+
 		// implements the inherited method
 		public Object[] getChildren(Object parentElement) {
-			return ((ICategoryTreeNode)parentElement).getChildren();
+			return ((ICategoryTreeNode) parentElement).getChildren();
 		}
 
 		// implements the inherited method
 		public Object getParent(Object element) {
-			return ((ICategoryTreeNode)element).getParent();
+			return ((ICategoryTreeNode) element).getParent();
 		}
 
 		// implements the inherited method
 		public boolean hasChildren(Object element) {
-			return ((ICategoryTreeNode)element).hasChildren();
+			return ((ICategoryTreeNode) element).hasChildren();
 		}
 
 		// implements the inherited method
@@ -164,95 +160,87 @@ public class ConstraintsSelectionBlock {
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
-	private class ConstraintListContents
-			implements IStructuredContentProvider, ICheckStateListener {
-		
+	private class ConstraintListContents implements IStructuredContentProvider, ICheckStateListener {
+
 		private CheckboxTableViewer viewer;
 		private ICategoryTreeNode category;
-		
+
 		public Object[] getElements(Object inputElement) {
 			if (inputElement == null) {
 				return new Object[0];
 			} else {
-				category = (ICategoryTreeNode)inputElement;
-				
+				category = (ICategoryTreeNode) inputElement;
+
 				return category.getConstraints().toArray();
 			}
 		}
-	
+
 		public void dispose() {
 			// nothing to dispose
 		}
-	
-		public void inputChanged(
-				Viewer newViewer,
-				Object oldInput,
-				Object newInput) {
+
+		public void inputChanged(Viewer newViewer, Object oldInput, Object newInput) {
 			if (viewer != null) {
 				viewer.removeCheckStateListener(this);
 			}
-			
+
 			viewer = (CheckboxTableViewer) newViewer;
 			category = (ICategoryTreeNode) newInput;
-			
+
 			if (viewer != null) {
 				viewer.addCheckStateListener(this);
 			}
 		}
 
-		/* (non-Javadoc)
-		 * Redefines/Implements/Extends the inherited method.
+		/*
+		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
 		 */
 		public void checkStateChanged(CheckStateChangedEvent event) {
-			category.updateCheckState(
-				(IConstraintNode) event.getElement());
+			category.updateCheckState((IConstraintNode) event.getElement());
 		}
 	}
-	
+
 	/**
 	 * A <i>Mediator</i> to coordinate the category tree, constraints list, and
 	 * details pane in the GUI.
 	 * 
 	 * @author Christian W. Damus (cdamus)
 	 */
-	private class Mediator
-			implements ISelectionChangedListener, ICheckStateListener {
-		
+	private class Mediator implements ISelectionChangedListener, ICheckStateListener {
+
 		private boolean respondingToUserSelection;
-		
+
 		// implements the interface method
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			Object element = event.getElement();
-			
+
 			if (element instanceof ICategoryTreeNode) {
-				ICategoryTreeNode node = (ICategoryTreeNode)element;
-				
+				ICategoryTreeNode node = (ICategoryTreeNode) element;
+
 				if (!respondingToUserSelection) {
 					respondingToUserSelection = true;
-					
+
 					try {
 						node.checkStateChanged(event);
-						
+
 						// update the constraint selections of the currently
 						// selected category (because the one that changed
 						// might be an ancestory
-						IStructuredSelection selection =
-							(IStructuredSelection) getCategoryTree().getSelection();
-						
+						IStructuredSelection selection = (IStructuredSelection) getCategoryTree().getSelection();
+
 						if (!selection.isEmpty()) {
-							selectCategory(
-								(ICategoryTreeNode) selection.getFirstElement());
+							selectCategory((ICategoryTreeNode) selection.getFirstElement());
 						}
 					} finally {
 						respondingToUserSelection = false;
 					}
 				}
 			} else {
-				IConstraintNode node = (IConstraintNode)element;
-				
+				IConstraintNode node = (IConstraintNode) element;
+
 				if (!respondingToUserSelection) {
 					respondingToUserSelection = true;
-					
+
 					try {
 						node.checkStateChanged(event);
 					} finally {
@@ -261,19 +249,18 @@ public class ConstraintsSelectionBlock {
 				}
 			}
 		}
-		
+
 		// implements the interface method
 		public void selectionChanged(SelectionChangedEvent event) {
-			IStructuredSelection selection =
-				(IStructuredSelection)event.getSelection();
-				
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+
 			if (event.getSource().equals(getCategoryTree())) {
 				handleCategorySelection(selection);
 			} else if (event.getSource().equals(getConstraintList())) {
 				handleConstraintSelection(selection);
 			}
 		}
-		
+
 		/**
 		 * Handles a selection change in the category tree.
 		 * 
@@ -287,7 +274,7 @@ public class ConstraintsSelectionBlock {
 				clearDetailsArea();
 			}
 		}
-		
+
 		/**
 		 * Selects the specified category in the constraints list.
 		 * 
@@ -298,17 +285,16 @@ public class ConstraintsSelectionBlock {
 			selectConstraints(category);
 			setDetails(category);
 		}
-		
+
 		/**
 		 * Select, in the table viewer, the currently enabled constraints.
 		 * 
 		 * @param categoryNode the currently selected category node
 		 */
 		private void selectConstraints(ICategoryTreeNode categoryNode) {
-			getConstraintList().setCheckedElements(
-				categoryNode.getSelectedConstraints());
+			getConstraintList().setCheckedElements(categoryNode.getSelectedConstraints());
 		}
-		
+
 		/**
 		 * Handles a selection change in the constraints list.
 		 * 
@@ -316,50 +302,46 @@ public class ConstraintsSelectionBlock {
 		 */
 		private void handleConstraintSelection(IStructuredSelection selection) {
 			if (!selection.isEmpty()) {
-				setDetails((IConstraintNode)selection.getFirstElement());
+				setDetails((IConstraintNode) selection.getFirstElement());
 			} else {
 				clearDetailsArea();
 			}
 		}
-	
+
 		/**
 		 * Clears my details area, showing the "no selection" message.
 		 */
 		void clearDetailsArea() {
 			getDetailsArea().setText(NO_SELECTION);
 		}
-	
+
 		/**
-		 * Sets the details area to show the currently selected
-		 * <code>category</code>'s category details.
+		 * Sets the details area to show the currently selected <code>category</code>'s
+		 * category details.
 		 * 
 		 * @param category the category in the category tree
 		 */
 		private void setDetails(ICategoryTreeNode category) {
-			String description = (category == null)
-				? null
-				: category.getDescription();
-		
+			String description = (category == null) ? null : category.getDescription();
+
 			if (description == null) {
 				description = NO_CATEGORY_DESCRIPTION;
 			}
-		
+
 			Category actualCategory = null;
 			if (category != null) {
-			    actualCategory = category.getCategory();
+				actualCategory = category.getCategory();
 			}
 			// If we are a mandatory category then we must provide some cue to this fact.
 			if (actualCategory != null && actualCategory.isMandatory()) {
-				getDetailsArea().setText(
-					MessageFormat.format(
-						ValidationUIMessages.prefs_mandatory_category,
-						new Object[] {description}));
-				
+				getDetailsArea().setText(MessageFormat.format(ValidationUIMessages.prefs_mandatory_category,
+						new Object[] { description }));
+
 			} else {
 				getDetailsArea().setText(description);
 			}
 		}
-	
+
 		/**
 		 * Sets the details area to show the currently selected
 		 * <code>constraint</code>'s details.
@@ -369,43 +351,40 @@ public class ConstraintsSelectionBlock {
 		private void setDetails(IConstraintNode constraint) {
 			// lots of style info
 			List<StyleRange> styles = new java.util.ArrayList<StyleRange>(32);
-			String text = ConstraintDetailsHelper.formatConstraintDescription(
-					constraint,
-					getCurrentCategorySelection(),
+			String text = ConstraintDetailsHelper.formatConstraintDescription(constraint, getCurrentCategorySelection(),
 					styles);
-		
+
 			getDetailsArea().setText(text);
-			getDetailsArea().setStyleRanges(
-					styles.toArray(new StyleRange[styles.size()]));
+			getDetailsArea().setStyleRanges(styles.toArray(new StyleRange[styles.size()]));
 		}
 	}
-	
+
 	/**
-     * Creates the constraints selection composite on the given parent and filters
-     * the composite based on the provided filter.
-     *
-     * @param parent parent for the newly created composite
-     * @return the resulting constraint selection composite
-     */
+	 * Creates the constraints selection composite on the given parent and filters
+	 * the composite based on the provided filter.
+	 *
+	 * @param parent parent for the newly created composite
+	 * @return the resulting constraint selection composite
+	 */
 	public Composite createComposite(Composite parent) {
 		SashForm result = new SashForm(parent, SWT.VERTICAL);
-		
+
 		result.setFont(parent.getFont());
-		
+
 		SashForm topPart = new SashForm(result, SWT.HORIZONTAL);
 		createCategoryTree(topPart);
 		createConstraintList(topPart);
-		
+
 		createDetailsArea(result);
-		
-		result.setWeights(new int[] {70, 30});
-		
+
+		result.setWeights(new int[] { 70, 30 });
+
 		return result;
 	}
 
 	/**
-	 * Helper method to create the category-tree part of the GUI.  The result
-	 * is a form containing the checkbox tree and a prompt label.
+	 * Helper method to create the category-tree part of the GUI. The result is a
+	 * form containing the checkbox tree and a prompt label.
 	 * 
 	 * @param parent the parent composite in which to create the tree
 	 * @return the tree part of the GUI (itself a composite form)
@@ -414,7 +393,7 @@ public class ConstraintsSelectionBlock {
 		Composite form = new Composite(parent, SWT.NONE);
 		FormLayout layout = new FormLayout();
 		form.setLayout(layout);
-		
+
 		Label prompt = new Label(form, SWT.NONE);
 		prompt.setText(CATEGORIES_PROMPT);
 		FormData data = new FormData();
@@ -422,7 +401,7 @@ public class ConstraintsSelectionBlock {
 		data.left = new FormAttachment(0, 0);
 		data.right = new FormAttachment(100, 0);
 		prompt.setLayoutData(data);
-		
+
 		categoryTree = new CheckboxTreeViewer(form);
 		data = new FormData();
 		data.top = new FormAttachment(prompt, 4);
@@ -430,13 +409,11 @@ public class ConstraintsSelectionBlock {
 		data.right = new FormAttachment(100, 0);
 		data.bottom = new FormAttachment(100, 0);
 		categoryTree.getControl().setLayoutData(data);
-		
+
 		rootcategory = CategoryTreeNode.createRoot(categoryTree, filter);
 		categoryTree.setLabelProvider(new LabelProvider() {
-			private final Image lockImage =
-				ValidationUIPlugin.getImageDescriptor(LOCK_ICON).createImage(
-						true);
-			
+			private final Image lockImage = ValidationUIPlugin.getImageDescriptor(LOCK_ICON).createImage(true);
+
 			@Override
 			public void dispose() {
 				lockImage.dispose();
@@ -445,29 +422,30 @@ public class ConstraintsSelectionBlock {
 
 			@Override
 			public Image getImage(Object element) {
-				ICategoryTreeNode node = (ICategoryTreeNode)element;
-				
+				ICategoryTreeNode node = (ICategoryTreeNode) element;
+
 				if (node.getCategory() != null) {
 					if (node.getCategory().isMandatory()) {
 						return lockImage;
 					}
 				}
-				
+
 				return null;
-			}});
+			}
+		});
 		categoryTree.setContentProvider(new CategoryTreeContents());
 		categoryTree.setInput(rootcategory);
 		markEnabledCategories(rootcategory);
-		
+
 		categoryTree.addCheckStateListener(getMediator());
 		categoryTree.addSelectionChangedListener(getMediator());
-		
+
 		return categoryTree.getTree();
 	}
-	
+
 	/**
-	 * Helper method to create the constraint-list part of the GUI.  The result
-	 * is a form containing the constraints list and a prompt label.
+	 * Helper method to create the constraint-list part of the GUI. The result is a
+	 * form containing the constraints list and a prompt label.
 	 * 
 	 * @param parent the parent composite in which to create the list
 	 * @return the list part of the GUI (itself a composite form)
@@ -476,7 +454,7 @@ public class ConstraintsSelectionBlock {
 		Composite form = new Composite(parent, SWT.NONE);
 		FormLayout layout = new FormLayout();
 		form.setLayout(layout);
-		
+
 		Label prompt = new Label(form, SWT.NONE);
 		prompt.setText(CONSTRAINTS_PROMPT);
 		FormData data = new FormData();
@@ -484,7 +462,7 @@ public class ConstraintsSelectionBlock {
 		data.left = new FormAttachment(0, 0);
 		data.right = new FormAttachment(100, 0);
 		prompt.setLayoutData(data);
-		
+
 		constraintList = CheckboxTableViewer.newCheckList(form, SWT.CHECK | SWT.BORDER);
 		data = new FormData();
 		data.top = new FormAttachment(prompt, 4);
@@ -492,14 +470,12 @@ public class ConstraintsSelectionBlock {
 		data.right = new FormAttachment(100, 0);
 		data.bottom = new FormAttachment(100, 0);
 		constraintList.getControl().setLayoutData(data);
-		
+
 		constraintList.setContentProvider(new ConstraintListContents());
-		
+
 		constraintList.setLabelProvider(new LabelProvider() {
-			private final Image lockImage =
-				ValidationUIPlugin.getImageDescriptor(LOCK_ICON).createImage(
-						true);
-			
+			private final Image lockImage = ValidationUIPlugin.getImageDescriptor(LOCK_ICON).createImage(true);
+
 			// extends the inherited method
 			@Override
 			public void dispose() {
@@ -511,31 +487,31 @@ public class ConstraintsSelectionBlock {
 			@Override
 			public Image getImage(Object element) {
 				IConstraintNode constraint = (IConstraintNode) element;
-				
+
 				if (constraint.isErrored()) {
-					return PlatformUI.getWorkbench().getSharedImages().getImage(
-							ISharedImages.IMG_OBJS_ERROR_TSK);
+					return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
 				} else if (constraint.isMandatory()) {
 					return lockImage;
 				} else {
 					return null;
 				}
 			}
-			
+
 			// redefines the inherited method
 			@Override
 			public String getText(Object element) {
-				return ((IConstraintNode)element).getName();
-			}});
-		
+				return ((IConstraintNode) element).getName();
+			}
+		});
+
 		constraintList.setSorter(new ViewerSorter());
-		
+
 		constraintList.addCheckStateListener(getMediator());
 		constraintList.addSelectionChangedListener(getMediator());
-		
+
 		return constraintList.getControl();
 	}
-	
+
 	/**
 	 * Helper method to create the details are of the GUI.
 	 * 
@@ -543,15 +519,13 @@ public class ConstraintsSelectionBlock {
 	 * @return the details text area
 	 */
 	private Control createDetailsArea(Composite parent) {
-		detailsArea = new StyledText(
-				parent,
-				SWT.READ_ONLY | SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
-		
+		detailsArea = new StyledText(parent, SWT.READ_ONLY | SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+
 		getMediator().clearDetailsArea();
-		
+
 		return detailsArea;
 	}
-	
+
 	/**
 	 * Obtains my category tree.
 	 * 
@@ -560,7 +534,7 @@ public class ConstraintsSelectionBlock {
 	private CheckboxTreeViewer getCategoryTree() {
 		return categoryTree;
 	}
-	
+
 	/**
 	 * Obtains my constraints list.
 	 * 
@@ -569,7 +543,7 @@ public class ConstraintsSelectionBlock {
 	private CheckboxTableViewer getConstraintList() {
 		return constraintList;
 	}
-	
+
 	/**
 	 * Obtains my details area.
 	 * 
@@ -578,7 +552,7 @@ public class ConstraintsSelectionBlock {
 	private StyledText getDetailsArea() {
 		return detailsArea;
 	}
-	
+
 	/**
 	 * Obtains my mediator.
 	 * 
@@ -588,88 +562,83 @@ public class ConstraintsSelectionBlock {
 		if (mediator == null) {
 			mediator = new Mediator();
 		}
-		
+
 		return mediator;
 	}
-	
+
 	/**
-     * Saves the constraint enablement changes made in the composite 
-     * to the validation preferences
-     */
+	 * Saves the constraint enablement changes made in the composite to the
+	 * validation preferences
+	 */
 	public boolean performOk() {
 		rootcategory.applyToPreferences();
 		EMFModelValidationPreferences.save();
-		
+
 		return true;
 	}
-	
+
 	/**
-     * Restores the defaults for the constraints listed in the composite
-     */
+	 * Restores the defaults for the constraints listed in the composite
+	 */
 	public void performDefaults() {
 		rootcategory.restoreDefaults();
-        
-        // update the checked state of the current contents of the Constraints
-        // list (if any)
-        CheckboxTableViewer viewer = getConstraintList();
-        Object input = viewer.getInput();
-        
-        if (input != null) {
-            Object[] elements = ((IStructuredContentProvider) getConstraintList()
-                    .getContentProvider()).getElements(input);
-            
-            if (elements != null) {
-                int length = elements.length;
-                
-                for (int i = 0; i < length; i++) {
-                    IConstraintNode node = (IConstraintNode) elements[i];
-                    viewer.setChecked(node, node.isChecked());
-                }
-            }
-        }
+
+		// update the checked state of the current contents of the Constraints
+		// list (if any)
+		CheckboxTableViewer viewer = getConstraintList();
+		Object input = viewer.getInput();
+
+		if (input != null) {
+			Object[] elements = ((IStructuredContentProvider) getConstraintList().getContentProvider())
+					.getElements(input);
+
+			if (elements != null) {
+				int length = elements.length;
+
+				for (int i = 0; i < length; i++) {
+					IConstraintNode node = (IConstraintNode) elements[i];
+					viewer.setChecked(node, node.isChecked());
+				}
+			}
+		}
 	}
-	
+
 	/**
 	 * Obtains the currently selected category, if any.
 	 * 
 	 * @return the current category
 	 */
 	private Category getCurrentCategorySelection() {
-		IStructuredSelection selection =
-			(IStructuredSelection)getCategoryTree().getSelection();
-		
+		IStructuredSelection selection = (IStructuredSelection) getCategoryTree().getSelection();
+
 		if (selection.isEmpty()) {
 			return null;
 		} else {
-			return ((ICategoryTreeNode)selection.getFirstElement()).getCategory();
+			return ((ICategoryTreeNode) selection.getFirstElement()).getCategory();
 		}
 	}
-	
+
 	/**
-	 * Helper method to set the currently enabled categories in the tree.
-	 * Also sets gray states as appropriate.
+	 * Helper method to set the currently enabled categories in the tree. Also sets
+	 * gray states as appropriate.
 	 * 
 	 * @param root the root of the tree model
 	 */
 	private void markEnabledCategories(ICategoryTreeNode root) {
 		markEnabledCategories(root.getChildren());
 	}
-	
+
 	private void markEnabledCategories(ICategoryTreeNode[] categories) {
 		for (ICategoryTreeNode next : categories) {
-			getCategoryTree().setChecked(
-				next,
-				next.isChecked());
-			getCategoryTree().setGrayed(
-				next,
-				next.isGrayed());
-			
+			getCategoryTree().setChecked(next, next.isChecked());
+			getCategoryTree().setGrayed(next, next.isGrayed());
+
 			markEnabledCategories(next.getChildren());
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * Extends the inherited method.
+
+	/*
+	 * (non-Javadoc) Extends the inherited method.
 	 */
 	public void dispose() {
 		// clean up the cached constraint nodes

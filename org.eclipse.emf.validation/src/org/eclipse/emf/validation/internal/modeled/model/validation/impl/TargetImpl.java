@@ -26,14 +26,15 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.Target;
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Target</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Target</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl#getEClass <em>EClass</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl#getFeature
+ * <em>Feature</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.TargetImpl#getEClass
+ * <em>EClass</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,9 +43,9 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  */
 public abstract class TargetImpl extends EObjectImpl implements Target {
 	/**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getFeature()
 	 * @generated
 	 * @ordered
@@ -53,8 +54,8 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 
 	/**
 	 * The cached value of the '{@link #getEClass() <em>EClass</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getEClass()
 	 * @generated
 	 * @ordered
@@ -62,8 +63,8 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	protected EClassifier eClass;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected TargetImpl() {
@@ -71,8 +72,8 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -81,37 +82,39 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<EStructuralFeature> getFeature() {
 		if (feature == null) {
-			feature = new EObjectResolvingEList<EStructuralFeature>(EStructuralFeature.class, this, ValidationPackage.TARGET__FEATURE);
+			feature = new EObjectResolvingEList<EStructuralFeature>(EStructuralFeature.class, this,
+					ValidationPackage.TARGET__FEATURE);
 		}
 		return feature;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EClassifier getEClass() {
 		if (eClass != null && eClass.eIsProxy()) {
-			InternalEObject oldEClass = (InternalEObject)eClass;
-			eClass = (EClassifier)eResolveProxy(oldEClass);
+			InternalEObject oldEClass = (InternalEObject) eClass;
+			eClass = (EClassifier) eResolveProxy(oldEClass);
 			if (eClass != oldEClass) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ValidationPackage.TARGET__ECLASS, oldEClass, eClass));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ValidationPackage.TARGET__ECLASS,
+							oldEClass, eClass));
 			}
 		}
 		return eClass;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EClassifier basicGetEClass() {
@@ -119,8 +122,8 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setEClass(EClassifier newEClass) {
@@ -131,74 +134,75 @@ public abstract class TargetImpl extends EObjectImpl implements Target {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ValidationPackage.TARGET__FEATURE:
-				return getFeature();
-			case ValidationPackage.TARGET__ECLASS:
-				if (resolve) return getEClass();
-				return basicGetEClass();
+		case ValidationPackage.TARGET__FEATURE:
+			return getFeature();
+		case ValidationPackage.TARGET__ECLASS:
+			if (resolve)
+				return getEClass();
+			return basicGetEClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ValidationPackage.TARGET__FEATURE:
-				getFeature().clear();
-				getFeature().addAll((Collection<? extends EStructuralFeature>)newValue);
-				return;
-			case ValidationPackage.TARGET__ECLASS:
-				setEClass((EClassifier)newValue);
-				return;
+		case ValidationPackage.TARGET__FEATURE:
+			getFeature().clear();
+			getFeature().addAll((Collection<? extends EStructuralFeature>) newValue);
+			return;
+		case ValidationPackage.TARGET__ECLASS:
+			setEClass((EClassifier) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.TARGET__FEATURE:
-				getFeature().clear();
-				return;
-			case ValidationPackage.TARGET__ECLASS:
-				setEClass((EClassifier)null);
-				return;
+		case ValidationPackage.TARGET__FEATURE:
+			getFeature().clear();
+			return;
+		case ValidationPackage.TARGET__ECLASS:
+			setEClass((EClassifier) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.TARGET__FEATURE:
-				return feature != null && !feature.isEmpty();
-			case ValidationPackage.TARGET__ECLASS:
-				return eClass != null;
+		case ValidationPackage.TARGET__FEATURE:
+			return feature != null && !feature.isEmpty();
+		case ValidationPackage.TARGET__ECLASS:
+			return eClass != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //TargetImpl
+} // TargetImpl

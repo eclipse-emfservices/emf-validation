@@ -13,9 +13,9 @@ package org.eclipse.emf.validation.service;
 
 /**
  * Marker interface for extensions on the
- * <tt>org.eclipse.emf.validation.constraintParsers</tt> extension point, defining
- * an object that knows how to parse {@link IConstraintDescriptor}s to create
- * the constraint implementations.
+ * <tt>org.eclipse.emf.validation.constraintParsers</tt> extension point,
+ * defining an object that knows how to parse {@link IConstraintDescriptor}s to
+ * create the constraint implementations.
  *
  * @author Christian W. Damus (cdamus)
  * 

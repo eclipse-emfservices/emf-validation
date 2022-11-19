@@ -31,18 +31,17 @@ import ordersystem.Order;
 import ordersystem.OrderSystemPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Order</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Order</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ordersystem.impl.OrderImpl#getPlacedOn <em>Placed On</em>}</li>
- *   <li>{@link ordersystem.impl.OrderImpl#getFilledOn <em>Filled On</em>}</li>
- *   <li>{@link ordersystem.impl.OrderImpl#isCompleted <em>Completed</em>}</li>
- *   <li>{@link ordersystem.impl.OrderImpl#getId <em>Id</em>}</li>
- *   <li>{@link ordersystem.impl.OrderImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link ordersystem.impl.OrderImpl#getItem <em>Item</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#getPlacedOn <em>Placed On</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#getFilledOn <em>Filled On</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#isCompleted <em>Completed</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#getId <em>Id</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#getOwner <em>Owner</em>}</li>
+ * <li>{@link ordersystem.impl.OrderImpl#getItem <em>Item</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,192 +49,195 @@ import ordersystem.OrderSystemPackage;
  */
 public class OrderImpl extends EObjectImpl implements Order {
 	/**
-	 * The default value of the '{@link #getPlacedOn() <em>Placed On</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The default value of the '{@link #getPlacedOn() <em>Placed On</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPlacedOn()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final Date PLACED_ON_EDEFAULT = null;
+	protected static final Date PLACED_ON_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getPlacedOn() <em>Placed On</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getPlacedOn() <em>Placed On</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPlacedOn()
 	 * @generated
 	 * @ordered
 	 */
-    protected Date placedOn = PLACED_ON_EDEFAULT;
+	protected Date placedOn = PLACED_ON_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getFilledOn() <em>Filled On</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The default value of the '{@link #getFilledOn() <em>Filled On</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getFilledOn()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final Date FILLED_ON_EDEFAULT = null;
+	protected static final Date FILLED_ON_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getFilledOn() <em>Filled On</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getFilledOn() <em>Filled On</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getFilledOn()
 	 * @generated
 	 * @ordered
 	 */
-    protected Date filledOn = FILLED_ON_EDEFAULT;
+	protected Date filledOn = FILLED_ON_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isCompleted() <em>Completed</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The default value of the '{@link #isCompleted() <em>Completed</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #isCompleted()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final boolean COMPLETED_EDEFAULT = false;
+	protected static final boolean COMPLETED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isCompleted() <em>Completed</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #isCompleted() <em>Completed</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #isCompleted()
 	 * @generated
 	 * @ordered
 	 */
-    protected boolean completed = COMPLETED_EDEFAULT;
+	protected boolean completed = COMPLETED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getId()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final String ID_EDEFAULT = null;
+	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getId()
 	 * @generated
 	 * @ordered
 	 */
-    protected String id = ID_EDEFAULT;
+	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getItem()
 	 * @generated
 	 * @ordered
 	 */
-    protected EList<LineItem> item;
+	protected EList<LineItem> item;
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    protected OrderImpl() {
+	protected OrderImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    @Override
-				protected EClass eStaticClass() {
+	@Override
+	protected EClass eStaticClass() {
 		return OrderSystemPackage.Literals.ORDER;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public Date getPlacedOn() {
+	public Date getPlacedOn() {
 		return placedOn;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setPlacedOn(Date newPlacedOn) {
+	public void setPlacedOn(Date newPlacedOn) {
 		Date oldPlacedOn = placedOn;
 		placedOn = newPlacedOn;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__PLACED_ON, oldPlacedOn, placedOn));
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__PLACED_ON, oldPlacedOn,
+					placedOn));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public Date getFilledOn() {
+	public Date getFilledOn() {
 		return filledOn;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setFilledOn(Date newFilledOn) {
+	public void setFilledOn(Date newFilledOn) {
 		Date oldFilledOn = filledOn;
 		filledOn = newFilledOn;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__FILLED_ON, oldFilledOn, filledOn));
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__FILLED_ON, oldFilledOn,
+					filledOn));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public boolean isCompleted() {
+	public boolean isCompleted() {
 		return completed;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setCompleted(boolean newCompleted) {
+	public void setCompleted(boolean newCompleted) {
 		boolean oldCompleted = completed;
 		completed = newCompleted;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__COMPLETED, oldCompleted, completed));
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__COMPLETED, oldCompleted,
+					completed));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public String getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setId(String newId) {
+	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -243,238 +245,242 @@ public class OrderImpl extends EObjectImpl implements Order {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public Customer getOwner() {
-		if (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER) return null;
-		return (Customer)eInternalContainer();
+	public Customer getOwner() {
+		if (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER)
+			return null;
+		return (Customer) eInternalContainer();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(Customer newOwner, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.ORDER__OWNER, msgs);
+		msgs = eBasicSetContainer((InternalEObject) newOwner, OrderSystemPackage.ORDER__OWNER, msgs);
 		return msgs;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setOwner(Customer newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
+	public void setOwner(Customer newOwner) {
+		if (newOwner != eInternalContainer()
+				|| (eContainerFeatureID() != OrderSystemPackage.ORDER__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
-				msgs = ((InternalEObject)newOwner).eInverseAdd(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
+				msgs = ((InternalEObject) newOwner).eInverseAdd(this, OrderSystemPackage.CUSTOMER__ORDER,
+						Customer.class, msgs);
 			msgs = basicSetOwner(newOwner, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.ORDER__OWNER, newOwner, newOwner));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public EList<LineItem> getItem() {
+	public EList<LineItem> getItem() {
 		if (item == null) {
-			item = new EObjectContainmentWithInverseEList<LineItem>(LineItem.class, this, OrderSystemPackage.ORDER__ITEM, OrderSystemPackage.LINE_ITEM__OWNER);
+			item = new EObjectContainmentWithInverseEList<LineItem>(LineItem.class, this,
+					OrderSystemPackage.ORDER__ITEM, OrderSystemPackage.LINE_ITEM__OWNER);
 		}
 		return item;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__OWNER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOwner((Customer)otherEnd, msgs);
-			case OrderSystemPackage.ORDER__ITEM:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getItem()).basicAdd(otherEnd, msgs);
+		case OrderSystemPackage.ORDER__OWNER:
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			return basicSetOwner((Customer) otherEnd, msgs);
+		case OrderSystemPackage.ORDER__ITEM:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getItem()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__OWNER:
-				return basicSetOwner(null, msgs);
-			case OrderSystemPackage.ORDER__ITEM:
-				return ((InternalEList<?>)getItem()).basicRemove(otherEnd, msgs);
+		case OrderSystemPackage.ORDER__OWNER:
+			return basicSetOwner(null, msgs);
+		case OrderSystemPackage.ORDER__ITEM:
+			return ((InternalEList<?>) getItem()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case OrderSystemPackage.ORDER__OWNER:
-				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
+		case OrderSystemPackage.ORDER__OWNER:
+			return eInternalContainer().eInverseRemove(this, OrderSystemPackage.CUSTOMER__ORDER, Customer.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__PLACED_ON:
-				return getPlacedOn();
-			case OrderSystemPackage.ORDER__FILLED_ON:
-				return getFilledOn();
-			case OrderSystemPackage.ORDER__COMPLETED:
-				return isCompleted();
-			case OrderSystemPackage.ORDER__ID:
-				return getId();
-			case OrderSystemPackage.ORDER__OWNER:
-				return getOwner();
-			case OrderSystemPackage.ORDER__ITEM:
-				return getItem();
+		case OrderSystemPackage.ORDER__PLACED_ON:
+			return getPlacedOn();
+		case OrderSystemPackage.ORDER__FILLED_ON:
+			return getFilledOn();
+		case OrderSystemPackage.ORDER__COMPLETED:
+			return isCompleted();
+		case OrderSystemPackage.ORDER__ID:
+			return getId();
+		case OrderSystemPackage.ORDER__OWNER:
+			return getOwner();
+		case OrderSystemPackage.ORDER__ITEM:
+			return getItem();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__PLACED_ON:
-				setPlacedOn((Date)newValue);
-				return;
-			case OrderSystemPackage.ORDER__FILLED_ON:
-				setFilledOn((Date)newValue);
-				return;
-			case OrderSystemPackage.ORDER__COMPLETED:
-				setCompleted((Boolean)newValue);
-				return;
-			case OrderSystemPackage.ORDER__ID:
-				setId((String)newValue);
-				return;
-			case OrderSystemPackage.ORDER__OWNER:
-				setOwner((Customer)newValue);
-				return;
-			case OrderSystemPackage.ORDER__ITEM:
-				getItem().clear();
-				getItem().addAll((Collection<? extends LineItem>)newValue);
-				return;
+		case OrderSystemPackage.ORDER__PLACED_ON:
+			setPlacedOn((Date) newValue);
+			return;
+		case OrderSystemPackage.ORDER__FILLED_ON:
+			setFilledOn((Date) newValue);
+			return;
+		case OrderSystemPackage.ORDER__COMPLETED:
+			setCompleted((Boolean) newValue);
+			return;
+		case OrderSystemPackage.ORDER__ID:
+			setId((String) newValue);
+			return;
+		case OrderSystemPackage.ORDER__OWNER:
+			setOwner((Customer) newValue);
+			return;
+		case OrderSystemPackage.ORDER__ITEM:
+			getItem().clear();
+			getItem().addAll((Collection<? extends LineItem>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__PLACED_ON:
-				setPlacedOn(PLACED_ON_EDEFAULT);
-				return;
-			case OrderSystemPackage.ORDER__FILLED_ON:
-				setFilledOn(FILLED_ON_EDEFAULT);
-				return;
-			case OrderSystemPackage.ORDER__COMPLETED:
-				setCompleted(COMPLETED_EDEFAULT);
-				return;
-			case OrderSystemPackage.ORDER__ID:
-				setId(ID_EDEFAULT);
-				return;
-			case OrderSystemPackage.ORDER__OWNER:
-				setOwner((Customer)null);
-				return;
-			case OrderSystemPackage.ORDER__ITEM:
-				getItem().clear();
-				return;
+		case OrderSystemPackage.ORDER__PLACED_ON:
+			setPlacedOn(PLACED_ON_EDEFAULT);
+			return;
+		case OrderSystemPackage.ORDER__FILLED_ON:
+			setFilledOn(FILLED_ON_EDEFAULT);
+			return;
+		case OrderSystemPackage.ORDER__COMPLETED:
+			setCompleted(COMPLETED_EDEFAULT);
+			return;
+		case OrderSystemPackage.ORDER__ID:
+			setId(ID_EDEFAULT);
+			return;
+		case OrderSystemPackage.ORDER__OWNER:
+			setOwner((Customer) null);
+			return;
+		case OrderSystemPackage.ORDER__ITEM:
+			getItem().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.ORDER__PLACED_ON:
-				return PLACED_ON_EDEFAULT == null ? placedOn != null : !PLACED_ON_EDEFAULT.equals(placedOn);
-			case OrderSystemPackage.ORDER__FILLED_ON:
-				return FILLED_ON_EDEFAULT == null ? filledOn != null : !FILLED_ON_EDEFAULT.equals(filledOn);
-			case OrderSystemPackage.ORDER__COMPLETED:
-				return completed != COMPLETED_EDEFAULT;
-			case OrderSystemPackage.ORDER__ID:
-				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-			case OrderSystemPackage.ORDER__OWNER:
-				return getOwner() != null;
-			case OrderSystemPackage.ORDER__ITEM:
-				return item != null && !item.isEmpty();
+		case OrderSystemPackage.ORDER__PLACED_ON:
+			return PLACED_ON_EDEFAULT == null ? placedOn != null : !PLACED_ON_EDEFAULT.equals(placedOn);
+		case OrderSystemPackage.ORDER__FILLED_ON:
+			return FILLED_ON_EDEFAULT == null ? filledOn != null : !FILLED_ON_EDEFAULT.equals(filledOn);
+		case OrderSystemPackage.ORDER__COMPLETED:
+			return completed != COMPLETED_EDEFAULT;
+		case OrderSystemPackage.ORDER__ID:
+			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+		case OrderSystemPackage.ORDER__OWNER:
+			return getOwner() != null;
+		case OrderSystemPackage.ORDER__ITEM:
+			return item != null && !item.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     */
-    @Override
-    public String toString() {
-        if (eIsProxy()) return super.toString();
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
 
-        StringBuffer result = new StringBuffer(32);
-        
-        result.append("Order["); //$NON-NLS-1$
-        result.append(id);
-        result.append(", "); //$NON-NLS-1$
-        result.append(placedOn);
-        result.append(", "); //$NON-NLS-1$
-        result.append(completed);
-        result.append(", "); //$NON-NLS-1$
-        result.append(filledOn);
-        result.append(']');
-        
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(32);
 
-} //OrderImpl
+		result.append("Order["); //$NON-NLS-1$
+		result.append(id);
+		result.append(", "); //$NON-NLS-1$
+		result.append(placedOn);
+		result.append(", "); //$NON-NLS-1$
+		result.append(completed);
+		result.append(", "); //$NON-NLS-1$
+		result.append(filledOn);
+		result.append(']');
+
+		return result.toString();
+	}
+
+} // OrderImpl

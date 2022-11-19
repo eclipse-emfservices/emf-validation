@@ -48,7 +48,7 @@ public class ValidationUIMessages extends NLS {
 	public static String Validation_liveDialogTitle;
 	public static String Validation_dontShowCheck;
 	public static String Validation_outputProviderCategory;
-	
+
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ValidationUIMessages.class);
 	}

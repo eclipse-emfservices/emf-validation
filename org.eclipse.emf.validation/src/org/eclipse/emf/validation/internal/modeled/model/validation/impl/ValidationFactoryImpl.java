@@ -42,36 +42,36 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationFa
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
+ * 
  * @generated
  * @since 1.4
  */
 public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static ValidationFactory init() {
 		try {
-			ValidationFactory theValidationFactory = (ValidationFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/emf/2009/Validation"); 
+			ValidationFactory theValidationFactory = (ValidationFactory) EPackage.Registry.INSTANCE
+					.getEFactory("http://www.eclipse.org/emf/2009/Validation");
 			if (theValidationFactory != null) {
 				return theValidationFactory;
 			}
-		}
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new ValidationFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
 	 * @generated
 	 */
 	public ValidationFactoryImpl() {
@@ -79,76 +79,93 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ValidationPackage.CATEGORY: return createCategory();
-			case ValidationPackage.CONSTRAINT_PROVIDER: return createConstraintProvider();
-			case ValidationPackage.EVENT: return createEvent();
-			case ValidationPackage.CUSTOM_EVENT: return createCustomEvent();
-			case ValidationPackage.FEATURE: return createFeature();
-			case ValidationPackage.PARAMETER: return (EObject)createParameter();
-			case ValidationPackage.CONSTRAINTS: return createConstraints();
-			case ValidationPackage.CONSTRAINTS_BUNDLE: return createConstraintsBundle();
-			case ValidationPackage.UNPARSED_CONSTRAINT: return createUnparsedConstraint();
-			case ValidationPackage.OCL_CONSTRAINT: return createOclConstraint();
-			case ValidationPackage.PARSER: return createParser();
-			case ValidationPackage.TRAVERSAL_STRATEGY: return createTraversalStrategy();
-			case ValidationPackage.CONSTRAINT_BINDINGS_BUNDLE: return createConstraintBindingsBundle();
-			case ValidationPackage.CLIENT_CONTEXT: return createClientContext();
-			case ValidationPackage.BINDING: return createBinding();
-			case ValidationPackage.ENABLEMENT: return createEnablement();
-			case ValidationPackage.SELECTOR: return createSelector();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		case ValidationPackage.CATEGORY:
+			return createCategory();
+		case ValidationPackage.CONSTRAINT_PROVIDER:
+			return createConstraintProvider();
+		case ValidationPackage.EVENT:
+			return createEvent();
+		case ValidationPackage.CUSTOM_EVENT:
+			return createCustomEvent();
+		case ValidationPackage.FEATURE:
+			return createFeature();
+		case ValidationPackage.PARAMETER:
+			return (EObject) createParameter();
+		case ValidationPackage.CONSTRAINTS:
+			return createConstraints();
+		case ValidationPackage.CONSTRAINTS_BUNDLE:
+			return createConstraintsBundle();
+		case ValidationPackage.UNPARSED_CONSTRAINT:
+			return createUnparsedConstraint();
+		case ValidationPackage.OCL_CONSTRAINT:
+			return createOclConstraint();
+		case ValidationPackage.PARSER:
+			return createParser();
+		case ValidationPackage.TRAVERSAL_STRATEGY:
+			return createTraversalStrategy();
+		case ValidationPackage.CONSTRAINT_BINDINGS_BUNDLE:
+			return createConstraintBindingsBundle();
+		case ValidationPackage.CLIENT_CONTEXT:
+			return createClientContext();
+		case ValidationPackage.BINDING:
+			return createBinding();
+		case ValidationPackage.ENABLEMENT:
+			return createEnablement();
+		case ValidationPackage.SELECTOR:
+			return createSelector();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case ValidationPackage.EVENT_TYPES_ENUM:
-				return createEventTypesEnumFromString(eDataType, initialValue);
-			case ValidationPackage.MODE_ENUM:
-				return createModeEnumFromString(eDataType, initialValue);
-			case ValidationPackage.SEVERITY_ENUM:
-				return createSeverityEnumFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		case ValidationPackage.EVENT_TYPES_ENUM:
+			return createEventTypesEnumFromString(eDataType, initialValue);
+		case ValidationPackage.MODE_ENUM:
+			return createModeEnumFromString(eDataType, initialValue);
+		case ValidationPackage.SEVERITY_ENUM:
+			return createSeverityEnumFromString(eDataType, initialValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case ValidationPackage.EVENT_TYPES_ENUM:
-				return convertEventTypesEnumToString(eDataType, instanceValue);
-			case ValidationPackage.MODE_ENUM:
-				return convertModeEnumToString(eDataType, instanceValue);
-			case ValidationPackage.SEVERITY_ENUM:
-				return convertSeverityEnumToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		case ValidationPackage.EVENT_TYPES_ENUM:
+			return convertEventTypesEnumToString(eDataType, instanceValue);
+		case ValidationPackage.MODE_ENUM:
+			return convertModeEnumToString(eDataType, instanceValue);
+		case ValidationPackage.SEVERITY_ENUM:
+			return convertSeverityEnumToString(eDataType, instanceValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Category createCategory() {
@@ -157,8 +174,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ConstraintProvider createConstraintProvider() {
@@ -167,8 +184,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Event createEvent() {
@@ -177,8 +194,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public CustomEvent createCustomEvent() {
@@ -187,8 +204,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Feature createFeature() {
@@ -197,8 +214,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Map.Entry<String, String> createParameter() {
@@ -207,8 +224,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Constraints createConstraints() {
@@ -217,8 +234,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ConstraintsBundle createConstraintsBundle() {
@@ -227,8 +244,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public UnparsedConstraint createUnparsedConstraint() {
@@ -237,8 +254,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public OclConstraint createOclConstraint() {
@@ -247,8 +264,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Parser createParser() {
@@ -257,8 +274,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public TraversalStrategy createTraversalStrategy() {
@@ -267,8 +284,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ConstraintBindingsBundle createConstraintBindingsBundle() {
@@ -277,8 +294,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ClientContext createClientContext() {
@@ -287,8 +304,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Binding createBinding() {
@@ -297,8 +314,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Enablement createEnablement() {
@@ -307,8 +324,8 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Selector createSelector() {
@@ -317,19 +334,21 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EventTypesEnum createEventTypesEnumFromString(EDataType eDataType, String initialValue) {
 		EventTypesEnum result = EventTypesEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String convertEventTypesEnumToString(EDataType eDataType, Object instanceValue) {
@@ -337,19 +356,21 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ModeEnum createModeEnumFromString(EDataType eDataType, String initialValue) {
 		ModeEnum result = ModeEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String convertModeEnumToString(EDataType eDataType, Object instanceValue) {
@@ -357,19 +378,21 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SeverityEnum createSeverityEnumFromString(EDataType eDataType, String initialValue) {
 		SeverityEnum result = SeverityEnum.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String convertSeverityEnumToString(EDataType eDataType, Object instanceValue) {
@@ -377,17 +400,17 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ValidationPackage getValidationPackage() {
-		return (ValidationPackage)getEPackage();
+		return (ValidationPackage) getEPackage();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -396,4 +419,4 @@ public class ValidationFactoryImpl extends EFactoryImpl implements ValidationFac
 		return ValidationPackage.eINSTANCE;
 	}
 
-} //ValidationFactoryImpl
+} // ValidationFactoryImpl

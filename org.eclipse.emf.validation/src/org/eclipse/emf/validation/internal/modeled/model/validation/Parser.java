@@ -14,15 +14,16 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Parser</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object
+ * '<em><b>Parser</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage <em>Language</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName <em>Class Name</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage
+ * <em>Language</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName
+ * <em>Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,13 +34,14 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Parser extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Language</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Language</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Language</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Language</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Language</em>' attribute.
 	 * @see #setLanguage(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getParser_Language()
@@ -49,9 +51,10 @@ public interface Parser extends EObject {
 	String getLanguage();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getLanguage
+	 * <em>Language</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Language</em>' attribute.
 	 * @see #getLanguage()
 	 * @generated
@@ -59,13 +62,14 @@ public interface Parser extends EObject {
 	void setLanguage(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Class Name</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Class Name</em>' attribute isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Class Name</em>' attribute.
 	 * @see #setClassName(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getParser_ClassName()
@@ -75,9 +79,11 @@ public interface Parser extends EObject {
 	String getClassName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName <em>Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser#getClassName
+	 * <em>Class Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
 	 * @param value the new value of the '<em>Class Name</em>' attribute.
 	 * @see #getClassName()
 	 * @generated

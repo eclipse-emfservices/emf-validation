@@ -24,25 +24,25 @@ import org.eclipse.emf.validation.model.IConstraintStatus;
 
 /**
  * A special configurator that will populate a marker that is a subtype of
- *  validationProblem with subtype specific attributes.
- *  
- *  @see IMarker
- *  @see IConstraintStatus
- *  
- *  @author cmcgee
+ * validationProblem with subtype specific attributes.
+ * 
+ * @see IMarker
+ * @see IConstraintStatus
+ * 
+ * @author cmcgee
  */
 public interface IMarkerConfigurator {
 	/**
-	 * Appends to the marker configuration with marker subtype specific
-	 *  information. The marker will already have been populated with
-	 *  validationProblem information by the time that this call is made.
-	 *  
+	 * Appends to the marker configuration with marker subtype specific information.
+	 * The marker will already have been populated with validationProblem
+	 * information by the time that this call is made.
+	 * 
 	 * @param marker A validationProblem subType marker.
 	 * 
-	 * @param status A validation constraint status of a validation warning
-	 *  or failure.
-	 * @throws CoreException A core exception is thrown if there were any problems 
-	 *  working with the marker.
+	 * @param status A validation constraint status of a validation warning or
+	 *               failure.
+	 * @throws CoreException A core exception is thrown if there were any problems
+	 *                       working with the marker.
 	 */
 	void appendMarkerConfiguration(IMarker marker, IConstraintStatus status) throws CoreException;
 }

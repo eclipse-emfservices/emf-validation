@@ -28,19 +28,17 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class GetBatchConstraintsOperation
-		extends
-			AbstractGetConstraintsOperation {
-	
+public class GetBatchConstraintsOperation extends AbstractGetConstraintsOperation {
+
 	private final boolean batchOnly;
-	
+
 	/**
-	 * Initializes me with the <CODE>eObject</CODE> for which we are to get
-	 * the batch constraints.
+	 * Initializes me with the <CODE>eObject</CODE> for which we are to get the
+	 * batch constraints.
 	 * 
 	 * @param batchOnly whether to get only batch mode constraints
-	 * 	   (<code>true</code>), or also live mode constraints
-	 *     (<code>false</code>)
+	 *                  (<code>true</code>), or also live mode constraints
+	 *                  (<code>false</code>)
 	 */
 	public GetBatchConstraintsOperation(boolean batchOnly) {
 		this.batchOnly = batchOnly;
@@ -48,35 +46,32 @@ public class GetBatchConstraintsOperation
 
 	// implements the inherited method
 	@Override
-	protected void executeImpl(
-			IModelConstraintProvider provider,
-			Collection<IModelConstraint> constraints) {
+	protected void executeImpl(IModelConstraintProvider provider, Collection<IModelConstraint> constraints) {
 		assert provider != null;
 
 		provider.getBatchConstraints(getEObject(), constraints);
 	}
-	
+
 	// implements the inherited method
 	@Override
 	protected AbstractValidationContext createContext() {
 		class BatchOnlyFilter implements FilteredCollection.Filter<IModelConstraint> {
 			private final FilteredCollection.Filter<IModelConstraint> delegate;
-			
+
 			BatchOnlyFilter(FilteredCollection.Filter<IModelConstraint> delegate) {
 				this.delegate = delegate;
 			}
-			
+
 			// additionally exclude any live mode constraints
 			public boolean accept(IModelConstraint element) {
-				return element.getDescriptor().getEvaluationMode().isBatchOnly()
-					&& delegate.accept(element);
+				return element.getDescriptor().getEvaluationMode().isBatchOnly() && delegate.accept(element);
 			}
 		}
-		
+
 		return new AbstractValidationContext(this) {
 			// overrides the inherited method to provide a filter that
-			//    additionally excludes "live" mode constraints if we are
-			//    only looking for batch mode
+			// additionally excludes "live" mode constraints if we are
+			// only looking for batch mode
 			@Override
 			public FilteredCollection.Filter<IModelConstraint> getConstraintFilter() {
 				if (!batchOnly) {

@@ -40,38 +40,34 @@ import ordersystem.OrderSystemFactory;
 public class ProviderDescriptorTest extends TestBase {
 	private ConstraintDescriptorTest.FixtureElement config;
 	private ProviderDescriptor fixture;
-	
+
 	/**
 	 * Constructor for ProviderDescriptorTest.
+	 * 
 	 * @param name
 	 */
 	public ProviderDescriptorTest(String name) {
 		super(name);
 	}
-	
-	/* (non-Javadoc)
-	 * Extends the inherited method.
+
+	/*
+	 * (non-Javadoc) Extends the inherited method.
 	 */
 	@Override
-    protected void setUp() throws Exception {
+	protected void setUp() throws Exception {
 		super.setUp();
-		
-		config = ConstraintDescriptorTest.FixtureElement.build(
-				XmlConfig.E_CONSTRAINT_PROVIDER,
-				new String[][] {
-					{XmlConfig.A_CLASS, XmlConstraintProvider.class.getName()},
-					{XmlConfig.A_CACHE, "false"}});//$NON-NLS-1$
-		
-		config.addChild(ConstraintDescriptorTest.FixtureElement.build(
-			XmlConfig.E_PACKAGE,
-			new String[][] {
-				{XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore"}})); //$NON-NLS-1$
+
+		config = ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_CONSTRAINT_PROVIDER, new String[][] {
+				{ XmlConfig.A_CLASS, XmlConstraintProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });//$NON-NLS-1$
+
+		config.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_PACKAGE,
+				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } })); //$NON-NLS-1$
 	}
-	
+
 	private ConstraintDescriptorTest.FixtureElement getConfig() {
 		return config;
 	}
-	
+
 	private ProviderDescriptor getFixture() {
 		if (fixture == null) {
 			try {
@@ -80,7 +76,7 @@ public class ProviderDescriptorTest extends TestBase {
 				fail("Exception on initializing fixture: " + e.getLocalizedMessage()); //$NON-NLS-1$
 			}
 		}
-		
+
 		return fixture;
 	}
 
@@ -89,18 +85,17 @@ public class ProviderDescriptorTest extends TestBase {
 			TestOp(EObject target) {
 				super(true);
 				setTarget(target);
-			}}
-		
+			}
+		}
+
 		// let the fixture be a batch constraint provider
 		getConfig().putAttribute(XmlConfig.A_MODE, "Batch") //$NON-NLS-1$
-			.addChild(ConstraintDescriptorTest.FixtureElement.build(
-				XmlConfig.E_TARGET,
-				new String[][] {{XmlConfig.A_CLASS, "Product"}}));//$NON-NLS-1$
+				.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_TARGET,
+						new String[][] { { XmlConfig.A_CLASS, "Product" } }));//$NON-NLS-1$
 
-		GetBatchConstraintsOperation op = new TestOp(
-				OrderSystemFactory.eINSTANCE.createProduct());
+		GetBatchConstraintsOperation op = new TestOp(OrderSystemFactory.eINSTANCE.createProduct());
 		assertTrue("Batch operation not provided", getFixture().provides(op)); //$NON-NLS-1$
-		
+
 		op = new TestOp(OrderSystemFactory.eINSTANCE.createWarehouse());
 		assertFalse("Batch operation is provided", getFixture().provides(op)); //$NON-NLS-1$
 	}
@@ -109,21 +104,19 @@ public class ProviderDescriptorTest extends TestBase {
 		class TestOp extends GetLiveConstraintsOperation {
 			TestOp(Notification notification) {
 				setNotification(notification);
-			}}
-		
+			}
+		}
+
 		// let the fixture be a live constraint provider
 		getConfig().putAttribute(XmlConfig.A_MODE, "Live") //$NON-NLS-1$
-			.addChild(ConstraintDescriptorTest.FixtureElement.build(
-						XmlConfig.E_TARGET,
-						new String[][] {{XmlConfig.A_CLASS, "Product"}})//$NON-NLS-1$
-				.addChild(ConstraintDescriptorTest.FixtureElement.build(
-						XmlConfig.E_EVENT,
-						new String[][] {{XmlConfig.A_NAME, "Remove"}}))); //$NON-NLS-1$
-		
+				.addChild(ConstraintDescriptorTest.FixtureElement
+						.build(XmlConfig.E_TARGET, new String[][] { { XmlConfig.A_CLASS, "Product" } })//$NON-NLS-1$
+						.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_EVENT,
+								new String[][] { { XmlConfig.A_NAME, "Remove" } }))); //$NON-NLS-1$
+
 		final EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 
-		GetLiveConstraintsOperation op = new TestOp(
-				new TestNotification(target, Notification.REMOVE));
+		GetLiveConstraintsOperation op = new TestOp(new TestNotification(target, Notification.REMOVE));
 		assertTrue("Live operation not provided", getFixture().provides(op)); //$NON-NLS-1$
 
 		op = new TestOp(new TestNotification(target, Notification.ADD));
@@ -144,28 +137,23 @@ public class ProviderDescriptorTest extends TestBase {
 
 	public void test_getProvider() {
 		IModelConstraintProvider provider = getFixture().getProvider();
-		
+
 		assertNotNull("Provider is null", provider); //$NON-NLS-1$
 		assertSame("Provider initialized twice", provider, getFixture().getProvider()); //$NON-NLS-1$
 	}
-	
+
 	public void test_concurrentInitialization_207780() {
-		
-		config = ConstraintDescriptorTest.FixtureElement.build(
-				XmlConfig.E_CONSTRAINT_PROVIDER,
-				new String[][] {
-					{XmlConfig.A_CLASS, ConcurrencyTestProvider.class.getName()},
-					{XmlConfig.A_CACHE, "false"}});//$NON-NLS-1$
-		
-		config.addChild(ConstraintDescriptorTest.FixtureElement.build(
-			XmlConfig.E_PACKAGE,
-			new String[][] {
-				{XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore"}})); //$NON-NLS-1$
-		
+
+		config = ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_CONSTRAINT_PROVIDER, new String[][] {
+				{ XmlConfig.A_CLASS, ConcurrencyTestProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });//$NON-NLS-1$
+
+		config.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_PACKAGE,
+				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } })); //$NON-NLS-1$
+
 		try {
 			final ProviderDescriptor desc = new ProviderDescriptor(config);
 			final CyclicBarrier barrier = new CyclicBarrier(2);
-			
+
 			Runnable run = new Runnable() {
 				public void run() {
 					try {
@@ -173,46 +161,46 @@ public class ProviderDescriptorTest extends TestBase {
 					} catch (Exception e) { // broken barrier, interrupted
 						// shouldn't happen because we aren't interrupting
 					}
-					
+
 					desc.getProvider();
-				}};
-			
+				}
+			};
+
 			Thread t1 = new Thread(run);
 			Thread t2 = new Thread(run);
-			
+
 			t1.start();
 			t2.start();
 			t1.join();
 			t2.join();
-			
+
 			assertFalse("Provider initialized on two threads concurrently", //$NON-NLS-1$
-				ConcurrencyTestProvider.count.get() >= 2);
+					ConcurrencyTestProvider.count.get() >= 2);
 		} catch (Exception e) { // core, interrupted
 			fail("Caught exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
 	}
-	
+
 	static class ConcurrencyTestProvider extends AbstractConstraintProvider {
 		static AtomicInteger count = new AtomicInteger(0);
-		
+
 		public ConcurrencyTestProvider() {
 			super();
 		}
-		
+
 		@Override
-		public void setInitializationData(IConfigurationElement config,
-				String propertyName, Object data)
-			throws CoreException {
-			
+		public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
+				throws CoreException {
+
 			try {
 				Thread.sleep(500);
 				count.incrementAndGet();
 				Thread.sleep(500);
 			} catch (Exception e) { // interrupted
 				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
-					e.getLocalizedMessage()));
+						e.getLocalizedMessage()));
 			}
-			
+
 			super.setInitializationData(config, propertyName, data);
 		}
 	}

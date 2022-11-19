@@ -14,110 +14,109 @@ package ordersystem;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Factory</b> for the model.
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
+ * create method for each non-abstract class of the model. <!-- end-user-doc -->
+ * 
  * @see ordersystem.OrderSystemPackage
  * @generated
  */
-public interface OrderSystemFactory extends EFactory{
+public interface OrderSystemFactory extends EFactory {
 	/**
-	 * The singleton instance of the factory.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The singleton instance of the factory. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    OrderSystemFactory eINSTANCE = ordersystem.impl.OrderSystemFactoryImpl.init();
+	OrderSystemFactory eINSTANCE = ordersystem.impl.OrderSystemFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Order System</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Order System</em>'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Order System</em>'.
 	 * @generated
 	 */
-    OrderSystem createOrderSystem();
+	OrderSystem createOrderSystem();
 
 	/**
-	 * Returns a new object of class '<em>Customer</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Customer</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Customer</em>'.
 	 * @generated
 	 */
-    Customer createCustomer();
+	Customer createCustomer();
 
 	/**
-	 * Returns a new object of class '<em>Account</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Account</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Account</em>'.
 	 * @generated
 	 */
-    Account createAccount();
+	Account createAccount();
 
 	/**
-	 * Returns a new object of class '<em>Address</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Address</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Address</em>'.
 	 * @generated
 	 */
-    Address createAddress();
+	Address createAddress();
 
 	/**
-	 * Returns a new object of class '<em>Order</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Order</em>'. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Order</em>'.
 	 * @generated
 	 */
-    Order createOrder();
+	Order createOrder();
 
 	/**
-	 * Returns a new object of class '<em>Line Item</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Line Item</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Line Item</em>'.
 	 * @generated
 	 */
-    LineItem createLineItem();
+	LineItem createLineItem();
 
 	/**
-	 * Returns a new object of class '<em>Product</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Product</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Product</em>'.
 	 * @generated
 	 */
-    Product createProduct();
+	Product createProduct();
 
 	/**
-	 * Returns a new object of class '<em>Warehouse</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Warehouse</em>'. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Warehouse</em>'.
 	 * @generated
 	 */
-    Warehouse createWarehouse();
+	Warehouse createWarehouse();
 
 	/**
-	 * Returns a new object of class '<em>Inventory Item</em>'.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns a new object of class '<em>Inventory Item</em>'. <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Inventory Item</em>'.
 	 * @generated
 	 */
-    InventoryItem createInventoryItem();
+	InventoryItem createInventoryItem();
 
 	/**
-	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * Returns the package supported by this factory. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the package supported by this factory.
 	 * @generated
 	 */
-    OrderSystemPackage getOrderSystemPackage();
+	OrderSystemPackage getOrderSystemPackage();
 
-} //OrderSystemFactory
+} // OrderSystemFactory

@@ -23,35 +23,35 @@ import ordersystem.special.SpecialFactory;
 import ordersystem.special.SpecialPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
+ * end-user-doc -->
+ * 
  * @generated
  */
 public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static SpecialFactory init() {
 		try {
-			SpecialFactory theSpecialFactory = (SpecialFactory)EPackage.Registry.INSTANCE.getEFactory(SpecialPackage.eNS_URI);
+			SpecialFactory theSpecialFactory = (SpecialFactory) EPackage.Registry.INSTANCE
+					.getEFactory(SpecialPackage.eNS_URI);
 			if (theSpecialFactory != null) {
 				return theSpecialFactory;
 			}
-		}
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new SpecialFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc
+	 * -->
+	 * 
 	 * @generated
 	 */
 	public SpecialFactoryImpl() {
@@ -59,23 +59,25 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SpecialPackage.PREFERRED_CUSTOMER: return createPreferredCustomer();
-			case SpecialPackage.LIMITED_EDITION_PRODUCT: return createLimitedEditionProduct();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		case SpecialPackage.PREFERRED_CUSTOMER:
+			return createPreferredCustomer();
+		case SpecialPackage.LIMITED_EDITION_PRODUCT:
+			return createLimitedEditionProduct();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public PreferredCustomer createPreferredCustomer() {
@@ -84,8 +86,8 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public LimitedEditionProduct createLimitedEditionProduct() {
@@ -94,17 +96,17 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SpecialPackage getSpecialPackage() {
-		return (SpecialPackage)getEPackage();
+		return (SpecialPackage) getEPackage();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -112,4 +114,4 @@ public class SpecialFactoryImpl extends EFactoryImpl implements SpecialFactory {
 	public static SpecialPackage getPackage() {
 		return SpecialPackage.eINSTANCE;
 	}
-} //SpecialFactoryImpl
+} // SpecialFactoryImpl

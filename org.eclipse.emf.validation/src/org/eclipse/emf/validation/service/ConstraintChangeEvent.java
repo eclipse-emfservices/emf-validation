@@ -32,49 +32,49 @@ import org.eclipse.emf.validation.model.Category;
 public class ConstraintChangeEvent {
 
 	private IConstraintDescriptor constraint;
-	
+
 	private ConstraintChangeEventType eventType;
-	
+
 	private Category category;
-	
-	
+
 	/**
-	 * Initializes me with the constraint that has changed, an event that
-	 * details the change and the category associated with the event.
+	 * Initializes me with the constraint that has changed, an event that details
+	 * the change and the category associated with the event.
 	 * 
 	 * @param constraint the constraint that has changed
-	 * @param eventType the event that details the constraint change
-	 * @param category the category associated with the event (if eventType is
-	 *        {@link ConstraintChangeEventType#ADDED_CATEGORY} or 
-	 *        {@link ConstraintChangeEventType#REMOVED_CATEGORY})      
+	 * @param eventType  the event that details the constraint change
+	 * @param category   the category associated with the event (if eventType is
+	 *                   {@link ConstraintChangeEventType#ADDED_CATEGORY} or
+	 *                   {@link ConstraintChangeEventType#REMOVED_CATEGORY})
 	 */
-	public ConstraintChangeEvent(IConstraintDescriptor constraint, ConstraintChangeEventType eventType, Category category) {
+	public ConstraintChangeEvent(IConstraintDescriptor constraint, ConstraintChangeEventType eventType,
+			Category category) {
 		this.constraint = constraint;
 		this.eventType = eventType;
 		this.category = category;
 	}
-	
+
 	/**
 	 * Initializes me with the constraint that has changed and the event that
 	 * details the change.
 	 * 
 	 * @param constraint the constraint that has changed
-	 * @param eventType the event that details the constraint change     
+	 * @param eventType  the event that details the constraint change
 	 */
 	public ConstraintChangeEvent(IConstraintDescriptor constraint, ConstraintChangeEventType eventType) {
 		this(constraint, eventType, null);
 	}
-	
+
 	/**
-	 * Obtains {@link IConstraintDescriptor} of the constraint associated with
-     * the event
+	 * Obtains {@link IConstraintDescriptor} of the constraint associated with the
+	 * event
 	 * 
 	 * @return the constraint associated with the event
 	 */
 	public IConstraintDescriptor getConstraint() {
 		return this.constraint;
 	}
-	
+
 	/**
 	 * Obtains {@link ConstraintChangeEventType} that details the event
 	 * 
@@ -83,7 +83,7 @@ public class ConstraintChangeEvent {
 	public ConstraintChangeEventType getEventType() {
 		return this.eventType;
 	}
-	
+
 	/**
 	 * Obtains {@link Category} associated with this event
 	 * 
@@ -92,14 +92,14 @@ public class ConstraintChangeEvent {
 	public Category getCategory() {
 		return this.category;
 	}
-	
+
 	/**
-	 * Sets the constraint descriptor for re-use of an event instance in
-	 * bulk notifications.
+	 * Sets the constraint descriptor for re-use of an event instance in bulk
+	 * notifications.
 	 * 
 	 * @param constraint the descriptor to set
 	 */
 	void setConstraint(IConstraintDescriptor constraint) {
-	    this.constraint = constraint;
+		this.constraint = constraint;
 	}
 }

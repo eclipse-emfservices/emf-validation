@@ -22,13 +22,13 @@ import ordersystem.special.PreferredCustomer;
 import ordersystem.special.SpecialPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Preferred Customer</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Preferred Customer</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ordersystem.special.impl.PreferredCustomerImpl#getSince <em>Since</em>}</li>
+ * <li>{@link ordersystem.special.impl.PreferredCustomerImpl#getSince
+ * <em>Since</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,9 +36,9 @@ import ordersystem.special.SpecialPackage;
  */
 public class PreferredCustomerImpl extends CustomerImpl implements PreferredCustomer {
 	/**
-	 * The default value of the '{@link #getSince() <em>Since</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getSince() <em>Since</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getSince()
 	 * @generated
 	 * @ordered
@@ -46,9 +46,9 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	protected static final Date SINCE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getSince() <em>Since</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getSince() <em>Since</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getSince()
 	 * @generated
 	 * @ordered
@@ -56,8 +56,8 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	protected Date since = SINCE_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected PreferredCustomerImpl() {
@@ -65,8 +65,8 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -75,8 +75,8 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Date getSince() {
@@ -84,83 +84,85 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setSince(Date newSince) {
 		Date oldSince = since;
 		since = newSince;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SpecialPackage.PREFERRED_CUSTOMER__SINCE, oldSince, since));
+			eNotify(new ENotificationImpl(this, Notification.SET, SpecialPackage.PREFERRED_CUSTOMER__SINCE, oldSince,
+					since));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
-				return getSince();
+		case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
+			return getSince();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
-				setSince((Date)newValue);
-				return;
+		case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
+			setSince((Date) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
-				setSince(SINCE_EDEFAULT);
-				return;
+		case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
+			setSince(SINCE_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
-				return SINCE_EDEFAULT == null ? since != null : !SINCE_EDEFAULT.equals(since);
+		case SpecialPackage.PREFERRED_CUSTOMER__SINCE:
+			return SINCE_EDEFAULT == null ? since != null : !SINCE_EDEFAULT.equals(since);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (since: "); //$NON-NLS-1$
@@ -169,4 +171,4 @@ public class PreferredCustomerImpl extends CustomerImpl implements PreferredCust
 		return result.toString();
 	}
 
-} //PreferredCustomerImpl
+} // PreferredCustomerImpl

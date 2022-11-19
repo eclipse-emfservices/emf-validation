@@ -16,8 +16,8 @@ import org.eclipse.emf.validation.xml.ConstraintParserException;
 
 /**
  * Interface implemented by an object that knows how to construct constraint
- * implementations from {@link IParameterizedConstraintDescriptor}s.  The
- * parser is associated with a particular constraint
+ * implementations from {@link IParameterizedConstraintDescriptor}s. The parser
+ * is associated with a particular constraint
  * {@linkplain IParameterizedConstraintDescriptor#getLanguage() language} that
  * is supports, and for which it defines the set of parameters available to
  * configure the constraint.
@@ -30,13 +30,12 @@ public interface IParameterizedConstraintParser extends IConstraintParser {
 	/**
 	 * Parses the content of a constraint <code>descriptor</code> (including
 	 * parameters) to create an implementation of the model constraint interface.
-	 *  
-	 * @param descriptor the constraint descriptor containing the definition
-	 *    of a constraint, including any 
+	 * 
+	 * @param descriptor the constraint descriptor containing the definition of a
+	 *                   constraint, including any
 	 * @return a constraint, if one can be created
-	 * @throws ConstraintParserException if a constraint cannot be created from
-	 *    this <code>descriptor</code>
+	 * @throws ConstraintParserException if a constraint cannot be created from this
+	 *                                   <code>descriptor</code>
 	 */
-	IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
-				throws ConstraintParserException;
+	IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor) throws ConstraintParserException;
 }

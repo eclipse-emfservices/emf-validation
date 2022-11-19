@@ -38,27 +38,26 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedCons
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Adapter Factory</b> for the model.
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides
+ * an adapter <code>createXXX</code> method for each class of the model. <!--
+ * end-user-doc -->
+ * 
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage
  * @generated
  * @since 1.4
  */
 public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	/**
-	 * The cached model package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected static ValidationPackage modelPackage;
 
 	/**
-	 * Creates an instance of the adapter factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ValidationAdapterFactory() {
@@ -68,10 +67,11 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Returns whether this factory is applicable for the type of the object.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
+	 * Returns whether this factory is applicable for the type of the object. <!--
+	 * begin-user-doc --> This implementation returns <code>true</code> if the
+	 * object is either the model's package or is an instance object of the model.
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
@@ -81,121 +81,139 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
+			return ((EObject) object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
 
 	/**
-	 * The switch that delegates to the <code>createXXX</code> methods.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The switch that delegates to the <code>createXXX</code> methods. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	protected ValidationSwitch<Adapter> modelSwitch =
-		new ValidationSwitch<Adapter>() {
-			@Override
-			public Adapter caseCategory(Category object) {
-				return createCategoryAdapter();
-			}
-			@Override
-			public Adapter caseConstraintProvider(ConstraintProvider object) {
-				return createConstraintProviderAdapter();
-			}
-			@Override
-			public Adapter caseTarget(Target object) {
-				return createTargetAdapter();
-			}
-			@Override
-			public Adapter caseEvent(Event object) {
-				return createEventAdapter();
-			}
-			@Override
-			public Adapter caseCustomEvent(CustomEvent object) {
-				return createCustomEventAdapter();
-			}
-			@Override
-			public Adapter caseFeature(Feature object) {
-				return createFeatureAdapter();
-			}
-			@Override
-			public Adapter caseConstraint(Constraint object) {
-				return createConstraintAdapter();
-			}
-			@Override
-			public Adapter caseParameter(Map.Entry<String, String> object) {
-				return createParameterAdapter();
-			}
-			@Override
-			public Adapter caseConstraints(Constraints object) {
-				return createConstraintsAdapter();
-			}
-			@Override
-			public Adapter caseConstraintsBundle(ConstraintsBundle object) {
-				return createConstraintsBundleAdapter();
-			}
-			@Override
-			public Adapter caseUnparsedConstraint(UnparsedConstraint object) {
-				return createUnparsedConstraintAdapter();
-			}
-			@Override
-			public Adapter caseOclConstraint(OclConstraint object) {
-				return createOclConstraintAdapter();
-			}
-			@Override
-			public Adapter caseParser(Parser object) {
-				return createParserAdapter();
-			}
-			@Override
-			public Adapter caseTraversalStrategy(TraversalStrategy object) {
-				return createTraversalStrategyAdapter();
-			}
-			@Override
-			public Adapter caseConstraintBindingsBundle(ConstraintBindingsBundle object) {
-				return createConstraintBindingsBundleAdapter();
-			}
-			@Override
-			public Adapter caseClientContext(ClientContext object) {
-				return createClientContextAdapter();
-			}
-			@Override
-			public Adapter caseBinding(Binding object) {
-				return createBindingAdapter();
-			}
-			@Override
-			public Adapter caseEnablement(Enablement object) {
-				return createEnablementAdapter();
-			}
-			@Override
-			public Adapter caseSelector(Selector object) {
-				return createSelectorAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
+	protected ValidationSwitch<Adapter> modelSwitch = new ValidationSwitch<Adapter>() {
+		@Override
+		public Adapter caseCategory(Category object) {
+			return createCategoryAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraintProvider(ConstraintProvider object) {
+			return createConstraintProviderAdapter();
+		}
+
+		@Override
+		public Adapter caseTarget(Target object) {
+			return createTargetAdapter();
+		}
+
+		@Override
+		public Adapter caseEvent(Event object) {
+			return createEventAdapter();
+		}
+
+		@Override
+		public Adapter caseCustomEvent(CustomEvent object) {
+			return createCustomEventAdapter();
+		}
+
+		@Override
+		public Adapter caseFeature(Feature object) {
+			return createFeatureAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraint(Constraint object) {
+			return createConstraintAdapter();
+		}
+
+		@Override
+		public Adapter caseParameter(Map.Entry<String, String> object) {
+			return createParameterAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraints(Constraints object) {
+			return createConstraintsAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraintsBundle(ConstraintsBundle object) {
+			return createConstraintsBundleAdapter();
+		}
+
+		@Override
+		public Adapter caseUnparsedConstraint(UnparsedConstraint object) {
+			return createUnparsedConstraintAdapter();
+		}
+
+		@Override
+		public Adapter caseOclConstraint(OclConstraint object) {
+			return createOclConstraintAdapter();
+		}
+
+		@Override
+		public Adapter caseParser(Parser object) {
+			return createParserAdapter();
+		}
+
+		@Override
+		public Adapter caseTraversalStrategy(TraversalStrategy object) {
+			return createTraversalStrategyAdapter();
+		}
+
+		@Override
+		public Adapter caseConstraintBindingsBundle(ConstraintBindingsBundle object) {
+			return createConstraintBindingsBundleAdapter();
+		}
+
+		@Override
+		public Adapter caseClientContext(ClientContext object) {
+			return createClientContextAdapter();
+		}
+
+		@Override
+		public Adapter caseBinding(Binding object) {
+			return createBindingAdapter();
+		}
+
+		@Override
+		public Adapter caseEnablement(Enablement object) {
+			return createEnablementAdapter();
+		}
+
+		@Override
+		public Adapter caseSelector(Selector object) {
+			return createSelectorAdapter();
+		}
+
+		@Override
+		public Adapter defaultCase(EObject object) {
+			return createEObjectAdapter();
+		}
+	};
 
 	/**
-	 * Creates an adapter for the <code>target</code>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @param target the object to adapt.
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
 
-
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category <em>Category</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Category
+	 * <em>Category</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Category
 	 * @generated
@@ -205,11 +223,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider <em>Constraint Provider</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider
+	 * <em>Constraint Provider</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintProvider
 	 * @generated
@@ -219,11 +239,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Target
+	 * <em>Target</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Target
 	 * @generated
@@ -233,11 +254,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Event <em>Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Event
+	 * <em>Event</em>}'. <!-- begin-user-doc --> This default implementation returns
+	 * null so that we can easily ignore cases; it's useful to ignore a case when
+	 * inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Event
 	 * @generated
@@ -247,11 +269,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent <em>Custom Event</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent
+	 * <em>Custom Event</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.CustomEvent
 	 * @generated
@@ -261,11 +284,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Feature <em>Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Feature
+	 * <em>Feature</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Feature
 	 * @generated
@@ -275,11 +299,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint <em>Constraint</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraint
+	 * <em>Constraint</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraint
 	 * @generated
@@ -289,11 +314,11 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry
+	 * <em>Parameter</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see java.util.Map.Entry
 	 * @generated
@@ -303,11 +328,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints <em>Constraints</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Constraints
+	 * <em>Constraints</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Constraints
 	 * @generated
@@ -317,11 +343,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle <em>Constraints Bundle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle
+	 * <em>Constraints Bundle</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintsBundle
 	 * @generated
@@ -331,11 +359,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint <em>Unparsed Constraint</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint
+	 * <em>Unparsed Constraint</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.UnparsedConstraint
 	 * @generated
@@ -345,11 +375,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint <em>Ocl Constraint</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint
+	 * <em>Ocl Constraint</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.OclConstraint
 	 * @generated
@@ -359,11 +391,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser <em>Parser</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Parser
+	 * <em>Parser</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Parser
 	 * @generated
@@ -373,11 +406,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy <em>Traversal Strategy</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy
+	 * <em>Traversal Strategy</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.TraversalStrategy
 	 * @generated
@@ -387,11 +422,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle <em>Constraint Bindings Bundle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle
+	 * <em>Constraint Bindings Bundle</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ConstraintBindingsBundle
 	 * @generated
@@ -401,11 +438,13 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext <em>Client Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext
+	 * <em>Client Context</em>}'. <!-- begin-user-doc --> This default
+	 * implementation returns null so that we can easily ignore cases; it's useful
+	 * to ignore a case when inheritance will catch all the cases anyway. <!--
+	 * end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext
 	 * @generated
@@ -415,11 +454,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding <em>Binding</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Binding
+	 * <em>Binding</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Binding
 	 * @generated
@@ -429,11 +469,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Enablement <em>Enablement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Enablement
+	 * <em>Enablement</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Enablement
 	 * @generated
@@ -443,11 +484,12 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Selector <em>Selector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for an object of class
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.Selector
+	 * <em>Selector</em>}'. <!-- begin-user-doc --> This default implementation
+	 * returns null so that we can easily ignore cases; it's useful to ignore a case
+	 * when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.Selector
 	 * @generated
@@ -457,10 +499,9 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for the default case.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null.
-	 * <!-- end-user-doc -->
+	 * Creates a new adapter for the default case. <!-- begin-user-doc --> This
+	 * default implementation returns null. <!-- end-user-doc -->
+	 * 
 	 * @return the new adapter.
 	 * @generated
 	 */
@@ -468,4 +509,4 @@ public class ValidationAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //ValidationAdapterFactory
+} // ValidationAdapterFactory

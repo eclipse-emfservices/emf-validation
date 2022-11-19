@@ -10,13 +10,11 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.service;
 
-
 /**
- * Interface implemented by clients who wish to receive notification
- * whenever constraints are changed.
+ * Interface implemented by clients who wish to receive notification whenever
+ * constraints are changed.
  *
  * @since 1.1
  *
@@ -24,9 +22,9 @@ package org.eclipse.emf.validation.service;
  */
 public interface IConstraintListener {
 	/**
-	 * Notifies me that a constraint change event has taken place.  The
-	 * event provides information about the constraint that has changed
-	 * and the operation that took place (registration, enablement etc.)
+	 * Notifies me that a constraint change event has taken place. The event
+	 * provides information about the constraint that has changed and the operation
+	 * that took place (registration, enablement etc.)
 	 * 
 	 * @param event provides information about the constraint change
 	 */

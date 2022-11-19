@@ -42,49 +42,48 @@ import ordersystem.OrderSystemPackage;
  */
 public class XmlConstraintProviderTest extends TestBase {
 	/**
-	 * The instance of the fixture class that is created by the validation
-	 * framework when it loads the XML.
+	 * The instance of the fixture class that is created by the validation framework
+	 * when it loads the XML.
 	 */
 	private static Fixture fixture;
-	
+
 	static {
 		// validate an object for which the test plug-in does not define any
-		//    constraints at all, to force the providers to be loaded (so
-		//    that the static "fixture" instance will be initialized)
-		IBatchValidator validator = ModelValidationService.getInstance().newValidator(
-				EvaluationMode.BATCH);
+		// constraints at all, to force the providers to be loaded (so
+		// that the static "fixture" instance will be initialized)
+		IBatchValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 		validator.setTraversalStrategy(new ITraversalStrategy.Flat());
 		validator.validate(OrderSystemFactory.eINSTANCE.createInventoryItem());
 	}
-	
+
 	public static class Fixture extends XmlConstraintProvider {
 		public Fixture() {
 			super();
-			fixture = this;  // record the instance of this class
+			fixture = this; // record the instance of this class
 		}
-		
+
 		private boolean initializationDataWasSet = false;
-		
+
 		// gives the outer class access to the protected superclass method
 		@Override
 		protected List<IModelConstraint> getConstraints() {
 			return super.getConstraints();
 		}
-		
+
 		// extends the inherited method to record the fact of this being set
 		@Override
-		public void setInitializationData(IConfigurationElement config,
-				String propertyName, Object data) throws CoreException {
+		public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
+				throws CoreException {
 			super.setInitializationData(config, propertyName, data);
-			
+
 			this.initializationDataWasSet = true;
 		}
-		
+
 		boolean wasInitializationDataSet() {
 			return initializationDataWasSet;
 		}
 	}
-	
+
 	public XmlConstraintProviderTest(String name) {
 		super(name);
 	}
@@ -92,18 +91,16 @@ public class XmlConstraintProviderTest extends TestBase {
 	public void test_setInitializationData() {
 		assertTrue(fixture.wasInitializationDataSet());
 	}
-	
+
 	public void test_getConstraints() {
 		Collection<IModelConstraint> result = fixture.getConstraints();
-		
-		assertAllConstraintsPresent(
-				"various", //$NON-NLS-1$
-				result,
-				ID_PREFIX + "product.batch1", //$NON-NLS-1$
+
+		assertAllConstraintsPresent("various", //$NON-NLS-1$
+				result, ID_PREFIX + "product.batch1", //$NON-NLS-1$
 				ID_PREFIX + "product.batch2", //$NON-NLS-1$
 				ID_PREFIX + "product.live1", //$NON-NLS-1$
 				ID_PREFIX + "product.live2"); //$NON-NLS-1$
-		
+
 		// check that all of the constraints are proxies
 		for (IModelConstraint next : result) {
 			assertTrue(next.getClass().getName().endsWith("$ConstraintProxy")); //$NON-NLS-1$
@@ -112,84 +109,70 @@ public class XmlConstraintProviderTest extends TestBase {
 
 	public void test_getBatchConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
-		
+
 		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
-		
+
 		fixture.getBatchConstraints(object, result);
-		
-		assertAllConstraintsPresent(
-				"batch", //$NON-NLS-1$
-				result,
-				ID_PREFIX + "product.batch1", //$NON-NLS-1$
+
+		assertAllConstraintsPresent("batch", //$NON-NLS-1$
+				result, ID_PREFIX + "product.batch1", //$NON-NLS-1$
 				ID_PREFIX + "product.batch2"); //$NON-NLS-1$
 	}
 
 	public void test_getLiveConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
-		
+
 		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
-		
-		fixture.getLiveConstraints(
-				new TestNotification(object, Notification.SET),
-				result);
-		
-		assertAllConstraintsPresent(
-				"live", //$NON-NLS-1$
-				result,
-				ID_PREFIX + "product.live1"); //$NON-NLS-1$
-		
-		assertAllConstraintsNotPresent(
-				"live", //$NON-NLS-1$
-				result,
-				ID_PREFIX + "product.live2"); //$NON-NLS-1$
+
+		fixture.getLiveConstraints(new TestNotification(object, Notification.SET), result);
+
+		assertAllConstraintsPresent("live", //$NON-NLS-1$
+				result, ID_PREFIX + "product.live1"); //$NON-NLS-1$
+
+		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
+				result, ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
 
 	public void test_getLiveConstraintsForFeature() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
-		
+
 		Collection<IModelConstraint> result = new java.util.HashSet<IModelConstraint>();
-		
+
 		fixture.getLiveConstraints(
-				new TestNotification(
-						object,
-						Notification.SET,
-						OrderSystemPackage.PRODUCT__SKU,
-						null,
-						"12345"), //$NON-NLS-1$
+				new TestNotification(object, Notification.SET, OrderSystemPackage.PRODUCT__SKU, null, "12345"), //$NON-NLS-1$
 				result);
 
 		// "live1" does not specify any features, so it applies to all
-		assertAllConstraintsPresent(
-				"live", //$NON-NLS-1$
-				result,
-				ID_PREFIX + "product.live1", //$NON-NLS-1$
+		assertAllConstraintsPresent("live", //$NON-NLS-1$
+				result, ID_PREFIX + "product.live1", //$NON-NLS-1$
 				ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
-    
-    public void test_duplicateConstraintsLogged_207988() {
-        List<IStatus> statuses = TestPlugin.getLogCapture().getLogs(
-            EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
-        assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
-    }
-    
-    public void test_getConstraintDisabledByDefault() {
-    	final String TEST_INACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestNotActiveConstraint"; //$NON-NLS-1$
-    	final String TEST_ACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestActiveConstraint"; //$NON-NLS-1$
-    	final String TEST_NOINFO_CONSTRAINT_ID = ID_PREFIX + "defaultTestConstraintWithoutDefaultEnablementInformation"; //$NON-NLS-1$
-    	
-    	// Test the inactive constraint
-    	IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(TEST_INACTIVE_CONSTRAINT_ID);
-    	assertNotNull(desc);
-    	assertFalse(desc.isEnabled());
-    	
-    	// Test the active constraint
-    	desc = ConstraintRegistry.getInstance().getDescriptor(TEST_ACTIVE_CONSTRAINT_ID);
-    	assertNotNull(desc);
-    	assertTrue(desc.isEnabled());
-    	
-    	// Test the constraint without the default information, so we don't break anything
-    	desc = ConstraintRegistry.getInstance().getDescriptor(TEST_NOINFO_CONSTRAINT_ID);
-    	assertNotNull(desc);
-    	assertTrue(desc.isEnabled());
-    }
+
+	public void test_duplicateConstraintsLogged_207988() {
+		List<IStatus> statuses = TestPlugin.getLogCapture()
+				.getLogs(EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
+		assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
+	}
+
+	public void test_getConstraintDisabledByDefault() {
+		final String TEST_INACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestNotActiveConstraint"; //$NON-NLS-1$
+		final String TEST_ACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestActiveConstraint"; //$NON-NLS-1$
+		final String TEST_NOINFO_CONSTRAINT_ID = ID_PREFIX + "defaultTestConstraintWithoutDefaultEnablementInformation"; //$NON-NLS-1$
+
+		// Test the inactive constraint
+		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(TEST_INACTIVE_CONSTRAINT_ID);
+		assertNotNull(desc);
+		assertFalse(desc.isEnabled());
+
+		// Test the active constraint
+		desc = ConstraintRegistry.getInstance().getDescriptor(TEST_ACTIVE_CONSTRAINT_ID);
+		assertNotNull(desc);
+		assertTrue(desc.isEnabled());
+
+		// Test the constraint without the default information, so we don't break
+		// anything
+		desc = ConstraintRegistry.getInstance().getDescriptor(TEST_NOINFO_CONSTRAINT_ID);
+		assertNotNull(desc);
+		assertTrue(desc.isEnabled());
+	}
 }

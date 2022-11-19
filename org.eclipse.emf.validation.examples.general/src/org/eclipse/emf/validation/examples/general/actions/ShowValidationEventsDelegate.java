@@ -24,28 +24,29 @@ import org.eclipse.ui.IEditorPart;
  * An action delegate that allows the user to toggle whether or not the
  * validation listeners should display events in the console
  */
-public class ShowValidationEventsDelegate
-	implements IEditorActionDelegate, IActionDelegate2 {
+public class ShowValidationEventsDelegate implements IEditorActionDelegate, IActionDelegate2 {
 
 	/*
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.jface.viewers.ISelection)
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
+	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
 	public void selectionChanged(IAction action, final ISelection selection) {
 		action.setEnabled(true);
-		
+
 	}
 
 	/*
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-		//No-op
+		// No-op
 	}
 
 	/*
-	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IEditorPart)
+	 * @see
+	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
+	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		// No-op
@@ -59,19 +60,21 @@ public class ShowValidationEventsDelegate
 	}
 
 	/*
-	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.swt.widgets.Event)
+	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
+	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
 	public void run(IAction action) {
-		ValidationListener.displayEvents=action.isChecked();
-		
+		ValidationListener.displayEvents = action.isChecked();
+
 		// show the console
 		ConsoleUtil.registerConsole(ValidationListener.consoleName);
 		ConsoleUtil.showConsole(ValidationListener.consoleName);

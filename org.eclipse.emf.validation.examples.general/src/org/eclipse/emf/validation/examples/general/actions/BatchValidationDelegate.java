@@ -46,11 +46,10 @@ import org.eclipse.ui.dialogs.ListDialog;
 
 /**
  * This action delegate calls upon the validation service to provide a batch
- *  validation of the selected EObjects and their children.
+ * validation of the selected EObjects and their children.
  * 
  */
-public class BatchValidationDelegate
-	implements IEditorActionDelegate, IActionDelegate2 {
+public class BatchValidationDelegate implements IEditorActionDelegate, IActionDelegate2 {
 
 	/**
 	 * Error message to display when an exception occured
@@ -78,8 +77,9 @@ public class BatchValidationDelegate
 	private final String title = ValidationMessages.BatchValidationDelegate_title;
 
 	/*
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.jface.viewers.ISelection)
+	 * @see
+	 * org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.
+	 * IAction, org.eclipse.jface.viewers.ISelection)
 	 */
 	public void selectionChanged(IAction action, final ISelection selection) {
 		this.selectedEObjects = null;
@@ -95,7 +95,7 @@ public class BatchValidationDelegate
 		} finally {
 			action.setEnabled((null != selectedEObjects));
 		}
-		
+
 		for (Object next : selectedEObjects) {
 			if (!(next instanceof EObject)) {
 				action.setEnabled(false);
@@ -107,16 +107,17 @@ public class BatchValidationDelegate
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
 	public void dispose() {
-		//No-op
+		// No-op
 	}
 
 	/*
-	 * @see org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.ui.IEditorPart)
+	 * @see
+	 * org.eclipse.ui.IEditorActionDelegate#setActiveEditor(org.eclipse.jface.action
+	 * .IAction, org.eclipse.ui.IEditorPart)
 	 */
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.editor = (EXTLibraryEditor) targetEditor;
-		if ( targetEditor != null ) {
+		if (targetEditor != null) {
 			this.shell = targetEditor.getSite().getShell();
 		}
 	}
@@ -129,31 +130,31 @@ public class BatchValidationDelegate
 	}
 
 	/*
-	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.IAction,
-	 *      org.eclipse.swt.widgets.Event)
+	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.
+	 * IAction, org.eclipse.swt.widgets.Event)
 	 */
 	public void runWithEvent(IAction action, Event event) {
 		run(action);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
 	public void run(IAction action) {
 		ValidationDelegateClientSelector.running = true;
-		
-		IBatchValidator validator = ModelValidationService.getInstance()
-			.newValidator(EvaluationMode.BATCH);
+
+		IBatchValidator validator = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
 		// include live constraints, also, in batch validation
 		validator.setOption(IBatchValidator.OPTION_INCLUDE_LIVE_CONSTRAINTS, true);
 		// track the validated resources for accurate problem-marker updates
 		validator.setOption(IBatchValidator.OPTION_TRACK_RESOURCES, true);
-		
+
 		final IStatus status = validator.validate(selectedEObjects);
-		
+
 		if (status.isOK()) {
-			MessageDialog.openInformation(shell, title,
-				ValidationMessages.BatchValidationDelegate_successMessage);
+			MessageDialog.openInformation(shell, title, ValidationMessages.BatchValidationDelegate_successMessage);
 		} else {
 			ListDialog dialog = new ListDialog(shell);
 			dialog.setInput(status);
@@ -167,7 +168,7 @@ public class BatchValidationDelegate
 					if (status != null && status.isMultiStatus() && status == inputElement) {
 						return status.getChildren();
 					} else if (status != null && status == inputElement) {
-						return new Object[] {status};
+						return new Object[] { status };
 					}
 					return new Object[0];
 				}
@@ -180,32 +181,32 @@ public class BatchValidationDelegate
 				@Override
 				public String getText(Object element) {
 					if (element instanceof IStatus) {
-						return ((IStatus)element).getMessage();
+						return ((IStatus) element).getMessage();
 					}
 					return null;
 				}
 			});
 			dialog.setBlockOnOpen(true);
 			dialog.setMessage(ValidationMessages.BatchValidationDelegate_errorMessage);
-			
+
 			if (Window.OK == dialog.open()) {
 				Set<EObject> errorSelections = new HashSet<EObject>();
 				if (!status.isMultiStatus()) {
-					IConstraintStatus cstatus = (IConstraintStatus)status;
+					IConstraintStatus cstatus = (IConstraintStatus) status;
 					errorSelections.add(cstatus.getTarget());
 				} else {
 					IStatus[] children = status.getChildren();
 					for (IStatus element : children) {
-						IConstraintStatus cstatus = (IConstraintStatus)element;
+						IConstraintStatus cstatus = (IConstraintStatus) element;
 						errorSelections.add(cstatus.getTarget());
 					}
 				}
 				editor.setSelectionToViewer(errorSelections);
 			}
 		}
-		
+
 		ValidationDelegateClientSelector.running = false;
-		
+
 		// Create problem markers on the resources with validation failures/warnings.
 		try {
 			MarkerUtil.updateMarkers(status);

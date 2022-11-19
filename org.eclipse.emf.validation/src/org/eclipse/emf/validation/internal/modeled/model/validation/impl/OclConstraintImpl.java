@@ -17,9 +17,8 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.OclConstrain
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ocl Constraint</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Ocl
+ * Constraint</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
  *
@@ -28,8 +27,8 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  */
 public class OclConstraintImpl extends EObjectImpl implements OclConstraint {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected OclConstraintImpl() {
@@ -37,8 +36,8 @@ public class OclConstraintImpl extends EObjectImpl implements OclConstraint {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -46,4 +45,4 @@ public class OclConstraintImpl extends EObjectImpl implements OclConstraint {
 		return ValidationPackage.Literals.OCL_CONSTRAINT;
 	}
 
-} //OclConstraintImpl
+} // OclConstraintImpl

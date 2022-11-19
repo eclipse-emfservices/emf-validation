@@ -18,24 +18,23 @@ import org.eclipse.core.expressions.PropertyTester;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ValidationTestsPropertyTester
-	extends PropertyTester {
+public class ValidationTestsPropertyTester extends PropertyTester {
 	private static final String RUNNING_TESTS_PROPERTY = "runningTests"; //$NON-NLS-1$
-	
+
 	/**
 	 * Initializes me.
 	 */
 	public ValidationTestsPropertyTester() {
 		super();
 	}
-	
+
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
 		boolean result = false;
-		
+
 		if (property.equals(RUNNING_TESTS_PROPERTY)) {
 			result = AllTests.isExecutingUnitTests();
 		}
-		
+
 		return result;
 	}
 }

@@ -10,7 +10,6 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.service;
 
 import java.util.Set;
@@ -23,16 +22,17 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 
 /**
  * <p>
- * A constraint descriptor provides information about a constraint's
- * role and status in the system.  This includes such information as what
- * categories the constraint is a member of and whether it is enabled, disabled,
- * or even broken because of a run-time fault, in addition to a variety of
- * meta-data declared about severity, evaluation mode, and triggers.
+ * A constraint descriptor provides information about a constraint's role and
+ * status in the system. This includes such information as what categories the
+ * constraint is a member of and whether it is enabled, disabled, or even broken
+ * because of a run-time fault, in addition to a variety of meta-data declared
+ * about severity, evaluation mode, and triggers.
  * </p>
  * <p>
- * This interface is intended to be implemented by clients that have constraintProviders
- * that are contributing {@link org.eclipse.emf.validation.model.IModelConstraint}
- * that are not described in standard XML.  Note that the specialization
+ * This interface is intended to be implemented by clients that have
+ * constraintProviders that are contributing
+ * {@link org.eclipse.emf.validation.model.IModelConstraint} that are not
+ * described in standard XML. Note that the specialization
  * {@link IParameterizedConstraintDescriptor} may be of particular value in
  * describing constraints that are configurable and indicate their language.
  * </p>
@@ -41,16 +41,15 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  */
 public interface IConstraintDescriptor {
 	/**
-	 * Gets my name. This needs not be unique in any sense, and should be
-	 * localized.
+	 * Gets my name. This needs not be unique in any sense, and should be localized.
 	 * 
 	 * @return my name
 	 */
 	String getName();
 
 	/**
-	 * Gets my ID. This must be unique. It is recommended that the ID be
-	 * prefixed by the contributing plugin ID, as is usual for IDs in Eclipse.
+	 * Gets my ID. This must be unique. It is recommended that the ID be prefixed by
+	 * the contributing plugin ID, as is usual for IDs in Eclipse.
 	 * 
 	 * @return my unique identifier
 	 */
@@ -71,8 +70,8 @@ public interface IConstraintDescriptor {
 	String getDescription();
 
 	/**
-	 * Queries the severity, as enumerated by the {@link ConstraintSeverity}
-	 * class, of the problem indicated by a violation of my constraint.
+	 * Queries the severity, as enumerated by the {@link ConstraintSeverity} class,
+	 * of the problem indicated by a violation of my constraint.
 	 * 
 	 * @return my severity code
 	 */
@@ -82,8 +81,8 @@ public interface IConstraintDescriptor {
 	 * Obtains a status code (unique integer within the scope of the
 	 * {@link #getPluginId plugin}which defines me, useful for logging.
 	 * 
-	 * @return a status code which is unique amongst all constraints
-	 *         contributed by the plug-in that defines me
+	 * @return a status code which is unique amongst all constraints contributed by
+	 *         the plug-in that defines me
 	 * @see #getPluginId
 	 */
 	int getStatusCode();
@@ -107,11 +106,10 @@ public interface IConstraintDescriptor {
 	boolean targetsTypeOf(EObject eObject);
 
 	/**
-	 * Queries whether I apply to the specified EMF <code>notification</code>.
-	 * Note that it is OK if I indiscriminately return
-	 * <code>true</code>; this method merely enables an optimization that skips
-	 * constraints that are known not to apply to the notification in
-	 * question.
+	 * Queries whether I apply to the specified EMF <code>notification</code>. Note
+	 * that it is OK if I indiscriminately return <code>true</code>; this method
+	 * merely enables an optimization that skips constraints that are known not to
+	 * apply to the notification in question.
 	 * <p>
 	 * This method is only invoked on {@link #isLive live} constraints, because
 	 * {@link #isBatch batch}constraints are not invoked in a live context.
@@ -127,58 +125,57 @@ public interface IConstraintDescriptor {
 	 * Queries whether I may be applied in "batch" mode, i.e., outside of any
 	 * particular editing action context.
 	 * 
-	 * @return <CODE>true</CODE> if I support "batch" (contextless)
-	 *         invocation; <CODE>false</CODE>, otherwise
+	 * @return <CODE>true</CODE> if I support "batch" (contextless) invocation;
+	 *         <CODE>false</CODE>, otherwise
 	 * @see #getEvaluationMode
 	 */
 	boolean isBatch();
 
 	/**
-	 * Queries whether I may be applied in "live" mode, i.e., within some
-	 * particular editing action context.
+	 * Queries whether I may be applied in "live" mode, i.e., within some particular
+	 * editing action context.
 	 * 
 	 * @return <CODE>true</CODE> if I support "live" (contextful) invocation;
 	 *         <CODE>false</CODE>, otherwise
 	 * @see #getEvaluationMode
 	 */
 	boolean isLive();
-	
+
 	/**
-	 * Queries whether the constraint is errored, i.e., not executable because
-	 * of some error in initializing it.
+	 * Queries whether the constraint is errored, i.e., not executable because of
+	 * some error in initializing it.
 	 * 
 	 * @return whether I represent an errored constraint
 	 */
 	boolean isError();
-	
+
 	/**
-	 * If I am an {@link #isError error} constraint, obtains the exception
-	 * that caused me not to be initialized.
-	 *  
+	 * If I am an {@link #isError error} constraint, obtains the exception that
+	 * caused me not to be initialized.
+	 * 
 	 * @return my exception
 	 */
 	Throwable getException();
-	
+
 	/**
-	 * Queries whether the constraint is enabled.  {@link #isError Errored}
-	 * constraints are never enabled; other constraints may be disabled
-	 * by the user.
+	 * Queries whether the constraint is enabled. {@link #isError Errored}
+	 * constraints are never enabled; other constraints may be disabled by the user.
 	 * 
 	 * @return whether the constraint that I represent is enabled
 	 */
 	boolean isEnabled();
-	
+
 	/**
-	 * Sets whether the constraint is enabled.  Note that this only has any
-	 * effect on constraints that are not {@link #isError() errored} and are
-	 * not in a {@link Category#isMandatory() mandatory} category.
+	 * Sets whether the constraint is enabled. Note that this only has any effect on
+	 * constraints that are not {@link #isError() errored} and are not in a
+	 * {@link Category#isMandatory() mandatory} category.
 	 * 
 	 * @param enabled whether the constraint that I represent is enabled
 	 * 
 	 * @see #isEnabled()
 	 */
 	void setEnabled(boolean enabled);
-	
+
 	/**
 	 * <p>
 	 * Sets my error status.
@@ -190,46 +187,46 @@ public interface IConstraintDescriptor {
 	 * @param exception the exception that causes me to be an error constraint
 	 */
 	void setError(Throwable exception);
-	
+
 	/**
 	 * Queries the categories that I am a member of.
 	 * 
 	 * @return an unmodifiable set of {@link Category}s
 	 */
 	Set<Category> getCategories();
-	
+
 	/**
-	 * Adds a category to me.  If, previously, I was in the default category,
-	 * then I will no longer be in the default category when this method
-	 * returns.
+	 * Adds a category to me. If, previously, I was in the default category, then I
+	 * will no longer be in the default category when this method returns.
 	 * 
 	 * @param category my category
 	 * @throws IllegalArgumentException if <code>category</code> is the default
-	 *     category, as this is not allowed to be set explicitly
+	 *                                  category, as this is not allowed to be set
+	 *                                  explicitly
 	 */
 	void addCategory(Category category);
-	
+
 	/**
 	 * Removes a category from me.
 	 * 
 	 * @param category a category
 	 */
 	void removeCategory(Category category);
-	
+
 	/**
 	 * Obtains the localized message pattern configured in the XML for my
-	 * constraint.  It must conform to the conventions of the
+	 * constraint. It must conform to the conventions of the
 	 * {@link org.eclipse.osgi.util.NLS} class.
 	 * 
 	 * @return my message pattern
 	 * @see org.eclipse.osgi.util.NLS
 	 */
 	String getMessagePattern();
-	
+
 	/**
-	 * If I represent an in-line constraint (whose algorithm is implemented in
-	 * an XML file, script, or some other source than Java), then this method
-	 * obtains its body.
+	 * If I represent an in-line constraint (whose algorithm is implemented in an
+	 * XML file, script, or some other source than Java), then this method obtains
+	 * its body.
 	 * 
 	 * @return the constraint body, if appropriate to the language
 	 */

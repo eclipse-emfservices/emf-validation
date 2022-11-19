@@ -24,8 +24,8 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
 
 /**
  * <p>
- * Encapsulates a request to get "live" constraints for a particular event
- * on an EMF object.
+ * Encapsulates a request to get "live" constraints for a particular event on an
+ * EMF object.
  * </p>
  * 
  * @see org.eclipse.emf.validation.service.IModelConstraintProvider
@@ -33,40 +33,36 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class GetLiveConstraintsOperation
-		extends
-			AbstractGetConstraintsOperation {
-	
+public class GetLiveConstraintsOperation extends AbstractGetConstraintsOperation {
+
 	private EMFEventType eventType;
 	private Notification notification;
 	private List<Notification> allEvents;
-	
+
 	/**
 	 * Initializes me.
 	 */
 	public GetLiveConstraintsOperation() {
 		super();
 	}
-	
+
 	/**
-	 * Sets the <CODE>notification</CODE> for which we are to get
-	 * the live constraints.
+	 * Sets the <CODE>notification</CODE> for which we are to get the live
+	 * constraints.
 	 * 
-	 * @param notification the event to be validated (must not be
-	 *            <CODE>null</CODE>)
+	 * @param notification the event to be validated (must not be <CODE>null</CODE>)
 	 */
 	protected void setNotification(Notification notification) {
-		setTarget((EObject)notification.getNotifier());
+		setTarget((EObject) notification.getNotifier());
 
-		EMFEventType newEventType = EMFEventType.getInstance(
-				notification.getEventType());
-		
+		EMFEventType newEventType = EMFEventType.getInstance(notification.getEventType());
+
 		assert newEventType != null && !newEventType.isNull();
 
 		this.eventType = newEventType;
 		this.notification = notification;
 	}
-	
+
 	/**
 	 * Sets the events being validated.
 	 * 
@@ -84,7 +80,7 @@ public class GetLiveConstraintsOperation
 	public final EMFEventType getEventType() {
 		return eventType;
 	}
-	
+
 	/**
 	 * Obtains the events being validated in this operation.
 	 * 
@@ -93,7 +89,7 @@ public class GetLiveConstraintsOperation
 	public final List<Notification> getAllEvents() {
 		return allEvents;
 	}
-	
+
 	/**
 	 * Obtains the EMF notification that triggered the validation.
 	 * 
@@ -105,14 +101,12 @@ public class GetLiveConstraintsOperation
 
 	// implements the inherited method
 	@Override
-	protected void executeImpl(
-			IModelConstraintProvider provider,
-			Collection<IModelConstraint> constraints) {
+	protected void executeImpl(IModelConstraintProvider provider, Collection<IModelConstraint> constraints) {
 		assert provider != null;
 
 		provider.getLiveConstraints(getNotification(), constraints);
 	}
-	
+
 	// implements the inherited method
 	@Override
 	protected AbstractValidationContext createContext() {
@@ -121,24 +115,24 @@ public class GetLiveConstraintsOperation
 			@Override
 			public EStructuralFeature getFeature() {
 				EStructuralFeature result = null;
-				
+
 				if (getNotification().getFeature() instanceof EStructuralFeature) {
-					result = (EStructuralFeature)getNotification().getFeature();
+					result = (EStructuralFeature) getNotification().getFeature();
 				}
-				
+
 				return result;
 			}
-			
+
 			/*
 			 * Redefines the inherited method.
 			 */
 			@Override
 			public Object getFeatureNewValue() {
 				Object result = null;
-				
+
 				if (!getEventType().isNull()) {
 					switch (getNotification().getEventType()) {
-					
+
 					case Notification.REMOVE:
 					case Notification.REMOVE_MANY:
 					case Notification.REMOVING_ADAPTER:
@@ -146,22 +140,22 @@ public class GetLiveConstraintsOperation
 						// the change (delta) of the feature
 						result = getNotification().getOldValue();
 						break;
-						
+
 					default:
 						result = getNotification().getNewValue();
 						break;
 					}
 				}
-				
+
 				return result;
 			}
-			
+
 			// re-implements the inherited method
 			@Override
 			public EMFEventType getEventType() {
 				return GetLiveConstraintsOperation.this.getEventType();
 			}
-			
+
 			// re-implements the inherited method
 			@Override
 			public List<Notification> getAllEvents() {
@@ -171,6 +165,7 @@ public class GetLiveConstraintsOperation
 			@Override
 			public Notification getNotification() {
 				return GetLiveConstraintsOperation.this.getNotification();
-			}};
+			}
+		};
 	}
 }

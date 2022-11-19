@@ -14,15 +14,16 @@ package org.eclipse.emf.validation.internal.modeled.model.validation;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Client Context</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Client
+ * Context</b></em>'. <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId <em>Id</em>}</li>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault <em>Default</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId
+ * <em>Id</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault
+ * <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -34,13 +35,14 @@ import org.eclipse.emf.ecore.EObject;
 public interface ClientContext extends EObject {
 
 	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc
+	 * -->
 	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getClientContext_Id()
@@ -50,9 +52,10 @@ public interface ClientContext extends EObject {
 	String getId();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#getId
+	 * <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Id</em>' attribute.
 	 * @see #getId()
 	 * @generated
@@ -60,13 +63,14 @@ public interface ClientContext extends EObject {
 	void setId(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Default</b></em>' attribute.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Default</b></em>' attribute. <!--
+	 * begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Default</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Default</em>' attribute isn't clear, there really
+	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Default</em>' attribute.
 	 * @see #setDefault(boolean)
 	 * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getClientContext_Default()
@@ -76,9 +80,10 @@ public interface ClientContext extends EObject {
 	boolean isDefault();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault <em>Default</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Sets the value of the
+	 * '{@link org.eclipse.emf.validation.internal.modeled.model.validation.ClientContext#isDefault
+	 * <em>Default</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @param value the new value of the '<em>Default</em>' attribute.
 	 * @see #isDefault()
 	 * @generated

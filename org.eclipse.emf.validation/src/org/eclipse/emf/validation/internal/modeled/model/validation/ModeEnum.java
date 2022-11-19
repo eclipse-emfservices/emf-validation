@@ -18,10 +18,10 @@ import java.util.List;
 import org.eclipse.emf.common.util.Enumerator;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Mode Enum</b></em>',
- * and utility methods for working with them.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the literals of the enumeration
+ * '<em><b>Mode Enum</b></em>', and utility methods for working with them. <!--
+ * end-user-doc -->
+ * 
  * @see org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage#getModeEnum()
  * @model
  * @generated
@@ -29,9 +29,9 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum ModeEnum implements Enumerator {
 	/**
-	 * The '<em><b>Batch</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Batch</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #BATCH_VALUE
 	 * @generated
 	 * @ordered
@@ -39,9 +39,9 @@ public enum ModeEnum implements Enumerator {
 	BATCH(0, "Batch", "Batch"),
 
 	/**
-	 * The '<em><b>Live</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The '<em><b>Live</b></em>' literal object. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #LIVE_VALUE
 	 * @generated
 	 * @ordered
@@ -49,13 +49,13 @@ public enum ModeEnum implements Enumerator {
 	LIVE(1, "Live", "Live");
 
 	/**
-	 * The '<em><b>Batch</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>Batch</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Batch</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Batch</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #BATCH
 	 * @model name="Batch"
 	 * @generated
@@ -64,13 +64,13 @@ public enum ModeEnum implements Enumerator {
 	public static final int BATCH_VALUE = 0;
 
 	/**
-	 * The '<em><b>Live</b></em>' literal value.
-	 * <!-- begin-user-doc -->
+	 * The '<em><b>Live</b></em>' literal value. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>Live</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of '<em><b>Live</b></em>' literal object isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #LIVE
 	 * @model name="Live"
 	 * @generated
@@ -79,29 +79,25 @@ public enum ModeEnum implements Enumerator {
 	public static final int LIVE_VALUE = 1;
 
 	/**
-	 * An array of all the '<em><b>Mode Enum</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * An array of all the '<em><b>Mode Enum</b></em>' enumerators. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	private static final ModeEnum[] VALUES_ARRAY =
-		new ModeEnum[] {
-			BATCH,
-			LIVE,
-		};
+	private static final ModeEnum[] VALUES_ARRAY = new ModeEnum[] { BATCH, LIVE, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Mode Enum</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static final List<ModeEnum> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified literal
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static ModeEnum get(String literal) {
@@ -115,9 +111,9 @@ public enum ModeEnum implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified name. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static ModeEnum getByName(String name) {
@@ -131,44 +127,46 @@ public enum ModeEnum implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the '<em><b>Mode Enum</b></em>' literal with the specified integer
+	 * value. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static ModeEnum get(int value) {
 		switch (value) {
-			case BATCH_VALUE: return BATCH;
-			case LIVE_VALUE: return LIVE;
+		case BATCH_VALUE:
+			return BATCH;
+		case LIVE_VALUE:
+			return LIVE;
 		}
 		return null;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final int value;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final String name;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private final String literal;
 
 	/**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Only this class can construct instances. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	private ModeEnum(int value, String name, String literal) {
@@ -178,41 +176,41 @@ public enum ModeEnum implements Enumerator {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public int getValue() {
-	  return value;
+		return value;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getName() {
-	  return name;
+		return name;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getLiteral() {
-	  return literal;
+		return literal;
 	}
 
 	/**
-	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string
+	 * representation. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
 		return literal;
 	}
-	
-} //ModeEnum
+
+} // ModeEnum

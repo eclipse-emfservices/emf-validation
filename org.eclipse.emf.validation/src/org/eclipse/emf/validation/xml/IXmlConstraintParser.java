@@ -28,22 +28,21 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
  * @author Christian W. Damus (cdamus)
  * 
  * @deprecated Use the {@link IParameterizedConstraintParser} interface,
- *     instead.  Note that the provided implementations of this interface (for
- *     OCL, Java, and EMF languages) also implement
- *     <code>IParameterizedConstraintParser</code>.
+ *             instead. Note that the provided implementations of this interface
+ *             (for OCL, Java, and EMF languages) also implement
+ *             <code>IParameterizedConstraintParser</code>.
  */
 @Deprecated
 public interface IXmlConstraintParser extends IConstraintParser {
 	/**
-	 * Parses the XML content of a constraint <code>descriptor</code> to create
-	 * an implementation of the model constraint interface.
-	 *  
-	 * @param descriptor the constraint descriptor containing XML data in the
-	 *    form of {@link org.eclipse.core.runtime.IConfigurationElement}s
+	 * Parses the XML content of a constraint <code>descriptor</code> to create an
+	 * implementation of the model constraint interface.
+	 * 
+	 * @param descriptor the constraint descriptor containing XML data in the form
+	 *                   of {@link org.eclipse.core.runtime.IConfigurationElement}s
 	 * @return a constraint, if one can be created
-	 * @throws ConstraintParserException if a constraint cannot be created from
-	 *    this <code>descriptor</code>
+	 * @throws ConstraintParserException if a constraint cannot be created from this
+	 *                                   <code>descriptor</code>
 	 */
-	IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
-				throws ConstraintParserException;
+	IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException;
 }

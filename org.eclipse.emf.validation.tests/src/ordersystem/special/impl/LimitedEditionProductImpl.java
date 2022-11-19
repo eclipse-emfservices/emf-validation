@@ -22,13 +22,13 @@ import ordersystem.special.LimitedEditionProduct;
 import ordersystem.special.SpecialPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Limited Edition Product</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Limited
+ * Edition Product</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ordersystem.special.impl.LimitedEditionProductImpl#getAvailableUntil <em>Available Until</em>}</li>
+ * <li>{@link ordersystem.special.impl.LimitedEditionProductImpl#getAvailableUntil
+ * <em>Available Until</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,9 +36,9 @@ import ordersystem.special.SpecialPackage;
  */
 public class LimitedEditionProductImpl extends ProductImpl implements LimitedEditionProduct {
 	/**
-	 * The default value of the '{@link #getAvailableUntil() <em>Available Until</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getAvailableUntil() <em>Available
+	 * Until</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getAvailableUntil()
 	 * @generated
 	 * @ordered
@@ -46,9 +46,9 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	protected static final Date AVAILABLE_UNTIL_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getAvailableUntil() <em>Available Until</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAvailableUntil() <em>Available
+	 * Until</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getAvailableUntil()
 	 * @generated
 	 * @ordered
@@ -56,8 +56,8 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	protected Date availableUntil = AVAILABLE_UNTIL_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected LimitedEditionProductImpl() {
@@ -65,8 +65,8 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -75,8 +75,8 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Date getAvailableUntil() {
@@ -84,83 +84,86 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setAvailableUntil(Date newAvailableUntil) {
 		Date oldAvailableUntil = availableUntil;
 		availableUntil = newAvailableUntil;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL, oldAvailableUntil, availableUntil));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL, oldAvailableUntil, availableUntil));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
-				return getAvailableUntil();
+		case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
+			return getAvailableUntil();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
-				setAvailableUntil((Date)newValue);
-				return;
+		case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
+			setAvailableUntil((Date) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
-				setAvailableUntil(AVAILABLE_UNTIL_EDEFAULT);
-				return;
+		case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
+			setAvailableUntil(AVAILABLE_UNTIL_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
-				return AVAILABLE_UNTIL_EDEFAULT == null ? availableUntil != null : !AVAILABLE_UNTIL_EDEFAULT.equals(availableUntil);
+		case SpecialPackage.LIMITED_EDITION_PRODUCT__AVAILABLE_UNTIL:
+			return AVAILABLE_UNTIL_EDEFAULT == null ? availableUntil != null
+					: !AVAILABLE_UNTIL_EDEFAULT.equals(availableUntil);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (availableUntil: "); //$NON-NLS-1$
@@ -169,4 +172,4 @@ public class LimitedEditionProductImpl extends ProductImpl implements LimitedEdi
 		return result.toString();
 	}
 
-} //LimitedEditionProductImpl
+} // LimitedEditionProductImpl

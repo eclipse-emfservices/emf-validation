@@ -29,18 +29,16 @@ import org.eclipse.emf.validation.util.FilteredCollection;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public abstract class AbstractGetConstraintsOperation
-		implements IProviderOperation<Collection<IModelConstraint>> {
-	
+public abstract class AbstractGetConstraintsOperation implements IProviderOperation<Collection<IModelConstraint>> {
+
 	/** The EMF object to be validated. */
 	private EObject eObject;
 
 	/** The constraints which I have gathered from providers. */
-	private final Collection<IModelConstraint> myConstraints =
-		new java.util.ArrayList<IModelConstraint>();
-	
+	private final Collection<IModelConstraint> myConstraints = new java.util.ArrayList<IModelConstraint>();
+
 	private Collection<IModelConstraint> filteredConstraints;
-	
+
 	private AbstractValidationContext context;
 
 	/**
@@ -59,8 +57,8 @@ public abstract class AbstractGetConstraintsOperation
 		assert eObject != null;
 
 		this.eObject = eObject;
-		
-		myConstraints.clear();  // getting constraints for a new target object
+
+		myConstraints.clear(); // getting constraints for a new target object
 	}
 
 	// implements the interface method
@@ -69,17 +67,17 @@ public abstract class AbstractGetConstraintsOperation
 	}
 
 	/**
-	 * Obtains the context object that the caller must pass to each constraint
-	 * that is validated.
+	 * Obtains the context object that the caller must pass to each constraint that
+	 * is validated.
 	 * 
-	 * @return the constraint evaluation context, or <code>null</code> if I have
-	 *    not yet been executed
+	 * @return the constraint evaluation context, or <code>null</code> if I have not
+	 *         yet been executed
 	 * 
 	 * @see #execute
 	 */
 	final AbstractValidationContext getContext() {
 		maybeInitializeContext();
-		
+
 		return context;
 	}
 
@@ -87,28 +85,27 @@ public abstract class AbstractGetConstraintsOperation
 		// initialize the context now, if necessary
 		if (context == null) {
 			context = createContext();
-			filteredConstraints = new FilteredCollection<IModelConstraint>(
-					getUnfilteredConstraints(),
+			filteredConstraints = new FilteredCollection<IModelConstraint>(getUnfilteredConstraints(),
 					context.getConstraintFilter());
 		}
 	}
-	
+
 	// implements the interface method
 	public final Collection<IModelConstraint> getConstraints() {
 		return filteredConstraints;
 	}
 
 	/**
-	 * Obtains my constraints, not filtered by the current validation context.
-	 * This should only be invoked by clients such as the constraint cache,
-	 * that need the constraints outside of any validation context.
+	 * Obtains my constraints, not filtered by the current validation context. This
+	 * should only be invoked by clients such as the constraint cache, that need the
+	 * constraints outside of any validation context.
 	 * 
 	 * @return my full collection of constraints
 	 */
 	protected Collection<IModelConstraint> getUnfilteredConstraints() {
 		return myConstraints;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -119,20 +116,14 @@ public abstract class AbstractGetConstraintsOperation
 	 * @return my unmodifiable constraints collection
 	 */
 	public Collection<IModelConstraint> execute(IModelConstraintProvider provider) {
-		Trace.entering(
-				EMFModelValidationDebugOptions.PROVIDERS,
-				getClass(),
-				"execute", //$NON-NLS-1$
+		Trace.entering(EMFModelValidationDebugOptions.PROVIDERS, getClass(), "execute", //$NON-NLS-1$
 				provider);
-		
+
 		maybeInitializeContext();
-		
+
 		executeImpl(provider, getUnfilteredConstraints());
 
-		Trace.exiting(
-				EMFModelValidationDebugOptions.PROVIDERS,
-				getClass(),
-				"execute"); //$NON-NLS-1$
+		Trace.exiting(EMFModelValidationDebugOptions.PROVIDERS, getClass(), "execute"); //$NON-NLS-1$
 
 		return getUnfilteredConstraints();
 	}
@@ -144,15 +135,13 @@ public abstract class AbstractGetConstraintsOperation
 	 * @return the subclass's concrete implementation of the context
 	 */
 	protected abstract AbstractValidationContext createContext();
-	
+
 	/**
 	 * Implemented by subclasses to invoke the appropriate <code>provider</code>
 	 * method.
 	 * 
-	 * @param provider the provider to be invoked
-	 * @param constraints the collection to which constraints are to be added 
+	 * @param provider    the provider to be invoked
+	 * @param constraints the collection to which constraints are to be added
 	 */
-	protected abstract void executeImpl(
-			IModelConstraintProvider provider,
-			Collection<IModelConstraint> constraints);
+	protected abstract void executeImpl(IModelConstraintProvider provider, Collection<IModelConstraint> constraints);
 }

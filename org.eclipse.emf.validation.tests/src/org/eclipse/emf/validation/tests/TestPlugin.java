@@ -14,44 +14,40 @@ package org.eclipse.emf.validation.tests;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-
 /**
  * Plug-in lifecycle class, required for correct bundle activation.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class TestPlugin
-	extends Plugin {
+public class TestPlugin extends Plugin {
 
-    private static LogCapture log;
-    
+	private static LogCapture log;
+
 	/**
 	 * Initializes me.
 	 */
 	public TestPlugin() {
 		super();
 	}
-	
+
 	public static LogCapture getLogCapture() {
-	    return log;
+		return log;
 	}
-	
+
 	@Override
-    public void start(BundleContext context)
-	    throws Exception {
-	    
-	    super.start(context);
-	    
-	    log = new LogCapture();
+	public void start(BundleContext context) throws Exception {
+
+		super.start(context);
+
+		log = new LogCapture();
 	}
-	
+
 	@Override
-    public void stop(BundleContext context)
-	    throws Exception {
-	    
-	    log.stop();
-	    log = null;
-	    
-	    super.stop(context);
+	public void stop(BundleContext context) throws Exception {
+
+		log.stop();
+		log = null;
+
+		super.stop(context);
 	}
 }

@@ -10,7 +10,6 @@
  *    IBM Corporation - initial API and implementation 
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.preferences;
 
 import org.eclipse.core.runtime.Preferences;
@@ -25,10 +24,9 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  */
 public class EMFModelValidationPreferences {
 	static final String CONSTRAINT_DISABLED_PREFIX = "con.disabled/"; //$NON-NLS-1$
-	
-	private static final Preferences prefs =
-		EMFModelValidationPlugin.getPlugin().getPluginPreferences();
-	
+
+	private static final Preferences prefs = EMFModelValidationPlugin.getPlugin().getPluginPreferences();
+
 	/**
 	 * Not instantiable, as all features are static.
 	 */
@@ -42,7 +40,7 @@ public class EMFModelValidationPreferences {
 	public static void save() {
 		EMFModelValidationPlugin.getPlugin().savePluginPreferences();
 	}
-	
+
 	/**
 	 * Queries whether the specified constraint <code>ID</code> is disabled.
 	 * 
@@ -54,8 +52,8 @@ public class EMFModelValidationPreferences {
 	}
 
 	/**
-	 * Queries whether the specified constraint <code>ID</code> is disabled
-	 * by default.
+	 * Queries whether the specified constraint <code>ID</code> is disabled by
+	 * default.
 	 * 
 	 * @param id the constraint ID
 	 * @return whether it is disabled
@@ -67,16 +65,15 @@ public class EMFModelValidationPreferences {
 	/**
 	 * Sets whether the specified constraint <code>id</code> is disabled.
 	 * 
-	 * @param id the constraint ID
+	 * @param id       the constraint ID
 	 * @param disabled whether it is disabled
 	 */
 	public static void setConstraintDisabled(String id, boolean disabled) {
 		final String prefName = CONSTRAINT_DISABLED_PREFIX + id;
-		final IConstraintDescriptor constraint =
-			ConstraintRegistry.getInstance().getDescriptor(id);
-		
+		final IConstraintDescriptor constraint = ConstraintRegistry.getInstance().getDescriptor(id);
+
 		prefs.setValue(prefName, disabled);
-		
+
 		if (constraint != null) {
 			// set its enablement from the new preference value
 			constraint.setEnabled(!disabled);
@@ -85,13 +82,13 @@ public class EMFModelValidationPreferences {
 			prefs.setToDefault(prefName);
 		}
 	}
-	
+
 	/**
 	 * @since 1.4
 	 */
 	public static void setConstraintDisabledDefault(String id, boolean disabled) {
 		final String prefName = CONSTRAINT_DISABLED_PREFIX + id;
-		
+
 		prefs.setDefault(prefName, disabled);
 	}
 }

@@ -50,8 +50,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 	static final String TEST_VALUE = "New parser worked"; //$NON-NLS-1$
 	static final String JAVA_MESSAGE = "Java parser worked"; //$NON-NLS-1$
 	static final String XML_MESSAGE = "XML provider worked"; //$NON-NLS-1$
-	
-	
+
 	public ParameterizedConstraintParserTest(String name) {
 		super(name);
 	}
@@ -63,165 +62,151 @@ public class ParameterizedConstraintParserTest extends TestBase {
 	public void test_provideNonXMLConstraintDescriptorsForCustomLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
-		
+
 		Constraint.enabled = true;
-		
+
 		IStatus[] statuses = getStatuses(treeValidator.validate(order));
-		
+
 		Constraint.enabled = false;
-		
-		assertAllConstraintsPresent(
-				"batch", //$NON-NLS-1$
-				statuses,
-				TEST_ID1);
-		
+
+		assertAllConstraintsPresent("batch", //$NON-NLS-1$
+				statuses, TEST_ID1);
+
 		IStatus status = getStatus(statuses, TEST_ID1);
-		
+
 		assertEquals(IStatus.WARNING, status.getSeverity());
 		assertEquals(TEST_VALUE, status.getMessage());
-		assertAllTargetsPresent(
-				"batch", //$NON-NLS-1$
-				new IStatus[] {status},
-				Collections.singleton(order));
+		assertAllTargetsPresent("batch", //$NON-NLS-1$
+				new IStatus[] { status }, Collections.singleton(order));
 	}
 
 	/**
 	 * Tests that a new-fangled constraint provider (using the new descriptor API)
-	 * can provide constraints for a language implemented by a legacy parser
-	 * such as Java.
+	 * can provide constraints for a language implemented by a legacy parser such as
+	 * Java.
 	 */
 	public void test_provideNonXMLConstraintDescriptorsForJavaLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
-		
+
 		JavaConstraint.enabled = true;
-		
+
 		IStatus[] statuses = getStatuses(treeValidator.validate(order));
-		
+
 		JavaConstraint.enabled = false;
-		
-		assertAllConstraintsPresent(
-				"batch", //$NON-NLS-1$
-				statuses,
-				TEST_ID2);
-		
+
+		assertAllConstraintsPresent("batch", //$NON-NLS-1$
+				statuses, TEST_ID2);
+
 		IStatus status = getStatus(statuses, TEST_ID2);
-		
+
 		assertEquals(IStatus.WARNING, status.getSeverity());
 		assertEquals(JAVA_MESSAGE, status.getMessage());
-		assertAllTargetsPresent(
-				"batch", //$NON-NLS-1$
-				new IStatus[] {status},
-				Collections.singleton(order));
+		assertAllTargetsPresent("batch", //$NON-NLS-1$
+				new IStatus[] { status }, Collections.singleton(order));
 	}
 
 	/**
-	 * Tests that a legacy constraint provider (using plugin.xml)
-	 * can provide constraints for a language implemented by a new-fangled parser.
+	 * Tests that a legacy constraint provider (using plugin.xml) can provide
+	 * constraints for a language implemented by a new-fangled parser.
 	 */
 	public void test_provideXMLConstraintDescriptorsForCustomLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
-		
+
 		Constraint.enabled = true;
-		
+
 		IStatus[] statuses = getStatuses(treeValidator.validate(order));
-		
+
 		Constraint.enabled = false;
-		
-		assertAllConstraintsPresent(
-				"batch", //$NON-NLS-1$
-				statuses,
-				ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
-		
+
+		assertAllConstraintsPresent("batch", //$NON-NLS-1$
+				statuses, ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
+
 		IStatus status = getStatus(statuses, ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
-		
+
 		// implicit severity in XML is ERROR
 		assertEquals(IStatus.ERROR, status.getSeverity());
 		assertEquals(XML_MESSAGE, status.getMessage());
-		assertAllTargetsPresent(
-				"batch", //$NON-NLS-1$
-				new IStatus[] {status},
-				Collections.singleton(order));
+		assertAllTargetsPresent("batch", //$NON-NLS-1$
+				new IStatus[] { status }, Collections.singleton(order));
 	}
-	
+
 	public static final class Provider extends AbstractConstraintProvider {
 		public Provider() {
 			Descriptor desc = new Descriptor(TEST_ID1, TEST_LANGUAGE);
 			IModelConstraint proxy = createModelConstraintProxy(desc);
 			getConstraints().add(proxy);
-			
+
 			desc = new Descriptor(TEST_ID2, "Java"); //$NON-NLS-1$
 			proxy = createModelConstraintProxy(desc);
 			getConstraints().add(proxy);
 		}
 	}
-	
+
 	public static final class Parser implements IParameterizedConstraintParser {
 
-		public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor) throws ConstraintParserException {
+		public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
+				throws ConstraintParserException {
 			return new Constraint(descriptor, descriptor.getParameterValue(TEST_PARAMETER));
 		}
-		
+
 	}
-	
+
 	private static final class Constraint implements IModelConstraint {
 		static boolean enabled = false;
-		
+
 		private final IConstraintDescriptor descriptor;
 		private final String errorMessage;
-		
+
 		Constraint(IConstraintDescriptor descriptor, String errorMessage) {
 			this.descriptor = descriptor;
 			this.errorMessage = errorMessage;
 		}
-		
+
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
 		}
 
 		public IStatus validate(IValidationContext ctx) {
 			assertTrue(ctx.getTarget() instanceof Order);
-			
+
 			if (!enabled) {
 				return ctx.createSuccessStatus();
 			}
-			
-			return ctx.createFailureStatus(new Object[] {errorMessage});
+
+			return ctx.createFailureStatus(new Object[] { errorMessage });
 		}
 	}
-	
+
 	public static final class JavaConstraint extends AbstractModelConstraint {
 		static boolean enabled = false;
 
 		@Override
 		public IStatus validate(IValidationContext ctx) {
 			assertTrue(ctx.getTarget() instanceof Order);
-			
+
 			if (!enabled) {
 				return ctx.createSuccessStatus();
 			}
-			
-			return ctx.createFailureStatus(new Object[] {JAVA_MESSAGE});
+
+			return ctx.createFailureStatus(new Object[] { JAVA_MESSAGE });
 		}
-		
+
 	}
-	
-	private static class Descriptor
-			extends AbstractConstraintDescriptor
-			implements IParameterizedConstraintDescriptor {
+
+	private static class Descriptor extends AbstractConstraintDescriptor implements IParameterizedConstraintDescriptor {
 
 		private final String id;
 		private final String lang;
-		
+
 		Descriptor(String id, String lang) {
 			this.id = id;
 			this.lang = lang;
-			
-			addCategory(CategoryManager.getInstance().findCategory(
-					"junit/validation")); //$NON-NLS-1$
+
+			addCategory(CategoryManager.getInstance().findCategory("junit/validation")); //$NON-NLS-1$
 		}
-		
+
 		public String getLanguage() {
 			return lang;
 		}
@@ -234,7 +219,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			} else if (IParameterizedConstraintDescriptor.BUNDLE_PARAMETER.equals(name)) {
 				return getPluginId();
 			}
-			
+
 			return null;
 		}
 

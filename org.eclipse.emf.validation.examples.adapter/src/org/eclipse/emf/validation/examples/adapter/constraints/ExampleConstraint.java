@@ -15,13 +15,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.IValidationContext;
 
-
 /**
- * A simple example constraint to demonstrate delegation from EMF to the
- * EMF Validation Framework.  This constraint will always fail, in order
- * to emit an informational message proving that it was invoked. */
-public class ExampleConstraint
-	extends AbstractModelConstraint {
+ * A simple example constraint to demonstrate delegation from EMF to the EMF
+ * Validation Framework. This constraint will always fail, in order to emit an
+ * informational message proving that it was invoked.
+ */
+public class ExampleConstraint extends AbstractModelConstraint {
 
 	/**
 	 * Initializes me.

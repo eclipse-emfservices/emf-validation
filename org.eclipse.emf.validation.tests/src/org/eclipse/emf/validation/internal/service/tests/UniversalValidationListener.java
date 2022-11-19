@@ -17,7 +17,7 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 public class UniversalValidationListener implements IValidationListener {
 	public static ValidationEvent LAST_EVENT = null;
 	public static boolean enabled = false;
-	
+
 	public void validationOccurred(ValidationEvent event) {
 		if (enabled) {
 			LAST_EVENT = event;

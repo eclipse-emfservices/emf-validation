@@ -18,13 +18,13 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.Enablement;
 import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Enablement</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Enablement</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl#getDomExpression <em>Dom Expression</em>}</li>
+ * <li>{@link org.eclipse.emf.validation.internal.modeled.model.validation.impl.EnablementImpl#getDomExpression
+ * <em>Dom Expression</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,9 +33,9 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.ValidationPa
  */
 public class EnablementImpl extends ClientContextImpl implements Enablement {
 	/**
-	 * The default value of the '{@link #getDomExpression() <em>Dom Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getDomExpression() <em>Dom
+	 * Expression</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getDomExpression()
 	 * @generated
 	 * @ordered
@@ -43,9 +43,9 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 	protected static final String DOM_EXPRESSION_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getDomExpression() <em>Dom Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getDomExpression() <em>Dom Expression</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getDomExpression()
 	 * @generated
 	 * @ordered
@@ -53,8 +53,8 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 	protected String domExpression = DOM_EXPRESSION_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected EnablementImpl() {
@@ -62,8 +62,8 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -72,8 +72,8 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getDomExpression() {
@@ -81,83 +81,86 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setDomExpression(String newDomExpression) {
 		String oldDomExpression = domExpression;
 		domExpression = newDomExpression;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ValidationPackage.ENABLEMENT__DOM_EXPRESSION, oldDomExpression, domExpression));
+			eNotify(new ENotificationImpl(this, Notification.SET, ValidationPackage.ENABLEMENT__DOM_EXPRESSION,
+					oldDomExpression, domExpression));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
-				return getDomExpression();
+		case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
+			return getDomExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
-				setDomExpression((String)newValue);
-				return;
+		case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
+			setDomExpression((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
-				setDomExpression(DOM_EXPRESSION_EDEFAULT);
-				return;
+		case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
+			setDomExpression(DOM_EXPRESSION_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
-				return DOM_EXPRESSION_EDEFAULT == null ? domExpression != null : !DOM_EXPRESSION_EDEFAULT.equals(domExpression);
+		case ValidationPackage.ENABLEMENT__DOM_EXPRESSION:
+			return DOM_EXPRESSION_EDEFAULT == null ? domExpression != null
+					: !DOM_EXPRESSION_EDEFAULT.equals(domExpression);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (domExpression: ");
@@ -166,4 +169,4 @@ public class EnablementImpl extends ClientContextImpl implements Enablement {
 		return result.toString();
 	}
 
-} //EnablementImpl
+} // EnablementImpl

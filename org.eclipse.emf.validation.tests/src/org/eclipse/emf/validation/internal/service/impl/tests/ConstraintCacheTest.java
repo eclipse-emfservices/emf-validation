@@ -33,38 +33,39 @@ import ordersystem.OrderSystemFactory;
 public class ConstraintCacheTest extends TestCase {
 	static int batchHits = 0;
 	static int liveHits = 0;
-	
+
 	private ConstraintCache fixture;
 	private IProviderDescriptor provider;
-	
+
 	/**
 	 * Constructor for ConstraintCacheTest.
+	 * 
 	 * @param name
 	 */
 	public ConstraintCacheTest(String name) {
 		super(name);
 	}
 
-	/* (non-Javadoc)
-	 * Extends the inherited method.
+	/*
+	 * (non-Javadoc) Extends the inherited method.
 	 */
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		
+
 		provider = new TestDescriptor();
-		
+
 		fixture = new ConstraintCache();
 		fixture.addProvider(provider);
 	}
-	
+
 	private ConstraintCache getFixture() {
 		return fixture;
 	}
-	
+
 	public void test_getDescriptor() {
 		IProviderDescriptor desc = getFixture().getDescriptor();
-		
+
 		assertNotNull("Descriptor is null", desc); //$NON-NLS-1$
 		assertTrue("Descriptor is not caching", desc.isCache()); //$NON-NLS-1$
 		assertFalse("Descriptor is cacheable", desc.isCacheEnabled()); //$NON-NLS-1$
@@ -73,34 +74,31 @@ public class ConstraintCacheTest extends TestCase {
 
 	public void test_getProviders() {
 		Collection<IProviderDescriptor> c = getFixture().getProviders();
-		
+
 		assertNotNull("Collection is null", c); //$NON-NLS-1$
 		assertFalse("Collection is empty", c.isEmpty()); //$NON-NLS-1$
 	}
 
 	public void test_addProvider() {
 		Collection<IProviderDescriptor> c = getFixture().getProviders();
-		
+
 		assertNotNull("Collection is null", c); //$NON-NLS-1$
 		assertTrue("Provider not found", c.contains(provider)); //$NON-NLS-1$
 	}
 
 	public void test_getBatchConstraints() {
 		assertTrue("Hit count should be zero", batchHits == 0); //$NON-NLS-1$
-		
-		Collection<IModelConstraint> c = getFixture().getBatchConstraints(
-				OrderSystemFactory.eINSTANCE.createProduct(),
+
+		Collection<IModelConstraint> c = getFixture().getBatchConstraints(OrderSystemFactory.eINSTANCE.createProduct(),
 				null);
-		
+
 		assertNotNull("Collection is null", c);//$NON-NLS-1$
 		assertEquals("Wrong number of constraints.", 1, c.size());//$NON-NLS-1$
 		assertEquals("Source provider not hit.", 1, batchHits);//$NON-NLS-1$
-		
+
 		// hit the cache again, and check that it it did not miss
-		c = getFixture().getBatchConstraints(
-				OrderSystemFactory.eINSTANCE.createProduct(),
-				null);
-		
+		c = getFixture().getBatchConstraints(OrderSystemFactory.eINSTANCE.createProduct(), null);
+
 		assertNotNull("Second collection is null", c);//$NON-NLS-1$
 		assertEquals("Wrong number of constraints on second pass.", 1, c.size());//$NON-NLS-1$
 		assertEquals("Source provider hit again.", 1, batchHits);//$NON-NLS-1$
@@ -108,34 +106,27 @@ public class ConstraintCacheTest extends TestCase {
 
 	public void test_getLiveConstraints() {
 		assertTrue("Hit count should be zero", liveHits == 0); //$NON-NLS-1$
-		
+
 		Collection<IModelConstraint> c = getFixture().getLiveConstraints(
-				new TestNotification(
-						OrderSystemFactory.eINSTANCE.createProduct(),
-						Notification.SET),
-				null);
-		
+				new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET), null);
+
 		assertNotNull("Collection is null", c);//$NON-NLS-1$
 		assertEquals("Wrong number of constraints.", 1, c.size());//$NON-NLS-1$
 		assertEquals("Source provider not hit.", 1, liveHits);//$NON-NLS-1$
-		
+
 		// hit the cache again, and check that it it did not miss
 		c = getFixture().getLiveConstraints(
-				new TestNotification(
-						OrderSystemFactory.eINSTANCE.createProduct(),
-						Notification.SET),
-				null);
-		
+				new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET), null);
+
 		assertNotNull("Second collection is null", c);//$NON-NLS-1$
 		assertEquals("Wrong number of constraints on second pass.", 1, c.size());//$NON-NLS-1$
 		assertEquals("Source provider hit again.", 1, liveHits);//$NON-NLS-1$
 	}
-	
+
 	static class TestDescriptor implements IProviderDescriptor {
 		private final IModelConstraintProvider testProvider = new TestProvider();
-		
-		public boolean provides(
-				IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
+
+		public boolean provides(IProviderOperation<? extends Collection<? extends IModelConstraint>> operation) {
 			return true;
 		}
 
@@ -155,24 +146,21 @@ public class ConstraintCacheTest extends TestCase {
 			return testProvider;
 		}
 	}
-	
-	static class TestProvider
-			extends AbstractGetConstraintsOperationTest.TestProvider {
-		
+
+	static class TestProvider extends AbstractGetConstraintsOperationTest.TestProvider {
+
 		@Override
-		public Collection<IModelConstraint> getBatchConstraints(
-			EObject eObject,
-			Collection<IModelConstraint> constraints) {
-			
+		public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
+				Collection<IModelConstraint> constraints) {
+
 			batchHits++;
 			return super.getBatchConstraints(eObject, constraints);
 		}
-		
+
 		@Override
-		public Collection<IModelConstraint> getLiveConstraints(
-			Notification notification,
-			Collection<IModelConstraint> constraints) {
-			
+		public Collection<IModelConstraint> getLiveConstraints(Notification notification,
+				Collection<IModelConstraint> constraints) {
+
 			liveHits++;
 			return super.getLiveConstraints(notification, constraints);
 		}

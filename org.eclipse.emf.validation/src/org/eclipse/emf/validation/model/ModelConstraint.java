@@ -23,16 +23,15 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * 
  * @author Chris McGee (cmcgee)
  */
-public abstract class ModelConstraint
-	implements IModelConstraint {
+public abstract class ModelConstraint implements IModelConstraint {
 
 	private IConstraintDescriptor descriptor;
 
 	/**
 	 * Constructs me with the provided non-null constraint descriptor.
 	 * 
-	 * @param descriptor A non-null constraint descriptor that describes
-	 *  this model constraint.
+	 * @param descriptor A non-null constraint descriptor that describes this model
+	 *                   constraint.
 	 */
 	public ModelConstraint(IConstraintDescriptor descriptor) {
 		super();

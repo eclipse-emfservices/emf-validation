@@ -35,8 +35,7 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
  * 
  * @since 1.3
  */
-public final class ResourceStatus
-		extends ConstraintStatus {
+public final class ResourceStatus extends ConstraintStatus {
 
 	private static IModelConstraint dummy = new IModelConstraint() {
 
@@ -99,12 +98,10 @@ public final class ResourceStatus
 	/**
 	 * Initializes me with my resource.
 	 * 
-	 * @param resource
-	 *            a resource covered by the validation operation
+	 * @param resource a resource covered by the validation operation
 	 */
 	public ResourceStatus(EObject root) {
-		super(dummy, root, IStatus.OK, 0,
-			ValidationMessages.eval_all_pass_INFO_, Collections.singleton(root));
+		super(dummy, root, IStatus.OK, 0, ValidationMessages.eval_all_pass_INFO_, Collections.singleton(root));
 	}
 
 }

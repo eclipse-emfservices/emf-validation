@@ -11,7 +11,6 @@
  *    SAP AG - Bug 240352
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.internal.util;
 
 import java.util.Map;
@@ -45,17 +44,15 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  * 
  * @author Christian W. Damus (cdamus)
  */
-public class JavaConstraintParser
-		implements IParameterizedConstraintParser, IXmlConstraintParser {
-	
+public class JavaConstraintParser implements IParameterizedConstraintParser, IXmlConstraintParser {
+
 	/**
-	 * Mapping of constraint implementation classes to instances, to support
-	 * the single-instance model of {@link AbstractModelConstraint} any class
+	 * Mapping of constraint implementation classes to instances, to support the
+	 * single-instance model of {@link AbstractModelConstraint} any class
 	 * implementing one or more ad hoc validation method signatures.
 	 */
-	private static final Map<Class<?>, Object> constraintImplementationMap =
-		new java.util.HashMap<Class<?>, Object>();
-	
+	private static final Map<Class<?>, Object> constraintImplementationMap = new java.util.HashMap<Class<?>, Object>();
+
 	/**
 	 * Adapts instances of {@link AbstractModelConstraint} to the internal
 	 * constraint API.
@@ -65,24 +62,22 @@ public class JavaConstraintParser
 	private static class ConstraintAdapter implements IModelConstraint {
 		private final AbstractModelConstraint delegate;
 		private final IConstraintDescriptor descriptor;
-		
-		ConstraintAdapter(
-			IConstraintDescriptor descriptor,
-			AbstractModelConstraint delegate) {
-			
+
+		ConstraintAdapter(IConstraintDescriptor descriptor, AbstractModelConstraint delegate) {
+
 			this.descriptor = descriptor;
 			this.delegate = delegate;
 		}
-		
-		/* (non-Javadoc)
-		 * Implements the inherited method.
+
+		/*
+		 * (non-Javadoc) Implements the inherited method.
 		 */
 		public IStatus validate(IValidationContext ctx) {
 			return delegate.validate(ctx);
 		}
 
-		/* (non-Javadoc)
-		 * Implements the inherited method.
+		/*
+		 * (non-Javadoc) Implements the inherited method.
 		 */
 		public IConstraintDescriptor getDescriptor() {
 			return descriptor;
@@ -95,62 +90,52 @@ public class JavaConstraintParser
 	public JavaConstraintParser() {
 		super();
 	}
-	
+
 	// implements the interface method
-	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor) throws ConstraintParserException {
-		
-		String className = descriptor.getParameterValue(
-				IParameterizedConstraintDescriptor.CLASS_PARAMETER);
+	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
+			throws ConstraintParserException {
+
+		String className = descriptor.getParameterValue(IParameterizedConstraintDescriptor.CLASS_PARAMETER);
 
 		if (className == null) {
-			ConstraintParserException cpe = new ConstraintParserException(
-					"No class name."); //$NON-NLS-1$
-			
+			ConstraintParserException cpe = new ConstraintParserException("No class name."); //$NON-NLS-1$
+
 			Trace.throwing(getClass(), "parseConstraint", cpe); //$NON-NLS-1$
 			throw cpe;
 		}
 
-		return createCustomConstraint(
-				className,
-				descriptor.getParameterValue(
-						IParameterizedConstraintDescriptor.BUNDLE_PARAMETER),
-				descriptor);
+		return createCustomConstraint(className,
+				descriptor.getParameterValue(IParameterizedConstraintDescriptor.BUNDLE_PARAMETER), descriptor);
 	}
-    
-    public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor)
-        throws ConstraintParserException {
-        
-        String className = descriptor.getConfig().getAttribute(XmlConfig.A_CLASS);
 
-        if (className == null) {
-            ConstraintParserException cpe = new ConstraintParserException(
-                    "No class name."); //$NON-NLS-1$
-            
-            Trace.throwing(getClass(), "parseConstraint", cpe); //$NON-NLS-1$
-            throw cpe;
-        }
+	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
 
-        return createCustomConstraint(
-                className,
-                descriptor.getConfig().getDeclaringExtension().getNamespaceIdentifier(),
-                descriptor);
-    }
+		String className = descriptor.getConfig().getAttribute(XmlConfig.A_CLASS);
+
+		if (className == null) {
+			ConstraintParserException cpe = new ConstraintParserException("No class name."); //$NON-NLS-1$
+
+			Trace.throwing(getClass(), "parseConstraint", cpe); //$NON-NLS-1$
+			throw cpe;
+		}
+
+		return createCustomConstraint(className,
+				descriptor.getConfig().getDeclaringExtension().getNamespaceIdentifier(), descriptor);
+	}
 
 	/**
 	 * Helper method which creates an {@link IModelConstraint} adapter for the
 	 * specified subclass of {@link AbstractModelConstraint}.
 	 * 
-	 * @param className the name of a class implementing the constraint
+	 * @param className  the name of a class implementing the constraint
 	 * @param bundleName the symbolic name of the bundle containing the constraint
-	 *    class
+	 *                   class
 	 * @param descriptor the constraint's descriptor
 	 * @return a constraint as described above
-	 * @throws ConstraintParserException if the constraint cannot be created
-	 *     for some reason.
+	 * @throws ConstraintParserException if the constraint cannot be created for
+	 *                                   some reason.
 	 */
-	private IModelConstraint createCustomConstraint(
-			String className,
-			String bundleName,
+	private IModelConstraint createCustomConstraint(String className, String bundleName,
 			IConstraintDescriptor descriptor) throws ConstraintParserException {
 
 		IModelConstraint result = null;
@@ -159,10 +144,10 @@ public class JavaConstraintParser
 
 		ClassProvider classProvider = null;
 
-		if ( EMFPlugin.IS_ECLIPSE_RUNNING) {
+		if (EMFPlugin.IS_ECLIPSE_RUNNING) {
 			classProvider = new ClassProvider.BundleProvider(Platform.getBundle(bundleName));
-		} else if ( descriptor instanceof ModeledConstraintDescriptor) {
-			classProvider = ((ModeledConstraintDescriptor)descriptor).getClassProvider();
+		} else if (descriptor instanceof ModeledConstraintDescriptor) {
+			classProvider = ((ModeledConstraintDescriptor) descriptor).getClassProvider();
 		} else {
 			classProvider = new ClassProvider.ClassLoaderProvider(EMFModelValidationPlugin.INSTANCE);
 		}
@@ -172,69 +157,62 @@ public class JavaConstraintParser
 
 			if (AbstractModelConstraint.class.isAssignableFrom(resultType)) {
 				// instantiate the class extending AbstractModelConstraint
-				result = new ConstraintAdapter(
-					descriptor,
-					(AbstractModelConstraint)getInstance(resultType));
+				result = new ConstraintAdapter(descriptor, (AbstractModelConstraint) getInstance(resultType));
 			}
 		} catch (ClassNotFoundException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
 					EMFModelValidationStatusCodes.DELEGATE_CLASS_NOT_FOUND_MSG,
-					new Object[] {descriptor.getId(), className});
+					new Object[] { descriptor.getId(), className });
 		} catch (InstantiationException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
 					EMFModelValidationStatusCodes.DELEGATE_INSTANTIATION_MSG,
-					new Object[] {descriptor.getId(), className});
+					new Object[] { descriptor.getId(), className });
 		} catch (IllegalAccessException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
 					EMFModelValidationStatusCodes.DELEGATE_METHOD_INACCESSIBLE_MSG,
-					new Object[] {descriptor.getId(), className, null});
+					new Object[] { descriptor.getId(), className, null });
 		}
 
 		if (pendingException != null) {
 			Trace.catching(getClass(), "createCustomConstraint", pendingException); //$NON-NLS-1$
-			Log.error(
-					EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED,
-					pendingMessage,
+			Log.error(EMFModelValidationStatusCodes.CONSTRAINT_NOT_INITED, pendingMessage, pendingException);
+
+			ConstraintParserException cpe = new ConstraintParserException(pendingException.getLocalizedMessage(),
 					pendingException);
-			
-			ConstraintParserException cpe = new ConstraintParserException(
-					pendingException.getLocalizedMessage(),
-					pendingException);
-			
+
 			Trace.throwing(getClass(), "createCustomConstraint", cpe); //$NON-NLS-1$
 			throw cpe;
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * Obtains an instance of the specified constraint implementation class,
-	 * which should either extend {@link AbstractModelConstraint} or
-	 * implement an appropriate validation method signature.  The instances are
-	 * pooled to support the sharing of instances as described in the
-	 * documentation of the <code>AbstractModelConstraint</code> class.
+	 * Obtains an instance of the specified constraint implementation class, which
+	 * should either extend {@link AbstractModelConstraint} or implement an
+	 * appropriate validation method signature. The instances are pooled to support
+	 * the sharing of instances as described in the documentation of the
+	 * <code>AbstractModelConstraint</code> class.
 	 * 
 	 * @param constraintClass the constraint implementation type
 	 * @return the shared instance of the <code>constraintClass</code>
-	 * @throws InstantiationException if the instance needs to be created
-	 *     and an exception occurs in instantiating it
-	 * @throws IllegalAccessException if the instance needs to be created
-	 *     and the default constructor is not accessible
+	 * @throws InstantiationException if the instance needs to be created and an
+	 *                                exception occurs in instantiating it
+	 * @throws IllegalAccessException if the instance needs to be created and the
+	 *                                default constructor is not accessible
 	 */
-	static Object getInstance(Class<?> constraintClass)
-			throws InstantiationException, IllegalAccessException {
-		
+	static Object getInstance(Class<?> constraintClass) throws InstantiationException, IllegalAccessException {
+
 		Object result = constraintImplementationMap.get(constraintClass);
-		
+
 		if (result == null) {
 			result = constraintClass.newInstance();
 			constraintImplementationMap.put(constraintClass, result);
 		}
-		
+
 		return result;
 	}
 }

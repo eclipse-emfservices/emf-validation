@@ -11,7 +11,6 @@
  *    Zeligsoft - Bug 249690
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.service;
 
 /**

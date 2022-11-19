@@ -25,45 +25,42 @@ import junit.framework.TestCase;
  * @author Christian W. Damus (cdamus)
  */
 public class XmlConfigTest extends TestCase {
-	private static final String PLUGIN_ID =
-		"org.eclipse.emf.validation.tests"; //$NON-NLS-1$
-	
+	private static final String PLUGIN_ID = "org.eclipse.emf.validation.tests"; //$NON-NLS-1$
+
 	private static final String TEST_ID = "test-include"; //$NON-NLS-1$
 	private static final String TEST_NAME = "Test Include"; //$NON-NLS-1$
-	
+
 	private IConfigurationElement getFixture() {
 		// work around a bug in the IPluginDescriptor.getExtension(String id)
-		//    method that does not account for extensions that do not have IDs
-		//    and, therefore, throws NPEs
-		IExtension[] exts = Platform.getExtensionRegistry().getExtensions(
-			PLUGIN_ID);
-		
+		// method that does not account for extensions that do not have IDs
+		// and, therefore, throws NPEs
+		IExtension[] exts = Platform.getExtensionRegistry().getExtensions(PLUGIN_ID);
+
 		for (int i = 0; i < exts.length; i++) {
-			if ((exts[i].getSimpleIdentifier() != null)
-					&& exts[i].getSimpleIdentifier().equals(TEST_ID)) {
-				
+			if ((exts[i].getSimpleIdentifier() != null) && exts[i].getSimpleIdentifier().equals(TEST_ID)) {
+
 				return exts[i].getConfigurationElements()[0];
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public void test_parseConstraintsWithIncludes() {
 		IConfigurationElement constraints = getFixture();
-		
+
 		IConfigurationElement newConstraints = null;
 		try {
 			newConstraints = XmlConfig.parseConstraintsWithIncludes(constraints);
 		} catch (CoreException e) {
 			fail("Failed to parse: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
-		
+
 		assertNotSame(constraints, newConstraints);
 		assertEquals(constraints.getName(), newConstraints.getName());
-		
+
 		IConfigurationElement[] children = newConstraints.getChildren();
-		
+
 		// the <include> element is replaced by a single <constraint> element
 		assertEquals(1, children.length);
 		assertEquals(XmlConfig.E_CONSTRAINT, children[0].getName());
@@ -71,29 +68,29 @@ public class XmlConfigTest extends TestCase {
 		assertEquals("OCL", children[0].getAttribute(XmlConfig.A_LANG)); //$NON-NLS-1$
 		assertEquals("1", children[0].getAttribute(XmlConfig.A_STATUS_CODE)); //$NON-NLS-1$
 		assertEquals("true", children[0].getValue()); //$NON-NLS-1$
-		
+
 		IConfigurationElement[] grandchildren = children[0].getChildren();
-		
+
 		assertEquals(1, grandchildren.length);
-		
+
 		IConfigurationElement message = grandchildren[0];
-		
+
 		assertEquals(XmlConfig.E_MESSAGE, message.getName());
 		assertEquals("This is a message.", message.getValue()); //$NON-NLS-1$
 	}
-	
+
 	public void test_constraintLocalization() {
 		IConfigurationElement constraints = getFixture();
-		
+
 		IConfigurationElement newConstraints = null;
 		try {
 			newConstraints = XmlConfig.parseConstraintsWithIncludes(constraints);
 		} catch (CoreException e) {
 			fail("Failed to parse: " + e.getLocalizedMessage()); //$NON-NLS-1$
 		}
-		
+
 		IConfigurationElement[] children = newConstraints.getChildren();
-		
+
 		// the <include> element is replaced by a single <constraint> element
 		assertTrue("Not enough child elements", children.length > 0); //$NON-NLS-1$
 		assertEquals(TEST_NAME, children[0].getAttribute(XmlConfig.A_NAME));

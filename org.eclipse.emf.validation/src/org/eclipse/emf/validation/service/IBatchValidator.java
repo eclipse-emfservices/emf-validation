@@ -11,7 +11,6 @@
  *    Zeligsoft - Bugs 218765, 249690
  ****************************************************************************/
 
-
 package org.eclipse.emf.validation.service;
 
 import java.util.Collection;
@@ -42,8 +41,8 @@ import org.eclipse.emf.validation.model.EvaluationMode;
  */
 public interface IBatchValidator extends IValidator<EObject> {
 	/**
-	 * A boolean-valued option indicating whether to include live constraints in
-	 * a batch validation. The default value is <code>false</code>.
+	 * A boolean-valued option indicating whether to include live constraints in a
+	 * batch validation. The default value is <code>false</code>.
 	 * 
 	 * @since 1.3
 	 * 
@@ -53,8 +52,8 @@ public interface IBatchValidator extends IValidator<EObject> {
 
 	/**
 	 * An option specifying an implementation of the {@link ITraversalStrategy}
-	 * interface to be used to walk the model being validated. The default value
-	 * of this option is a {@linkplain #getDefaultTraversalStrategy() traversal
+	 * interface to be used to walk the model being validated. The default value of
+	 * this option is a {@linkplain #getDefaultTraversalStrategy() traversal
 	 * strategy} that delegates to strategy objects registered on the
 	 * <tt>org.eclipse.emf.validation.traversal</tt> extension point.
 	 * 
@@ -67,14 +66,14 @@ public interface IBatchValidator extends IValidator<EObject> {
 			return ((IBatchValidator) validator).getDefaultTraversalStrategy();
 		}
 	};
-	
+
 	/**
 	 * A boolean-valued option indicating whether to include include, in the
-	 * validation result, marker statuses for the resources covered by the validation
-	 * operation.  This is required when using the {@link MarkerUtil} to update
-	 * the problem markers attached to resources.  This is optional because of
-	 * the increased cost (in time efficiency) of determining the resources.
-	 * The default value of this option is <code>false</code>.
+	 * validation result, marker statuses for the resources covered by the
+	 * validation operation. This is required when using the {@link MarkerUtil} to
+	 * update the problem markers attached to resources. This is optional because of
+	 * the increased cost (in time efficiency) of determining the resources. The
+	 * default value of this option is <code>false</code>.
 	 * 
 	 * @since 1.3
 	 * 
@@ -84,11 +83,11 @@ public interface IBatchValidator extends IValidator<EObject> {
 
 	/**
 	 * <p>
-	 * Queries whether I also evaluate applicable live constraints on each
-	 * object that I validate.  This supports those clients that do not
-	 * implement a transaction model for which live validation would be
-	 * appropriate, but which still need to ensure that vital data integrity
-	 * and other live constraints are satisfied by their models.
+	 * Queries whether I also evaluate applicable live constraints on each object
+	 * that I validate. This supports those clients that do not implement a
+	 * transaction model for which live validation would be appropriate, but which
+	 * still need to ensure that vital data integrity and other live constraints are
+	 * satisfied by their models.
 	 * </p>
 	 * <p>
 	 * By default, I only apply batch constraints (not live constraints).
@@ -99,13 +98,13 @@ public interface IBatchValidator extends IValidator<EObject> {
 	 * </p>
 	 * 
 	 * @return <code>true</code> if I apply both batch and live constraints;
-	 *    <code>false</code> if I apply only batch constraints (the default)
-	 *    
+	 *         <code>false</code> if I apply only batch constraints (the default)
+	 * 
 	 * @see IValidator#getOptions()
 	 * @see #OPTION_INCLUDE_LIVE_CONSTRAINTS
 	 */
 	boolean isIncludeLiveConstraints();
-	
+
 	/**
 	 * <p>
 	 * Sets whether live constraints are to be included in validation.
@@ -122,15 +121,15 @@ public interface IBatchValidator extends IValidator<EObject> {
 	 * @see IBatchValidator#OPTION_INCLUDE_LIVE_CONSTRAINTS
 	 */
 	void setIncludeLiveConstraints(boolean includeLiveConstraints);
-	
+
 	/**
 	 * <p>
-	 * Obtains the traversal strategy that I employ to walk the model starting
-	 * from the elements selected by the client.
+	 * Obtains the traversal strategy that I employ to walk the model starting from
+	 * the elements selected by the client.
 	 * </p>
 	 * <p>
-	 * Since the 1.3 release, this method is equivalent to obtaining the value
-	 * of the {@link #OPTION_TRAVERSAL_STRATEGY} validation option.
+	 * Since the 1.3 release, this method is equivalent to obtaining the value of
+	 * the {@link #OPTION_TRAVERSAL_STRATEGY} validation option.
 	 * </p>
 	 * 
 	 * @return my current traversal strategy
@@ -139,7 +138,7 @@ public interface IBatchValidator extends IValidator<EObject> {
 	 * @see #OPTION_TRAVERSAL_STRATEGY
 	 */
 	ITraversalStrategy getTraversalStrategy();
-	
+
 	/**
 	 * <p>
 	 * Sets my traversal strategy.
@@ -149,72 +148,71 @@ public interface IBatchValidator extends IValidator<EObject> {
 	 * {@link #OPTION_TRAVERSAL_STRATEGY} validation option.
 	 * </p>
 	 * 
-	 * @param strategy the new traversal strategy.  Must not be
-	 *     <code>null</code>
+	 * @param strategy the new traversal strategy. Must not be <code>null</code>
 	 *
 	 * @throws IllegalArgumentException on <code>null</code> strategies
-	 *  
+	 * 
 	 * @see #getTraversalStrategy
 	 * @see IValidator#setOptions(java.util.Map)
 	 * @see #OPTION_TRAVERSAL_STRATEGY
 	 */
 	void setTraversalStrategy(ITraversalStrategy strategy);
-	
+
 	/**
 	 * Obtains the default traversal strategy, which can be assigned to me to
 	 * {@link #setTraversalStrategy restore} the default behavior of recursive
-	 * validation.  The default strategy makes use of all available customized
+	 * validation. The default strategy makes use of all available customized
 	 * {@link ITraversalStrategy} implementations contributed by plug-ins for
-	 * iteration of the model sub-trees selected for recursive validation.
-	 * This is different from the {@link ITraversalStrategy.Recursive} strategy,
-	 * which simply iterates the entire contents of a model subtree.
+	 * iteration of the model sub-trees selected for recursive validation. This is
+	 * different from the {@link ITraversalStrategy.Recursive} strategy, which
+	 * simply iterates the entire contents of a model subtree.
 	 * 
 	 * @return the default traversal strategy
 	 * 
 	 * @see #setTraversalStrategy
 	 */
 	ITraversalStrategy getDefaultTraversalStrategy();
-	
+
 	/**
 	 * Validates the specified {@link EObject EMF element}, using the specified
-	 * progress <code>monitor</code> to monitor progress of validation (which
-	 * is especially useful for recursive validation).
+	 * progress <code>monitor</code> to monitor progress of validation (which is
+	 * especially useful for recursive validation).
 	 * 
 	 * @param eObject the EMF element to validate
 	 * @param monitor the progress monitor to track validation progress, or
-	 *      <code>null</code> if no progress monitoring is required
+	 *                <code>null</code> if no progress monitoring is required
 	 * @return the validation status
 	 * @see IValidator#validate(Object)
 	 */
 	IStatus validate(EObject eObject, IProgressMonitor monitor);
-	
+
 	/**
 	 * Validates the specified {@link EObject EMF elements}, using the specified
 	 * progress monitor to monitor progress of validation.
 	 * 
 	 * @param eObjects the EMF elements to validate
-	 * @param monitor the progress monitor to track validation progress, or
-	 *      <code>null</code> if no progress monitoring is required
+	 * @param monitor  the progress monitor to track validation progress, or
+	 *                 <code>null</code> if no progress monitoring is required
 	 * @return the validation status
 	 * @see IValidator#validate(Object)
 	 */
 	IStatus validate(Collection<? extends EObject> eObjects, IProgressMonitor monitor);
-	
+
 	/**
-	 * Validates a single {@link EObject EMF element} without using any
-	 * progress monitor.
+	 * Validates a single {@link EObject EMF element} without using any progress
+	 * monitor.
 	 * 
 	 * @param object the object to validate
 	 */
 	IStatus validate(EObject eobject);
-	
+
 	/**
-	 * Validates multiple {@link EObject EMF elements} without using any
-	 * progress monitor.
+	 * Validates multiple {@link EObject EMF elements} without using any progress
+	 * monitor.
 	 * 
 	 * @param objects must all be {@link org.eclipse.emf.ecore.EObject}s
-	 * @throws ClassCastException if any of the <code>objects</code> is
-	 *     not an {@link org.eclipse.emf.ecore.EObject}
+	 * @throws ClassCastException if any of the <code>objects</code> is not an
+	 *                            {@link org.eclipse.emf.ecore.EObject}
 	 */
 	IStatus validate(Collection<? extends EObject> objects);
 }

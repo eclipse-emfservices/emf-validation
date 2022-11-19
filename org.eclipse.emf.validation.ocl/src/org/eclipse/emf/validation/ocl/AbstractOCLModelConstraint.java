@@ -30,167 +30,160 @@ import org.eclipse.ocl.helper.OCLHelper;
 /**
  * <p>
  * An OCL-language implementation of the
- * {@link org.eclipse.emf.validation.model.IModelConstraint} interface.
- * This class considers the OCL constraint text as a context-free expression,
+ * {@link org.eclipse.emf.validation.model.IModelConstraint} interface. This
+ * class considers the OCL constraint text as a context-free expression,
  * possibly targeting multiple model types (because the validation framework
- * permits declaration of any number of targets).  A separate OCL {@link Query}
+ * permits declaration of any number of targets). A separate OCL {@link Query}
  * is created and cached for each of these target types as required.
- * </p><p>
+ * </p>
+ * <p>
  * Any problems in parsing or executing the OCL will result in the constraint
  * being disabled at run-time.
- * </p><p>
+ * </p>
+ * <p>
  * This class is intended to be used by clients of the validation framework that
  * need to customize the OCL parsing environment for their constraints.
- * </p><p>
- * The generic type parameters declared by this class correspond to the like-named
- * parameters of the {@link EnvironmentFactory} interface.
+ * </p>
+ * <p>
+ * The generic type parameters declared by this class correspond to the
+ * like-named parameters of the {@link EnvironmentFactory} interface.
  * </p>
  * 
- * @param <C> The metaclass corresponding to the UML Classifier in the environment
- *      provided by subclasses.
- * @param <CT> The metaclass corresponding to the UML Constraint in the environment
- *      provided by subclasses.
+ * @param <C>   The metaclass corresponding to the UML Classifier in the
+ *              environment provided by subclasses.
+ * @param <CT>  The metaclass corresponding to the UML Constraint in the
+ *              environment provided by subclasses.
  * @param <CLS> The metaclass corresponding to the UML Class in the environment
- *      provided by subclasses.
- * @param <E> The metaclass of run-time instances in the environment
- *      provided by subclasses.
+ *              provided by subclasses.
+ * @param <E>   The metaclass of run-time instances in the environment provided
+ *              by subclasses.
  * 
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IModelConstraint {
 	private final IConstraintDescriptor descriptor;
-    
-    /**
-     * A separate query is maintained for each EClass of model object
-     * that this constraint handles.  Maintain the values in weak references
-     * also, because the queries reference the EClasses that are the keys!
-     */
-    private final java.util.Map<EClass, Reference<?>> queries =
-        new java.util.WeakHashMap<EClass, Reference<?>>();
-    
-    private QueryManager queryManager;
-    
+
 	/**
-	 * Initializes me with the <code>descriptor</code> which contains my OCL
-	 * body.
-	 *  
-	 * @param descriptor the descriptor, which must contain an OCL expression
-	 *   in its body
+	 * A separate query is maintained for each EClass of model object that this
+	 * constraint handles. Maintain the values in weak references also, because the
+	 * queries reference the EClasses that are the keys!
+	 */
+	private final java.util.Map<EClass, Reference<?>> queries = new java.util.WeakHashMap<EClass, Reference<?>>();
+
+	private QueryManager queryManager;
+
+	/**
+	 * Initializes me with the <code>descriptor</code> which contains my OCL body.
+	 * 
+	 * @param descriptor the descriptor, which must contain an OCL expression in its
+	 *                   body
 	 */
 	public AbstractOCLModelConstraint(IConstraintDescriptor descriptor) {
 		this.descriptor = descriptor;
 	}
-    
-    /**
-     * Creates an Environment Factory suitable for the parsing of the client's
-     * OCL constraints.  This default implementation returns <code>null</code>,
-     * signalling that compatibility with the OCL 1.0 API is required.  In such
-     * case, the result of the {@link #createEnvironmentFactory()} method is
-     * used.
-     * 
-     * @return an environment factory for parsing OCL constraints, or
-     *     <code>null</code> to use the result of the
-     *     {@link #createEnvironmentFactory()} method
-     *
-     * @since 1.1
-     */
-    protected EnvironmentFactory<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E>
-    createOCLEnvironmentFactory() {
-        return null;
-    }
-	
 
-    /**
-     * Obtains the cached OCL query/constraint that implements me for the
-     * specified element's metaclass.
-     * 
-     * @param target a model element
-     * @return the corresponding OCL query
-     */
-    public Query<C, CLS, E> getConstraintCondition(EObject target) {
-        Query<C, CLS, E> result = null;
-        EClass eClass = target.eClass();
-        
-        @SuppressWarnings("unchecked")
-        Reference<Query<C, CLS, E>> reference =
-            (Reference<Query<C, CLS, E>>) queries.get(eClass);
-        if (reference != null) {
-            result = reference.get();
-        }
+	/**
+	 * Creates an Environment Factory suitable for the parsing of the client's OCL
+	 * constraints. This default implementation returns <code>null</code>,
+	 * signalling that compatibility with the OCL 1.0 API is required. In such case,
+	 * the result of the {@link #createEnvironmentFactory()} method is used.
+	 * 
+	 * @return an environment factory for parsing OCL constraints, or
+	 *         <code>null</code> to use the result of the
+	 *         {@link #createEnvironmentFactory()} method
+	 *
+	 * @since 1.1
+	 */
+	protected EnvironmentFactory<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> createOCLEnvironmentFactory() {
+		return null;
+	}
 
-        if (result == null) {
-            // lazily initialize the condition.  If a RuntimeException is thrown
-            //   by the QueryFactory because of a bad OCL expression, then the
-            //   constraints framework will catch it and disable me
-            OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> ocl = OCL.newInstance(
-                createOCLEnvironmentFactory());
-            OCLHelper<C, ?, ?, CT> helper = ocl.createOCLHelper();
-            helper.setInstanceContext(target);
-            
-            try {
-                result = ocl.createQuery(helper.createInvariant(getDescriptor().getBody()));
-            } catch(ParserException e) {    
-                // TODO - a better error handling ?
-                throw new RuntimeException(e);
-            }
+	/**
+	 * Obtains the cached OCL query/constraint that implements me for the specified
+	 * element's metaclass.
+	 * 
+	 * @param target a model element
+	 * @return the corresponding OCL query
+	 */
+	public Query<C, CLS, E> getConstraintCondition(EObject target) {
+		Query<C, CLS, E> result = null;
+		EClass eClass = target.eClass();
 
-            queries.put(eClass, new WeakReference<Query<C, CLS, E>>(result));
-        }
-        
-        return result;
-    }
-    
+		@SuppressWarnings("unchecked")
+		Reference<Query<C, CLS, E>> reference = (Reference<Query<C, CLS, E>>) queries.get(eClass);
+		if (reference != null) {
+			result = reference.get();
+		}
 
+		if (result == null) {
+			// lazily initialize the condition. If a RuntimeException is thrown
+			// by the QueryFactory because of a bad OCL expression, then the
+			// constraints framework will catch it and disable me
+			OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> ocl = OCL.newInstance(createOCLEnvironmentFactory());
+			OCLHelper<C, ?, ?, CT> helper = ocl.createOCLHelper();
+			helper.setInstanceContext(target);
+
+			try {
+				result = ocl.createQuery(helper.createInvariant(getDescriptor().getBody()));
+			} catch (ParserException e) {
+				// TODO - a better error handling ?
+				throw new RuntimeException(e);
+			}
+
+			queries.put(eClass, new WeakReference<Query<C, CLS, E>>(result));
+		}
+
+		return result;
+	}
 
 	// implements the inherited method
 	public IStatus validate(IValidationContext ctx) {
 		EObject target = ctx.getTarget();
-		
+
 		if (getQueryManager().check(target)) {
 			return ctx.createSuccessStatus();
 		} else {
 			// OCL constraints only support the target object as an extraction
-			//   variable and result locus, as OCL has no way to provide
-			//   additional extractions.  Also, there is no way for the OCL
-			//   to access the context object
+			// variable and result locus, as OCL has no way to provide
+			// additional extractions. Also, there is no way for the OCL
+			// to access the context object
 			return ctx.createFailureStatus(target);
 		}
 	}
-    
-    private QueryManager getQueryManager() {
-        if (queryManager == null) {
-            queryManager = new QueryManager();
-        }
-        
-        return queryManager;
-    }
-	
-	
-	/* (non-Javadoc)
-	 * Implements the interface method.
+
+	private QueryManager getQueryManager() {
+		if (queryManager == null) {
+			queryManager = new QueryManager();
+		}
+
+		return queryManager;
+	}
+
+	/*
+	 * (non-Javadoc) Implements the interface method.
 	 */
 	public IConstraintDescriptor getDescriptor() {
 		return descriptor;
 	}
-    
-    /**
-     * An object that knows how to obtain and evaluate the query implementation
-     * appropriate to the constraint's environment factory, accounting for
-     * whether it is using the OCL 1.0 or later API.
-     *
-     * @author Christian W. Damus (cdamus)
-     */
-    private final class QueryManager {
-        /**
-         * Obtains and checks the appropriate parsed constraint for the specified
-         * target element.
-         * 
-         * @param target an element to be validated
-         * @return whether it passed the constraint
-         */
-        boolean check(EObject target) {
-            Query<C, CLS, E> query = getConstraintCondition(target);
-            return query.check(target);
-        }
-    }
+
+	/**
+	 * An object that knows how to obtain and evaluate the query implementation
+	 * appropriate to the constraint's environment factory, accounting for whether
+	 * it is using the OCL 1.0 or later API.
+	 *
+	 * @author Christian W. Damus (cdamus)
+	 */
+	private final class QueryManager {
+		/**
+		 * Obtains and checks the appropriate parsed constraint for the specified target
+		 * element.
+		 * 
+		 * @param target an element to be validated
+		 * @return whether it passed the constraint
+		 */
+		boolean check(EObject target) {
+			Query<C, CLS, E> query = getConstraintCondition(target);
+			return query.check(target);
+		}
+	}
 }

@@ -16,7 +16,6 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
 
-
 /**
  * Operation implementations for the validation meta-model.
  * 
@@ -26,7 +25,7 @@ import org.eclipse.emf.validation.internal.modeled.model.validation.Category;
  */
 public class ValidationModelOperationsImpl {
 	static final String SLASH = "/"; //$NON-NLS-1$
-	
+
 	/**
 	 * Computes the path of the given category.
 	 * 
@@ -35,23 +34,23 @@ public class ValidationModelOperationsImpl {
 	 * @return path to the given category
 	 */
 	public static String categoryGetPath(Category category) {
-		StringBuilder	builder = new StringBuilder(50);
-		
+		StringBuilder builder = new StringBuilder(50);
+
 		LinkedList<Category> pathToTop = new LinkedList<Category>();
-		
-		for ( Category cat = category; cat != null; cat = cat.getParentCategory())
+
+		for (Category cat = category; cat != null; cat = cat.getParentCategory())
 			pathToTop.addFirst(cat);
-		
-		for ( Iterator<Category> i = pathToTop.iterator(); i.hasNext(); ) {
+
+		for (Iterator<Category> i = pathToTop.iterator(); i.hasNext();) {
 			Category cat = i.next();
-			
+
 			builder.append(cat.getId());
-			
-			if ( i.hasNext()) {
-				builder.append( SLASH );
+
+			if (i.hasNext()) {
+				builder.append(SLASH);
 			}
 		}
-		
+
 		return builder.toString();
 	}
 }

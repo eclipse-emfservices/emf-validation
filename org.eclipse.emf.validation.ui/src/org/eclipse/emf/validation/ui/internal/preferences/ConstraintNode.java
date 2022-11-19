@@ -19,25 +19,21 @@ import org.eclipse.emf.validation.preferences.EMFModelValidationPreferences;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
-
 /**
  * Concrete implementation of the {@link IConstraintNode} interface.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ConstraintNode
-	implements IConstraintNode {
+public class ConstraintNode implements IConstraintNode {
 
-	private static final java.util.Map<String, IConstraintNode> instanceMap =
-		new java.util.HashMap<String, IConstraintNode>();
-	
+	private static final java.util.Map<String, IConstraintNode> instanceMap = new java.util.HashMap<String, IConstraintNode>();
+
 	private final IConstraintDescriptor constraint;
 	private Boolean mandatory;
 	private boolean checked = false;
-	
-	private final java.util.Set<ICategoryTreeNode> categories =
-		new java.util.HashSet<ICategoryTreeNode>();
-	
+
+	private final java.util.Set<ICategoryTreeNode> categories = new java.util.HashSet<ICategoryTreeNode>();
+
 	/**
 	 * Initializes me with the constraint that I represent.
 	 * 
@@ -47,10 +43,10 @@ public class ConstraintNode
 		this.constraint = constraint;
 		checked = constraint.isEnabled();
 	}
-	
+
 	/**
 	 * Obtains the cached node instance corresponding to the specified
-	 * <code>constraint</code>.  Constraints are mapped one-to-one to nodes.
+	 * <code>constraint</code>. Constraints are mapped one-to-one to nodes.
 	 * 
 	 * @param constraint a validation constraint descriptor
 	 * @return the corresponding node
@@ -58,78 +54,78 @@ public class ConstraintNode
 	static IConstraintNode getInstance(IConstraintDescriptor constraint) {
 		String id = constraint.getId();
 		IConstraintNode result = null;
-		
+
 		if (id != null) {
 			result = instanceMap.get(id);
-			
+
 			if (result == null) {
 				result = new ConstraintNode(constraint);
 				instanceMap.put(id, result);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * Flushes the current cache of constraint nodes.  This should only be
-	 * called when the nodes are no longer in use.
+	 * Flushes the current cache of constraint nodes. This should only be called
+	 * when the nodes are no longer in use.
 	 */
 	public static void flushCache() {
 		instanceMap.clear();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public String getId() {
 		return constraint.getId();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public String getName() {
 		return constraint.getName();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public String getDescription() {
 		return constraint.getDescription();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public Collection<Category> getCategories() {
 		return constraint.getCategories();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public String getEvaluationMode() {
 		return constraint.getEvaluationMode().getLocalizedName();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public String getSeverity() {
 		return constraint.getSeverity().getLocalizedName();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public boolean isChecked() {
 		return checked;
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void setChecked(boolean checked) {
 		if (checked != isChecked()) {
@@ -142,48 +138,47 @@ public class ConstraintNode
 			} else {
 				this.checked = checked;
 			}
-			
+
 			updateCategories();
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public boolean isMandatory() {
 		if (mandatory == null) {
 			boolean m = false;
-			
-			for (Iterator<Category> iter = constraint.getCategories().iterator();
-					!m && iter.hasNext();) {
-				
+
+			for (Iterator<Category> iter = constraint.getCategories().iterator(); !m && iter.hasNext();) {
+
 				if (iter.next().isMandatory()) {
 					m = true;
 				}
 			}
-			
+
 			mandatory = m ? Boolean.TRUE : Boolean.FALSE;
 		}
-		
+
 		return mandatory.booleanValue();
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public boolean isErrored() {
 		return constraint.isError();
 	}
-	
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void addCategory(ICategoryTreeNode category) {
 		categories.add(category);
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void checkStateChanged(CheckStateChangedEvent event) {
 		if (event.getChecked() != isChecked()) {
@@ -196,38 +191,34 @@ public class ConstraintNode
 			} else {
 				checked = event.getChecked();
 			}
-			
+
 			updateCategories();
 		}
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void applyToPreferences() {
 		// set the preference
-		EMFModelValidationPreferences.setConstraintDisabled(
-			constraint.getId(),
-			!isChecked());
-		
+		EMFModelValidationPreferences.setConstraintDisabled(constraint.getId(), !isChecked());
+
 		// tell the constraint, too
 		constraint.setEnabled(isChecked());
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void revertFromPreferences() {
-		setChecked(!EMFModelValidationPreferences.isConstraintDisabled(
-			constraint.getId()));
+		setChecked(!EMFModelValidationPreferences.isConstraintDisabled(constraint.getId()));
 	}
 
-	/* (non-Javadoc)
-	 * Implements the inherited method.
+	/*
+	 * (non-Javadoc) Implements the inherited method.
 	 */
 	public void restoreDefaults() {
-		setChecked(!EMFModelValidationPreferences.isConstraintDisabledByDefault(
-				constraint.getId()));
+		setChecked(!EMFModelValidationPreferences.isConstraintDisabledByDefault(constraint.getId()));
 	}
 
 	/**

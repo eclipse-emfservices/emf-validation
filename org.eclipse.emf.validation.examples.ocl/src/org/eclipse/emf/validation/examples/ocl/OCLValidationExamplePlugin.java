@@ -21,7 +21,7 @@ import org.osgi.framework.BundleContext;
  */
 public class OCLValidationExamplePlugin extends Plugin {
 
-	//The shared instance.
+	// The shared instance.
 	private static OCLValidationExamplePlugin plugin;
 
 	/**
@@ -35,17 +35,16 @@ public class OCLValidationExamplePlugin extends Plugin {
 	public static String getID() {
 		return getDefault().getBundle().getSymbolicName();
 	}
-	
+
 	public static void log(String message, Throwable t) {
-		getDefault().getLog().log(new Status(IStatus.ERROR, getID(),
-				1, message, t));
+		getDefault().getLog().log(new Status(IStatus.ERROR, getID(), 1, message, t));
 	}
-	
+
 	/**
 	 * This method is called upon plug-in activation
 	 */
 	@Override
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
 
@@ -53,7 +52,7 @@ public class OCLValidationExamplePlugin extends Plugin {
 	 * This method is called when the plug-in is stopped
 	 */
 	@Override
-    public void stop(BundleContext context) throws Exception {
+	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
 

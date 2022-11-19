@@ -45,27 +45,24 @@ public class ModeledConstraintProvider implements IModelConstraintProvider {
 
 	public ModeledConstraintProvider() {
 	}
-	
+
 	public void setConstraintProviderModel(ConstraintProvider provider) {
 		this.provider = provider;
 	}
 
-	public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
-			Collection<IModelConstraint> ret) {
+	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> ret) {
 		if (ret == null) {
 			ret = new ArrayList<IModelConstraint>();
 		}
 
 		if (constraints == null) {
-			constraints = new ArrayList<IModelConstraint>(provider
-					.getConstraints().size());
+			constraints = new ArrayList<IModelConstraint>(provider.getConstraints().size());
 			ConstraintFactory factory = ConstraintFactory.getInstance();
 
 			for (Constraints cons : provider.getConstraints()) {
 				for (Constraint constraint : cons.getConstraints()) {
-					IConstraintDescriptor descriptor = ConstraintRegistry
-							.getInstance().getDescriptor(
-									provider.getPluginId(), constraint.getId());
+					IConstraintDescriptor descriptor = ConstraintRegistry.getInstance()
+							.getDescriptor(provider.getPluginId(), constraint.getId());
 
 					assert descriptor != null;
 
@@ -81,8 +78,8 @@ public class ModeledConstraintProvider implements IModelConstraintProvider {
 		return ret;
 	}
 
-	public Collection<IModelConstraint> getLiveConstraints(
-			Notification notification, Collection<IModelConstraint> constraints) {
+	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
+			Collection<IModelConstraint> constraints) {
 		// TODO implement live constraints
 		return null;
 	}

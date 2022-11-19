@@ -31,15 +31,14 @@ public interface IProviderOperation<T extends Collection<? extends IModelConstra
 	 * @return the EMF object
 	 */
 	EObject getEObject();
-	
+
 	/**
-	 * Obtains the constraints that I have gathered from the available
-	 * providers.
+	 * Obtains the constraints that I have gathered from the available providers.
 	 * 
 	 * @return the constraints
 	 */
 	T getConstraints();
-	
+
 	/**
 	 * Executes me on the specified constraint <code>provider</code>.
 	 * 

@@ -12,8 +12,6 @@
 
 package org.eclipse.emf.validation.model;
 
-
-
 /**
  * Interface of an object that knows how to match
  * {@link org.eclipse.emf.ecore.EObject}s against a client context.
@@ -30,7 +28,7 @@ public interface IClientSelector {
 	 * 
 	 * @param object a model element of some kind
 	 * @return <code>true</code> if the <code>object</code> matches my client
-	 *     context; <code>false</code>, otherwise
+	 *         context; <code>false</code>, otherwise
 	 */
 	boolean selects(Object object);
 }

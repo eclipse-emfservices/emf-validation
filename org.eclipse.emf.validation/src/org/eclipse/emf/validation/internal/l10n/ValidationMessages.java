@@ -90,7 +90,7 @@ public class ValidationMessages extends NLS {
 	public static String severity_null;
 	public static String progress_task_validating;
 	public static String listener_uncaught_EXC_;
-    public static String duplicate_eventType_ERROR_;
+	public static String duplicate_eventType_ERROR_;
 	public static String emfadapter_disabled_WARN_;
 	public static String emfadapter_noInterface_WARN_;
 	public static String emfadapter_noMethod_WARN_;

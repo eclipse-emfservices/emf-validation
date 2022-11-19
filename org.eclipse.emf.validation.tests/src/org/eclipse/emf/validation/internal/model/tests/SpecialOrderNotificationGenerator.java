@@ -24,29 +24,30 @@ import ordersystem.LineItem;
 import ordersystem.Order;
 import ordersystem.special.LimitedEditionProduct;
 
-public class SpecialOrderNotificationGenerator implements
-		INotificationGenerator {
+public class SpecialOrderNotificationGenerator implements INotificationGenerator {
 
 	/**
-	 * Create special notifications for those orders who contain limited
-	 * edition products
-	 */ 
+	 * Create special notifications for those orders who contain limited edition
+	 * products
+	 */
 	public Collection<Notification> generateNotifications(Collection<? extends Notification> notifications) {
 		Collection<Notification> newNotifications = new ArrayList<Notification>();
-		
+
 		for (Notification notification : notifications) {
 			if (notification.getNotifier() instanceof Order) {
 				Order order = (Order) notification.getNotifier();
 				LimitedEditionProduct lep = null;
-				
+
 				for (LineItem obj : order.getItem()) {
-					if (obj.getProduct() instanceof LimitedEditionProduct)  {
-						lep = (LimitedEditionProduct)obj.getProduct();
+					if (obj.getProduct() instanceof LimitedEditionProduct) {
+						lep = (LimitedEditionProduct) obj.getProduct();
 					}
 				}
-				
+
 				if (lep != null) {
-					newNotifications.add(new ENotificationImpl((InternalEObject)lep, EMFEventType.getInstance("Special Order").toNotificationType(), Notification.NO_FEATURE_ID, null, null)); //$NON-NLS-1$
+					newNotifications.add(new ENotificationImpl((InternalEObject) lep,
+							EMFEventType.getInstance("Special Order").toNotificationType(), Notification.NO_FEATURE_ID, //$NON-NLS-1$
+							null, null));
 				}
 			}
 		}

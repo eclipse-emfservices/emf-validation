@@ -32,80 +32,40 @@ import junit.framework.TestCase;
 public class EMFEventTypeTest extends TestCase {
 
 	public void test_getInstance() {
-		assertSame(
-				EMFEventType.NULL,
-				EMFEventType.getInstance("")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.NULL,
-				EMFEventType.getInstance(-1));
+		assertSame(EMFEventType.NULL, EMFEventType.getInstance("")); //$NON-NLS-1$
+		assertSame(EMFEventType.NULL, EMFEventType.getInstance(-1));
 
-		assertSame(
-				EMFEventType.ADD,
-				EMFEventType.getInstance("Add")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.ADD,
-				EMFEventType.getInstance(Notification.ADD));
+		assertSame(EMFEventType.ADD, EMFEventType.getInstance("Add")); //$NON-NLS-1$
+		assertSame(EMFEventType.ADD, EMFEventType.getInstance(Notification.ADD));
 
-		assertSame(
-				EMFEventType.ADD_MANY,
-				EMFEventType.getInstance("Add Many")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.ADD_MANY,
-				EMFEventType.getInstance(Notification.ADD_MANY));
+		assertSame(EMFEventType.ADD_MANY, EMFEventType.getInstance("Add Many")); //$NON-NLS-1$
+		assertSame(EMFEventType.ADD_MANY, EMFEventType.getInstance(Notification.ADD_MANY));
 
-		assertSame(
-				EMFEventType.MOVE,
-				EMFEventType.getInstance("Move")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.MOVE,
-				EMFEventType.getInstance(Notification.MOVE));
+		assertSame(EMFEventType.MOVE, EMFEventType.getInstance("Move")); //$NON-NLS-1$
+		assertSame(EMFEventType.MOVE, EMFEventType.getInstance(Notification.MOVE));
 
-		assertSame(
-				EMFEventType.REMOVE,
-				EMFEventType.getInstance("Remove")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.REMOVE,
-				EMFEventType.getInstance(Notification.REMOVE));
+		assertSame(EMFEventType.REMOVE, EMFEventType.getInstance("Remove")); //$NON-NLS-1$
+		assertSame(EMFEventType.REMOVE, EMFEventType.getInstance(Notification.REMOVE));
 
-		assertSame(
-				EMFEventType.REMOVE_MANY,
-				EMFEventType.getInstance("Remove Many")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.REMOVE_MANY,
-				EMFEventType.getInstance(Notification.REMOVE_MANY));
+		assertSame(EMFEventType.REMOVE_MANY, EMFEventType.getInstance("Remove Many")); //$NON-NLS-1$
+		assertSame(EMFEventType.REMOVE_MANY, EMFEventType.getInstance(Notification.REMOVE_MANY));
 
-		assertSame(
-				EMFEventType.REMOVING_ADAPTER,
-				EMFEventType.getInstance("Removing Adapter")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.REMOVING_ADAPTER,
-				EMFEventType.getInstance(Notification.REMOVING_ADAPTER));
+		assertSame(EMFEventType.REMOVING_ADAPTER, EMFEventType.getInstance("Removing Adapter")); //$NON-NLS-1$
+		assertSame(EMFEventType.REMOVING_ADAPTER, EMFEventType.getInstance(Notification.REMOVING_ADAPTER));
 
-		assertSame(
-				EMFEventType.RESOLVE,
-				EMFEventType.getInstance("Resolve")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.RESOLVE,
-				EMFEventType.getInstance(Notification.RESOLVE));
+		assertSame(EMFEventType.RESOLVE, EMFEventType.getInstance("Resolve")); //$NON-NLS-1$
+		assertSame(EMFEventType.RESOLVE, EMFEventType.getInstance(Notification.RESOLVE));
 
-		assertSame(
-				EMFEventType.SET,
-				EMFEventType.getInstance("Set")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.SET,
-				EMFEventType.getInstance(Notification.SET));
+		assertSame(EMFEventType.SET, EMFEventType.getInstance("Set")); //$NON-NLS-1$
+		assertSame(EMFEventType.SET, EMFEventType.getInstance(Notification.SET));
 
-		assertSame(
-				EMFEventType.UNSET,
-				EMFEventType.getInstance("Unset")); //$NON-NLS-1$
-		assertSame(
-				EMFEventType.UNSET,
-				EMFEventType.getInstance(Notification.UNSET));
+		assertSame(EMFEventType.UNSET, EMFEventType.getInstance("Unset")); //$NON-NLS-1$
+		assertSame(EMFEventType.UNSET, EMFEventType.getInstance(Notification.UNSET));
 	}
 
 	public void test_getPredefinedInstances_177647() {
 		List<EMFEventType> instances = EMFEventType.getPredefinedInstances();
-		
+
 		assertTrue(instances.contains(EMFEventType.NULL));
 		assertTrue(instances.contains(EMFEventType.ADD));
 		assertTrue(instances.contains(EMFEventType.ADD_MANY));
@@ -117,10 +77,10 @@ public class EMFEventTypeTest extends TestCase {
 		assertTrue(instances.contains(EMFEventType.SET));
 		assertTrue(instances.contains(EMFEventType.UNSET));
 	}
-	
+
 	public void test_getAllInstances() {
 		List<EMFEventType> instances = EMFEventType.getAllInstances();
-		
+
 		assertTrue(instances.contains(EMFEventType.NULL));
 		assertTrue(instances.contains(EMFEventType.ADD));
 		assertTrue(instances.contains(EMFEventType.ADD_MANY));
@@ -161,8 +121,8 @@ public class EMFEventTypeTest extends TestCase {
 
 	public void test_customEventType_177647() {
 		EMFEventType specialOrder = EMFEventType.getInstance("Special Order"); //$NON-NLS-1$
-		assertNotNull(specialOrder); 
-		
+		assertNotNull(specialOrder);
+
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.NULL.toNotificationType());
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.ADD.toNotificationType());
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.ADD_MANY.toNotificationType());
@@ -173,32 +133,31 @@ public class EMFEventTypeTest extends TestCase {
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.RESOLVE.toNotificationType());
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.SET.toNotificationType());
 		assertFalse(specialOrder.toNotificationType() == EMFEventType.UNSET.toNotificationType());
-		
+
 		assertSame(specialOrder, EMFEventType.getInstance(specialOrder.toNotificationType()));
 		assertSame(specialOrder, EMFEventType.getInstance(specialOrder.getName()));
-		
+
 		assertFalse(EMFEventType.getPredefinedInstances().contains(specialOrder));
 		assertTrue(EMFEventType.getAllInstances().contains(specialOrder));
 	}
-	
+
 	public void test_readResolve() {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
 		ObjectOutput output = null;
 		ObjectInput input = null;
-		
+
 		try {
 			output = new ObjectOutputStream(stream);
-			
+
 			for (EMFEventType next : EMFEventType.getAllInstances()) {
 				output.writeObject(next);
 			}
-			
+
 			output.flush();
 
-			input =	new ObjectInputStream(
-					new ByteArrayInputStream(stream.toByteArray()));
-			
+			input = new ObjectInputStream(new ByteArrayInputStream(stream.toByteArray()));
+
 			for (EMFEventType next : EMFEventType.getAllInstances()) {
 				assertSame(next, input.readObject());
 			}

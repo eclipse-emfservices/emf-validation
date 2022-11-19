@@ -13,18 +13,17 @@ package org.eclipse.emf.validation.xml;
 
 import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
 
-
 /**
  * <p>
- * This class provides an abstract implementation of an XML constraint descriptor
- *  that is used to provide descriptions of a particular constraint from an
- *  {@link org.eclipse.core.runtime.IConfigurationElement}. 
+ * This class provides an abstract implementation of an XML constraint
+ * descriptor that is used to provide descriptions of a particular constraint
+ * from an {@link org.eclipse.core.runtime.IConfigurationElement}.
  * </p>
  * <p>
- * This IConfigurationElement is then made available to any third-party 
- *  that requests direct inspection. The structure of this IConfigurationElement should
- *  exactly reflect the constraint subtree of a properly formed constraintProvider
- *  extension.
+ * This IConfigurationElement is then made available to any third-party that
+ * requests direct inspection. The structure of this IConfigurationElement
+ * should exactly reflect the constraint subtree of a properly formed
+ * constraintProvider extension.
  * </p>
  * <p>
  * <b>See also</b> the constraintProvider extension point.
@@ -32,9 +31,8 @@ import org.eclipse.emf.validation.service.AbstractConstraintDescriptor;
  * 
  * @author Chris McGee (cmcgee)
  */
-public abstract class AbstractXmlConstraintDescriptor
-	extends AbstractConstraintDescriptor
-	implements IXmlConstraintDescriptor {
-	
+public abstract class AbstractXmlConstraintDescriptor extends AbstractConstraintDescriptor
+		implements IXmlConstraintDescriptor {
+
 	// No implementation necessary.
 }

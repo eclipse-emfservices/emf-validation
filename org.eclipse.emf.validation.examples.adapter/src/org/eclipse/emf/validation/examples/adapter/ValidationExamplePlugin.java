@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
  */
 public class ValidationExamplePlugin extends AbstractUIPlugin {
 
-	//The shared instance.
+	// The shared instance.
 	private static ValidationExamplePlugin plugin;
 
 	/**
@@ -34,7 +34,7 @@ public class ValidationExamplePlugin extends AbstractUIPlugin {
 	 * This method is called upon plug-in activation
 	 */
 	@Override
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
 
@@ -42,7 +42,7 @@ public class ValidationExamplePlugin extends AbstractUIPlugin {
 	 * This method is called when the plug-in is stopped
 	 */
 	@Override
-    public void stop(BundleContext context) throws Exception {
+	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
 

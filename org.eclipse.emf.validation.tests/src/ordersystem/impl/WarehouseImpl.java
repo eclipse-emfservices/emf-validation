@@ -31,16 +31,15 @@ import ordersystem.OrderSystemPackage;
 import ordersystem.Warehouse;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Warehouse</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object
+ * '<em><b>Warehouse</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ordersystem.impl.WarehouseImpl#getName <em>Name</em>}</li>
- *   <li>{@link ordersystem.impl.WarehouseImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link ordersystem.impl.WarehouseImpl#getItem <em>Item</em>}</li>
- *   <li>{@link ordersystem.impl.WarehouseImpl#getLocation <em>Location</em>}</li>
+ * <li>{@link ordersystem.impl.WarehouseImpl#getName <em>Name</em>}</li>
+ * <li>{@link ordersystem.impl.WarehouseImpl#getOwner <em>Owner</em>}</li>
+ * <li>{@link ordersystem.impl.WarehouseImpl#getItem <em>Item</em>}</li>
+ * <li>{@link ordersystem.impl.WarehouseImpl#getLocation <em>Location</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,79 +47,79 @@ import ordersystem.Warehouse;
  */
 public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-    protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-    protected String name = NAME_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getItem() <em>Item</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getItem()
 	 * @generated
 	 * @ordered
 	 */
-    protected EList<InventoryItem> item;
+	protected EList<InventoryItem> item;
 
 	/**
-	 * The cached value of the '{@link #getLocation() <em>Location</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getLocation() <em>Location</em>}'
+	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getLocation()
 	 * @generated
 	 * @ordered
 	 */
-    protected Address location;
+	protected Address location;
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    protected WarehouseImpl() {
+	protected WarehouseImpl() {
 		super();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    @Override
-				protected EClass eStaticClass() {
+	@Override
+	protected EClass eStaticClass() {
 		return OrderSystemPackage.Literals.WAREHOUSE;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public String getName() {
+	public String getName() {
 		return name;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setName(String newName) {
+	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
@@ -128,257 +127,270 @@ public class WarehouseImpl extends EObjectImpl implements Warehouse {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public OrderSystem getOwner() {
-		if (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER) return null;
-		return (OrderSystem)eInternalContainer();
+	public OrderSystem getOwner() {
+		if (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER)
+			return null;
+		return (OrderSystem) eInternalContainer();
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetOwner(OrderSystem newOwner, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newOwner, OrderSystemPackage.WAREHOUSE__OWNER, msgs);
+		msgs = eBasicSetContainer((InternalEObject) newOwner, OrderSystemPackage.WAREHOUSE__OWNER, msgs);
 		return msgs;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setOwner(OrderSystem newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER && newOwner != null)) {
+	public void setOwner(OrderSystem newOwner) {
+		if (newOwner != eInternalContainer()
+				|| (eContainerFeatureID() != OrderSystemPackage.WAREHOUSE__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOwner != null)
-				msgs = ((InternalEObject)newOwner).eInverseAdd(this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystem.class, msgs);
+				msgs = ((InternalEObject) newOwner).eInverseAdd(this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE,
+						OrderSystem.class, msgs);
 			msgs = basicSetOwner(newOwner, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.WAREHOUSE__OWNER, newOwner, newOwner));
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.WAREHOUSE__OWNER, newOwner,
+					newOwner));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public EList<InventoryItem> getItem() {
+	public EList<InventoryItem> getItem() {
 		if (item == null) {
-			item = new EObjectContainmentWithInverseEList<InventoryItem>(InventoryItem.class, this, OrderSystemPackage.WAREHOUSE__ITEM, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE);
+			item = new EObjectContainmentWithInverseEList<InventoryItem>(InventoryItem.class, this,
+					OrderSystemPackage.WAREHOUSE__ITEM, OrderSystemPackage.INVENTORY_ITEM__WAREHOUSE);
 		}
 		return item;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public Address getLocation() {
+	public Address getLocation() {
 		return location;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public NotificationChain basicSetLocation(Address newLocation, NotificationChain msgs) {
+	public NotificationChain basicSetLocation(Address newLocation, NotificationChain msgs) {
 		Address oldLocation = location;
 		location = newLocation;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OrderSystemPackage.WAREHOUSE__LOCATION, oldLocation, newLocation);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					OrderSystemPackage.WAREHOUSE__LOCATION, oldLocation, newLocation);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
 		return msgs;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-    public void setLocation(Address newLocation) {
+	public void setLocation(Address newLocation) {
 		if (newLocation != location) {
 			NotificationChain msgs = null;
 			if (location != null)
-				msgs = ((InternalEObject)location).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - OrderSystemPackage.WAREHOUSE__LOCATION, null, msgs);
+				msgs = ((InternalEObject) location).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - OrderSystemPackage.WAREHOUSE__LOCATION, null, msgs);
 			if (newLocation != null)
-				msgs = ((InternalEObject)newLocation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - OrderSystemPackage.WAREHOUSE__LOCATION, null, msgs);
+				msgs = ((InternalEObject) newLocation).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - OrderSystemPackage.WAREHOUSE__LOCATION, null, msgs);
 			msgs = basicSetLocation(newLocation, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.WAREHOUSE__LOCATION, newLocation, newLocation));
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OrderSystemPackage.WAREHOUSE__LOCATION, newLocation,
+					newLocation));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOwner((OrderSystem)otherEnd, msgs);
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getItem()).basicAdd(otherEnd, msgs);
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			return basicSetOwner((OrderSystem) otherEnd, msgs);
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getItem()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				return basicSetOwner(null, msgs);
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				return ((InternalEList<?>)getItem()).basicRemove(otherEnd, msgs);
-			case OrderSystemPackage.WAREHOUSE__LOCATION:
-				return basicSetLocation(null, msgs);
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			return basicSetOwner(null, msgs);
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			return ((InternalEList<?>) getItem()).basicRemove(otherEnd, msgs);
+		case OrderSystemPackage.WAREHOUSE__LOCATION:
+			return basicSetLocation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE, OrderSystem.class, msgs);
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			return eInternalContainer().eInverseRemove(this, OrderSystemPackage.ORDER_SYSTEM__WAREHOUSE,
+					OrderSystem.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__NAME:
-				return getName();
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				return getOwner();
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				return getItem();
-			case OrderSystemPackage.WAREHOUSE__LOCATION:
-				return getLocation();
+		case OrderSystemPackage.WAREHOUSE__NAME:
+			return getName();
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			return getOwner();
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			return getItem();
+		case OrderSystemPackage.WAREHOUSE__LOCATION:
+			return getLocation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-		@Override
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__NAME:
-				setName((String)newValue);
-				return;
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				setOwner((OrderSystem)newValue);
-				return;
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				getItem().clear();
-				getItem().addAll((Collection<? extends InventoryItem>)newValue);
-				return;
-			case OrderSystemPackage.WAREHOUSE__LOCATION:
-				setLocation((Address)newValue);
-				return;
+		case OrderSystemPackage.WAREHOUSE__NAME:
+			setName((String) newValue);
+			return;
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			setOwner((OrderSystem) newValue);
+			return;
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			getItem().clear();
+			getItem().addAll((Collection<? extends InventoryItem>) newValue);
+			return;
+		case OrderSystemPackage.WAREHOUSE__LOCATION:
+			setLocation((Address) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				setOwner((OrderSystem)null);
-				return;
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				getItem().clear();
-				return;
-			case OrderSystemPackage.WAREHOUSE__LOCATION:
-				setLocation((Address)null);
-				return;
+		case OrderSystemPackage.WAREHOUSE__NAME:
+			setName(NAME_EDEFAULT);
+			return;
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			setOwner((OrderSystem) null);
+			return;
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			getItem().clear();
+			return;
+		case OrderSystemPackage.WAREHOUSE__LOCATION:
+			setLocation((Address) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OrderSystemPackage.WAREHOUSE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case OrderSystemPackage.WAREHOUSE__OWNER:
-				return getOwner() != null;
-			case OrderSystemPackage.WAREHOUSE__ITEM:
-				return item != null && !item.isEmpty();
-			case OrderSystemPackage.WAREHOUSE__LOCATION:
-				return location != null;
+		case OrderSystemPackage.WAREHOUSE__NAME:
+			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case OrderSystemPackage.WAREHOUSE__OWNER:
+			return getOwner() != null;
+		case OrderSystemPackage.WAREHOUSE__ITEM:
+			return item != null && !item.isEmpty();
+		case OrderSystemPackage.WAREHOUSE__LOCATION:
+			return location != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     */
-    @Override
-    public String toString() {
-        if (eIsProxy()) return super.toString();
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
 
-        StringBuffer result = new StringBuffer(32);
-        
-        result.append("Warehouse["); //$NON-NLS-1$
-        result.append(name);
-        result.append(']');
-        
-        return result.toString();
-    }
+		StringBuffer result = new StringBuffer(32);
 
-} //WarehouseImpl
+		result.append("Warehouse["); //$NON-NLS-1$
+		result.append(name);
+		result.append(']');
+
+		return result.toString();
+	}
+
+} // WarehouseImpl
