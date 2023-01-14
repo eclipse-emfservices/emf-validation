@@ -10,6 +10,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>org.eclipse.emf.validation.releng</module>
+    <module>releng/org.eclipse.emf.validation.releng</module>
   </modules>
 </project>

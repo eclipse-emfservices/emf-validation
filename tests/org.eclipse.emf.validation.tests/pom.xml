@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.emf.validation</groupId>
+		<artifactId>org.eclipse.emf.validation.releng</artifactId>
+		<version>1.13.2-SNAPSHOT</version>
+        <relativePath>../../releng/org.eclipse.emf.validation.releng/pom.xml</relativePath>
+	</parent>
+	<groupId>org.eclipse.emf.validation.plugins</groupId>
+	<artifactId>org.eclipse.emf.validation.tests</artifactId>
+	<version>1.9.1-SNAPSHOT</version>
+	<packaging>eclipse-test-plugin</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>true</useUIThread>
+					<product>org.eclipse.sdk.ide</product>
+					<testSuite>org.eclipse.emf.validation.tests</testSuite>
+					<testClass>org.eclipse.emf.validation.tests.AllTests</testClass>
+					<argLine>-ea -XX:MaxPermSize=128m -Xmx1024m</argLine>
+					<dependencies>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.emf.edit.feature.group</artifactId>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.emf.ecore.feature.group</artifactId>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.pde.feature.group</artifactId>
+						</dependency>
+						<dependency>
+							<type>p2-installable-unit</type>
+							<artifactId>org.eclipse.emf.validation.ocl</artifactId>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
