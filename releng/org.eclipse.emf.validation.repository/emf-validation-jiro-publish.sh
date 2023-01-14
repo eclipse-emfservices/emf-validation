@@ -58,7 +58,7 @@ message() {
 }
 
 # Determine the local update site we want to publish from
-localTarget=${WORKSPACE}/org.eclipse.emf.validation.repository/target
+localTarget=${WORKSPACE}/releng/org.eclipse.emf.validation.repository/target
 localUpdateSite=${localTarget}/repository/
 message "Using local update-site: $localUpdateSite"
 
