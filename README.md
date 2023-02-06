@@ -1,8 +1,6 @@
 ## Eclipse EMF Services - EMF Validation
 
-**NOTE:** As of march of 2021, the source code for EMF Validation is now hosted on GitHub at https://github.com/eclipse/emf-validation. If you have Git clones which refers to the old location at git.eclipse.org, update them or you will not get the latest changes.
-
-_EMF Validation_ extends the core validation support of EMF itself with:
+_EMF Validation_ extends the core validation support of [EMF](https://www.eclipse.org/modeling/emf/) itself with:
 * constraint definitions,
 * customizable model traversal algorithms,
 * constraint parsing for languages,
