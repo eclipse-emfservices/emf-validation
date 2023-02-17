@@ -29,6 +29,21 @@ Update Sites (p2 repositories) are available at:
 * https://download.eclipse.org/modeling/emf/validation/updates/milestones: milestone builds
 * https://download.eclipse.org/modeling/emf/validation/updates/releases: official releases
 
+| Version             | Repository URL                                                                        |
+|:--------------------|:--------------------------------------------------------------------------------------|
+| **1.13.2** (latest) | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208271102> |
+| 1.13.1              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208151538> |
+| 1.13.0              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208101528> |
+| 1.12.2              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202008210805> |
+| 1.12.1              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201812070911> |
+| 1.12.0              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201805030717> |
+| 1.11.0              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201706061352> |
+| 1.10.0              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201606071713> |
+| 1.9.0               | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201505312255> |
+| 1.8.0               | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201405281429> |
+| 1.7.0               | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R201306111341> |
+
+
 ### License
 
 [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/)
