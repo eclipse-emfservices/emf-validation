@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.emf.validation</groupId>
   <artifactId>org.eclipse.emf.validation.releng</artifactId>
-  <version>1.13.2-SNAPSHOT</version>
+  <version>1.13.3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <!-- this is the parent POM from which all modules inherit common settings -->
@@ -81,7 +81,7 @@
             <artifact>
               <groupId>org.eclipse.emf.validation</groupId>
               <artifactId>org.eclipse.emf.validation.target</artifactId>
-              <version>1.13.2-SNAPSHOT</version>
+              <version>1.13.3-SNAPSHOT</version>
               <classifier>${platform}</classifier>
             </artifact>
           </target>

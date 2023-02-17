@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.eclipse.emf.validation</groupId>
 		<artifactId>org.eclipse.emf.validation.releng</artifactId>
-		<version>1.13.2-SNAPSHOT</version>
+		<version>1.13.3-SNAPSHOT</version>
         <relativePath>../../releng/org.eclipse.emf.validation.releng/pom.xml</relativePath>
 	</parent>
 	<groupId>org.eclipse.emf.validation.plugins</groupId>
 	<artifactId>org.eclipse.emf.validation.tests</artifactId>
-	<version>1.9.1-SNAPSHOT</version>
+	<version>1.9.2-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
 	<build>
 		<plugins>
