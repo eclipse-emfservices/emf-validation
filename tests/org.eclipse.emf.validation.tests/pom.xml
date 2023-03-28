@@ -25,7 +25,7 @@
 					<product>org.eclipse.sdk.ide</product>
 					<testSuite>org.eclipse.emf.validation.tests</testSuite>
 					<testClass>org.eclipse.emf.validation.tests.AllTests</testClass>
-					<argLine>-ea -XX:MaxPermSize=128m -Xmx1024m</argLine>
+					<argLine>-ea -Xmx1024m</argLine>
 					<dependencies>
 						<dependency>
 							<type>p2-installable-unit</type>
