@@ -35,7 +35,6 @@ import junit.framework.TestSuite;
  *
  * @author Christian W. Damus (cdamus)
  */
-@SuppressWarnings("nls")
 public class ClientContextTest extends TestCase {
 
 	private IModelConstraint constraint1_1;

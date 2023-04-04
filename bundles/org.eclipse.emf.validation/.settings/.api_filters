@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.emf.validation" version="2">
+    <resource path="src/org/eclipse/emf/validation/model/ConstraintStatus.java" type="org.eclipse.emf.validation.model.ConstraintStatus">
+        <filter comment="This is internal to EMF Validation." id="576725006">
+            <message_arguments>
+                <message_argument value="IConstraintStatus"/>
+                <message_argument value="ConstraintStatus"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/emf/validation/service/ConstraintFactory.java" type="org.eclipse.emf.validation.service.ConstraintFactory">
         <filter id="338944126">
             <message_arguments>

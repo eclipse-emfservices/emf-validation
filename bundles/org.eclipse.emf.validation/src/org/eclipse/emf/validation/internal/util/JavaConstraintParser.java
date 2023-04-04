@@ -166,18 +166,16 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 		} catch (ClassNotFoundException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
-					EMFModelValidationStatusCodes.DELEGATE_CLASS_NOT_FOUND_MSG,
-					new Object[] { descriptor.getId(), className });
+					EMFModelValidationStatusCodes.DELEGATE_CLASS_NOT_FOUND_MSG, descriptor.getId(), className);
 		} catch (InstantiationException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
-					EMFModelValidationStatusCodes.DELEGATE_INSTANTIATION_MSG,
-					new Object[] { descriptor.getId(), className });
+					EMFModelValidationStatusCodes.DELEGATE_INSTANTIATION_MSG, descriptor.getId(), className);
 		} catch (IllegalAccessException e) {
 			pendingException = e;
 			pendingMessage = EMFModelValidationPlugin.getMessage(
-					EMFModelValidationStatusCodes.DELEGATE_METHOD_INACCESSIBLE_MSG,
-					new Object[] { descriptor.getId(), className, null });
+					EMFModelValidationStatusCodes.DELEGATE_METHOD_INACCESSIBLE_MSG, descriptor.getId(), className,
+					null);
 		}
 
 		if (pendingException != null) {

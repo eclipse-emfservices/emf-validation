@@ -540,7 +540,7 @@ public class ModelValidationService {
 	 * <p>
 	 * Loads all available XML-declared constraint descriptors. This is not a very
 	 * heavy-weight operation, as it does not require the loading of any plug-ins or
-	 * even the instantantiation of any constraints. It only loads the constraint
+	 * even the instantiation of any constraints. It only loads the constraint
 	 * descriptors that are statically declared in XML.
 	 * </p>
 	 * <p>

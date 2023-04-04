@@ -42,7 +42,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.StyleRange;
@@ -516,8 +516,7 @@ public class ConstraintsSelectionBlock {
 			}
 		});
 
-		constraintList.setSorter(new ViewerSorter());
-
+		constraintList.setComparator(new ViewerComparator());
 		constraintList.addCheckStateListener(getMediator());
 		constraintList.addSelectionChangedListener(getMediator());
 
