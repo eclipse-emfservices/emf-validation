@@ -346,8 +346,7 @@ public class ConstraintsSelectionBlock {
 			}
 			// If we are a mandatory category then we must provide some cue to this fact.
 			if (actualCategory != null && actualCategory.isMandatory()) {
-				getDetailsArea().setText(MessageFormat.format(ValidationUIMessages.prefs_mandatory_category,
-						new Object[] { description }));
+				getDetailsArea().setText(MessageFormat.format(ValidationUIMessages.prefs_mandatory_category, description));
 
 			} else {
 				getDetailsArea().setText(description);

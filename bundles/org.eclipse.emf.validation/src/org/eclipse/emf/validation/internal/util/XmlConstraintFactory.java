@@ -43,6 +43,7 @@ import org.eclipse.emf.validation.xml.IXmlConstraintParser;
  *
  * @author Christian W. Damus (cdamus)
  */
+@SuppressWarnings("deprecation")
 public class XmlConstraintFactory extends ConstraintFactory {
 	/**
 	 * Extension point name for the model providers extension point.
@@ -81,7 +82,6 @@ public class XmlConstraintFactory extends ConstraintFactory {
 
 	// implements the inherited method
 	@Override
-	@SuppressWarnings("deprecation")
 	protected IModelConstraint createConstraint(IXmlConstraintDescriptor desc) {
 		IConfigurationElement config = desc.getConfig();
 
@@ -104,7 +104,7 @@ public class XmlConstraintFactory extends ConstraintFactory {
 				Trace.trace(EMFModelValidationDebugOptions.CONSTRAINTS_DISABLED,
 						"Constraint is disabled: " + desc.getId() + ".  See log for details."); //$NON-NLS-1$ //$NON-NLS-2$
 				ConstraintParserException e = new ConstraintParserException(EMFModelValidationPlugin.getMessage(
-						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG, new Object[] { lang }));
+						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING_MSG, lang));
 
 				Log.warning(EMFModelValidationStatusCodes.CONSTRAINT_PARSER_MISSING, e.getMessage());
 
@@ -187,7 +187,6 @@ public class XmlConstraintFactory extends ConstraintFactory {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void registerParser(String language, IConstraintParser parser) {
 		assert language != null;
 		assert parser != null;

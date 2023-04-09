@@ -14,6 +14,7 @@ package org.eclipse.emf.validation.internal.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 * @param baseUrl   the base of any relative URL of files that I load
 	 */
 	XmlConfigurationElement(String name, IExtension extension, URL baseUrl) {
-		this(name, new java.util.HashMap<String, String>(), extension, baseUrl);
+		this(name, new HashMap<>(), extension, baseUrl);
 	}
 
 	/**
@@ -86,9 +87,8 @@ public class XmlConfigurationElement implements IConfigurationElement {
 	 */
 	@Override
 	public Object createExecutableExtension(String propertyName) throws CoreException {
-
 		String message = EMFModelValidationPlugin.getMessage(EMFModelValidationStatusCodes.XML_CREATE_EXTENSION_MSG,
-				new Object[] { getName() });
+				getName());
 
 		CoreException ce = new CoreException(new Status(IStatus.ERROR, EMFModelValidationPlugin.getPluginId(),
 				EMFModelValidationStatusCodes.ERROR_PARSING_XML, message, null));
@@ -272,7 +272,7 @@ public class XmlConfigurationElement implements IConfigurationElement {
 
 		if (url == null) {
 			String message = EMFModelValidationPlugin.getMessage(EMFModelValidationStatusCodes.XML_INCLUDE_FILE_MSG,
-					new Object[] { contributor.getSymbolicName(), path });
+					contributor.getSymbolicName(), path);
 
 			CoreException ce = new CoreException(new Status(IStatus.ERROR, EMFModelValidationPlugin.getPluginId(),
 					EMFModelValidationStatusCodes.ERROR_PARSING_XML, message, null));
@@ -308,7 +308,6 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		}
 	}
 
-	// redefines the inherited method
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer(64);
