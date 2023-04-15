@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 SAP AG and others.
+ * Copyright (c) 2009, 2023 SAP AG and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,6 +11,7 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -66,7 +67,7 @@ public class ModeledConstraintsLoader {
 
 	private Set<URI> loadedConstraintProviders;
 
-	private final static ModeledConstraintsLoader instance = new ModeledConstraintsLoader();
+	private static final ModeledConstraintsLoader instance = new ModeledConstraintsLoader();
 
 	public static ModeledConstraintsLoader getInstance() {
 		return instance;
@@ -175,7 +176,7 @@ public class ModeledConstraintsLoader {
 						EMFModelValidationStatusCodes.CONSTRAINT_PARSER_TYPE_MSG, new Object[] { className, language });
 			} else {
 				((XmlConstraintFactory) ConstraintFactory.getInstance()).registerParser(language,
-						(IConstraintParser) classPovider.loadClass(className).newInstance());
+						(IConstraintParser) classPovider.loadClass(className).getDeclaredConstructor().newInstance());
 				Trace.trace(EMFModelValidationDebugOptions.PARSERS,
 						"Initialized parser for constraint language: " + language); //$NON-NLS-1$
 			}
@@ -204,10 +205,8 @@ public class ModeledConstraintsLoader {
 				IClientSelector instance = null;
 
 				try {
-					instance = (IClientSelector) selectorClass.newInstance();
-				} catch (InstantiationException e) {
-					throw new RuntimeException(e);
-				} catch (IllegalAccessException e) {
+					instance = (IClientSelector) selectorClass.getDeclaredConstructor().newInstance();
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 					throw new RuntimeException(e);
 				}
 
@@ -298,7 +297,7 @@ public class ModeledConstraintsLoader {
 							try {
 								ConstraintRegistry.getInstance().register(descriptor);
 							} catch (ConstraintExistsException e) {
-								// TODO: log and throw exception
+								EMFModelValidationPlugin.getPlugin().getLog().warn(e.getMessage(), e);
 								throw new RuntimeException(e);
 							}
 						}
@@ -309,18 +308,15 @@ public class ModeledConstraintsLoader {
 				try {
 					clazz = classProvider.loadClass(provider.getClassName());
 				} catch (ClassNotFoundException e) {
-					// TODO: log and throw exception
+					EMFModelValidationPlugin.getPlugin().getLog().warn(e.getMessage(), e);
 					throw new RuntimeException(e);
 				}
 
 				if (ModeledConstraintProvider.class.isAssignableFrom(clazz)) {
 					try {
-						modeledProvider = (ModeledConstraintProvider) clazz.newInstance();
-					} catch (InstantiationException e) {
-						// TODO: log and throw exception
-						throw new RuntimeException(e);
-					} catch (IllegalAccessException e) {
-						// TODO: log and throw exception
+						modeledProvider = (ModeledConstraintProvider) clazz.getDeclaredConstructor().newInstance();
+					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+						EMFModelValidationPlugin.getPlugin().getLog().warn(e.getMessage(), e);
 						throw new RuntimeException(e);
 					}
 				} else {
