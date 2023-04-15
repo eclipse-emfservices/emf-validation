@@ -16,21 +16,11 @@
 -->
 <plugin>
 
-     <extension point="org.eclipse.emf.ecore.generated_package">
-      <package uri="http:///ordersystem.ecore" class="ordersystem.OrderSystemPackage">
-      </package>
-      <package uri="http:///ordersystem/special.ecore" class="ordersystem.special.SpecialPackage">
-      </package>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package uri="http:///ordersystem.ecore" class="ordersystem.OrderSystemPackage" />
+      <package uri="http:///ordersystem/special.ecore" class="ordersystem.special.SpecialPackage" genModel="model/order.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated order -->
-      <package
-            uri="http:///ordersystem/special.ecore"
-            class="ordersystem.special.SpecialPackage"
-            genModel="model/order.genmodel"/>
-   </extension>
-       
    <extension name="Marker constraint for Order System namespace" point="org.eclipse.emf.validation.constraintProviders">
       <category id="junit" name="JUnit Unit Testing Test Constraints"/>
       <category id="junit/validation" name="EMF Model Validation Test Constraints"/>
