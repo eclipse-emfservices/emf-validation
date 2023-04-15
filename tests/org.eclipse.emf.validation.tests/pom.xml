@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>org.eclipse.emf.validation.plugins</groupId>
 	<artifactId>org.eclipse.emf.validation.tests</artifactId>
-	<version>1.9.2-SNAPSHOT</version>
+	<version>1.9.3-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
 	<build>
 		<plugins>

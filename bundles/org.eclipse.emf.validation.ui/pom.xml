@@ -10,6 +10,6 @@
   </parent>
   <groupId>org.eclipse.emf.validation.plugins</groupId>
   <artifactId>org.eclipse.emf.validation.ui</artifactId>
-  <version>1.7.2-SNAPSHOT</version>
+  <version>1.7.3-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 </project>
