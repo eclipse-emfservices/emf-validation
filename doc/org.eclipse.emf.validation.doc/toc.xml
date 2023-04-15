@@ -41,6 +41,7 @@
 	<anchor id="reference-before" />
 	<topic label="Reference">
 		<anchor id="reference-ext-pt-before" />
+        <!--
 		<link toc="topics_Reference.xml"/>
 		<topic label="Extension Points Reference">
 			<topic label="org.eclipse.emf.validation.constraintBindings" href="references/extension-points/org_eclipse_emf_validation_constraintBindings.html" />
@@ -51,6 +52,7 @@
 			<topic label="org.eclipse.emf.validation.validationListeners" href="references/extension-points/org_eclipse_emf_validation_validationListeners.html" />
 			<topic label="org.eclipse.emf.validation.ui.UIRegisteredClientContext" href="references/extension-points/org_eclipse_emf_validation_ui_UIRegisteredClientContext.html" />
 		</topic>
+		-->
 		<anchor id="reference-ext-pt-after" />
 	</topic>	
 	<anchor id="reference-after" />
