@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2007, 2023 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,8 +11,9 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal.preferences;
 
-import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 
 /**
@@ -29,18 +30,13 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void initializeDefaultPreferences() {
-		Preferences prefs = ValidationUIPlugin.getPlugin().getPluginPreferences();
-
+		IEclipsePreferences preferenceDefaults = DefaultScope.INSTANCE.getNode(ValidationUIPlugin.getPlugin().getBundle().getSymbolicName());
 		// validation preference defaults
-		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY,
-				ValidationLiveProblemsDestination.DIALOG.getName());
-		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG, true);
-		prefs.setDefault(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE, false);
+		preferenceDefaults.put(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY, ValidationLiveProblemsDestination.DIALOG.getName());
+		preferenceDefaults.putBoolean(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG, true);
+		preferenceDefaults.putBoolean(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE, false);
 	}
 
 }

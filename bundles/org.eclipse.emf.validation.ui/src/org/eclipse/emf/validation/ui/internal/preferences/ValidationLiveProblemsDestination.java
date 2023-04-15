@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2007, 2023 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,8 @@ package org.eclipse.emf.validation.ui.internal.preferences;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 
@@ -39,13 +41,11 @@ public enum ValidationLiveProblemsDestination implements Enumerator {
 	 * @return the preference setting
 	 */
 	public static ValidationLiveProblemsDestination getPreferenceSetting() {
-		String name = ValidationUIPlugin.getPlugin().getPluginPreferences()
-				.getString(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY);
-
+		IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(ValidationUIPlugin.getPlugin().getSymbolicName());
+		String name = preferences.get(IPreferenceConstants.VALIDATION_LIVE_PROBLEMS_DISPLAY, "");
 		if (name.equals(DIALOG.getName())) {
 			return DIALOG;
 		}
-
 		return CONSOLE;
 	}
 
