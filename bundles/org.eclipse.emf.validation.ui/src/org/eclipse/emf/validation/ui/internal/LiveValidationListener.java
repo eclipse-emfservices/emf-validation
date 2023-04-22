@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2009, 2023 IBM Corporation, Zeligsoft Inc., and others.
+ * Copyright (c) 2004, 2009 IBM Corporation, Zeligsoft Inc., and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -27,8 +27,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionChangeHandler;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.service.IValidationListener;
@@ -84,10 +82,14 @@ public class LiveValidationListener implements IValidationListener {
 		this.outputUtility = new OutputUtility();
 	}
 
+	/*
+	 * (non-Javadoc) Implements the interface method.
+	 */
 	@Override
 	public void validationOccurred(ValidationEvent event) {
 		if ((event.getEvaluationMode() == EvaluationMode.LIVE) && (event.getSeverity() >= IStatus.WARNING)
 				&& isSupportedClientContexts(event.getClientContextIds())) {
+
 			showProblemMessages(event);
 		}
 	}
@@ -103,30 +105,39 @@ public class LiveValidationListener implements IValidationListener {
 	 *         otherwise
 	 */
 	private synchronized static boolean isSupportedClientContexts(Collection<String> clientContextIds) {
+
 		// take a copy that is safe against concurrent writes
 		final Set<String> registeredIds = registeredClientContextIds;
+
 		for (String next : clientContextIds) {
 			if (registeredIds.contains(next)) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	private static void initializeClientContextIDs() {
 		registeredClientContextIds = new java.util.HashSet<>();
+
 		IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(EP_UI_REGISTERED_CLIENT_CONTEXTS);
+
 		for (IExtension extension : extPoint.getExtensions()) {
 			for (IConfigurationElement next : extension.getConfigurationElements()) {
+
 				registeredClientContextIds.add(next.getAttribute(A_ID));
 			}
 		}
 
 		IExtensionTracker extTracker = ValidationUIPlugin.getExtensionTracker();
+
 		if (extTracker != null) {
 			IExtensionChangeHandler extensionHandler = new IExtensionChangeHandler() {
+
 				@Override
 				public void addExtension(IExtensionTracker tracker, IExtension extension) {
+
 					addClientContextIDs(extension.getConfigurationElements());
 				}
 
@@ -135,6 +146,7 @@ public class LiveValidationListener implements IValidationListener {
 					// client-context IDs cannot be undefined
 				}
 			};
+
 			extTracker.registerHandler(extensionHandler, ExtensionTracker.createExtensionPointFilter(extPoint));
 		}
 	}
@@ -165,10 +177,8 @@ public class LiveValidationListener implements IValidationListener {
 		}
 
 		final ValidationLiveProblemsDestination destination = ValidationLiveProblemsDestination.getPreferenceSetting();
-		IEclipsePreferences preferences = InstanceScope.INSTANCE
-				.getNode(ValidationUIPlugin.getPlugin().getBundle().getSymbolicName());
-		final boolean warningsInDialog = preferences.getBoolean(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG,
-				false);
+		final boolean warningsInDialog = ValidationUIPlugin.getPlugin().getPluginPreferences()
+				.getBoolean(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG);
 		final String messages = getProblemMessages(event);
 
 		// Get the display if we are in the display thread
@@ -183,15 +193,18 @@ public class LiveValidationListener implements IValidationListener {
 		if (destination == ValidationLiveProblemsDestination.CONSOLE
 				|| (!getOutputUtility().hasErrors() && !warningsInDialog) || display == null) {
 			if (messages.length() > 0) {
+
 				println(ValidationUIMessages.Validation_problems);
 				println(messages);
 			}
 
-			final boolean showConsole = preferences.getBoolean(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE,
-					false);
+			final boolean showConsole = ValidationUIPlugin.getPlugin().getPluginPreferences()
+					.getBoolean(IPreferenceConstants.VALIDATION_LIVE_SHOW_CONSOLE);
 
-			if (getOutputUtility().hasProblems() && showConsole) {
-				showConsole();
+			if (getOutputUtility().hasProblems()) {
+				if (showConsole) {
+					showConsole();
+				}
 			}
 		} else if (destination == ValidationLiveProblemsDestination.DIALOG) {
 			showLiveValidationDialog(event);
@@ -209,8 +222,15 @@ public class LiveValidationListener implements IValidationListener {
 		if (workbenchWindow != null) {
 			IStatus[] details = toStatusArray(event);
 
-			// show the constraint message as the primary message
-			String message = event.getSeverity() >= IStatus.ERROR ? ValidationUIMessages.Validation_liveError : null;
+			String message = event.getSeverity() >= IStatus.ERROR ? ValidationUIMessages.Validation_liveError : null; // show
+																														// the
+																														// constraint
+																														// message
+																														// as
+																														// the
+																														// primary
+																														// message
+
 			// the dialog should show INFO severity for errors because
 			// the corrective action has already been taken by the
 			// system; the user is just being informed that everything
@@ -290,6 +310,7 @@ public class LiveValidationListener implements IValidationListener {
 	 */
 	private static IStatus[] toStatusArray(ValidationEvent event) {
 		List<IConstraintStatus> results = event.getValidationResults();
+
 		return results.toArray(new IStatus[results.size()]);
 	}
 
@@ -445,10 +466,8 @@ public class LiveValidationListener implements IValidationListener {
 					public void widgetSelected(SelectionEvent e) {
 						// toggle the preference setting for display of live
 						// warnings according to user's selection
-						IEclipsePreferences preferences = InstanceScope.INSTANCE
-								.getNode(ValidationUIPlugin.getPlugin().getBundle().getSymbolicName());
-						preferences.putBoolean(IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG,
-								!checkbox.getSelection());
+						ValidationUIPlugin.getPlugin().getPluginPreferences().setValue(
+								IPreferenceConstants.VALIDATION_LIVE_WARNINGS_IN_DIALOG, !checkbox.getSelection());
 					}
 				});
 			}

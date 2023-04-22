@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2004, 2007, 2023 IBM Corporation and others.
+ * Copyright (c) 2004, 2007 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,7 +11,6 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.ui.internal.preferences;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.validation.ui.internal.ValidationUIPlugin;
 import org.eclipse.emf.validation.ui.internal.l10n.ValidationUIMessages;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -25,7 +24,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * The preference page for Modeler validation controls.
@@ -183,15 +181,15 @@ public class ValidationPreferencePage extends FieldEditorPreferencePage implemen
 	@Override
 	public boolean performOk() {
 		super.performOk();
-		try {
-			InstanceScope.INSTANCE.getNode(ValidationUIPlugin.getPlugin().getSymbolicName()).flush();
-		} catch (BackingStoreException e) {
-			ValidationUIPlugin.getPlugin().getLog().warn(e.getMessage(), e);
-		}
+
+		ValidationUIPlugin.getPlugin().savePluginPreferences();
 
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
+	 */
 	@Override
 	public void init(IWorkbench workbench) {
 		// Nothing to do in this implementation
