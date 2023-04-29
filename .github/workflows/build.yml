@@ -11,16 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Java
-        uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: 11
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+      - name: Setup Display
+        run: |
+          sudo apt-get install mutter dbus-x11
+          dbus-launch --auto-syntax > dbus-env
+          . dbus-env
+          mutter --no-x11 --headless --virtual-monitor 1920x1080 &
       - name: Build
-        run: mvn -B -ntp clean package
+        run: mvn -B -ntp clean verify
