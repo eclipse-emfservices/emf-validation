@@ -30,7 +30,8 @@ Update Sites (p2 repositories) are available at:
 
 | Version             | Repository URL                                                                        |
 |:--------------------|:--------------------------------------------------------------------------------------|
-| **1.13.2** (latest) | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208271102> |
+| **1.13.3** (latest) | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202305230712> |
+| 1.13.2              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208271102> |
 | 1.13.1              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208151538> |
 | 1.13.0              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202208101528> |
 | 1.12.2              | <https://download.eclipse.org/modeling/emf/validation/updates/releases/R202008210805> |
