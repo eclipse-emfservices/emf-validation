@@ -11,6 +11,7 @@
  */
 package org.eclipse.emf.validation.tests;
 
+import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -31,7 +32,7 @@ import ordersystem.Warehouse;
 class Example1 {
 	private static final OrderSystemFactory factory = OrderSystemFactory.eINSTANCE;
 
-	private static Random random = new Random(1234567890L);
+	private static Random random = new SecureRandom();
 
 	/**
 	 * Cannot be instantiated by clients.
