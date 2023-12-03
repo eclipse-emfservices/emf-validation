@@ -15,7 +15,7 @@
     <tycho-version>4.0.4</tycho-version>
     <cbi-plugins.version>1.3.2</cbi-plugins.version>
     <maven.test.failure.ignore>true</maven.test.failure.ignore>
-    <platform>2021-06</platform>
+    <platform>2022-09</platform>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho.scmUrl>scm:git:https://github.com/eclipse/emf-validation.git</tycho.scmUrl>
   </properties>
