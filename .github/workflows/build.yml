@@ -25,4 +25,4 @@ jobs:
           . dbus-env
           mutter --no-x11 --headless --virtual-monitor 1920x1080 &
       - name: Build
-        run: mvn -B -ntp clean verify
+        run: ./mvnw -B -ntp clean verify
