@@ -9,18 +9,18 @@
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
       <unit id="org.eclipse.platform.ide" version="0.0.0"/>
-       <repository id="Eclipse-4.30" location="https://download.eclipse.org/eclipse/updates/4.30-I-builds/"/>
+      <repository id="Eclipse-4.30" location="https://download.eclipse.org/eclipse/updates/4.30/R-4.30-202312010110/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.edit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.examples.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.ecore.edit.feature.group" version="0.0.0"/>
-      <repository id="EMF-2.36" location="https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest"/>
+      <repository id="EMF-2.36" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.35.0"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ocl.feature.group" version="0.0.0"/>
-      <repository id="OCL-6.19" location="https://download.eclipse.org/modeling/mdt/ocl/updates/milestones/6.19.0"/>
+      <repository id="OCL-6.19" location="https://download.eclipse.org/modeling/mdt/ocl/updates/releases/6.19.0"/>
     </location>
   </locations>
 </target>
