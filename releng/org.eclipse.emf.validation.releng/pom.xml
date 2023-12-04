@@ -52,6 +52,12 @@
               <goal>plugin-source</goal>
             </goals>
           </execution>
+          <execution>
+            <id>feature-source</id>
+            <goals>
+              <goal>feature-source</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -103,6 +109,28 @@
             </environment>
           </environments>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-repository-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <includeAllSources>true</includeAllSources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>attach-p2-metadata</id>
+            <phase>package</phase>
+            <goals>
+              <goal>p2-metadata</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -172,9 +200,6 @@
     <module>../../features/org.eclipse.emf.validation-feature</module>
     <module>../../features/org.eclipse.emf.validation.ocl-feature</module>
     <module>../../features/org.eclipse.emf.validation.examples-feature</module>
-    <module>../../features/org.eclipse.emf.validation.source-feature</module>
-    <module>../../features/org.eclipse.emf.validation.ocl.source-feature</module>
-    <module>../../features/org.eclipse.emf.validation.examples.source-feature</module>
     <module>../../features/org.eclipse.emf.validation.doc-feature</module>
     <module>../../features/org.eclipse.emf.validation.tests-feature</module>
     <module>../../features/org.eclipse.emf.validation.sdk-feature</module>
