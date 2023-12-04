@@ -54,12 +54,4 @@ SPDX-License-Identifier: EPL-2.0
          id="org.eclipse.emf.validation.doc"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.emf.validation.source"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.emf.validation.ocl.source"
-         version="0.0.0"/>
-
 </feature>
