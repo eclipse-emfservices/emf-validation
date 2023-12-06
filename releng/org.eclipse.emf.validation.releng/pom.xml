@@ -17,7 +17,7 @@
     <maven.test.failure.ignore>true</maven.test.failure.ignore>
     <platform>2022-09</platform>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho.scmUrl>scm:git:https://github.com/eclipse/emf-validation.git</tycho.scmUrl>
+    <tycho.scmUrl>scm:git:https://github.com/eclipse-emfservices/emf-validation.git</tycho.scmUrl>
   </properties>
 
   <distributionManagement>
