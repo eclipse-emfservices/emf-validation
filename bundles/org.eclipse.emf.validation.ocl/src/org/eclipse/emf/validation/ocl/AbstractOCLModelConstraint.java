@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2024 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,10 @@ package org.eclipse.emf.validation.ocl;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Optional;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
@@ -61,6 +65,10 @@ import org.eclipse.ocl.helper.OCLHelper;
  * @author Christian W. Damus (cdamus)
  */
 public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IModelConstraint {
+	private static final Method OLD_OCL_NEW_INSTANCE_METHOD = getOCLMethod("newInstance");
+
+	private static final Method NEW_OCL_NEW_INSTANCE_METHOD = getOCLMethod("newInstanceAbstract");
+	  
 	private final IConstraintDescriptor descriptor;
 
 	/**
@@ -71,6 +79,14 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 	private final java.util.Map<EClass, Reference<?>> queries = new java.util.WeakHashMap<>();
 
 	private QueryManager queryManager;
+	
+	private static Method getOCLMethod(String methodName) {
+		try {
+			return OCL.class.getDeclaredMethod(methodName, EnvironmentFactory.class);
+		} catch (Throwable ex) {
+			return null;
+		}
+	}
 
 	/**
 	 * Initializes me with the <code>descriptor</code> which contains my OCL body.
@@ -119,7 +135,7 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 			// lazily initialize the condition. If a RuntimeException is thrown
 			// by the QueryFactory because of a bad OCL expression, then the
 			// constraints framework will catch it and disable me
-			OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> ocl = OCL.newInstance(createOCLEnvironmentFactory());
+			OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> ocl = createOCL(createOCLEnvironmentFactory());
 			OCLHelper<C, ?, ?, CT> helper = ocl.createOCLHelper();
 			helper.setInstanceContext(target);
 
@@ -134,6 +150,22 @@ public abstract class AbstractOCLModelConstraint<C, CT, CLS, E> implements IMode
 		}
 
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> createOCL(EnvironmentFactory<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E> environmentFactory) {
+		Method newInstanceMethod = NEW_OCL_NEW_INSTANCE_METHOD;
+		if (newInstanceMethod == null) {
+			newInstanceMethod = OLD_OCL_NEW_INSTANCE_METHOD;
+		}
+		if (newInstanceMethod != null && Modifier.isStatic(newInstanceMethod.getModifiers())) {
+			try {
+				return (OCL<?, C, ?, ?, ?, ?, ?, ?, ?, CT, CLS, E>) newInstanceMethod.invoke(null, environmentFactory);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		throw new RuntimeException("No valid static factory method found for OCL");
 	}
 
 	// implements the inherited method
