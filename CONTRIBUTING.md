@@ -8,6 +8,12 @@ EMF Services provides libraries that extend the core [EMF](https://www.eclipse.o
 
 * https://projects.eclipse.org/projects/modeling.emfservices
 
+## Terms of Use
+
+This repository is subject to the Terms of Use of the Eclipse Foundation
+
+* https://www.eclipse.org/legal/termsofuse.php
+
 ## Developer resources
 
 Information regarding source code management, builds, coding standards, and more.
@@ -16,30 +22,36 @@ Information regarding source code management, builds, coding standards, and more
 
 The project maintains the following source code repositories
 
-* https://github.com/eclipse/emf-query (unmaintained, for reference only)
-* https://github.com/eclipse/emf-validation
-* https://github.com/eclipse/emf-transaction
+* https://github.com/eclipse-emfservices/emf-query (unmaintained, for reference only)
+* https://github.com/eclipse-emfservices/emf-transaction
+* https://github.com/eclipse-emfservices/emf-validation
 
-This project uses Bugzilla to track ongoing development and issues.
+This project uses GitHub to track ongoing development and issues.
 
-* Search for issues: https://bugs.eclipse.org/bugs/buglist.cgi?product=EMF%20Services
-* Create a new report: https://bugs.eclipse.org/bugs/enter_bug.cgi?product=EMF%20Services
+* https://github.com/eclipse-emfservices/emf-transaction/issues
+* https://github.com/eclipse-emfservices/emf-validation/issues
 
 Be sure to search for existing bugs before you create another one. Remember that contributions are always welcome!
 
 ## Eclipse Development Process
 
-This Eclipse Foundation open project is governed by the Eclipse Foundation Development Process and operates under the terms of the Eclipse IP Policy.
+This Eclipse Foundation open project is governed by the Eclipse Foundation
+Development Process and operates under the terms of the Eclipse IP Policy.
+
+* https://eclipse.org/projects/dev_process
+* https://www.eclipse.org/org/documents/Eclipse_IP_Policy.pdf
 
 ## Eclipse Contributor Agreement
 
-Before your contribution can be accepted by the project team contributors must electronically sign the Eclipse Contributor Agreement (ECA).
+In order to be able to contribute to Eclipse Foundation projects you must electronically sign the Eclipse Contributor Agreement (ECA).
 
-* http://www.eclipse.org/legal/ECA.php
+* https://www.eclipse.org/legal/ECA.php
 
-Non-committers must have an Eclipse Foundation account and must have a signed Eclipse Contributor Agreement (ECA) on file.
+The ECA provides the Eclipse Foundation with a permanent record that you agree that each of your contributions will comply with the commitments documented in the Developer Certificate of Origin (DCO).
+Having an ECA on file associated with the email address matching the "Author" field of your contribution's Git commits fulfils the DCO's requirement that you sign-off on your contributions.
 
-For more information, please see the Eclipse Committer Handbook: https://www.eclipse.org/projects/handbook/#resources-commit
+For more information, please see the Eclipse Committer Handbook:
+https://www.eclipse.org/projects/handbook/#resources-commit
 
 ## Contact
 
