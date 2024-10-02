@@ -12,12 +12,13 @@
 
   <!-- this is the parent POM from which all modules inherit common settings -->
   <properties>
-    <tycho-version>4.0.8</tycho-version>
+    <tycho-version>4.0.9</tycho-version>
     <cbi-plugins.version>1.3.2</cbi-plugins.version>
     <maven.test.failure.ignore>true</maven.test.failure.ignore>
     <platform>2022-09</platform>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho.scmUrl>scm:git:https://github.com/eclipse-emfservices/emf-validation.git</tycho.scmUrl>
+    <tycho.sbom.url>https://download.eclipse.org/modeling/emf/validation/updates/releases/R202408231629/</tycho.sbom.url>
   </properties>
 
   <distributionManagement>
@@ -132,6 +133,26 @@
           </execution>
         </executions>
       </plugin>
+     <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <version>2.8.1</version>
+        <dependencies>
+            <dependency>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-sbom</artifactId>
+                <version>${tycho-version}</version>
+            </dependency>
+        </dependencies>
+        <executions>
+            <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>makeBom</goal>
+                </goals>
+            </execution>
+        </executions>
+     </plugin>
     </plugins>
   </build>
 
