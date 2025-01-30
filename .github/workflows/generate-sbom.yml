@@ -1,0 +1,40 @@
+name: Generate and ingest SBOM into sbom.eclipse.org
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    outputs:
+      project-version: ${{ steps.export.outputs.PROJECT_VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: 'maven'
+      - name: Build
+        run: |
+          ./mvnw -B -ntp clean package
+          VERSION=$(./mvnw -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.1.0:exec)
+          echo "PROJECT_VERSION=$VERSION" >> $GITHUB_OUTPUT
+      - name: Upload sbom
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        with:
+          name: sbom
+          path: releng/org.eclipse.emf.validation.repository/target/bom.json
+
+  store-sbom-data: # stores sbom and metadata in a predefined format for otterdog to pick up
+    needs: ['build']
+    uses: eclipse-csi/workflows/.github/workflows/store-sbom-data.yml@main
+    with:
+      projectName: 'EMF Validation'
+      projectVersion: ${{ needs.generate-sbom.outputs.project-version }}
+      bomArtifact: 'sbom'
+      bomFilename: 'bom.json'
+      parentProject: 'e74a7e8c-6324-4d54-b65a-b7bff986ac39'
