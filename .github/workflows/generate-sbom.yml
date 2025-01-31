@@ -39,4 +39,4 @@ jobs:
       projectVersion: ${{ needs.build.outputs.project-version }}
       bomArtifact: 'sbom'
       bomFilename: 'emf-validation-bom.json'
-      parentProject: 'e74a7e8c-6324-4d54-b65a-b7bff986ac39'
+      parentProject: 'aa5345ed-b2c4-45db-83cf-166ad9dfd0f9'
