@@ -23,11 +23,12 @@ jobs:
           ./mvnw -B -ntp clean package
           VERSION=$(./mvnw -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.1.0:exec)
           echo "PROJECT_VERSION=$VERSION" >> $GITHUB_OUTPUT
+          mv releng/org.eclipse.emf.validation.repository/target/bom.json emf-validation-bom.json
       - name: Upload sbom
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
           name: sbom
-          path: releng/org.eclipse.emf.validation.repository/target/bom.json
+          path: emf-validation-bom.json
 
   store-sbom-data: # stores sbom and metadata in a predefined format for otterdog to pick up
     needs: ['build']
@@ -36,5 +37,5 @@ jobs:
       projectName: 'EMF Validation'
       projectVersion: ${{ needs.generate-sbom.outputs.project-version }}
       bomArtifact: 'sbom'
-      bomFilename: 'bom.json'
+      bomFilename: 'emf-validation-bom.json'
       parentProject: 'e74a7e8c-6324-4d54-b65a-b7bff986ac39'
