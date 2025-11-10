@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -23,19 +23,12 @@ import org.eclipse.emf.validation.IValidationContext;
  */
 public class ThrowsConstraint extends AbstractModelConstraint {
 	/**
-	 * Initializes me.
-	 */
-	public ThrowsConstraint() {
-		super();
-	}
-
-	/**
 	 * I always throw an exception.
 	 *
 	 * @throws RuntimeException always
 	 */
 	@Override
 	public IStatus validate(IValidationContext ctx) {
-		throw new RuntimeException("I was meant to abend."); //$NON-NLS-1$
+		throw new RuntimeException("I was meant to abend.");
 	}
 }

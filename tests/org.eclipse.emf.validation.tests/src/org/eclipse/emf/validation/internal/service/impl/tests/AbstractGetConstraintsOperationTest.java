@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -38,15 +38,6 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 
 	private AbstractGetConstraintsOperation fixture;
 
-	/**
-	 * Constructor for AbstractGetConstraintsOperationTest.
-	 *
-	 * @param name
-	 */
-	public AbstractGetConstraintsOperationTest(String name) {
-		super(name);
-	}
-
 	protected final AbstractGetConstraintsOperation getFixture() {
 		return fixture;
 	}
@@ -58,7 +49,7 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 	private static TestConstraint newConstraint(EvaluationMode<?> mode) {
 		ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.newFixtureConfig();
 
-		config.putAttribute(XmlConfig.A_ID, "aGetConOpTest@" + System.identityHashCode(config)) //$NON-NLS-1$
+		config.putAttribute(XmlConfig.A_ID, "aGetConOpTest@" + System.identityHashCode(config))
 				.putAttribute(XmlConfig.A_MODE, mode.getName());
 
 		try {
@@ -71,18 +62,12 @@ abstract class AbstractGetConstraintsOperationTest extends TestBase {
 
 	protected static class TestProvider implements IModelConstraintProvider {
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public Collection<IModelConstraint> getBatchConstraints(EObject eObject,
 				Collection<IModelConstraint> constraints) {
 			return appendTo(constraints, BATCH_TOKEN);
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 				Collection<IModelConstraint> constraints) {

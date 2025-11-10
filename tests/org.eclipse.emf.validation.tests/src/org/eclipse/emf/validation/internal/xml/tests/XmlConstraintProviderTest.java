@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,10 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.xml.tests;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,10 +31,13 @@ import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.Assertions;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.tests.TestPlugin;
+import org.eclipse.emf.validation.tests.TestUtils;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
+import org.junit.Test;
 
 import ordersystem.OrderSystemFactory;
 import ordersystem.OrderSystemPackage;
@@ -84,29 +91,29 @@ public class XmlConstraintProviderTest extends TestBase {
 		}
 	}
 
-	public XmlConstraintProviderTest(String name) {
-		super(name);
-	}
-
+	@Test
 	public void test_setInitializationData() {
 		assertTrue(fixture.wasInitializationDataSet());
 	}
 
+	@Test
 	public void test_getConstraints() {
 		Collection<IModelConstraint> result = fixture.getConstraints();
 
-		assertAllConstraintsPresent("various", //$NON-NLS-1$
-				result, ID_PREFIX + "product.batch1", //$NON-NLS-1$
-				ID_PREFIX + "product.batch2", //$NON-NLS-1$
-				ID_PREFIX + "product.live1", //$NON-NLS-1$
-				ID_PREFIX + "product.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("various", //$NON-NLS-1$
+				result, TestUtils.ID_PREFIX + "product.batch1", //$NON-NLS-1$
+				TestUtils.ID_PREFIX + "product.batch2", //$NON-NLS-1$
+				TestUtils.ID_PREFIX + "product.live1", //$NON-NLS-1$
+				TestUtils.ID_PREFIX + "product.live2"); //$NON-NLS-1$
 
 		// check that all of the constraints are proxies
 		for (IModelConstraint next : result) {
+			System.out.println("test_getConstraints: " + next.getClass().getName());
 			assertTrue(next.getClass().getName().endsWith("$ConstraintProxy")); //$NON-NLS-1$
 		}
 	}
 
+	@Test
 	public void test_getBatchConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
@@ -114,11 +121,12 @@ public class XmlConstraintProviderTest extends TestBase {
 
 		fixture.getBatchConstraints(object, result);
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				result, ID_PREFIX + "product.batch1", //$NON-NLS-1$
-				ID_PREFIX + "product.batch2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", //$NON-NLS-1$
+				result, TestUtils.ID_PREFIX + "product.batch1", //$NON-NLS-1$
+				TestUtils.ID_PREFIX + "product.batch2"); //$NON-NLS-1$
 	}
 
+	@Test
 	public void test_getLiveConstraints() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
@@ -126,13 +134,14 @@ public class XmlConstraintProviderTest extends TestBase {
 
 		fixture.getLiveConstraints(new TestNotification(object, Notification.SET), result);
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				result, ID_PREFIX + "product.live1"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", //$NON-NLS-1$
+				result, TestUtils.ID_PREFIX + "product.live1"); //$NON-NLS-1$
 
-		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
-				result, ID_PREFIX + "product.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", //$NON-NLS-1$
+				result, TestUtils.ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
 
+	@Test
 	public void test_getLiveConstraintsForFeature() {
 		EObject object = OrderSystemFactory.eINSTANCE.createProduct();
 
@@ -143,21 +152,23 @@ public class XmlConstraintProviderTest extends TestBase {
 				result);
 
 		// "live1" does not specify any features, so it applies to all
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				result, ID_PREFIX + "product.live1", //$NON-NLS-1$
-				ID_PREFIX + "product.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", //$NON-NLS-1$
+				result, TestUtils.ID_PREFIX + "product.live1", //$NON-NLS-1$
+				TestUtils.ID_PREFIX + "product.live2"); //$NON-NLS-1$
 	}
 
+	@Test
 	public void test_duplicateConstraintsLogged_207988() {
 		List<IStatus> statuses = TestPlugin.getLogCapture()
 				.getLogs(EMFModelValidationStatusCodes.PROVIDER_DUPLICATE_CONSTRAINT);
 		assertFalse("Duplicate constraint not logged", statuses.isEmpty()); //$NON-NLS-1$
 	}
 
+	@Test
 	public void test_getConstraintDisabledByDefault() {
-		final String TEST_INACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestNotActiveConstraint"; //$NON-NLS-1$
-		final String TEST_ACTIVE_CONSTRAINT_ID = ID_PREFIX + "defaultTestActiveConstraint"; //$NON-NLS-1$
-		final String TEST_NOINFO_CONSTRAINT_ID = ID_PREFIX + "defaultTestConstraintWithoutDefaultEnablementInformation"; //$NON-NLS-1$
+		final String TEST_INACTIVE_CONSTRAINT_ID = TestUtils.ID_PREFIX + "defaultTestNotActiveConstraint"; //$NON-NLS-1$
+		final String TEST_ACTIVE_CONSTRAINT_ID = TestUtils.ID_PREFIX + "defaultTestActiveConstraint"; //$NON-NLS-1$
+		final String TEST_NOINFO_CONSTRAINT_ID = TestUtils.ID_PREFIX + "defaultTestConstraintWithoutDefaultEnablementInformation"; //$NON-NLS-1$
 
 		// Test the inactive constraint
 		IConstraintDescriptor desc = ConstraintRegistry.getInstance().getDescriptor(TEST_INACTIVE_CONSTRAINT_ID);

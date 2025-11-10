@@ -44,11 +44,10 @@ public class SetTargetConstraint extends AbstractModelConstraint {
 
 		LineItem lineItem = null;
 
-		if (ctx.getTarget() instanceof Order) {
-			Order order = (Order) ctx.getTarget();
+		if (ctx.getTarget() instanceof Order order) {
 			Object obj = order.getItem().get(0);
-			if (obj != null && obj instanceof LineItem) {
-				lineItem = (LineItem) obj;
+			if (obj != null && obj instanceof LineItem item) {
+				lineItem = item;
 			}
 		}
 
@@ -61,10 +60,9 @@ public class SetTargetConstraint extends AbstractModelConstraint {
 		Collection<IStatus> statuses = new java.util.ArrayList<>();
 
 		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, Collections.singletonList(lineItem), IStatus.INFO, 13,
-				"This is {0}.", //$NON-NLS-1$
-				new Object[] { "fun" })); //$NON-NLS-1$
-		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, null, IStatus.WARNING, 7, "This is {0}.", //$NON-NLS-1$
-				new Object[] { "silly" })); //$NON-NLS-1$
+				"This is {0}.", new Object[] { "fun" }));
+		statuses.add(ConstraintStatus.createStatus(ctx, lineItem, null, IStatus.WARNING, 7, "This is {0}.",
+				new Object[] { "silly" }));
 		statuses.add(ConstraintStatus.createSuccessStatus(ctx, lineItem, Collections.singletonList(ctx.getTarget())));
 
 		return ConstraintStatus.createMultiStatus(ctx, statuses);

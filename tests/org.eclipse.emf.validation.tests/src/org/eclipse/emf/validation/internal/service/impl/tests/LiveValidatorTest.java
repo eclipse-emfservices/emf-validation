@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,13 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,9 +35,15 @@ import org.eclipse.emf.validation.internal.service.LiveValidator;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.Assertions;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
+import org.eclipse.emf.validation.tests.TestUtils;
 import org.eclipse.emf.validation.util.FilteredCollection;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ordersystem.Customer;
 import ordersystem.LineItem;
@@ -48,88 +61,79 @@ import ordersystem.special.SpecialFactory;
  */
 public class LiveValidatorTest extends TestBase {
 	private LiveValidator validator;
-
-	/**
-	 * Constructor for BatchValidatorTest.
-	 *
-	 * @param name
-	 */
-	public LiveValidatorTest(String name) {
-		super(name);
+	
+	@BeforeClass
+	public static void initTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
+	}
+	
+	@AfterClass
+	public static void resetTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
 
-	/*
-	 * (non-Javadoc) Extends the inherited method.
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
+	@Before
+	public void setUp() {
 		validator = new LiveValidator(new BatchValidatorTest.TestExecutor());
 	}
 
-	private LiveValidator getValidator() {
-		return validator;
+	@Test
+	public void getEvaluationMode() {
+		assertSame("Wrong evaluation mode", EvaluationMode.LIVE, validator.getEvaluationMode());
 	}
 
-	public void test_getEvaluationMode() {
-		assertSame("Wrong evaluation mode", //$NON-NLS-1$
-				EvaluationMode.LIVE, validator.getEvaluationMode());
-	}
+	@Test
+	public void isReportSuccesses() {
+		validator.setReportSuccesses(true);
+		assertTrue("Not reporting successes", validator.isReportSuccesses());
 
-	public void test_isReportSuccesses() {
-		getValidator().setReportSuccesses(true);
-		assertTrue("Not reporting successes", //$NON-NLS-1$
-				getValidator().isReportSuccesses());
-
-		getValidator().setReportSuccesses(false);
-		assertFalse("Should not report successes", //$NON-NLS-1$
-				getValidator().isReportSuccesses());
+		validator.setReportSuccesses(false);
+		assertFalse("Should not report successes", validator.isReportSuccesses());
 	}
 
 	/*
 	 * Class to test for IStatus validate(Object)
 	 */
-	public void test_validate_object() {
+	@Test
+	public void validate_object() {
 		Notification target = new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET,
-				OrderSystemPackage.PRODUCT__SKU, "123", //$NON-NLS-1$
-				null);
+				OrderSystemPackage.PRODUCT__SKU, "123", null);
 
 		try {
-			getValidator().validate(target);
+			validator.validate(target);
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 	}
 
 	/*
 	 * Class to test for IStatus validate(Notification)
 	 */
-	public void test_validate_notification() {
+	@Test
+	public void validate_notification() {
 		Notification target = new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET,
-				OrderSystemPackage.PRODUCT__SKU, "123", //$NON-NLS-1$
-				null);
+				OrderSystemPackage.PRODUCT__SKU, "123", null);
 
 		try {
-			getValidator().validate(target);
+			validator.validate(target);
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 	}
 
 	/*
 	 * Class to test for IStatus validate(Collection)
 	 */
-	public void test_validateCollection() {
+	@Test
+	public void validateCollection() {
 		Notification target = new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET,
-				OrderSystemPackage.PRODUCT__SKU, "123", //$NON-NLS-1$
-				null);
+				OrderSystemPackage.PRODUCT__SKU, "123", null);
 
 		try {
-			getValidator().validate(Collections.singleton(target));
-			getValidator().validate(Collections.<Notification>emptySet());
+			validator.validate(Collections.singleton(target));
+			validator.validate(Collections.<Notification>emptySet());
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 	}
 
@@ -139,7 +143,8 @@ public class LiveValidatorTest extends TestBase {
 		return result;
 	}
 
-	public void test_mergeNotifications_add_one() {
+	@Test
+	public void mergeNotifications_add_one() {
 		OrderSystem os = createOrderSystem();
 		NotificationGatherer ng = new NotificationGatherer();
 		os.eAdapters().add(ng);
@@ -170,7 +175,8 @@ public class LiveValidatorTest extends TestBase {
 		assertSame(c, NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_add_many() {
+	@Test
+	public void mergeNotifications_add_many() {
 		OrderSystem os = createOrderSystem();
 		NotificationGatherer ng = new NotificationGatherer();
 		os.eAdapters().add(ng);
@@ -209,7 +215,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(customers, NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_remove_one() {
+	@Test
+	public void mergeNotifications_remove_one() {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
@@ -248,7 +255,8 @@ public class LiveValidatorTest extends TestBase {
 		assertSame(c, NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_remove_many() {
+	@Test
+	public void mergeNotifications_remove_many() {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
@@ -288,7 +296,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(customers, NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_move_one() {
+	@Test
+	public void mergeNotifications_move_one() {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
@@ -326,7 +335,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(os.getCustomer(), NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_move_many() {
+	@Test
+	public void mergeNotifications_move_many() {
 		OrderSystem os = createOrderSystem();
 
 		// add a few customers
@@ -366,7 +376,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(os.getCustomer(), NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_removingAdapter_one() {
+	@Test
+	public void mergeNotifications_removingAdapter_one() {
 		OrderSystem os = createOrderSystem();
 
 		NotificationGatherer ng = new NotificationGatherer();
@@ -397,7 +408,8 @@ public class LiveValidatorTest extends TestBase {
 		assertSame(ng, NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_removingAdapter_many() {
+	@Test
+	public void mergeNotifications_removingAdapter_many() {
 		OrderSystem os = createOrderSystem();
 
 		NotificationGatherer ng = new NotificationGatherer();
@@ -432,7 +444,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(Collections.nCopies(3, ng), NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_set_one() {
+	@Test
+	public void mergeNotifications_set_one() {
 		OrderSystem os = createOrderSystem();
 		NotificationGatherer ng = new NotificationGatherer();
 		os.eAdapters().add(ng);
@@ -462,7 +475,8 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(Integer.valueOf(3), NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_mergeNotifications_set_many() {
+	@Test
+	public void mergeNotifications_set_many() {
 		OrderSystem os = createOrderSystem();
 		NotificationGatherer ng = new NotificationGatherer();
 		os.eAdapters().add(ng);
@@ -494,21 +508,22 @@ public class LiveValidatorTest extends TestBase {
 		assertEquals(Integer.valueOf(3), NotificationMergingTestConstraint.instance.getFeatureNewValue());
 	}
 
-	public void test_notificationFilterDefault_177653() {
+	@Test
+	public void notificationFilterDefault_177653() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder(); // Don't add to a resource
 		Notification event = new TestNotification(object, Notification.SET);
 
 		ILiveValidator localValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		localValidator.setReportSuccesses(true);
-		IStatus[] status = getStatuses(localValidator.validate(event));
+		IStatus[] status = TestUtils.getStatuses(localValidator.validate(event));
 
 		// No constraints present because notification should have been ignored
-		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasName", //$NON-NLS-1$
-				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", status, TestUtils.ID_PREFIX + "order.hasName",
+				TestUtils.ID_PREFIX + "order.hasOwner");
 	}
 
-	public void test_notficationFilterCustom_177653() {
+	@Test
+	public void notficationFilterCustom_177653() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		Notification event = new TestNotification(object, Notification.SET);
 
@@ -524,14 +539,14 @@ public class LiveValidatorTest extends TestBase {
 			}
 		});
 
-		IStatus[] status = getStatuses(localValidator.validate(event));
+		IStatus[] status = TestUtils.getStatuses(localValidator.validate(event));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasName", //$NON-NLS-1$
-				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status, TestUtils.ID_PREFIX + "order.hasName",
+				TestUtils.ID_PREFIX + "order.hasOwner");
 	}
 
-	public void test_notificationGenerator_177647() {
+	@Test
+	public void notificationGenerator_177647() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
 		Product product = SpecialFactory.eINSTANCE.createLimitedEditionProduct();
@@ -550,24 +565,20 @@ public class LiveValidatorTest extends TestBase {
 		ILiveValidator localValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
 		localValidator.setReportSuccesses(true);
 
-		IStatus[] status = getStatuses(localValidator.validate(event));
+		IStatus[] status = TestUtils.getStatuses(localValidator.validate(event));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "limitedEdition.canIncludeInSpecial"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status,
+				TestUtils.ID_PREFIX + "limitedEdition.canIncludeInSpecial");
 
 		// Ensure that a constraint targeted at ALL events (eg using wildcard),
 		// does not get triggered see
 		// XMLConstraintDescriptor#targetsEvent(Notification)
-		assertAllConstraintsNotPresent("live", status, //$NON-NLS-1$
-				ID_PREFIX + "limitedEdition.hasDates"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", status, TestUtils.ID_PREFIX + "limitedEdition.hasDates");
 	}
 
 	private static class NotificationGatherer extends AdapterImpl {
 		private final List<Notification> notifications = new java.util.ArrayList<>();
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public void notifyChanged(Notification msg) {
 			notifications.add(msg);
@@ -585,9 +596,10 @@ public class LiveValidatorTest extends TestBase {
 		private Object featureNewValue;
 		private int invocationCount = 0;
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
+		public NotificationMergingTestConstraint() {
+			super();
+		}
+
 		@Override
 		public IStatus validate(IValidationContext ctx) {
 			instance = this;

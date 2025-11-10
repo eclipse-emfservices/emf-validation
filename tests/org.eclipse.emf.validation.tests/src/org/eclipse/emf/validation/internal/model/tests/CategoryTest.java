@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,13 +11,19 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Collection;
 
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
-
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Tests the basic functionality of the {@link CategoryManager} and
@@ -25,75 +31,70 @@ import junit.framework.TestCase;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class CategoryTest extends TestCase {
-	private static CategoryManager mgr = CategoryManager.getInstance();
-
-	/**
-	 * Tests the access to categories.
-	 */
-	public void test_getCategory() {
-		Trace.trace(">>> Testing getCategory"); //$NON-NLS-1$
-
-		Category top = mgr.getCategory("$test");//$NON-NLS-1$
-
-		assertNotNull(top);
-
-		Category child = mgr.getCategory(top, "///$child");//$NON-NLS-1$
-
-		assertNotNull(child);
-
-		assertSame(top, child.getParent());
-
-		Category childAgain = mgr.getCategory("$test/$child");//$NON-NLS-1$
-
-		assertSame(child, childAgain);
-
-		Category grandChild = mgr.getCategory("$test/$child/$grand");//$NON-NLS-1$
-
-		assertNotNull(grandChild);
-		assertSame(grandChild, mgr.getCategory(top, "$child/$grand"));//$NON-NLS-1$
+public class CategoryTest {
+	private CategoryManager mgr;
+	
+	@Before
+	public void init() {
+		mgr = CategoryManager.getInstance();
 	}
 
 	/**
 	 * Tests the access to categories.
 	 */
-	public void test_findCategory() {
-		Trace.trace(">>> Testing findCategory"); //$NON-NLS-1$
-
-		// these should all have been loaded from the extension point
-
-		Category top = mgr.findCategory("junit");//$NON-NLS-1$
-
+	@Test
+	public void getCategory() {
+		Trace.trace(">>> Testing getCategory");
+		Category top = mgr.getCategory("$test");
 		assertNotNull(top);
 
-		Category child = mgr.findCategory(top, "///validation");//$NON-NLS-1$
-
+		Category child = mgr.getCategory(top, "///$child");
 		assertNotNull(child);
 
-		Category sameChild = mgr.findCategory("junit/validation");//$NON-NLS-1$
+		assertSame(top, child.getParent());
 
+		Category childAgain = mgr.getCategory("$test/$child");
+		assertSame(child, childAgain);
+
+		Category grandChild = mgr.getCategory("$test/$child/$grand");
+		assertNotNull(grandChild);
+		assertSame(grandChild, mgr.getCategory(top, "$child/$grand"));
+	}
+
+	/**
+	 * Tests the access to categories.
+	 */
+	@Test
+	public void findCategory() {
+		Trace.trace(">>> Testing findCategory");
+
+		// these should all have been loaded from the extension point
+		Category top = mgr.findCategory("junit");
+		assertNotNull(top);
+
+		Category child = mgr.findCategory(top, "///validation");
+		assertNotNull(child);
+
+		Category sameChild = mgr.findCategory("junit/validation");
 		assertNotNull(sameChild);
 		assertSame(child, sameChild);
 
 		// these should not exist
-
-		Category notThere = mgr.findCategory("$boo");//$NON-NLS-1$
-
+		Category notThere = mgr.findCategory("$boo");
 		assertNull(notThere);
 
-		notThere = mgr.findCategory("junit/$boo");//$NON-NLS-1$
-
+		notThere = mgr.findCategory("junit/$boo");
 		assertNull(notThere);
 
-		notThere = mgr.findCategory(top, "$boo");//$NON-NLS-1$
-
+		notThere = mgr.findCategory(top, "$boo");
 		assertNull(notThere);
 	}
 
 	/**
 	 * Tests the consistency of the top-level categories query.
 	 */
-	public void test_getTopLevelCategories() {
+	@Test
+	public void getTopLevelCategories() {
 		Collection<Category> topLevel = mgr.getTopLevelCategories();
 
 		for (Category next : topLevel) {
@@ -104,7 +105,8 @@ public class CategoryTest extends TestCase {
 	/**
 	 * Tests the consistency of the mandatory categories query.
 	 */
-	public void test_getMandatoryCategories() {
+	@Test
+	public void getMandatoryCategories() {
 		Collection<Category> topLevel = mgr.getMandatoryCategories();
 
 		for (Category next : topLevel) {
@@ -115,19 +117,21 @@ public class CategoryTest extends TestCase {
 	/**
 	 * Tests the consistency of the default category query.
 	 */
-	public void test_getDefaultCategory() {
+	@Test
+	public void getDefaultCategory() {
 		Category dflt = mgr.getDefaultCategory();
 
-		assertEquals("", dflt.getId()); //$NON-NLS-1$
-		assertEquals("(default)", dflt.getName()); //$NON-NLS-1$
+		assertEquals("", dflt.getId());
+		assertEquals("(default)", dflt.getName());
 		assertNull(dflt.getParent());
 	}
 
 	/**
 	 * Tests the display of categories.
 	 */
-	public void test_dumpCategories() {
-		Trace.trace(">>> Testing dumpCategories"); //$NON-NLS-1$
+	@Test
+	public void dumpCategories() {
+		Trace.trace(">>> Testing dumpCategories");
 
 		for (Category next : mgr.getTopLevelCategories()) {
 			dumpCategory(next);
@@ -143,7 +147,7 @@ public class CategoryTest extends TestCase {
 		Trace.trace(category.toString());
 
 		for (Object next : category.getConstraints()) {
-			Trace.trace("    " + next); //$NON-NLS-1$
+			Trace.trace("    " + next);
 		}
 
 		for (Category child : category.getChildren()) {

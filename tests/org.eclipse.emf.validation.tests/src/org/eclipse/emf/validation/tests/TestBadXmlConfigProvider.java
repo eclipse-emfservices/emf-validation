@@ -52,7 +52,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 			Collection<IModelConstraint> constraints) {
 		if (AllTests.isExecutingUnitTests()) {
 			// only throw if we are actually executing the unit tests
-			throw new RuntimeException("I am supposed to abend."); //$NON-NLS-1$
+			throw new RuntimeException("I am supposed to abend.");
 		}
 
 		// otherwise, just be harmless by delegating to super's no-op impl
@@ -68,7 +68,7 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 		if (AllTests.isExecutingUnitTests()) {
 			// only throw if we are actually executing the unit tests
-			throw new RuntimeException("I am supposed to abend."); //$NON-NLS-1$
+			throw new RuntimeException("I am supposed to abend.");
 		}
 
 		// otherwise, just be harmless by delegating to super's no-op impl
@@ -90,9 +90,8 @@ public class TestBadXmlConfigProvider extends AbstractConstraintProvider {
 			// actually executing unit tests. Other run-times should not
 			// care because I am only intended for unit testing
 			if (config.getChildren(XmlConfig.E_CONSTRAINTS).length == 0) {
-				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
-						1, "Missing <constraints> element", //$NON-NLS-1$
-						null));
+				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", 1,
+						"Missing <constraints> element", null));
 			}
 		}
 

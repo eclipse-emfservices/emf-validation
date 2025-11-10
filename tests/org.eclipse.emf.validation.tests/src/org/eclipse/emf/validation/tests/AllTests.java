@@ -13,23 +13,15 @@ package org.eclipse.emf.validation.tests;
 
 import java.util.Map;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.osgi.service.prefs.BackingStoreException;
-import org.osgi.service.prefs.Preferences;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
-import junit.framework.TestSuite;
 
 /**
  * Test suite encapsulating all of the JUnit tests in this test plug-in.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class AllTests extends TestCase {
+public class AllTests {
 	public static boolean executingUnitTests = false;
 
 	static {
@@ -51,44 +43,14 @@ public class AllTests extends TestCase {
 		return executingUnitTests;
 	}
 
-	/**
-	 * Creates the test suite.
-	 *
-	 * @return the test suite
-	 */
-	public static Test suite() {
-		// Show validation problems on the console.
-		Preferences mslui = Platform.getPreferencesService().getRootNode().node("instance") //$NON-NLS-1$
-				.node("org.eclipse.gmf.runtime.emf.ui"); //$NON-NLS-1$
-		mslui.putInt("Validation.liveProblemsDisplay", 1); //$NON-NLS-1$
-		try {
-			mslui.flush();
-		} catch (BackingStoreException e) {
-			e.printStackTrace();
-		}
-
-		// this method is called if and only if unit tests are being executed
-		TestSuite suite = new TestSuite("Test for org.eclipse.emf.validation plug-in") { //$NON-NLS-1$
-			@Override
-			public void run(TestResult result) {
-				// ensure that the tests know that they are running
-				executingUnitTests = true;
-
-				super.run(result);
-
-				executingUnitTests = false;
-			}
-		};
-
-		suite.addTest(new org.eclipse.emf.validation.internal.model.tests.AllTests());
-		suite.addTest(new org.eclipse.emf.validation.internal.util.tests.AllTests());
-		suite.addTest(new org.eclipse.emf.validation.internal.service.impl.tests.AllTests());
-		suite.addTest(new org.eclipse.emf.validation.internal.xml.tests.AllTests());
-		suite.addTest(new org.eclipse.emf.validation.internal.service.tests.AllTests());
-		suite.addTest(new org.eclipse.emf.validation.marker.tests.AllTests());
-
-		suite.addTestSuite(FrameworkTest.class);
-
-		return suite;
-	}
+//	public static Test suite() {
+//		// Show validation problems on the console.
+//		Preferences mslui = Platform.getPreferencesService().getRootNode().node("instance").node("org.eclipse.gmf.runtime.emf.ui");
+//		mslui.putInt("Validation.liveProblemsDisplay", 1);
+//		try {
+//			mslui.flush();
+//		} catch (BackingStoreException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

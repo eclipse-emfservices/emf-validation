@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,6 +11,8 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
@@ -20,15 +22,41 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.emf.validation.tests.AllTests;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.ui.PlatformUI;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 
 public class ValidationListenersTest extends TestBase {
-	public ValidationListenersTest(String name) {
-		super(name);
+	@BeforeClass
+	public static void initTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
+	}
+	
+	@AfterClass
+	public static void resetTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
+	}
+	
+	@Before
+	public void setUp() throws Exception {
+		ClientContextValidationListener.LISTENER_CALLED = false;
+		UniversalValidationListener.LAST_EVENT = null;
+		UniversalValidationListener.enabled = true;
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		UniversalValidationListener.enabled = false;
+		UniversalValidationListener.LAST_EVENT = null;
+		ClientContextValidationListener.LISTENER_CALLED = false;
+	}
+
+	@Test
 	public void test_UniversalListener() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
@@ -41,6 +69,7 @@ public class ValidationListenersTest extends TestBase {
 		assertTrue(event.getClientContextIds().contains("org.eclipse.emf.validation.tests.junit")); //$NON-NLS-1$
 	}
 
+	@Test
 	public void test_ClientContextListener() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
@@ -49,6 +78,7 @@ public class ValidationListenersTest extends TestBase {
 		assertTrue(ClientContextValidationListener.LISTENER_CALLED);
 	}
 
+	@Test
 	public void liveValidationJUnitLockupTest() {
 		AllTests.executingUnitTests = true;
 
@@ -81,23 +111,5 @@ public class ValidationListenersTest extends TestBase {
 		// If this test case doesn't lock up then we have proven
 		// that the live validation dialog will not lock up JUnit
 		// test cases.
-	}
-
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
-		ClientContextValidationListener.LISTENER_CALLED = false;
-		UniversalValidationListener.LAST_EVENT = null;
-		UniversalValidationListener.enabled = true;
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		UniversalValidationListener.enabled = false;
-		UniversalValidationListener.LAST_EVENT = null;
-		ClientContextValidationListener.LISTENER_CALLED = false;
-
-		super.tearDown();
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2005 IBM Corporation and others.
+ * Copyright (c) 2005, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,143 +11,148 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.validation.internal.service.ClientContext;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.model.IClientSelector;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Documentation for <code>ClientContextTest</code>.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ClientContextTest extends TestCase {
+public class ClientContextTest {
 
-	public void test_initWithoutid() {
+	private static final String CLIENT_CONTEXT = "clientContext";
+
+	@Test
+	public void initWithoutid() {
 		// test that initializing a context without an ID fails
 		try {
-			new ClientContext(new ConstraintDescriptorTest.FixtureElement("clientContext")); //$NON-NLS-1$
-			fail("Should have thrown exception."); //$NON-NLS-1$
+			new ClientContext(new ConstraintDescriptorTest.FixtureElement(CLIENT_CONTEXT));
+			fail("Should have thrown exception.");
 		} catch (CoreException e) {
 			// success
 		}
 	}
 
-	public void test_initWithoutSelector() {
+	@Test
+	public void initWithoutSelector() {
 		try {
-			new ClientContext(ConstraintDescriptorTest.FixtureElement.build("clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } })); //$NON-NLS-1$//$NON-NLS-2$
-			fail("Should have thrown exception."); //$NON-NLS-1$
+			new ClientContext(ConstraintDescriptorTest.FixtureElement.build(CLIENT_CONTEXT,
+					new String[][] { { "id", "junit.testContext" } }));
+			fail("Should have thrown exception.");
 		} catch (CoreException e) {
 			// success
 		}
 	}
 
-	public void test_initWithInvalidEnablement() {
+	@Test
+	public void initWithInvalidEnablement() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement") //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")
 					.addChild(new ConstraintDescriptorTest.FixtureElement(
 							// unknown expression element
-							"foo"))); //$NON-NLS-1$
+							"foo")));
 			new ClientContext(element);
-			fail("Should have thrown exception."); //$NON-NLS-1$
+			fail("Should have thrown exception.");
 		} catch (CoreException e) {
 			// success
 		}
 	}
 
-	public void test_initWithMissingSelector() {
+	@Test
+	public void initWithMissingSelector() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("selector")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("selector"));
 			new ClientContext(element);
-			fail("Should have thrown exception."); //$NON-NLS-1$
+			fail("Should have thrown exception.");
 		} catch (CoreException e) {
 			// success
 		}
 	}
 
-	public void test_initWithInvalidSelector() {
+	@Test
+	public void initWithInvalidSelector() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(ConstraintDescriptorTest.FixtureElement.build("selector", //$NON-NLS-1$
-					new String[][] { { "class", InvalidSelector.class.getName() } })); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(ConstraintDescriptorTest.FixtureElement.build("selector",
+					new String[][] { { "class", InvalidSelector.class.getName() } }));
 			new ClientContext(element);
-			fail("Should have thrown exception."); //$NON-NLS-1$
+			fail("Should have thrown exception.");
 		} catch (CoreException e) {
 			// success
 		}
 	}
 
-	public void test_initWithValidExpression() {
+	@Test
+	public void initWithValidExpression() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")) //$NON-NLS-1$
-					.addChild(ConstraintDescriptorTest.FixtureElement.build("test", new String[][] { { "property", "com.example.foo" }, //$NON-NLS-2$ //$NON-NLS-3$
-									{ "value", "bar" } })); //$NON-NLS-1$ //$NON-NLS-2$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"))
+					.addChild(ConstraintDescriptorTest.FixtureElement.build("test",
+							new String[][] { { "property", "com.example.foo" }, //$NON-NLS-2$
+									{ "value", "bar" } }));
 			new ClientContext(element);
 		} catch (CoreException e) {
-			fail("Should not have thrown exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}
 	}
 
-	public void test_initWithValidSelector() {
+	@Test
+	public void initWithValidSelector() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(ConstraintDescriptorTest.FixtureElement.build("selector", //$NON-NLS-1$
-					new String[][] { { "class", ValidSelector.class.getName() } })); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(ConstraintDescriptorTest.FixtureElement.build("selector",
+					new String[][] { { "class", ValidSelector.class.getName() } }));
 			new ClientContext(element);
 		} catch (CoreException e) {
-			fail("Should not have thrown exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}
 	}
 
-	public void test_initDefault() {
+	@Test
+	public void initDefault() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			assertFalse("Should not be default", //$NON-NLS-1$
-					new ClientContext(element).isDefault());
+			assertFalse("Should not be default", new ClientContext(element).isDefault());
 
-			element = ConstraintDescriptorTest.FixtureElement.build("clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" }, //$NON-NLS-1$//$NON-NLS-2$
-							{ "default", "true" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			element = ConstraintDescriptorTest.FixtureElement.build(CLIENT_CONTEXT,
+					new String[][] { { "id", "junit.testContext" }, { "default", "true" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			assertTrue("Should be default", //$NON-NLS-1$
-					new ClientContext(element).isDefault());
+			assertTrue("Should be default", new ClientContext(element).isDefault());
 		} catch (CoreException e) {
-			fail("Should not have thrown exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}
 	}
 
-	public void test_equals() {
+	@Test
+	public void testEquals() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			ConstraintDescriptorTest.FixtureElement element2 = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext2" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element2.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element2 = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext2" } });
+			element2.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
 			ClientContext ctx1 = new ClientContext(element);
 			ClientContext ctx2 = new ClientContext(element);
@@ -156,21 +161,20 @@ public class ClientContextTest extends TestCase {
 			assertEquals(ctx1, ctx2);
 			assertFalse(ctx1.equals(ctx3));
 		} catch (CoreException e) {
-			fail("Should not have thrown exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}
 	}
 
-	public void test_hashCode() {
+	@Test
+	public void testHashCode() {
 		try {
-			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
+			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			ConstraintDescriptorTest.FixtureElement element2 = ConstraintDescriptorTest.FixtureElement.build(
-					"clientContext", //$NON-NLS-1$
-					new String[][] { { "id", "junit.testContext2" } }); //$NON-NLS-1$//$NON-NLS-2$
-			element2.addChild(new ConstraintDescriptorTest.FixtureElement("enablement")); //$NON-NLS-1$
+			ConstraintDescriptorTest.FixtureElement element2 = ConstraintDescriptorTest.FixtureElement
+					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext2" } });
+			element2.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
 			ClientContext ctx1 = new ClientContext(element);
 			ClientContext ctx2 = new ClientContext(element);
@@ -179,7 +183,7 @@ public class ClientContextTest extends TestCase {
 			assertEquals(ctx1.hashCode(), ctx2.hashCode());
 			assertTrue((ctx1.hashCode() == ctx3.hashCode()) || !ctx1.equals(ctx3));
 		} catch (CoreException e) {
-			fail("Should not have thrown exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}
 	}
 
