@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,13 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,8 +42,8 @@ import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 import ordersystem.OrderSystemFactory;
 
 /**
@@ -44,21 +51,21 @@ import ordersystem.OrderSystemFactory;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ConstraintDescriptorTest extends TestCase {
-	private static final String TEST_NAME = "Testing";//$NON-NLS-1$
-	private static final String TEST_PLUGIN = "org.eclipse.emf.validation.tests";//$NON-NLS-1$
-	private static final String TEST_ID = TEST_PLUGIN + '.' + "test.id";//$NON-NLS-1$
-	private static final String TEST_DESCRIPTION = "Test description";//$NON-NLS-1$
-	private static final String TEST_MESSAGE = "Error in {0}";//$NON-NLS-1$
-	private static final String TEST_LANG = "OCL";//$NON-NLS-1$
-	private static final String TEST_BODY = "self.name = 'Ottawa'";//$NON-NLS-1$
+public class ConstraintDescriptorTest {
+	private static final String TEST_NAME = "Testing";
+	private static final String TEST_PLUGIN = "org.eclipse.emf.validation.tests";
+	private static final String TEST_ID = TEST_PLUGIN + '.' + "test.id";
+	private static final String TEST_DESCRIPTION = "Test description";
+	private static final String TEST_MESSAGE = "Error in {0}";
+	private static final String TEST_LANG = "OCL";
+	private static final String TEST_BODY = "self.name = 'Ottawa'";
 	private static final int TEST_CODE = 1000;
 	private static final ConstraintSeverity TEST_SEVERITY = ConstraintSeverity.WARNING;
 	private static final EvaluationMode<Notification> TEST_MODE = EvaluationMode.LIVE;
-	private static final String TEST_NAMESPACE_URI = "http:///ordersystem.ecore"; //$NON-NLS-1$
-	private static final String TEST_CLASS = "Warehouse"; //$NON-NLS-1$
-	private static final String TEST_EVENT = "Set"; //$NON-NLS-1$
-	private static final Category TEST_CATEGORY = CategoryManager.getInstance().getCategory("test/descriptor"); //$NON-NLS-1$
+	private static final String TEST_NAMESPACE_URI = "http:///ordersystem.ecore";
+	private static final String TEST_CLASS = "Warehouse";
+	private static final String TEST_EVENT = "Set";
+	private static final Category TEST_CATEGORY = CategoryManager.getInstance().getCategory("test/descriptor");
 
 	private static XmlConstraintDescriptor fixture;
 	private static FixtureElement fixtureConfig;
@@ -71,7 +78,7 @@ public class ConstraintDescriptorTest extends TestCase {
 		private final List<IConfigurationElement> children = new java.util.ArrayList<>();
 		private Object parent;
 		private final String myName;
-		private String value = ""; //$NON-NLS-1$
+		private String value = "";
 
 		public FixtureElement(String name) {
 			this.myName = name;
@@ -146,26 +153,23 @@ public class ConstraintDescriptorTest extends TestCase {
 		public FixtureElement addChild(IConfigurationElement child) {
 			children.add(child);
 
-			if (child instanceof FixtureElement) {
-				((FixtureElement) child).setParent(this);
+			if (child instanceof FixtureElement fixtureElement) {
+				fixtureElement.setParent(this);
 			}
 
 			return this;
 		}
 
-		// implements/extends the inherited method
 		@Override
 		public String getName() {
 			return myName;
 		}
 
-		// implements/extends the inherited method
 		@Override
 		public String getValue() {
 			return value;
 		}
 
-		// implements/extends the inherited method
 		@Override
 		public String getValueAsIs() {
 			return getValue();
@@ -186,9 +190,6 @@ public class ConstraintDescriptorTest extends TestCase {
 		public IExtension getDeclaringExtension() {
 			return new IExtension() {
 
-				/*
-				 * (non-Javadoc) Redefines the inherited method.
-				 */
 				@Override
 				public String getNamespace() {
 					return TEST_PLUGIN;
@@ -246,23 +247,17 @@ public class ConstraintDescriptorTest extends TestCase {
 			try {
 				Object result = Class.forName(getAttribute(propertyName)).getDeclaredConstructor().newInstance();
 
-				if (result instanceof IExecutableExtension) {
-					((IExecutableExtension) result).setInitializationData(this, propertyName, null);
+				if (result instanceof IExecutableExtension executableExtension) {
+					executableExtension.setInitializationData(this, propertyName, null);
 				}
 
 				return result;
 			} catch (Exception e) {
-				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
-						1, "Failed to create executable extension", //$NON-NLS-1$
-						e));
+				throw new CoreException(
+						new Status(IStatus.ERROR, TEST_PLUGIN, 1, "Failed to create executable extension", e));
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see org.eclipse.core.runtime.IConfigurationElement#getParent()
-		 */
 		@Override
 		public Object getParent() {
 			return parent;
@@ -315,7 +310,7 @@ public class ConstraintDescriptorTest extends TestCase {
 				fixture = new XmlConstraintDescriptor(getFixtureConfig());
 			} catch (ConstraintExistsException e) {
 				// shouldn't happen in this test
-				fail("Constraint already exists: " + e.getLocalizedMessage()); //$NON-NLS-1$
+				fail("Constraint already exists: " + e.getLocalizedMessage());
 			}
 		}
 
@@ -366,59 +361,73 @@ public class ConstraintDescriptorTest extends TestCase {
 		return fixtureConfig;
 	}
 
-	public void test_hashCode() {
+	@Test
+	public void testHashCode() {
 		assertEquals(TEST_ID.hashCode(), getFixture().hashCode());
 	}
 
-	public void test_registry() {
+	@Test
+	public void registry() {
 		assertSame(getFixture(), ConstraintRegistry.getInstance().getDescriptor(TEST_PLUGIN, TEST_ID));
 	}
 
-	public void test_getConfig() {
+	@Test
+	public void getConfig() {
 		assertSame(getFixtureConfig(), getFixture().getConfig());
 	}
 
-	public void test_getDescriptor() {
+	@Test
+	public void getDescriptor() {
 		assertSame(getFixture(), getFixture().getDescriptor());
 	}
 
-	public void test_getName() {
+	@Test
+	public void getName() {
 		assertEquals(TEST_NAME, getFixture().getName());
 	}
 
-	public void test_getId() {
+	@Test
+	public void getId() {
 		assertEquals(TEST_ID, getFixture().getId());
 	}
 
-	public void test_getPluginId() {
+	@Test
+	public void getPluginId() {
 		assertEquals(TEST_PLUGIN, getFixture().getPluginId());
 	}
 
-	public void test_getDescription() {
+	@Test
+	public void getDescription() {
 		assertEquals(TEST_DESCRIPTION, getFixture().getDescription());
 	}
 
-	public void test_getSeverity() {
+	@Test
+	public void getSeverity() {
 		assertSame(TEST_SEVERITY, getFixture().getSeverity());
 	}
 
-	public void test_getStatusCode() {
+	@Test
+	public void getStatusCode() {
 		assertEquals(TEST_CODE, getFixture().getStatusCode());
 	}
 
-	public void test_getEvaluationMode() {
+	@Test
+	public void getEvaluationMode() {
 		assertSame(TEST_MODE, getFixture().getEvaluationMode());
 	}
 
-	public void test_isBatch() {
+	@Test
+	public void isBatch() {
 		assertFalse(getFixture().getEvaluationMode().isBatchOnly());
 	}
 
-	public void test_isLive() {
+	@Test
+	public void isLive() {
 		assertTrue(getFixture().getEvaluationMode().isLive());
 	}
 
-	public void test_isEnabled_isError_getException() {
+	@Test
+	public void isEnabled_isError_getException() {
 		assertTrue(getFixture().isEnabled());
 		assertFalse(getFixture().isError());
 		assertNull(getFixture().getException());
@@ -432,13 +441,15 @@ public class ConstraintDescriptorTest extends TestCase {
 		assertSame(e, getFixture().getException());
 	}
 
-	public void test_getCategories() {
+	@Test
+	public void getCategories() {
 		Set<Category> categories = Collections.singleton(CategoryManager.getInstance().getDefaultCategory());
 
 		assertEquals(categories, getFixture().getCategories());
 	}
 
-	public void test_addCategory_removeCategory() {
+	@Test
+	public void addCategory_removeCategory() {
 		getFixture().addCategory(TEST_CATEGORY);
 
 		assertEquals(Collections.singleton(TEST_CATEGORY), getFixture().getCategories());
@@ -449,34 +460,40 @@ public class ConstraintDescriptorTest extends TestCase {
 				getFixture().getCategories());
 	}
 
-	public void test_resolveTargetTypes() {
+	@Test
+	public void resolveTargetTypes() {
 		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
 
 		assertTrue(getFixture().targetsTypeOf(OrderSystemFactory.eINSTANCE.createWarehouse()));
 	}
 
-	public void test_targetsTypeOf() {
+	@Test
+	public void targetsTypeOf() {
 		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
 
 		assertTrue(getFixture().targetsTypeOf(OrderSystemFactory.eINSTANCE.createWarehouse()));
 	}
 
-	public void test_targetsEvent() {
+	@Test
+	public void targetsEvent() {
 		getFixture().resolveTargetTypes(new String[] { TEST_NAMESPACE_URI });
 
 		assertTrue(getFixture().targetsEvent(new TestNotification(OrderSystemFactory.eINSTANCE.createWarehouse(),
 				EMFEventType.getInstance(TEST_EVENT).toNotificationType())));
 	}
 
-	public void test_getMessagePattern() {
+	@Test
+	public void getMessagePattern() {
 		assertEquals(TEST_MESSAGE, getFixture().getMessagePattern());
 	}
 
-	public void test_getBody() {
+	@Test
+	public void getBody() {
 		assertEquals(TEST_BODY, getFixture().getBody());
 	}
 
-	public void test_equalsObject() {
+	@Test
+	public void equalsObject() {
 		assertEquals(getFixture(), getFixture());
 	}
 }

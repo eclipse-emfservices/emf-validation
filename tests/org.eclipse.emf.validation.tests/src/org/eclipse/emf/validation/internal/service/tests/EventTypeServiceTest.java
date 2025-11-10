@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,42 +11,38 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+
 import java.util.Collection;
 
 import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.emf.validation.service.INotificationGenerator;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * JUnit tests for the {@link EventTypeService} class.
  *
  * @author David Cummings (dcummin)
  */
-public class EventTypeServiceTest extends TestCase {
-	/**
-	 * Constructor for ConstraintRegistryTest.
-	 *
-	 * @param name
-	 */
-	public EventTypeServiceTest(String name) {
-		super(name);
-	}
+public class EventTypeServiceTest {
 
+	@Test
 	public void test_getInstance_177647() {
 		EventTypeService instance = EventTypeService.getInstance();
 		assertSame(instance, EventTypeService.getInstance());
 	}
 
+	@Test
 	public void test_getNotificationGenerators_177647() {
 		Collection<INotificationGenerator> generators = EventTypeService.getInstance().getNotificationGenerators();
-
 		assertEquals(generators.size(), 1);
 	}
 
+	@Test
 	public void test_getNotificationGenerator_177647() {
 		INotificationGenerator generator = EventTypeService.getInstance().getNotificationGenerator("Special Order"); //$NON-NLS-1$
-
 		assertNotNull(generator);
 	}
 }

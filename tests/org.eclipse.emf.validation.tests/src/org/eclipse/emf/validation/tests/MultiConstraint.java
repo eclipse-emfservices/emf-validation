@@ -37,14 +37,14 @@ public class MultiConstraint extends AbstractModelConstraint {
 
 		Collection<IStatus> statuses = new java.util.ArrayList<>();
 
-		statuses.add(ctx.createFailureStatus(new Object[] { "Nothing to say." })); //$NON-NLS-1$
+		statuses.add(ctx.createFailureStatus(new Object[] { "Nothing to say." }));
 
 		// try a nested multi-status, just for fun
 		Collection<IStatus> nested = new java.util.ArrayList<>();
-		nested.add(ConstraintStatus.createStatus(ctx, ctx.getTarget().eContents(), IStatus.INFO, 13, "This is {0}.", //$NON-NLS-1$
-				new Object[] { "fun" })); //$NON-NLS-1$
-		nested.add(ConstraintStatus.createStatus(ctx, null, IStatus.WARNING, 7, "This is {0}.", //$NON-NLS-1$
-				new Object[] { "silly" })); //$NON-NLS-1$
+		nested.add(ConstraintStatus.createStatus(ctx, ctx.getTarget().eContents(), IStatus.INFO, 13, "This is {0}.",
+				new Object[] { "fun" }));
+		nested.add(
+				ConstraintStatus.createStatus(ctx, null, IStatus.WARNING, 7, "This is {0}.", new Object[] { "silly" }));
 		statuses.add(ConstraintStatus.createMultiStatus(ctx, nested));
 
 		return ConstraintStatus.createMultiStatus(ctx, statuses);

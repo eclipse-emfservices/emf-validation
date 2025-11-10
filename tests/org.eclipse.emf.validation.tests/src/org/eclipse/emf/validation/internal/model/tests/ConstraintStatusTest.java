@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,11 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.model.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.Set;
@@ -25,8 +30,8 @@ import org.eclipse.emf.validation.model.ConstraintStatus;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 import ordersystem.OrderSystemFactory;
 
 /**
@@ -34,11 +39,11 @@ import ordersystem.OrderSystemFactory;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ConstraintStatusTest extends TestCase {
-	private static final String TEST_NAME = "Testing";//$NON-NLS-1$
-	private static final String TEST_ID = "test.id";//$NON-NLS-1$
-	private static final String TEST_PLUGIN = "test.plugin";//$NON-NLS-1$
-	private static final String TEST_MESSAGE = "Error happened";//$NON-NLS-1$
+public class ConstraintStatusTest {
+	private static final String TEST_NAME = "Testing";
+	private static final String TEST_ID = "test.id";
+	private static final String TEST_PLUGIN = "test.plugin";
+	private static final String TEST_MESSAGE = "Error happened";
 	private static final int TEST_CODE = 1000;
 	private static final ConstraintSeverity TEST_SEVERITY = ConstraintSeverity.WARNING;
 
@@ -206,47 +211,56 @@ public class ConstraintStatusTest extends TestCase {
 		return failedFixture;
 	}
 
-	public void test_getConstraint() {
+	@Test
+	public void getConstraint() {
 		assertSame(getFixtureConstraint(), getSuccessFixture().getConstraint());
 		assertSame(getFixtureConstraint(), getFailedFixture().getConstraint());
 	}
 
-	public void test_getTarget() {
+	@Test
+	public void getTarget() {
 		assertEquals(TEST_TARGET, getSuccessFixture().getTarget());
 		assertEquals(TEST_TARGET, getFailedFixture().getTarget());
 	}
 
-	public void test_getResultLocus() {
+	@Test
+	public void getResultLocus() {
 		assertTrue(getSuccessFixture().getResultLocus().isEmpty());
 		assertTrue(getFailedFixture().getResultLocus().containsAll(TEST_RESULTLOCUS));
 	}
 
-	public void test_getChildren() {
+	@Test
+	public void getChildren() {
 		assertTrue(getSuccessFixture().getChildren().length == 0);
 		assertTrue(getFailedFixture().getChildren().length == 0);
 	}
 
-	public void test_getCode() {
+	@Test
+	public void getCode() {
 		assertEquals(EMFModelValidationStatusCodes.ALL_CONSTRAINTS_PASSED, getSuccessFixture().getCode());
 		assertEquals(TEST_CODE, getFailedFixture().getCode());
 	}
 
-	public void test_getMessage() {
+	@Test
+	public void getMessage() {
 		assertEquals(EMFModelValidationStatusCodes.CONSTRAINT_SUCCESS_MSG, getSuccessFixture().getMessage());
 		assertEquals(TEST_MESSAGE, getFailedFixture().getMessage());
 	}
 
-	public void test_getPlugin() {
+	@Test
+	public void getPlugin() {
 		assertEquals(TEST_PLUGIN, getSuccessFixture().getPlugin());
 		assertEquals(TEST_PLUGIN, getFailedFixture().getPlugin());
 	}
 
-	public void test_getSeverity() {
+	@Test
+	public void getSeverity() {
 		assertEquals(IStatus.OK, getSuccessFixture().getSeverity());
 		assertEquals(TEST_SEVERITY.toIStatusSeverity(), getFailedFixture().getSeverity());
 	}
 
-	public void test_isMultiStatus() {
+	@Test
+	public void isMultiStatus() {
 		assertFalse(getSuccessFixture().isMultiStatus());
 		assertFalse(getFailedFixture().isMultiStatus());
 	}

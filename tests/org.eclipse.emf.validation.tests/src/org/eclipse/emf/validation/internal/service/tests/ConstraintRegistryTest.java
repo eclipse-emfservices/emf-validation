@@ -27,14 +27,18 @@ import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.tests.TestBase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 /**
  * JUnit tests for the {@link ConstraintRegistryTest} class.
  *
  * @author Christian W. Damus (cdamus)
  */
 public class ConstraintRegistryTest extends TestBase {
-	private static final String TEST_ID = "test.registry"; //$NON-NLS-1$
+	private static final String TEST_ID = "test.registry"; 
 	private static IConstraintDescriptor descriptor;
 
 	static {
@@ -47,55 +51,69 @@ public class ConstraintRegistryTest extends TestBase {
 		}
 	}
 
-	/**
-	 * Constructor for ConstraintRegistryTest.
-	 *
-	 * @param name
-	 */
-	public ConstraintRegistryTest(String name) {
-		super(name);
+	@Before
+	public void setUp() throws Exception {
+		ConstraintListener listener = ConstraintListener.getInstance();
+		ConstraintRegistry.getInstance().addConstraintListener(listener);
+
+		listener.reset();
+		listener.setEnabled(true);
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		ConstraintListener listener = ConstraintListener.getInstance();
+		listener.setEnabled(false);
+		listener.reset();
+
+		ConstraintRegistry.getInstance().removeConstraintListener(listener);
+	}
+	
+	@Test
 	public void testGetInstance() {
 		ConstraintRegistry reg = ConstraintRegistry.getInstance();
 
-		assertNotNull("Registry is null", reg); //$NON-NLS-1$
+		assertNotNull("Registry is null", reg); 
 
-		assertSame("Registry is not singleton", //$NON-NLS-1$
+		assertSame("Registry is not singleton", 
 				reg, ConstraintRegistry.getInstance());
 	}
 
 	/*
 	 * Class to test for IConstraintDescriptor getDescriptor(String)
 	 */
+	@Test
 	public void test_getDescriptor_String() {
 		IConstraintDescriptor found = ConstraintRegistry.getInstance().getDescriptor(TestBase.ID_PREFIX + TEST_ID);
 
-		assertNotNull("Test descriptor not found", found); //$NON-NLS-1$
-		assertSame("Wrong test descriptor found", descriptor, found); //$NON-NLS-1$
+		assertNotNull("Test descriptor not found", found); 
+		assertSame("Wrong test descriptor found", descriptor, found); 
 	}
 
 	/*
 	 * Class to test for IConstraintDescriptor getDescriptor(String, String)
 	 */
+	@Test
 	public void testGetDescriptorStringString() {
 		IConstraintDescriptor found = ConstraintRegistry.getInstance().getDescriptor(TestBase.PLUGIN_ID, TEST_ID);
 
-		assertNotNull("Test descriptor not found", found); //$NON-NLS-1$
-		assertSame("Wrong test descriptor found", descriptor, found); //$NON-NLS-1$
+		assertNotNull("Test descriptor not found", found); 
+		assertSame("Wrong test descriptor found", descriptor, found); 
 	}
 
+	@Test
 	public void testGetAllDescriptors() {
 		Collection<IConstraintDescriptor> allFound = ConstraintRegistry.getInstance().getAllDescriptors();
 
 		assertNotNull(allFound);
 
-		assertTrue("Test descriptor missing", allFound.contains(descriptor)); //$NON-NLS-1$
+		assertTrue("Test descriptor missing", allFound.contains(descriptor)); 
 
 		// there should be plenty other descriptors registered
-		assertTrue("Not enough descriptors found", allFound.size() > 1); //$NON-NLS-1$
+		assertTrue("Not enough descriptors found", allFound.size() > 1); 
 	}
 
+	@Test
 	public void testRegister() {
 		// setUp() tests successful registration. Make sure that the exception
 		// occurs when necessary
@@ -103,29 +121,31 @@ public class ConstraintRegistryTest extends TestBase {
 		try {
 			FixtureDescriptor duplicate = new FixtureDescriptor(descriptor.getId());
 			ConstraintRegistry.getInstance().register(duplicate);
-			fail("ConstraintRegistry.register() did not throw."); //$NON-NLS-1$
+			fail("ConstraintRegistry.register() did not throw."); 
 		} catch (ConstraintExistsException e) {
 			// success
 		} catch (Exception e) {
-			fail("Unexpected exception type thrown by register(): " + e); //$NON-NLS-1$
+			fail("Unexpected exception type thrown by register(): " + e); 
 		}
 	}
 
+	@Test
 	public void testUnregister() {
 		ConstraintRegistry reg = ConstraintRegistry.getInstance();
 
 		reg.unregister(descriptor);
 
-		assertNull("Descriptor not unregistered", //$NON-NLS-1$
+		assertNull("Descriptor not unregistered", 
 				reg.getDescriptor(descriptor.getId()));
 
 		try {
 			reg.register(descriptor);
 		} catch (ConstraintExistsException e) {
-			fail("ConstraintRegistry.register() should not have thrown."); //$NON-NLS-1$
+			fail("ConstraintRegistry.register() should not have thrown."); 
 		}
 	}
 
+	@Test
 	public void test_repeatedlyRegisterSameDescriptor() {
 		try {
 			ConstraintRegistry.getInstance().unregister(descriptor);
@@ -140,12 +160,13 @@ public class ConstraintRegistryTest extends TestBase {
 			assertEquals(1, ConstraintListener.getInstance().getEventCount());
 		} catch (ConstraintExistsException e) {
 			// success
-			fail("ConstraintRegistry.register() should not have thrown: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("ConstraintRegistry.register() should not have thrown: " + e.getLocalizedMessage()); 
 		} catch (Exception e) {
-			fail("Unexpected exception type thrown by register(): " + e); //$NON-NLS-1$
+			fail("Unexpected exception type thrown by register(): " + e); 
 		}
 	}
 
+	@Test
 	public void test_repeatedlyUnregisterSameDescriptor() {
 		ConstraintRegistry reg = ConstraintRegistry.getInstance();
 
@@ -162,11 +183,12 @@ public class ConstraintRegistryTest extends TestBase {
 			try {
 				reg.register(descriptor);
 			} catch (ConstraintExistsException e) {
-				fail("ConstraintRegistry.register() should not have thrown."); //$NON-NLS-1$
+				fail("ConstraintRegistry.register() should not have thrown."); 
 			}
 		}
 	}
 
+	@Test
 	public void test_bulkRegister() {
 		ConstraintListener.getInstance().reset();
 
@@ -187,39 +209,13 @@ public class ConstraintRegistryTest extends TestBase {
 		try {
 			new ProviderAccess().registerConstraints(constraints);
 		} catch (ConstraintExistsException e) {
-			fail("Should not have thrown ConstraintExistsException: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not have thrown ConstraintExistsException: " + e.getLocalizedMessage()); 
 		}
 
 		// must get all events
 		assertEquals(constraints.size(), ConstraintListener.getInstance().getEventCount());
 	}
 
-	//
-	// Test fixtures
-	//
-
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
-		ConstraintListener listener = ConstraintListener.getInstance();
-		ConstraintRegistry.getInstance().addConstraintListener(listener);
-
-		listener.reset();
-		listener.setEnabled(true);
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		ConstraintListener listener = ConstraintListener.getInstance();
-
-		listener.setEnabled(false);
-		listener.reset();
-
-		ConstraintRegistry.getInstance().removeConstraintListener(listener);
-
-		super.tearDown();
-	}
 
 	private static class FixtureDescriptor extends AbstractConstraintDescriptor {
 		private final String id;
@@ -286,7 +282,7 @@ public class ConstraintRegistryTest extends TestBase {
 
 	private static class FixtureConstraint implements IModelConstraint {
 		private static int counter = 0;
-		private final FixtureDescriptor desc = new FixtureDescriptor(descriptor.getId() + "$" + (counter++)); //$NON-NLS-1$
+		private final FixtureDescriptor desc = new FixtureDescriptor(descriptor.getId() + "$" + (counter++)); 
 
 		@Override
 		public IConstraintDescriptor getDescriptor() {

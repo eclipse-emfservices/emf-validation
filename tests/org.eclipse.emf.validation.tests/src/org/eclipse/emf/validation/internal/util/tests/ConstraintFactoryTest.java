@@ -11,6 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.DisabledConstraint;
 import org.eclipse.emf.validation.internal.util.XmlConstraintDescriptor;
@@ -18,22 +24,23 @@ import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintFactory;
 import org.eclipse.emf.validation.util.XmlConfig;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * JUnit tests for {@link ConstraintFactory} class.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ConstraintFactoryTest extends TestCase {
+public class ConstraintFactoryTest {
 	private final ConstraintFactory factory = ConstraintFactory.getInstance();
 
-	public void test_getInstance() {
+	@Test
+	public void getInstance() {
 		assertSame(factory, ConstraintFactory.getInstance());
 	}
 
-	public void test_newConstraint() {
+	@Test
+	public void newConstraint() {
 		@SuppressWarnings("deprecation")
 		IModelConstraint constraint = factory.newConstraint(ConstraintDescriptorTest.getFixture());
 
@@ -41,19 +48,20 @@ public class ConstraintFactoryTest extends TestCase {
 		assertSame(ConstraintDescriptorTest.getFixture(), constraint.getDescriptor());
 	}
 
-	public void test_newConstraint_disabledConstraint() {
+	@Test
+	public void newConstraint_disabledConstraint() {
 		ConstraintDescriptorTest.FixtureElement element = new ConstraintDescriptorTest.FixtureElement(
 				XmlConfig.E_CONSTRAINT);
 
 		// non "class" attribute specified
-		element.putAttribute(XmlConfig.A_ID, "junit.validation.util.foo"); //$NON-NLS-1$
-		element.putAttribute(XmlConfig.A_NAME, "foo"); //$NON-NLS-1$
-		element.putAttribute(XmlConfig.A_LANG, "Java"); //$NON-NLS-1$
+		element.putAttribute(XmlConfig.A_ID, "junit.validation.util.foo");
+		element.putAttribute(XmlConfig.A_NAME, "foo");
+		element.putAttribute(XmlConfig.A_LANG, "Java");
 
 		ConstraintDescriptorTest.FixtureElement message = new ConstraintDescriptorTest.FixtureElement(
 				XmlConfig.E_MESSAGE);
 
-		message.setValue("Nothing."); //$NON-NLS-1$
+		message.setValue("Nothing.");
 
 		try {
 			XmlConstraintDescriptor desc = new XmlConstraintDescriptor(element);
@@ -66,7 +74,7 @@ public class ConstraintFactoryTest extends TestCase {
 			assertTrue(constraint instanceof DisabledConstraint);
 		} catch (ConstraintExistsException e) {
 			// shouldn't happen in this test
-			fail("Constraint already exists: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Constraint already exists: " + e.getLocalizedMessage());
 		}
 	}
 }

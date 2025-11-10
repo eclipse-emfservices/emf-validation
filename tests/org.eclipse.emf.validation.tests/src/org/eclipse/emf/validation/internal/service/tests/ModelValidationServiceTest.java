@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2008 IBM Corporation, Zeligsoft Inc. and others.
+ * Copyright (c) 2003, 2026 IBM Corporation, Zeligsoft Inc. and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,12 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.service.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -47,12 +53,17 @@ import org.eclipse.emf.validation.service.IConstraintFilter;
 import org.eclipse.emf.validation.service.ILiveValidator;
 import org.eclipse.emf.validation.service.ITraversalStrategy;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.Assertions;
 import org.eclipse.emf.validation.tests.CancelConstraint;
 import org.eclipse.emf.validation.tests.MultiConstraint;
 import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ordersystem.Address;
 import ordersystem.LineItem;
@@ -72,33 +83,46 @@ import ordersystem.special.SpecialFactory;
  * @author Christian W. Damus (cdamus)
  */
 public class ModelValidationServiceTest extends TestBase {
-	public ModelValidationServiceTest(String name) {
-		super(name);
+	@BeforeClass
+	public static void initTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
+	}
+	
+	@AfterClass
+	public static void resetTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
+	}
+	
+	@After
+	public void tearDown() {
+		CancelConstraint.enabled = false;
 	}
 
+	@Test
 	public void test_getInstance() {
 		ModelValidationService instance = ModelValidationService.getInstance();
 
 		assertSame(instance, ModelValidationService.getInstance());
 	}
 
+	@Test
 	public void testFindClass() {
 		EClass eClass = OrderSystemPackage.eINSTANCE.getAccount();
 
-		assertSame(eClass, ModelValidationService.findClass("http:///ordersystem.ecore", //$NON-NLS-1$
-				"Account")); //$NON-NLS-1$
+		assertSame(eClass, ModelValidationService.findClass("http:///ordersystem.ecore", "Account"));
 	}
 
+	@Test
 	public void test_validateBatchSingle() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-				ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.hasContents",
+				ID_PREFIX + "order.notFilledBeforePlacement");
 	}
 
+	@Test
 	public void test_validateBatchCollection() {
 		Collection<EObject> objects = new java.util.ArrayList<>();
 		objects.add(OrderSystemFactory.eINSTANCE.createOrder());
@@ -106,10 +130,10 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(objects));
 
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				status, objects);
+		Assertions.assertAllTargetsPresent("batch", status, objects);
 	}
 
+	@Test
 	public void test_validateSubtreeBatchSingle() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -118,10 +142,10 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(treeValidator.validate(order));
 
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				status, Arrays.asList(new EObject[] { order, item, }));
+		Assertions.assertAllTargetsPresent("batch", status, Arrays.asList(new EObject[] { order, item, }));
 	}
 
+	@Test
 	public void test_validateSubtreeBatchCollection() {
 		Collection<EObject> orders = new java.util.ArrayList<>();
 
@@ -139,10 +163,11 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(treeValidator.validate(orders));
 
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				status, Arrays.asList(new EObject[] { order1, item1, order2, item2, }));
+		Assertions.assertAllTargetsPresent("batch", status,
+				Arrays.asList(new EObject[] { order1, item1, order2, item2, }));
 	}
 
+	@Test
 	public void test_validateLiveSingle() {
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		new XMIResourceImpl().getContents().add(object); // must be in a resource
@@ -150,11 +175,11 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(event));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasName", //$NON-NLS-1$
-				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status, ID_PREFIX + "order.hasName",
+				ID_PREFIX + "order.hasOwner");
 	}
 
+	@Test
 	public void test_validateLiveList() {
 		List<Notification> events = new java.util.ArrayList<>();
 		Resource res = new XMIResourceImpl();
@@ -175,14 +200,14 @@ public class ModelValidationServiceTest extends TestBase {
 			targets.add((EObject) next.getNotifier());
 		}
 
-		assertAllTargetsPresent("live", //$NON-NLS-1$
-				status, targets);
+		Assertions.assertAllTargetsPresent("live", status, targets);
 	}
 
 	/**
 	 * Tests the new capability of reporting multiple results from a single
 	 * constraint, as a multi-status.
 	 */
+	@Test
 	public void test_validateConstraintsReturningMultipleResults_161558() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
@@ -193,10 +218,9 @@ public class ModelValidationServiceTest extends TestBase {
 
 		MultiConstraint.enabled = false;
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.multiConstraint"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.multiConstraint");
 
-		status = getStatuses(status, ID_PREFIX + "order.multiConstraint"); //$NON-NLS-1$
+		status = getStatuses(status, ID_PREFIX + "order.multiConstraint");
 		assertEquals(3, status.length);
 
 		boolean foundDefault = false;
@@ -215,36 +239,37 @@ public class ModelValidationServiceTest extends TestBase {
 			case 1:
 				// default status
 				foundDefault = true;
-				assertEquals("Nothing to say.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals("Nothing to say.", cstat.getMessage());
 				assertEquals(IStatus.ERROR, cstat.getSeverity());
 				assertEquals(justOrder, cstat.getResultLocus());
 				break;
 			case 7:
 				// default status
 				foundSilly = true;
-				assertEquals("This is silly.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals("This is silly.", cstat.getMessage());
 				assertEquals(IStatus.WARNING, cstat.getSeverity());
 				assertEquals(justOrder, cstat.getResultLocus());
 				break;
 			case 13:
 				// default status
 				foundFun = true;
-				assertEquals("This is fun.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals("This is fun.", cstat.getMessage());
 				assertEquals(IStatus.INFO, cstat.getSeverity());
 				assertEquals(orderAndItem, cstat.getResultLocus());
 				break;
 			}
 		}
 
-		assertTrue("Didn't find the default status", foundDefault); //$NON-NLS-1$
-		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
-		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
+		assertTrue("Didn't find the default status", foundDefault);
+		assertTrue("Didn't find the fun status", foundFun);
+		assertTrue("Didn't find the silly status", foundSilly);
 	}
 
 	/**
 	 * Tests the new capability of having the constraint set a target on the status
 	 * that is different than the constraint's trigger
 	 */
+	@Test
 	public void test_validateSetTargetOnStatus_178121() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		LineItem item = OrderSystemFactory.eINSTANCE.createLineItem();
@@ -256,10 +281,9 @@ public class ModelValidationServiceTest extends TestBase {
 
 		SetTargetConstraint.enabled = false;
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.setTargetConstraint"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.setTargetConstraint");
 
-		status = getStatuses(status, ID_PREFIX + "order.setTargetConstraint"); //$NON-NLS-1$
+		status = getStatuses(status, ID_PREFIX + "order.setTargetConstraint");
 		assertEquals(3, status.length);
 
 		boolean foundFun = false;
@@ -286,7 +310,7 @@ public class ModelValidationServiceTest extends TestBase {
 			case 7:
 				// silly status
 				foundSilly = true;
-				assertEquals("This is silly.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals("This is silly.", cstat.getMessage());
 				assertEquals(IStatus.WARNING, cstat.getSeverity());
 				assertEquals(justItem, cstat.getResultLocus());
 				assertSame(item, cstat.getTarget());
@@ -294,7 +318,7 @@ public class ModelValidationServiceTest extends TestBase {
 			case 13:
 				// default status
 				foundFun = true;
-				assertEquals("This is fun.", cstat.getMessage()); //$NON-NLS-1$
+				assertEquals("This is fun.", cstat.getMessage());
 				assertEquals(IStatus.INFO, cstat.getSeverity());
 				assertEquals(justItem, cstat.getResultLocus());
 				assertSame(item, cstat.getTarget());
@@ -302,11 +326,12 @@ public class ModelValidationServiceTest extends TestBase {
 			}
 		}
 
-		assertTrue("Didn't find the success status", foundSuccess); //$NON-NLS-1$
-		assertTrue("Didn't find the silly status", foundSilly); //$NON-NLS-1$
-		assertTrue("Didn't find the fun status", foundFun); //$NON-NLS-1$
+		assertTrue("Didn't find the success status", foundSuccess);
+		assertTrue("Didn't find the silly status", foundSilly);
+		assertTrue("Didn't find the fun status", foundFun);
 	}
 
+	@Test
 	public void test_validateLiveConstraintFilter_177644() {
 		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
 		order1.setCompleted(true);
@@ -327,7 +352,7 @@ public class ModelValidationServiceTest extends TestBase {
 			public boolean accept(IConstraintDescriptor constraint, EObject object) {
 				if (object instanceof Order) {
 					Order order = (Order) object;
-					return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName"); //$NON-NLS-1$
+					return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName");
 				}
 				return false;
 			}
@@ -337,20 +362,21 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(validator.validate(events));
 
-		assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order1); //$NON-NLS-1$//$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order2); //$NON-NLS-1$//$NON-NLS-2$
+		Assertions.assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order1);
+		Assertions.assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order1);
+		Assertions.assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasName", order2);
+		Assertions.assertConstraintAndTargetNotPresent("live", status, ID_PREFIX + "order.hasOwner", order2);
 
 		// remove the filter and assert the opposite
 		validator.removeConstraintFilter(filter);
 
 		status = getStatuses(validator.validate(events));
-		assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order2); //$NON-NLS-1$//$NON-NLS-2$
+		Assertions.assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order1);
+		Assertions.assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasName", order2);
+		Assertions.assertConstraintAndTargetPresent("live", status, ID_PREFIX + "order.hasOwner", order2);
 	}
 
+	@Test
 	public void test_validateBatchConstraintFilter_177644() {
 		Order order1 = OrderSystemFactory.eINSTANCE.createOrder();
 		order1.setCompleted(true);
@@ -372,7 +398,7 @@ public class ModelValidationServiceTest extends TestBase {
 			public boolean accept(IConstraintDescriptor constraint, EObject object) {
 				if (object instanceof Order) {
 					Order order = (Order) object;
-					return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName"); //$NON-NLS-1$
+					return order.isCompleted() && constraint.getId().equals(ID_PREFIX + "order.hasName");
 				}
 				return false;
 			}
@@ -383,24 +409,25 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(validator.validate(targets));
 
-		assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order1); //$NON-NLS-1$//$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order2); //$NON-NLS-1$//$NON-NLS-2$
+		Assertions.assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order1);
+		Assertions.assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order1);
+		Assertions.assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasName", order2);
+		Assertions.assertConstraintAndTargetNotPresent("batch", status, ID_PREFIX + "order.hasOwner", order2);
 
 		// remove the filter and assert the opposite
 		validator.removeConstraintFilter(filter);
 
 		status = getStatuses(validator.validate(targets));
-		assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order1); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order2); //$NON-NLS-1$ //$NON-NLS-2$
-		assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order2); //$NON-NLS-1$//$NON-NLS-2$
+		Assertions.assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order1);
+		Assertions.assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasName", order2);
+		Assertions.assertConstraintAndTargetPresent("batch", status, ID_PREFIX + "order.hasOwner", order2);
 	}
 
 	/**
 	 * Tests that evaluation of a cancel-severity constraint does not result in the
 	 * constraint being disabled in batch validation.
 	 */
+	@Test
 	public void test_cancelSeverity_batch_bug179776() {
 		CancelConstraint.enabled = true;
 
@@ -409,11 +436,10 @@ public class ModelValidationServiceTest extends TestBase {
 		batchValidator.setIncludeLiveConstraints(true);
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.cancelConstraint");
 
-		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
-		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
+		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint");
+		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus);
 		IConstraintStatus cstat = (IConstraintStatus) particular;
 
 		assertEquals(IStatus.CANCEL, cstat.getSeverity());
@@ -424,6 +450,7 @@ public class ModelValidationServiceTest extends TestBase {
 	 * Tests that evaluation of a cancel-severity constraint does not result in the
 	 * constraint being disabled in live validation.
 	 */
+	@Test
 	public void test_cancelSeverity_live_bug179776() {
 		CancelConstraint.enabled = true;
 
@@ -435,11 +462,10 @@ public class ModelValidationServiceTest extends TestBase {
 		events.add(new TestNotification(object, Notification.SET));
 		IStatus[] status = getStatuses(liveValidator.validate(events));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status, ID_PREFIX + "order.cancelConstraint");
 
-		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint"); //$NON-NLS-1$
-		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus); //$NON-NLS-1$
+		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint");
+		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus);
 		IConstraintStatus cstat = (IConstraintStatus) particular;
 
 		assertEquals(IStatus.CANCEL, cstat.getSeverity());
@@ -451,11 +477,12 @@ public class ModelValidationServiceTest extends TestBase {
 	 * instances of EClasses from other packages extending that EClass in some other
 	 * package unknown to the constraint author.
 	 */
+	@Test
 	public void test_validateInstanceOfExtendingEClassInOtherPackage_183917() {
 		EPackage epackage = EcoreFactory.eINSTANCE.createEPackage();
-		epackage.setNsURI("http://test/extending/package"); //$NON-NLS-1$
-		epackage.setNsPrefix("test"); //$NON-NLS-1$
-		epackage.setName("testextendingpackage"); //$NON-NLS-1$
+		epackage.setNsURI("http://test/extending/package");
+		epackage.setNsPrefix("test");
+		epackage.setName("testextendingpackage");
 
 		final EClass myOrderClass = EcoreFactory.eINSTANCE.createEClass();
 		epackage.getEClassifiers().add(myOrderClass);
@@ -466,7 +493,7 @@ public class ModelValidationServiceTest extends TestBase {
 				return myOrderClass;
 			}
 		}
-		myOrderClass.setName("MyOrder"); //$NON-NLS-1$
+		myOrderClass.setName("MyOrder");
 		myOrderClass.setInstanceClass(MyOrderImpl.class);
 		myOrderClass.getESuperTypes().add(OrderSystemPackage.eINSTANCE.getOrder());
 
@@ -474,15 +501,15 @@ public class ModelValidationServiceTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(order));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-				ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.hasContents",
+				ID_PREFIX + "order.notFilledBeforePlacement");
 	}
 
 	/**
 	 * Tests that the default recursive traversal strategy implementation does not
 	 * repeatedly validate an element.
 	 */
+	@Test
 	public void test_recursiveTraversalStrategy_207990() {
 		Collection<EObject> objects = new java.util.ArrayList<>();
 
@@ -500,7 +527,7 @@ public class ModelValidationServiceTest extends TestBase {
 		traversal.startTraversal(objects, new NullProgressMonitor());
 		while (traversal.hasNext()) {
 			EObject next = traversal.next();
-			assertTrue("Already traversed this element", visited.add(next)); //$NON-NLS-1$
+			assertTrue("Already traversed this element", visited.add(next));
 			traversal.elementValidated(next, Status.OK_STATUS);
 		}
 	}
@@ -509,6 +536,7 @@ public class ModelValidationServiceTest extends TestBase {
 	 * Tests that using the same batch validator twice in succession does not result
 	 * in creation of new traversal strategies (from the extension point).
 	 */
+	@Test
 	public void test_traversalStrategiesNotShared_sameValidator_207992() {
 		TestTraversalStrategy.reset();
 
@@ -533,6 +561,7 @@ public class ModelValidationServiceTest extends TestBase {
 	 * Tests that two different batch validators do result in creation of distinct
 	 * traversal strategy instances (from the extension point).
 	 */
+	@Test
 	public void test_traversalStrategiesNotShared_differentValidators_207992() {
 		TestTraversalStrategy.reset();
 
@@ -564,7 +593,7 @@ public class ModelValidationServiceTest extends TestBase {
 			t1.join();
 			t2.join();
 		} catch (InterruptedException e) {
-			fail("Test was interrupted"); //$NON-NLS-1$
+			fail("Test was interrupted");
 		}
 
 		assertTrue(TestTraversalStrategy.wasUsed());
@@ -575,6 +604,7 @@ public class ModelValidationServiceTest extends TestBase {
 	 * Tests that a constraint can put data into the context and get it out again
 	 * later.
 	 */
+	@Test
 	public void test_currentConstraintData_232572() {
 		class MyContext extends AbstractValidationContext {
 
@@ -588,11 +618,11 @@ public class ModelValidationServiceTest extends TestBase {
 
 		// set the current constraint
 		try {
-			method = AbstractValidationContext.class.getDeclaredMethod("setConstraint", IModelConstraint.class); //$NON-NLS-1$
+			method = AbstractValidationContext.class.getDeclaredMethod("setConstraint", IModelConstraint.class);
 			method.setAccessible(true);
 
 			ConstraintDescriptorTest.FixtureElement config = ConstraintDescriptorTest.newFixtureConfig();
-			config.putAttribute(XmlConfig.A_ID, "foo.232572"); //$NON-NLS-1$
+			config.putAttribute(XmlConfig.A_ID, "foo.232572");
 
 			method.invoke(ctx, new ModelConstraint(new XmlConstraintDescriptor(config)) {
 
@@ -602,7 +632,7 @@ public class ModelValidationServiceTest extends TestBase {
 				}
 			});
 		} catch (Exception e) {
-			fail("Failed to access setCurrentConstraint() method: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Failed to access setCurrentConstraint() method: " + e.getLocalizedMessage());
 		} finally {
 			if (method != null) {
 				method.setAccessible(false);
@@ -614,18 +644,6 @@ public class ModelValidationServiceTest extends TestBase {
 
 		// get it back
 		assertSame(method, ctx.getCurrentConstraintData());
-	}
-
-	//
-	// Framework methods
-	//
-
-	@Override
-	protected void tearDown() throws Exception {
-
-		CancelConstraint.enabled = false;
-
-		super.tearDown();
 	}
 
 	public static class TestTraversalStrategy implements ITraversalStrategy {

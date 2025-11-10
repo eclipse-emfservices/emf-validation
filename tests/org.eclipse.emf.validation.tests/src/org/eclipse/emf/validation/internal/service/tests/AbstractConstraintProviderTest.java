@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,20 +11,22 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.util.XmlConfig;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * AbstractConstraintProviderTest
  *
  * @author Christian W. Damus (cdamus)
  */
-public class AbstractConstraintProviderTest extends TestCase {
-	private static final String TEST_NS_URI = "com.ibm.example"; //$NON-NLS-1$
+public class AbstractConstraintProviderTest {
+	private static final String TEST_NS_URI = "com.ibm.example";
 
 	private static class FixtureProvider extends AbstractConstraintProvider {
 		Exception exception;
@@ -59,12 +61,14 @@ public class AbstractConstraintProviderTest extends TestCase {
 		return fixture;
 	}
 
+	@Test
 	public void test_setInitializationData() {
 		if (getFixture().exception != null) {
-			fail("Got exception: " + getFixture().exception.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Got exception: " + getFixture().exception.getLocalizedMessage());
 		}
 	}
 
+	@Test
 	public void test_getUriNamespacePrefix() {
 		assertEquals(TEST_NS_URI, getFixture().getNamespaceUris()[0]);
 	}

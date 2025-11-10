@@ -15,7 +15,7 @@
     <tycho.version>5.0.2</tycho.version>
     <cbi-plugins.version>1.5.2</cbi-plugins.version>
     <cyclonedx.version>2.9.1</cyclonedx.version>
-    <maven.test.failure.ignore>true</maven.test.failure.ignore>
+    <maven.test.failure.ignore>false</maven.test.failure.ignore>
     <platform>2024-12</platform>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tycho.scmUrl>scm:git:https://github.com/eclipse-emfservices/emf-validation.git</tycho.scmUrl>

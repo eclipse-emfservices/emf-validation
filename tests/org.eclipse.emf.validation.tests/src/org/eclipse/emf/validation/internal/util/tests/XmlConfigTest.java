@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,24 +11,27 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.validation.util.XmlConfig;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.
  *
  * @author Christian W. Damus (cdamus)
  */
-public class XmlConfigTest extends TestCase {
-	private static final String PLUGIN_ID = "org.eclipse.emf.validation.tests"; //$NON-NLS-1$
-
-	private static final String TEST_ID = "test-include"; //$NON-NLS-1$
-	private static final String TEST_NAME = "Test Include"; //$NON-NLS-1$
+public class XmlConfigTest {
+	private static final String PLUGIN_ID = "org.eclipse.emf.validation.tests";
+	private static final String TEST_ID = "test-include";
+	private static final String TEST_NAME = "Test Include";
 
 	private IConfigurationElement getFixture() {
 		// work around a bug in the IPluginDescriptor.getExtension(String id)
@@ -38,14 +41,13 @@ public class XmlConfigTest extends TestCase {
 
 		for (IExtension ext : exts) {
 			if ((ext.getSimpleIdentifier() != null) && ext.getSimpleIdentifier().equals(TEST_ID)) {
-
 				return ext.getConfigurationElements()[0];
 			}
 		}
-
 		return null;
 	}
 
+	@Test
 	public void test_parseConstraintsWithIncludes() {
 		IConfigurationElement constraints = getFixture();
 
@@ -53,7 +55,7 @@ public class XmlConfigTest extends TestCase {
 		try {
 			newConstraints = XmlConfig.parseConstraintsWithIncludes(constraints);
 		} catch (CoreException e) {
-			fail("Failed to parse: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Failed to parse: " + e.getLocalizedMessage());
 		}
 
 		assertNotSame(constraints, newConstraints);
@@ -65,9 +67,9 @@ public class XmlConfigTest extends TestCase {
 		assertEquals(1, children.length);
 		assertEquals(XmlConfig.E_CONSTRAINT, children[0].getName());
 		assertEquals(TEST_ID, children[0].getAttribute(XmlConfig.A_ID));
-		assertEquals("OCL", children[0].getAttribute(XmlConfig.A_LANG)); //$NON-NLS-1$
-		assertEquals("1", children[0].getAttribute(XmlConfig.A_STATUS_CODE)); //$NON-NLS-1$
-		assertEquals("true", children[0].getValue()); //$NON-NLS-1$
+		assertEquals("OCL", children[0].getAttribute(XmlConfig.A_LANG));
+		assertEquals("1", children[0].getAttribute(XmlConfig.A_STATUS_CODE));
+		assertEquals("true", children[0].getValue());
 
 		IConfigurationElement[] grandchildren = children[0].getChildren();
 
@@ -76,9 +78,10 @@ public class XmlConfigTest extends TestCase {
 		IConfigurationElement message = grandchildren[0];
 
 		assertEquals(XmlConfig.E_MESSAGE, message.getName());
-		assertEquals("This is a message.", message.getValue()); //$NON-NLS-1$
+		assertEquals("This is a message.", message.getValue());
 	}
 
+	@Test
 	public void test_constraintLocalization() {
 		IConfigurationElement constraints = getFixture();
 
@@ -86,13 +89,13 @@ public class XmlConfigTest extends TestCase {
 		try {
 			newConstraints = XmlConfig.parseConstraintsWithIncludes(constraints);
 		} catch (CoreException e) {
-			fail("Failed to parse: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Failed to parse: " + e.getLocalizedMessage());
 		}
 
 		IConfigurationElement[] children = newConstraints.getChildren();
 
 		// the <include> element is replaced by a single <constraint> element
-		assertTrue("Not enough child elements", children.length > 0); //$NON-NLS-1$
+		assertTrue("Not enough child elements", children.length > 0);
 		assertEquals(TEST_NAME, children[0].getAttribute(XmlConfig.A_NAME));
 	}
 }

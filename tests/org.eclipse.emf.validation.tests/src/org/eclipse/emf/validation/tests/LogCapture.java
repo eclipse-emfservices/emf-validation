@@ -44,7 +44,7 @@ public class LogCapture {
 	 * Initializes me to capture logs from the EMF Validation Core bundle.
 	 */
 	public LogCapture() {
-		this(Platform.getBundle("org.eclipse.emf.validation")); //$NON-NLS-1$
+		this(Platform.getBundle("org.eclipse.emf.validation"));
 	}
 
 	/**

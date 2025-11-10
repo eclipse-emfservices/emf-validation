@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -47,17 +47,17 @@ class Example1 {
 	 * @param orderSystem the example order system to be populated
 	 */
 	static void create(OrderSystem orderSystem) {
-		createCustomer(orderSystem, "Adams", "Alfred", "Ottawa"); //$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
-		createCustomer(orderSystem, "Bairstow", "Bob", "Toronto"); //$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
-		createCustomer(orderSystem, "Connell", "Charlie", "Montreal"); //$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
+		createCustomer(orderSystem, "Adams", "Alfred", "Ottawa");
+		createCustomer(orderSystem, "Bairstow", "Bob", "Toronto");
+		createCustomer(orderSystem, "Connell", "Charlie", "Montreal");
 
-		createProduct(orderSystem, "McGregor Happy Feet Socks"); //$NON-NLS-1$
-		createProduct(orderSystem, "Arnold Palmer Polo Shirt"); //$NON-NLS-1$
-		createProduct(orderSystem, "Wrangler Jeans"); //$NON-NLS-1$
+		createProduct(orderSystem, "McGregor Happy Feet Socks");
+		createProduct(orderSystem, "Arnold Palmer Polo Shirt");
+		createProduct(orderSystem, "Wrangler Jeans");
 
-		createWarehouse(orderSystem, "Ottawa"); //$NON-NLS-1$
-		createWarehouse(orderSystem, "Toronto"); //$NON-NLS-1$
-		createWarehouse(orderSystem, "Montreal"); //$NON-NLS-1$
+		createWarehouse(orderSystem, "Ottawa");
+		createWarehouse(orderSystem, "Toronto");
+		createWarehouse(orderSystem, "Montreal");
 	}
 
 	private static Product createProduct(OrderSystem os, String name) {
@@ -108,8 +108,7 @@ class Example1 {
 
 		result.setLastName(last);
 		result.setFirstName(first);
-		result.getAccount().add(createAccount("VISA", //$NON-NLS-1$
-				String.valueOf(hashCode(last)) + '-' + hashCode(first), city));
+		result.getAccount().add(createAccount("VISA", String.valueOf(hashCode(last)) + '-' + hashCode(first), city));
 
 		os.getCustomer().add(result);
 
@@ -131,8 +130,8 @@ class Example1 {
 		Address result = factory.createAddress();
 
 		result.setCity(city);
-		result.setStreet(city + " St."); //$NON-NLS-1$
-		result.setCountry("Canada"); //$NON-NLS-1$
+		result.setStreet(city + " St.");
+		result.setCountry("Canada");
 		result.setNumber(String.valueOf(nextInt(1000)));
 
 		return result;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,11 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.model.tests;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -28,8 +33,9 @@ import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
+import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 import ordersystem.Product;
@@ -39,18 +45,15 @@ import ordersystem.Product;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ClientContextManagerTest extends TestCase {
+public class ClientContextManagerTest {
 
-	private static final String JUNIT_CLIENT = "org.eclipse.emf.validation.tests.junit"; //$NON-NLS-1$
-
-	private static final String TEST_CLIENT = "junit.bindings.testClient"; //$NON-NLS-1$
-	private static final String TEST_CONSTRAINT = "org.eclipse.emf.validation.tests.junit.bindings.testConstraint"; //$NON-NLS-1$
+	private static final String CONSTRAINT = "constraint";
+	private static final String JUNIT_CLIENT = "org.eclipse.emf.validation.tests.junit";
+	private static final String TEST_CLIENT = "junit.bindings.testClient";
+	private static final String TEST_CONSTRAINT = "org.eclipse.emf.validation.tests.junit.bindings.testConstraint";
 
 	private static final ConstraintDescriptorTest.FixtureElement constraintElement = ConstraintDescriptorTest.FixtureElement
-			.build("constraint", //$NON-NLS-1$
-					"true", //$NON-NLS-1$
-					new String[][] { { "id", TEST_CONSTRAINT }, //$NON-NLS-1$
-							{ "lang", "OCL" } }); //$NON-NLS-1$ //$NON-NLS-2$
+			.build(CONSTRAINT, "true", new String[][] { { "id", TEST_CONSTRAINT }, { "lang", "OCL" } });
 
 	private static final XmlConstraintDescriptor desc;
 	private static final ClientContextManager mgr;
@@ -73,32 +76,30 @@ public class ClientContextManagerTest extends TestCase {
 
 		mgr = ClientContextManager.getInstance();
 
-		clientElement = ConstraintDescriptorTest.FixtureElement.build("clientContext", //$NON-NLS-1$
-				new String[][] { { "id", TEST_CLIENT } }); //$NON-NLS-1$
-		clientElement.addChild(ConstraintDescriptorTest.FixtureElement.build("selector", //$NON-NLS-1$
-				new String[][] { { "class", TestSelector.class.getName() } })); //$NON-NLS-1$
+		clientElement = ConstraintDescriptorTest.FixtureElement.build("clientContext",
+				new String[][] { { "id", TEST_CLIENT } });
+		clientElement.addChild(ConstraintDescriptorTest.FixtureElement.build("selector",
+				new String[][] { { "class", TestSelector.class.getName() } }));
 
-		clientElement2 = ConstraintDescriptorTest.FixtureElement.build("clientContext", //$NON-NLS-1$
-				new String[][] { { "id", TEST_CLIENT + '2' } }); //$NON-NLS-1$
-		clientElement2.addChild(ConstraintDescriptorTest.FixtureElement.build("selector", //$NON-NLS-1$
-				new String[][] { { "class", TestSelector.class.getName() } })); //$NON-NLS-1$
+		clientElement2 = ConstraintDescriptorTest.FixtureElement.build("clientContext",
+				new String[][] { { "id", TEST_CLIENT + '2' } });
+		clientElement2.addChild(ConstraintDescriptorTest.FixtureElement.build("selector",
+				new String[][] { { "class", TestSelector.class.getName() } }));
 	}
 
-	@Override
-	protected void setUp() {
+	@Before
+	public void setUp() {
 		// this setup effectively tests the configureBindings() method,
 		// including the ability of the system to ignore
 		// repeated client context IDs, as the setup is run several times.
 		// Likewise for ignoring repeated constraint/category bindings.
 		// It also tests the getClientContext(String) method.
 
-		ConstraintDescriptorTest.FixtureElement binding = ConstraintDescriptorTest.FixtureElement.build("binding", //$NON-NLS-1$
-				new String[][] { { "context", TEST_CLIENT }, //$NON-NLS-1$
-						{ "constraint", TEST_CONSTRAINT } }); //$NON-NLS-1$
+		ConstraintDescriptorTest.FixtureElement binding = ConstraintDescriptorTest.FixtureElement.build("binding",
+				new String[][] { { "context", TEST_CLIENT }, { CONSTRAINT, TEST_CONSTRAINT } });
 
-		ConstraintDescriptorTest.FixtureElement binding2 = ConstraintDescriptorTest.FixtureElement.build("binding", //$NON-NLS-1$
-				new String[][] { { "context", TEST_CLIENT + '2' }, //$NON-NLS-1$
-						{ "constraint", TEST_CONSTRAINT + '2' } }); //$NON-NLS-1$
+		ConstraintDescriptorTest.FixtureElement binding2 = ConstraintDescriptorTest.FixtureElement.build("binding",
+				new String[][] { { "context", TEST_CLIENT + '2' }, { CONSTRAINT, TEST_CONSTRAINT + '2' } });
 
 		configureConstraintBindings(mgr,
 				new IConfigurationElement[] { clientElement, binding, clientElement2, binding2 });
@@ -110,23 +111,24 @@ public class ClientContextManagerTest extends TestCase {
 		order = OrderSystemFactory.eINSTANCE.createOrder();
 	}
 
-	public void test_getClientContexts() {
-		assertTrue("Test client not found", mgr.getClientContexts().contains(ctx)); //$NON-NLS-1$
+	@Test
+	public void getClientContexts() {
+		assertTrue("Test client not found", mgr.getClientContexts().contains(ctx));
 	}
 
-	public void test_getClientContext() {
-		assertSame("Test client not found", //$NON-NLS-1$
-				mgr.getClientContext(TEST_CLIENT), ctx);
+	@Test
+	public void getClientContext() {
+		assertSame("Test client not found", mgr.getClientContext(TEST_CLIENT), ctx);
 	}
 
-	public void test_getClientContextsFor() {
-		assertTrue("Test client not found", //$NON-NLS-1$
-				mgr.getClientContextsFor(product).contains(ctx));
-		assertFalse("Test not found", //$NON-NLS-1$
-				mgr.getClientContextsFor(order).contains(ctx));
+	@Test
+	public void getClientContextsFor() {
+		assertTrue("Test client not found", mgr.getClientContextsFor(product).contains(ctx));
+		assertFalse("Test not found", mgr.getClientContextsFor(order).contains(ctx));
 	}
 
-	public void test_getBindings_eobject() {
+	@Test
+	public void getBindings_eobject() {
 		IModelConstraint constraint = new TestConstraint();
 		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 
@@ -134,14 +136,16 @@ public class ClientContextManagerTest extends TestCase {
 		assertFalse(mgr.getBindings(order, constraints).contains(constraint));
 	}
 
-	public void test_getBindings_eobject_none() {
+	@Test
+	public void getBindings_eobject_none() {
 		IModelConstraint constraint = new TestConstraint();
 		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 
 		assertTrue(mgr.getBindings(order, constraints).isEmpty());
 	}
 
-	public void test_getBindings_context() {
+	@Test
+	public void getBindings_context() {
 		IModelConstraint constraint = new TestConstraint();
 		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 
@@ -149,7 +153,8 @@ public class ClientContextManagerTest extends TestCase {
 		assertFalse(mgr.getBindings(ctx2, constraints).contains(constraint));
 	}
 
-	public void test_getBindings_contexts() {
+	@Test
+	public void getBindings_contexts() {
 		IModelConstraint constraint = new TestConstraint();
 		Collection<IModelConstraint> constraints = Collections.singleton(constraint);
 
@@ -157,12 +162,10 @@ public class ClientContextManagerTest extends TestCase {
 		assertFalse(mgr.getBindings(Arrays.asList(ctx2, ctx2), constraints).contains(constraint));
 	}
 
-	public void test_defaultBindings_context() {
+	@Test
+	public void defaultBindings_context() {
 		final ConstraintDescriptorTest.FixtureElement defaultElement = ConstraintDescriptorTest.FixtureElement.build(
-				"constraint", //$NON-NLS-1$
-				"true", //$NON-NLS-1$
-				new String[][] { { "id", TEST_CONSTRAINT + ".default" }, //$NON-NLS-1$ //$NON-NLS-2$
-						{ "lang", "OCL" } }); //$NON-NLS-1$ //$NON-NLS-2$
+				CONSTRAINT, "true", new String[][] { { "id", TEST_CONSTRAINT + ".default" }, { "lang", "OCL" } });
 
 		try {
 			final XmlConstraintDescriptor descr = new XmlConstraintDescriptor(defaultElement);
@@ -187,16 +190,14 @@ public class ClientContextManagerTest extends TestCase {
 			assertFalse(mgr.getBindings(ctx, constraints).contains(constraint));
 			assertTrue(mgr.getBindings(junitCtx, constraints).contains(constraint));
 		} catch (ConstraintExistsException e) {
-			fail("Should not throw exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not throw exception: " + e.getLocalizedMessage());
 		}
 	}
 
-	public void test_defaultBindings_contexts() {
+	@Test
+	public void defaultBindings_contexts() {
 		final ConstraintDescriptorTest.FixtureElement defaultElement = ConstraintDescriptorTest.FixtureElement.build(
-				"constraint", //$NON-NLS-1$
-				"true", //$NON-NLS-1$
-				new String[][] { { "id", TEST_CONSTRAINT + ".default2" }, //$NON-NLS-1$ //$NON-NLS-2$
-						{ "lang", "OCL" } }); //$NON-NLS-1$ //$NON-NLS-2$
+				CONSTRAINT, "true", new String[][] { { "id", TEST_CONSTRAINT + ".default2" }, { "lang", "OCL" } });
 
 		try {
 			final XmlConstraintDescriptor descr = new XmlConstraintDescriptor(defaultElement);
@@ -228,7 +229,7 @@ public class ClientContextManagerTest extends TestCase {
 
 			assertTrue(mgr.getBindings(contexts, constraints).contains(constraint));
 		} catch (ConstraintExistsException e) {
-			fail("Should not throw exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Should not throw exception: " + e.getLocalizedMessage());
 		}
 	}
 
@@ -246,7 +247,7 @@ public class ClientContextManagerTest extends TestCase {
 		Class<?>[] parameterTypes = new Class<?>[] { configs.getClass() };
 
 		try {
-			Method configureMethod = mgr.getClass().getDeclaredMethod("configureClientContexts", parameterTypes); //$NON-NLS-1$
+			Method configureMethod = mgr.getClass().getDeclaredMethod("configureClientContexts", parameterTypes);
 			try {
 				configureMethod.setAccessible(true);
 				configureMethod.invoke(mgr, (Object) configs);
@@ -254,7 +255,7 @@ public class ClientContextManagerTest extends TestCase {
 				configureMethod.setAccessible(false);
 			}
 
-			configureMethod = mgr.getClass().getDeclaredMethod("configureBindings", parameterTypes); //$NON-NLS-1$
+			configureMethod = mgr.getClass().getDeclaredMethod("configureBindings", parameterTypes);
 			try {
 				configureMethod.setAccessible(true);
 				configureMethod.invoke(mgr, (Object) configs);
@@ -262,7 +263,7 @@ public class ClientContextManagerTest extends TestCase {
 				configureMethod.setAccessible(false);
 			}
 		} catch (Exception e) {
-			fail("Could not configure client contexts: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Could not configure client contexts: " + e.getLocalizedMessage());
 		}
 	}
 

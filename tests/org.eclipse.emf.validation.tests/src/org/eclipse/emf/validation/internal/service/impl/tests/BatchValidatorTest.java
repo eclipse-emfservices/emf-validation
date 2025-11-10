@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -11,6 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Collection;
 import java.util.Collections;
 
@@ -20,8 +26,9 @@ import org.eclipse.emf.validation.internal.service.BatchValidator;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.internal.service.IProviderOperationExecutor;
 import org.eclipse.emf.validation.model.EvaluationMode;
+import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.TestCase;
 import ordersystem.OrderSystemFactory;
 
 /**
@@ -29,25 +36,11 @@ import ordersystem.OrderSystemFactory;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class BatchValidatorTest extends TestCase {
+public class BatchValidatorTest {
 	private BatchValidator validator;
 
-	/**
-	 * Constructor for BatchValidatorTest.
-	 *
-	 * @param name
-	 */
-	public BatchValidatorTest(String name) {
-		super(name);
-	}
-
-	/*
-	 * (non-Javadoc) Extends the inherited method.
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-
+	@Before
+	public void setUp() {
 		validator = new BatchValidator(new TestExecutor());
 	}
 
@@ -55,62 +48,54 @@ public class BatchValidatorTest extends TestCase {
 		return validator;
 	}
 
-	public void test_getEvaluationMode() {
-		assertSame("Wrong evaluation mode", //$NON-NLS-1$
-				EvaluationMode.BATCH, validator.getEvaluationMode());
+	@Test
+	public void getEvaluationMode() {
+		assertSame("Wrong evaluation mode", EvaluationMode.BATCH, validator.getEvaluationMode());
 	}
 
-	public void test_isReportSuccesses() {
+	@Test
+	public void isReportSuccesses() {
 		getValidator().setReportSuccesses(true);
-		assertTrue("Not reporting successes", //$NON-NLS-1$
-				getValidator().isReportSuccesses());
+		assertTrue("Not reporting successes", getValidator().isReportSuccesses());
 
 		getValidator().setReportSuccesses(false);
-		assertFalse("Should not report successes", //$NON-NLS-1$
-				getValidator().isReportSuccesses());
+		assertFalse("Should not report successes", getValidator().isReportSuccesses());
 	}
 
-	/*
-	 * Class to test for IStatus validate(Object)
-	 */
-	public void test_validate_object() {
+	@Test
+	public void validate_object() {
 		EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 
 		try {
 			getValidator().validate(target);
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 	}
 
-	/*
-	 * Class to test for IStatus validate(Collection)
-	 */
-	public void test_validateCollection() {
+	@Test
+	public void validateCollection() {
 		EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 
 		try {
 			getValidator().validate(Collections.singleton(target));
 			getValidator().validate(Collections.<EObject>emptySet());
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 	}
 
-	public void test_isIncludeLiveConstraints() {
+	@Test
+	public void isIncludeLiveConstraints() {
 		getValidator().setIncludeLiveConstraints(true);
-		assertTrue("Not including live constraints", //$NON-NLS-1$
-				getValidator().isIncludeLiveConstraints());
+		assertTrue("Not including live constraints", getValidator().isIncludeLiveConstraints());
 
 		getValidator().setIncludeLiveConstraints(false);
-		assertFalse("Should not include live constraints", //$NON-NLS-1$
-				getValidator().isIncludeLiveConstraints());
+		assertFalse("Should not include live constraints", getValidator().isIncludeLiveConstraints());
 	}
 
-	/*
-	 * Class to test for IStatus validate(EObject, IProgressMonitor)
-	 */
-	public void test_validate_EObject_IProgressMonitor() {
+	@Test
+	public void validate_EObject_IProgressMonitor() {
 		TestMonitor monitor = new TestMonitor();
 
 		EObject target = OrderSystemFactory.eINSTANCE.createProduct();
@@ -118,20 +103,17 @@ public class BatchValidatorTest extends TestCase {
 		try {
 			getValidator().validate(target, monitor);
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 
-		assertTrue("Monitor not done", monitor.isDone()); //$NON-NLS-1$
-		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0); //$NON-NLS-1$
-		assertTrue("Monitor did no work", monitor.getWorked() > 0); //$NON-NLS-1$
-		assertEquals("Monitor did not work total", //$NON-NLS-1$
-				monitor.getTotalWork(), monitor.getWorked(), 0.1);
+		assertTrue("Monitor not done", monitor.isDone());
+		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0);
+		assertTrue("Monitor did no work", monitor.getWorked() > 0);
+		assertEquals("Monitor did not work total", monitor.getTotalWork(), monitor.getWorked(), 0.1);
 	}
 
-	/*
-	 * Class to test for IStatus validate(Collection, IProgressMonitor)
-	 */
-	public void test_validate_Collection_IProgressMonitor() {
+	@Test
+	public void validate_Collection_IProgressMonitor() {
 		TestMonitor monitor = new TestMonitor();
 
 		Collection<EObject> targets = new java.util.ArrayList<>();
@@ -141,14 +123,13 @@ public class BatchValidatorTest extends TestCase {
 		try {
 			getValidator().validate(targets, monitor);
 		} catch (Exception e) {
-			fail("Should not throw."); //$NON-NLS-1$
+			fail("Should not throw.");
 		}
 
-		assertTrue("Monitor not done", monitor.isDone()); //$NON-NLS-1$
-		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0); //$NON-NLS-1$
-		assertTrue("Monitor did no work", monitor.getWorked() > 0); //$NON-NLS-1$
-		assertEquals("Monitor did not work total", //$NON-NLS-1$
-				monitor.getTotalWork(), monitor.getWorked(), 0.1);
+		assertTrue("Monitor not done", monitor.isDone());
+		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0);
+		assertTrue("Monitor did no work", monitor.getWorked() > 0);
+		assertEquals("Monitor did not work total", monitor.getTotalWork(), monitor.getWorked(), 0.1);
 	}
 
 	static class TestMonitor implements IProgressMonitor {
@@ -210,9 +191,6 @@ public class BatchValidatorTest extends TestCase {
 	}
 
 	static class TestExecutor implements IProviderOperationExecutor {
-		/*
-		 * (non-Javadoc) Implements the inherited method.
-		 */
 		@Override
 		public <T> T execute(IProviderOperation<? extends T> op) {
 			// don't need to do anything

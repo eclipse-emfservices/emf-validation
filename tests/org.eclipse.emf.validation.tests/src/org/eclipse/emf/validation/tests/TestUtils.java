@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2026 IBM Corporation and others.
+ * Copyright (c) 2005, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -16,40 +16,13 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.EMFModelValidationStatusCodes;
-import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
-import org.eclipse.emf.validation.service.IBatchValidator;
-import org.eclipse.emf.validation.service.ILiveValidator;
-import org.eclipse.emf.validation.service.ITraversalStrategy;
-import org.eclipse.emf.validation.service.ModelValidationService;
 
-/**
- * Common services for test cases in this test plug-in.
- *
- * @author Christian W. Damus (cdamus)
- */
-public class TestBase {
-	public static final String PLUGIN_ID = "org.eclipse.emf.validation.tests";
+public final class TestUtils {
+	public static final String PLUGIN_ID = "org.eclipse.emf.validation.tests"; 
 
-	public static final String ID_PREFIX = PLUGIN_ID + ".";
-
-	protected final IBatchValidator batchValidator;
-	protected final IBatchValidator treeValidator;
-	protected final ILiveValidator liveValidator;
-
-	public TestBase() {
-		batchValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-		batchValidator.setTraversalStrategy(new ITraversalStrategy.Flat());
-		batchValidator.setReportSuccesses(true);
-
-		treeValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH);
-		treeValidator.setTraversalStrategy(new ITraversalStrategy.Recursive());
-		treeValidator.setReportSuccesses(true);
-
-		liveValidator = ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
-		liveValidator.setReportSuccesses(true);
-	}
-
+	public static final String ID_PREFIX = PLUGIN_ID + "."; 
+	
 	/**
 	 * Helper method to find the status matching a constraint ID.
 	 *
@@ -57,7 +30,7 @@ public class TestBase {
 	 * @param id       the constraint ID to look for
 	 * @return the matching status, or <code>null</code> if it's not found
 	 */
-	protected IStatus getStatus(IStatus[] statuses, String id) {
+	public static IStatus getStatus(IStatus[] statuses, String id) {
 		IStatus result = null;
 
 		for (IStatus element : statuses) {
@@ -80,7 +53,7 @@ public class TestBase {
 	 *
 	 * @since 1.1
 	 */
-	protected IStatus[] getStatuses(IStatus[] statuses, String id) {
+	public static IStatus[] getStatuses(IStatus[] statuses, String id) {
 		List<IStatus> result = new java.util.ArrayList<>();
 
 		for (IStatus element : statuses) {
@@ -103,7 +76,7 @@ public class TestBase {
 	 * @param status the status, which may be multi or not
 	 * @return all of the statuses represented by the incoming <code>status</code>
 	 */
-	protected IStatus[] getStatuses(IStatus status) {
+	public static IStatus[] getStatuses(IStatus status) {
 		if (status.getCode() == EMFModelValidationStatusCodes.NO_CONSTRAINTS_EVALUATED) {
 			return new IStatus[0];
 		}
@@ -115,7 +88,7 @@ public class TestBase {
 		return result.toArray(new IStatus[result.size()]);
 	}
 
-	private void collectStatuses(IStatus status, List<IStatus> statuses) {
+	private static void collectStatuses(IStatus status, List<IStatus> statuses) {
 		if (status.isMultiStatus()) {
 			IStatus[] children = status.getChildren();
 
@@ -134,9 +107,9 @@ public class TestBase {
 	 * @param tabs the indentation level (according to tree depth) of the object to
 	 *             display
 	 */
-	protected void showRecursive(EObject o, int tabs) {
+	public static void showRecursive(EObject o, int tabs) {
 		for (int i = 0; i < tabs; i++) {
-			System.out.print("  ");
+			System.out.print("  "); 
 		}
 
 		System.out.println(o);
@@ -146,5 +119,4 @@ public class TestBase {
 			showRecursive(next, childTabs);
 		}
 	}
-
 }

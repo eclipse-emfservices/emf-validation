@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006, 2007 IBM Corporation and others.
+ * Copyright (c) 2006, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,9 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.internal.service.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 
@@ -27,8 +30,12 @@ import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintDescriptor;
 import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
+import org.eclipse.emf.validation.tests.Assertions;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
@@ -43,22 +50,29 @@ import ordersystem.OrderSystemFactory;
  * @since 1.1
  */
 public class ParameterizedConstraintParserTest extends TestBase {
-	static final String TEST_LANGUAGE = "***test-lang***"; //$NON-NLS-1$
-	static final String TEST_ID1 = "parser-test.id1"; //$NON-NLS-1$
-	static final String TEST_ID2 = "parser-test.id2"; //$NON-NLS-1$
-	static final String TEST_PARAMETER = "testparm"; //$NON-NLS-1$
-	static final String TEST_VALUE = "New parser worked"; //$NON-NLS-1$
-	static final String JAVA_MESSAGE = "Java parser worked"; //$NON-NLS-1$
-	static final String XML_MESSAGE = "XML provider worked"; //$NON-NLS-1$
+	static final String TEST_LANGUAGE = "***test-lang***";
+	static final String TEST_ID1 = "parser-test.id1";
+	static final String TEST_ID2 = "parser-test.id2";
+	static final String TEST_PARAMETER = "testparm";
+	static final String TEST_VALUE = "New parser worked";
+	static final String JAVA_MESSAGE = "Java parser worked";
+	static final String XML_MESSAGE = "XML provider worked";
 
-	public ParameterizedConstraintParserTest(String name) {
-		super(name);
+	@BeforeClass
+	public static void initTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
-
+	
+	@AfterClass
+	public static void resetTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
+	}
+	
 	/**
 	 * Tests that a new-fangled constraint provider (using the new descriptor API)
 	 * can provide constraints for a language implemented by a new-fangled parser.
 	 */
+	@Test
 	public void test_provideNonXMLConstraintDescriptorsForCustomLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
@@ -69,15 +83,13 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 		Constraint.enabled = false;
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				statuses, TEST_ID1);
+		Assertions.assertAllConstraintsPresent("batch", statuses, TEST_ID1);
 
 		IStatus status = getStatus(statuses, TEST_ID1);
 
 		assertEquals(IStatus.WARNING, status.getSeverity());
 		assertEquals(TEST_VALUE, status.getMessage());
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				new IStatus[] { status }, Collections.singleton(order));
+		Assertions.assertAllTargetsPresent("batch", new IStatus[] { status }, Collections.singleton(order));
 	}
 
 	/**
@@ -85,6 +97,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 	 * can provide constraints for a language implemented by a legacy parser such as
 	 * Java.
 	 */
+	@Test
 	public void test_provideNonXMLConstraintDescriptorsForJavaLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
@@ -95,21 +108,20 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 		JavaConstraint.enabled = false;
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				statuses, TEST_ID2);
+		Assertions.assertAllConstraintsPresent("batch", statuses, TEST_ID2);
 
 		IStatus status = getStatus(statuses, TEST_ID2);
 
 		assertEquals(IStatus.WARNING, status.getSeverity());
 		assertEquals(JAVA_MESSAGE, status.getMessage());
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				new IStatus[] { status }, Collections.singleton(order));
+		Assertions.assertAllTargetsPresent("batch", new IStatus[] { status }, Collections.singleton(order));
 	}
 
 	/**
 	 * Tests that a legacy constraint provider (using plugin.xml) can provide
 	 * constraints for a language implemented by a new-fangled parser.
 	 */
+	@Test
 	public void test_provideXMLConstraintDescriptorsForCustomLanguage_165455() {
 		Order order = OrderSystemFactory.eINSTANCE.createOrder();
 		order.getItem().add(OrderSystemFactory.eINSTANCE.createLineItem());
@@ -120,16 +132,14 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 		Constraint.enabled = false;
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				statuses, ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", statuses, ID_PREFIX + "order.newParserAPI");
 
-		IStatus status = getStatus(statuses, ID_PREFIX + "order.newParserAPI"); //$NON-NLS-1$
+		IStatus status = getStatus(statuses, ID_PREFIX + "order.newParserAPI");
 
 		// implicit severity in XML is ERROR
 		assertEquals(IStatus.ERROR, status.getSeverity());
 		assertEquals(XML_MESSAGE, status.getMessage());
-		assertAllTargetsPresent("batch", //$NON-NLS-1$
-				new IStatus[] { status }, Collections.singleton(order));
+		Assertions.assertAllTargetsPresent("batch", new IStatus[] { status }, Collections.singleton(order));
 	}
 
 	public static final class Provider extends AbstractConstraintProvider {
@@ -138,7 +148,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			IModelConstraint proxy = createModelConstraintProxy(desc);
 			getConstraints().add(proxy);
 
-			desc = new Descriptor(TEST_ID2, "Java"); //$NON-NLS-1$
+			desc = new Descriptor(TEST_ID2, "Java");
 			proxy = createModelConstraintProxy(desc);
 			getConstraints().add(proxy);
 		}
@@ -207,7 +217,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 			this.id = id;
 			this.lang = lang;
 
-			addCategory(CategoryManager.getInstance().findCategory("junit/validation")); //$NON-NLS-1$
+			addCategory(CategoryManager.getInstance().findCategory("junit/validation"));
 		}
 
 		@Override
@@ -235,7 +245,7 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 		@Override
 		public String getDescription() {
-			return "Test constraint"; //$NON-NLS-1$
+			return "Test constraint";
 		}
 
 		@Override
@@ -250,17 +260,17 @@ public class ParameterizedConstraintParserTest extends TestBase {
 
 		@Override
 		public String getMessagePattern() {
-			return "{0}"; //$NON-NLS-1$
+			return "{0}";
 		}
 
 		@Override
 		public String getName() {
-			return "test constraint"; //$NON-NLS-1$
+			return "test constraint";
 		}
 
 		@Override
 		public String getPluginId() {
-			return "org.eclipse.emf.validation.tests"; //$NON-NLS-1$
+			return "org.eclipse.emf.validation.tests";
 		}
 
 		@Override

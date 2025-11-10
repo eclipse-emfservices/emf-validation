@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -10,6 +10,12 @@
  *   IBM - Initial API and implementation
  */
 package org.eclipse.emf.validation.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -30,6 +36,10 @@ import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
@@ -46,24 +56,32 @@ public class FrameworkTest extends TestBase {
 	 * Set this system property to "true" when running JUnit if you wish to start
 	 * from a fresh, new test document. This is not normally necessary.
 	 */
-	public static final String CREATE_NEW_TEST_DOCUMENT_PROPERTY = "emf.test.newdocument"; //$NON-NLS-1$
+	public static final String CREATE_NEW_TEST_DOCUMENT_PROPERTY = "emf.test.newdocument";
 
 	private static OrderSystem orderSystem = null;
 
-	public FrameworkTest(String name) {
-		super(name);
+	@BeforeClass
+	public static void initTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
+	}
+
+	@AfterClass
+	public static void resetTestContext() {
+		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
 
 	/**
 	 * Load the static example Order System model (<tt>test.ordersystem</tt>) on the
 	 * first invocation of this method.
+	 * 
+	 * @throws IOException
 	 */
-	@Override
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws IOException {
 		if (orderSystem == null) {
 			ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
 
-			java.net.URL file = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path("test.ordersystem"), null); //$NON-NLS-1$
+			java.net.URL file = FileLocator.find(Platform.getBundle(PLUGIN_ID), new Path("test.ordersystem"), null);
 
 			URI uri = URI.createURI(file.toExternalForm());
 			Resource res = resourceSet.getResource(uri, true);
@@ -84,13 +102,10 @@ public class FrameworkTest extends TestBase {
 	 * @throws IOException if there is any problem saving the resource
 	 */
 	private void createTestDocument(Resource res, OrderSystem os) throws IOException {
-
 		os.getCustomer().clear();
 		os.getWarehouse().clear();
 		os.getProduct().clear();
-
 		Example1.create(os);
-
 		res.save(Collections.EMPTY_MAP);
 	}
 
@@ -99,7 +114,7 @@ public class FrameworkTest extends TestBase {
 	 * Remove the 'zz' from the method name to enable this test
 	 */
 	public void zztest_showContents() {
-		Trace.trace(">>> Testing showContents"); //$NON-NLS-1$
+		Trace.trace(">>> Testing showContents");
 
 		showRecursive(orderSystem, 0);
 	}
@@ -107,8 +122,9 @@ public class FrameworkTest extends TestBase {
 	/**
 	 * Tests that the service accesses distinct providers for distinct namespaces.
 	 */
+	@Test
 	public void test_providerNameSpaces() {
-		Trace.trace(">>> Testing providerNameSpaces"); //$NON-NLS-1$
+		Trace.trace(">>> Testing providerNameSpaces");
 
 		// this test has two parts
 		orderSystemNameSpace();
@@ -128,34 +144,35 @@ public class FrameworkTest extends TestBase {
 		for (IStatus element : status) {
 			IModelConstraint constraint = ((IConstraintStatus) element).getConstraint();
 
-			if (constraint.getDescriptor().getId().equals(ID_PREFIX + "ordersystem.marker")) { //$NON-NLS-1$
+			if (constraint.getDescriptor().getId().equals(ID_PREFIX + "ordersystem.marker")) {
 				return;
 			}
 		}
 
-		fail("ordersystem.marker constraint not found"); //$NON-NLS-1$
+		fail("ordersystem.marker constraint not found");
 	}
 
 	/**
 	 * Tests that a certain known set of batch constraints is correctly retrieved.
 	 */
+	@Test
 	public void test_batchConstraints() {
-		Trace.trace(">>> Testing batchConstraints"); //$NON-NLS-1$
+		Trace.trace(">>> Testing batchConstraints");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasContents", //$NON-NLS-1$
-				ID_PREFIX + "order.notFilledBeforePlacement"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.hasContents",
+				ID_PREFIX + "order.notFilledBeforePlacement");
 	}
 
 	/**
 	 * Tests that a certain known set of live constraints is correctly retrieved.
 	 */
+	@Test
 	public void test_liveConstraints() {
-		Trace.trace(">>> Testing liveConstraints"); //$NON-NLS-1$
+		Trace.trace(">>> Testing liveConstraints");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		new XMLResourceImpl().getContents().add(object); // must be in a resource
@@ -163,17 +180,17 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(event));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "order.hasName", //$NON-NLS-1$
-				ID_PREFIX + "order.hasOwner"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status, ID_PREFIX + "order.hasName",
+				ID_PREFIX + "order.hasOwner");
 	}
 
 	/**
 	 * Tests that in cases of multiple events for the same object, multiple
 	 * executions of the same constraint do not occur.
 	 */
+	@Test
 	public void test_multiLiveConstraints() {
-		Trace.trace(">>> Testing multiLiveConstraints"); //$NON-NLS-1$
+		Trace.trace(">>> Testing multiLiveConstraints");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 		Notification event = new TestNotification(object, Notification.SET);
@@ -188,17 +205,17 @@ public class FrameworkTest extends TestBase {
 			evaluatedConstraints.add(next.getConstraint());
 		}
 
-		assertEquals("Some constraint was evaluated more than once:", //$NON-NLS-1$
-				evaluatedConstraints.size(), status.length);
+		assertEquals("Some constraint was evaluated more than once:", evaluatedConstraints.size(), status.length);
 	}
 
 	/**
 	 * Tests that constraints are only instantiated (lazily) when they are actually
 	 * evaluated.
 	 */
+	@Test
 	public void test_lazyConstraintInstantiation() {
-		Trace.trace(">>> Testing lazyConstraintInstantiation"); //$NON-NLS-1$
-		Trace.trace(""); //$NON-NLS-1$
+		Trace.trace(">>> Testing lazyConstraintInstantiation");
+		Trace.trace("");
 
 		int currentCount = LazyTestModelConstraint.getInstanceCount();
 
@@ -207,30 +224,27 @@ public class FrameworkTest extends TestBase {
 		TestNotification notification = new TestNotification(object, Notification.REMOVE);
 
 		// first, disable the constraint so that it will not be evaluated
-		ConstraintRegistry.getInstance().getDescriptor(PLUGIN_ID, "lazy.marker") //$NON-NLS-1$
-				.setEnabled(false);
+		ConstraintRegistry.getInstance().getDescriptor(PLUGIN_ID, "lazy.marker").setEnabled(false);
 
 		liveValidator.validate(notification);
 
-		assertEquals("Constraint prematurely instantiated", //$NON-NLS-1$
-				currentCount, LazyTestModelConstraint.getInstanceCount());
+		assertEquals("Constraint prematurely instantiated", currentCount, LazyTestModelConstraint.getInstanceCount());
 
 		// now, re-enable the category so that the constraint will be evaluated
-		ConstraintRegistry.getInstance().getDescriptor(PLUGIN_ID, "lazy.marker") //$NON-NLS-1$
-				.setEnabled(true);
+		ConstraintRegistry.getInstance().getDescriptor(PLUGIN_ID, "lazy.marker").setEnabled(true);
 
 		liveValidator.validate(notification);
 
-		assertTrue("Constraint not lazily instantiated", //$NON-NLS-1$
-				currentCount < LazyTestModelConstraint.getInstanceCount());
+		assertTrue("Constraint not lazily instantiated", currentCount < LazyTestModelConstraint.getInstanceCount());
 	}
 
 	/**
 	 * Tests that the constraint cache only accesses the constraint providers once
 	 * for each discrete context.
 	 */
+	@Test
 	public void test_constraintCache() {
-		Trace.trace(">>> Testing constraintCache"); //$NON-NLS-1$
+		Trace.trace(">>> Testing constraintCache");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createOrder();
 
@@ -240,41 +254,39 @@ public class FrameworkTest extends TestBase {
 		// get them a second time (should hit the cache)
 		batchValidator.validate(object);
 
-		assertEquals("Cache was not hit!", //$NON-NLS-1$
-				1, CachedTestProvider.getInstance().getHitCount(object.eClass()));
+		assertEquals("Cache was not hit!", 1, CachedTestProvider.getInstance().getHitCount(object.eClass()));
 	}
 
 	/**
 	 * Tests that problems in initializing constraints because of bad XML content or
 	 * other static problems are handled gracefully.
 	 */
+	@Test
 	public void test_constraintXmlErrors() {
-		Trace.trace(">>> Testing constraintXmlErrors"); //$NON-NLS-1$
+		Trace.trace(">>> Testing constraintXmlErrors");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createWarehouse();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsNotPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "bad.constraint.xml"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("batch", status, ID_PREFIX + "bad.constraint.xml");
 	}
 
 	/**
 	 * Tests that run-time problems in evaluating constraints are handled
 	 * gracefully.
 	 */
+	@Test
 	public void test_constraintDynamicErrors() {
-		Trace.trace(">>> Testing constraintDynamicErrors"); //$NON-NLS-1$
+		Trace.trace(">>> Testing constraintDynamicErrors");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createWarehouse();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		String[] ids = new String[] { ID_PREFIX + "bad.constraint.disabled.java", //$NON-NLS-1$
-				ID_PREFIX + "bad.constraint.disabled.ocl", //$NON-NLS-1$
-				ID_PREFIX + "bad.constraint.disabled.bsh", //$NON-NLS-1$
-				ID_PREFIX + "bad.constraint.disabled.runtime", //$NON-NLS-1$
-		};
+		String[] ids = new String[] { ID_PREFIX + "bad.constraint.disabled.java",
+				ID_PREFIX + "bad.constraint.disabled.ocl", ID_PREFIX + "bad.constraint.disabled.bsh",
+				ID_PREFIX + "bad.constraint.disabled.runtime", };
 
 		for (String id : ids) {
 			IStatus nextStatus = getStatus(status, id);
@@ -286,15 +298,16 @@ public class FrameworkTest extends TestBase {
 		// on a second validation, these constraints must not be evaluated
 		status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsNotPresent("batch", status, ids); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("batch", status, ids);
 	}
 
 	/**
 	 * Tests that problems in initializing providers because of bad XML content are
 	 * handled gracefully.
 	 */
+	@Test
 	public void test_providerXmlErrors() {
-		Trace.trace(">>> Testing providerXmlErrors"); //$NON-NLS-1$
+		Trace.trace(">>> Testing providerXmlErrors");
 
 		EObject object = EcoreFactory.eINSTANCE.createEAnnotation();
 
@@ -302,15 +315,16 @@ public class FrameworkTest extends TestBase {
 
 		assertNotNull(status);
 
-		assertTrue("Provider for ecore namespace prefix was initialized.", //$NON-NLS-1$
-				TestBadXmlConfigProvider.getInstance("http://www.eclipse.org/emf/2002/Ecore") == null); //$NON-NLS-1$
+		assertTrue("Provider for ecore namespace prefix was initialized.",
+				TestBadXmlConfigProvider.getInstance("http://www.eclipse.org/emf/2002/Ecore") == null);
 	}
 
 	/**
 	 * Tests that run-time problems in invoking providers are handled gracefully.
 	 */
+	@Test
 	public void test_providerDynamicErrors() {
-		Trace.trace(">>> Testing providerDynamicErrors"); //$NON-NLS-1$
+		Trace.trace(">>> Testing providerDynamicErrors");
 
 		EObject object = OrderSystemFactory.eINSTANCE.createOrderSystem();
 
@@ -318,19 +332,20 @@ public class FrameworkTest extends TestBase {
 
 		for (IStatus element : status) {
 			IModelConstraint constraint = ((IConstraintStatus) element).getConstraint();
-			assertFalse("Got constraints from ordersystem namespace prefix provider.", //$NON-NLS-1$
-					constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem")); //$NON-NLS-1$
+			assertFalse("Got constraints from ordersystem namespace prefix provider.",
+					constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem"));
 		}
 
-		assertTrue("Provider for ordersystem namespace prefix was not initialized.", //$NON-NLS-1$
-				TestBadXmlConfigProvider.getInstance("http:///ordersystem.ecore") != null); //$NON-NLS-1$
+		assertTrue("Provider for ordersystem namespace prefix was not initialized.",
+				TestBadXmlConfigProvider.getInstance("http:///ordersystem.ecore") != null);
 	}
 
 	/**
 	 * Tests the batch-mode filters at the constraint provider level.
 	 */
+	@Test
 	public void test_providerBatchFilter() {
-		Trace.trace(">>> Testing providerBatchFilter"); //$NON-NLS-1$
+		Trace.trace(">>> Testing providerBatchFilter");
 
 		// first, check that the batch provider filter correctly includes the
 		// InventoryItem type (the constraint otherwise would apply to all
@@ -341,11 +356,9 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.batch1"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "providertarget.batch1");
 
-		assertAllConstraintsNotPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.batch2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("batch", status, ID_PREFIX + "providertarget.batch2");
 
 		// also check that the provider filter correctly excludes the
 		// Order type (the constraint otherwise would apply to all types,
@@ -355,15 +368,15 @@ public class FrameworkTest extends TestBase {
 
 		status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsNotPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.batch1"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("batch", status, ID_PREFIX + "providertarget.batch1");
 	}
 
 	/**
 	 * Tests the live-mode filters at the constraint provider level.
 	 */
+	@Test
 	public void test_providerLiveFilter() {
-		Trace.trace(">>> Testing providerLiveFilter"); //$NON-NLS-1$
+		Trace.trace(">>> Testing providerLiveFilter");
 
 		// first, check that the live provider filter correctly includes the
 		// InventoryItem type (the constraint otherwise would apply to all
@@ -376,11 +389,9 @@ public class FrameworkTest extends TestBase {
 
 		IStatus[] status = getStatuses(liveValidator.validate(event));
 
-		assertAllConstraintsPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("live", status, ID_PREFIX + "providertarget.live2");
 
-		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.live1"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", status, ID_PREFIX + "providertarget.live1");
 
 		// also check that the provider filter correctly excludes the
 		// Order type (the constraint otherwise would apply to all types,
@@ -391,8 +402,7 @@ public class FrameworkTest extends TestBase {
 
 		status = getStatuses(liveValidator.validate(event));
 
-		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", status, ID_PREFIX + "providertarget.live2");
 
 		// finally, check that the provider filter correctly excludes an
 		// event type that is not "Set"
@@ -402,51 +412,50 @@ public class FrameworkTest extends TestBase {
 
 		status = getStatuses(liveValidator.validate(event));
 
-		assertAllConstraintsNotPresent("live", //$NON-NLS-1$
-				status, ID_PREFIX + "providertarget.live2"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsNotPresent("live", status, ID_PREFIX + "providertarget.live2");
 	}
 
 	/**
 	 * Tests the support for multiple EPackages in the same provider.
 	 */
+	@Test
 	public void test_multiPackagesPerProvider() {
-		Trace.trace(">>> Testing multiPackagesPerProvider"); //$NON-NLS-1$
+		Trace.trace(">>> Testing multiPackagesPerProvider");
 
 		EObject object = SpecialFactory.eINSTANCE.createPreferredCustomer();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "multipackage.test"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "multipackage.test");
 	}
 
 	/**
 	 * Tests the support for inheritance of constraints by EClasses in a different
 	 * EPackage.
 	 */
+	@Test
 	public void test_subclassInOtherPackage() {
-		Trace.trace(">>> Testing subclassInOtherPackage"); //$NON-NLS-1$
+		Trace.trace(">>> Testing subclassInOtherPackage");
 
 		EObject object = SpecialFactory.eINSTANCE.createLimitedEditionProduct();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "inheritance.test"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "inheritance.test");
 	}
 
 	/**
 	 * Tests the support for disambiguating like-named classes in different packages
 	 * by a qualified name.
 	 */
+	@Test
 	public void test_qualifiedName() {
-		Trace.trace(">>> Testing qualifiedName"); //$NON-NLS-1$
+		Trace.trace(">>> Testing qualifiedName");
 
 		EObject object = SpecialFactory.eINSTANCE.createLimitedEditionProduct();
 
 		IStatus[] status = getStatuses(batchValidator.validate(object));
 
-		assertAllConstraintsPresent("batch", //$NON-NLS-1$
-				status, ID_PREFIX + "qualifiedName.test"); //$NON-NLS-1$
+		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "qualifiedName.test");
 	}
 }

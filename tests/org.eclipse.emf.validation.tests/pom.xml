@@ -23,8 +23,6 @@
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>true</useUIThread>
 					<product>org.eclipse.sdk.ide</product>
-					<testSuite>org.eclipse.emf.validation.tests</testSuite>
-					<testClass>org.eclipse.emf.validation.tests.AllTests</testClass>
 					<argLine>-ea -Xmx1024m</argLine>
 					<dependencies>
 						<dependency>

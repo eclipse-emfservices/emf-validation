@@ -19,7 +19,7 @@ import org.eclipse.core.expressions.PropertyTester;
  * @author Christian W. Damus (cdamus)
  */
 public class ValidationTestsPropertyTester extends PropertyTester {
-	private static final String RUNNING_TESTS_PROPERTY = "runningTests"; //$NON-NLS-1$
+	private static final String RUNNING_TESTS_PROPERTY = "runningTests";
 
 	/**
 	 * Initializes me.

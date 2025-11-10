@@ -11,6 +11,8 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
+import static org.junit.Assert.assertSame;
+
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -23,17 +25,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ModelValidationService;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Indirect tests for the {@code TraversalStrategyManager} class.
  */
-public class TraversalStrategyManagerTest extends TestCase {
-
-	public TraversalStrategyManagerTest(String name) {
-		super(name);
-	}
+public class TraversalStrategyManagerTest {
 
 	/**
 	 * Test that the TraversalStrategyManager does not leak EPackages loaded locally
@@ -41,6 +38,7 @@ public class TraversalStrategyManagerTest extends TestCase {
 	 *
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=433050
 	 */
+	@Test
 	public void testTraversalStrategyManagerDoesNotLeakDynamicEPackages() {
 		ResourceSet rset = new ResourceSetImpl();
 
@@ -76,10 +74,6 @@ public class TraversalStrategyManagerTest extends TestCase {
 
 		assertSame(ref, cleared);
 	}
-
-	//
-	// Test framework
-	//
 
 	EObject loadThing(ResourceSet rset) {
 		Resource res = rset.getResource(

@@ -11,6 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -25,10 +31,11 @@ import org.eclipse.emf.validation.internal.service.GetLiveConstraintsOperation;
 import org.eclipse.emf.validation.internal.service.ProviderDescriptor;
 import org.eclipse.emf.validation.service.AbstractConstraintProvider;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
-import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
+import org.junit.Before;
+import org.junit.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -37,31 +44,18 @@ import ordersystem.OrderSystemFactory;
  *
  * @author Christian W. Damus (cdamus)
  */
-public class ProviderDescriptorTest extends TestBase {
+public class ProviderDescriptorTest {
 	private ConstraintDescriptorTest.FixtureElement config;
 	private ProviderDescriptor fixture;
 
-	/**
-	 * Constructor for ProviderDescriptorTest.
-	 *
-	 * @param name
-	 */
-	public ProviderDescriptorTest(String name) {
-		super(name);
-	}
-
-	/*
-	 * (non-Javadoc) Extends the inherited method.
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() {
 
 		config = ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_CONSTRAINT_PROVIDER, new String[][] {
-				{ XmlConfig.A_CLASS, XmlConstraintProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });//$NON-NLS-1$
+				{ XmlConfig.A_CLASS, XmlConstraintProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });
 
 		config.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_PACKAGE,
-				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } })); //$NON-NLS-1$
+				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } }));
 	}
 
 	private ConstraintDescriptorTest.FixtureElement getConfig() {
@@ -73,14 +67,15 @@ public class ProviderDescriptorTest extends TestBase {
 			try {
 				fixture = new ProviderDescriptor(getConfig());
 			} catch (CoreException e) {
-				fail("Exception on initializing fixture: " + e.getLocalizedMessage()); //$NON-NLS-1$
+				fail("Exception on initializing fixture: " + e.getLocalizedMessage());
 			}
 		}
 
 		return fixture;
 	}
 
-	public void test_provides_batch() {
+	@Test
+	public void provides_batch() {
 		class TestOp extends GetBatchConstraintsOperation {
 			TestOp(EObject target) {
 				super(true);
@@ -89,18 +84,18 @@ public class ProviderDescriptorTest extends TestBase {
 		}
 
 		// let the fixture be a batch constraint provider
-		getConfig().putAttribute(XmlConfig.A_MODE, "Batch") //$NON-NLS-1$
-				.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_TARGET,
-						new String[][] { { XmlConfig.A_CLASS, "Product" } }));//$NON-NLS-1$
+		getConfig().putAttribute(XmlConfig.A_MODE, "Batch").addChild(ConstraintDescriptorTest.FixtureElement
+				.build(XmlConfig.E_TARGET, new String[][] { { XmlConfig.A_CLASS, "Product" } }));
 
 		GetBatchConstraintsOperation op = new TestOp(OrderSystemFactory.eINSTANCE.createProduct());
-		assertTrue("Batch operation not provided", getFixture().provides(op)); //$NON-NLS-1$
+		assertTrue("Batch operation not provided", getFixture().provides(op));
 
 		op = new TestOp(OrderSystemFactory.eINSTANCE.createWarehouse());
-		assertFalse("Batch operation is provided", getFixture().provides(op)); //$NON-NLS-1$
+		assertFalse("Batch operation is provided", getFixture().provides(op));
 	}
 
-	public void test_provides_live() {
+	@Test
+	public void provides_live() {
 		class TestOp extends GetLiveConstraintsOperation {
 			TestOp(Notification notification) {
 				setNotification(notification);
@@ -108,47 +103,52 @@ public class ProviderDescriptorTest extends TestBase {
 		}
 
 		// let the fixture be a live constraint provider
-		getConfig().putAttribute(XmlConfig.A_MODE, "Live") //$NON-NLS-1$
+		getConfig().putAttribute(XmlConfig.A_MODE, "Live")
 				.addChild(ConstraintDescriptorTest.FixtureElement
-						.build(XmlConfig.E_TARGET, new String[][] { { XmlConfig.A_CLASS, "Product" } })//$NON-NLS-1$
+						.build(XmlConfig.E_TARGET, new String[][] { { XmlConfig.A_CLASS, "Product" } })
 						.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_EVENT,
-								new String[][] { { XmlConfig.A_NAME, "Remove" } }))); //$NON-NLS-1$
+								new String[][] { { XmlConfig.A_NAME, "Remove" } })));
 
 		final EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 
 		GetLiveConstraintsOperation op = new TestOp(new TestNotification(target, Notification.REMOVE));
-		assertTrue("Live operation not provided", getFixture().provides(op)); //$NON-NLS-1$
+		assertTrue("Live operation not provided", getFixture().provides(op));
 
 		op = new TestOp(new TestNotification(target, Notification.ADD));
-		assertFalse("Live operation is provided", getFixture().provides(op)); //$NON-NLS-1$
+		assertFalse("Live operation is provided", getFixture().provides(op));
 	}
 
-	public void test_isCacheEnabled() {
-		assertFalse("Cache should not be enabled", getFixture().isCacheEnabled());//$NON-NLS-1$
+	@Test
+	public void isCacheEnabled() {
+		assertFalse("Cache should not be enabled", getFixture().isCacheEnabled());
 	}
 
-	public void test_isCache() {
-		assertFalse("Should not be a cache", getFixture().isCache());//$NON-NLS-1$
+	@Test
+	public void isCache() {
+		assertFalse("Should not be a cache", getFixture().isCache());
 	}
 
-	public void test_isXmlProvider() {
-		assertTrue("Should be an XML provider", getFixture().isXmlProvider());//$NON-NLS-1$
+	@Test
+	public void isXmlProvider() {
+		assertTrue("Should be an XML provider", getFixture().isXmlProvider());
 	}
 
-	public void test_getProvider() {
+	@Test
+	public void getProvider() {
 		IModelConstraintProvider provider = getFixture().getProvider();
 
-		assertNotNull("Provider is null", provider); //$NON-NLS-1$
-		assertSame("Provider initialized twice", provider, getFixture().getProvider()); //$NON-NLS-1$
+		assertNotNull("Provider is null", provider);
+		assertSame("Provider initialized twice", provider, getFixture().getProvider());
 	}
 
-	public void test_concurrentInitialization_207780() {
+	@Test
+	public void concurrentInitialization_207780() {
 
 		config = ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_CONSTRAINT_PROVIDER, new String[][] {
-				{ XmlConfig.A_CLASS, ConcurrencyTestProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });//$NON-NLS-1$
+				{ XmlConfig.A_CLASS, ConcurrencyTestProvider.class.getName() }, { XmlConfig.A_CACHE, "false" } });
 
 		config.addChild(ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_PACKAGE,
-				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } })); //$NON-NLS-1$
+				new String[][] { { XmlConfig.A_NAMESPACE_URI, "http:///ordersystem.ecore" } }));
 
 		try {
 			final ProviderDescriptor desc = new ProviderDescriptor(config);
@@ -175,10 +175,9 @@ public class ProviderDescriptorTest extends TestBase {
 			t1.join();
 			t2.join();
 
-			assertFalse("Provider initialized on two threads concurrently", //$NON-NLS-1$
-					ConcurrencyTestProvider.count.get() >= 2);
+			assertFalse("Provider initialized on two threads concurrently", ConcurrencyTestProvider.count.get() >= 2);
 		} catch (Exception e) { // core, interrupted
-			fail("Caught exception: " + e.getLocalizedMessage()); //$NON-NLS-1$
+			fail("Caught exception: " + e.getLocalizedMessage());
 		}
 	}
 
@@ -198,8 +197,8 @@ public class ProviderDescriptorTest extends TestBase {
 				count.incrementAndGet();
 				Thread.sleep(500);
 			} catch (Exception e) { // interrupted
-				throw new CoreException(new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", //$NON-NLS-1$
-						e.getLocalizedMessage()));
+				throw new CoreException(
+						new Status(IStatus.ERROR, "org.eclipse.emf.validation.tests", e.getLocalizedMessage()));
 			}
 
 			super.setInitializationData(config, propertyName, data);

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2026 IBM Corporation and others.
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
@@ -28,26 +28,25 @@ public class SpecialOrderNotificationGenerator implements INotificationGenerator
 
 	/**
 	 * Create special notifications for those orders who contain limited edition
-	 * products
+	 * products.
 	 */
 	@Override
 	public Collection<Notification> generateNotifications(Collection<? extends Notification> notifications) {
 		Collection<Notification> newNotifications = new ArrayList<>();
 
 		for (Notification notification : notifications) {
-			if (notification.getNotifier() instanceof Order) {
-				Order order = (Order) notification.getNotifier();
+			if (notification.getNotifier() instanceof Order order) {
 				LimitedEditionProduct lep = null;
 
 				for (LineItem obj : order.getItem()) {
-					if (obj.getProduct() instanceof LimitedEditionProduct) {
-						lep = (LimitedEditionProduct) obj.getProduct();
+					if (obj.getProduct() instanceof LimitedEditionProduct product) {
+						lep = product;
 					}
 				}
 
 				if (lep != null) {
 					newNotifications.add(new ENotificationImpl((InternalEObject) lep,
-							EMFEventType.getInstance("Special Order").toNotificationType(), Notification.NO_FEATURE_ID, //$NON-NLS-1$
+							EMFEventType.getInstance("Special Order").toNotificationType(), Notification.NO_FEATURE_ID,
 							null, null));
 				}
 			}
