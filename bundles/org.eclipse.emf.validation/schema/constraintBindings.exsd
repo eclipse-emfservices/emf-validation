@@ -174,7 +174,7 @@ constraints.
             <annotation>
                <documentation>
                   Identifies a single constraint to be bound to the client
-context.  This attribute may not be used in conjunection with
+context.  This attribute may not be used in conjunction with
 the &lt;code&gt;category&lt;/code&gt; attribute.
                </documentation>
             </annotation>
@@ -187,7 +187,7 @@ Identifies a constraint category to be bound to the client
 context.  The referenced category and all of its constraints, sub-categories, and their constraints are bound.
 &lt;/p&gt;
 &lt;p&gt;
-This attribute may not be used in conjunection with
+This attribute may not be used in conjunction with
 the &lt;code&gt;constraint&lt;/code&gt; attribute.
 &lt;/p&gt;
                </documentation>
