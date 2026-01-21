@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
-<target name="emf-validation-2025-12" sequenceNumber="1660142140">
+<target name="emf-validation-2026-12" sequenceNumber="1660142140">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.license.feature.group" version="0.0.0"/>
@@ -9,14 +9,14 @@
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.sdk.ide" version="0.0.0"/>
       <unit id="org.eclipse.platform.ide" version="0.0.0"/>
-      <repository id="Eclipse-4.38" location="https://download.eclipse.org/eclipse/updates/4.38"/>
+      <repository id="Eclipse-4.38" location="https://download.eclipse.org/eclipse/updates/4.39-I-builds"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.emf.edit.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.examples.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.emf.ecore.edit.feature.group" version="0.0.0"/>
-      <repository id="EMF-2.44" location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.44.0"/>
+      <repository id="EMF-2.44" location="https://download.eclipse.org/modeling/emf/emf/builds/milestone/latest"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.ocl.feature.group" version="0.0.0"/>
