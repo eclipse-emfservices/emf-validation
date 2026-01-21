@@ -152,7 +152,6 @@ public class NonEmptyNamesConstraint extends AbstractModelConstraint {
                &lt;target class=&quot;Library&quot;/&gt;
                &lt;target class=&quot;Writer&quot;/&gt;
                &lt;target class=&quot;Book&quot;/&gt;
-               &lt;/target&gt;
             &lt;/constraint&gt;
          &lt;/constraints&gt;
       &lt;/constraintProvider&gt;
@@ -436,7 +435,7 @@ class LiveValidationContentAdapter extends EContentAdapter {
 		if (validator == null) {
 			ILiveValidator validator = 
 				(ILiveValidator)ModelValidationService.getInstance().newValidator(EvaluationMode.LIVE);
-			
+			this.validator = validator;
 		}
 		
 		ValidationDelegateClientSelector.running = true;
