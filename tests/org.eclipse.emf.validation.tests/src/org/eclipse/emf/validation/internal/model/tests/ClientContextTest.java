@@ -11,16 +11,16 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.validation.internal.service.ClientContext;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.model.IClientSelector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Documentation for <code>ClientContextTest</code>.
@@ -131,13 +131,13 @@ public class ClientContextTest {
 					.build(CLIENT_CONTEXT, new String[][] { { "id", "junit.testContext" } });
 			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			assertFalse("Should not be default", new ClientContext(element).isDefault());
+			assertFalse(new ClientContext(element).isDefault(), "Should not be default");
 
 			element = ConstraintDescriptorTest.FixtureElement.build(CLIENT_CONTEXT,
 					new String[][] { { "id", "junit.testContext" }, { "default", "true" } });
 			element.addChild(new ConstraintDescriptorTest.FixtureElement("enablement"));
 
-			assertTrue("Should be default", new ClientContext(element).isDefault());
+			assertTrue(new ClientContext(element).isDefault(), "Should be default");
 		} catch (CoreException e) {
 			fail("Should not have thrown exception: " + e.getLocalizedMessage());
 		}

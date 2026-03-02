@@ -11,15 +11,15 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Collection;
 
 import org.eclipse.emf.validation.service.EventTypeService;
 import org.eclipse.emf.validation.service.INotificationGenerator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for the {@link EventTypeService} class.

@@ -11,10 +11,10 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
@@ -24,8 +24,8 @@ import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.internal.service.GetLiveConstraintsOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.tests.TestNotification;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -38,7 +38,7 @@ public class GetLiveConstraintsOperationTest extends AbstractGetConstraintsOpera
 	private EObject target;
 	private Notification notification;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		target = OrderSystemFactory.eINSTANCE.createProduct();
 		notification = new TestNotification(target, Notification.SET);
@@ -51,24 +51,24 @@ public class GetLiveConstraintsOperationTest extends AbstractGetConstraintsOpera
 
 	@Test
 	public void test_getNotification() {
-		assertSame("Wrong notification", notification, getLiveFixture().getNotification());
+		assertSame(notification, getLiveFixture().getNotification(), "Wrong notification");
 	}
 
 	@Test
 	public void test_getEventType() {
-		assertSame("Wrong event type", EMFEventType.SET, getLiveFixture().getEventType());
+		assertSame(EMFEventType.SET, getLiveFixture().getEventType(), "Wrong event type");
 	}
 
 	@Test
 	public void test_getEObject() {
-		assertSame("Wrong target object", target, getFixture().getEObject());
+		assertSame(target, getFixture().getEObject(), "Wrong target object");
 	}
 
 	@Test
 	public void test_execute() {
 		Collection<IModelConstraint> c = getFixture().execute(new TestProvider());
 		assertNotNull(c);
-		assertTrue("Token not found", c.contains(LIVE_TOKEN));
+		assertTrue(c.contains(LIVE_TOKEN), "Token not found");
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class GetLiveConstraintsOperationTest extends AbstractGetConstraintsOpera
 		Collection<IModelConstraint> c = getFixture().getConstraints();
 
 		// check that the token is in this collection
-		assertTrue("Token not found", c.contains(LIVE_TOKEN));
+		assertTrue(c.contains(LIVE_TOKEN), "Token not found");
 
 		// disable the token constraint and ensure that it is no longer
 		// in the collection. This checks that the filtering is correct
@@ -87,7 +87,7 @@ public class GetLiveConstraintsOperationTest extends AbstractGetConstraintsOpera
 		((TestConstraint) LIVE_TOKEN).getDescriptor().setError(new Exception());
 		c = getFixture().getConstraints();
 
-		assertFalse("Token is found", c.contains(LIVE_TOKEN));
+		assertFalse(c.contains(LIVE_TOKEN), "Token is found");
 	}
 
 	private static class TestOperation extends GetLiveConstraintsOperation {

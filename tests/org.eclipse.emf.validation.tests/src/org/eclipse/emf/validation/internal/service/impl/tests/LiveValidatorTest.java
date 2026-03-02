@@ -11,12 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,10 +40,10 @@ import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.tests.TestUtils;
 import org.eclipse.emf.validation.util.FilteredCollection;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Customer;
 import ordersystem.LineItem;
@@ -61,34 +61,34 @@ import ordersystem.special.SpecialFactory;
  */
 public class LiveValidatorTest extends TestBase {
 	private LiveValidator validator;
-	
-	@BeforeClass
+
+	@BeforeAll
 	public static void initTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
-	
-	@AfterClass
+
+	@AfterAll
 	public static void resetTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		validator = new LiveValidator(new BatchValidatorTest.TestExecutor());
 	}
 
 	@Test
 	public void getEvaluationMode() {
-		assertSame("Wrong evaluation mode", EvaluationMode.LIVE, validator.getEvaluationMode());
+		assertSame(EvaluationMode.LIVE, validator.getEvaluationMode(), "Wrong evaluation mode");
 	}
 
 	@Test
 	public void isReportSuccesses() {
 		validator.setReportSuccesses(true);
-		assertTrue("Not reporting successes", validator.isReportSuccesses());
+		assertTrue(validator.isReportSuccesses(), "Not reporting successes");
 
 		validator.setReportSuccesses(false);
-		assertFalse("Should not report successes", validator.isReportSuccesses());
+		assertFalse(validator.isReportSuccesses(), "Should not report successes");
 	}
 
 	/*

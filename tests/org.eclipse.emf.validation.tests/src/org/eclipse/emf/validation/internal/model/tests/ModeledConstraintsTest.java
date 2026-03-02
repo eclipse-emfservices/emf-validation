@@ -11,10 +11,10 @@
  ****************************************************************************/
 package org.eclipse.emf.validation.internal.model.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -39,8 +39,8 @@ import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ModeledConstraintsLoader;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Account;
 import ordersystem.Address;
@@ -61,7 +61,7 @@ import ordersystem.OrderSystemPackage;
  */
 public class ModeledConstraintsTest {
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() {
 		if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
 			EPackage.Registry.INSTANCE.put(ValidationPackage.eNS_URI, ValidationPackage.eINSTANCE);

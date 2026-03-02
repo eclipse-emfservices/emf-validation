@@ -11,10 +11,10 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -33,8 +33,8 @@ import org.eclipse.emf.validation.model.IClientSelector;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
@@ -87,7 +87,7 @@ public class ClientContextManagerTest {
 				new String[][] { { "class", TestSelector.class.getName() } }));
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		// this setup effectively tests the configureBindings() method,
 		// including the ability of the system to ignore
@@ -113,18 +113,18 @@ public class ClientContextManagerTest {
 
 	@Test
 	public void getClientContexts() {
-		assertTrue("Test client not found", mgr.getClientContexts().contains(ctx));
+		assertTrue(mgr.getClientContexts().contains(ctx), "Test client not found");
 	}
 
 	@Test
 	public void getClientContext() {
-		assertSame("Test client not found", mgr.getClientContext(TEST_CLIENT), ctx);
+		assertSame(mgr.getClientContext(TEST_CLIENT), ctx, "Test client not found");
 	}
 
 	@Test
 	public void getClientContextsFor() {
-		assertTrue("Test client not found", mgr.getClientContextsFor(product).contains(ctx));
-		assertFalse("Test not found", mgr.getClientContextsFor(order).contains(ctx));
+		assertTrue(mgr.getClientContextsFor(product).contains(ctx), "Test client not found");
+		assertFalse(mgr.getClientContextsFor(order).contains(ctx), "Test not found");
 	}
 
 	@Test

@@ -11,19 +11,19 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
 import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.Category;
 import org.eclipse.emf.validation.model.CategoryManager;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the basic functionality of the {@link CategoryManager} and
@@ -34,7 +34,7 @@ import org.junit.Test;
 public class CategoryTest {
 	private CategoryManager mgr;
 	
-	@Before
+	@BeforeEach
 	public void init() {
 		mgr = CategoryManager.getInstance();
 	}

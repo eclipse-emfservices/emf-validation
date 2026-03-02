@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -26,8 +26,8 @@ import org.eclipse.emf.validation.internal.service.BatchValidator;
 import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.internal.service.IProviderOperationExecutor;
 import org.eclipse.emf.validation.model.EvaluationMode;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -39,7 +39,7 @@ import ordersystem.OrderSystemFactory;
 public class BatchValidatorTest {
 	private BatchValidator validator;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		validator = new BatchValidator(new TestExecutor());
 	}
@@ -50,16 +50,16 @@ public class BatchValidatorTest {
 
 	@Test
 	public void getEvaluationMode() {
-		assertSame("Wrong evaluation mode", EvaluationMode.BATCH, validator.getEvaluationMode());
+		assertSame(EvaluationMode.BATCH, validator.getEvaluationMode(), "Wrong evaluation mode");
 	}
 
 	@Test
 	public void isReportSuccesses() {
 		getValidator().setReportSuccesses(true);
-		assertTrue("Not reporting successes", getValidator().isReportSuccesses());
+		assertTrue(getValidator().isReportSuccesses(), "Not reporting successes");
 
 		getValidator().setReportSuccesses(false);
-		assertFalse("Should not report successes", getValidator().isReportSuccesses());
+		assertFalse(getValidator().isReportSuccesses(), "Should not report successes");
 	}
 
 	@Test
@@ -88,10 +88,10 @@ public class BatchValidatorTest {
 	@Test
 	public void isIncludeLiveConstraints() {
 		getValidator().setIncludeLiveConstraints(true);
-		assertTrue("Not including live constraints", getValidator().isIncludeLiveConstraints());
+		assertTrue(getValidator().isIncludeLiveConstraints(), "Not including live constraints");
 
 		getValidator().setIncludeLiveConstraints(false);
-		assertFalse("Should not include live constraints", getValidator().isIncludeLiveConstraints());
+		assertFalse(getValidator().isIncludeLiveConstraints(), "Should not include live constraints");
 	}
 
 	@Test
@@ -106,10 +106,10 @@ public class BatchValidatorTest {
 			fail("Should not throw.");
 		}
 
-		assertTrue("Monitor not done", monitor.isDone());
-		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0);
-		assertTrue("Monitor did no work", monitor.getWorked() > 0);
-		assertEquals("Monitor did not work total", monitor.getTotalWork(), monitor.getWorked(), 0.1);
+		assertTrue(monitor.isDone(), "Monitor not done");
+		assertTrue(monitor.getTotalWork() > 0, "Monitor has zero total work");
+		assertTrue(monitor.getWorked() > 0, "Monitor did no work");
+		assertEquals(monitor.getTotalWork(), monitor.getWorked(), 0.1, "Monitor did not work total");
 	}
 
 	@Test
@@ -126,10 +126,10 @@ public class BatchValidatorTest {
 			fail("Should not throw.");
 		}
 
-		assertTrue("Monitor not done", monitor.isDone());
-		assertTrue("Monitor has zero total work", monitor.getTotalWork() > 0);
-		assertTrue("Monitor did no work", monitor.getWorked() > 0);
-		assertEquals("Monitor did not work total", monitor.getTotalWork(), monitor.getWorked(), 0.1);
+		assertTrue(monitor.isDone(), "Monitor not done");
+		assertTrue(monitor.getTotalWork() > 0, "Monitor has zero total work");
+		assertTrue(monitor.getWorked() > 0, "Monitor did no work");
+		assertEquals(monitor.getTotalWork(), monitor.getWorked(), 0.1, "Monitor did not work total");
 	}
 
 	static class TestMonitor implements IProgressMonitor {

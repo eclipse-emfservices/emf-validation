@@ -11,8 +11,8 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
@@ -28,8 +28,8 @@ import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.service.ModelValidationService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the {@link ClientContext} class.
@@ -60,7 +60,7 @@ public class ClientContextTest {
 
 	private IClientContext fixture;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		fixture = ClientContextManager.getInstance().getClientContext("org.eclipse.emf.validation.tests.testcontext");
@@ -86,32 +86,32 @@ public class ClientContextTest {
 
 	@Test
 	public void includedChildOfExcludedCategory() {
-		assertTrue("Constraint is excluded", fixture.includes(constraint3_1));
-		assertTrue("Constraint is excluded", fixture.includes(constraint3_2));
+		assertTrue(fixture.includes(constraint3_1), "Constraint is excluded");
+		assertTrue(fixture.includes(constraint3_2), "Constraint is excluded");
 	}
 
 	@Test
 	public void constraintExcludedFromIncludedCategory() {
-		assertFalse("Constraint is included", fixture.includes(constraint1_1));
-		assertTrue("Constraint is excluded", fixture.includes(constraint1_2));
+		assertFalse(fixture.includes(constraint1_1), "Constraint is included");
+		assertTrue(fixture.includes(constraint1_2), "Constraint is excluded");
 	}
 
 	@Test
 	public void constraintIncludedInExcludedCategory() {
-		assertFalse("Constraint is included", fixture.includes(constraint2_1));
-		assertTrue("Constraint is excluded", fixture.includes(constraint2_2));
+		assertFalse(fixture.includes(constraint2_1), "Constraint is included");
+		assertTrue(fixture.includes(constraint2_2), "Constraint is excluded");
 	}
 
 	@Test
 	public void constraintExcludedFromIncludedCategory_nested() {
-		assertFalse("Constraint is included", fixture.includes(constraint2a_1));
-		assertTrue("Constraint is excluded", fixture.includes(constraint2a_2));
+		assertFalse(fixture.includes(constraint2a_1), "Constraint is included");
+		assertTrue(fixture.includes(constraint2a_2), "Constraint is excluded");
 	}
 
 	@Test
 	public void constraintIncludedInExcludedCategory_nested() {
-		assertFalse("Constraint is included", fixture.includes(constraint3a_1));
-		assertTrue("Constraint is excluded", fixture.includes(constraint3a_2));
+		assertFalse(fixture.includes(constraint3a_1), "Constraint is included");
+		assertTrue(fixture.includes(constraint3a_2), "Constraint is excluded");
 	}
 
 	/**
@@ -138,8 +138,8 @@ public class ClientContextTest {
 			extendedFound |= "org.eclipse.emf.validation.tests.testContextToExtend".equals(next.getId());
 		}
 
-		assertTrue("Extending context not matched", extenderFound);
-		assertFalse("Extended context was matched", extendedFound);
+		assertTrue(extenderFound, "Extending context not matched");
+		assertFalse(extendedFound, "Extended context was matched");
 	}
 
 	private static final class TestConstraint implements IModelConstraint {

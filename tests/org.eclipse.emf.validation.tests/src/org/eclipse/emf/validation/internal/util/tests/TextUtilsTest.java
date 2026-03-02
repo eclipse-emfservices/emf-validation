@@ -11,12 +11,12 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.validation.internal.util.TextUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 import ordersystem.Product;

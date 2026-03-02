@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,8 +34,8 @@ import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
 import org.eclipse.emf.validation.xml.XmlConstraintProvider;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -48,7 +48,7 @@ public class ProviderDescriptorTest {
 	private ConstraintDescriptorTest.FixtureElement config;
 	private ProviderDescriptor fixture;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		config = ConstraintDescriptorTest.FixtureElement.build(XmlConfig.E_CONSTRAINT_PROVIDER, new String[][] {
@@ -88,10 +88,10 @@ public class ProviderDescriptorTest {
 				.build(XmlConfig.E_TARGET, new String[][] { { XmlConfig.A_CLASS, "Product" } }));
 
 		GetBatchConstraintsOperation op = new TestOp(OrderSystemFactory.eINSTANCE.createProduct());
-		assertTrue("Batch operation not provided", getFixture().provides(op));
+		assertTrue(getFixture().provides(op), "Batch operation not provided");
 
 		op = new TestOp(OrderSystemFactory.eINSTANCE.createWarehouse());
-		assertFalse("Batch operation is provided", getFixture().provides(op));
+		assertFalse(getFixture().provides(op), "Batch operation is provided");
 	}
 
 	@Test
@@ -112,33 +112,33 @@ public class ProviderDescriptorTest {
 		final EObject target = OrderSystemFactory.eINSTANCE.createProduct();
 
 		GetLiveConstraintsOperation op = new TestOp(new TestNotification(target, Notification.REMOVE));
-		assertTrue("Live operation not provided", getFixture().provides(op));
+		assertTrue(getFixture().provides(op), "Live operation not provided");
 
 		op = new TestOp(new TestNotification(target, Notification.ADD));
-		assertFalse("Live operation is provided", getFixture().provides(op));
+		assertFalse(getFixture().provides(op), "Live operation is provided");
 	}
 
 	@Test
 	public void isCacheEnabled() {
-		assertFalse("Cache should not be enabled", getFixture().isCacheEnabled());
+		assertFalse(getFixture().isCacheEnabled(), "Cache should not be enabled");
 	}
 
 	@Test
 	public void isCache() {
-		assertFalse("Should not be a cache", getFixture().isCache());
+		assertFalse(getFixture().isCache(), "Should not be a cache");
 	}
 
 	@Test
 	public void isXmlProvider() {
-		assertTrue("Should be an XML provider", getFixture().isXmlProvider());
+		assertTrue(getFixture().isXmlProvider(), "Should be an XML provider");
 	}
 
 	@Test
 	public void getProvider() {
 		IModelConstraintProvider provider = getFixture().getProvider();
 
-		assertNotNull("Provider is null", provider);
-		assertSame("Provider initialized twice", provider, getFixture().getProvider());
+		assertNotNull(provider, "Provider is null");
+		assertSame(provider, getFixture().getProvider(), "Provider initialized twice");
 	}
 
 	@Test
@@ -175,7 +175,7 @@ public class ProviderDescriptorTest {
 			t1.join();
 			t2.join();
 
-			assertFalse("Provider initialized on two threads concurrently", ConcurrencyTestProvider.count.get() >= 2);
+			assertFalse(ConcurrencyTestProvider.count.get() >= 2, "Provider initialized on two threads concurrently");
 		} catch (Exception e) { // core, interrupted
 			fail("Caught exception: " + e.getLocalizedMessage());
 		}
