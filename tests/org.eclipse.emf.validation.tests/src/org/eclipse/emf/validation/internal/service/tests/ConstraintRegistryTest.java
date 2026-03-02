@@ -11,6 +11,13 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IStatus;
@@ -27,11 +34,9 @@ import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.tests.TestBase;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 /**
  * JUnit tests for the {@link ConstraintRegistryTest} class.
  *
@@ -51,7 +56,7 @@ public class ConstraintRegistryTest extends TestBase {
 		}
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		ConstraintListener listener = ConstraintListener.getInstance();
 		ConstraintRegistry.getInstance().addConstraintListener(listener);
@@ -60,7 +65,7 @@ public class ConstraintRegistryTest extends TestBase {
 		listener.setEnabled(true);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		ConstraintListener listener = ConstraintListener.getInstance();
 		listener.setEnabled(false);
@@ -72,11 +77,8 @@ public class ConstraintRegistryTest extends TestBase {
 	@Test
 	public void testGetInstance() {
 		ConstraintRegistry reg = ConstraintRegistry.getInstance();
-
-		assertNotNull("Registry is null", reg); 
-
-		assertSame("Registry is not singleton", 
-				reg, ConstraintRegistry.getInstance());
+		assertNotNull(reg, "Registry is null");
+		assertSame(reg, ConstraintRegistry.getInstance(), "Registry is not singleton");
 	}
 
 	/*
@@ -86,8 +88,8 @@ public class ConstraintRegistryTest extends TestBase {
 	public void test_getDescriptor_String() {
 		IConstraintDescriptor found = ConstraintRegistry.getInstance().getDescriptor(TestBase.ID_PREFIX + TEST_ID);
 
-		assertNotNull("Test descriptor not found", found); 
-		assertSame("Wrong test descriptor found", descriptor, found); 
+		assertNotNull(found, "Test descriptor not found"); 
+		assertSame(descriptor, found, "Wrong test descriptor found"); 
 	}
 
 	/*
@@ -97,20 +99,17 @@ public class ConstraintRegistryTest extends TestBase {
 	public void testGetDescriptorStringString() {
 		IConstraintDescriptor found = ConstraintRegistry.getInstance().getDescriptor(TestBase.PLUGIN_ID, TEST_ID);
 
-		assertNotNull("Test descriptor not found", found); 
-		assertSame("Wrong test descriptor found", descriptor, found); 
+		assertNotNull(found, "Test descriptor not found"); 
+		assertSame(found, descriptor, "Wrong test descriptor found"); 
 	}
 
 	@Test
 	public void testGetAllDescriptors() {
 		Collection<IConstraintDescriptor> allFound = ConstraintRegistry.getInstance().getAllDescriptors();
-
 		assertNotNull(allFound);
-
-		assertTrue("Test descriptor missing", allFound.contains(descriptor)); 
-
+		assertTrue(allFound.contains(descriptor), "Test descriptor missing"); 
 		// there should be plenty other descriptors registered
-		assertTrue("Not enough descriptors found", allFound.size() > 1); 
+		assertTrue(allFound.size() > 1, "Not enough descriptors found"); 
 	}
 
 	@Test
@@ -132,12 +131,8 @@ public class ConstraintRegistryTest extends TestBase {
 	@Test
 	public void testUnregister() {
 		ConstraintRegistry reg = ConstraintRegistry.getInstance();
-
 		reg.unregister(descriptor);
-
-		assertNull("Descriptor not unregistered", 
-				reg.getDescriptor(descriptor.getId()));
-
+		assertNull(reg.getDescriptor(descriptor.getId()), "Descriptor not unregistered");
 		try {
 			reg.register(descriptor);
 		} catch (ConstraintExistsException e) {

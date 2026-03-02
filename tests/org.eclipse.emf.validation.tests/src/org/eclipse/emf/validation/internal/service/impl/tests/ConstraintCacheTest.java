@@ -11,10 +11,10 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
@@ -26,8 +26,8 @@ import org.eclipse.emf.validation.internal.service.IProviderOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.IModelConstraintProvider;
 import org.eclipse.emf.validation.tests.TestNotification;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -43,7 +43,7 @@ public class ConstraintCacheTest {
 	private ConstraintCache fixture;
 	private IProviderDescriptor provider;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		provider = new TestDescriptor();
 		fixture = new ConstraintCache();
@@ -58,65 +58,65 @@ public class ConstraintCacheTest {
 	public void test_getDescriptor() {
 		IProviderDescriptor desc = getFixture().getDescriptor();
 
-		assertNotNull("Descriptor is null", desc);
-		assertTrue("Descriptor is not caching", desc.isCache());
-		assertFalse("Descriptor is cacheable", desc.isCacheEnabled());
-		assertFalse("Descriptor is XML", desc.isXmlProvider());
+		assertNotNull(desc, "Descriptor is null");
+		assertTrue(desc.isCache(), "Descriptor is not caching");
+		assertFalse(desc.isCacheEnabled(), "Descriptor is cacheable");
+		assertFalse(desc.isXmlProvider(), "Descriptor is XML");
 	}
 
 	@Test
 	public void test_getProviders() {
 		Collection<IProviderDescriptor> c = getFixture().getProviders();
 
-		assertNotNull("Collection is null", c);
-		assertFalse("Collection is empty", c.isEmpty());
+		assertNotNull(c, "Collection is null");
+		assertFalse(c.isEmpty(), "Collection is empty");
 	}
 
 	@Test
 	public void test_addProvider() {
 		Collection<IProviderDescriptor> c = getFixture().getProviders();
 
-		assertNotNull("Collection is null", c);
-		assertTrue("Provider not found", c.contains(provider));
+		assertNotNull(c, "Collection is null");
+		assertTrue(c.contains(provider), "Provider not found");
 	}
 
 	@Test
 	public void test_getBatchConstraints() {
-		assertTrue("Hit count should be zero", batchHits == 0);
+		assertTrue(batchHits == 0, "Hit count should be zero");
 
 		Collection<IModelConstraint> c = getFixture().getBatchConstraints(OrderSystemFactory.eINSTANCE.createProduct(),
 				null);
 
-		assertNotNull("Collection is null", c);
-		assertEquals("Wrong number of constraints.", 1, c.size());
-		assertEquals("Source provider not hit.", 1, batchHits);
+		assertNotNull(c, "Collection is null");
+		assertEquals(1, c.size(), "Wrong number of constraints.");
+		assertEquals(1, batchHits, "Source provider not hit.");
 
 		// hit the cache again, and check that it it did not miss
 		c = getFixture().getBatchConstraints(OrderSystemFactory.eINSTANCE.createProduct(), null);
 
-		assertNotNull("Second collection is null", c);
-		assertEquals("Wrong number of constraints on second pass.", 1, c.size());
-		assertEquals("Source provider hit again.", 1, batchHits);
+		assertNotNull(c, "Second collection is null");
+		assertEquals(1, c.size(), "Wrong number of constraints on second pass.");
+		assertEquals(1, batchHits, "Source provider hit again.");
 	}
 
 	@Test
 	public void test_getLiveConstraints() {
-		assertTrue("Hit count should be zero", liveHits == 0);
+		assertTrue(liveHits == 0, "Hit count should be zero");
 
 		Collection<IModelConstraint> c = getFixture().getLiveConstraints(
 				new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET), null);
 
-		assertNotNull("Collection is null", c);
-		assertEquals("Wrong number of constraints.", 1, c.size());
-		assertEquals("Source provider not hit.", 1, liveHits);
+		assertNotNull(c, "Collection is null");
+		assertEquals(1, c.size(), "Wrong number of constraints.");
+		assertEquals(1, liveHits, "Source provider not hit.");
 
 		// hit the cache again, and check that it it did not miss
 		c = getFixture().getLiveConstraints(
 				new TestNotification(OrderSystemFactory.eINSTANCE.createProduct(), Notification.SET), null);
 
-		assertNotNull("Second collection is null", c);
-		assertEquals("Wrong number of constraints on second pass.", 1, c.size());
-		assertEquals("Source provider hit again.", 1, liveHits);
+		assertNotNull(c, "Second collection is null");
+		assertEquals(1, c.size(), "Wrong number of constraints on second pass.");
+		assertEquals(1, liveHits, "Source provider hit again.");
 	}
 
 	static class TestDescriptor implements IProviderDescriptor {

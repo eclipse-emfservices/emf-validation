@@ -11,9 +11,9 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
@@ -27,9 +27,9 @@ import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
 import org.eclipse.emf.validation.service.IConstraintDescriptor;
 import org.eclipse.emf.validation.tests.TestBase;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the {@link ConstraintRegistry}'s support for the constraint listener
@@ -44,11 +44,10 @@ public class ConstraintListenersTest {
 			"registered.constraint");
 	ConstraintListenerTestConstraint unregisteredConstraint = new ConstraintListenerTestConstraint(
 			"unregistered.constraint");
-	Category testCategory = CategoryManager.getInstance().findCategory("junit");  // this should have been
+	Category testCategory = CategoryManager.getInstance().findCategory("junit"); // this should have been
 																					// loaded from the extension point
 
-
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		ConstraintRegistry.getInstance().register(registeredConstraint);
 		ConstraintRegistry.getInstance().addConstraintListener(ConstraintListener.getInstance());
@@ -56,14 +55,13 @@ public class ConstraintListenersTest {
 		listener.setEnabled(true);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		listener.setEnabled(false);
 		listener.setLastEvent(null);
 		ConstraintRegistry.getInstance().removeConstraintListener(ConstraintListener.getInstance());
 		ConstraintRegistry.getInstance().unregister(registeredConstraint);
 	}
-
 
 	@Test
 	public void test_registerConstraint_177656() throws ConstraintExistsException {
@@ -73,9 +71,9 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.REGISTERED,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", unregisteredConstraint, listener.getLastEvent().getConstraint());
+		assertSame(ConstraintChangeEventType.REGISTERED, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(unregisteredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
 	}
 
 	@Test
@@ -86,9 +84,9 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.UNREGISTERED,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", unregisteredConstraint, listener.getLastEvent().getConstraint());
+		assertSame(ConstraintChangeEventType.UNREGISTERED, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(unregisteredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
 	}
 
 	@Test
@@ -100,14 +98,14 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.ENABLED,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", registeredConstraint, listener.getLastEvent().getConstraint());
+		assertSame(ConstraintChangeEventType.ENABLED, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(registeredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
 
 		// Enabled an enabled constraint, should not fire event
 		listener.setLastEvent(null);
 		registeredConstraint.setEnabled(true);
-		assertNull("Enabling an enabled constraint incorrectly sent an event", listener.getLastEvent());
+		assertNull(listener.getLastEvent(), "Enabling an enabled constraint incorrectly sent an event");
 	}
 
 	@Test
@@ -119,14 +117,14 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.DISABLED,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", registeredConstraint, listener.getLastEvent().getConstraint());
+		assertSame(ConstraintChangeEventType.DISABLED, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(registeredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
 
 		// Disable a disabled constraint, should not fire event
 		listener.setLastEvent(null);
 		registeredConstraint.setEnabled(false);
-		assertNull("Disabling a disabled constraint incorrectly sent an event", listener.getLastEvent());
+		assertNull(listener.getLastEvent(), "Disabling a disabled constraint incorrectly sent an event");
 	}
 
 	@Test
@@ -137,15 +135,15 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.ADDED_CATEGORY,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", registeredConstraint, listener.getLastEvent().getConstraint());
-		assertSame("Incorrect constraint category", testCategory, listener.getLastEvent().getCategory());
+		assertSame(ConstraintChangeEventType.ADDED_CATEGORY, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(registeredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
+		assertSame(testCategory, listener.getLastEvent().getCategory(), "Incorrect constraint category");
 
 		// Attempt to add category again, should not fire event
 		listener.setLastEvent(null);
 		registeredConstraint.addCategory(testCategory);
-		assertNull("Add category for already associated category incorrectly sent an event", listener.getLastEvent());
+		assertNull(listener.getLastEvent(), "Add category for already associated category incorrectly sent an event");
 	}
 
 	@Test
@@ -157,15 +155,15 @@ public class ConstraintListenersTest {
 			fail("Constraint change event was null");
 		}
 
-		assertSame("Incorrect constraint change event", ConstraintChangeEventType.REMOVED_CATEGORY,
-				listener.getLastEvent().getEventType());
-		assertSame("Incorrect constraint descriptor", registeredConstraint, listener.getLastEvent().getConstraint());
-		assertSame("Incorrect constraint category", testCategory, listener.getLastEvent().getCategory());
+		assertSame(ConstraintChangeEventType.REMOVED_CATEGORY, listener.getLastEvent().getEventType(),
+				"Incorrect constraint change event");
+		assertSame(registeredConstraint, listener.getLastEvent().getConstraint(), "Incorrect constraint descriptor");
+		assertSame(testCategory, listener.getLastEvent().getCategory(), "Incorrect constraint category");
 
 		// Attempt to remove category again, should not fire event
 		listener.setLastEvent(null);
 		registeredConstraint.removeCategory(testCategory);
-		assertNull("Remove category for non-associated category incorrectly sent an event", listener.getLastEvent());
+		assertNull(listener.getLastEvent(), "Remove category for non-associated category incorrectly sent an event");
 	}
 
 	public class ConstraintListenerTestConstraint extends AbstractConstraintDescriptor

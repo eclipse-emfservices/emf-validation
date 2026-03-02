@@ -11,17 +11,17 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.validation.util.XmlConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for the {@link XmlConfig} utility class.
@@ -95,7 +95,7 @@ public class XmlConfigTest {
 		IConfigurationElement[] children = newConstraints.getChildren();
 
 		// the <include> element is replaced by a single <constraint> element
-		assertTrue("Not enough child elements", children.length > 0);
+		assertTrue(children.length > 0, "Not enough child elements");
 		assertEquals(TEST_NAME, children[0].getAttribute(XmlConfig.A_NAME));
 	}
 }

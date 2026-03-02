@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.model.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,7 +27,7 @@ import java.util.List;
 
 import org.eclipse.emf.validation.internal.l10n.ValidationMessages;
 import org.eclipse.emf.validation.model.EvaluationMode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for the {@link EvaluationMode} class.

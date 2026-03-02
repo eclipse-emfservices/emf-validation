@@ -11,17 +11,17 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.validation.internal.service.impl.tests.ConstraintDescriptorTest;
 import org.eclipse.emf.validation.internal.util.XmlExpressionSelector;
 import org.eclipse.emf.validation.util.XmlConfig;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
@@ -35,7 +35,7 @@ public class XmlExpressionSelectorTest {
 	private OrderSystemFactory fact;
 	private ConstraintDescriptorTest.FixtureElement expression;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		fact = OrderSystemFactory.eINSTANCE;
 

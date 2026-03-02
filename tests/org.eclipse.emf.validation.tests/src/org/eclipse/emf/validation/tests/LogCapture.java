@@ -11,13 +11,14 @@
  */
 package org.eclipse.emf.validation.tests;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.junit.Assert;
 import org.osgi.framework.Bundle;
 
 /**
@@ -109,9 +110,9 @@ public class LogCapture {
 	 */
 	public void assertLogged(Throwable throwable) {
 		IStatus log = getLastLog();
-		Assert.assertNotNull(log);
+		assertNotNull(log);
 		log = findStatus(log, throwable);
-		Assert.assertNotNull(log);
+		assertNotNull(log);
 	}
 
 	private void record(IStatus log) {

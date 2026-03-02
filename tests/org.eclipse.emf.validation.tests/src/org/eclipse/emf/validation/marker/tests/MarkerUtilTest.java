@@ -12,11 +12,11 @@
  */
 package org.eclipse.emf.validation.marker.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -48,11 +48,12 @@ import org.eclipse.emf.validation.model.ModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintExistsException;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.emf.validation.tests.AllTests;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.util.XmlConfig;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
@@ -66,9 +67,12 @@ public class MarkerUtilTest extends TestBase {
 	private IProject testProject;
 	private IFile testFile;
 	private Resource testResource;
+	private boolean previousContext;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws CoreException, IOException {
+		previousContext = AllTests.executingUnitTests;
+		AllTests.executingUnitTests = true;
 		testProject = ResourcesPlugin.getWorkspace().getRoot().getProject("_Validation_Test");
 		testProject.create(null);
 		testProject.open(null);
@@ -94,13 +98,14 @@ public class MarkerUtilTest extends TestBase {
 		testResource.save(Collections.emptyMap());
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws CoreException {
 		testResource.unload();
 		testResource = null;
 		testProject.delete(true, true, null);
 		testFile = null;
 		testProject = null;
+		AllTests.executingUnitTests = previousContext;
 	}
 
 	@Test
@@ -119,7 +124,7 @@ public class MarkerUtilTest extends TestBase {
 		try {
 			IMarker[] markers = testFile.findMarkers(MarkerUtil.VALIDATION_MARKER_TYPE, true, 0);
 
-			assertFalse("No markers created", markers.length == 0);
+			assertFalse(markers.length == 0, "No markers created");
 		} catch (CoreException e) {
 			fail("Failed to find markers: " + e.getLocalizedMessage());
 		}
@@ -160,7 +165,7 @@ public class MarkerUtilTest extends TestBase {
 		try {
 			IMarker[] markers = testFile.findMarkers(MarkerUtil.VALIDATION_MARKER_TYPE, true, 0);
 
-			assertEquals("Markers not cleared", 0, markers.length);
+			assertEquals(0, markers.length, "Markers not cleared");
 		} catch (CoreException e) {
 			fail("Failed to find markers: " + e.getLocalizedMessage());
 		}

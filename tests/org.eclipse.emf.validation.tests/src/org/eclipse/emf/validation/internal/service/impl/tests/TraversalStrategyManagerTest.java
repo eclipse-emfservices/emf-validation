@@ -11,7 +11,7 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.ModelValidationService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Indirect tests for the {@code TraversalStrategyManager} class.

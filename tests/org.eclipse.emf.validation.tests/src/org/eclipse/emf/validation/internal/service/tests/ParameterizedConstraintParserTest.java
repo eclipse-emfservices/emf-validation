@@ -11,8 +11,8 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 
@@ -33,9 +33,9 @@ import org.eclipse.emf.validation.service.IParameterizedConstraintParser;
 import org.eclipse.emf.validation.tests.Assertions;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.xml.ConstraintParserException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
@@ -58,12 +58,12 @@ public class ParameterizedConstraintParserTest extends TestBase {
 	static final String JAVA_MESSAGE = "Java parser worked";
 	static final String XML_MESSAGE = "XML provider worked";
 
-	@BeforeClass
+	@BeforeAll
 	public static void initTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
 	
-	@AfterClass
+	@AfterAll
 	public static void resetTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}

@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.util.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.core.text.StringMatcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit tests for {@link StringMatcher} class, to test the adoption of ICU4J.

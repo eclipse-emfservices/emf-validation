@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -60,10 +60,10 @@ import org.eclipse.emf.validation.tests.SetTargetConstraint;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.emf.validation.tests.TestNotification;
 import org.eclipse.emf.validation.util.XmlConfig;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Address;
 import ordersystem.LineItem;
@@ -83,17 +83,17 @@ import ordersystem.special.SpecialFactory;
  * @author Christian W. Damus (cdamus)
  */
 public class ModelValidationServiceTest extends TestBase {
-	@BeforeClass
+	@BeforeAll
 	public static void initTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
-	
-	@AfterClass
+
+	@AfterAll
 	public static void resetTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
-	
-	@After
+
+	@AfterEach
 	public void tearDown() {
 		CancelConstraint.enabled = false;
 	}
@@ -260,9 +260,9 @@ public class ModelValidationServiceTest extends TestBase {
 			}
 		}
 
-		assertTrue("Didn't find the default status", foundDefault);
-		assertTrue("Didn't find the fun status", foundFun);
-		assertTrue("Didn't find the silly status", foundSilly);
+		assertTrue(foundDefault, "Didn't find the default status");
+		assertTrue(foundFun, "Didn't find the fun status");
+		assertTrue(foundSilly, "Didn't find the fun status");
 	}
 
 	/**
@@ -326,9 +326,9 @@ public class ModelValidationServiceTest extends TestBase {
 			}
 		}
 
-		assertTrue("Didn't find the success status", foundSuccess);
-		assertTrue("Didn't find the silly status", foundSilly);
-		assertTrue("Didn't find the fun status", foundFun);
+		assertTrue(foundSuccess, "Didn't find the success status");
+		assertTrue(foundSilly, "Didn't find the silly status");
+		assertTrue(foundFun, "Didn't find the fun status");
 	}
 
 	@Test
@@ -439,7 +439,7 @@ public class ModelValidationServiceTest extends TestBase {
 		Assertions.assertAllConstraintsPresent("batch", status, ID_PREFIX + "order.cancelConstraint");
 
 		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint");
-		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus);
+		assertTrue(particular instanceof IConstraintStatus, "Wrong kind of constraint");
 		IConstraintStatus cstat = (IConstraintStatus) particular;
 
 		assertEquals(IStatus.CANCEL, cstat.getSeverity());
@@ -465,7 +465,7 @@ public class ModelValidationServiceTest extends TestBase {
 		Assertions.assertAllConstraintsPresent("live", status, ID_PREFIX + "order.cancelConstraint");
 
 		IStatus particular = getStatus(status, ID_PREFIX + "order.cancelConstraint");
-		assertTrue("Wrong kind of constraint", particular instanceof IConstraintStatus);
+		assertTrue(particular instanceof IConstraintStatus, "Wrong kind of constraint");
 		IConstraintStatus cstat = (IConstraintStatus) particular;
 
 		assertEquals(IStatus.CANCEL, cstat.getSeverity());
@@ -527,7 +527,7 @@ public class ModelValidationServiceTest extends TestBase {
 		traversal.startTraversal(objects, new NullProgressMonitor());
 		while (traversal.hasNext()) {
 			EObject next = traversal.next();
-			assertTrue("Already traversed this element", visited.add(next));
+			assertTrue(visited.add(next), "Already traversed this element");
 			traversal.elementValidated(next, Status.OK_STATUS);
 		}
 	}

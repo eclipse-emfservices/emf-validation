@@ -11,11 +11,11 @@
  */
 package org.eclipse.emf.validation.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -36,10 +36,11 @@ import org.eclipse.emf.validation.internal.util.Trace;
 import org.eclipse.emf.validation.model.IConstraintStatus;
 import org.eclipse.emf.validation.model.IModelConstraint;
 import org.eclipse.emf.validation.service.ConstraintRegistry;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystem;
 import ordersystem.OrderSystemFactory;
@@ -51,6 +52,7 @@ import ordersystem.special.SpecialFactory;
  *
  * @author Christian W. Damus (cdamus)
  */
+@Order(2)
 public class FrameworkTest extends TestBase {
 	/**
 	 * Set this system property to "true" when running JUnit if you wish to start
@@ -60,12 +62,12 @@ public class FrameworkTest extends TestBase {
 
 	private static OrderSystem orderSystem = null;
 
-	@BeforeClass
+	@BeforeAll
 	public static void initTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void resetTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
@@ -76,7 +78,7 @@ public class FrameworkTest extends TestBase {
 	 * 
 	 * @throws IOException
 	 */
-	@Before
+	@BeforeEach
 	public void setUp() throws IOException {
 		if (orderSystem == null) {
 			ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
@@ -205,7 +207,7 @@ public class FrameworkTest extends TestBase {
 			evaluatedConstraints.add(next.getConstraint());
 		}
 
-		assertEquals("Some constraint was evaluated more than once:", evaluatedConstraints.size(), status.length);
+		assertEquals(evaluatedConstraints.size(), status.length, "Some constraint was evaluated more than once:");
 	}
 
 	/**
@@ -228,14 +230,14 @@ public class FrameworkTest extends TestBase {
 
 		liveValidator.validate(notification);
 
-		assertEquals("Constraint prematurely instantiated", currentCount, LazyTestModelConstraint.getInstanceCount());
+		assertEquals(currentCount, LazyTestModelConstraint.getInstanceCount(), "Constraint prematurely instantiated");
 
 		// now, re-enable the category so that the constraint will be evaluated
 		ConstraintRegistry.getInstance().getDescriptor(PLUGIN_ID, "lazy.marker").setEnabled(true);
 
 		liveValidator.validate(notification);
 
-		assertTrue("Constraint not lazily instantiated", currentCount < LazyTestModelConstraint.getInstanceCount());
+		assertTrue(currentCount < LazyTestModelConstraint.getInstanceCount(), "Constraint not lazily instantiated");
 	}
 
 	/**
@@ -254,7 +256,7 @@ public class FrameworkTest extends TestBase {
 		// get them a second time (should hit the cache)
 		batchValidator.validate(object);
 
-		assertEquals("Cache was not hit!", 1, CachedTestProvider.getInstance().getHitCount(object.eClass()));
+		assertEquals(1, CachedTestProvider.getInstance().getHitCount(object.eClass()), "Cache was not hit!");
 	}
 
 	/**
@@ -315,8 +317,8 @@ public class FrameworkTest extends TestBase {
 
 		assertNotNull(status);
 
-		assertTrue("Provider for ecore namespace prefix was initialized.",
-				TestBadXmlConfigProvider.getInstance("http://www.eclipse.org/emf/2002/Ecore") == null);
+		assertTrue(TestBadXmlConfigProvider.getInstance("http://www.eclipse.org/emf/2002/Ecore") == null,
+				"Provider for ecore namespace prefix was initialized.");
 	}
 
 	/**
@@ -332,12 +334,12 @@ public class FrameworkTest extends TestBase {
 
 		for (IStatus element : status) {
 			IModelConstraint constraint = ((IConstraintStatus) element).getConstraint();
-			assertFalse("Got constraints from ordersystem namespace prefix provider.",
-					constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem"));
+			assertFalse(constraint.getDescriptor().getId().startsWith(ID_PREFIX + "ordersystem"),
+					"Got constraints from ordersystem namespace prefix provider.");
 		}
 
-		assertTrue("Provider for ordersystem namespace prefix was not initialized.",
-				TestBadXmlConfigProvider.getInstance("http:///ordersystem.ecore") != null);
+		assertTrue(TestBadXmlConfigProvider.getInstance("http:///ordersystem.ecore") != null,
+				"Provider for ordersystem namespace prefix was not initialized.");
 	}
 
 	/**

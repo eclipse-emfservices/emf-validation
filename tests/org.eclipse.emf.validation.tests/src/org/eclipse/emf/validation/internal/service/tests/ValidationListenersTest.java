@@ -11,7 +11,7 @@
  */
 package org.eclipse.emf.validation.internal.service.tests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
@@ -22,34 +22,34 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.emf.validation.tests.AllTests;
 import org.eclipse.emf.validation.tests.TestBase;
 import org.eclipse.ui.PlatformUI;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.Order;
 import ordersystem.OrderSystemFactory;
 
 public class ValidationListenersTest extends TestBase {
-	@BeforeClass
+	@BeforeAll
 	public static void initTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = true;
 	}
 	
-	@AfterClass
+	@AfterAll
 	public static void resetTestContext() {
 		org.eclipse.emf.validation.tests.AllTests.executingUnitTests = false;
 	}
 	
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		ClientContextValidationListener.LISTENER_CALLED = false;
 		UniversalValidationListener.LAST_EVENT = null;
 		UniversalValidationListener.enabled = true;
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		UniversalValidationListener.enabled = false;
 		UniversalValidationListener.LAST_EVENT = null;

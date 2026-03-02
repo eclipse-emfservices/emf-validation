@@ -11,18 +11,18 @@
  */
 package org.eclipse.emf.validation.internal.service.impl.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.validation.internal.service.GetBatchConstraintsOperation;
 import org.eclipse.emf.validation.model.IModelConstraint;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ordersystem.OrderSystemFactory;
 
@@ -34,7 +34,7 @@ import ordersystem.OrderSystemFactory;
 public class GetBatchConstraintsOperationTest extends AbstractGetConstraintsOperationTest {
 	private EObject target;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		target = OrderSystemFactory.eINSTANCE.createProduct();
 		setFixture(new TestOperation(target));
@@ -42,25 +42,22 @@ public class GetBatchConstraintsOperationTest extends AbstractGetConstraintsOper
 
 	@Test
 	public void test_getEObject() {
-		assertSame("Wrong target object", target, getFixture().getEObject());
+		assertSame(target, getFixture().getEObject(), "Wrong target object");
 	}
 
 	@Test
 	public void test_execute() {
 		Collection<IModelConstraint> c = getFixture().execute(new TestProvider());
 		assertNotNull(c);
-
-		assertTrue("Token not found", c.contains(BATCH_TOKEN));
+		assertTrue(c.contains(BATCH_TOKEN), "Token not found");
 	}
 
 	@Test
 	public void test_getConstraints() {
 		getFixture().execute(new TestProvider());
-
 		Collection<IModelConstraint> c = getFixture().getConstraints();
-
 		// check that the token is in this collection
-		assertTrue("Token not found", c.contains(BATCH_TOKEN));
+		assertTrue(c.contains(BATCH_TOKEN), "Token not found");
 
 		// disable the token constraint and ensure that it is no longer
 		// in the collection. This checks that the filtering is correct.
@@ -69,7 +66,7 @@ public class GetBatchConstraintsOperationTest extends AbstractGetConstraintsOper
 		((TestConstraint) BATCH_TOKEN).getDescriptor().setError(new Exception());
 		c = getFixture().getConstraints();
 
-		assertFalse("Token is found", c.contains(BATCH_TOKEN));
+		assertFalse(c.contains(BATCH_TOKEN), "Token is found");
 	}
 
 	private static class TestOperation extends GetBatchConstraintsOperation {
