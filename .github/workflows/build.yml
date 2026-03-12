@@ -1,4 +1,4 @@
-name: Build
+name: Build and verify with Maven
 
 on:
   push:
@@ -8,21 +8,32 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [ 21 ]
+        os: [ ubuntu-latest, windows-latest ]
+        target: [ 2024-12, canary ]
+    runs-on: ${{ matrix.os }} 
+    name: OS ${{ matrix.os }} Target ${{ matrix.target }} compile
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Java ${{ matrix.java }}
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
         with:
           distribution: 'temurin'
-          java-version: 21
+          java-version: ${{ matrix.java }}
           cache: 'maven'
-      - name: Setup Display
-        run: |
-          sudo apt-get install mutter dbus-x11
-          dbus-launch --auto-syntax > dbus-env
-          . dbus-env
-          mutter --no-x11 --headless --virtual-monitor 1920x1080 &
-      - name: Build
-        run: ./mvnw -B -ntp clean verify
+      - name: Build with Maven
+        uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 # v1.0.1
+        with:
+        run: >- 
+          ./mvnw -V -B -fae -ntp -Dplatform=${{ matrix.target }} clean verify
+      - name: Upload Test Results for Java-${{ matrix.java }}
+        if: always()
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: test-results-${{ matrix.os }}-target-${{ matrix.target }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/**/target/surefire-reports/*.xml
