@@ -26,8 +26,8 @@ jobs:
       - name: Build with Maven
         uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 # v1.0.1
         with:
-        run: >- 
-          ./mvnw -V -B -fae -ntp -Dplatform=${{ matrix.target }} clean verify
+          run: >- 
+            ./mvnw -V -B -fae -ntp -Dplatform=${{ matrix.target }} clean verify
       - name: Upload Test Results for Java-${{ matrix.java }}
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
