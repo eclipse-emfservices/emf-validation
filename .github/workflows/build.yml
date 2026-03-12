@@ -2,6 +2,7 @@ name: Build and verify with Maven
 
 on:
   push:
+    branches: [ master ]
   pull_request:
   workflow_dispatch:
 
@@ -10,11 +11,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 21 ]
-        os: [ ubuntu-latest, windows-latest ]
-        target: [ 2024-12, canary ]
+        java: [ 21, 25 ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        target: [ 2024-12, 2026-03, canary ]
     runs-on: ${{ matrix.os }} 
-    name: OS ${{ matrix.os }} Target ${{ matrix.target }} compile
+    name: OS ${{ matrix.os }} Target ${{ matrix.target }} Java ${{ matrix.java }} build and verify
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Set up Java ${{ matrix.java }}
@@ -30,7 +31,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
-          name: test-results-${{ matrix.os }}-target-${{ matrix.target }}
+          name: test-results-${{ matrix.os }}-target-${{ matrix.target }}-java-${{ matrix.java }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/**/target/surefire-reports/*.xml
