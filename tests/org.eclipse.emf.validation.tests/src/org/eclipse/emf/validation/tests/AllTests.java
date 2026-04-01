@@ -28,7 +28,7 @@ public class AllTests {
 		// register the .ordersystem extension for loading the example XMI file
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("ordersystem", new XMIResourceFactoryImpl()); //$NON-NLS-1$
+		m.put("ordersystem", new XMIResourceFactoryImpl());
 	}
 
 	/**
@@ -43,14 +43,4 @@ public class AllTests {
 		return executingUnitTests;
 	}
 
-//	public static Test suite() {
-//		// Show validation problems on the console.
-//		Preferences mslui = Platform.getPreferencesService().getRootNode().node("instance").node("org.eclipse.gmf.runtime.emf.ui");
-//		mslui.putInt("Validation.liveProblemsDisplay", 1);
-//		try {
-//			mslui.flush();
-//		} catch (BackingStoreException e) {
-//			e.printStackTrace();
-//		}
-//	}
 }
