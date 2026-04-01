@@ -42,7 +42,7 @@ public class EventTypeServiceTest {
 
 	@Test
 	public void test_getNotificationGenerator_177647() {
-		INotificationGenerator generator = EventTypeService.getInstance().getNotificationGenerator("Special Order"); //$NON-NLS-1$
+		INotificationGenerator generator = EventTypeService.getInstance().getNotificationGenerator("Special Order");
 		assertNotNull(generator);
 	}
 }
