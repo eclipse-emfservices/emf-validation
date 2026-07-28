@@ -50,9 +50,6 @@ public class LiveValidator extends AbstractValidator<Notification> implements IL
 		super(EvaluationMode.LIVE, executor);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	protected Collection<IStatus> doValidate(Collection<? extends Notification> objects,
 			Set<IClientContext> clientContexts) {

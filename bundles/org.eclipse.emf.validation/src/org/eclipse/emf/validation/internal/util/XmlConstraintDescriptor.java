@@ -184,31 +184,26 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public IConfigurationElement getConfig() {
 		return config;
 	}
 
-	// implements the interface method
 	@Override
 	public String getName() {
 		return name;
 	}
 
-	// implements the interface method
 	@Override
 	public String getId() {
 		return id;
 	}
 
-	// implements the interface method
 	@Override
 	public String getPluginId() {
 		return pluginId;
 	}
 
-	// implements the interface method
 	@Override
 	public String getDescription() {
 		return description;
@@ -218,7 +213,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		this.description = description;
 	}
 
-	// implements the interface method
 	@Override
 	public ConstraintSeverity getSeverity() {
 		return severity;
@@ -230,7 +224,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		this.severity = severity;
 	}
 
-	// implements the interface method
 	@Override
 	public int getStatusCode() {
 		return statusCode;
@@ -269,7 +262,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public EvaluationMode<?> getEvaluationMode() {
 		return mode;
@@ -279,9 +271,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		this.mode = mode;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void resolveTargetTypes(String[] namespaceUris) {
 		if (resolved) {
@@ -369,7 +358,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		return targetMap.isEmpty();
 	}
 
-	// implements the interface method
 	@Override
 	public boolean targetsTypeOf(EObject eObject) {
 		return (eObject == null) ? false : isUniversal() || targetsType(eObject.eClass());
@@ -406,7 +394,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public boolean targetsEvent(Notification notification) {
 		if (notification.getNotifier() instanceof EObject) {
@@ -443,7 +430,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		return getTarget(eClass).hasEvent(eventType, feature);
 	}
 
-	// implements the interface method
 	@Override
 	public String getMessagePattern() {
 		return messagePattern;
@@ -453,7 +439,6 @@ public final class XmlConstraintDescriptor extends AbstractConstraintDescriptor
 		this.messagePattern = messagePattern;
 	}
 
-	// implements the interface method
 	@Override
 	public String getBody() {
 		return body;

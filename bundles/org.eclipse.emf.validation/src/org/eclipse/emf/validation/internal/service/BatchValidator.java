@@ -59,17 +59,11 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		super(EvaluationMode.BATCH, executor);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public boolean isIncludeLiveConstraints() {
 		return getOption(OPTION_INCLUDE_LIVE_CONSTRAINTS);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void setIncludeLiveConstraints(boolean includeLiveConstraints) {
 		if (includeLiveConstraints != isIncludeLiveConstraints()) {
@@ -77,25 +71,16 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public ITraversalStrategy getDefaultTraversalStrategy() {
 		return defaultTraversalStrategy;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public ITraversalStrategy getTraversalStrategy() {
 		return getOption(OPTION_TRAVERSAL_STRATEGY);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void setTraversalStrategy(ITraversalStrategy strategy) {
 		if (strategy == null) {
@@ -105,9 +90,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		setOption(OPTION_TRAVERSAL_STRATEGY, strategy);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public IStatus validate(EObject eObject, IProgressMonitor monitor) {
 		IStatus result;
@@ -119,9 +101,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public IStatus validate(Collection<? extends EObject> objects, IProgressMonitor monitor) {
 		IStatus result;
@@ -133,9 +112,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	protected Collection<IStatus> doValidate(Collection<? extends EObject> objects,
 			Set<IClientContext> clientContexts) {
@@ -290,9 +266,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 		private Iterator<ITraversalStrategy> delegateIterator;
 		private ITraversalStrategy current;
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public void startTraversal(Collection<? extends EObject> traversalRoots, IProgressMonitor monitor) {
 			current = null;
@@ -313,9 +286,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			delegateIterator = delegates.keySet().iterator();
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public boolean hasNext() {
 			if ((current == null) && (delegateIterator.hasNext())) {
@@ -336,9 +306,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			return true;
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public EObject next() {
 			if (!hasNext()) {
@@ -348,9 +315,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			return current.next();
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public boolean isClientContextChanged() {
 			if (current != null) {
@@ -360,9 +324,6 @@ public class BatchValidator extends AbstractValidator<EObject> implements IBatch
 			return false;
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public void elementValidated(EObject element, IStatus status) {
 			current.elementValidated(element, status);

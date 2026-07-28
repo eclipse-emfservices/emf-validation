@@ -38,9 +38,6 @@ public class EMFValidationContextAdapter extends BasicDiagnostic {
 		super(EMFModelValidationPlugin.getPluginId(), 0, ValidationMessages.emfadapter_noMessage, null);
 	}
 
-	/*
-	 * (non-Javadoc) Redefines the inherited method
-	 */
 	@Override
 	public void add(Diagnostic diagnostic) {
 		if (diagnostic.getSeverity() != Diagnostic.OK) {

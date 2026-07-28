@@ -384,9 +384,8 @@ public class ClientContext implements IClientContext {
 			repeat = false;
 
 			for (IClientContext next : contexts) {
-				if ((next instanceof ClientContext)
-						&& contexts.removeAll(((ClientContext) next).allExtendedContexts())) {
-
+				if ((next instanceof ClientContext clientContext)
+						&& contexts.removeAll(clientContext.allExtendedContexts())) {
 					repeat = true;
 					break;
 				}
@@ -399,7 +398,7 @@ public class ClientContext implements IClientContext {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return (obj instanceof ClientContext) && ((ClientContext) obj).getId().equals(getId());
+		return (obj instanceof ClientContext clientContext) && clientContext.getId().equals(getId());
 	}
 
 	/**

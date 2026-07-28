@@ -201,9 +201,6 @@ public class ConstraintsSelectionBlock {
 			}
 		}
 
-		/*
-		 * (non-Javadoc) Redefines/Implements/Extends the inherited method.
-		 */
 		@Override
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			category.updateCheckState((IConstraintNode) event.getElement());
@@ -220,7 +217,6 @@ public class ConstraintsSelectionBlock {
 
 		private boolean respondingToUserSelection;
 
-		// implements the interface method
 		@Override
 		public void checkStateChanged(CheckStateChangedEvent event) {
 			Object element = event.getElement();
@@ -261,7 +257,6 @@ public class ConstraintsSelectionBlock {
 			}
 		}
 
-		// implements the interface method
 		@Override
 		public void selectionChanged(SelectionChangedEvent event) {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();

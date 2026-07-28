@@ -72,11 +72,6 @@ public class ShowValidationEventsDelegate implements IEditorActionDelegate, IAct
 		run(action);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
 	@Override
 	public void run(IAction action) {
 		ValidationListener.displayEvents = action.isChecked();

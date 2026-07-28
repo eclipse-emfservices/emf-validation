@@ -208,13 +208,11 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isChecked() {
 		return checked;
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isGrayed() {
 		return grayed;
@@ -248,7 +246,6 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public void checkStateChanged(CheckStateChangedEvent event) {
 		boolean newState = event.getChecked();
@@ -329,7 +326,6 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public void updateCheckState(ICategoryTreeNode child) {
 		if (child.isGrayed()) {
@@ -364,7 +360,6 @@ public class CategoryTreeNode extends AbstractCategoryTreeNode {
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public void updateCheckState(IConstraintNode constraint) {
 		boolean newValue = constraint.isChecked();

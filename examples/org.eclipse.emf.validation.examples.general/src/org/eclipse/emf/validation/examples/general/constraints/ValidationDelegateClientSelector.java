@@ -38,12 +38,6 @@ public class ValidationDelegateClientSelector
 
 	public static boolean running = false;
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.eclipse.emf.validation.model.IClientSelector#selects(java.lang.Object)
-	 */
 	@Override
 	public boolean selects(Object object) {
 		return running;

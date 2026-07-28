@@ -24,13 +24,6 @@ import org.eclipse.emf.validation.IValidationContext;
  */
 public class NonEmptyNamesConstraint extends AbstractModelConstraint {
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.eclipse.emf.validation.AbstractModelConstraint#validate(org.eclipse.emf.
-	 * validation.IValidationContext)
-	 */
 	@Override
 	public IStatus validate(IValidationContext ctx) {
 		EObject eObj = ctx.getTarget();

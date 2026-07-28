@@ -140,11 +140,6 @@ public class EnableLiveValidationDelegate implements IEditorActionDelegate, IAct
 		run(action);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
 	@Override
 	public void run(IAction action) {
 		for (Resource r : selectedResources) {

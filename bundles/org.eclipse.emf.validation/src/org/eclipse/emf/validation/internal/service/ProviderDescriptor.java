@@ -208,13 +208,11 @@ public class ProviderDescriptor implements IProviderDescriptor {
 		return shouldCacheConstraints;
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isCache() {
 		return false;
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isXmlProvider() {
 		String className = getConfig().getAttribute(XmlConfig.A_CLASS);
