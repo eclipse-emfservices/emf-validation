@@ -46,17 +46,11 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		categories.add(CategoryManager.getInstance().getDefaultCategory());
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public final boolean isError() {
 		return getException() != null;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public final Throwable getException() {
 		return exception;
@@ -72,17 +66,11 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		this.exception = exception;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public final boolean isEnabled() {
 		return !isError() && enabled;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public final void setEnabled(boolean enabled) {
 		if (!enabled) {
@@ -118,13 +106,11 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public Set<Category> getCategories() {
 		return unmodCategories;
 	}
 
-	// implements the interface method
 	@Override
 	public void addCategory(Category category) {
 		Category defaultCategory = CategoryManager.getInstance().getDefaultCategory();
@@ -150,7 +136,6 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public void removeCategory(Category category) {
 		if (categories.contains(category)) {
@@ -172,19 +157,16 @@ public abstract class AbstractConstraintDescriptor implements IConstraintDescrip
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isBatch() {
 		return getEvaluationMode().isBatch();
 	}
 
-	// implements the interface method
 	@Override
 	public boolean isLive() {
 		return getEvaluationMode().isLive();
 	}
 
-	// implements the interface method
 	public final IConstraintDescriptor getDescriptor() {
 		return this;
 	}

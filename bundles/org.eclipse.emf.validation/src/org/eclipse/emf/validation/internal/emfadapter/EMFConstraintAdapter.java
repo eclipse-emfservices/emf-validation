@@ -78,7 +78,6 @@ public class EMFConstraintAdapter implements IModelConstraint {
 		validationArgs[1] = null;
 	}
 
-	// implements the interface method
 	@Override
 	public IStatus validate(IValidationContext ctx) {
 		EMFValidationContextAdapter ctxAdapter = (EMFValidationContextAdapter) validationArgs[0];
@@ -90,10 +89,7 @@ public class EMFConstraintAdapter implements IModelConstraint {
 			boolean success = ((Boolean) validationMethod.invoke(ctx.getTarget(), validationArgs)).booleanValue();
 
 			return success ? ctx.createSuccessStatus() : fail(ctxAdapter);
-		} catch (IllegalAccessException e) {
-			ctx.disableCurrentConstraint(e);
-			return disabledInfo(ctx, e);
-		} catch (InvocationTargetException e) {
+		} catch (IllegalAccessException | InvocationTargetException e) {
 			ctx.disableCurrentConstraint(e);
 			return disabledInfo(ctx, e);
 		} finally {
@@ -105,9 +101,6 @@ public class EMFConstraintAdapter implements IModelConstraint {
 		}
 	}
 
-	/*
-	 * (non-Javadoc) Implements the interface method.
-	 */
 	@Override
 	public IConstraintDescriptor getDescriptor() {
 		return descriptor;

@@ -212,7 +212,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		return null;
 	}
 
-	// implements the interface method
 	@Override
 	public void disableCurrentConstraint(Throwable exception) {
 		assert exception != null;
@@ -220,18 +219,16 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		getDescriptor().setError(exception);
 	}
 
-	// implements the interface method
 	@Override
 	public void skipCurrentConstraintFor(EObject eObject) {
 		ignoredConstraints.ignore(eObject, getDescriptor());
 	}
 
-	// implements the interface method
 	@Override
 	public void skipCurrentConstraintForAll(Collection<?> eObjects) {
 		for (Object next : eObjects) {
-			if (next instanceof EObject) {
-				skipCurrentConstraintFor((EObject) next);
+			if (next instanceof EObject eObject) {
+				skipCurrentConstraintFor(eObject);
 			}
 		}
 	}
@@ -262,13 +259,11 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		return !getDescriptor().isEnabled();
 	}
 
-	// implements the interface method
 	@Override
 	public final Object getCurrentConstraintData() {
 		return constraintData.get(getConstraint());
 	}
 
-	// implements the interface method
 	@Override
 	public final Object putCurrentConstraintData(Object newData) {
 		return constraintData.put(getConstraint(), newData);
@@ -293,7 +288,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		resultLocus.add(getTarget());
 	}
 
-	// implements the interface method
 	@Override
 	public void addResult(EObject eObject) {
 		assert eObject != null;
@@ -312,13 +306,11 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public Set<EObject> getResultLocus() {
 		return java.util.Collections.unmodifiableSet(resultLocus);
 	}
 
-	// implements the interface method
 	@Override
 	public final String getCurrentConstraintId() {
 		return getConstraint().getDescriptor().getId();
@@ -352,7 +344,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		currentDescriptor = constraint.getDescriptor();
 	}
 
-	// implements the interface method
 	@Override
 	public final EObject getTarget() {
 		return getOperation().getEObject();
@@ -381,7 +372,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		this.reportSuccesses = b;
 	}
 
-	// implements the interface method
 	@Override
 	public IStatus createSuccessStatus() {
 		if (Trace.shouldTrace(EMFModelValidationDebugOptions.CONSTRAINTS_EVALUATION)) {
@@ -392,7 +382,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 		return isReportSuccesses() ? new SuccessStatus(getTarget(), getConstraint()) : Status.OK_STATUS;
 	}
 
-	// implements the interface method
 	@Override
 	public IStatus createFailureStatus(Object... messageArgs) {
 
@@ -426,7 +415,6 @@ public abstract class AbstractValidationContext implements IValidationContext {
 				this.delegateIterator = delegateCollection.iterator();
 			}
 
-			// implements the interface method
 			@Override
 			public boolean hasNext() {
 				return delegateIterator.hasNext();
@@ -507,25 +495,16 @@ public abstract class AbstractValidationContext implements IValidationContext {
 			this.constraint = constraint;
 		}
 
-		/*
-		 * (non-Javadoc) Implements the inherited method.
-		 */
 		@Override
 		public IModelConstraint getConstraint() {
 			return constraint;
 		}
 
-		/*
-		 * (non-Javadoc) Implements the inherited method.
-		 */
 		@Override
 		public EObject getTarget() {
 			return target;
 		}
 
-		/*
-		 * (non-Javadoc) Implements the inherited method.
-		 */
 		@Override
 		public Set<EObject> getResultLocus() {
 			return Collections.emptySet();

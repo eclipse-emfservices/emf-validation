@@ -49,14 +49,6 @@ public class EMFConstraintParser implements IParameterizedConstraintParser, IXml
 	private static final Class<?>[] VALIDATION_METHOD_SIGNATURE = new Class<?>[] { DiagnosticChain.class,
 			java.util.Map.class, };
 
-	/**
-	 * Initializes me.
-	 */
-	public EMFConstraintParser() {
-		super();
-	}
-
-	// implements the interface method
 	@Override
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
 			throws ConstraintParserException {
@@ -67,7 +59,6 @@ public class EMFConstraintParser implements IParameterizedConstraintParser, IXml
 		return parseConstraint(className, methodName, descriptor);
 	}
 
-	// implements the interface method
 	@Override
 	public IModelConstraint parseConstraint(IXmlConstraintDescriptor descriptor) throws ConstraintParserException {
 		// the EMF interface name and method must be specified in the XML
@@ -77,7 +68,6 @@ public class EMFConstraintParser implements IParameterizedConstraintParser, IXml
 		return parseConstraint(className, methodName, descriptor);
 	}
 
-	// implements the interface method
 	private IModelConstraint parseConstraint(String className, String methodName, IConstraintDescriptor descriptor)
 			throws ConstraintParserException {
 

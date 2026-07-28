@@ -376,7 +376,6 @@ public class Category implements Comparable<Category> {
 		return collator;
 	}
 
-	// implements the interface method
 	@Override
 	public int compareTo(Category other) {
 		Collator aCollator = getCollator();

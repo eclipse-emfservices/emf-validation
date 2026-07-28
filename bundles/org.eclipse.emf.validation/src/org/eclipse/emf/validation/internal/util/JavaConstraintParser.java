@@ -94,7 +94,6 @@ public class JavaConstraintParser implements IParameterizedConstraintParser, IXm
 		super();
 	}
 
-	// implements the interface method
 	@Override
 	public IModelConstraint parseConstraint(IParameterizedConstraintDescriptor descriptor)
 			throws ConstraintParserException {

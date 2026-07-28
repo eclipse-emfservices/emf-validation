@@ -142,11 +142,6 @@ public class BatchValidationDelegate implements IEditorActionDelegate, IActionDe
 		run(action);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
 	@Override
 	public void run(IAction action) {
 		ValidationDelegateClientSelector.running = true;

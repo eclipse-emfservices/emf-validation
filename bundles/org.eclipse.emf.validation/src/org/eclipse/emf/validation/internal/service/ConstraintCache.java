@@ -294,7 +294,6 @@ public class ConstraintCache implements IModelConstraintProvider {
 		return operation.getUnfilteredConstraints();
 	}
 
-	// implements the interface method
 	@Override
 	public Collection<IModelConstraint> getLiveConstraints(Notification notification,
 			Collection<IModelConstraint> constraints) {
@@ -339,7 +338,6 @@ public class ConstraintCache implements IModelConstraintProvider {
 		return result;
 	}
 
-	// implements the interface method
 	@Override
 	public Collection<IModelConstraint> getBatchConstraints(EObject eObject, Collection<IModelConstraint> constraints) {
 

@@ -141,7 +141,6 @@ abstract class AbstractCategoryTreeNode implements ICategoryTreeNode {
 		return children;
 	}
 
-	// implements the interface method
 	@Override
 	public final ICategoryTreeNode getParent() {
 		return parent;

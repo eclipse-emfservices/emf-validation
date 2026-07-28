@@ -42,13 +42,6 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 	private AbstractValidationContext context;
 
 	/**
-	 * Initializes me.
-	 */
-	public AbstractGetConstraintsOperation() {
-		super();
-	}
-
-	/**
 	 * Sets the EMF object that is to be validated.
 	 *
 	 * @param eObject the EMF object (must not be <code>null</code>)
@@ -61,7 +54,6 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 		myConstraints.clear(); // getting constraints for a new target object
 	}
 
-	// implements the interface method
 	@Override
 	public final EObject getEObject() {
 		return eObject;
@@ -86,12 +78,10 @@ public abstract class AbstractGetConstraintsOperation implements IProviderOperat
 		// initialize the context now, if necessary
 		if (context == null) {
 			context = createContext();
-			filteredConstraints = new FilteredCollection<>(getUnfilteredConstraints(),
-					context.getConstraintFilter());
+			filteredConstraints = new FilteredCollection<>(getUnfilteredConstraints(), context.getConstraintFilter());
 		}
 	}
 
-	// implements the interface method
 	@Override
 	public final Collection<IModelConstraint> getConstraints() {
 		return filteredConstraints;

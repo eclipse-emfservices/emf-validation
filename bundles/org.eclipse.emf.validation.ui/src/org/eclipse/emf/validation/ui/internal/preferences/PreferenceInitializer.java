@@ -29,9 +29,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		super();
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void initializeDefaultPreferences() {
 		Preferences prefs = ValidationUIPlugin.getPlugin().getPluginPreferences();

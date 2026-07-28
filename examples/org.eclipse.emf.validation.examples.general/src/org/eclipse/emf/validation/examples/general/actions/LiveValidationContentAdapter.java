@@ -42,13 +42,6 @@ class LiveValidationContentAdapter extends EContentAdapter {
 		actionDelegate = delegate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.eclipse.emf.ecore.util.EContentAdapter#notifyChanged(org.eclipse.emf.
-	 * common.notify.Notification)
-	 */
 	@Override
 	public void notifyChanged(final Notification notification) {
 		super.notifyChanged(notification);

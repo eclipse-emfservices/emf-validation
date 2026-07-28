@@ -72,25 +72,16 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 		this.executor = executor;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public final EvaluationMode<T> getEvaluationMode() {
 		return mode;
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public boolean isReportSuccesses() {
 		return getOption(OPTION_REPORT_SUCCESSES);
 	}
 
-	/*
-	 * (non-Javadoc) Implements the inherited method.
-	 */
 	@Override
 	public void setReportSuccesses(boolean reportSuccesses) {
 		if (reportSuccesses != isReportSuccesses()) {
@@ -243,11 +234,7 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 
 					results.add(status);
 				}
-			} catch (ValidationCanceledException e) {
-				// propagate to cancel the validation operation and return
-				// a cancel status
-				throw e;
-			} catch (OperationCanceledException e) {
+			} catch (ValidationCanceledException | OperationCanceledException e) {
 				// propagate to cancel the validation operation and return
 				// a cancel status
 				throw e;
@@ -437,55 +424,46 @@ abstract class AbstractValidator<T> implements IValidator<T> {
 			this.message = msg;
 		}
 
-		// implements the interface method
 		@Override
 		public IStatus[] getChildren() {
 			return children.toArray(new IStatus[children.size()]);
 		}
 
-		// implements the interface method
 		@Override
 		public int getSeverity() {
 			return severity;
 		}
 
-		// implements the interface method
 		@Override
 		public int getCode() {
 			return code;
 		}
 
-		// implements the interface method
 		@Override
 		public String getMessage() {
 			return message;
 		}
 
-		// implements the interface method
 		@Override
 		public Throwable getException() {
 			return null;
 		}
 
-		// implements the interface method
 		@Override
 		public String getPlugin() {
 			return EMFModelValidationPlugin.getPluginId();
 		}
 
-		// implements the interface method
 		@Override
 		public boolean isMultiStatus() {
 			return true;
 		}
 
-		// implements the interface method
 		@Override
 		public boolean isOK() {
 			return severity == IStatus.OK;
 		}
 
-		// implements the interface method
 		@Override
 		public boolean matches(int severityMask) {
 			return (getSeverity() & severityMask) != 0;

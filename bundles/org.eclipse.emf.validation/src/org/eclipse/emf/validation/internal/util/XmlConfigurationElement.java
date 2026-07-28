@@ -97,19 +97,16 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		throw ce;
 	}
 
-	// implements the interface method
 	@Override
 	public String getAttribute(String name) {
 		return attributes.get(name);
 	}
 
-	// implements the interface method
 	@Override
 	public String getAttributeAsIs(String name) {
 		return getAttribute(name);
 	}
 
-	// implements the interface method
 	@Override
 	public String[] getAttributeNames() {
 		return attributes.keySet().toArray(new String[attributes.size()]);
@@ -125,13 +122,11 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		attributes.put(name, newValue);
 	}
 
-	// implements the interface method
 	@Override
 	public IConfigurationElement[] getChildren() {
 		return children.toArray(new IConfigurationElement[children.size()]);
 	}
 
-	// implements the interface method
 	@Override
 	public IConfigurationElement[] getChildren(String name) {
 		java.util.List<IConfigurationElement> result = new java.util.ArrayList<>(children.size());
@@ -167,19 +162,16 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		children.remove(child);
 	}
 
-	// implements the interface method
 	@Override
 	public IExtension getDeclaringExtension() {
 		return extension;
 	}
 
-	// implements the interface method
 	@Override
 	public String getName() {
 		return myName;
 	}
 
-	// implements the interface method
 	@Override
 	public String getValue() {
 		return value;
@@ -194,7 +186,6 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		this.value = value;
 	}
 
-	// implements the interface method
 	@Override
 	public String getValueAsIs() {
 		return getValue();
@@ -339,11 +330,6 @@ public class XmlConfigurationElement implements IConfigurationElement {
 		return getBaseUrl().getFile();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.core.runtime.IConfigurationElement#getParent()
-	 */
 	@Override
 	public Object getParent() {
 		return parent;
