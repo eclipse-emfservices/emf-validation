@@ -1,25 +1,27 @@
-<!--
-    For any questions about implementing security best practices, contact the
-    Eclipse Foundation Security Team at security@eclipse-foundation.org
--->
+# Security Policy
 
-# How To Report a Vulnerability
+This Eclipse Foundation Project adheres to the [Eclipse Foundation Vulnerability Reporting Policy](https://www.eclipse.org/security/policy/).
 
-If you think you have found a vulnerability in EMF Validation you can report it using one of the following ways:
+## How To Report a Vulnerability
 
-* Contact the [Eclipse Foundation Security Team](mailto:security@eclipse-foundation.org)
-* Create a [confidential issue](https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/new?issuable_template=new_vulnerability)
+If you think you have found a vulnerability in this repository, please report it to us through coordinated disclosure.
+
+**Please do not report security vulnerabilities through public issues, discussions, or pull requests.**
+
+Instead, report it using one of the following ways by creating a [confidential issue](https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/new?issuable_template=new_vulnerability) in the Eclipse Foundation Vulnerability Reporting Tracker
 
 You can find more information about reporting and disclosure at the [Eclipse Foundation Security page](https://www.eclipse.org/security/).
 
-# Supported Versions
+Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
-<!--
-    Which releases of the project's software are actively maintaned and receive security updates?
--->
-Supported versions are:
-Check individual repositories for latest versions.
+- The type of issue (e.g., buffer overflow, SQL injection, or cross-site scripting)
+- Affected version(s)
+- Impact of the issue, including how an attacker might exploit the issue
+- Step-by-step instructions to reproduce the issue
+- The location of the affected source code (tag/branch/commit or direct URL)
+- Full paths of source file(s) related to the manifestation of the issue
+- Configuration required to reproduce the issue
+- Log files that are related to this issue (if possible)
+- Proof-of-concept or exploit code (if possible)
 
-# Security Policy
-
-This project follows [Eclipse Foundation Vulnerability Reporting Policy](https://www.eclipse.org/security/policy/).
+This information will help us triage your report more quickly.
