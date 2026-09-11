@@ -24,9 +24,9 @@ The official builds are run in the Eclipse Foundation's infrastructure, at <http
 ### Update Sites
 
 Update Sites (p2 repositories) are available at:
-* <https://download.eclipse.org/modeling/emf/validation/updates/interim>: nightly builds
-* <https://download.eclipse.org/modeling/emf/validation/updates/milestones>: milestone builds
-* <https://download.eclipse.org/modeling/emf/validation/updates/releases>: releases
+* <https://download.eclipse.org/modeling/emf/validation/updates/nightly/latest>: latest nightly build
+* <https://download.eclipse.org/modeling/emf/validation/updates/milestone/latest>: latest milestone build
+* <https://download.eclipse.org/modeling/emf/validation/updates/release/latest>: latest release
 
 | Version             | Repository URL                                                                        |
 |:--------------------|:--------------------------------------------------------------------------------------|
