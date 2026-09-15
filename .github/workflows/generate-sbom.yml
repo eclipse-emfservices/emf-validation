@@ -7,8 +7,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    outputs:
-      project-version: ${{ steps.build.outputs.PROJECT_VERSION }}
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -26,17 +27,8 @@ jobs:
           echo "PROJECT_VERSION=$VERSION" >> $GITHUB_OUTPUT
           mv releng/org.eclipse.emf.validation.repository/target/bom.json emf-validation-bom.json
       - name: Upload sbom
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: eclipse-csi/workflows/upload-sbom@0c1c6cf5cb4dc624a86410274c71b27d6273385a # main
         with:
-          name: sbom
-          path: emf-validation-bom.json
-
-  store-sbom-data: # stores sbom and metadata in a predefined format for otterdog to pick up
-    needs: ['build']
-    uses: eclipse-csi/workflows/.github/workflows/store-sbom-data.yml@main
-    with:
-      projectName: 'EMF Validation'
-      projectVersion: ${{ needs.build.outputs.project-version }}
-      bomArtifact: 'sbom'
-      bomFilename: 'emf-validation-bom.json'
-      parentProject: 'aa5345ed-b2c4-45db-83cf-166ad9dfd0f9'
+          sbom-file: emf-validation-bom.json
+          product-name: 'EMF Validation'
+          product-version: ${{ steps.build.outputs.PROJECT_VERSION }}
