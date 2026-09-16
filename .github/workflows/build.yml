@@ -11,9 +11,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ 21, 25 ]
+        java: [ 25 ]
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        target: [ 2024-12, 2026-03, canary ]
+        target: [ 2024-12, 2026-09, canary ]
     runs-on: ${{ matrix.os }} 
     name: OS ${{ matrix.os }} Target ${{ matrix.target }} Java ${{ matrix.java }} build and verify
     steps:
