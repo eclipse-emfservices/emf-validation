@@ -364,6 +364,7 @@ public class XmlConfig {
 		spf.setValidating(false);
 
 		try {
+            spf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
 			SAXParser parser = spf.newSAXParser();
 
 			ConstraintsContentHandler handler = new ConstraintsContentHandler(parent.getDeclaringExtension(), url);
