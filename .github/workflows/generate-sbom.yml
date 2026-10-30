@@ -22,7 +22,7 @@ jobs:
       - name: Build
         id: build
         run: |
-          ./mvnw -B -ntp -DskipTests -Psbom clean package
+          ./mvnw -B -ntp -DskipTests -Dplatform=2026-09 -Psbom clean package
           VERSION=$(./mvnw -q help:evaluate -Dexpression=project.version -DforceStdout 2> /dev/null | sed -e 's/-SNAPSHOT//')
           echo "PROJECT_VERSION=$VERSION" >> $GITHUB_OUTPUT
           mv releng/org.eclipse.emf.validation.repository/target/bom.json emf-validation-bom.json
